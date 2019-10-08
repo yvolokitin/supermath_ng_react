@@ -73,7 +73,7 @@ export default function SMAlbum() {
       <AppBar position="relative">
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
-            <IconButton color="inherit" className={classes.button} onClick={props.onClick}>
+            <IconButton color="inherit" className={classes.button}>
               <HomeIcon />
             </IconButton>
             <IconButton color="inherit" className={classes.button}>

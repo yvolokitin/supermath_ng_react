@@ -45,5 +45,5 @@ class SMCarousel extends Component {
     </div>
   )
 };
-
+}
 export default SMCarousel;
