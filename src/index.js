@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import './index.css';
-import SMAlbum from './SMAlbum';
 import * as serviceWorker from './serviceWorker';
+
+import SMAlbum from './SMAlbum';
 
 ReactDOM.render(<SMAlbum />, document.getElementById('supermath_app'));
 

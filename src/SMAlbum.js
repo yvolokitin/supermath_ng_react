@@ -19,6 +19,8 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 
+import SMHelpCarousel from './SMHelpCarousel';
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -80,7 +82,7 @@ export default function SMAlbum() {
               <InfoOutlinedIcon />
             </IconButton>
              <IconButton color="inherit" className={classes.button}>
-              <HelpOutlineIcon />
+              <HelpOutlineIcon onClick={SMHelpCarousel.onSMCarouselClicked}/>
             </IconButton>
             <IconButton color="inherit" className={classes.button}>
               <PersonOutlineIcon />
@@ -88,15 +90,10 @@ export default function SMAlbum() {
           </Typography>
           <Button color="inherit">Login</Button>
         </Toolbar>
-
-        <Toolbar lastChild={true}>
-          <Button color="inherit">Loginer</Button>
-        </Toolbar>
-
       </AppBar>
-      <main>
+      <main style={{backgroundColor: "#ffcc99"}}>
         {/* Hero unit */}
-        <div className={classes.heroContent}>
+        <div className={classes.heroContent} style={{backgroundColor: "#ffff99"}}>
           <Container maxWidth="sm">
             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
               SuperMath Icon
@@ -106,7 +103,7 @@ export default function SMAlbum() {
             </Typography>
           </Container>
         </div>
-        <Container className={classes.cardGrid} maxWidth="md">
+        <Container className={classes.cardGrid} maxWidth="md" style={{backgroundColor: "lightgreen"}}>
           {/* End hero unit */}
           <Grid container spacing={4}>
             {cards.map(card => (
