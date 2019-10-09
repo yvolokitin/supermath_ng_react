@@ -11,6 +11,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Link from '@material-ui/core/Link';
 
 import HomeIcon from '@material-ui/icons/Home';
 import IconButton from '@material-ui/core/IconButton';
@@ -18,36 +19,41 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 
-import SMFooter from './SMFooter';
 import SMHelpCarousel from './SMHelpCarousel';
 
-const useStyles = makeStyles(theme => ({
-  icon: {
-    marginRight: theme.spacing(2),
-  },
-  heroContent: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6),
-  },
-  heroButtons: {
-    marginTop: theme.spacing(4),
-  },
-  cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
-  },
-  card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  cardMedia: {
-    paddingTop: '56.25%', // 16:9
-  },
-  cardContent: {
-    flexGrow: 1,
-  },
-}));
+const useStyles = makeStyles(theme => {
+  return ({
+    icon: {
+      marginRight: theme.spacing(2),
+    },
+    heroContent: {
+      backgroundColor: theme.palette.background.paper,
+      padding: theme.spacing(8, 0, 6),
+    },
+    heroButtons: {
+      marginTop: theme.spacing(4),
+    },
+    cardGrid: {
+      paddingTop: theme.spacing(8),
+      paddingBottom: theme.spacing(8),
+    },
+    card: {
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    cardMedia: {
+      paddingTop: '56.25%',
+    },
+    cardContent: {
+      flexGrow: 1,
+    },
+    footer: {
+      backgroundColor: theme.palette.background.paper,
+      padding: theme.spacing(6),
+    },
+  });
+});
 
 const cards = [1, 2, 3, 4, 5, 6];
 
@@ -73,29 +79,23 @@ export default function SMAlbum() {
               <PersonOutlineIcon />
             </IconButton>
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit" style={{ float: "right"}}>Login</Button>
         </Toolbar>
       </AppBar>
 
-      <main style={{backgroundColor: "#ffcc99"}}>
+      <main>
         {/* Hero unit */}
-<<<<<<< HEAD
         <div className={classes.heroContent}>
           <Container maxWidth="sm" >
-            <Typography variant="h4" align="center" color="textSecondary" style={{ fontFamily: "Grinched", color: "green" }} paragraph>
-=======
-        <div className={classes.heroContent} style={{backgroundColor: "#ffff99"}}>
-          <Container maxWidth="sm">
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-              SuperMath Icon
+            <Typography variant="h1" align="center" color="textSecondary" style={{fontFamily: "Grinched", fontVariant: "small-caps", color: "green" }} paragraph>
+              SuperMath 
             </Typography>
-            <Typography variant="h5" align="center" color="textSecondary" paragraph>
->>>>>>> abb314c2c00aa3bf8fadb86c69020b5d5a9587e7
+            <Typography variant="h5" align="center" color="textSecondary" style={{fontWeight: "bold", color: "black" }} paragraph>
               SuperMath helps kids master basic math facts. It is free web program for students, parents and teachers.
             </Typography>
           </Container>
         </div>
-        <Container className={classes.cardGrid} maxWidth="md" style={{backgroundColor: "lightgreen"}}>
+        <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
             {cards.map(card => (
@@ -129,7 +129,15 @@ export default function SMAlbum() {
         </Container>
       </main>
 
-      <SMFooter />
+      <footer>
+        <Typography variant="body2" color="textSecondary" align="center">
+        {'Copyright © '}
+          <Link color="inherit" href="https://supermath.ru/">SuperMath.RU</Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+      </footer>
+
     </React.Fragment>
   );
 }
