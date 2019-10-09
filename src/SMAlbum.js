@@ -73,13 +73,13 @@ export default function SMAlbum() {
               <InfoOutlinedIcon />
             </IconButton>
              <IconButton color="inherit" className={classes.button}>
-              <HelpOutlineIcon onClick={SMHelpCarousel.onSMCarouselClicked}/>
+              <HelpOutlineIcon />
             </IconButton>
-            <IconButton color="inherit" className={classes.button} style={{ float: "right"}}>
+            <IconButton color="inherit" className={classes.button}>
               <PersonOutlineIcon />
             </IconButton>
           </Typography>
-          <Button color="inherit" style={{ float: "right"}}>Login</Button>
+          <Button color="inherit" style={{alignItems: 'flex-end', flexDirection: 'row', justifyContent: "flex-end"}}>Login</Button>
         </Toolbar>
       </AppBar>
 

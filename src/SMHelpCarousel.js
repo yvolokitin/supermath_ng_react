@@ -9,11 +9,11 @@ class SMHelpCarousel extends React.Component {
   constructor(props) {
     super(props);
     this.onSMCarouselClicked = this.onSMCarouselClicked.bind(this);
-  }
+  };
 
   onSMCarouselClicked() {
     this.setState({  });
-  }
+  };
 
   render() {
     return (
