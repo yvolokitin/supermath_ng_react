@@ -11,7 +11,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
 
 import HomeIcon from '@material-ui/icons/Home';
 import IconButton from '@material-ui/core/IconButton';
@@ -19,16 +18,8 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://supermath.ru/">SuperMath.RU</Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import SMFooter from './SMFooter';
+import SMHelpCarousel from './SMHelpCarousel';
 
 const useStyles = makeStyles(theme => ({
   icon: {
@@ -56,10 +47,6 @@ const useStyles = makeStyles(theme => ({
   cardContent: {
     flexGrow: 1,
   },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6),
-  },
 }));
 
 const cards = [1, 2, 3, 4, 5, 6];
@@ -80,7 +67,7 @@ export default function SMAlbum() {
               <InfoOutlinedIcon />
             </IconButton>
              <IconButton color="inherit" className={classes.button}>
-              <HelpOutlineIcon />
+              <HelpOutlineIcon onClick={SMHelpCarousel.onSMCarouselClicked}/>
             </IconButton>
             <IconButton color="inherit" className={classes.button} style={{ float: "right"}}>
               <PersonOutlineIcon />
@@ -89,16 +76,26 @@ export default function SMAlbum() {
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
-      <main>
+
+      <main style={{backgroundColor: "#ffcc99"}}>
         {/* Hero unit */}
+<<<<<<< HEAD
         <div className={classes.heroContent}>
           <Container maxWidth="sm" >
             <Typography variant="h4" align="center" color="textSecondary" style={{ fontFamily: "Grinched", color: "green" }} paragraph>
+=======
+        <div className={classes.heroContent} style={{backgroundColor: "#ffff99"}}>
+          <Container maxWidth="sm">
+            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+              SuperMath Icon
+            </Typography>
+            <Typography variant="h5" align="center" color="textSecondary" paragraph>
+>>>>>>> abb314c2c00aa3bf8fadb86c69020b5d5a9587e7
               SuperMath helps kids master basic math facts. It is free web program for students, parents and teachers.
             </Typography>
           </Container>
         </div>
-        <Container className={classes.cardGrid} maxWidth="md">
+        <Container className={classes.cardGrid} maxWidth="md" style={{backgroundColor: "lightgreen"}}>
           {/* End hero unit */}
           <Grid container spacing={4}>
             {cards.map(card => (
@@ -131,11 +128,8 @@ export default function SMAlbum() {
           </Grid>
         </Container>
       </main>
-      {/* Footer */}
-      <footer className={classes.footer}>
-        <Copyright />
-      </footer>
-      {/* End footer */}
+
+      <SMFooter />
     </React.Fragment>
   );
 }
