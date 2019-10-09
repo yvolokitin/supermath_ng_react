@@ -48,10 +48,5 @@ class SMHelpCarousel extends React.Component {
     )
   }
 };
-<<<<<<< HEAD:src/SMCarousel.js
-}
-export default SMCarousel;
-=======
 
 export default SMHelpCarousel;
->>>>>>> abb314c2c00aa3bf8fadb86c69020b5d5a9587e7:src/SMHelpCarousel.js

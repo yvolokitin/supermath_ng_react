@@ -6,9 +6,7 @@ import * as serviceWorker from './serviceWorker';
 
 <<<<<<< HEAD
 import './fonts/Grinched2.0.ttf'
-=======
 import SMAlbum from './SMAlbum';
->>>>>>> abb314c2c00aa3bf8fadb86c69020b5d5a9587e7
 
 ReactDOM.render(<SMAlbum />, document.getElementById('supermath_app'));
 
