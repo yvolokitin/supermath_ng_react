@@ -82,7 +82,7 @@ export default function SMAlbum() {
              <IconButton color="inherit" className={classes.button}>
               <HelpOutlineIcon />
             </IconButton>
-            <IconButton color="inherit" className={classes.button}>
+            <IconButton color="inherit" className={classes.button} style={{ float: "right"}}>
               <PersonOutlineIcon />
             </IconButton>
           </Typography>
@@ -92,11 +92,8 @@ export default function SMAlbum() {
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
-          <Container maxWidth="sm">
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-              SuperMath Icon
-            </Typography>
-            <Typography variant="h5" align="center" color="textSecondary" paragraph>
+          <Container maxWidth="sm" >
+            <Typography variant="h4" align="center" color="textSecondary" style={{ fontFamily: "Grinched", color: "green" }} paragraph>
               SuperMath helps kids master basic math facts. It is free web program for students, parents and teachers.
             </Typography>
           </Container>
