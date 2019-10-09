@@ -1,9 +1,9 @@
-﻿import React, { Component } from 'react';
+﻿import React from 'react';
 
 import { AutoRotatingCarousel, Slide } from 'material-auto-rotating-carousel';
 import { green400, green600, blue400, blue600, red400, red600 } from 'material-ui/styles/colors';
 
-class SMCarousel extends Component {
+class SMHelpCarousel extends React.Component {
   constructor(props) {
     super(props);
     this.onSMCarouselClicked = this.onSMCarouselClicked.bind(this);
@@ -43,7 +43,8 @@ class SMCarousel extends Component {
         />
       </AutoRotatingCarousel>
     </div>
-  )
+    )
+  }
 };
 
-export default SMCarousel;
+export default SMHelpCarousel;
