@@ -11,7 +11,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
 
 import HomeIcon from '@material-ui/icons/Home';
 import IconButton from '@material-ui/core/IconButton';
@@ -19,18 +18,8 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 
+import SMFooter from './SMFooter';
 import SMHelpCarousel from './SMHelpCarousel';
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://supermath.ru/">SuperMath.RU</Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles(theme => ({
   icon: {
@@ -57,10 +46,6 @@ const useStyles = makeStyles(theme => ({
   },
   cardContent: {
     flexGrow: 1,
-  },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6),
   },
 }));
 
@@ -91,6 +76,7 @@ export default function SMAlbum() {
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
+
       <main style={{backgroundColor: "#ffcc99"}}>
         {/* Hero unit */}
         <div className={classes.heroContent} style={{backgroundColor: "#ffff99"}}>
@@ -136,11 +122,8 @@ export default function SMAlbum() {
           </Grid>
         </Container>
       </main>
-      {/* Footer */}
-      <footer className={classes.footer}>
-        <Copyright />
-      </footer>
-      {/* End footer */}
+
+      <SMFooter />
     </React.Fragment>
   );
 }
