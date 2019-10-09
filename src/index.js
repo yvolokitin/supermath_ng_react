@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
-<<<<<<< HEAD
 import './fonts/Grinched2.0.ttf'
 import SMAlbum from './SMAlbum';
 
