@@ -1,17 +1,14 @@
 ﻿import React from 'react';
+
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-
-import SMHeader from "./SMHeader";
-import SMFooter from "./SMFooter";
-import SMSection from "./SMSection";
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -19,13 +16,6 @@ const useStyles = makeStyles(theme => {
   return ({
     icon: {
       marginRight: theme.spacing(2),
-    },
-    heroContent: {
-      backgroundColor: theme.palette.background.paper,
-      padding: theme.spacing(8, 0, 6),
-    },
-    heroButtons: {
-      marginTop: theme.spacing(4),
     },
     cardGrid: {
       paddingTop: theme.spacing(8),
@@ -47,18 +37,21 @@ const useStyles = makeStyles(theme => {
 
 const cards = [1, 2, 3, 4, 5, 6];
 
+const programs = {
+    'white_1': ['./imgs/ru_white_1.jpg', 'Tasks for kids in age 3 - 6 years for comparision of one-digit numbers (from 0 to 9), where you can to use only more (>), less (<) and equal (=) labels and have 10 seconds timeout to solve each task'],
+    'white_2': ['./imgs/ru_white_2.jpg', 'Tasks for kids in age 3 - 6 years for addition and subtraction of one-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number'],
+    'white_3': ['./imgs/ru_white_3.jpg', 'Tasks for kids in age 3 - 6 years for addition and subtraction of one-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number'],
+    'white_4': ['./imgs/ru_white_4.jpg', 'Tasks for kids in age 3 - 6 years for addition and subtraction of one-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number'],
+    'white_5': ['./imgs/ru_white_5.jpg', 'Tasks for kids in age 3 - 6 years for addition and subtraction of one-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number'],
+    'white_6': ['./imgs/ru_white_6.jpg', 'Tasks for kids in age 3 - 6 years for addition and subtraction of one-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number'],
+}
+
 export default function SMAlbum() {
   const classes = useStyles();
 
   return (
-    <React.Fragment>
-      <CssBaseline />
-      <SMHeader login={"Login"}/>
-      <SMSection text={"SuperMath helps kids master basic math facts"}/>
-
       <main>
         <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
           <Grid container spacing={4}>
             {cards.map(card => (
               <Grid item key={card} xs={12} sm={6} md={4}>
@@ -89,8 +82,5 @@ export default function SMAlbum() {
           </Grid>
         </Container>
       </main>
-
-      <SMFooter text={"SuperMath.RU"}/>
-    </React.Fragment>
   );
 }
