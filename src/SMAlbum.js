@@ -7,11 +7,13 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
 
 import SMHeader from "./SMHeader";
+import SMFooter from "./SMFooter";
+import SMSection from "./SMSection";
+
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => {
   return ({
@@ -40,10 +42,6 @@ const useStyles = makeStyles(theme => {
     cardContent: {
       flexGrow: 1,
     },
-    footer: {
-      backgroundColor: theme.palette.background.paper,
-      padding: theme.spacing(6),
-    },
   });
 });
 
@@ -56,18 +54,9 @@ export default function SMAlbum() {
     <React.Fragment>
       <CssBaseline />
       <SMHeader login={"Login"}/>
+      <SMSection text={"SuperMath helps kids master basic math facts"}/>
 
       <main>
-        <div className={classes.heroContent}>
-          <Container maxWidth="sm" >
-            <Typography variant="h1" align="center" color="textSecondary" style={{fontFamily: "Grinched", fontVariant: "small-caps", color: "green" }} paragraph>
-              SuperMath 
-            </Typography>
-            <Typography variant="h5" align="center" color="textSecondary" style={{fontWeight: "bold", color: "black" }} paragraph>
-              SuperMath helps kids master basic math facts. It is free web program for students, parents and teachers.
-            </Typography>
-          </Container>
-        </div>
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
@@ -76,9 +65,8 @@ export default function SMAlbum() {
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
-                    title="Image title"
-                  />
+                    image={require('./imgs/ru_white_1.jpg')}
+                    title="Image title"/>
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
                       Heading
@@ -102,15 +90,7 @@ export default function SMAlbum() {
         </Container>
       </main>
 
-      <footer>
-        <Typography variant="body2" color="textSecondary" align="center">
-        {'Copyright © '}
-          <Link color="inherit" href="https://supermath.ru/">SuperMath.RU</Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-      </footer>
-
+      <SMFooter text={"SuperMath.RU"}/>
     </React.Fragment>
   );
 }

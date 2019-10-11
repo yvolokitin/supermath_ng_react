@@ -11,14 +11,10 @@ import CloseIcon from '@material-ui/icons/Close';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
-
-import Avatar from '@material-ui/core/Avatar';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -34,9 +30,9 @@ const styles = theme => ({
       color: theme.palette.grey[500],
     },
     avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-      },
+      margin: theme.spacing(1),
+      backgroundColor: theme.palette.secondary.main,
+    },
 });
   
 const DialogTitle = withStyles(styles)(props => {
@@ -59,13 +55,6 @@ const DialogContent = withStyles(theme => ({
   },
 }))(MuiDialogContent);
 
-const DialogActions = withStyles(theme => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(1),
-  },
-}))(MuiDialogActions);
-
 export default function SMHeader(props) {
     const [open, setOpen] = React.useState(false);
 
@@ -83,7 +72,7 @@ export default function SMHeader(props) {
         <IconButton color="inherit">
           <HomeIcon />
         </IconButton>
-        <IconButton color="inherit">
+        <IconButton color="inherit" onClick={handleClickOpen}>
           <InfoOutlinedIcon />
         </IconButton>
          <IconButton color="inherit" >
@@ -93,29 +82,26 @@ export default function SMHeader(props) {
 
       <IconButton color="inherit" >
         <PersonOutlineIcon />
-        <Button color="inherit"  onClick={handleClickOpen}>{props.login}</Button>
+        <Button color="inherit">{props.login}</Button>
       </IconButton>
 
     </Toolbar>
 
     <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
-      <Avatar className={styles.avatar}>
-        <LockOutlinedIcon />
-      </Avatar>
-    <DialogTitle id="customized-dialog-title" onClose={handleClose}>Modal title</DialogTitle>
-        <DialogContent dividers>
-          <Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Save changes
-          </Button>
-        </DialogActions>
+      <DialogTitle id="customized-dialog-title"
+                   onClose={handleClose}
+                   style={{fontFamily: "Grinched", fontVariant: "small-caps", color: "red" }}>
+        Information
+      </DialogTitle>
+      <DialogContent dividers>
+        <Typography gutterBottom>
+            <b>Use SuperMath as mathematical vitamins!</b> Offer the child to regularly solve the examples in SuperMath
+            only once a day, for five minutes, and you will notice how much faster and more accurately he will
+            operate on the numbers. The speed and accuracy of the calculations - these are the bricks that lay
+            the foundation of your child\'s mathematical education.
+        </Typography>
+      </DialogContent>
     </Dialog>
-
     </AppBar>
 );
 }
