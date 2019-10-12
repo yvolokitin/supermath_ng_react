@@ -34,16 +34,33 @@ const useStyles = makeStyles(theme => {
   });
 });
 
-const cards = [1, 2, 3, 4, 5, 6];
+const cards = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
-const programs = {
-    'white_1': ['./imgs/ru_white_1.jpg', 'Tasks for kids in age 3 - 6 years for comparision of one-digit numbers (from 0 to 9), where you can to use only more (>), less (<) and equal (=) labels and have 10 seconds timeout to solve each task'],
-    'white_2': ['./imgs/ru_white_2.jpg', 'Tasks for kids in age 3 - 6 years for addition and subtraction of one-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number'],
-    'white_3': ['./imgs/ru_white_3.jpg', 'Tasks for kids in age 3 - 6 years for addition and subtraction of one-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number'],
-    'white_4': ['./imgs/ru_white_4.jpg', 'Tasks for kids in age 3 - 6 years for addition and subtraction of one-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number'],
-    'white_5': ['./imgs/ru_white_5.jpg', 'Tasks for kids in age 3 - 6 years for addition and subtraction of one-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number'],
-    'white_6': ['./imgs/ru_white_6.jpg', 'Tasks for kids in age 3 - 6 years for addition and subtraction of one-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number'],
-}
+const imgs = ['./imgs/ru_white_1.jpg', './imgs/ru_white_1.jpg', './imgs/ru_white_1.jpg', './imgs/ru_white_1.jpg', './imgs/ru_white_1.jpg', './imgs/ru_white_1.jpg'];
+
+const headers = [
+    "Tasks for simple Comparision of one-digit numbers (from 0 to 9)",
+    "Tasks for simple Addition of one-digit numbers (from 0 to 9)",
+    "Tasks for simple Subtraction of one-digit numbers (from 0 to 9)",
+    "Tasks for simple Addition and Subtraction of one-digit numbers (from 0 to 9)",
+    "Tasks for Determination of one from the two mathematical operation: Addition or Subtraction",
+    "Tasks for Comparision of two-digit numbers (from 0 to 9)",
+    "Tasks for Addition and Subtraction of round numbers from 10 to 100 (numbers 10, 20, 30 ... 100)",
+    "Tasks for Addition and Subtraction of one- and two- digit numbers",
+    "Tasks for Addition and Subtraction of two- digit numbers"
+];
+
+const desciptions = [
+    "Typical tasks for kids in age 3 - 6 years for <b>Comparision</b> of one-digit numbers (from 0 to 9), where you can to use only more (>), less (<) and equal (=) labels and have 10 seconds timeout to solve each task",
+    "Typical tasks for kids in age 3 - 6 years for <b>Addition</b> of one-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number",
+    "Typical tasks for kids in age 3 - 6 years for <b>Subtraction</b> of one-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number",
+    "Typical tasks for kids in age 3 - 6 years for <b>Addition</b> and <b>Subtraction</b> of one-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number",
+    "Typical tasks for kids in age 3 - 6 years for <b>Understanding</b> of one of two mathematical operation: addition or subtraction. You will know both arguments (numbers), the result of an operation and have 10 seconds timeout to solve each task",
+    "Typical tasks for kids in age 3 - 6 years for <b>Comparision</b> of two-digit numbers (from 0 to 9), where you can to use only more (>), less (<) and equal (=) labels and have 10 seconds timeout to solve each task",
+    "Typical tasks for kids in age 3 - 6 years for <b>Addition and Subtraction of round numbers from 10 to 100 (numbers 10, 20, 30 ... 100). You have 10 seconds timeout to solve each task",
+    "Typical tasks for kids in age 3 - 6 years for <b>Addition</b> and <b>Subtraction</b> of one- and two- digit numbers. TBD.",
+    "Typical tasks for kids in age 3 - 6 years for <b>Addition</b> and <b>Subtraction</b> of two-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number",
+];
 
 export default function SMAlbum() {
   const classes = useStyles();
@@ -61,10 +78,7 @@ export default function SMAlbum() {
                     title="Image title"/>
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Heading
-                    </Typography>
-                    <Typography>
-                      This is a media card. You can use this section to describe the content.
+                      {headers[card]}
                     </Typography>
                   </CardContent>
                   <CardActions>
