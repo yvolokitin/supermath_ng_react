@@ -36,13 +36,13 @@ const useStyles = makeStyles(theme => {
 
 const cards = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
-const imgs = ['./imgs/ru_white_1.jpg', './imgs/ru_white_1.jpg', './imgs/ru_white_1.jpg', './imgs/ru_white_1.jpg', './imgs/ru_white_1.jpg', './imgs/ru_white_1.jpg'];
+const imgs = ['./imgs/ru_white_1.jpg', './imgs/ru_white_2.jpg', './imgs/ru_white_2.jpg', './imgs/ru_white_2.jpg', './imgs/ru_white_2.jpg', './imgs/ru_white_2.jpg'];
 
 const headers = [
-    "Tasks for simple Comparision of one-digit numbers (from 0 to 9)",
-    "Tasks for simple Addition of one-digit numbers (from 0 to 9)",
-    "Tasks for simple Subtraction of one-digit numbers (from 0 to 9)",
-    "Tasks for simple Addition and Subtraction of one-digit numbers (from 0 to 9)",
+    "Tasks for Comparision of one-digit numbers (from 0 to 9)",
+    "Tasks for Addition of one-digit numbers (from 0 to 9)",
+    "Tasks for Subtraction of one-digit numbers (from 0 to 9)",
+    "Tasks for Addition and Subtraction of one-digit numbers (from 0 to 9)",
     "Tasks for Determination of one from the two mathematical operation: Addition or Subtraction",
     "Tasks for Comparision of two-digit numbers (from 0 to 9)",
     "Tasks for Addition and Subtraction of round numbers from 10 to 100 (numbers 10, 20, 30 ... 100)",
@@ -75,10 +75,10 @@ export default function SMAlbum() {
                   <CardMedia
                     className={classes.cardMedia}
                     image={require('./imgs/ru_white_1.jpg')}
-                    title="Image title"/>
+                    title={imgs[card]}/>
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      {headers[card]}
+                      {headers[card]} {imgs[card]}
                     </Typography>
                   </CardContent>
                   <CardActions>
