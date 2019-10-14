@@ -1,5 +1,8 @@
 ﻿import React from 'react';
 import { Typography, Container, Button, Grid, Card, CardActions, CardContent, CardMedia } from '@material-ui/core';
+
+import classes from './index.css';
+
 import SMDialog from "./SMDialog";
 
 const cards = [0, 1, 2, 3, 4, 5, 6, 7, 8];
@@ -52,24 +55,6 @@ export default class SMAlbum extends React.Component {
     }
 
     render() {
-        const classes = {
-            grid: {
-              paddingTop: 8,
-              paddingBottom: 8,
-            },
-            card: {
-              height: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-            },
-            media: {
-                paddingTop: '56.25%',
-            },
-            content: {
-                flexGrow: 1,
-            },
-        };
-
         return (
             <main>
                 <Container className={classes.grid} maxWidth="md">
@@ -77,7 +62,7 @@ export default class SMAlbum extends React.Component {
                         {cards.map(card => (
                             <Grid item key={card} xs={12} sm={6} md={4}>
                                 <Card className={classes.card}>
-                                    <CardMedia className={classes.media} image="https://source.unsplash.com/random" title={imgs[card]}/>
+                                    <CardMedia className={classes.cardMedia} image="https://source.unsplash.com/random" title={imgs[card]}/>
                                     <CardContent className={classes.content}>
                                         <Typography gutterBottom variant="h5" component="h2">{imgs[card]}</Typography>
                                         <Typography variant="body2" color="textSecondary" component="p">{headers[card]}</Typography>

@@ -16,3 +16,23 @@ code {
   font-family: 'Grinched';
   src: local('Grinched'), url(./fonts/Grinched2.0.ttf) format('truetype');
 }
+
+.grid {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.card {
+    height: 100%;
+    display: 'flex';
+    flex-direction: 'column';
+}
+
+.cardMedia {
+    padding-top: '56.25%';
+}
+
+.content {
+    flex-grow: 1;
+}
+
