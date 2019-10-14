@@ -6,6 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
 import HomeIcon from '@material-ui/icons/Home';
+import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
@@ -14,6 +15,7 @@ import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import MuiDialogActions from '@material-ui/core/DialogActions';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -55,53 +57,75 @@ const DialogContent = withStyles(theme => ({
   },
 }))(MuiDialogContent);
 
-export default function SMHeader(props) {
-    const [open, setOpen] = React.useState(false);
+const DialogActions = withStyles(theme => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing(1),
+  },
+}))(MuiDialogActions);
 
-    const handleClickOpen = () => {
-      setOpen(true);
+export default class SMHeader extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {open: false};
+        this.handleOpen = this.handleOpen.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+    }
+
+    handleOpen(e) {
+        this.setState({ open: true });
+    }
+
+    handleClose() {
+        this.setState({ open: false });
+    }
+
+    render() {
+        return (
+          <AppBar position="relative">
+            <Toolbar>
+              <Typography variant="h6" color="inherit" noWrap>
+                <IconButton color="inherit">
+                  <HomeIcon />
+                </IconButton>
+                <IconButton color="inherit" onClick={(e) => this.handleOpen(e)}>
+                  <InfoOutlinedIcon />
+                </IconButton>
+                 <IconButton color="inherit">
+                  <HelpOutlineIcon />
+                </IconButton>
+                <IconButton color="inherit">
+                  <PersonOutlineIcon />
+                </IconButton>
+                <Button color="inherit">Login</Button>
+              </Typography>
+            </Toolbar>
+
+            <Dialog onClose={this.handleClose} aria-labelledby="customized-dialog-title" open={this.state.open}>
+              <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>SuperMath Information</DialogTitle>
+                <DialogContent dividers>
+                    <Typography gutterBottom>
+                        <b>Use SuperMath as mathematical vitamins!</b>
+                    </Typography>
+
+                    <img src={require('./imgs/vitamins.jpg')} alt="Logo" style={{maxWidth: "100%"}} />
+    
+                    <CardMedia image={require('./imgs/vitamins.jpg')} title={'QWe'}/>
+
+                    <Typography gutterBottom>
+                        Offer the child to regularly solve the examples in SuperMath
+                        only once a day, for five minutes, and you will notice how much faster and more accurately he will
+                        operate on the numbers. The speed and accuracy of the calculations - these are the bricks that lay
+                        the foundation of your childs mathematical education.
+                    </Typography>
+                </DialogContent>
+
+                <DialogActions>
+                  <Button onClick={this.handleClose} color="primary">CLOSE</Button>
+                </DialogActions>
+
+              </Dialog>
+          </AppBar>
+        )
     };
-    const handleClose = () => {
-      setOpen(false);
-    };
-
-    return (
-    <AppBar position="relative">
-    <Toolbar>
-      <Typography variant="h6" color="inherit" noWrap>
-        <IconButton color="inherit">
-          <HomeIcon />
-        </IconButton>
-        <IconButton color="inherit" onClick={handleClickOpen}>
-          <InfoOutlinedIcon />
-        </IconButton>
-         <IconButton color="inherit" >
-          <HelpOutlineIcon />
-        </IconButton>
-      </Typography>
-
-      <IconButton color="inherit" >
-        <PersonOutlineIcon />
-        <Button color="inherit">{props.login}</Button>
-      </IconButton>
-
-    </Toolbar>
-
-    <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
-      <DialogTitle id="customized-dialog-title"
-                   onClose={handleClose}
-                   style={{fontFamily: "Grinched", fontVariant: "small-caps", color: "red" }}>
-        Information
-      </DialogTitle>
-      <DialogContent dividers>
-        <Typography gutterBottom>
-            <b>Use SuperMath as mathematical vitamins!</b> Offer the child to regularly solve the examples in SuperMath
-            only once a day, for five minutes, and you will notice how much faster and more accurately he will
-            operate on the numbers. The speed and accuracy of the calculations - these are the bricks that lay
-            the foundation of your child\'s mathematical education.
-        </Typography>
-      </DialogContent>
-    </Dialog>
-    </AppBar>
-);
 }

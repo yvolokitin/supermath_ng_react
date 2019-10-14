@@ -11,7 +11,9 @@ import Container from '@material-ui/core/Container';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(theme => {
+import SMDialog from "./SMDialog";
+
+var classes = makeStyles(theme => {
   return ({
     icon: {
       marginRight: theme.spacing(2),
@@ -34,11 +36,11 @@ const useStyles = makeStyles(theme => {
   });
 });
 
-const cards = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+var cards = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
-const imgs = ['./imgs/ru_white_1.jpg', './imgs/ru_white_2.jpg', './imgs/ru_white_2.jpg', './imgs/ru_white_2.jpg', './imgs/ru_white_2.jpg', './imgs/ru_white_2.jpg'];
+var imgs = ['./imgs/ru_white_1.jpg', './imgs/ru_white_2.jpg', './imgs/ru_white_2.jpg', './imgs/ru_white_2.jpg', './imgs/ru_white_2.jpg', './imgs/ru_white_2.jpg'];
 
-const headers = [
+var headers = [
     "Tasks for Comparision of one-digit numbers (from 0 to 9)",
     "Tasks for Addition of one-digit numbers (from 0 to 9)",
     "Tasks for Subtraction of one-digit numbers (from 0 to 9)",
@@ -50,7 +52,7 @@ const headers = [
     "Tasks for Addition and Subtraction of two- digit numbers"
 ];
 
-const desciptions = [
+var desciptions = [
     "Typical tasks for kids in age 3 - 6 years for <b>Comparision</b> of one-digit numbers (from 0 to 9), where you can to use only more (>), less (<) and equal (=) labels and have 10 seconds timeout to solve each task",
     "Typical tasks for kids in age 3 - 6 years for <b>Addition</b> of one-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number",
     "Typical tasks for kids in age 3 - 6 years for <b>Subtraction</b> of one-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number",
@@ -62,38 +64,43 @@ const desciptions = [
     "Typical tasks for kids in age 3 - 6 years for <b>Addition</b> and <b>Subtraction</b> of two-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number",
 ];
 
-export default function SMAlbum() {
-  const classes = useStyles();
+export default class SMAlbum extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {isToggleOn: true};
+        // This binding is necessary to make `this` work in the callback
+        this.handleClickView = this.handleClickView.bind(this);
+    }
 
-  return (
-      <main>
-        <Container className={classes.cardGrid} maxWidth="md">
-          <Grid container spacing={4}>
-            {cards.map(card => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image={require('./imgs/ru_white_1.jpg')}
-                    title={imgs[card]}/>
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {headers[card]} {imgs[card]}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small" color="primary">
-                      View
-                    </Button>
-                    <Button size="small" color="primary">
-                      Play
-                    </Button>
-                  </CardActions>
-                </Card>
+    handleClickView(desciption) {
+        alert("CLICK VIEW: " + desciption);
+        // this.setState(state => ({isToggleOn: !state.isToggleOn}));
+        new SMDialog(desciption);
+    }
+
+    render() {
+        return (
+          <main>
+            <Container className={classes.cardGrid} maxWidth="md">
+              <Grid container spacing={4}>
+                {
+                cards.map(card => (
+                  <Grid item key={card} xs={12} sm={6} md={4}>
+                    <Card className={classes.card}>
+                      <CardMedia className={classes.cardMedia} image={require('./imgs/ru_white_1.jpg')} title={imgs[card]}/>
+                      <CardContent className={classes.cardContent}>
+                        <Typography gutterBottom variant="h5" component="h2">{headers[card]} {imgs[card]}</Typography>
+                      </CardContent>
+                      <CardActions>
+                        <Button size="small" color="primary" onClick={(e) => this.handleClickView(desciptions[card])}>View</Button>
+                        <Button size="small" color="primary">Play</Button>
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                ))}
               </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </main>
-  );
+            </Container>
+          </main>
+        );
+    }
 }
