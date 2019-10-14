@@ -5,29 +5,23 @@ import Typography from '@material-ui/core/Typography';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-const sectionStyles = makeStyles(theme => {
-  return ({
-    icon: {
-      marginRight: theme.spacing(2),
-    },
-    heroContent: {
-      backgroundColor: theme.palette.background.paper,
-      padding: theme.spacing(8, 0, 6),
-    },
-  });
-});
-
 export default function SMSection(props) {
-    const classes = sectionStyles();
+    const sectionStyles = makeStyles(theme => ({
+        sectionContent: {
+            backgroundColor: theme.palette.background.paper,
+            padding: theme.spacing(8, 0, 6),
+        },
+    }));
 
+    const classes = sectionStyles();
     return (
-        <div className={classes.heroContent}>
+        <div className={classes.sectionContent}>
           <Container maxWidth="sm" >
             <Typography variant="h1" align="center" style={{fontFamily: "Grinched", fontVariant: "small-caps", color: "green" }} paragraph>
               SuperMath 
             </Typography>
-            <Typography variant="h5" align="center" style={{fontWeight: "bold", color: "red" }} paragraph>
-              {props.text}
+            <Typography variant="h4" align="center" style={{fontFamily: "Grinched", fontVariant: "small-caps", color: "orange" }} paragraph>
+              free web app, which helps kids, parents and teachers master basic math facts
             </Typography>
           </Container>
         </div>

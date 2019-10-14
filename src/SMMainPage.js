@@ -23,16 +23,32 @@ import SMFooter from "./SMFooter";
 
         <SMFooter> - defines a footer with Copyright
             test is passed as argument
+          
+            <CssBaseline />
+
+        Fragments
+        A common pattern in React is for a component to return multiple elements. Fragments let you group a list of children without adding extra nodes to the DOM.
+
+        render() {
+          return (
+            <React.Fragment>
+              <ChildA />
+              <ChildB />
+              <ChildC />
+            </React.Fragment>
+          );}
+
+
 */
 export default class SMMainPage extends React.Component {
     render() {
       return (
         <React.Fragment>
-          <CssBaseline />
-          <SMHeader />
-          <SMSection text={"SuperMath helps kids master basic math facts"}/>
-          <SMAlbum />
-          <SMFooter text={"SuperMath.RU"}/>
+            <CssBaseline />
+            <SMHeader />
+            <SMSection />
+            <SMAlbum />
+            <SMFooter text={"SuperMath.RU"}/>
         </React.Fragment>
       );
     }
