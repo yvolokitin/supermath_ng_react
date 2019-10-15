@@ -20,7 +20,7 @@ export default function SMSection(props) {
             <Typography variant="h1" align="center" style={{fontFamily: "Grinched", fontVariant: "small-caps", color: "green" }} paragraph>
               SuperMath 
             </Typography>
-            <Typography variant="h4" align="center" style={{fontFamily: "Grinched", fontVariant: "small-caps", color: "orange" }} paragraph>
+            <Typography variant="h4" align="center" style={{fontFamily: "Grinched", fontVariant: "small-caps", fontWeight: "bold", color: "grey" }} paragraph>
               free web app, which helps kids, parents and teachers master basic math facts
             </Typography>
           </Container>

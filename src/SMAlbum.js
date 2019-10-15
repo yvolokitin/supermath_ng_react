@@ -1,22 +1,22 @@
 ﻿import React from 'react';
-import { Typography, Container, Button, Grid, Card, CardActions, CardActionArea, CardContent} from '@material-ui/core';
+import { Typography, Container, Button, Grid, Card, CardActions, CardActionArea, CardContent, CardMedia} from '@material-ui/core';
+
+import logo1 from './imgs/ru_white_1.jpg';
+import logo2 from './imgs/ru_white_2.jpg';
+import logo3 from './imgs/ru_white_3.jpg';
+import logo4 from './imgs/ru_white_4.jpg';
+import logo5 from './imgs/ru_white_5.jpg';
+import logo6 from './imgs/ru_white_6.jpg';
+import logo7 from './imgs/ru_white_7.jpg';
+import logo8 from './imgs/ru_white_8.jpg';
+import logo9 from './imgs/ru_white_9.jpg';
 
 import classes from './index.css';
 import SMDialog from "./SMDialog";
 
 const cards = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
-const imgs = [
-    './imgs/ru_white_1.jpg',
-    './imgs/ru_white_2.jpg',
-    './imgs/ru_white_3.jpg',
-    './imgs/ru_white_4.jpg',
-    './imgs/ru_white_5.jpg',
-    './imgs/ru_white_6.jpg',
-    './imgs/ru_white_7.jpg',
-    './imgs/ru_white_8.jpg',
-    './imgs/ru_white_9.jpg'
-];
+const imgs = [logo1, logo2, logo3, logo4, logo5, logo6, logo7, logo8, logo9];
 
 const headers = [
     "Tasks for Comparision of one-digit numbers (from 0 to 9)",
@@ -42,6 +42,9 @@ var desciptions = [
     "Typical tasks for kids in age 3 - 6 years for <b>Addition</b> and <b>Subtraction</b> of two-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number",
 ];
 
+// https://source.unsplash.com/random
+// imgs[card]
+// <img src={logo1} alt="QQQQ" height="140"/>
 export default class SMAlbum extends React.Component {
     constructor(props) {
         super(props);
@@ -62,7 +65,13 @@ export default class SMAlbum extends React.Component {
                             <Grid item key={card} xs={12} sm={6} md={4}>
                                 <Card className={classes.card}>
                                     <CardActionArea>
-                                        <img src={imgs[card]} alt={imgs[card]} height="140" style={{widht: '100%'}}/>
+
+                                        <CardMedia
+                                            component="img"
+                                            alt="Media Card task"
+                                            height="140"
+                                            image={imgs[card]}/>
+
                                         <CardContent className={classes.content}>
                                             <Typography gutterBottom variant="h5" component="h2">{imgs[card]}</Typography>
                                             <Typography variant="body2" color="textSecondary" component="p">{headers[card]}</Typography>
