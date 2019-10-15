@@ -53,7 +53,7 @@ export default class SMAlbum extends React.Component {
 
     handleClickView(desciption) {
         // alert("CLICK VIEW: " + desciption);
-        new SMDialog(desciption);
+        // new SMDialog(desciption);
     }
 
     render() {
@@ -65,13 +65,11 @@ export default class SMAlbum extends React.Component {
                             <Grid item key={card} xs={12} sm={6} md={4}>
                                 <Card className={classes.card}>
                                     <CardActionArea>
-
                                         <CardMedia
                                             component="img"
                                             alt="Media Card task"
                                             height="140"
                                             image={imgs[card]}/>
-
                                         <CardContent className={classes.content}>
                                             <Typography gutterBottom variant="h5" component="h2">{imgs[card]}</Typography>
                                             <Typography variant="body2" color="textSecondary" component="p">{headers[card]}</Typography>
@@ -82,6 +80,9 @@ export default class SMAlbum extends React.Component {
                                         <Button size="small" color="primary">Play</Button>
                                     </CardActions>
                                 </Card>
+
+                                <SMDialog />
+
                             </Grid>
                         ))}
                     </Grid>

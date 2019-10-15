@@ -52,29 +52,26 @@ export default class SMDialog extends React.Component {
     constructor(props) {
         super(props);
         this.state = {open: true};
-        alert('!!!!!!!' + this.state);
-//        this.clickOpen = this.clickOpen.bind(this);
+        this.clickOpen = this.clickOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
     }
-/*
+
     clickOpen(description) {
-        alert("SMDialog.clickOpen " + description);
         this.setState({ open: true });
         this.setState({ title: "YURA" });
         this.setState({ text: description });
     }
-*/
+
     handleClose() {
-        alert("SMDialog, handleClose!!!");
         this.setState({ open: false });
     }
 
     render() {
       return (
-        <Dialog onClose={this.handleClose} aria-labelledby="customized-dialog-title" open={this.open}>
-          <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>{this.props.title}</DialogTitle>
+        <Dialog onClose={this.handleClose} aria-labelledby="customized-dialog-title" open={this.state.open}>
+          <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>"TITLE"</DialogTitle>
           <DialogContent dividers>
-            <Typography gutterBottom>{this.props.text}</Typography>
+            <Typography gutterBottom>"DIALOG TEXT"</Typography>
           </DialogContent>
         </Dialog>
       );

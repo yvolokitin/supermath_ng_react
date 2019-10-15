@@ -37,8 +37,6 @@ import SMFooter from "./SMFooter";
               <ChildC />
             </React.Fragment>
           );}
-
-
 */
 export default class SMMainPage extends React.Component {
     render() {
