@@ -1,8 +1,7 @@
 ﻿import React from 'react';
-import { Typography, Container, Button, Grid, Card, CardActions, CardContent, CardMedia } from '@material-ui/core';
+import { Typography, Container, Button, Grid, Card, CardActions, CardActionArea, CardContent} from '@material-ui/core';
 
 import classes from './index.css';
-
 import SMDialog from "./SMDialog";
 
 const cards = [0, 1, 2, 3, 4, 5, 6, 7, 8];
@@ -10,13 +9,13 @@ const cards = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 const imgs = [
     './imgs/ru_white_1.jpg',
     './imgs/ru_white_2.jpg',
-    './imgs/ru_white_2.jpg',
-    './imgs/ru_white_2.jpg',
-    './imgs/ru_white_2.jpg',
-    './imgs/ru_white_2.jpg',
-    './imgs/ru_white_2.jpg',
-    './imgs/ru_white_2.jpg',
-    './imgs/ru_white_2.jpg'
+    './imgs/ru_white_3.jpg',
+    './imgs/ru_white_4.jpg',
+    './imgs/ru_white_5.jpg',
+    './imgs/ru_white_6.jpg',
+    './imgs/ru_white_7.jpg',
+    './imgs/ru_white_8.jpg',
+    './imgs/ru_white_9.jpg'
 ];
 
 const headers = [
@@ -62,11 +61,13 @@ export default class SMAlbum extends React.Component {
                         {cards.map(card => (
                             <Grid item key={card} xs={12} sm={6} md={4}>
                                 <Card className={classes.card}>
-                                    <CardMedia className={classes.cardMedia} image="https://source.unsplash.com/random" title={imgs[card]}/>
-                                    <CardContent className={classes.content}>
-                                        <Typography gutterBottom variant="h5" component="h2">{imgs[card]}</Typography>
-                                        <Typography variant="body2" color="textSecondary" component="p">{headers[card]}</Typography>
-                                    </CardContent>
+                                    <CardActionArea>
+                                        <img src={imgs[card]} alt={imgs[card]} height="140" style={{widht: '100%'}}/>
+                                        <CardContent className={classes.content}>
+                                            <Typography gutterBottom variant="h5" component="h2">{imgs[card]}</Typography>
+                                            <Typography variant="body2" color="textSecondary" component="p">{headers[card]}</Typography>
+                                        </CardContent>
+                                    </CardActionArea>    
                                     <CardActions>
                                         <Button size="small" color="primary" onClick={(e) => this.handleClickView(desciptions[card])}>View</Button>
                                         <Button size="small" color="primary">Play</Button>

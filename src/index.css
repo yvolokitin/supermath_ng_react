@@ -29,6 +29,7 @@ code {
 }
 
 .cardMedia {
+    height: 140px;
     padding-top: '56.25%';
 }
 

@@ -1,24 +1,18 @@
 import React from 'react';
 
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import {Typography, AppBar, Button, Toolbar, IconButton, Dialog, Card, CardMedia } from '@material-ui/core';
 
 import HomeIcon from '@material-ui/icons/Home';
-import CardMedia from '@material-ui/core/CardMedia';
-import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 
-import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogActions from '@material-ui/core/DialogActions';
 import MuiDialogContent from '@material-ui/core/DialogContent';
+import MuiDialogActions from '@material-ui/core/DialogActions';
 
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 
 const styles = theme => ({
     root: {
@@ -108,9 +102,14 @@ export default class SMHeader extends React.Component {
                         <b>Use SuperMath as mathematical vitamins!</b>
                     </Typography>
 
-                    <img src={require('./imgs/vitamins.jpg')} alt="Logo" style={{maxWidth: "100%"}} />
-    
-                    <CardMedia image={require('./imgs/vitamins.jpg')} title={'QWe'}/>
+                    <Card style={{display: 'flex', flexDirection: 'column'}}>
+                        <CardMedia
+                            component="img"
+                            alt="Use SuperMath as mathematical vitamins!"
+                            height="140"
+                            src={require('./imgs/vitamins.jpg')}
+                            title="Use SuperMath as mathematical vitamins!"/>
+                    </Card>
 
                     <Typography gutterBottom>
                         Offer the child to regularly solve the examples in SuperMath
