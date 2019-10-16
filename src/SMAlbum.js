@@ -1,7 +1,11 @@
 ﻿import React from 'react';
-import {Typography, Container, Button} from '@material-ui/core';
+import {Typography, Container, Dialog, Button, IconButton} from '@material-ui/core';
 import {Grid, Card, CardActions, CardActionArea, CardContent, CardMedia} from '@material-ui/core';
-import {Dialog, DialogTitle, DialogContent} from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import MuiDialogContent from '@material-ui/core/DialogContent';
+import MuiDialogActions from '@material-ui/core/DialogActions';
 
 import logo1 from './imgs/ru_white_1.jpg';
 import logo2 from './imgs/ru_white_2.jpg';
@@ -14,6 +18,7 @@ import logo8 from './imgs/ru_white_8.jpg';
 import logo9 from './imgs/ru_white_9.jpg';
 
 import classes from './index.css';
+import {withStyles} from '@material-ui/core/styles';
 
 const cards = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -43,18 +48,58 @@ var desciptions = [
     "Tasks for kids in age 3 - 6 years for Addition and Subtraction of two-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number",
 ];
 
+const styles = theme => ({
+    root: {
+      margin: 0,
+      padding: theme.spacing(2),
+    },
+    closeButton: {
+      position: 'absolute',
+      right: theme.spacing(1),
+      top: theme.spacing(1),
+      color: theme.palette.grey[500],
+    },
+    avatar: {
+      margin: theme.spacing(1),
+      backgroundColor: theme.palette.secondary.main,
+    },
+});
+
+const DialogTitle = withStyles(styles)(props => {
+  const { children, classes, onClose } = props;
+  return (
+    <MuiDialogTitle disableTypography className={classes.root}>
+      <Typography variant="h6">{children}</Typography>
+      {onClose ? (
+        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </MuiDialogTitle>
+  );
+});
+
+const DialogContent = withStyles(theme => ({
+  root: {
+    padding: theme.spacing(2),
+  },
+}))(MuiDialogContent);
+
+const DialogActions = withStyles(theme => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing(1),
+  },
+}))(MuiDialogActions);
+
 // https://source.unsplash.com/random
-// imgs[card]
-// <img src={logo1} alt="QQQQ" height="140"/>
 export default class SMAlbum extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {viewDialogOpen: false};
         this.state = {viewDialogTitleText: ""};
         this.state = {viewDialogDescriptionText: ""};
         this.state = {viewDialogImageUrl: ""};
-
         this.handleViewClick = this.handleViewClick.bind(this);
         this.handleViewClose = this.handleViewClose.bind(this);
     }
@@ -67,10 +112,12 @@ export default class SMAlbum extends React.Component {
     }
 
     handleViewClose() {
-        this.setState({ viewDialogOpen: false });
+        alert("handleViewClose");
+        this.setState({viewDialogOpen: false});
     }
 
     render() {
+        // alert("this.state.viewDialogOpen " + this.state.viewDialogOpen);
         return (
             <main>
                 <Container className={classes.grid} maxWidth="md">
@@ -99,13 +146,12 @@ export default class SMAlbum extends React.Component {
                             </Grid>
                         ))}
                     </Grid>
-                </Container>
-                <Dialog
-                    onClose={this.state.handleViewClose}
-                    aria-labelledby="customized-dialog-title"
-                    open={this.state.viewDialogOpen}
-                    transitionDuration={500}>
 
+                    <Dialog
+                        onClose={this.state.handleViewClose}
+                        aria-labelledby="customized-dialog-title"
+                        open={this.state.viewDialogOpen}
+                        transitionDuration={500}>
                       <DialogTitle id="customized-dialog-title" onClose={this.handleViewClose}>
                         {this.state.viewDialogTitleText}
                       </DialogTitle>
@@ -113,13 +159,11 @@ export default class SMAlbum extends React.Component {
                         <Typography gutterBottom>
                             {this.state.viewDialogDescriptionText}
                         </Typography>
-    
                         <Typography gutterBottom>
                           <Card style={{display: 'flex', flexDirection: 'column'}}>
                             <CardMedia component="img" alt="Media Card task" height="100%" image={this.state.viewDialogImageUrl}/>
                           </Card>
                         </Typography>
-
                         <Typography gutterBottom>
                             SuperMath is designed to help students transition from counting or calculating to recalling the basic arithmetic facts.
                             The timer allows SuperMath to distinguish a recalled answer from a counted or calculated answer.
@@ -130,7 +174,11 @@ export default class SMAlbum extends React.Component {
                             or slower progress than they might otherwise achieve.
                         </Typography>
                       </DialogContent>
-                </Dialog>
+                      <DialogActions>
+                          <Button onClick={this.state.handleViewClose} color="primary">Play</Button>
+                      </DialogActions>
+                    </Dialog>
+                </Container>
           </main>
         );
     }
