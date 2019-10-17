@@ -1,102 +1,58 @@
 import React from 'react';
-
-import {Typography, AppBar, Button, Toolbar, IconButton, Dialog, Card, CardMedia } from '@material-ui/core';
+import {Typography, AppBar, Button, Toolbar, Dialog, DialogContent, DialogActions, DialogTitle, Card, CardMedia} from '@material-ui/core';
 
 import HomeIcon from '@material-ui/icons/Home';
-import CloseIcon from '@material-ui/icons/Close';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
-
-import {withStyles} from '@material-ui/core/styles';
-
-const styles = theme => ({
-    root: {
-      margin: 0,
-      padding: theme.spacing(2),
-    },
-    closeButton: {
-      position: 'absolute',
-      right: theme.spacing(1),
-      top: theme.spacing(1),
-      color: theme.palette.grey[500],
-    },
-    avatar: {
-      margin: theme.spacing(1),
-      backgroundColor: theme.palette.secondary.main,
-    },
-});
-  
-const DialogTitle = withStyles(styles)(props => {
-  const { children, classes, onClose } = props;
-  return (
-    <MuiDialogTitle disableTypography className={classes.root}>
-      <Typography variant="h6">{children}</Typography>
-      {onClose ? (
-        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-      ) : null}
-    </MuiDialogTitle>
-  );
-});
-
-const DialogContent = withStyles(theme => ({
-  root: {
-    padding: theme.spacing(2),
-  },
-}))(MuiDialogContent);
-
-const DialogActions = withStyles(theme => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(1),
-  },
-}))(MuiDialogActions);
+import { AutoRotatingCarousel, Slide } from 'material-auto-rotating-carousel';
+import {red, blue, green} from 'material-ui/colors';
 
 export default class SMHeader extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {open: false};
-        this.handleOpen = this.handleOpen.bind(this);
-        this.handleClose = this.handleClose.bind(this);
+
+        this.state = {infoOpen: false};
+        this.state = {helpOpen: false};
+
+        this.handleInfoOpen = this.handleInfoOpen.bind(this);
+        this.handleInfoClose = this.handleInfoClose.bind(this);
+
+        this.handleHelpOpen = this.handleHelpOpen.bind(this);
+        this.handleHelpClose = this.handleHelpClose.bind(this);
     }
 
-    handleOpen(e) {
-        this.setState({ open: true });
+    handleInfoOpen(e) {
+        this.setState({ infoOpen: true });
     }
 
-    handleClose() {
-        this.setState({ open: false });
+    handleInfoClose() {
+        this.setState({ infoOpen: false });
+    }
+
+    handleHelpOpen(e) {
+        this.setState({ helpOpen: true });
+    }
+
+    handleHelpClose() {
+        this.setState({ helpOpen: false });
     }
 
     render() {
         return (
-          <AppBar position="relative">
+          <AppBar position="relative" open={true}>
             <Toolbar>
               <Typography variant="h6" color="inherit" noWrap>
-                <IconButton color="inherit">
-                  <HomeIcon />
-                </IconButton>
-                <IconButton color="inherit" onClick={(e) => this.handleOpen(e)}>
-                  <InfoOutlinedIcon />
-                </IconButton>
-                 <IconButton color="inherit">
-                  <HelpOutlineIcon />
-                </IconButton>
-                <IconButton color="inherit">
-                  <PersonOutlineIcon />
-                </IconButton>
-                <Button color="inherit">Login</Button>
+                <Button variant="contained" color="primary" startIcon={<HomeIcon />}>Home</Button>
+                <Button variant="contained" color="primary" startIcon={<InfoOutlinedIcon />} onClick={(e) => this.handleInfoOpen(e)}>Info</Button>
+                <Button variant="contained" color="primary" startIcon={<HelpOutlineIcon />} onClick={(e) => this.handleHelpOpen(e)}>Help</Button>
+                <Button variant="contained" color="primary" startIcon={<PersonOutlineIcon />}>Login</Button>
               </Typography>
             </Toolbar>
 
-            <Dialog onClose={this.handleClose} aria-labelledby="customized-dialog-title" open={this.state.open}>
-              <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>SuperMath Information</DialogTitle>
+            <Dialog onClose={this.handleInfoClose} aria-labelledby="customized-dialog-title" open={this.state.infoOpen}>
+              <DialogTitle id="customized-dialog-title" onClose={this.handleInfoClose}>SuperMath Information</DialogTitle>
                 <DialogContent dividers>
                     <Typography gutterBottom>
                         <b>Use SuperMath as mathematical vitamins!</b>
@@ -130,10 +86,42 @@ export default class SMHeader extends React.Component {
                 </DialogContent>
 
                 <DialogActions>
-                  <Button onClick={this.handleClose} color="primary">CLOSE</Button>
+                  <Button onClick={this.handleInfoClose} color="primary">CLOSE</Button>
                 </DialogActions>
 
-              </Dialog>
+            </Dialog>
+
+            <AutoRotatingCarousel
+                autoplay={false}
+                open={this.state.helpOpen}
+                onClose={this.handleHelpClose}
+                onStart={this.handleHelpClose}
+                style={{position: 'absolute'}}>
+
+                <Slide
+                  media={<img src='http://www.icons101.com/icon_png/size_256/id_79394/youtube.png' alt='youtube'/>}
+                  mediaBackgroundStyle={{ backgroundColor: red[400] }}
+                  style={{ backgroundColor: red[600] }}
+                  title='Watch our SuperMath overview video on YouTube'
+                  subtitle='SuperMath helps students transition from counting or calculating the basic math facts to recalling them. Quickly recalling math facts,
+                    instead of calculating them, frees up mental resources for higher-level operations. SuperMath’s timed activities encourage students to answer
+                    questions as quickly as possible.'/>
+
+                <Slide
+                  media={<img src='http://www.icons101.com/icon_png/size_256/id_80975/GoogleInbox.png' alt='inbox'/>}
+                  mediaBackgroundStyle={{ backgroundColor: blue[400] }}
+                  style={{ backgroundColor: blue[600] }}
+                  title='Sign-up, Sign-in and Enrollment'
+                  subtitle='If you do not have SuperMath account, you can do it easely. Just press by current link and create it in a few seconds.'/>
+
+                <Slide
+                  media={<img src='http://www.icons101.com/icon_png/size_256/id_76704/Google_Settings.png' alt='settings'/>}
+                  mediaBackgroundStyle={{ backgroundColor: green[400] }}
+                  style={{ backgroundColor: green[600] }}
+                  title='Settgins'
+                  subtitle='tbd...'/>
+            </AutoRotatingCarousel>
+
           </AppBar>
         )
     };

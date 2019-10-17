@@ -24,6 +24,18 @@ const cards = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
 const imgs = [logo1, logo2, logo3, logo4, logo5, logo6, logo7, logo8, logo9];
 
+const titles = [
+    "One-digit Comparision",
+    "One-digit Addition",
+    "One-digit Subtraction",
+    "One-digit Addition & Subtraction",
+    "Determination operation",
+    "Two-digit Comparision",
+    "Addition and Subtraction rounds",
+    "One- & Two- digit Addition & Subtraction",
+    "Two- digit Addition & Subtraction"
+];
+
 const headers = [
     "Tasks for Comparision of one-digit numbers (from 0 to 9)",
     "Tasks for Addition of one-digit numbers (from 0 to 9)",
@@ -112,7 +124,7 @@ export default class SMAlbum extends React.Component {
     }
 
     handleViewClose() {
-        alert("handleViewClose");
+        // alert("handleViewClose");
         this.setState({viewDialogOpen: false});
     }
 
@@ -132,7 +144,7 @@ export default class SMAlbum extends React.Component {
                                             height="140"
                                             image={imgs[card]}/>
                                         <CardContent className={classes.content}>
-                                            <Typography gutterBottom variant="h5" component="h2">{imgs[card]}</Typography>
+                                            <Typography gutterBottom variant="h5" component="h2">{titles[card]}</Typography>
                                             <Typography variant="body2" color="textSecondary" component="p">{headers[card]}</Typography>
                                         </CardContent>
                                     </CardActionArea>    
@@ -159,11 +171,9 @@ export default class SMAlbum extends React.Component {
                         <Typography gutterBottom>
                             {this.state.viewDialogDescriptionText}
                         </Typography>
-                        <Typography gutterBottom>
-                          <Card style={{display: 'flex', flexDirection: 'column'}}>
+                        <Card style={{display: 'flex', flexDirection: 'column'}}>
                             <CardMedia component="img" alt="Media Card task" height="100%" image={this.state.viewDialogImageUrl}/>
-                          </Card>
-                        </Typography>
+                        </Card>
                         <Typography gutterBottom>
                             SuperMath is designed to help students transition from counting or calculating to recalling the basic arithmetic facts.
                             The timer allows SuperMath to distinguish a recalled answer from a counted or calculated answer.
