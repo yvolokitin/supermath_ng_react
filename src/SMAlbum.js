@@ -108,10 +108,10 @@ const DialogActions = withStyles(theme => ({
 export default class SMAlbum extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {viewDialogOpen: false};
-        this.state = {viewDialogTitleText: ""};
-        this.state = {viewDialogDescriptionText: ""};
-        this.state = {viewDialogImageUrl: ""};
+        this.state = {viewDialogOpen: false,
+                      viewDialogTitleText: "",
+                      viewDialogDescriptionText: "",
+                      viewDialogImageUrl: ""};
         this.handleViewClick = this.handleViewClick.bind(this);
         this.handleViewClose = this.handleViewClose.bind(this);
     }

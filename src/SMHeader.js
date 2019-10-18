@@ -13,8 +13,7 @@ export default class SMHeader extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {infoOpen: false};
-        this.state = {helpOpen: false};
+        this.state = {infoOpen: false, helpOpen: false};
 
         this.handleInfoOpen = this.handleInfoOpen.bind(this);
         this.handleInfoClose = this.handleInfoClose.bind(this);
