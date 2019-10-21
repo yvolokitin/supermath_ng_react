@@ -40,12 +40,21 @@ export default class SMHeader extends React.Component {
 
     render() {
         return (
-          <AppBar position="relative" open={true}>
+          <AppBar position="relative">
             <Toolbar>
-              <Typography variant="h6" color="inherit" noWrap>
+              <Typography align="right">
                 <Button variant="contained" color="primary" startIcon={<HomeIcon />}>Home</Button>
+              </Typography>
+
+              <Typography align="right">
                 <Button variant="contained" color="primary" startIcon={<InfoOutlinedIcon />} onClick={(e) => this.handleInfoOpen(e)}>Info</Button>
+              </Typography>
+
+              <Typography align="right">
                 <Button variant="contained" color="primary" startIcon={<HelpOutlineIcon />} onClick={(e) => this.handleHelpOpen(e)}>Help</Button>
+              </Typography>
+
+              <Typography align="right">
                 <Button variant="contained" color="primary" startIcon={<PersonOutlineIcon />}>Login</Button>
               </Typography>
             </Toolbar>
