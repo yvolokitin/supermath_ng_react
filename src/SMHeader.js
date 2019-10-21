@@ -9,6 +9,9 @@ import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import { AutoRotatingCarousel, Slide } from 'material-auto-rotating-carousel';
 import {red, blue, green} from 'material-ui/colors';
 
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import {Menu, MenuItem} from '@material-ui/core';
+
 export default class SMHeader extends React.Component {
     constructor(props) {
         super(props);
@@ -40,23 +43,29 @@ export default class SMHeader extends React.Component {
 
     render() {
         return (
-          <AppBar position="relative">
+          <AppBar position="static">
             <Toolbar>
-              <Typography align="right">
                 <Button variant="contained" color="primary" startIcon={<HomeIcon />}>Home</Button>
-              </Typography>
 
-              <Typography align="right">
                 <Button variant="contained" color="primary" startIcon={<InfoOutlinedIcon />} onClick={(e) => this.handleInfoOpen(e)}>Info</Button>
-              </Typography>
 
-              <Typography align="right">
                 <Button variant="contained" color="primary" startIcon={<HelpOutlineIcon />} onClick={(e) => this.handleHelpOpen(e)}>Help</Button>
-              </Typography>
 
-              <Typography align="right">
                 <Button variant="contained" color="primary" startIcon={<PersonOutlineIcon />}>Login</Button>
-              </Typography>
+
+                <PopupState variant="popover" popupId="demo-popup-menu">
+                  {popupState => (
+                    <React.Fragment>
+                      <Button variant="contained" color="primary" {...bindTrigger(popupState)}>Language</Button>
+                          <Menu {...bindMenu(popupState)}>
+                            <MenuItem onClick={popupState.close}>English</MenuItem>
+                            <MenuItem onClick={popupState.close}>Russian</MenuItem>
+                            <MenuItem onClick={popupState.close}>Dutch</MenuItem>
+                          </Menu>
+                    </React.Fragment>
+                  )}
+                </PopupState>
+
             </Toolbar>
 
             <Dialog onClose={this.handleInfoClose} aria-labelledby="customized-dialog-title" open={this.state.infoOpen}>
