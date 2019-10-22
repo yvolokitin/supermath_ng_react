@@ -142,7 +142,7 @@ export default class SMAlbum extends React.Component {
                         {cards.map(card => (
                             <Grid item key={card} xs={12} sm={6} md={4}>
                                 <Card className={classes.card}>
-                                    <CardActionArea>
+                                    <CardActionArea onClick={(e) => this.handleGameOpen(card)}>
                                         <CardMedia
                                             component="img"
                                             alt="Media Card task"
