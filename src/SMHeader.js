@@ -189,7 +189,6 @@ export default class SMHeader extends React.Component {
                 </DialogContent>
               </div>
             </Dialog>
-
           </AppBar>
         )
     };

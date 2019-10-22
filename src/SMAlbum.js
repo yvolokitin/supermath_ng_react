@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import {Typography, Container, Dialog, Button, IconButton} from '@material-ui/core';
+import {Typography, Container, Dialog, Button, IconButton, Paper} from '@material-ui/core';
 import {Grid, Card, CardActions, CardActionArea, CardContent, CardMedia} from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -108,28 +108,33 @@ const DialogActions = withStyles(theme => ({
 export default class SMAlbum extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {viewDialogOpen: false,
+        this.state = {viewOpen: false,
                       viewDialogTitleText: "",
                       viewDialogDescriptionText: "",
-                      viewDialogImageUrl: ""};
-        this.handleViewClick = this.handleViewClick.bind(this);
+                      viewDialogImageUrl: "",
+                      gameOpen: false};
+        this.handleViewOpen = this.handleViewOpen.bind(this);
         this.handleViewClose = this.handleViewClose.bind(this);
+
+        this.handleGameOpen = this.handleGameOpen.bind(this);
+        this.handleGameClose = this.handleGameClose.bind(this);
     }
 
-    handleViewClick(title, desciption, imageUrl) {
-        this.setState({viewDialogOpen: true });
-        this.setState({viewDialogTitleText: title});
-        this.setState({viewDialogDescriptionText: desciption});
-        this.setState({viewDialogImageUrl: imageUrl});
+    // , desciptions[card], imgs[
+    // title, desciption, imageUrl
+    handleViewOpen(card_id) {
+        this.setState({viewOpen: true });
+        this.setState({viewDialogTitleText: headers[card_id]});
+        this.setState({viewDialogDescriptionText: desciptions[card_id]});
+        this.setState({viewDialogImageUrl: imgs[card_id]});
     }
+    handleViewClose() {this.setState({viewOpen: false});}
 
-    handleViewClose() {
-        // alert("handleViewClose");
-        this.setState({viewDialogOpen: false});
-    }
+    handleGameOpen(card_id) {this.setState({gameOpen: true});}
+    handleGameClose() {this.setState({gameOpen: false});}
 
     render() {
-        // alert("this.state.viewDialogOpen " + this.state.viewDialogOpen);
+        // alert("this.state.viewOpen " + this.state.viewOpen);
         return (
             <main>
                 <Container className={classes.grid} maxWidth="md">
@@ -149,10 +154,8 @@ export default class SMAlbum extends React.Component {
                                         </CardContent>
                                     </CardActionArea>    
                                     <CardActions>
-                                        <Button size="small" color="primary" onClick={
-                                                (e) => this.handleViewClick(headers[card], desciptions[card], imgs[card])
-                                            }>View Task Details</Button>
-                                        <Button size="small" color="primary">Play</Button>
+                                        <Button size="small" color="primary" onClick={(e) => this.handleViewOpen(card)}>View Task Details</Button>
+                                        <Button size="small" color="primary" onClick={(e) => this.handleGameOpen(card)}>Play</Button>
                                     </CardActions>
                                 </Card>
                             </Grid>
@@ -160,11 +163,11 @@ export default class SMAlbum extends React.Component {
                     </Grid>
 
                     <Dialog
-                        onClose={this.state.handleViewClose}
+                        onClose={this.handleViewClose}
                         aria-labelledby="customized-dialog-title"
-                        open={this.state.viewDialogOpen}
+                        open={this.state.viewOpen}
                         transitionDuration={500}>
-                      <DialogTitle id="customized-dialog-title" onClose={this.handleViewClose}>
+                      <DialogTitle onClose={this.handleViewClose}>
                         {this.state.viewDialogTitleText}
                       </DialogTitle>
                       <DialogContent dividers>
@@ -188,6 +191,80 @@ export default class SMAlbum extends React.Component {
                           <Button onClick={this.state.handleViewClose} color="primary">Play</Button>
                       </DialogActions>
                     </Dialog>
+
+                    <Dialog
+                        onClose={this.handleGameClose}
+                        fullWidth={true}
+                        open={this.state.gameOpen}>
+
+                      <DialogTitle variant="h3">
+                        <Typography variant="h3" style={{fontFamily: "Grinched", fontVariant: "small-caps", color: "green" }}>
+                          SuperMath 
+                        </Typography>
+                      </DialogTitle>
+
+                      <DialogContent>
+                          <Grid container justify="center" spacing={2}>
+                              <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+
+                                <Grid container justify="center" spacing={1}>
+                                    <Grid container justify="center" item xs={12} spacing={3}>
+                                        2
+                                    </Grid>
+
+                                    <Grid container justify="center" item xs={12} spacing={3}>
+                                        +
+                                    </Grid>
+
+                                    <Grid container justify="center" item xs={12} spacing={3}>
+                                        2
+                                    </Grid>
+                                </Grid>
+
+                              </Grid>
+
+                              <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                                <Grid container justify="center" spacing={1}>
+                                    <Grid container justify="center" item xs={12} spacing={3}>
+                                      <Grid item xs={4}><Paper className={classes.paper}>7</Paper></Grid>
+                                      <Grid item xs={4}><Paper className={classes.paper}>8</Paper></Grid>
+                                      <Grid item xs={4}><Paper className={classes.paper}>9</Paper></Grid>
+                                    </Grid>
+
+                                    <Grid container item xs={12} spacing={3}>
+                                      <Grid item xs={4}><Paper className={classes.paper}>4</Paper></Grid>
+                                      <Grid item xs={4}><Paper className={classes.paper}>5</Paper></Grid>
+                                      <Grid item xs={4}><Paper className={classes.paper}>6</Paper></Grid>
+                                    </Grid>
+
+                                    <Grid container item xs={12} spacing={3}>
+                                      <Grid item xs={4}><Paper className={classes.paper}>1</Paper></Grid>
+                                      <Grid item xs={4}><Paper className={classes.paper}>2</Paper></Grid>
+                                      <Grid item xs={4}><Paper className={classes.paper}>3</Paper></Grid>
+                                    </Grid>
+
+                                    <Grid container item xs={12} spacing={3}>
+                                      <Grid item xs={4}><Paper className={classes.paper}>0</Paper></Grid>
+                                      <Grid item xs={4}><Paper className={classes.paper}>+</Paper></Grid>
+                                      <Grid item xs={4}><Paper className={classes.paper}>-</Paper></Grid>
+                                    </Grid>
+
+                                    <Grid container item xs={12} spacing={3}>
+                                      <Grid item xs={4}><Paper className={classes.paper}>&gt;</Paper></Grid>
+                                      <Grid item xs={4}><Paper className={classes.paper}>=</Paper></Grid>
+                                      <Grid item xs={4}><Paper className={classes.paper}>&lt;</Paper></Grid>
+                                    </Grid>
+                                </Grid>
+                              </Grid>
+                          </Grid>
+
+                      </DialogContent>
+
+                      <DialogActions>
+                        <Button onClick={this.handleInfoClose} color="primary">CIRCLES SHOULD BE HERE</Button>
+                      </DialogActions>
+                    </Dialog>
+
                 </Container>
           </main>
         );
