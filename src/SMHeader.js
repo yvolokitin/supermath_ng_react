@@ -16,30 +16,26 @@ export default class SMHeader extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {infoOpen: false, helpOpen: false};
+        this.state = {infoOpen: false, helpOpen: false, loginOpen: false};
 
         this.handleInfoOpen = this.handleInfoOpen.bind(this);
         this.handleInfoClose = this.handleInfoClose.bind(this);
 
         this.handleHelpOpen = this.handleHelpOpen.bind(this);
         this.handleHelpClose = this.handleHelpClose.bind(this);
+
+        this.handleLoginOpen = this.handleLoginOpen.bind(this);
+        this.handleLoginClose = this.handleLoginClose.bind(this);
     }
 
-    handleInfoOpen(e) {
-        this.setState({ infoOpen: true });
-    }
+    handleInfoOpen(e) {this.setState({infoOpen: true});}
+    handleInfoClose() {this.setState({infoOpen: false});}
 
-    handleInfoClose() {
-        this.setState({ infoOpen: false });
-    }
+    handleHelpOpen(e) {this.setState({helpOpen: true});}
+    handleHelpClose() {this.setState({helpOpen: false});}
 
-    handleHelpOpen(e) {
-        this.setState({ helpOpen: true });
-    }
-
-    handleHelpClose() {
-        this.setState({ helpOpen: false });
-    }
+    handleLoginOpen(e) {this.setState({loginOpen: true});}
+    handleLoginClose() {this.setState({loginOpen: false});}
 
     render() {
         return (
@@ -74,7 +70,6 @@ export default class SMHeader extends React.Component {
                     <Typography gutterBottom>
                         <b>Use SuperMath as mathematical vitamins!</b>
                     </Typography>
-
                     <Card style={{display: 'flex', flexDirection: 'column'}}>
                         <CardMedia
                             component="img"
@@ -83,29 +78,22 @@ export default class SMHeader extends React.Component {
                             src={require('./imgs/vitamins.jpg')}
                             title="Use SuperMath as mathematical vitamins!"/>
                     </Card>
-
                     <Typography gutterBottom>
                         Offer the child to regularly solve the examples in SuperMath
                         only once a day, for five minutes, and you will notice how much faster and more accurately he will
                         operate on the numbers. The speed and accuracy of the calculations - these are the bricks that lay
                         the foundation of your childs mathematical education.
                     </Typography>
-
                     <Typography gutterBottom>
                         In one day, I just personally asked myself - How can I contribute to improve a small part of the world.
                         Im father of two wonderful sons and due to a lot of work responsibility, in some days I could not get so much attantion to them, specially in Mathematics.
                         We could not image our current life now without Mobile phone and Internet and we have it because of Math.
                         When I developed that Math portal for kids I had vary clear goal - help kids with Math! :-)
                     </Typography>
-
-                    <Typography gutterBottom>
-                    </Typography>
                 </DialogContent>
-
                 <DialogActions>
                   <Button onClick={this.handleInfoClose} color="primary">CLOSE</Button>
                 </DialogActions>
-
             </Dialog>
 
             <AutoRotatingCarousel
@@ -138,6 +126,28 @@ export default class SMHeader extends React.Component {
                   title='Settgins'
                   subtitle='tbd...'/>
             </AutoRotatingCarousel>
+
+            <Dialog onClose={this.handleLoginClose} aria-labelledby="customized-dialog-title" open={this.state.loginOpen}>
+                <Avatar className={classes.avatar}><LockOutlinedIcon /></Avatar>
+                <Typography component="h1" variant="h5">Sign in</Typography>
+                <form className={classes.form} noValidate>
+                    <TextField variant="outlined" margin="normal" required fullWidth id="email"
+                               label="Email Address" name="email" autoComplete="email" autoFocus/>
+                    <TextField variant="outlined" margin="normal" required fullWidth id="password"
+                               label="Password" name="password" type="password" autoComplete="current-password"/>
+                    <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me"/>
+
+                    <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>Sign In</Button>
+                    <Grid container>
+                      <Grid item xs>
+                        <Link href="#" variant="body2">Forgot password?</Link>
+                      </Grid>
+                      <Grid item>
+                        <Link href="#" variant="body2">{"Don't have an account? Sign Up"}</Link>
+                      </Grid>
+                    </Grid>
+                </form>
+            </Dialog>
 
           </AppBar>
         )
