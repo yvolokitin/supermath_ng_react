@@ -1,16 +1,51 @@
 import React from 'react';
-import {Typography, AppBar, Button, Toolbar, Dialog, DialogContent, DialogActions, DialogTitle, Card, CardMedia} from '@material-ui/core';
+import {Typography, AppBar, Button, Toolbar, Dialog, DialogContent, DialogActions, DialogTitle} from '@material-ui/core';
+import {Card, CardMedia, Avatar, TextField, Grid, Link, Checkbox, FormControlLabel} from '@material-ui/core';
 
 import HomeIcon from '@material-ui/icons/Home';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import { AutoRotatingCarousel, Slide } from 'material-auto-rotating-carousel';
 import {red, blue, green} from 'material-ui/colors';
 
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import {Menu, MenuItem} from '@material-ui/core';
+
+import { makeStyles } from '@material-ui/core/styles';
+
+const classes = makeStyles(theme => ({
+  root: {
+    height: '100vh',
+  },
+  image: {
+    backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  },
+  paper: {
+    margin: theme.spacing(8, 4),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    color: '#fff',
+//    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: red[500],
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 export default class SMHeader extends React.Component {
     constructor(props) {
@@ -38,6 +73,8 @@ export default class SMHeader extends React.Component {
     handleLoginClose() {this.setState({loginOpen: false});}
 
     render() {
+        // const classes = useStyles();
+
         return (
           <AppBar position="static">
             <Toolbar>
@@ -47,7 +84,7 @@ export default class SMHeader extends React.Component {
 
                 <Button variant="contained" color="primary" startIcon={<HelpOutlineIcon />} onClick={(e) => this.handleHelpOpen(e)}>Help</Button>
 
-                <Button variant="contained" color="primary" startIcon={<PersonOutlineIcon />}>Login</Button>
+                <Button variant="contained" color="primary" startIcon={<PersonOutlineIcon />} onClick={(e) => this.handleLoginOpen(e)}>Login</Button>
 
                 <PopupState variant="popover" popupId="demo-popup-menu">
                   {popupState => (
@@ -65,7 +102,7 @@ export default class SMHeader extends React.Component {
             </Toolbar>
 
             <Dialog onClose={this.handleInfoClose} aria-labelledby="customized-dialog-title" open={this.state.infoOpen}>
-              <DialogTitle id="customized-dialog-title" onClose={this.handleInfoClose}>SuperMath Information</DialogTitle>
+              <DialogTitle onClose={this.handleInfoClose}>SuperMath Information</DialogTitle>
                 <DialogContent dividers>
                     <Typography gutterBottom>
                         <b>Use SuperMath as mathematical vitamins!</b>
@@ -127,26 +164,30 @@ export default class SMHeader extends React.Component {
                   subtitle='tbd...'/>
             </AutoRotatingCarousel>
 
-            <Dialog onClose={this.handleLoginClose} aria-labelledby="customized-dialog-title" open={this.state.loginOpen}>
-                <Avatar className={classes.avatar}><LockOutlinedIcon /></Avatar>
-                <Typography component="h1" variant="h5">Sign in</Typography>
-                <form className={classes.form} noValidate>
-                    <TextField variant="outlined" margin="normal" required fullWidth id="email"
-                               label="Email Address" name="email" autoComplete="email" autoFocus/>
-                    <TextField variant="outlined" margin="normal" required fullWidth id="password"
-                               label="Password" name="password" type="password" autoComplete="current-password"/>
-                    <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me"/>
+            <Dialog onClose={this.handleLoginClose} fullWidth={true} open={this.state.loginOpen}>
+              <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}} className={classes.paper}>
+                <Avatar style={{margin: 10, width: 60, height: 60, backgroundColor: red[500] }} className={classes.avatar}><LockOutlinedIcon /></Avatar>
+                <Typography component="h1" variant="h5">Sign In</Typography>
+                <DialogContent dividers>
+                    <form className={classes.form} noValidate>
+                        <TextField variant="outlined" margin="normal" required fullWidth id="email"
+                                   label="Email Address" name="email" autoComplete="email" autoFocus/>
+                        <TextField variant="outlined" margin="normal" required fullWidth id="password"
+                                   label="Password" name="password" type="password" autoComplete="current-password"/>
+                        <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me"/>
 
-                    <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>Sign In</Button>
-                    <Grid container>
-                      <Grid item xs>
-                        <Link href="#" variant="body2">Forgot password?</Link>
-                      </Grid>
-                      <Grid item>
-                        <Link href="#" variant="body2">{"Don't have an account? Sign Up"}</Link>
-                      </Grid>
-                    </Grid>
-                </form>
+                        <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>Sign In</Button>
+                        <Grid container>
+                          <Grid item xs>
+                            <Link href="#" variant="body2">Forgot password?</Link>
+                          </Grid>
+                          <Grid item>
+                            <Link href="#" variant="body2">{"Don't have an account? Sign Up"}</Link>
+                          </Grid>
+                        </Grid>
+                    </form>
+                </DialogContent>
+              </div>
             </Dialog>
 
           </AppBar>

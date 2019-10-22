@@ -17,6 +17,9 @@ code {
   src: local('Grinched'), url(./fonts/Grinched2.0.ttf) format('truetype');
 }
 
+.avatar {
+}
+
 .grid {
     padding-top: 8px;
     padding-bottom: 8px;
