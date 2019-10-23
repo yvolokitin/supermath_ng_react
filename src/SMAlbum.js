@@ -1,9 +1,7 @@
 ﻿import React from 'react';
-import {Typography, Container, Dialog, Button, IconButton, Paper} from '@material-ui/core';
+import {Typography, Container, Dialog, Button, DialogTitle} from '@material-ui/core';
 import {Grid, Card, CardActions, CardActionArea, CardContent, CardMedia} from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
 
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 
@@ -19,6 +17,8 @@ import logo9 from './imgs/ru_white_9.jpg';
 
 import classes from './index.css';
 import {withStyles} from '@material-ui/core/styles';
+
+import SMGameDialog from "./SMGameDialog";
 
 const cards = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -60,45 +60,16 @@ var desciptions = [
     "Tasks for kids in age 3 - 6 years for Addition and Subtraction of two-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number",
 ];
 
-const styles = theme => ({
-    root: {
-      margin: 0,
-      padding: theme.spacing(2),
-    },
-    closeButton: {
-      position: 'absolute',
-      right: theme.spacing(1),
-      top: theme.spacing(1),
-      color: theme.palette.grey[500],
-    },
-    avatar: {
-      margin: theme.spacing(1),
-      backgroundColor: theme.palette.secondary.main,
-    },
-});
-
-const DialogTitle = withStyles(styles)(props => {
-  const { children, classes, onClose } = props;
-  return (
-    <MuiDialogTitle disableTypography className={classes.root}>
-      <Typography variant="h6">{children}</Typography>
-      {onClose ? (
-        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-      ) : null}
-    </MuiDialogTitle>
-  );
-});
-
 const DialogContent = withStyles(theme => ({
   root: {
+    width: '80%',
     padding: theme.spacing(2),
   },
 }))(MuiDialogContent);
 
 const DialogActions = withStyles(theme => ({
   root: {
+    width: '80%',
     margin: 0,
     padding: theme.spacing(1),
   },
@@ -120,8 +91,6 @@ export default class SMAlbum extends React.Component {
         this.handleGameClose = this.handleGameClose.bind(this);
     }
 
-    // , desciptions[card], imgs[
-    // title, desciption, imageUrl
     handleViewOpen(card_id) {
         this.setState({viewOpen: true });
         this.setState({viewDialogTitleText: headers[card_id]});
@@ -192,79 +161,7 @@ export default class SMAlbum extends React.Component {
                       </DialogActions>
                     </Dialog>
 
-                    <Dialog
-                        onClose={this.handleGameClose}
-                        fullWidth={true}
-                        open={this.state.gameOpen}>
-
-                      <DialogTitle variant="h3">
-                        <Typography variant="h3" style={{fontFamily: "Grinched", fontVariant: "small-caps", color: "green" }}>
-                          SuperMath 
-                        </Typography>
-                      </DialogTitle>
-
-                      <DialogContent>
-                          <Grid container justify="center" spacing={2}>
-                              <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-
-                                <Grid container justify="center" spacing={1}>
-                                    <Grid container justify="center" item xs={12} spacing={3}>
-                                        2
-                                    </Grid>
-
-                                    <Grid container justify="center" item xs={12} spacing={3}>
-                                        +
-                                    </Grid>
-
-                                    <Grid container justify="center" item xs={12} spacing={3}>
-                                        2
-                                    </Grid>
-                                </Grid>
-
-                              </Grid>
-
-                              <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-                                <Grid container justify="center" spacing={1}>
-                                    <Grid container justify="center" item xs={12} spacing={3}>
-                                      <Grid item xs={4}><Paper className={classes.paper}>7</Paper></Grid>
-                                      <Grid item xs={4}><Paper className={classes.paper}>8</Paper></Grid>
-                                      <Grid item xs={4}><Paper className={classes.paper}>9</Paper></Grid>
-                                    </Grid>
-
-                                    <Grid container item xs={12} spacing={3}>
-                                      <Grid item xs={4}><Paper className={classes.paper}>4</Paper></Grid>
-                                      <Grid item xs={4}><Paper className={classes.paper}>5</Paper></Grid>
-                                      <Grid item xs={4}><Paper className={classes.paper}>6</Paper></Grid>
-                                    </Grid>
-
-                                    <Grid container item xs={12} spacing={3}>
-                                      <Grid item xs={4}><Paper className={classes.paper}>1</Paper></Grid>
-                                      <Grid item xs={4}><Paper className={classes.paper}>2</Paper></Grid>
-                                      <Grid item xs={4}><Paper className={classes.paper}>3</Paper></Grid>
-                                    </Grid>
-
-                                    <Grid container item xs={12} spacing={3}>
-                                      <Grid item xs={4}><Paper className={classes.paper}>0</Paper></Grid>
-                                      <Grid item xs={4}><Paper className={classes.paper}>+</Paper></Grid>
-                                      <Grid item xs={4}><Paper className={classes.paper}>-</Paper></Grid>
-                                    </Grid>
-
-                                    <Grid container item xs={12} spacing={3}>
-                                      <Grid item xs={4}><Paper className={classes.paper}>&gt;</Paper></Grid>
-                                      <Grid item xs={4}><Paper className={classes.paper}>=</Paper></Grid>
-                                      <Grid item xs={4}><Paper className={classes.paper}>&lt;</Paper></Grid>
-                                    </Grid>
-                                </Grid>
-                              </Grid>
-                          </Grid>
-
-                      </DialogContent>
-
-                      <DialogActions>
-                        <Button onClick={this.handleInfoClose} color="primary">CIRCLES SHOULD BE HERE</Button>
-                      </DialogActions>
-                    </Dialog>
-
+                    <SMGameDialog open={this.state.gameOpen}/>
                 </Container>
           </main>
         );
