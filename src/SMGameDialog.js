@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+﻿import React from 'react';
 import {Dialog, Typography, Grid, Paper} from '@material-ui/core';
 
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
@@ -54,15 +54,15 @@ const DialogActions = withStyles(theme => ({
 }))(MuiDialogActions);
 
 export default function SMGameDialog(props) {
-    const [open, setOpen] = useState(false);
-
     const classes = styles();
 
-    open = true;
-    console.log('QWWQWQW ' + open);
+    const closeSMGameDialog = () => {
+        console.log('CHILD: call this.props.callbackFromParent');
+        props.callbackFromParent();
+    };
 
     return (
-        <Dialog onClose={() => setOpen(false)} fullScreen={true} open={open}>
+        <Dialog onClose={closeSMGameDialog} fullScreen={true} open={props.open}>
             <DialogTitle style={{fontFamily: "Grinched", fontVariant: "small-caps", color: "orange" }}>
                 <Typography component={'div'} variant="h5" style={{fontFamily: "Grinched", color: "orange" }}>SUPERMATH</Typography>
             </DialogTitle>

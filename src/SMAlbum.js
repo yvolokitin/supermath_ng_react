@@ -89,6 +89,8 @@ export default class SMAlbum extends React.Component {
 
         this.handleGameOpen = this.handleGameOpen.bind(this);
         this.handleGameClose = this.handleGameClose.bind(this);
+
+        this.myCallback = this.myCallback.bind(this);
     }
 
     handleViewOpen(card_id) {
@@ -97,10 +99,20 @@ export default class SMAlbum extends React.Component {
         this.setState({viewDialogDescriptionText: desciptions[card_id]});
         this.setState({viewDialogImageUrl: imgs[card_id]});
     }
-    handleViewClose() {this.setState({viewOpen: false});}
 
-    handleGameOpen(card_id) {this.setState({gameOpen: true});}
+    handleGameOpen(card_id) {
+        this.setState({gameOpen: true});
+        console.log('PARENT, handleGameOpen ' + this.state.gameOpen);
+    }
+
+    handleViewClose() {this.setState({viewOpen: false});}
     handleGameClose() {this.setState({gameOpen: false});}
+
+    // callback from chold
+    myCallback (event) {
+        // alert('PARENT, received myCallback ' + event.gameOpen);
+        this.setState({gameOpen: false});
+    }
 
     render() {
         // alert("this.state.viewOpen " + this.state.viewOpen);
@@ -161,7 +173,7 @@ export default class SMAlbum extends React.Component {
                       </DialogActions>
                     </Dialog>
 
-                    <SMGameDialog open={this.state.gameOpen}/>
+                    <SMGameDialog open={this.state.gameOpen} callbackFromParent={this.myCallback}/>
                 </Container>
           </main>
         );
