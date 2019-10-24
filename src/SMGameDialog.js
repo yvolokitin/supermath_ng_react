@@ -57,7 +57,8 @@ export default function SMGameDialog(props) {
     const classes = styles();
 
     const closeSMGameDialog = () => {
-        console.log('CHILD: call this.props.callbackFromParent');
+        console.log('CHILD: call props.callbackFromParent ' + props.callbackFromParent);
+        console.log('CHILD: call props.open ' + props.open);
         props.callbackFromParent();
     };
 
