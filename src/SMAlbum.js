@@ -18,7 +18,8 @@ import logo9 from './imgs/ru_white_9.jpg';
 import classes from './index.css';
 import {withStyles} from '@material-ui/core/styles';
 
-import SMGameDialog from "./SMGameDialog";
+import SMDialogGameInfo from "./SMDialogGameInfo";
+import SMDialogGamePlay from "./SMDialogGamePlay";
 
 const cards = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -83,12 +84,15 @@ export default class SMAlbum extends React.Component {
                       viewDialogTitleText: "",
                       viewDialogDescriptionText: "",
                       viewDialogImageUrl: "",
-                      gameOpen: false};
+                      gameOpen: false,
+                      gameInfo: false};
         this.handleViewOpen = this.handleViewOpen.bind(this);
         this.handleViewClose = this.handleViewClose.bind(this);
 
         this.handleGameOpen = this.handleGameOpen.bind(this);
         this.handleGameClose = this.handleGameClose.bind(this);
+
+        this.callbackFromGame = this.callbackFromGame.bind(this);
     }
 
     handleViewOpen(card_id) {
@@ -108,6 +112,16 @@ export default class SMAlbum extends React.Component {
 
     handleGameClose() {
         this.setState({gameOpen: false});
+    }
+
+    callbackGameOpen(event) {
+        console.log("PARENT: callbackGameOpen " + event.open + ", CLOSE GAME");
+        this.setState({gameOpen: false});
+    }
+
+    callbackGameInfo(event) {
+        console.log("PARENT: callbackGameInfo " + event.open + ", CLOSE GAME");
+        this.setState({gameInfo: false});
     }
 
     render() {
@@ -168,7 +182,8 @@ export default class SMAlbum extends React.Component {
                       </DialogActions>
                     </Dialog>
 
-                    <SMGameDialog open={this.state.gameOpen} callbackFromParent={this.handleGameClose}/>
+                    {this.state.gameInfo && <SMDialogGameInfo callbackFromParent={this.callbackGameInfo}/>}
+                    {this.state.gameOpen && <SMDialogGamePlay callbackFromParent={this.callbackGameOpen}/>}
                 </Container>
           </main>
         );

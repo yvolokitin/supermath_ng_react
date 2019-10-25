@@ -1,5 +1,5 @@
-﻿import React from 'react';
-import {Dialog, Typography, Grid, Paper} from '@material-ui/core';
+﻿import React, { useState } from 'react';
+import {Dialog, DialogContentText, Typography, Grid, Paper, Button} from '@material-ui/core';
 
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
@@ -53,16 +53,36 @@ const DialogActions = withStyles(theme => ({
   },
 }))(MuiDialogActions);
 
-export default function SMGameDialog(props) {
+export default function SMDialogGamePlay(props) {
+    const [openAlert, setOpenAlert] = useState(false);
+
     const classes = styles();
 
-    const closeSMGameDialog = () => {
-        console.log('CHILD: call props.open ' + props.open);
-        props.callbackFromParent();
+    // finishing game here
+    const handleCloseGame = (event) => {
+        props.callbackFromParent({open: false});
+    };
+
+    // interrapting game by ESCape button and exit
+    const handleEscapeGame = (event) => {
+        setOpenAlert(false);
+        props.callbackFromParent({open: false});
+    };
+
+    // handle the escape key to show alert confirmation screen
+    const handleOpenAlert = (event) => {
+        console.log("CHILD, handleOpenAlert");
+        setOpenAlert(true);
+    };
+
+    // close alert dialog and contunie playing game
+    const handleCloseAlert = () => {
+        setOpenAlert(false);
     };
 
     return (
-        <Dialog onClose={closeSMGameDialog} fullScreen={true} open={props.open}>
+        <div>
+        <Dialog onEscapeKeyDown={handleOpenAlert} onClose={handleCloseGame} fullScreen={true} open={true}>
             <DialogTitle style={{fontFamily: "Grinched", fontVariant: "small-caps", color: "orange" }}>
                 <Typography component={'div'} variant="h5" style={{fontFamily: "Grinched", color: "orange" }}>SUPERMATH</Typography>
             </DialogTitle>
@@ -104,14 +124,26 @@ export default function SMGameDialog(props) {
                                 <Grid item xs={4}><Paper className={classes.paper}>&lt;</Paper></Grid>
                             </Grid>
                         </Grid>
-                  </Grid>
-              </Grid>
-          </DialogContent>
+                    </Grid>
+                </Grid>
+            </DialogContent>
+            <DialogActions>
+                CIRCLE CIRCLE CIRCLE CIRCLE CIRCLE CIRCLE CIRCLE
+            </DialogActions>
+        </Dialog>
 
-          <DialogActions>
-            CIRCLE CIRCLE CIRCLE CIRCLE CIRCLE CIRCLE CIRCLE
-          </DialogActions>
-
-      </Dialog>
+        <Dialog open={openAlert} onClose={handleCloseAlert} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+            <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+            <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    Would you like to EXIT from current Game?
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleEscapeGame} color="primary">YES</Button>
+                <Button onClick={handleCloseAlert} color="primary" autoFocus>NO</Button>
+            </DialogActions>
+        </Dialog>
+        </div>
   );
 }
