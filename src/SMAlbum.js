@@ -97,19 +97,20 @@ export default class SMAlbum extends React.Component {
         this.setState({viewDialogDescriptionText: desciptions[card_id]});
         this.setState({viewDialogImageUrl: imgs[card_id]});
     }
-    handleViewClose() {this.setState({viewOpen: false});}
+
+    handleViewClose() {
+        this.setState({viewOpen: false});
+    }
 
     handleGameOpen(card_id) {
         this.setState({gameOpen: true});
-        console.log('PARENT, handleGameOpen ' + this.state.gameOpen);
     }
+
     handleGameClose() {
-        console.log('PARENT, called handleGameClose ');
         this.setState({gameOpen: false});
     }
 
     render() {
-        // alert("this.state.viewOpen " + this.state.viewOpen);
         return (
             <main>
                 <Container className={classes.grid} maxWidth="md">
