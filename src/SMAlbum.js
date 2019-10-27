@@ -86,42 +86,28 @@ export default class SMAlbum extends React.Component {
                       viewDialogImageUrl: "",
                       gameOpen: false,
                       gameInfo: false};
-        this.handleViewOpen = this.handleViewOpen.bind(this);
-        this.handleViewClose = this.handleViewClose.bind(this);
+        this.handleInfoOpen = this.handleInfoOpen.bind(this);
+        this.handleInfoClose = this.handleInfoClose.bind(this);
 
         this.handleGameOpen = this.handleGameOpen.bind(this);
         this.handleGameClose = this.handleGameClose.bind(this);
-
-        this.callbackFromGame = this.callbackFromGame.bind(this);
     }
 
-    handleViewOpen(card_id) {
+    handleInfoOpen(card_id) {
         this.setState({viewOpen: true });
         this.setState({viewDialogTitleText: headers[card_id]});
         this.setState({viewDialogDescriptionText: desciptions[card_id]});
         this.setState({viewDialogImageUrl: imgs[card_id]});
     }
-
-    handleViewClose() {
-        this.setState({viewOpen: false});
+    handleInfoClose() {
+        this.setState({gameOpen: false});
     }
 
     handleGameOpen(card_id) {
         this.setState({gameOpen: true});
     }
-
     handleGameClose() {
         this.setState({gameOpen: false});
-    }
-
-    callbackGameOpen(event) {
-        console.log("PARENT: callbackGameOpen " + event.open + ", CLOSE GAME");
-        this.setState({gameOpen: false});
-    }
-
-    callbackGameInfo(event) {
-        console.log("PARENT: callbackGameInfo " + event.open + ", CLOSE GAME");
-        this.setState({gameInfo: false});
     }
 
     render() {
@@ -144,7 +130,7 @@ export default class SMAlbum extends React.Component {
                                         </CardContent>
                                     </CardActionArea>    
                                     <CardActions>
-                                        <Button size="small" color="primary" onClick={(e) => this.handleViewOpen(card)}>View Task Details</Button>
+                                        <Button size="small" color="primary" onClick={(e) => this.handleInfoOpen(card)}>View Task Details</Button>
                                         <Button size="small" color="primary" onClick={(e) => this.handleGameOpen(card)}>Play</Button>
                                     </CardActions>
                                 </Card>
@@ -152,38 +138,8 @@ export default class SMAlbum extends React.Component {
                         ))}
                     </Grid>
 
-                    <Dialog
-                        onClose={this.handleViewClose}
-                        aria-labelledby="customized-dialog-title"
-                        open={this.state.viewOpen}
-                        transitionDuration={500}>
-                      <DialogTitle onClose={this.handleViewClose}>
-                        {this.state.viewDialogTitleText}
-                      </DialogTitle>
-                      <DialogContent dividers>
-                        <Typography gutterBottom>
-                            {this.state.viewDialogDescriptionText}
-                        </Typography>
-                        <Card style={{display: 'flex', flexDirection: 'column'}}>
-                            <CardMedia component="img" alt="Media Card task" height="100%" image={this.state.viewDialogImageUrl}/>
-                        </Card>
-                        <Typography gutterBottom>
-                            SuperMath is designed to help students transition from counting or calculating to recalling the basic arithmetic facts.
-                            The timer allows SuperMath to distinguish a recalled answer from a counted or calculated answer.
-                            The default three-second mastery threshold is carefully selected to be long enough to type in a recalled answer,
-                            but not long enough for the student to comfortably enter a counted or calculated answer.
-                            Via Settings, we have added the ability to hide/pause the timer, though student answers are still evaluated.
-                            With less time pressure, students may not answer as quickly as they can, potentially resulting in lower scores
-                            or slower progress than they might otherwise achieve.
-                        </Typography>
-                      </DialogContent>
-                      <DialogActions>
-                          <Button onClick={this.state.handleViewClose} color="primary">Play</Button>
-                      </DialogActions>
-                    </Dialog>
-
-                    {this.state.gameInfo && <SMDialogGameInfo callbackFromParent={this.callbackGameInfo}/>}
-                    {this.state.gameOpen && <SMDialogGamePlay callbackFromParent={this.callbackGameOpen}/>}
+                    <SMDialogGameInfo open={this.state.infoOpen} onClick={() => this.handleInfoClose()}/>
+                    <SMDialogGamePlay open={this.state.gameOpen} onClick={() => this.handleGameClose()}/>
                 </Container>
           </main>
         );

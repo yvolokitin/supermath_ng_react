@@ -1,13 +1,12 @@
 ﻿import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
+import {Typography, Dialog, Card, CardMedia, Button, IconButton} from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
+
+import {withStyles} from '@material-ui/core/styles';
 
 const styles = theme => ({
   root: {
@@ -49,16 +48,36 @@ const DialogActions = withStyles(theme => ({
   },
 }))(MuiDialogActions);
 
-export default function SMDialogGameInfo() {
-  const [open, setOpen] = React.useState(false);
+export default function SMDialogGameInfo(props) {
+    return (
+        <Dialog onClose={() => props.onClick()} aria-labelledby="customized-dialog-title" transitionDuration={500} open={props.open}>
+                      <DialogTitle onClose={() => props.onClick()}>
+                        {props.title}
+                      </DialogTitle>
+                      <DialogContent dividers>
+                        <Typography gutterBottom>
+                            {this.state.viewDialogDescriptionText}
+                        </Typography>
+                        <Card style={{display: 'flex', flexDirection: 'column'}}>
+                            <CardMedia component="img" alt="Media Card task" height="100%" image={this.state.viewDialogImageUrl}/>
+                        </Card>
+                        <Typography gutterBottom>
+                            SuperMath is designed to help students transition from counting or calculating to recalling the basic arithmetic facts.
+                            The timer allows SuperMath to distinguish a recalled answer from a counted or calculated answer.
+                            The default three-second mastery threshold is carefully selected to be long enough to type in a recalled answer,
+                            but not long enough for the student to comfortably enter a counted or calculated answer.
+                            Via Settings, we have added the ability to hide/pause the timer, though student answers are still evaluated.
+                            With less time pressure, students may not answer as quickly as they can, potentially resulting in lower scores
+                            or slower progress than they might otherwise achieve.
+                        </Typography>
+                      </DialogContent>
+                      <DialogActions>
+                          <Button onClick={this.state.handleInfoClose} color="primary">Play</Button>
+                      </DialogActions>
+                    </Dialog>
+    );
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+/*
   return (
     <div>
       <Button variant="outlined" color="secondary" onClick={handleClickOpen}>
@@ -91,4 +110,5 @@ export default function SMDialogGameInfo() {
       </Dialog>
     </div>
   );
+*/
 }
