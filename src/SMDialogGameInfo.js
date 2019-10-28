@@ -51,16 +51,15 @@ const DialogActions = withStyles(theme => ({
 export default function SMDialogGameInfo(props) {
     return (
         <Dialog onClose={() => props.onClick()} aria-labelledby="customized-dialog-title" transitionDuration={500} open={props.open}>
-                      <DialogTitle onClose={() => props.onClick()}>
-                        {props.title}
-                      </DialogTitle>
+                      <DialogTitle onClose={() => props.onClick()}>{props.title}</DialogTitle>
+
                       <DialogContent dividers>
-                        <Typography gutterBottom>
-                            {this.state.viewDialogDescriptionText}
-                        </Typography>
+                        <Typography gutterBottom>{props.text}</Typography>
+
                         <Card style={{display: 'flex', flexDirection: 'column'}}>
-                            <CardMedia component="img" alt="Media Card task" height="100%" image={this.state.viewDialogImageUrl}/>
+                            <CardMedia component="img" alt="Media Card task" height="100%" image={props.imgUrl}/>
                         </Card>
+
                         <Typography gutterBottom>
                             SuperMath is designed to help students transition from counting or calculating to recalling the basic arithmetic facts.
                             The timer allows SuperMath to distinguish a recalled answer from a counted or calculated answer.
@@ -70,9 +69,10 @@ export default function SMDialogGameInfo(props) {
                             With less time pressure, students may not answer as quickly as they can, potentially resulting in lower scores
                             or slower progress than they might otherwise achieve.
                         </Typography>
+
                       </DialogContent>
                       <DialogActions>
-                          <Button onClick={this.state.handleInfoClose} color="primary">Play</Button>
+                          <Button onClick={() => props.onClick()} color="primary">Play</Button>
                       </DialogActions>
                     </Dialog>
     );

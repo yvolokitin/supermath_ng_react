@@ -1,9 +1,6 @@
 ﻿import React from 'react';
-import {Typography, Container, Dialog, Button, DialogTitle} from '@material-ui/core';
+import {Typography, Container, Button} from '@material-ui/core';
 import {Grid, Card, CardActions, CardActionArea, CardContent, CardMedia} from '@material-ui/core';
-
-import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
 
 import logo1 from './imgs/ru_white_1.jpg';
 import logo2 from './imgs/ru_white_2.jpg';
@@ -16,7 +13,6 @@ import logo8 from './imgs/ru_white_8.jpg';
 import logo9 from './imgs/ru_white_9.jpg';
 
 import classes from './index.css';
-import {withStyles} from '@material-ui/core/styles';
 
 import SMDialogGameInfo from "./SMDialogGameInfo";
 import SMDialogGamePlay from "./SMDialogGamePlay";
@@ -61,26 +57,11 @@ var desciptions = [
     "Tasks for kids in age 3 - 6 years for Addition and Subtraction of two-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number",
 ];
 
-const DialogContent = withStyles(theme => ({
-  root: {
-    width: '80%',
-    padding: theme.spacing(2),
-  },
-}))(MuiDialogContent);
-
-const DialogActions = withStyles(theme => ({
-  root: {
-    width: '80%',
-    margin: 0,
-    padding: theme.spacing(1),
-  },
-}))(MuiDialogActions);
-
 // https://source.unsplash.com/random
 export default class SMAlbum extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {viewOpen: false,
+        this.state = {infoOpen: false,
                       viewDialogTitleText: "",
                       viewDialogDescriptionText: "",
                       viewDialogImageUrl: "",
@@ -94,13 +75,13 @@ export default class SMAlbum extends React.Component {
     }
 
     handleInfoOpen(card_id) {
-        this.setState({viewOpen: true });
-        this.setState({viewDialogTitleText: headers[card_id]});
-        this.setState({viewDialogDescriptionText: desciptions[card_id]});
-        this.setState({viewDialogImageUrl: imgs[card_id]});
+        this.setState({infoOpen: true });
+        this.setState({infoTitl: headers[card_id]});
+        this.setState({infoText: desciptions[card_id]});
+        this.setState({infoIURL: imgs[card_id]});
     }
     handleInfoClose() {
-        this.setState({gameOpen: false});
+        this.setState({infoOpen: false});
     }
 
     handleGameOpen(card_id) {
@@ -138,7 +119,7 @@ export default class SMAlbum extends React.Component {
                         ))}
                     </Grid>
 
-                    <SMDialogGameInfo open={this.state.infoOpen} onClick={() => this.handleInfoClose()}/>
+                    <SMDialogGameInfo open={this.state.infoOpen} title={this.state.infoTitl} text={this.state.infoText} imgUrl={this.state.infoIURL} onClick={() => this.handleInfoClose()}/>
                     <SMDialogGamePlay open={this.state.gameOpen} onClick={() => this.handleGameClose()}/>
                 </Container>
           </main>

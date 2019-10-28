@@ -15,7 +15,7 @@ export default class SMDialogGamePlay extends React.Component {
             </DialogTitle>
 
             <DialogContent style={{width: '95%',}}>
-                <Grid container justify="center" spacing={2}>
+                <Grid container justify="center" spacing={3}>
                     <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                         <Grid container justify="center" spacing={1}>
                             <Grid container justify="center" item xs={12} spacing={3}>2</Grid>
@@ -23,6 +23,7 @@ export default class SMDialogGamePlay extends React.Component {
                             <Grid container justify="center" item xs={12} spacing={3}>2</Grid>
                         </Grid>
                     </Grid>
+
                     <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                         <Grid container justify="center" spacing={1}>
                             <Grid container justify="center" item xs={12} spacing={3}>
