@@ -1,11 +1,9 @@
-﻿import React, { useState } from 'react';
-import {Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, Typography, Grid, Paper, Button} from '@material-ui/core';
+﻿import React from 'react';
+import {Dialog, DialogTitle, Typography, Grid, Paper} from '@material-ui/core';
 
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-
-import {makeStyles, withStyles} from '@material-ui/core/styles';
-
+/*
+                        <Grid item xs={12}>2</Grid>
+*/
 export default class SMDialogGamePlay extends React.Component {
     render() {
         return (
@@ -14,20 +12,18 @@ export default class SMDialogGamePlay extends React.Component {
                 <Typography component={'div'} variant="h5" style={{fontFamily: "Grinched", color: "orange" }}>SUPERMATH</Typography>
             </DialogTitle>
 
-            <DialogContent style={{width: '95%',}}>
-                <Grid container justify="center" spacing={3}>
-                    <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-                        <Grid container justify="center" spacing={1}>
-                            <Grid container justify="center" item xs={12} spacing={3}>2</Grid>
-                            <Grid container justify="center" item xs={12} spacing={3}>+</Grid>
-                            <Grid container justify="center" item xs={12} spacing={3}>2</Grid>
-                        </Grid>
+            <Grid container justify="space-around" alignItems="center" spacing={5}>
+                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                    <Grid container direction="column" justify="space-around" alignItems="flex-end">
+                        <Grid item xs={12}>2</Grid>
+                        <Grid item xs={12}>+ 2</Grid>
                     </Grid>
+                </Grid>
 
-                    <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                         <Grid container justify="center" spacing={1}>
                             <Grid container justify="center" item xs={12} spacing={3}>
-                                <Grid item xs={4}><Paper>7</Paper></Grid>
+                                <Grid item xs={4} style={{fontFamily: "Grinched", color: "green"}}><Paper>7</Paper></Grid>
                                 <Grid item xs={4}><Paper>8</Paper></Grid>
                                 <Grid item xs={4}><Paper>9</Paper></Grid>
                             </Grid>
@@ -52,12 +48,9 @@ export default class SMDialogGamePlay extends React.Component {
                                 <Grid item xs={4}><Paper>&lt;</Paper></Grid>
                             </Grid>
                         </Grid>
-                    </Grid>
                 </Grid>
-            </DialogContent>
-            <DialogActions>
-                CIRCLE CIRCLE CIRCLE CIRCLE CIRCLE CIRCLE CIRCLE
-            </DialogActions>
+
+            </Grid>
         </Dialog>
         );
     }
