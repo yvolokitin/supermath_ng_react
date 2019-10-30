@@ -13,14 +13,14 @@ export default class SMDialogGamePlay extends React.Component {
             </DialogTitle>
 
             <Grid container justify="space-around" alignItems="center" spacing={5}>
-                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                <Grid item xs={6} sm={6} component={Paper} elevation={6} square>
                     <Grid container direction="column" justify="space-around" alignItems="flex-end">
                         <Grid item xs={12}>2</Grid>
                         <Grid item xs={12}>+ 2</Grid>
                     </Grid>
                 </Grid>
 
-                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                <Grid item xs={6} sm={6} component={Paper} elevation={6} square>
                         <Grid container justify="center" spacing={1}>
                             <Grid container justify="center" item xs={12} spacing={3}>
                                 <Grid item xs={4} style={{fontFamily: "Grinched", color: "green"}}><Paper>7</Paper></Grid>
