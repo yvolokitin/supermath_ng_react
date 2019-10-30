@@ -65,7 +65,7 @@ export default class SMAlbum extends React.Component {
                       viewDialogTitleText: "",
                       viewDialogDescriptionText: "",
                       viewDialogImageUrl: "",
-                      gameOpen: false,
+                      gameOpen: true,
                       gameInfo: false};
         this.handleInfoOpen = this.handleInfoOpen.bind(this);
         this.handleInfoClose = this.handleInfoClose.bind(this);
