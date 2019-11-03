@@ -1,71 +1,90 @@
 ﻿import React from 'react';
-import {Dialog, DialogTitle, DialogContent, Typography, Grid, Paper} from '@material-ui/core';
+import {Dialog, DialogTitle, DialogContent, Paper, Typography, Grid} from '@material-ui/core';
 
-import {makeStyles} from '@material-ui/core/styles';
+import SMKeyBoard from "./SMKeyBoardDiv";
+
 /*
+                <Grid container direction="row" justify="center" alignItems="flex-start" component={Paper} spacing={3}>
+                    <Grid item xs>
+                        <Grid container direction="column" justify="space-around" alignItems="flex-end">
+                            <Grid item style={{ borderStyle: 'solid' }}>
+                                <Typography variant="h1" style={taskNumber}>2</Typography>
+                            </Grid>
+                            <Grid item style={{ borderStyle: 'solid' }}>
+                                <Typography variant="h1" style={taskNumber}>+ 2</Typography>
+                            </Grid>
+                        </Grid>
+                    </Grid>
 
+                    <Grid item xs style={{ borderStyle: 'solid' }}>
+                        <SMKeyBoard />
+                    </Grid>
+                </Grid>
+
+            <DialogContent style={{ backgroundColor: 'yellow' }}>
+                QQQQQQQQQQQQQQQQ
+            </DialogContent>
 */
 export default class SMDialogGamePlay extends React.Component {
     render() {
-        const dialogStyle = {
-            backgroundColor: "black",
-        };
-
-        const gridStyle = {
+        const titleStyle = {
             fontFamily: "Grinched",
             color: "green",
         };
+        const taskNumber = {
+            fontFamily: "Grinched",
+            textDecoration: 'underline',
+            color: "black",
+        };
+        const taskNumberUnderline = {
+            fontFamily: "Grinched",
+            textDecoration: 'underline',
+            color: "black",
+        };
+        const paperStyle = {
+            height: '100%',
+            backgroundColor: 'white',
+        };
+        const container = {
+            display: 'table',
+            height: '100%',
+            width: '100%',
+            borderRadius: '15px',
+        }
+        const leftHalfDiv = {
+            display: 'table-cell',
+            width: '60%',
+            verticalAlign: 'middle',
+            float: 'right',
+        }
+        const rightHalfDiv = {
+            display: 'table-cell',
+            width: '40%',
+            verticalAlign: 'middle',
+        }
+        const numberStyle = {
+        }
 
         return (
         <Dialog onClose={() => this.props.onClick()} fullScreen={true} open={this.props.open}>
             <DialogTitle style={{backgroundColor: '#99ccff'}}>
-                <Typography component={'div'} variant="h4" style={gridStyle}>SUPERMATH</Typography>
+                <Typography component={'div'} variant="h4" style={titleStyle}>SUPERMATH</Typography>
             </DialogTitle>
 
-            <DialogContent dividers>
-            <Grid container justify="space-around" alignItems="center" spacing={5} style={{ backgroundColor: 'orange' }}>
-                <Grid item component={Paper} xs={6} sm={6}>
-                    <Grid container direction="column" justify="space-around" alignItems="flex-end">
-                        <Grid item xs={12}>2</Grid>
-                        <Grid item xs={12}>+ 2</Grid>
-                    </Grid>
-                </Grid>
+            <DialogContent style={{ backgroundColor: 'orange' }}>
+                <Paper>
+                <section style={container}>
+                    <div style={leftHalfDiv}>
+                        <Typography variant="h1" className={taskNumber}>2</Typography>
+                        <Typography variant="h1" className={taskNumberUnderline}>+ 2</Typography>
+                        <Typography variant="h1" className={taskNumber}>?</Typography>
+                    </div>
+                    <div style={rightHalfDiv}>
+                        <SMKeyBoard />
+                    </div>
+                </section>
+                </Paper>
 
-                <Grid item xs={6} sm={6}>
-                        <Grid container justify="center" component={Paper} spacing={3}>
-                            <Grid container spacing={3}>
-                                <Grid item xs={6} sm={6} style={gridStyle}><Paper>7</Paper></Grid>
-                                <Grid item xs={6} sm={6} style={gridStyle}><Paper>8</Paper></Grid>
-                                <Grid item xs={6} sm={6} style={gridStyle}><Paper>9</Paper></Grid>
-                            </Grid>
-                            <Grid container spacing={3}>
-                                <Grid item xs={4}><Paper>4</Paper></Grid>
-                                <Grid item xs={4}><Paper>5</Paper></Grid>
-                                <Grid item xs={4}><Paper>6</Paper></Grid>
-                            </Grid>
-                            <Grid container spacing={3}>
-                                <Grid item xs={4}><Paper>1</Paper></Grid>
-                                <Grid item xs={4}><Paper>2</Paper></Grid>
-                                <Grid item xs={4}><Paper>3</Paper></Grid>
-                            </Grid>
-                            <Grid container spacing={3}>
-                                <Grid item xs={4}><Paper>0</Paper></Grid>
-                                <Grid item xs={4}><Paper>+</Paper></Grid>
-                                <Grid item xs={4}><Paper>-</Paper></Grid>
-                            </Grid>
-                            <Grid container spacing={3}>
-                                <Grid item xs={4}><Paper>&gt;</Paper></Grid>
-                                <Grid item xs={4}><Paper>=</Paper></Grid>
-                                <Grid item xs={4}><Paper>&lt;</Paper></Grid>
-                            </Grid>
-                        </Grid>
-                </Grid>
-
-            </Grid>
-            </DialogContent>
-
-            <DialogContent dividers>
-                QQQQQQQQQQQQQQQQ
             </DialogContent>
 
         </Dialog>
