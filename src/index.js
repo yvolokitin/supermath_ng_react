@@ -5,9 +5,9 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 import './fonts/Grinched2.0.ttf'
-import SMMainPage from './SMMainPage';
+import SuperMathPage from './supermathpage';
 
-ReactDOM.render(<SMMainPage />, document.getElementById('supermath_app'));
+ReactDOM.render(<SuperMathPage />, document.getElementById('supermath_app'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

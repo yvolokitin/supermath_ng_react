@@ -14,16 +14,11 @@ export default function SMSection(props) {
     }));
 
     const classes = sectionStyles();
-    return (
-        <div className={classes.sectionContent}>
-          <Container maxWidth="sm" >
-            <Typography variant="h1" align="center" style={{fontFamily: "Grinched", fontVariant: "small-caps", color: "green" }} paragraph>
-              SuperMath 
-            </Typography>
-            <Typography variant="h4" align="center" style={{fontFamily: "Grinched", fontVariant: "small-caps", fontWeight: "bold", color: "grey" }} paragraph>
+    /*
+            <Typography variant="h4" align="center" style={{fontFamily: "Grinched", fontVariant: "small-caps", fontWeight: "bold", color: "green" }} paragraph>
               free web app, which helps kids, parents and teachers master basic math facts
             </Typography>
-          </Container>
-        </div>
+    */
+    return (
     );
 }

@@ -2,8 +2,7 @@
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import SMHeader from "./SMHeader";
-import SMSection from "./SMSection";
+import SMHeader from "./components/header/header";
 import SMAlbum from "./SMAlbum";
 import SMFooter from "./SMFooter";
 
@@ -38,13 +37,12 @@ import SMFooter from "./SMFooter";
             </React.Fragment>
           );}
 */
-export default class SMMainPage extends React.Component {
+export default class SuperMathPage extends React.Component {
     render() {
       return (
         <React.Fragment>
             <CssBaseline />
             <SMHeader />
-            <SMSection />
             <SMAlbum />
             <SMFooter text={"SuperMath.RU"}/>
         </React.Fragment>

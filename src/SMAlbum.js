@@ -65,7 +65,7 @@ export default class SMAlbum extends React.Component {
                       viewDialogTitleText: "",
                       viewDialogDescriptionText: "",
                       viewDialogImageUrl: "",
-                      gameOpen: true,
+                      gameOpen: false,
                       gameInfo: false};
         this.handleInfoOpen = this.handleInfoOpen.bind(this);
         this.handleInfoClose = this.handleInfoClose.bind(this);
@@ -92,8 +92,21 @@ export default class SMAlbum extends React.Component {
     }
 
     render() {
+        const section = {
+            width: '100%',
+            marginTop: '2%',
+            backgroundColor: 'white',
+            fontFamily: "Grinched",
+            fontVariant: "small-caps",
+            color: "green",
+        }
+
         return (
             <main>
+                <Typography variant="h1" align="center" style={section} paragraph>
+                    SuperMath 
+                </Typography>
+
                 <Container className={classes.grid} maxWidth="md">
                     <Grid container spacing={4}>
                         {cards.map(card => (

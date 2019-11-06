@@ -77,3 +77,4 @@ export default function SMDialogGameInfo(props) {
                     </Dialog>
     );
 }
+
