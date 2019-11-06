@@ -3,28 +3,6 @@ import {Dialog, DialogTitle, DialogContent, Paper, Typography, Grid} from '@mate
 
 import SMKeyBoard from "./SMKeyBoardDiv";
 
-/*
-                <Grid container direction="row" justify="center" alignItems="flex-start" component={Paper} spacing={3}>
-                    <Grid item xs>
-                        <Grid container direction="column" justify="space-around" alignItems="flex-end">
-                            <Grid item style={{ borderStyle: 'solid' }}>
-                                <Typography variant="h1" style={taskNumber}>2</Typography>
-                            </Grid>
-                            <Grid item style={{ borderStyle: 'solid' }}>
-                                <Typography variant="h1" style={taskNumber}>+ 2</Typography>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-
-                    <Grid item xs style={{ borderStyle: 'solid' }}>
-                        <SMKeyBoard />
-                    </Grid>
-                </Grid>
-
-            <DialogContent style={{ backgroundColor: 'yellow' }}>
-                QQQQQQQQQQQQQQQQ
-            </DialogContent>
-*/
 export default class SMDialogGamePlay extends React.Component {
     render() {
         const titleStyle = {
@@ -33,13 +11,19 @@ export default class SMDialogGamePlay extends React.Component {
         };
         const taskNumber = {
             fontFamily: "Grinched",
-            textDecoration: 'underline',
             color: "black",
+            textAlign: 'right',
         };
         const taskNumberUnderline = {
             fontFamily: "Grinched",
             textDecoration: 'underline',
             color: "black",
+            textAlign: 'right',
+        };
+        const taskQuestion = {
+            fontFamily: "Grinched",
+            color: "light grey",
+            textAlign: 'right',
         };
         const paperStyle = {
             height: '100%',
@@ -53,13 +37,13 @@ export default class SMDialogGamePlay extends React.Component {
         }
         const leftHalfDiv = {
             display: 'table-cell',
-            width: '60%',
+            width: '50%',
             verticalAlign: 'middle',
             float: 'right',
         }
         const rightHalfDiv = {
             display: 'table-cell',
-            width: '40%',
+            width: '50%',
             verticalAlign: 'middle',
         }
         const numberStyle = {
@@ -75,9 +59,9 @@ export default class SMDialogGamePlay extends React.Component {
                 <Paper>
                 <section style={container}>
                     <div style={leftHalfDiv}>
-                        <Typography variant="h1" className={taskNumber}>2</Typography>
-                        <Typography variant="h1" className={taskNumberUnderline}>+ 2</Typography>
-                        <Typography variant="h1" className={taskNumber}>?</Typography>
+                        <Typography variant="h1" style={taskNumber}>2</Typography>
+                        <Typography variant="h1" style={taskNumberUnderline}>+    2</Typography>
+                        <Typography variant="h1" style={taskQuestion}>?</Typography>
                     </div>
                     <div style={rightHalfDiv}>
                         <SMKeyBoard />

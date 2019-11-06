@@ -16,37 +16,6 @@ import {Menu, MenuItem} from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-const classes = makeStyles(theme => ({
-  root: {
-    height: '100vh',
-  },
-  image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    color: '#fff',
-//    backgroundColor: theme.palette.secondary.main,
-    backgroundColor: red[500],
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
-
 export default class SMHeader extends React.Component {
     constructor(props) {
         super(props);
@@ -73,8 +42,6 @@ export default class SMHeader extends React.Component {
     handleLoginClose() {this.setState({loginOpen: false});}
 
     render() {
-        // const classes = useStyles();
-
         return (
           <AppBar position="static">
             <Toolbar>
@@ -83,6 +50,10 @@ export default class SMHeader extends React.Component {
                 <Button variant="contained" color="primary" startIcon={<InfoOutlinedIcon />} onClick={(e) => this.handleInfoOpen(e)}>Info</Button>
 
                 <Button variant="contained" color="primary" startIcon={<HelpOutlineIcon />} onClick={(e) => this.handleHelpOpen(e)}>Help</Button>
+
+                <Button>
+                    <img src={require('./images/supermath.png')} alt='supermath'/>
+                </Button>
 
                 <Button variant="contained" color="primary" startIcon={<PersonOutlineIcon />} onClick={(e) => this.handleLoginOpen(e)}>Login</Button>
 
@@ -112,7 +83,7 @@ export default class SMHeader extends React.Component {
                             component="img"
                             alt="Use SuperMath as mathematical vitamins!"
                             height="140"
-                            src={require('./imgs/vitamins.jpg')}
+                            src={require('./images/vitamins.jpg')}
                             title="Use SuperMath as mathematical vitamins!"/>
                     </Card>
                     <Typography gutterBottom>
@@ -165,18 +136,18 @@ export default class SMHeader extends React.Component {
             </AutoRotatingCarousel>
 
             <Dialog onClose={this.handleLoginClose} fullWidth={true} open={this.state.loginOpen}>
-              <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}} className={classes.paper}>
-                <Avatar style={{margin: 10, width: 60, height: 60, backgroundColor: red[500] }} className={classes.avatar}><LockOutlinedIcon /></Avatar>
+              <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                <Avatar style={{margin: 10, width: 60, height: 60, backgroundColor: red[500] }}><LockOutlinedIcon /></Avatar>
                 <Typography component="h1" variant="h5">Sign In</Typography>
                 <DialogContent dividers>
-                    <form className={classes.form} noValidate>
+                    <form noValidate>
                         <TextField variant="outlined" margin="normal" required fullWidth id="email"
                                    label="Email Address" name="email" autoComplete="email" autoFocus/>
                         <TextField variant="outlined" margin="normal" required fullWidth id="password"
                                    label="Password" name="password" type="password" autoComplete="current-password"/>
                         <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me"/>
 
-                        <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>Sign In</Button>
+                        <Button type="submit" fullWidth variant="contained" color="primary">Sign In</Button>
                         <Grid container>
                           <Grid item xs>
                             <Link href="#" variant="body2">Forgot password?</Link>

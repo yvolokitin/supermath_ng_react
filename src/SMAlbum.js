@@ -2,15 +2,15 @@
 import {Typography, Container, Button} from '@material-ui/core';
 import {Grid, Card, CardActions, CardActionArea, CardContent, CardMedia} from '@material-ui/core';
 
-import logo1 from './imgs/ru_white_1.jpg';
-import logo2 from './imgs/ru_white_2.jpg';
-import logo3 from './imgs/ru_white_3.jpg';
-import logo4 from './imgs/ru_white_4.jpg';
-import logo5 from './imgs/ru_white_5.jpg';
-import logo6 from './imgs/ru_white_6.jpg';
-import logo7 from './imgs/ru_white_7.jpg';
-import logo8 from './imgs/ru_white_8.jpg';
-import logo9 from './imgs/ru_white_9.jpg';
+import logo1 from './images/ru_white_1.jpg';
+import logo2 from './images/ru_white_2.jpg';
+import logo3 from './images/ru_white_3.jpg';
+import logo4 from './images/ru_white_4.jpg';
+import logo5 from './images/ru_white_5.jpg';
+import logo6 from './images/ru_white_6.jpg';
+import logo7 from './images/ru_white_7.jpg';
+import logo8 from './images/ru_white_8.jpg';
+import logo9 from './images/ru_white_9.jpg';
 
 import classes from './index.css';
 
@@ -19,7 +19,7 @@ import SMDialogGamePlay from "./SMDialogGamePlay";
 
 const cards = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
-const imgs = [logo1, logo2, logo3, logo4, logo5, logo6, logo7, logo8, logo9];
+const images = [logo1, logo2, logo3, logo4, logo5, logo6, logo7, logo8, logo9];
 
 const titles = [
     "One-digit Comparision",
@@ -78,7 +78,7 @@ export default class SMAlbum extends React.Component {
         this.setState({infoOpen: true });
         this.setState({infoTitl: headers[card_id]});
         this.setState({infoText: desciptions[card_id]});
-        this.setState({infoIURL: imgs[card_id]});
+        this.setState({infoIURL: images[card_id]});
     }
     handleInfoClose() {
         this.setState({infoOpen: false});
@@ -100,11 +100,7 @@ export default class SMAlbum extends React.Component {
                             <Grid item key={card} xs={12} sm={6} md={4}>
                                 <Card className={classes.card}>
                                     <CardActionArea onClick={(e) => this.handleGameOpen(card)}>
-                                        <CardMedia
-                                            component="img"
-                                            alt="Media Card task"
-                                            height="140"
-                                            image={imgs[card]}/>
+                                        <CardMedia component="img" alt="Media Card task" height="140" image={images[card]}/>
                                         <CardContent className={classes.content}>
                                             <Typography gutterBottom variant="h5" component="h2">{titles[card]}</Typography>
                                             <Typography variant="body2" color="textSecondary" component="p">{headers[card]}</Typography>
