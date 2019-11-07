@@ -1,9 +1,9 @@
 ﻿import React from 'react';
-import {Dialog, DialogTitle, DialogContent, Paper, Typography, Grid} from '@material-ui/core';
+import {Dialog, DialogTitle, DialogContent, Paper, Typography} from '@material-ui/core';
 
-import SMKeyBoard from "./SMKeyBoardDiv";
+import SMKeyBoard from "./../keyboard/keyboard_div";
 
-export default class SMDialogGamePlay extends React.Component {
+export default class SMSimpleGame extends React.Component {
     render() {
         const titleStyle = {
             fontFamily: "Grinched",
@@ -67,6 +67,10 @@ export default class SMDialogGamePlay extends React.Component {
                         <SMKeyBoard />
                     </div>
                 </section>
+                </Paper>
+
+                <Paper>
+
                 </Paper>
 
             </DialogContent>

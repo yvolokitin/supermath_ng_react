@@ -48,7 +48,7 @@ const DialogActions = withStyles(theme => ({
   },
 }))(MuiDialogActions);
 
-export default function SMDialogGameInfo(props) {
+export default function SMDialogInfo(props) {
     return (
         <Dialog onClose={() => props.onClick()} aria-labelledby="customized-dialog-title" transitionDuration={500} open={props.open}>
                       <DialogTitle onClose={() => props.onClick()}>{props.title}</DialogTitle>
@@ -77,4 +77,3 @@ export default function SMDialogGameInfo(props) {
                     </Dialog>
     );
 }
-
