@@ -1,110 +1,39 @@
 ﻿import React from 'react';
-import {Grid, Paper, Button, Typography} from '@material-ui/core';
+import './keyboard.css';
 
-import { makeStyles } from '@material-ui/core/styles';
+/*
+        <button id="dot" onClick={this.props.onDecimal}>.</button>
+        <button id="clear" onClick={this.props.onClear}>Clear</button>
 
-const useStyles = makeStyles(theme => ({
-    control: {
-        padding: theme.spacing(2),
-    },
-    button: {
-        fontFamily: "Grinched",
-        color: "black",
-    }
-}));
-
-export default function SMKeyBoard(props) {
-    const classes = useStyles();
+        <button id="subtract" onClick={this.props.onOperator}> > </button>
+        <button id="equals" onClick={this.props.onOperator}>   = </button>
+        <button id="subtract" onClick={this.props.onOperator}> < </button>
+*/
+// export default function SMKeyBoard(props) {
+export default class SMKeyBoard extends React.Component {
+  render() {
     return (
-        <Grid container justify="center" component={Paper} spacing={3} style={{ backgroundColor: 'green' }}>
-            <Grid container item direction="row" justify="flex-start" alignItems="flex-start" style={{ backgroundColor: 'yellow' }}>
-                <Grid item>
-                    <Button>
-                        <Typography variant="h3" className={classes.button}>7</Typography>
-                    </Button>
-                </Grid>
-                <Grid item>
-                    <Button>
-                        <Typography variant="h3" className={classes.button}>8</Typography>
-                    </Button>
-                </Grid>
-                <Grid item>
-                    <Button>
-                        <Typography variant="h3" className={classes.button}>9</Typography>
-                    </Button>
-                </Grid>
-            </Grid>
+      <div className="keyboard">
+        <button id="seven" onClick={this.props.onDigit}>7</button>
+        <button id="eight" onClick={this.props.onDigit}>8</button>
+        <button id="nine" onClick={this.props.onDigit}>9</button>
 
-            <Grid container item direction="row" justify="flex-start" alignItems="flex-start">
-                <Grid item>
-                    <Button>
-                        <Typography variant="h3" className={classes.button}>4</Typography>
-                    </Button>
-                </Grid>
-                <Grid item>
-                    <Button>
-                        <Typography variant="h3" className={classes.button}>5</Typography>
-                    </Button>
-                </Grid>
-                <Grid item>
-                    <Button>
-                        <Typography variant="h3" className={classes.button}>6</Typography>
-                    </Button>
-                </Grid>
-            </Grid>
+        <button id="four" onClick={this.props.onDigit}>4</button>
+        <button id="five" onClick={this.props.onDigit}>5</button>
+        <button id="six" onClick={this.props.onDigit}>6</button>
 
-            <Grid container item direction="row" justify="flex-start" alignItems="flex-start">
-                <Grid item>
-                    <Button>
-                        <Typography variant="h3" className={classes.button}>1</Typography>
-                    </Button>
-                </Grid>
-                <Grid item>
-                    <Button>
-                        <Typography variant="h3" className={classes.button}>2</Typography>
-                    </Button>
-                </Grid>
-                <Grid item>
-                    <Button>
-                        <Typography variant="h3" className={classes.button}>3</Typography>
-                    </Button>
-                </Grid>
-            </Grid>
-            <Grid container item direction="row" justify="flex-start" alignItems="flex-start">
-                <Grid item>
-                    <Button>
-                        <Typography variant="h3" className={classes.button}>+</Typography>
-                    </Button>
-                </Grid>
-                <Grid item>
-                    <Button>
-                        <Typography variant="h3" className={classes.button}>0</Typography>
-                    </Button>
-                </Grid>
-                <Grid item>
-                    <Button>
-                        <Typography variant="h3" className={classes.button}>-</Typography>
-                    </Button>
-                </Grid>
-            </Grid>
+        <button id="one" onClick={this.props.onDigit}>1</button>
+        <button id="two" onClick={this.props.onDigit}>2</button>
+        <button id="three" onClick={this.props.onDigit}>3</button>
 
-            <Grid container item direction="row" justify="flex-start" alignItems="flex-start">
-                <Grid item>
-                    <Button>
-                        <Typography variant="h3" className={classes.button}>&gt;</Typography>
-                    </Button>
-                </Grid>
-                <Grid item>
-                    <Button>
-                        <Typography variant="h3" className={classes.button}>=</Typography>
-                    </Button>
-                </Grid>
-                <Grid item>
-                    <Button>
-                        <Typography variant="h3" className={classes.button}>&lt;</Typography>
-                    </Button>
-                </Grid>
-            </Grid>
-        </Grid>
+        <button id="subtract" onClick={this.props.onOperator}>-</button>
+        <button id="zero" onClick={this.props.onDigit}>0</button>
+        <button id="add" onClick={this.props.onOperator}>+</button>
+
+        <button id="more" onClick={this.props.onOperator}>&#62;</button>
+        <button id="equals" onClick={this.props.onOperator}>=</button>
+        <button id="less" onClick={this.props.onOperator}>&#60;</button>
+      </div>
     );
+  }
 }
