@@ -1,0 +1,79 @@
+﻿.wrapper {
+    height: 100%;
+    width: 100%;
+}
+
+.header_div {
+    height: 10%;
+    width: 100%;
+}
+.header_div_left {
+    height: 100%;
+    width: 49%;
+    padding: 1%;
+    float: left;
+    display: flex;
+    align-items: center;
+    font-family: "Grinched";
+    font-size: 1.75rem;
+    color: green;
+    border: 1px solid red;
+}
+.header_div_right {
+    height: 100%;
+    width: 49%;
+    float: right;
+    font-family: "Grinched";
+    font-size: 1.75rem;
+    color: orange;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid red;
+}
+
+.body_div {
+    height: 80%;
+    width: 100%;
+    border: 1px solid green;
+}
+.body_div_left {
+    height: 100%;
+    width: 49%;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid red;
+}
+.body_div_right {
+    height: 100%;
+    width: 49%;
+    float: right;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid red;
+}
+
+.gameplay {
+  min-height: 360px;
+  max-height: 360px;
+
+  min-width: 320px;
+  max-width: 320px;
+  border: 1px solid black;
+}
+
+.footer_div {
+    height: 10%;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid blue;
+}
