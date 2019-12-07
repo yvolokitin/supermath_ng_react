@@ -1,10 +1,9 @@
 ﻿.keyboard {
-  min-height: 330px;
-  max-height: 330px;
-
-  min-width: 320px;
-  max-width: 320px;
-  border: 1px solid black;
+    min-height: 330px;
+    max-height: 330px;
+    min-width: 320px;
+    max-width: 320px;
+    border: 1px solid black;
 }
 
 .keyboard button {
@@ -12,7 +11,7 @@
   -webkit-box-flex: 1;
   flex: 1 1 calc(25% - 0.5rem);
   width: 30%;
-  margin: 0.30rem;
+  margin: 0.33rem;
   font-size: 2.75rem;
   outline: none;
   border: 1px solid #c6c6c6;

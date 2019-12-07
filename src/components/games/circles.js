@@ -8,35 +8,41 @@ export default function SMCircles(props) {
     return (
         <>
             <svg height="100" width="100">
-                <circle cx="50" cy="50" r="17" stroke="black" stroke-width="1" fill="green" />
+                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill="green" />
             </svg>
-                        <svg height="100" width="100">
-                            <circle cx="50" cy="50" r="17" stroke="black" stroke-width="1" fill="green" />
-                        </svg>
-                        <svg height="100" width="100">
-                            <circle cx="50" cy="50" r="17" stroke="black" stroke-width="1" fill="green" />
-                        </svg>
-                        <svg height="100" width="100">
-                            <circle cx="50" cy="50" r="17" stroke="black" stroke-width="1" fill="green" />
-                        </svg>
-                        <svg height="100" width="100">
-                            <circle cx="50" cy="50" r="17" stroke="black" stroke-width="1" fill="green" />
-                        </svg>
-                        <svg height="100" width="100">
-                            <circle cx="50" cy="50" r="17" stroke="black" stroke-width="1" fill="green" />
-                        </svg>
-                        <svg height="100" width="100">
-                            <circle cx="50" cy="50" r="17" stroke="black" stroke-width="1" fill="orange" />
-                        </svg>
-                        <svg height="100" width="100">
-                            <circle cx="50" cy="50" r="17" stroke="black" stroke-width="1" fill="orange" />
-                        </svg>
-                        <svg height="100" width="100">
-                            <circle cx="50" cy="50" r="17" stroke="black" stroke-width="1" fill="red" />
-                        </svg>
-                        <svg height="100" width="100">
-                            <circle cx="50" cy="50" r="17" stroke="black" stroke-width="1" fill="red" />
-                        </svg>
+
+            <svg height="100" width="100">
+                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill="green" />
+            </svg>
+
+            <svg height="100" width="100">
+                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill="green" />
+            </svg>
+
+            <svg height="100" width="100">
+                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill="green" />
+            </svg>
+
+            <svg height="100" width="100">
+                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill="green" />
+            </svg>
+
+            <svg height="100" width="100">
+                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill="yellow" />
+            </svg>
+
+            <svg height="100" width="100">
+                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill="yellow" />
+            </svg>
+
+            <svg height="100" width="100">
+                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill="red" />
+            </svg>
+
+            <svg height="100" width="100">
+                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill="red" />
+            </svg>
+
         </>
     );
 }

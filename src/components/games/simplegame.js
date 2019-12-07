@@ -1,5 +1,7 @@
 ﻿import React from 'react';
-import {Dialog, DialogTitle, DialogContent, Paper, Typography} from '@material-ui/core';
+import {Dialog} from '@material-ui/core';
+
+import {generate_rnd_task} from "./../halpers/functions";
 
 import SMKeyBoard from "./../keyboard/keyboard";
 import SMCircles from "./circles";
@@ -11,22 +13,27 @@ export default class SMSimpleGame extends React.Component {
         super(props);
         this.onDigit = this.onDigit.bind(this);
         this.onOperator = this.onOperator.bind(this);
+
+        generate_rnd_task('+', '0,9');
+        // console.log(task);
     }
 
     onDigit({ target }) {
-        const digit = target.innerText;
+        // const digit = target.innerText;
     }
 
     onOperator({ target }) {
-        const operator = target.innerText;
+        // const operator = target.innerText;
     }
 
     /*
+            <Dialog onClose={() => this.props.onClick()} fullScreen={true} open={this.props.open}>
+
         https://about.phamvanlam.com/calculator/
     */
     render() {
         return (
-            <Dialog onClose={() => this.props.onClick()} fullScreen={true} open={'true'}>
+            <Dialog onClose={() => this.props.onClick()} fullScreen={true} open={true}>
                 <div className="wrapper">
                     <div className="header_div">
                         <div className="header_div_left">SUPERMATH</div>
@@ -35,8 +42,16 @@ export default class SMSimpleGame extends React.Component {
 
                     <div className="body_div">
                         <div className="body_div_left">
-                            <div className="gameplay">
-                                TBD...2+2=4
+                            <div className="gameboard">
+                                <div className="gameplay">
+                                    <div className="mo_task">2</div>
+                                    <div className="mo_task">+ 2</div>
+                                    <div className="black_line"> </div>
+                                    <div className="mo_task">4</div>
+                                </div>
+
+                                <div className="gamehalper">
+                                </div>
                             </div>
                         </div>
 
