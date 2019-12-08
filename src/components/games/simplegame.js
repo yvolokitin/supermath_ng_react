@@ -14,21 +14,35 @@ export default class SMSimpleGame extends React.Component {
         this.onDigit = this.onDigit.bind(this);
         this.onOperator = this.onOperator.bind(this);
 
-        generate_rnd_task('+', '0,9');
-        // console.log(task);
+        /*
+            {'number_1': num_1, 'number_2': num_2, 'operation': task_operation, 'result': res};
+        */
+        this.task = generate_rnd_task('+', '0,9');
+        console.log(this.task);
+
+        this.state = {result: '?',
+                      success: false};
     }
 
     onDigit({ target }) {
-        // const digit = target.innerText;
+        const digit = target.innerText;
+        console.log("onDigit " + digit + ", this.task.result " + this.task.result);
+        console.log(typeof digit);
+        console.log(typeof this.task.result);
+
+        if (this.task.result == digit) {
+            this.setState({result: digit});
+        }
     }
 
     onOperator({ target }) {
-        // const operator = target.innerText;
+        const operator = target.innerText;
+        console.log("onOperator " + operator);
+        // tbd...
     }
 
     /*
-            <Dialog onClose={() => this.props.onClick()} fullScreen={true} open={this.props.open}>
-
+        <Dialog onClose={() => this.props.onClick()} fullScreen={true} open={this.props.open}>
         https://about.phamvanlam.com/calculator/
     */
     render() {
@@ -44,10 +58,10 @@ export default class SMSimpleGame extends React.Component {
                         <div className="body_div_left">
                             <div className="gameboard">
                                 <div className="gameplay">
-                                    <div className="mo_task">2</div>
-                                    <div className="mo_task">+ 2</div>
+                                    <div className="mo_task">{this.task.number_1}</div>
+                                    <div className="mo_task">{this.task.operation}   {this.task.number_2}</div>
                                     <div className="black_line"> </div>
-                                    <div className="mo_task">4</div>
+                                    <div className="mo_task">{this.state.result}</div>
                                 </div>
 
                                 <div className="gamehalper">

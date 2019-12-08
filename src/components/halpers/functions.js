@@ -23,14 +23,15 @@ function get_rnd_int(int_min, int_max) {
     return Math.floor(Math.random() * (int_max - int_min + 1)) + int_min;
 }
 
-function generate_rnd_task(task_operation, range) {
+export function generate_rnd_task(task_operation, range) {
       var numbers = range.split(',');
       if (numbers.length < 2) {
           alert("RND generator error: wrong range numbers format '" + range + "'");
           return;
       }
 
-      var minum = parseInt(numbers[0]), maxum = parseInt(numbers[1]);
+      var minum = parseInt(numbers[0]);
+      var maxum = parseInt(numbers[1]);
       var factor_1 = '1', factor_2 = '1';
       if (numbers.length === 4) {
         if ((numbers[2].indexOf('=') !== -1) ||
@@ -154,4 +155,3 @@ function generate_rnd_task(task_operation, range) {
               'operation': task_operation,
               'result': res};
 }
-
