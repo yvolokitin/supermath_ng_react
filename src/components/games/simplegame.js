@@ -25,13 +25,24 @@ export default class SMSimpleGame extends React.Component {
     }
 
     onDigit({ target }) {
-        const digit = target.innerText;
+        const digit = parseInt(target.innerText);
         console.log("onDigit " + digit + ", this.task.result " + this.task.result);
-        console.log(typeof digit);
-        console.log(typeof this.task.result);
 
-        if (this.task.result == digit) {
-            this.setState({result: digit});
+        var task_completed = false;
+        if (this.task.result.toString().length === 1) {
+            console.log("tbd...");
+
+        } else if (this.task.result.toString().length === 2) {
+            console.log("tbd...");
+
+        } else if (this.task.result.toString().length === 3) {
+            console.log("tbd...");
+        }
+
+        if (task_completed === true) {
+            if (this.task.result === digit) {
+                this.setState({result: digit});
+            }
         }
     }
 
@@ -61,7 +72,7 @@ export default class SMSimpleGame extends React.Component {
                                     <div className="mo_task">{this.task.number_1}</div>
                                     <div className="mo_task">{this.task.operation}   {this.task.number_2}</div>
                                     <div className="black_line"> </div>
-                                    <div className="mo_task">{this.state.result}</div>
+                                    <div className="mo_result">{this.state.result}</div>
                                 </div>
 
                                 <div className="gamehalper">
