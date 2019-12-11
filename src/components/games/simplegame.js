@@ -18,31 +18,42 @@ export default class SMSimpleGame extends React.Component {
             {'number_1': num_1, 'number_2': num_2, 'operation': task_operation, 'result': res};
         */
         this.task = generate_rnd_task('+', '0,9');
-        console.log(this.task);
-
+        this.user_enter = '';
         this.state = {result: '?',
                       success: false};
     }
 
     onDigit({ target }) {
-        const digit = parseInt(target.innerText);
+        const digit = (target.innerText).toString();
         console.log("onDigit " + digit + ", this.task.result " + this.task.result);
+        // check_response(digit.toString());
 
-        var task_completed = false;
-        if (this.task.result.toString().length === 1) {
-            console.log("tbd...");
+        var expected_result = this.task.result.toString();
+        if (expected_result.length === 1) {
+            if (digit === expected_result) {
+                this.setState({result: digit});
+            } else {
+                this.setState({result: 'WRONG, ' + digit});
+            }
 
-        } else if (this.task.result.toString().length === 2) {
-            console.log("tbd...");
+        } else if (expected_result.length === 2) {
+            if (this.state.result === '?') {
+                if (expected_result.charAt(0).toString() === digit) {
+                    this.setState({result: digit});
+                } else {
+                    this.setState({result: 'WRONG, ' + digit});
+                }
+            } else if (this.state.result.length === 1) {
+                var current = this.state.result + digit;
+                if (current === expected_result) {
+                    this.setState({result: current});
+                } else {
+                    this.setState({result: 'WRONG, ' + current});
+                }
+            }
 
         } else if (this.task.result.toString().length === 3) {
             console.log("tbd...");
-        }
-
-        if (task_completed === true) {
-            if (this.task.result === digit) {
-                this.setState({result: digit});
-            }
         }
     }
 
