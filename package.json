@@ -12,6 +12,7 @@
     "material-ui-popup-state": "^1.4.1",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
+    "react-keyboard-event-handler": "^1.5.2",
     "react-scripts": "3.2.0",
     "react-swipeable-views": "^0.13.3",
     "react-touch-screen-keyboard": "^1.0.0",

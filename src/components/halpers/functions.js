@@ -23,28 +23,42 @@ function get_rnd_int(int_min, int_max) {
     return Math.floor(Math.random() * (int_max - int_min + 1)) + int_min;
 }
 
-export function generate_rnd_task(task_operation, range) {
-      var numbers = range.split(',');
-      if (numbers.length < 2) {
-          alert("RND generator error: wrong range numbers format '" + range + "'");
-          return;
-      }
+/*
+    usage example:
+        generate_rnd_task('+', '0,9')
+        generate_rnd_task('+-', '0,10')
+        generate_rnd_task('+-', '0,100')
+*/
+export function generate_rnd_task(operations, range) {
+    var numbers = range.split(',');
+    if (numbers.length < 2) {
+        alert("RND generator error: wrong range numbers format '" + range + "'");
+        return;
+    }
 
-      var minum = parseInt(numbers[0]);
-      var maxum = parseInt(numbers[1]);
-      var factor_1 = '1', factor_2 = '1';
-      if (numbers.length === 4) {
+    var operation = '';
+    if (operations.length === 1) {
+        operation = operations;
+    } else {
+        var array = operations.split('');
+        operation = array[get_rnd_int(0, array.length-1)];
+    }
+        
+    var minum = parseInt(numbers[0]);
+    var maxum = parseInt(numbers[1]);
+    var factor_1 = '1', factor_2 = '1';
+    if (numbers.length === 4) {
         if ((numbers[2].indexOf('=') !== -1) ||
             (numbers[3].indexOf('=') !== -1)) {
-          factor_1 = numbers[2]; factor_2 = numbers[3];
+            factor_1 = numbers[2]; factor_2 = numbers[3];
         } else {
-          factor_1 = numbers[2];
-          factor_2 = numbers[3];
+            factor_1 = numbers[2];
+            factor_2 = numbers[3];
         }
-      }
+    }
 
-      var num_1 = 0, num_2 = 0, res = 0;
-      switch (task_operation) {
+    var num_1 = 0, num_2 = 0, res = 0;
+    switch (operation) {
         case OPERATION_SUM:
             num_1 = parseInt(get_rnd_int(minum, maxum) * factor_1);
             num_2 = parseInt(get_rnd_int(minum, maxum) * factor_2);
@@ -52,7 +66,7 @@ export function generate_rnd_task(task_operation, range) {
         break;
 
         case OPERATION_SUB:
-            // if task_operation is '-' (minus), the first number should be
+            // if operation is '-' (minus), the first number should be
             // >= second, i.e. result should not be negative
             if (minum >= maxum) {
                 alert("RND generator error: wrong MAX and MIN ranges '" + range + "'");
@@ -135,23 +149,24 @@ export function generate_rnd_task(task_operation, range) {
         break;
 
         default:
-          alert("RND generator error: Unknown math task_operation '" + task_operation + "'");
+          alert("RND generator error: Unknown math operation '" + operation + "'");
           return;
       }
 
-      if ((task_operation === OPERATION_SUM) ||
-          (task_operation === OPERATION_SUB) ||
-          (task_operation === OPERATION_MUL) ||
-          (task_operation === OPERATION_DIV)) {
+/*
+      if ((operation === OPERATION_SUM) ||
+          (operation === OPERATION_SUB) ||
+          (operation === OPERATION_MUL) ||
+          (operation === OPERATION_DIV)) {
         // randomNumber is true => swap num_1 & num_2
         var randomNumber = Math.random() >= 0.5;
         if (randomNumber) {
             var tmp = num_1; num_1 = num_2; num_2 = tmp;
         }
       }
-
+*/
       return {'number_1': num_1,
               'number_2': num_2,
-              'operation': task_operation,
+              'operation': operation,
               'result': res};
 }
