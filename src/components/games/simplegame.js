@@ -66,7 +66,7 @@ export default class SMSimpleGame extends React.Component {
                            result: digit});
         }
         // generate new task and update
-        setTimeout(() => {this.proceed_with_next_task()}, 800);
+        setTimeout(() => {this.proceed_with_next_task()}, 600);
     }
 
     set_interim(digit) {
