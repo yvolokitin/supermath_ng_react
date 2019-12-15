@@ -1,0 +1,100 @@
+﻿.wrapper {
+    height: 100%;
+    width: 100%;
+}
+
+.header_div {
+    height: 10%;
+    width: 100%;
+}
+.header_div_left {
+    height: 100%;
+    width: 49%;
+    padding: 1%;
+    float: left;
+    display: flex;
+    align-items: center;
+    font-family: "Grinched";
+    font-size: 1.75rem;
+    color: green;
+}
+.header_div_right {
+    height: 100%;
+    width: 49%;
+    float: right;
+    font-family: "Grinched";
+    font-size: 1.75rem;
+    color: orange;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.body_div {
+    height: 80%;
+    width: 100%;
+}
+.body_div_left {
+    height: 100%;
+    width: 49%;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.body_div_right {
+    height: 100%;
+    width: 49%;
+    float: right;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gameboard {
+    min-height: 360px;
+    max-height: 360px;
+    width: 100%;
+    font-family: "Grinched";
+    font-size: 7rem;
+}
+.gameplay {
+    height: 100%;
+    width: 89%;
+    float: left;
+}
+.gamehalper {
+    height: 100%;
+    width: 10%;
+    float: right;
+}
+.mo_task {
+    width: 100%;
+    height: 20%;
+    float: right;
+    text-align: right;
+    line-height: 0.9;
+}
+.mo_result {
+    width: 100%;
+    height: 20%;
+    float: right;
+    text-align: right;
+    line-height: 1.2;
+}
+.black_line {
+    width: 35%;
+    height: 8px;
+    background-color: black;
+    border: 0 none;
+    float: right;
+    border-radius: 5px;
+}
+
+.footer_div {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
