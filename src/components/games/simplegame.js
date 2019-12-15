@@ -51,7 +51,7 @@ export default class SMSimpleGame extends React.Component {
                            attempt: this.state.attempt + 1});
         }
         // clear result value in 1.5 seconds
-        setTimeout(() => {this.setState({color: 'grey', result: '?'});}, 800);
+        setTimeout(() => {this.setState({color: 'grey', result: '?'});}, 600);
     }
 
     set_passed(digit) {
@@ -66,11 +66,7 @@ export default class SMSimpleGame extends React.Component {
                            result: digit});
         }
         // generate new task and update
-<<<<<<< HEAD
         setTimeout(() => {this.proceed_with_next_task()}, 600);
-=======
-        setTimeout(() => {this.proceed_with_next_task()}, 800);
->>>>>>> parent of 5ee5cc45... Updates
     }
 
     set_interim(digit) {
