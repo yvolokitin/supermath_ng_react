@@ -1,8 +1,6 @@
 ﻿import React from 'react';
 import {Dialog} from '@material-ui/core';
 
-import KeyboardEventHandler from 'react-keyboard-event-handler';
-
 import {generate_rnd_task} from "./../halpers/functions";
 
 import SMKeyBoard from "./../keyboard/keyboard";
@@ -16,6 +14,7 @@ import './simplegame.css';
 export default class SMSimpleGame extends React.Component {
     constructor(props) {
         super(props);
+
         this.onDigit = this.onDigit.bind(this);
         this.onOperator = this.onOperator.bind(this);
         this.onKeyboard = this.onKeyboard.bind(this);
@@ -31,10 +30,26 @@ export default class SMSimpleGame extends React.Component {
                       result: '?',
                       color: 'grey',
                       decoration: '',
+                      circle: 'white',
                       counter: 0,
                       passed: 0,
                       failed: 0,
                       attempt: 0};
+    }
+
+    onDigit({ target }) {
+        console.log("onDigit " + target.innerText);
+        this.check_response((target.innerText).toString());
+    }
+
+    onOperator({ target }) {
+        const operator = target.innerText;
+        console.log("onOperator " + operator);
+        // tbd...
+    }
+
+    onKeyboard({ key }) {
+        console.log("onKeyboard " + key);
     }
 
     set_failed(digit) {
@@ -42,11 +57,13 @@ export default class SMSimpleGame extends React.Component {
         if (this.state.attempt === 0) {
             this.setState({color: 'red',
                            result: digit,
+                           circle: 'red',
                            counter: this.state.counter + 1,
                            failed: this.state.failed + 1,
                            attempt: this.state.attempt + 1});
         } else {
             this.setState({color: 'red',
+                           circle: 'red',
                            result: digit,
                            attempt: this.state.attempt + 1});
         }
@@ -58,11 +75,13 @@ export default class SMSimpleGame extends React.Component {
         console.log("PASSED from " + this.state.attempt + " attempts");
         if (this.state.attempt === 0) {
             this.setState({color: 'green',
+                           circle: 'green',
                            result: digit,
                            counter: this.state.counter + 1,
                            passed: this.state.passed + 1});
         } else {
             this.setState({color: 'green',
+                           circle: 'yellow',
                            result: digit});
         }
         // generate new task and update
@@ -80,6 +99,7 @@ export default class SMSimpleGame extends React.Component {
                        operation: this.task.operation,
                        number_2: this.task.number_2,
                        color: 'grey',
+                       circle: 'white',
                        result: '?',
                        attempt: 0});
     }
@@ -114,21 +134,6 @@ export default class SMSimpleGame extends React.Component {
         }
     }
 
-    onDigit({ target }) {
-        console.log("onDigit " + target.innerText);
-        this.check_response((target.innerText).toString());
-    }
-
-    onOperator({ target }) {
-        const operator = target.innerText;
-        console.log("onOperator " + operator);
-        // tbd...
-    }
-
-    onKeyboard({ key }) {
-        console.log("onKeyboard " + key);
-    }
-
     /*
         <Dialog onClose={() => this.props.onClick()} fullScreen={true} open={this.props.open}>
         https://about.phamvanlam.com/calculator/
@@ -138,10 +143,11 @@ export default class SMSimpleGame extends React.Component {
                             <text style={{color: 'green'}}>{this.state.passed}</text> &nbsp; &#128515; &nbsp;
                             <text style={{color: 'red'}}>{this.state.failed}</text> &nbsp; &#128169;
 
+        <KeyboardEventHandler handleKeys={['all']} onKeyEvent={() => this.onKeyboard} />
     */
     render() {
         return (
-            <Dialog onClose={() => this.props.onClick()} fullScreen={true} open={true}>
+            <Dialog onClose={() => this.props.onClick()} fullScreen={true} open={true} onKeyDown={this.onKeyboard}>
                 <div className="wrapper">
                     <div className="header_div">
                         <div className="header_div_left">SUPERMATH</div>
@@ -161,20 +167,16 @@ export default class SMSimpleGame extends React.Component {
                                     <div className="black_line"> </div>
                                     <div className="mo_result" style={{color: this.state.color}}>{this.state.result}</div>
                                 </div>
-
-                                <div className="gamehalper">
-                                </div>
                             </div>
                         </div>
 
                         <div className="body_div_right">
-                            <KeyboardEventHandler handleKeys={['all']} onKeyEvent={(key, e) => console.log('QQQQQ' + key)} />
-                            <SMKeyBoard onDigit={this.onDigit} onOperator={this.onOperator} onKeyboard={this.onKeyboard}/>
+                            <SMKeyBoard onDigit={this.onDigit} onOperator={this.onOperator} />
                         </div>
                     </div>
 
                     <div className="footer_div">
-                        <SMCircles />
+                        <SMCircles color={this.state.circle}/>
                     </div>
                 </div>
             </Dialog>

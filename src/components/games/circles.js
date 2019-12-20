@@ -8,39 +8,39 @@ export default function SMCircles(props) {
     return (
         <>
             <svg height="100" width="100">
-                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill="green" />
+                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill={props.color} />
             </svg>
 
             <svg height="100" width="100">
-                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill="green" />
+                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill={props.color} />
             </svg>
 
             <svg height="100" width="100">
-                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill="green" />
+                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill={props.color} />
             </svg>
 
             <svg height="100" width="100">
-                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill="green" />
+                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill={props.color} />
             </svg>
 
             <svg height="100" width="100">
-                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill="green" />
+                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill={props.color} />
             </svg>
 
             <svg height="100" width="100">
-                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill="yellow" />
+                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill={props.color} />
             </svg>
 
             <svg height="100" width="100">
-                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill="yellow" />
+                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill={props.color} />
             </svg>
 
             <svg height="100" width="100">
-                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill="red" />
+                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill={props.color} />
             </svg>
 
             <svg height="100" width="100">
-                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill="red" />
+                <circle cx={50} cy={50} r={17} stroke="black" strokeWidth="1" fill={props.color} />
             </svg>
 
         </>
