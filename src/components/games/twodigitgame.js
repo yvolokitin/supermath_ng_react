@@ -1,19 +1,22 @@
 ﻿import React from 'react';
 import {Dialog} from '@material-ui/core';
 
-import {generate_rnd_task} from "./../halpers/functions";
+import {generate_2digit_task} from "./../halpers/functions";
 
 import SMKeyBoard from "./../keyboard/keyboard";
 import SMCircles from "./circles";
 
-import './simplegame.css';
+import './twodigitgame.css';
 
 /*
 
 */
-export default class SMSimpleGame extends React.Component {
+export default class TwoDigitGame extends React.Component {
     constructor(props) {
         super(props);
+
+        console.log("TwoDigitGame constructor called: " + props.task);
+        this.argv = {'o': props.task[0], 'r1': props.task[1], 'r2': props.task[2], 'f1': props.task[3], 'f2': props.task[4],};
 
         this.onDigit = this.onDigit.bind(this);
         this.onOperator = this.onOperator.bind(this);
@@ -22,7 +25,7 @@ export default class SMSimpleGame extends React.Component {
         /*
             {'number_1': num_1, 'number_2': num_2, 'operation': task_operation, 'result': res};
         */
-        this.task = generate_rnd_task('+-', '0,10');
+        this.task = generate_2digit_task(this.argv.o, this.argv.r1, this.argv.r2, this.argv.f1, this.argv.f2);
         this.user_enter = '';
         this.state = {number_1: this.task.number_1,
                       operation: this.task.operation,
@@ -44,12 +47,73 @@ export default class SMSimpleGame extends React.Component {
 
     onOperator({ target }) {
         const operator = target.innerText;
-        console.log("onOperator " + operator);
-        // tbd...
+        console.log("TBD, onOperator " + operator);
     }
 
     onKeyboard({ key }) {
         console.log("onKeyboard " + key);
+        var digit = '';
+        switch (key) {
+            case '0':
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
+                this.check_response(key);
+                break;
+
+            case '+':
+            case '-':
+            case '=':
+            case '>':
+            case '<':
+                console.log("TBD: check operator response");
+                break;
+
+            case 'Escape':
+                console.log("Escaping from Game");
+                this.props.onClick();
+                break;
+
+            default:
+                console.log("nothing to check");
+                break;
+        }
+    }
+
+    check_response(digit) {
+        var expected_result = this.task.result.toString();
+        if (expected_result.length === 1) {
+            if (digit === expected_result) {
+                this.set_passed(digit);
+            } else {
+                this.set_failed(digit);
+            }
+
+        } else if (expected_result.length === 2) {
+            if (this.state.result === '?') {
+                if (expected_result.charAt(0).toString() === digit) {
+                    this.set_interim(digit);
+                } else {
+                    this.set_failed(digit);
+                }
+            } else if (this.state.result.length === 1) {
+                var current = this.state.result + digit;
+                if (current === expected_result) {
+                    this.set_passed(current);
+                } else {
+                    this.set_failed(current);
+                }
+            }
+
+        } else if (this.task.result.toString().length === 3) {
+            console.log("tbd...not implemented yet.");
+        }
     }
 
     set_failed(digit) {
@@ -94,7 +158,8 @@ export default class SMSimpleGame extends React.Component {
     }
 
     proceed_with_next_task() {
-        this.task = generate_rnd_task('+-', '0,10');
+        console.log("proceed_with_next_task " + this.props.task);
+        this.task = generate_2digit_task(this.argv.o, this.argv.r1, this.argv.r2, this.argv.f1, this.argv.f2);
         this.setState({number_1: this.task.number_1,
                        operation: this.task.operation,
                        number_2: this.task.number_2,
@@ -102,36 +167,6 @@ export default class SMSimpleGame extends React.Component {
                        circle: 'white',
                        result: '?',
                        attempt: 0});
-    }
-
-    check_response(digit) {
-        var expected_result = this.task.result.toString();
-        if (expected_result.length === 1) {
-            if (digit === expected_result) {
-                this.set_passed(digit);
-            } else {
-                this.set_failed(digit);
-            }
-
-        } else if (expected_result.length === 2) {
-            if (this.state.result === '?') {
-                if (expected_result.charAt(0).toString() === digit) {
-                    this.set_interim(digit);
-                } else {
-                    this.set_failed(digit);
-                }
-            } else if (this.state.result.length === 1) {
-                var current = this.state.result + digit;
-                if (current === expected_result) {
-                    this.set_passed(current);
-                } else {
-                    this.set_failed(current);
-                }
-            }
-
-        } else if (this.task.result.toString().length === 3) {
-            console.log("tbd...not implemented yet.");
-        }
     }
 
     /*
@@ -142,12 +177,10 @@ export default class SMSimpleGame extends React.Component {
                             <text style={{color: 'black'}}>{this.state.counter}</text> &nbsp; &#128279; &nbsp;
                             <text style={{color: 'green'}}>{this.state.passed}</text> &nbsp; &#128515; &nbsp;
                             <text style={{color: 'red'}}>{this.state.failed}</text> &nbsp; &#128169;
-
-        <KeyboardEventHandler handleKeys={['all']} onKeyEvent={() => this.onKeyboard} />
     */
     render() {
         return (
-            <Dialog onClose={() => this.props.onClick()} fullScreen={true} open={true} onKeyDown={this.onKeyboard}>
+            <Dialog onClose={() => this.props.onClick()} fullScreen={true} onKeyDown={this.onKeyboard} open={this.props.open}>
                 <div className="wrapper">
                     <div className="header_div">
                         <div className="header_div_left">SUPERMATH</div>
