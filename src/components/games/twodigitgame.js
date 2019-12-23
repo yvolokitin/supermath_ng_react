@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import {Dialog} from '@material-ui/core';
 
-import {generate_2digit_task} from "./../halpers/functions";
+import {generate_2digit_task_from_array} from "./../halpers/functions";
 
 import SMKeyBoard from "./../keyboard/keyboard";
 import SMCircles from "./circles";
@@ -16,8 +16,6 @@ export default class TwoDigitGame extends React.Component {
         super(props);
 
         console.log("TwoDigitGame constructor called: " + props.task);
-        this.argv = {'o': props.task[0], 'r1': props.task[1], 'r2': props.task[2], 'f1': props.task[3], 'f2': props.task[4],};
-
         this.onDigit = this.onDigit.bind(this);
         this.onOperator = this.onOperator.bind(this);
         this.onKeyboard = this.onKeyboard.bind(this);
@@ -25,11 +23,9 @@ export default class TwoDigitGame extends React.Component {
         /*
             {'number_1': num_1, 'number_2': num_2, 'operation': task_operation, 'result': res};
         */
-        this.task = generate_2digit_task(this.argv.o, this.argv.r1, this.argv.r2, this.argv.f1, this.argv.f2);
-        this.user_enter = '';
-        this.state = {number_1: this.task.number_1,
-                      operation: this.task.operation,
-                      number_2: this.task.number_2,
+        this.state = {number_1: '0',
+                      operation: '?',
+                      number_2: '0',
                       result: '?',
                       color: 'grey',
                       decoration: '',
@@ -38,6 +34,30 @@ export default class TwoDigitGame extends React.Component {
                       passed: 0,
                       failed: 0,
                       attempt: 0};
+    }
+
+    componentDidMount() {
+        console.log("componentDidMount " + this.props);
+        this.task = generate_2digit_task_from_array(this.props.task);
+        this.setState({number_1: this.task.number_1,
+                       operation: this.task.operation,
+                       number_2: this.task.number_2,
+                       result: '?',
+                       color: 'grey',
+                       decoration: '',
+                       circle: 'white',
+                       counter: 0,
+                       passed: 0,
+                       failed: 0,
+                       attempt: 0});
+    }
+
+    componentDidUpdate(prevProps) {
+        // Typical usage (don't forget to compare props):
+        if (this.props.userID !== prevProps.userID) {
+            console.log("componentDidUpdate " + prevProps + ", this.props " + this.props);
+            this.fetchData(this.props.userID);
+        }
     }
 
     onDigit({ target }) {
@@ -52,7 +72,6 @@ export default class TwoDigitGame extends React.Component {
 
     onKeyboard({ key }) {
         console.log("onKeyboard " + key);
-        var digit = '';
         switch (key) {
             case '0':
             case '1':
@@ -111,7 +130,7 @@ export default class TwoDigitGame extends React.Component {
                 }
             }
 
-        } else if (this.task.result.toString().length === 3) {
+        } else if (this.state.result.toString().length === 3) {
             console.log("tbd...not implemented yet.");
         }
     }
@@ -159,7 +178,7 @@ export default class TwoDigitGame extends React.Component {
 
     proceed_with_next_task() {
         console.log("proceed_with_next_task " + this.props.task);
-        this.task = generate_2digit_task(this.argv.o, this.argv.r1, this.argv.r2, this.argv.f1, this.argv.f2);
+        this.task = generate_2digit_task_from_array(this.props.task);
         this.setState({number_1: this.task.number_1,
                        operation: this.task.operation,
                        number_2: this.task.number_2,

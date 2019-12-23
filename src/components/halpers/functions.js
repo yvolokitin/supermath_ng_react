@@ -34,6 +34,14 @@ function get_random_int(range) {
 }
 
 /*
+    usage: 
+*/
+export function generate_2digit_task_from_array(array) {
+    console.log("generate_2digit_task_from_array:: " + array);
+    return generate_2digit_task(array[0], array[1], array[2], array[3], array[4]);
+}
+
+/*
     usage example:
         generate_rnd_task('+', '0,9', '0,9', 1, 1) - sum of one figit numbers
         generate_rnd_task('+-', '0,10', '0,10', 10, 10) - sum/sub of tens
@@ -115,8 +123,16 @@ export function generate_2digit_task(operations, range_number_1, range_number_2,
           }
       }
 
-      return {'number_1': num_1,
-              'number_2': num_2,
-              'operation': operation,
-              'result': res};
+      var return_value = {'number_1': num_1,
+                          'number_2': num_2,
+                          'operation': operation,
+                          'result': res};
+
+      console.log("generate_2digit_task:: "
+                  + return_value.number_1
+                  + return_value.operation
+                  + return_value.number_2
+                  + "=" + return_value.result);
+
+      return return_value;
 }

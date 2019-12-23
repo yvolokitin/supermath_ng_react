@@ -3,15 +3,15 @@
 import {Typography, Container, Grid, Button} from '@material-ui/core';
 import {Card, CardActions, CardActionArea, CardContent, CardMedia} from '@material-ui/core';
 
-import logo1 from './../../images/ru_white_1.jpg';
+// import logo1 from './../../images/ru_white_1.jpg';
 import logo2 from './../../images/ru_white_2.jpg';
 import logo3 from './../../images/ru_white_3.jpg';
 import logo4 from './../../images/ru_white_4.jpg';
 import logo5 from './../../images/ru_white_5.jpg';
 import logo6 from './../../images/ru_white_6.jpg';
 import logo7 from './../../images/ru_white_7.jpg';
-import logo8 from './../../images/ru_white_8.jpg';
-import logo9 from './../../images/ru_white_9.jpg';
+// import logo8 from './../../images/ru_white_8.jpg';
+// import logo9 from './../../images/ru_white_9.jpg';
 
 import classes from './../../index.css';
 
@@ -22,7 +22,6 @@ const cards = [
     0,
     1,
     2,
-
     3,
     4,
     5,
