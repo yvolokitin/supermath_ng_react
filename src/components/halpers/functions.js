@@ -37,7 +37,7 @@ function get_random_int(range) {
     usage: 
 */
 export function generate_2digit_task_from_array(array) {
-    console.log("generate_2digit_task_from_array:: " + array);
+    // console.log("generate_2digit_task_from_array:: " + array);
     return generate_2digit_task(array[0], array[1], array[2], array[3], array[4]);
 }
 

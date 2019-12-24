@@ -14,8 +14,6 @@ import './twodigitgame.css';
 export default class TwoDigitGame extends React.Component {
     constructor(props) {
         super(props);
-
-        console.log("TwoDigitGame constructor called: " + props.task);
         this.onDigit = this.onDigit.bind(this);
         this.onOperator = this.onOperator.bind(this);
         this.onKeyboard = this.onKeyboard.bind(this);
@@ -37,31 +35,47 @@ export default class TwoDigitGame extends React.Component {
     }
 
     componentDidMount() {
-        console.log("componentDidMount " + this.props);
-        this.task = generate_2digit_task_from_array(this.props.task);
-        this.setState({number_1: this.task.number_1,
-                       operation: this.task.operation,
-                       number_2: this.task.number_2,
-                       result: '?',
-                       color: 'grey',
-                       decoration: '',
-                       circle: 'white',
-                       counter: 0,
-                       passed: 0,
-                       failed: 0,
-                       attempt: 0});
+        // console.log("componentDidMount " + this.props.task);
     }
 
     componentDidUpdate(prevProps) {
-        // Typical usage (don't forget to compare props):
-        if (this.props.userID !== prevProps.userID) {
-            console.log("componentDidUpdate " + prevProps + ", this.props " + this.props);
-            this.fetchData(this.props.userID);
+        // console.log("componentDidUpdate " + prevProps.task + ", this.props.task " + this.props.task + ", this.props.count " + this.props.count);
+        // Typical usage (don't forget to compare props), otherwise you get infinitive loop
+        if (this.props.task !== prevProps.task) {
+            this.task = generate_2digit_task_from_array(this.props.task);
+            this.setState({number_1: this.task.number_1,
+                           operation: this.task.operation,
+                           number_2: this.task.number_2,
+                           result: '?',
+                           color: 'grey',
+                           decoration: '',
+                           circle: 'white',
+                           counter: 0,
+                           passed: 0,
+                           failed: 0,
+                           attempt: 0});
+        }
+    }
+
+    proceed_with_next_task() {
+        console.log("proceed_with_next_task " + this.state.counter + ", " + this.props.count);
+        if (this.state.counter < this.props.count) {
+            this.task = generate_2digit_task_from_array(this.props.task);
+            this.setState({number_1: this.task.number_1,
+                           operation: this.task.operation,
+                           number_2: this.task.number_2,
+                           color: 'grey',
+                           circle: 'white',
+                           result: '?',
+                           attempt: 0});
+        } else {
+            console.log("Finishing Game");
+            this.props.onClick();
         }
     }
 
     onDigit({ target }) {
-        console.log("onDigit " + target.innerText);
+        // console.log("onDigit " + target.innerText);
         this.check_response((target.innerText).toString());
     }
 
@@ -71,7 +85,7 @@ export default class TwoDigitGame extends React.Component {
     }
 
     onKeyboard({ key }) {
-        console.log("onKeyboard " + key);
+        // console.log("onKeyboard " + key);
         switch (key) {
             case '0':
             case '1':
@@ -100,7 +114,7 @@ export default class TwoDigitGame extends React.Component {
                 break;
 
             default:
-                console.log("nothing to check");
+                // console.log("nothing to check");
                 break;
         }
     }
@@ -114,29 +128,37 @@ export default class TwoDigitGame extends React.Component {
                 this.set_failed(digit);
             }
 
-        } else if (expected_result.length === 2) {
+        } else if (expected_result.length > 1) {
             if (this.state.result === '?') {
                 if (expected_result.charAt(0).toString() === digit) {
                     this.set_interim(digit);
                 } else {
                     this.set_failed(digit);
                 }
-            } else if (this.state.result.length === 1) {
+            } else {
                 var current = this.state.result + digit;
                 if (current === expected_result) {
                     this.set_passed(current);
-                } else {
+                } else if (current.length === expected_result.length) {
                     this.set_failed(current);
+                } else {
+                    var position = this.state.result.length;
+                    var val = expected_result.charAt(position).toString();
+                    // console.log("val " + val + ", digit " + digit + ", position " + position);
+                    if (val === digit) {
+                        this.set_interim(current);
+                    } else {
+                        this.set_failed(current);
+                    }
                 }
             }
-
-        } else if (this.state.result.toString().length === 3) {
-            console.log("tbd...not implemented yet.");
+        } else {
+            alert("ERROR: Unknown check_response() statement " + digit);
         }
     }
 
     set_failed(digit) {
-        console.log("FAILED from " + this.state.attempt + " attempts");
+        // console.log("FAILED from " + this.state.attempt + " attempts");
         if (this.state.attempt === 0) {
             this.setState({color: 'red',
                            result: digit,
@@ -155,7 +177,7 @@ export default class TwoDigitGame extends React.Component {
     }
 
     set_passed(digit) {
-        console.log("PASSED from " + this.state.attempt + " attempts");
+        // console.log("PASSED from " + this.state.attempt + " attempts");
         if (this.state.attempt === 0) {
             this.setState({color: 'green',
                            circle: 'green',
@@ -174,18 +196,6 @@ export default class TwoDigitGame extends React.Component {
     set_interim(digit) {
         this.setState({color: 'black',
                        result: digit});
-    }
-
-    proceed_with_next_task() {
-        console.log("proceed_with_next_task " + this.props.task);
-        this.task = generate_2digit_task_from_array(this.props.task);
-        this.setState({number_1: this.task.number_1,
-                       operation: this.task.operation,
-                       number_2: this.task.number_2,
-                       color: 'grey',
-                       circle: 'white',
-                       result: '?',
-                       attempt: 0});
     }
 
     /*

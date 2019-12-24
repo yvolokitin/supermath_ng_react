@@ -4,11 +4,11 @@ import {DialogTitle, DialogContent, DialogActions, Typography, Dialog, Card, Car
 export default function SMAbout(props) {
     return (
         <Dialog onClose={() => props.onClick()} aria-labelledby="customized-dialog-title" transitionDuration={500} open={props.open}>
-            <DialogTitle onClose={() => props.onClick()}>
-                about SuperMath
+            <DialogTitle onClose={() => props.onClick()} style={{color: 'green', fontFamily: 'Grinched', fontSize: '2.5rem'}}>
+                About SuperMath
             </DialogTitle>
             <DialogContent dividers>
-                <Typography gutterBottom>
+                <Typography gutterBottom style={{color: 'orange', fontFamily: 'Grinched', fontSize: '2.0rem'}}>
                     Use SuperMath as mathematical vitamins!
                 </Typography>
 
