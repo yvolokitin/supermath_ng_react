@@ -55,8 +55,8 @@ var tasks = [
     ['+-', '0,10', '0,10', 1, 1],
 
     ['+-', '0,10', '0,10', 10, 10],
-    ['+-', '6,20', '6,20', 1, 1],
-    ['+-', '6,20', '10,100', 1, 1],
+    ['+-', '0,10', '10,20', 1, 1],
+    ['+-', '0,10', '10,100', 1, 1],
 
     ['+-', '0,100', '0,10', 10, 10],
     ['+-', '10,100', '10,100', 1, 1],
@@ -82,9 +82,9 @@ const headers = [
     "Tasks for Subtraction of one-digit numbers (from 0 to 10)",
     "Tasks for Addition and Subtraction of one-digit numbers (from 0 to 10)",
 
-    "Tasks for Addition and Subtraction of round tens from 10 to 100 (i.e. numbers like 10, 20, 30 ... 100)",
-    "Tasks for Addition and Subtraction of one- and two- digit numbers, basic level with more simple numbers",
-    "Tasks for Addition and Subtraction of two- and two- digit numbers, adnanced level",
+    "Tasks for Addition and Subtraction of round tens from 10 to 100 (i.e. numbers like 10, 20, ... 100)",
+    "Tasks for Addition and Subtraction of one- and two- digit numbers, Basic level",
+    "Tasks for Addition and Subtraction of two- and two- digit numbers, Adnanced level",
 
     "Addition and Subtraction of hunred and tens",
     "Tasks for Addition and Subtraction of two-digit numbers",
@@ -99,9 +99,9 @@ var desciptions = [
     // "Tasks for kids in age 3 - 6 years for Understanding of one of two mathematical operation: addition or subtraction. You will know both arguments (numbers), the result of an operation and have 10 seconds timeout to solve each task",
     // "Tasks for kids in age 3 - 6 years for Comparision of two-digit numbers (from 0 to 9), where you can to use only more (>), less (<) and equal (=) labels and have 10 seconds timeout to solve each task",
 
-    "Tasks for kids in age 3 - 6 years for Addition and Subtraction of round tens numbers from 10 to 100 (numbers 10, 20, 30 ... 100). You have 10 seconds timeout to solve each task",
-    "Tasks for kids in age 3 - 6 years for Addition and Subtraction of one- and two- digit numbers. Each number is random number in range from 6 to 20.",
-    "Tasks for kids in age 3 - 6 years for Addition and Subtraction of two-digit numbers. Each number is a random number in range from 10 to 100. The result of addition can be an two or three digit number, the result of subtraction is two or one digit number or zero",
+    "Tasks for kids in age 3 - 6 years for Addition and Subtraction of round tens numbers from 10 to 100 (numbers 10, 20, 30 ... 100). You have 10 seconds timeout to solve each task.",
+    "Tasks for kids in age 3 - 6 years for Addition and Subtraction of one- and two- digit numbers. Basic level, where one number is in range 0..10 and second one is in 10..20.",
+    "Tasks for kids in age 3 - 6 years for Addition and Subtraction of two-digit numbers. Advamced level, where one number is in range 0..10 and second one is in 10..100. The result of addition can be an two (for example 9+13=22) or three digit number (for example 9+99=108), the result of subtraction is two or one digit number or zero",
 
     "Tasks for kids in age 3 - 6 years for Addition and Subtraction of round hundred and tens numbers from 10 to 100 (numbers 10, 20, 30 ... 100, 110 .... 1000). You have 10 seconds timeout to solve each task",
     "Tasks for kids in age 3 - 6 years for Addition and Subtraction of two-digit numbers. Each number is a random number in range from 10 to 100. The result of addition can be an two or three digit number, the result of subtraction is two or one digit number or zero",
@@ -178,7 +178,7 @@ export default class SMBody extends React.Component {
 
                     <TwoDigitGame open={this.state.gameOpen}
                                   task={tasks[this.state.taskNumber]}
-                                  count={3}
+                                  count={50}
                                   onClick={() => this.setState({gameOpen: false})}/>
                 </Container>
           </main>
