@@ -109,14 +109,29 @@ export default class TwoDigitGame extends React.Component {
                 break;
 
             case 'Escape':
-                console.log("Escaping from Game");
-                this.props.onClick();
+                this.close_game();
                 break;
 
             default:
                 // console.log("nothing to check");
                 break;
         }
+    }
+
+    close_game() {
+        this.props.onClick();
+        this.setState({number_1: '',
+                           operation: '',
+                           number_2: '',
+                           result: '?',
+                           color: 'grey',
+                           decoration: '',
+                           circle: 'white',
+                           counter: 0,
+                           passed: 0,
+                           failed: 0,
+                           attempt: 0});
+        console.log("Game has been Interrapted !!!");
     }
 
     check_response(digit) {
@@ -212,7 +227,9 @@ export default class TwoDigitGame extends React.Component {
             <Dialog onClose={() => this.props.onClick()} fullScreen={true} onKeyDown={this.onKeyboard} open={this.props.open}>
                 <div className="wrapper">
                     <div className="header_div">
-                        <div className="header_div_left">SUPERMATH</div>
+                        <div className="header_div_left">
+                            SUPERMATH
+                        </div>
                         <div className="header_div_right">
                             <font style={{color: 'black'}}>{this.state.counter}</font> &nbsp; &#128279; &nbsp;
                             <font style={{color: 'green'}}>{this.state.passed}</font> &nbsp; &#128515; &nbsp;
