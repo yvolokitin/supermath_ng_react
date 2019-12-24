@@ -13,6 +13,8 @@ import logo7 from './../../images/white_7.jpg';
 import logo8 from './../../images/white_8.jpg';
 
 import logo9 from './../../images/white_9.jpg';
+import logo10 from './../../images/white_10.jpg';
+import logo11 from './../../images/white_11.jpg';
 
 import classes from './../../index.css';
 
@@ -42,9 +44,9 @@ const images = [
     logo7,
     logo8,
 
-    logo4,
-    logo4,
-    logo4,
+    logo9,
+    logo10,
+    logo11,
 ];
 
 var tasks = [
@@ -84,8 +86,8 @@ const headers = [
     "Tasks for Addition and Subtraction of one- and two- digit numbers, basic level with more simple numbers",
     "Tasks for Addition and Subtraction of two- and two- digit numbers, adnanced level",
 
-    "Addition and Subtraction of hunred and tens from 10 to 1000 (numbers 10 ... 100 ... 1000)",
-    "Tasks for Addition and Subtraction of two-digit numbers (from 0 to 9) for Masters",
+    "Addition and Subtraction of hunred and tens",
+    "Tasks for Addition and Subtraction of two-digit numbers",
     "Tasks for Multiplcation of one-digit numbers (from 0 to 10)",
 ];
 
