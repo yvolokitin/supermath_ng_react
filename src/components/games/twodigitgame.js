@@ -1,6 +1,9 @@
 ﻿import React from 'react';
 import {Dialog} from '@material-ui/core';
 
+// import { useAlert, transitions, positions, Provider as AlertProvider } from 'react-alert'
+// import AlertTemplate from 'react-alert-template-basic'
+
 import {generate_2digit_task_from_array} from "./../halpers/functions";
 
 import SMKeyBoard from "./../keyboard/keyboard";
@@ -20,10 +23,13 @@ export default class TwoDigitGame extends React.Component {
 
         /*
             {'number_1': num_1, 'number_2': num_2, 'operation': task_operation, 'result': res};
+            for very first run, default program is ['+', '0,10', '0,10', 1, 1]
+            so, we have to initialize initial state to proper output if user will select that program
         */
-        this.state = {number_1: '0',
-                      operation: '?',
-                      number_2: '0',
+        this.task = generate_2digit_task_from_array(this.props.task);
+        this.state = {number_1: this.task.number_1,
+                      operation: this.task.operation,
+                      number_2: this.task.number_2,
                       result: '?',
                       color: 'grey',
                       decoration: '',
@@ -41,20 +47,22 @@ export default class TwoDigitGame extends React.Component {
     componentDidUpdate(prevProps) {
         // console.log("componentDidUpdate " + prevProps.task + ", this.props.task " + this.props.task + ", this.props.count " + this.props.count);
         // Typical usage (don't forget to compare props), otherwise you get infinitive loop
-        if (this.props.task !== prevProps.task) {
-            this.task = generate_2digit_task_from_array(this.props.task);
-            this.setState({number_1: this.task.number_1,
-                           operation: this.task.operation,
-                           number_2: this.task.number_2,
-                           result: '?',
-                           color: 'grey',
-                           decoration: '',
-                           circle: 'white',
-                           counter: 0,
-                           passed: 0,
-                           failed: 0,
-                           attempt: 0});
-        }
+        if (this.props.task !== prevProps.task) { this.set_task(); }
+    }
+
+    set_task() {
+        this.task = generate_2digit_task_from_array(this.props.task);
+        this.setState({number_1: this.task.number_1,
+                       operation: this.task.operation,
+                       number_2: this.task.number_2,
+                       result: '?',
+                       color: 'grey',
+                       decoration: '',
+                       circle: 'white',
+                       counter: 0,
+                       passed: 0,
+                       failed: 0,
+                       attempt: 0});
     }
 
     proceed_with_next_task() {
@@ -70,8 +78,14 @@ export default class TwoDigitGame extends React.Component {
                            attempt: 0});
         } else {
             console.log("Finishing Game");
-            this.props.onClick();
+            this.props.onClick("finished");
         }
+    }
+
+    close_game() {
+        this.props.onClick("interrapted");
+        this.set_task();
+        console.log("Game has been Interrapted !!!");
     }
 
     onDigit({ target }) {
@@ -116,22 +130,6 @@ export default class TwoDigitGame extends React.Component {
                 // console.log("nothing to check");
                 break;
         }
-    }
-
-    close_game() {
-        this.props.onClick();
-        this.setState({number_1: '',
-                           operation: '',
-                           number_2: '',
-                           result: '?',
-                           color: 'grey',
-                           decoration: '',
-                           circle: 'white',
-                           counter: 0,
-                           passed: 0,
-                           failed: 0,
-                           attempt: 0});
-        console.log("Game has been Interrapted !!!");
     }
 
     check_response(digit) {
@@ -187,6 +185,7 @@ export default class TwoDigitGame extends React.Component {
                            result: digit,
                            attempt: this.state.attempt + 1});
         }
+
         // clear result value in 1.5 seconds
         setTimeout(() => {this.setState({color: 'grey', result: '?'});}, 600);
     }
@@ -224,10 +223,10 @@ export default class TwoDigitGame extends React.Component {
     */
     render() {
         return (
-            <Dialog onClose={() => this.props.onClick()} fullScreen={true} onKeyDown={this.onKeyboard} open={this.props.open}>
+            <Dialog onClose={() => this.props.onClick("onClose")} fullScreen={true} onKeyDown={this.onKeyboard} open={this.props.open}>
                 <div className="wrapper">
                     <div className="header_div">
-                        <div className="header_div_left">
+                        <div className="header_div_left" onClick={() => this.props.onClick("interrapted")}>
                             SUPERMATH
                         </div>
                         <div className="header_div_right">

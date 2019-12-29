@@ -20,6 +20,7 @@ import classes from './../../index.css';
 
 import SMDialogInfo from "./info";
 import TwoDigitGame from "./../games/twodigitgame";
+import GameResults from "./../games/gameresults";
 
 const cards = [
     0,
@@ -118,19 +119,42 @@ export default class SMBody extends React.Component {
                       viewDialogImageUrl: '',
                       gameOpen: false,
                       gameInfo: false,
+                      gameRslt: false,
                       taskNumber: 0};
-        this.handleInfoOpen = this.handleInfoOpen.bind(this);
-        this.handleGameOpen = this.handleGameOpen.bind(this);
+        this.onInfoOpen = this.onInfoOpen.bind(this);
+
+        this.onGameOpen = this.onGameOpen.bind(this);
+        this.onGameClose = this.onGameClose.bind(this);
+
+        this.onResultsClose = this.onResultsClose.bind(this);
     }
-    handleInfoOpen(card_id) {
+
+    onInfoOpen(card_id) {
         this.setState({infoOpen: true,
                        infoTitle: headers[card_id],
                        infoText: desciptions[card_id],
                        infoIURL: images[card_id]});
     }
-    handleGameOpen(task_id) {
+
+    onGameOpen(task_id) {
         this.setState({gameOpen: true,
                        taskNumber: task_id});
+    }
+
+    onGameClose(status) {
+        console.log("onGameClose:: " + status);
+        if (status === "finished") {
+            this.setState({gameOpen: false,
+                           gameRslt: true});
+        } else {
+            this.setState({gameOpen: false,
+                           gameRslt: false});
+        }
+    }
+
+    onResultsClose() {
+        console.log("onResultsClose called");
+        this.setState({gameRslt: false});
     }
 
     render() {
@@ -154,7 +178,7 @@ export default class SMBody extends React.Component {
                         {cards.map(card => (
                             <Grid item key={card} xs={12} sm={6} md={4}>
                                 <Card className={classes.card}>
-                                    <CardActionArea onClick={(e) => this.handleGameOpen(card)}>
+                                    <CardActionArea onClick={(e) => this.onGameOpen(card)}>
                                         <CardMedia component="img" alt="Media Card task" height="140" image={images[card]}/>
                                         <CardContent className={classes.content}>
                                             <Typography gutterBottom variant="h5" component="h2">{titles[card]}</Typography>
@@ -162,8 +186,8 @@ export default class SMBody extends React.Component {
                                         </CardContent>
                                     </CardActionArea>    
                                     <CardActions>
-                                        <Button size="small" color="primary" onClick={(e) => this.handleInfoOpen(card)}>View Task Details</Button>
-                                        <Button size="small" color="primary" onClick={(e) => this.handleGameOpen(card)}>Play</Button>
+                                        <Button size="small" color="primary" onClick={(e) => this.onInfoOpen(card)}>View Task Details</Button>
+                                        <Button size="small" color="primary" onClick={(e) => this.onGameOpen(card)}>Play</Button>
                                     </CardActions>
                                 </Card>
                             </Grid>
@@ -178,8 +202,11 @@ export default class SMBody extends React.Component {
 
                     <TwoDigitGame open={this.state.gameOpen}
                                   task={tasks[this.state.taskNumber]}
-                                  count={50}
-                                  onClick={() => this.setState({gameOpen: false})}/>
+                                  count={2}
+                                  onClick={this.onGameClose}/>
+
+                    <GameResults open={this.state.gameRslt}
+                                  onClick={this.onResultsClose}/>
                 </Container>
           </main>
         );
