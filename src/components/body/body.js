@@ -120,6 +120,9 @@ export default class SMBody extends React.Component {
                       gameOpen: false,
                       gameInfo: false,
                       gameRslt: false,
+                      percent: 0,
+                      passed: 0,
+                      failed: 0,
                       taskNumber: 0};
         this.onInfoOpen = this.onInfoOpen.bind(this);
 
@@ -141,20 +144,32 @@ export default class SMBody extends React.Component {
                        taskNumber: task_id});
     }
 
-    onGameClose(status) {
+    onGameClose(status, details) {
         console.log("onGameClose:: " + status);
         if (status === "finished") {
+            var percent_passed = 100 * details.passed / details.counter;
             this.setState({gameOpen: false,
-                           gameRslt: true});
+                           gameRslt: true,
+                           passed: details.passed,
+                           failed: details.failed,
+                           percent: percent_passed});
         } else {
             this.setState({gameOpen: false,
                            gameRslt: false});
         }
     }
 
-    onResultsClose() {
-        console.log("onResultsClose called");
-        this.setState({gameRslt: false});
+    onResultsClose(status) {
+        if (status === 'close') {
+            this.setState({gameRslt: false});
+
+        } else if (status === 'replay') {
+            this.setState({gameRslt: false,
+                           gameOpen: true});
+
+        } else {
+            console.log("onResultsClose called");
+        }
     }
 
     render() {
@@ -202,11 +217,14 @@ export default class SMBody extends React.Component {
 
                     <TwoDigitGame open={this.state.gameOpen}
                                   task={tasks[this.state.taskNumber]}
-                                  count={2}
+                                  count={50}
                                   onClick={this.onGameClose}/>
 
                     <GameResults open={this.state.gameRslt}
-                                  onClick={this.onResultsClose}/>
+                                 percent={this.state.percent}
+                                 passed={this.state.passed}
+                                 failed={this.state.failed}
+                                 onClick={this.onResultsClose}/>
                 </Container>
           </main>
         );

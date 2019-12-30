@@ -32,7 +32,6 @@ export default class TwoDigitGame extends React.Component {
                       number_2: this.task.number_2,
                       result: '?',
                       color: 'grey',
-                      decoration: '',
                       circle: 'white',
                       counter: 0,
                       passed: 0,
@@ -57,7 +56,6 @@ export default class TwoDigitGame extends React.Component {
                        number_2: this.task.number_2,
                        result: '?',
                        color: 'grey',
-                       decoration: '',
                        circle: 'white',
                        counter: 0,
                        passed: 0,
@@ -66,9 +64,10 @@ export default class TwoDigitGame extends React.Component {
     }
 
     proceed_with_next_task() {
-        console.log("proceed_with_next_task " + this.state.counter + ", " + this.props.count);
+        // console.log("proceed_with_next_task " + this.state.counter + ", " + this.props.count);
+        this.task = generate_2digit_task_from_array(this.props.task);
+
         if (this.state.counter < this.props.count) {
-            this.task = generate_2digit_task_from_array(this.props.task);
             this.setState({number_1: this.task.number_1,
                            operation: this.task.operation,
                            number_2: this.task.number_2,
@@ -77,8 +76,10 @@ export default class TwoDigitGame extends React.Component {
                            result: '?',
                            attempt: 0});
         } else {
-            console.log("Finishing Game");
-            this.props.onClick("finished");
+            console.log("Game is Finished");
+            this.props.onClick("finished", this.state);
+            // in case of replay, we have to be able to restart game
+            this.set_task();
         }
     }
 
@@ -213,9 +214,6 @@ export default class TwoDigitGame extends React.Component {
     }
 
     /*
-        <Dialog onClose={() => this.props.onClick()} fullScreen={true} open={this.props.open}>
-        https://about.phamvanlam.com/calculator/
-
         Warning: The tag <text> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
                             <text style={{color: 'black'}}>{this.state.counter}</text> &nbsp; &#128279; &nbsp;
                             <text style={{color: 'green'}}>{this.state.passed}</text> &nbsp; &#128515; &nbsp;
