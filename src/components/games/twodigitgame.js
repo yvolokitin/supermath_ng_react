@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import {Dialog} from '@material-ui/core';
 
 // import { useAlert, transitions, positions, Provider as AlertProvider } from 'react-alert'
@@ -6,8 +6,10 @@ import {Dialog} from '@material-ui/core';
 
 import {generate_2digit_task_from_array} from "./../halpers/functions";
 
-import SMKeyBoard from "./../keyboard/keyboard";
+import GameResults from "./gameresults";
+
 import SMCircles from "./circles";
+import SMKeyBoard from "./../keyboard/keyboard";
 
 import './twodigitgame.css';
 
@@ -36,7 +38,11 @@ export default class TwoDigitGame extends React.Component {
                       counter: 0,
                       passed: 0,
                       failed: 0,
-                      attempt: 0};
+                      attempt: 0,
+                      show_results: false};
+
+        // array to store all user tasks
+        this.results =[];
     }
 
     componentDidMount() {
@@ -64,9 +70,16 @@ export default class TwoDigitGame extends React.Component {
     }
 
     proceed_with_next_task() {
+        var to_add = {number_1: this.task.number_1,
+                      number_2: this.task.number_2,
+                      operation: this.task.operation,
+                      result: this.task.result,
+                      passed: this.task.result,
+                      attempt: this.task.attempt};
+        this.results.push(to_add);
+
         // console.log("proceed_with_next_task " + this.state.counter + ", " + this.props.count);
         this.task = generate_2digit_task_from_array(this.props.task);
-
         if (this.state.counter < this.props.count) {
             this.setState({number_1: this.task.number_1,
                            operation: this.task.operation,
@@ -77,6 +90,7 @@ export default class TwoDigitGame extends React.Component {
                            attempt: 0});
         } else {
             console.log("Game is Finished");
+            this.results = [];
             this.props.onClick("finished", this.state);
             // in case of replay, we have to be able to restart game
             this.set_task();
@@ -85,6 +99,7 @@ export default class TwoDigitGame extends React.Component {
 
     close_game() {
         this.props.onClick("interrapted");
+        this.results = [];
         this.set_task();
         console.log("Game has been Interrapted !!!");
     }
@@ -255,6 +270,10 @@ export default class TwoDigitGame extends React.Component {
                         <SMCircles color={this.state.circle}/>
                     </div>
                 </div>
+
+                <GameResults open={this.state.show_results} percent={this.state.percent}
+                             passed={this.state.passed} failed={this.state.failed}
+                             onClick={this.onResultsClose}/>
             </Dialog>
         );
     }
