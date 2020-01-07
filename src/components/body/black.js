@@ -15,14 +15,7 @@ import SMDialogInfo from "./info";
 // cards.length = 9
 const cards = [0, 1, 2, 3, 4, 5];
 const images = [logo, logo, logo, logo, logo, logo];
-var tasks = [
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-];
+// var tasks = [[], [], [], [], [], [], ];
 const headers = [
     "Sorry, task is still under implemenatation",
     "Sorry, task is still under implemenatation",
