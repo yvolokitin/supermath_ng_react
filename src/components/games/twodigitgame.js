@@ -23,6 +23,8 @@ export default class TwoDigitGame extends React.Component {
         this.onOperator = this.onOperator.bind(this);
         this.onKeyboard = this.onKeyboard.bind(this);
 
+        this.onResultsClose = this.onResultsClose.bind(this);
+
         /*
             {'number_1': num_1, 'number_2': num_2, 'operation': task_operation, 'result': res};
             for very first run, default program is ['+', '0,10', '0,10', 1, 1]
@@ -39,7 +41,8 @@ export default class TwoDigitGame extends React.Component {
                       passed: 0,
                       failed: 0,
                       attempt: 0,
-                      show_results: false};
+                      show_results: false,
+                      user_results: []};
 
         // array to store all user tasks
         this.results =[];
@@ -55,6 +58,18 @@ export default class TwoDigitGame extends React.Component {
         if (this.props.task !== prevProps.task) { this.set_task(); }
     }
 
+    onResultsClose(status) {
+        console.log("onResultsClose, status " + status);
+        this.results = [];
+
+        if (status === 'close') {
+            this.props.onClick("finished", this.state);
+        }
+
+        // in case of replay, we have to be able to restart game
+        this.set_task();
+    }
+
     set_task() {
         this.task = generate_2digit_task_from_array(this.props.task);
         this.setState({number_1: this.task.number_1,
@@ -66,15 +81,17 @@ export default class TwoDigitGame extends React.Component {
                        counter: 0,
                        passed: 0,
                        failed: 0,
-                       attempt: 0});
+                       attempt: 0,
+                       show_results: false,
+                       user_results: []});
     }
 
     proceed_with_next_task() {
+        // save user task results
         var to_add = {number_1: this.task.number_1,
                       number_2: this.task.number_2,
                       operation: this.task.operation,
                       result: this.task.result,
-                      passed: this.task.result,
                       attempt: this.task.attempt};
         this.results.push(to_add);
 
@@ -90,10 +107,11 @@ export default class TwoDigitGame extends React.Component {
                            attempt: 0});
         } else {
             console.log("Game is Finished");
-            this.results = [];
-            this.props.onClick("finished", this.state);
-            // in case of replay, we have to be able to restart game
-            this.set_task();
+            this.setState({show_results: true,
+                           user_results: this.results,
+                           passed: this.state.passed,
+                           failed: this.state.failed,
+                           counter: this.state.counter});
         }
     }
 
@@ -236,7 +254,7 @@ export default class TwoDigitGame extends React.Component {
     */
     render() {
         return (
-            <Dialog onClose={() => this.props.onClick("onClose")} fullScreen={true} onKeyDown={this.onKeyboard} open={this.props.open}>
+            <Dialog onClose={() => this.props.onClick()} fullScreen={true} onKeyDown={this.onKeyboard} open={this.props.open}>
                 <div className="wrapper">
                     <div className="header_div">
                         <div className="header_div_left" onClick={() => this.props.onClick("interrapted")}>
@@ -271,8 +289,8 @@ export default class TwoDigitGame extends React.Component {
                     </div>
                 </div>
 
-                <GameResults open={this.state.show_results} percent={this.state.percent}
-                             passed={this.state.passed} failed={this.state.failed}
+                <GameResults open={this.state.show_results} user_results={this.state.user_results}
+                             passed={this.state.passed} failed={this.state.failed} counter={this.state.counter}
                              onClick={this.onResultsClose}/>
             </Dialog>
         );

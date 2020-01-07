@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import White from "./white";
 import Orange from "./orange";
+import Black from "./black";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -71,7 +72,7 @@ export default function SMBody() {
                 <TabPanel style={{backgroundColor:'orange'}} value={value} index={1}> <Orange /> </TabPanel>
                 <TabPanel style={{backgroundColor:'green'}} value={value} index={2}> Green, TBD </TabPanel>
                 <TabPanel style={{backgroundColor:'blue',}} value={value} index={3}> Blue, TBD </TabPanel>
-                <TabPanel style={{backgroundColor:'black'}} value={value} index={4}> Black, TBD </TabPanel>
+                <TabPanel style={{backgroundColor:'black'}} value={value} index={4}> <Black /> </TabPanel>
             </div>
         </main>
     );

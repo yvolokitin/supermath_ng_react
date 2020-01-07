@@ -108,17 +108,11 @@ export default class White extends React.Component {
                       viewDialogImageUrl: '',
                       gameOpen: false,
                       gameInfo: false,
-                      gameRslt: false,
-                      percent: 0,
-                      passed: 0,
-                      failed: 0,
                       taskNumber: 0};
         this.onInfoOpen = this.onInfoOpen.bind(this);
 
         this.onGameOpen = this.onGameOpen.bind(this);
         this.onGameClose = this.onGameClose.bind(this);
-
-        this.onResultsClose = this.onResultsClose.bind(this);
     }
 
     onInfoOpen(card_id) {
@@ -133,32 +127,9 @@ export default class White extends React.Component {
                        taskNumber: task_id});
     }
 
-    onGameClose(status, details) {
-        console.log("onGameClose:: " + status);
-        if (status === "finished") {
-            var percent_passed = 100 * details.passed / details.counter;
-            this.setState({gameOpen: false,
-                           gameRslt: true,
-                           passed: details.passed,
-                           failed: details.failed,
-                           percent: percent_passed});
-        } else {
-            this.setState({gameOpen: false,
-                           gameRslt: false});
-        }
-    }
-
-    onResultsClose(status) {
-        if (status === 'close') {
-            this.setState({gameRslt: false});
-
-        } else if (status === 'replay') {
-            this.setState({gameRslt: false,
-                           gameOpen: true});
-
-        } else {
-            console.log("onResultsClose called");
-        }
+    onGameClose() {
+        console.log("onGameClose called");
+        this.setState({gameOpen: false});
     }
 
     render() {
@@ -193,7 +164,7 @@ export default class White extends React.Component {
 
                     <TwoDigitGame open={this.state.gameOpen}
                                   task={tasks[this.state.taskNumber]}
-                                  count={50}
+                                  count={2}
                                   onClick={this.onGameClose}/>
 
                 </Container>
