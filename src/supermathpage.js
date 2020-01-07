@@ -1,5 +1,4 @@
 ﻿import React from 'react';
-
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import SMHeader from "./components/header/header";
@@ -38,7 +37,7 @@ export default class SuperMathPage extends React.Component {
                 <CssBaseline />
                 <SMHeader />
                 <SMBody />
-                <SMFooter text={"SuperMath.RU"}/>
+                <SMFooter text={"SuperMath"}/>
             </React.Fragment>
         );}
 }

@@ -8,9 +8,28 @@ import './twodigitgame.css';
 import SMRadialChart from "./../charts/smradialchart";
 
 export default class GameResults extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {percent: 0};
+    }
+
+    componentDidMount() {
+        // console.log("componentDidMount " + this.props.task);
+    }
+
+    componentDidUpdate(prevProps) {
+        // console.log("componentDidUpdate " + prevProps.task + ", this.props.task " + this.props.task + ", this.props.count " + this.props.count);
+        // Typical usage (don't forget to compare props), otherwise you get infinitive loop
+        if (this.props.user_results !== prevProps.user_results) {
+            console.log('user_results ' + this.props.user_results.length);
+            var percent_passed = 100 * this.props.passed / this.props.counter;
+            this.setState({percent: percent_passed});
+        }
+    }
+
     render() {
         return (
-            <Dialog onClose={() => this.props.onClick()} open={this.props.open} transitionDuration={500} fullWidth={true} maxWidth={false}>
+            <Dialog onClose={() => this.props.onClick('close')} open={this.props.open} transitionDuration={500} fullWidth={true} maxWidth={false}>
                 <DialogTitle>
                     <Typography style={{color: '#0000cc', fontFamily: 'Grinched', fontSize: '3.0rem', textAlign:'center'}}>
                         SUPERMATH
@@ -23,7 +42,7 @@ export default class GameResults extends React.Component {
                             <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
                             {this.props.passed}
                         </font>
-                        <SMRadialChart progress={this.props.percent}/>
+                        <SMRadialChart progress={this.state.percent}/>
                         <font style={{margin: '20px', color: 'red', fontFamily: 'Grinched', fontSize: '7.0rem'}}>
                             {this.props.failed}
                             <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
