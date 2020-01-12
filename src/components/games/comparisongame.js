@@ -188,7 +188,7 @@ export default class СomparisonGame extends React.Component {
 
                     <div className="co_body_div_board">
                         <div className="co_expression">{this.state.expression_1}</div>
-                        <div className="co_result">{this.state.result}</div>
+                        <div className="co_result" style={{color: this.state.color}}>{this.state.result}</div>
                         <div className="co_expression">{this.state.expression_2}</div>
                     </div>
 

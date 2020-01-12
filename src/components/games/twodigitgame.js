@@ -230,7 +230,7 @@ export default class TwoDigitGame extends React.Component {
     render() {
         return (
             <Dialog onClose={() => this.props.onClick()} fullScreen={true} onKeyDown={this.onKeyboard} open={this.props.open}>
-                <div className="d2_wrapper">
+                <div style={{height:'100%',width:'100%'}}>
                     <GameHeader onClick={this.onGameClose} counter={this.state.counter} passed={this.state.passed} failed={this.state.failed}/>
 
                     <div className="d2_body_div">

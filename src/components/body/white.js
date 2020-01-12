@@ -146,9 +146,9 @@ export default class White extends React.Component {
         } else if (this.state.game3DOpen === true) {
             this.setState({game3DOpen: false});
         } else if (this.state.gameCoOpen === true) {
-            this.setState({game3DOpen: false});
+            this.setState({gameCoOpen: false});
         } else if (this.state.gameOpOpen === true) {
-            this.setState({game3DOpen: false});
+            this.setState({gameOpOpen: false});
         }
     }
 
