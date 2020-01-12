@@ -72,7 +72,7 @@ export default class SMLogin extends React.Component {
     // <Dialog onClose={() => props.onClick()} fullWidth={true} open={this.props.open}>
     render() {
         return (
-            <Dialog onClose={() => this.props.onClick()} fullWidth={true} open={true}>
+            <Dialog onClose={() => this.props.onClick()} fullWidth={true} open={this.props.open}>
                 <DialogTitle id="customized-dialog-title" onClose={() => this.props.onClick()}></DialogTitle>
 
                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>

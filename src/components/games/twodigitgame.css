@@ -1,48 +1,63 @@
-﻿.wrapper {
+﻿.d2_wrapper {
     height: 100%;
     width: 100%;
 }
-
-.header_div {
+.d2_header_div {
     height: 10%;
     width: 100%;
 }
-.header_div_left {
+.d2_header_div_left {
     height: 100%;
-    width: 49%;
+    width: 50%;
     padding: 1%;
     float: left;
+    cursor: pointer;
     display: flex;
     align-items: center;
     font-family: "Grinched";
     font-size: 1.75rem;
     color: green;
+    text-shadow: 1px 1px black;
+    transition-duration: 2s;
 }
-.header_div_right {
+.d2_header_div_left:hover {
+    font-size: 2.00rem;
+    letter-spacing: 4px;
+    text-shadow: 2px 2px black;
+    color: red;
+}
+.d2_header_div_right {
     height: 100%;
     width: 49%;
     float: right;
+    cursor: pointer;
     font-family: "Grinched";
     font-size: 1.75rem;
     color: orange;
     display: flex;
     align-items: center;
     justify-content: center;
+    text-shadow: 1px 1px black;
+    transition-duration: 2s;
 }
-
-.body_div {
+.d2_header_div_right:hover {
+    font-size: 2.00rem;
+    letter-spacing: 4px;
+    text-shadow: 3px 3px black;
+}
+.d2_body_div {
     height: 80%;
     width: 100%;
 }
-.body_div_left {
+.d2_body_div_left {
     height: 100%;
-    width: 49%;
+    width: 50%;
     float: left;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.body_div_right {
+.d2_body_div_right {
     height: 100%;
     width: 49%;
     float: right;
@@ -50,43 +65,40 @@
     align-items: center;
     justify-content: center;
 }
-
-.gameboard {
+.d2_gameboard {
     min-height: 360px;
     max-height: 360px;
     width: 100%;
     font-family: "Grinched";
     font-size: 7rem;
 }
-.gameplay {
+.d2_gameplay {
     height: 100%;
     width: 100%;
     float: left;
 }
-.mo_task {
+.d2_task {
     width: 100%;
-    height: 20%;
-    float: right;
     text-align: right;
+    float: right;
     line-height: 0.9;
 }
-.mo_result {
+.d2_result {
     width: 100%;
     height: 20%;
     float: right;
     text-align: right;
     line-height: 1.2;
 }
-.black_line {
-    width: 35%;
+.d2_black_line {
+    width: 45%;
     height: 8px;
     background-color: black;
     border: 0 none;
     float: right;
     border-radius: 5px;
 }
-
-.footer_div {
+.d2_footer_div {
     height: 10%;
     width: 100%;
     display: flex;

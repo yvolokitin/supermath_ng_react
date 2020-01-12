@@ -6,52 +6,52 @@ import {Card, CardActions, CardActionArea, CardContent, CardMedia} from '@materi
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
 
+import logo1 from './../../images/tasks/task_1.jpg';
 import logo2 from './../../images/tasks/task_2.jpg';
 import logo3 from './../../images/tasks/task_3.jpg';
+
 import logo4 from './../../images/tasks/task_4.jpg';
+import logo5 from './../../images/tasks/task_5.jpg';
+import logo12 from './../../images/tasks/task_12.jpg';
 
-import logo6 from './../../images/tasks/task_6.jpg';
 import logo7 from './../../images/tasks/task_7.jpg';
+import logo6 from './../../images/tasks/task_6.jpg';
 import logo8 from './../../images/tasks/task_8.jpg';
-
-import logo9 from './../../images/tasks/task_9.jpg';
-import logo10 from './../../images/tasks/task_10.jpg';
-import logo11 from './../../images/tasks/task_11.jpg';
 
 import classes from './../../index.css';
 
 import SMDialogInfo from "./info";
 import TwoDigitGame from "./../games/twodigitgame";
+import ThreeDigitGame from "./../games/threedigitgame";
+import СomparisonGame from "./../games/comparisongame";
+import OperationGame from "./../games/operationgame";
 
 // cards.length = 9
 const cards = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
 const images = [
-    logo2,
-    logo3,
-    logo4,
-
-    logo6,
-    logo7,
-    logo8,
-
-    logo9,
-    logo10,
-    logo11,
+    logo1, logo2, logo3,
+    logo4, logo5, logo12,
+    logo7, logo6, logo8,
 ];
 
-var tasks = [
-    ['+', '0,10', '0,10', 1, 1],
-    ['-', '0,10', '0,10', 1, 1],
-    ['+-', '0,10', '0,10', 1, 1],
+// co - comparision, 2d two digits, 3d three digits, op operation determination
+const types = ['co', '2d', '2d',
+               '2d', 'op', '3d',
+               '2d', '2d', '2d'];
 
-    ['+-', '0,10', '0,10', 10, 10],
-    ['+-', '0,10', '10,20', 1, 1],
-    ['+-', '0,10', '10,100', 1, 1],
+const tasks = [
+    '<>=,0-10,1',
+    '-,0-10,0-10,1,1',
+    '+,0-10,0-10,1,1',
 
-    ['+-', '0,100', '0,10', 10, 10],
-    ['+-', '10,100', '10,100', 1, 1],
-    ['*', '0,10', '0,10', 1, 1],
+    '+-,0-10,1',
+    '+-,0-10,1',
+    '+-,0-10,1',
+
+    '+-,0-10,10-20,1,1',
+    '+-,0-10,0-10,10,10',
+    '+-,0-10,10-100,1,1',
 ];
 /*
 const titles = [
@@ -102,17 +102,22 @@ var desciptions = [
 export default class White extends React.Component {
     constructor(props) {
         super(props);
+
+        this.onInfoOpen = this.onInfoOpen.bind(this);
+        this.onGameOpen = this.onGameOpen.bind(this);
+        this.onGameClose = this.onGameClose.bind(this);
+
+        // taskNumber is -1 due to first program initialization
         this.state = {infoOpen: false,
                       viewDialogTitleText: '',
                       viewDialogDescriptionText: '',
                       viewDialogImageUrl: '',
-                      gameOpen: false,
+                      game2DOpen: false,
+                      game3DOpen: false,
+                      gameCoOpen: false,
+                      gameOpOpen: false,
                       gameInfo: false,
-                      taskNumber: 0};
-        this.onInfoOpen = this.onInfoOpen.bind(this);
-
-        this.onGameOpen = this.onGameOpen.bind(this);
-        this.onGameClose = this.onGameClose.bind(this);
+                      taskNumber: -1};
     }
 
     onInfoOpen(card_id) {
@@ -123,13 +128,28 @@ export default class White extends React.Component {
     }
 
     onGameOpen(task_id) {
-        this.setState({gameOpen: true,
-                       taskNumber: task_id});
+        if (types[task_id] === '2d') {
+            this.setState({game2DOpen: true, taskNumber: task_id});
+        } else if (types[task_id] === '3d') {
+            this.setState({game3DOpen: true, taskNumber: task_id});
+        } else if (types[task_id] === 'co') {
+            this.setState({gameCoOpen: true, taskNumber: task_id});
+        } else if (types[task_id] === 'op') {
+            this.setState({gameOpOpen: true, taskNumber: task_id});
+        }
     }
 
     onGameClose() {
-        console.log("onGameClose called");
-        this.setState({gameOpen: false});
+        // console.log("onGameClose called");
+        if (this.state.game2DOpen === true) {
+            this.setState({game2DOpen: false});
+        } else if (this.state.game3DOpen === true) {
+            this.setState({game3DOpen: false});
+        } else if (this.state.gameCoOpen === true) {
+            this.setState({game3DOpen: false});
+        } else if (this.state.gameOpOpen === true) {
+            this.setState({game3DOpen: false});
+        }
     }
 
     render() {
@@ -162,10 +182,25 @@ export default class White extends React.Component {
                                   imgUrl={this.state.infoIURL}
                                   onClick={() => this.setState({infoOpen: false})}/>
 
-                    <TwoDigitGame open={this.state.gameOpen}
+                    <TwoDigitGame open={this.state.game2DOpen}
                                   task={tasks[this.state.taskNumber]}
-                                  count={2}
+                                  count={50}
                                   onClick={this.onGameClose}/>
+
+                    <ThreeDigitGame open={this.state.game3DOpen}
+                                    task={tasks[this.state.taskNumber]}
+                                    count={50}
+                                    onClick={this.onGameClose}/>
+
+                    <СomparisonGame open={this.state.gameCoOpen}
+                                    task={tasks[this.state.taskNumber]}
+                                    count={2}
+                                    onClick={this.onGameClose}/>
+
+                    <OperationGame open={this.state.gameOpOpen}
+                                    task={tasks[this.state.taskNumber]}
+                                    count={2}
+                                    onClick={this.onGameClose}/>
 
                 </Container>
         );

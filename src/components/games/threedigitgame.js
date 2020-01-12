@@ -1,7 +1,7 @@
 import React from 'react';
 import {Dialog} from '@material-ui/core';
 
-import {generate_2digit_task_from_string} from "./../halpers/functions";
+import {generate_3digit_task_from_string} from "./../halpers/functions";
 
 import SMCircles from "./circles";
 import SMKeyBoard from "./../keyboard/keyboard";
@@ -9,9 +9,12 @@ import SMKeyBoard from "./../keyboard/keyboard";
 import GameHeader from "./game_header";
 import GameResults from "./game_results";
 
-import './twodigitgame.css';
+import './threedigitgame.css';
 
-export default class TwoDigitGame extends React.Component {
+/*
+
+*/
+export default class ThreeDigitGame extends React.Component {
     constructor(props) {
         super(props);
         this.onDigit = this.onDigit.bind(this);
@@ -19,9 +22,11 @@ export default class TwoDigitGame extends React.Component {
         this.onGameClose = this.onGameClose.bind(this);
         this.onResultsClose = this.onResultsClose.bind(this);
 
-        this.state = {number_1: '',
-                      operation: '',
-                      number_2: '',
+        this.state = {number_1: '1',
+                      operation_1: '+',
+                      number_2: '1',
+                      operation_2: '+',
+                      number_3: '1',
                       result: '?',
                       color: 'grey',
                       circle: 'white',
@@ -34,6 +39,10 @@ export default class TwoDigitGame extends React.Component {
 
         // array to store all user tasks
         this.results =[];
+    }
+
+    componentDidMount() {
+        // console.log("componentDidMount " + this.props.task);
     }
 
     componentDidUpdate(prevProps) {
@@ -59,10 +68,12 @@ export default class TwoDigitGame extends React.Component {
     }
 
     set_task() {
-        this.task = generate_2digit_task_from_string(this.props.task);
+        this.task = generate_3digit_task_from_string(this.props.task);
         this.setState({number_1: this.task.number_1,
-                       operation: this.task.operation,
+                       operation_1: this.task.operation_1,
                        number_2: this.task.number_2,
+                       operation_2: this.task.operation_2,
+                       number_3: this.task.number_3,
                        result: '?',
                        color: 'grey',
                        circle: 'white',
@@ -77,14 +88,16 @@ export default class TwoDigitGame extends React.Component {
     proceed_with_next_task() {
         // save user task results
         var to_add = {number_1: this.task.number_1,
+                      operation_1: this.task.operation_1,
                       number_2: this.task.number_2,
-                      operation: this.task.operation,
+                      operation_2: this.task.operation_2,
+                      number_3: this.task.number_3,
                       result: this.task.result,
                       attempt: this.task.attempt};
         this.results.push(to_add);
 
-        // console.log("proceed_with_next_task " + this.state.counter + ", " + this.props.count);
-        this.task = generate_2digit_task_from_string(this.props.task);
+        console.log("proceed_with_next_task " + this.props.task);
+        this.task = generate_3digit_task_from_string(this.props.task);
         if (this.state.counter < this.props.count) {
             this.setState({number_1: this.task.number_1,
                            operation: this.task.operation,
@@ -130,6 +143,7 @@ export default class TwoDigitGame extends React.Component {
             case '9':
                 this.check_response(key);
                 break;
+
             case 'Escape':
                 this.onGameClose();
                 break;
@@ -221,36 +235,33 @@ export default class TwoDigitGame extends React.Component {
     }
 
     /*
-        Warning: The tag <text> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
-                            <text style={{color: 'black'}}>{this.state.counter}</text> &nbsp; &#128279; &nbsp;
-                            <text style={{color: 'green'}}>{this.state.passed}</text> &nbsp; &#128515; &nbsp;
-                            <text style={{color: 'red'}}>{this.state.failed}</text> &nbsp; &#128169;
-
+        
     */
     render() {
         return (
             <Dialog onClose={() => this.props.onClick()} fullScreen={true} onKeyDown={this.onKeyboard} open={this.props.open}>
-                <div className="d2_wrapper">
+                <div className="d3_wrapper">
                     <GameHeader onClick={this.onGameClose} counter={this.state.counter} passed={this.state.passed} failed={this.state.failed}/>
 
-                    <div className="d2_body_div">
-                        <div className="d2_body_div_left">
-                            <div className="d2_gameboard">
-                                <div className="d2_gameplay">
-                                    <div className="d2_task">{this.state.number_1}</div>
-                                    <div className="d2_task">{this.state.operation}   {this.state.number_2}</div>
-                                    <div className="d2_black_line"> </div>
-                                    <div className="d2_result" style={{color: this.state.color}}>{this.state.result}</div>
-                                </div>
-                           </div>
+                    <div className="d3_body_div">
+                        <div className="d3_body_div_left">
+                            <div className="d3_gameboard">
+                                <div className="d3_task">{this.state.number_1}</div>
+                                <div className="d3_task">{this.state.operation_1}</div>
+                                <div className="d3_task">{this.state.number_2}</div>
+                                <div className="d3_task">{this.state.operation_2}</div>
+                                <div className="d3_task">{this.state.number_3}</div>
+                                <div className="d3_task">=</div>
+                                <div className="d3_task" style={{color: this.state.color}}>{this.state.result}</div>
+                            </div>
                         </div>
 
-                        <div className="d2_body_div_right">
+                        <div className="d3_body_div_right">
                             <SMKeyBoard onDigit={this.onDigit} onOperator={this.onOperator} />
                         </div>
                     </div>
 
-                    <div className="d2_footer_div">
+                    <div className="d3_footer_div">
                         <SMCircles color={this.state.circle}/>
                     </div>
                 </div>
