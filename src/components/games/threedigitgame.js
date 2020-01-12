@@ -100,8 +100,10 @@ export default class ThreeDigitGame extends React.Component {
         this.task = generate_3digit_task_from_string(this.props.task);
         if (this.state.counter < this.props.count) {
             this.setState({number_1: this.task.number_1,
-                           operation: this.task.operation,
+                           operation_1: this.task.operation_1,
                            number_2: this.task.number_2,
+                           operation_2: this.task.operation_2,
+                           number_3: this.task.number_3,
                            color: 'grey',
                            circle: 'white',
                            result: '?',
