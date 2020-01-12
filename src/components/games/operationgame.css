@@ -1,0 +1,38 @@
+﻿.op_body_div_board {
+    height: 40%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Grinched";
+    font-size: 7rem;
+}
+.op_body_div_operator {
+    height: 39%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.op_expression {
+    width: 35%;
+    height: 100%;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.op_result {
+    width: 15%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.op_footer_div {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

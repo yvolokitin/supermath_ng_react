@@ -1,0 +1,74 @@
+﻿.d3_wrapper {
+    height: 100%;
+    width: 100%;
+}
+
+.d3_header_div {
+    height: 10%;
+    width: 100%;
+}
+.d3_header_div_left {
+    height: 100%;
+    width: 59%;
+    padding: 1%;
+    float: left;
+    display: flex;
+    align-items: center;
+    font-family: "Grinched";
+    font-size: 1.75rem;
+    color: green;
+}
+.d3_header_div_right {
+    height: 100%;
+    width: 40%;
+    float: right;
+    font-family: "Grinched";
+    font-size: 1.75rem;
+    color: orange;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.d3_body_div {
+    height: 80%;
+    width: 100%;
+}
+.d3_body_div_left {
+    height: 100%;
+    width: 59%;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.d3_body_div_right {
+    height: 100%;
+    width: 40%;
+    float: right;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.d3_gameboard {
+    height: 100%;
+    width: 100%;
+    float: right;
+    font-family: "Grinched";
+    font-size: 7rem;
+}
+.d3_task {
+    width: 14%;
+    height: 100%;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+}
+.d3_footer_div {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
