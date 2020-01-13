@@ -45,7 +45,6 @@ export default class СomparisonGame extends React.Component {
     }
 
     onResultsClose(status) {
-        console.log("onResultsClose, status " + status);
         this.results = [];
         if (status === 'close') {
             this.props.onClick("finished", this.state);
@@ -57,6 +56,7 @@ export default class СomparisonGame extends React.Component {
 
     set_task() {
         this.task = generate_comparison_task_from_string(this.props.task);
+        console.log('this.task.expression_1 ' + this.task.expression_1);
         this.setState({expression_1: this.task.expression_1,
                        expression_2: this.task.expression_2,
                        comparison: this.task.comparison,
@@ -108,8 +108,6 @@ export default class СomparisonGame extends React.Component {
     onKeyboard({ key }) {
         // console.log("onKeyboard " + key);
         switch (key) {
-            case '+':
-            case '-':
             case '=':
             case '>':
             case '<':
@@ -184,11 +182,11 @@ export default class СomparisonGame extends React.Component {
         return (
             <Dialog fullScreen={true} onKeyDown={this.onKeyboard} open={this.props.open}>
                 <div style={{height:'100%',width:'100%'}}>
-                    <GameHeader onClick={this.onGameClose} type='comparision' counter={this.state.counter} passed={this.state.passed} failed={this.state.failed}/>
+                    <GameHeader onClick={this.onGameClose} counter={this.state.counter} passed={this.state.passed} failed={this.state.failed}/>
 
                     <div className="co_body_div_board">
                         <div className="co_expression">{this.state.expression_1}</div>
-                        <div className="co_result">{this.state.result}</div>
+                        <div className="co_result" style={{color: this.state.color}}>{this.state.result}</div>
                         <div className="co_expression">{this.state.expression_2}</div>
                     </div>
 

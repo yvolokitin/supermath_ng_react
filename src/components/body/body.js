@@ -7,6 +7,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import White from "./white";
 import Orange from "./orange";
+import Green from "./green";
+import Navi from "./navi";
 import Black from "./black";
 
 function TabPanel(props) {
@@ -68,11 +70,11 @@ export default function SMBody() {
                     </Tabs>
                 </AppBar>
 
-                <TabPanel style={{backgroundColor:'white'}} value={value} index={0}> <White /> </TabPanel>
-                <TabPanel style={{backgroundColor:'orange'}} value={value} index={1}> <Orange /> </TabPanel>
-                <TabPanel style={{backgroundColor:'green'}} value={value} index={2}> Green, TBD </TabPanel>
-                <TabPanel style={{backgroundColor:'blue',}} value={value} index={3}> Blue, TBD </TabPanel>
-                <TabPanel style={{backgroundColor:'black'}} value={value} index={4}> <Black /> </TabPanel>
+                <TabPanel style={{backgroundColor:'white'}} value={value} index={0}> <White/> </TabPanel>
+                <TabPanel style={{backgroundColor:'orange'}} value={value} index={1}> <Orange/> </TabPanel>
+                <TabPanel style={{backgroundColor:'green'}} value={value} index={2}> <Green/> </TabPanel>
+                <TabPanel style={{backgroundColor:'blue',}} value={value} index={3}> <Navi/> </TabPanel>
+                <TabPanel style={{backgroundColor:'black'}} value={value} index={4}> <Black/> </TabPanel>
             </div>
         </main>
     );

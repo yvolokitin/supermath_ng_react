@@ -101,6 +101,8 @@ export default class TwoDigitGame extends React.Component {
                            failed: this.state.failed,
                            counter: this.state.counter});
         }
+
+        // console.log("this.results " + this.results.toString());
     }
 
     onGameClose() {
@@ -226,12 +228,13 @@ export default class TwoDigitGame extends React.Component {
                             <text style={{color: 'green'}}>{this.state.passed}</text> &nbsp; &#128515; &nbsp;
                             <text style={{color: 'red'}}>{this.state.failed}</text> &nbsp; &#128169;
 
+        onClose={() => this.props.onClick()} 
     */
     render() {
         return (
-            <Dialog onClose={() => this.props.onClick()} fullScreen={true} onKeyDown={this.onKeyboard} open={this.props.open}>
-                <div className="d2_wrapper">
-                    <GameHeader onClick={this.onGameClose} counter={this.state.counter} passed={this.state.passed} failed={this.state.failed}/>
+            <Dialog fullScreen={true} onKeyDown={this.onKeyboard} open={this.props.open}>
+                <div style={{height:'100%',width:'100%'}}>
+                    <GameHeader onClick={this.onGameClose} width='49%' counter={this.state.counter} passed={this.state.passed} failed={this.state.failed}/>
 
                     <div className="d2_body_div">
                         <div className="d2_body_div_left">

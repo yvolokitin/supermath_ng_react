@@ -100,8 +100,10 @@ export default class ThreeDigitGame extends React.Component {
         this.task = generate_3digit_task_from_string(this.props.task);
         if (this.state.counter < this.props.count) {
             this.setState({number_1: this.task.number_1,
-                           operation: this.task.operation,
+                           operation_1: this.task.operation_1,
                            number_2: this.task.number_2,
+                           operation_2: this.task.operation_2,
+                           number_3: this.task.number_3,
                            color: 'grey',
                            circle: 'white',
                            result: '?',
@@ -240,8 +242,8 @@ export default class ThreeDigitGame extends React.Component {
     render() {
         return (
             <Dialog onClose={() => this.props.onClick()} fullScreen={true} onKeyDown={this.onKeyboard} open={this.props.open}>
-                <div className="d3_wrapper">
-                    <GameHeader onClick={this.onGameClose} counter={this.state.counter} passed={this.state.passed} failed={this.state.failed}/>
+                <div style={{height:'100%',width:'100%'}}>
+                    <GameHeader onClick={this.onGameClose} width='35%' counter={this.state.counter} passed={this.state.passed} failed={this.state.failed}/>
 
                     <div className="d3_body_div">
                         <div className="d3_body_div_left">
