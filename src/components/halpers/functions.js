@@ -93,22 +93,13 @@ function generate_3digit_task(operations, range_numbers, factor=1) {
         result = result * number_3;
     }
 
-    var return_value = {'number_1': number_1.toString(),
-                        'number_2': number_2.toString(),
-                        'number_3': number_3.toString(),
-                        'operation_1': operation_1.toString(),
-                        'operation_2': operation_2.toString(),
-                        'result': result.toString()};
+    var return_value = {'task': number_1.toString() + ' ' + operation_1.toString()
+                        + ' ' + number_2.toString() + ' ' + operation_2.toString()
+                        + ' ' + number_3.toString()+ ' = ',
+                       'result': result.toString()};
 
-    console.log("generate_3digit_task:: "
-                + return_value.number_1
-                + return_value.operation_1
-                + return_value.number_2
-                + return_value.operation_2
-                + return_value.number_3
-                + "=" + return_value.result);
-
-      return return_value;
+    console.log('generate_3digit_task:: ' + return_value.task + '=' + return_value.result);
+    return return_value;
 }
 
 /*

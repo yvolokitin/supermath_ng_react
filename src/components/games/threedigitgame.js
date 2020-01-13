@@ -22,11 +22,7 @@ export default class ThreeDigitGame extends React.Component {
         this.onGameClose = this.onGameClose.bind(this);
         this.onResultsClose = this.onResultsClose.bind(this);
 
-        this.state = {number_1: '1',
-                      operation_1: '+',
-                      number_2: '1',
-                      operation_2: '+',
-                      number_3: '1',
+        this.state = {task: '1 + 1 + 1 = ',
                       result: '?',
                       color: 'grey',
                       circle: 'white',
@@ -69,11 +65,7 @@ export default class ThreeDigitGame extends React.Component {
 
     set_task() {
         this.task = generate_3digit_task_from_string(this.props.task);
-        this.setState({number_1: this.task.number_1,
-                       operation_1: this.task.operation_1,
-                       number_2: this.task.number_2,
-                       operation_2: this.task.operation_2,
-                       number_3: this.task.number_3,
+        this.setState({task: this.task.task,
                        result: '?',
                        color: 'grey',
                        circle: 'white',
@@ -87,11 +79,7 @@ export default class ThreeDigitGame extends React.Component {
 
     proceed_with_next_task() {
         // save user task results
-        var to_add = {number_1: this.task.number_1,
-                      operation_1: this.task.operation_1,
-                      number_2: this.task.number_2,
-                      operation_2: this.task.operation_2,
-                      number_3: this.task.number_3,
+        var to_add = {task: this.task.task,
                       result: this.task.result,
                       attempt: this.task.attempt};
         this.results.push(to_add);
@@ -99,11 +87,7 @@ export default class ThreeDigitGame extends React.Component {
         console.log("proceed_with_next_task " + this.props.task);
         this.task = generate_3digit_task_from_string(this.props.task);
         if (this.state.counter < this.props.count) {
-            this.setState({number_1: this.task.number_1,
-                           operation_1: this.task.operation_1,
-                           number_2: this.task.number_2,
-                           operation_2: this.task.operation_2,
-                           number_3: this.task.number_3,
+            this.setState({task: this.task.task,
                            color: 'grey',
                            circle: 'white',
                            result: '?',
@@ -243,18 +227,13 @@ export default class ThreeDigitGame extends React.Component {
         return (
             <Dialog onClose={() => this.props.onClick()} fullScreen={true} onKeyDown={this.onKeyboard} open={this.props.open}>
                 <div style={{height:'100%',width:'100%'}}>
-                    <GameHeader onClick={this.onGameClose} width='35%' counter={this.state.counter} passed={this.state.passed} failed={this.state.failed}/>
+                    <GameHeader onClick={this.onGameClose} width='38%' counter={this.state.counter} passed={this.state.passed} failed={this.state.failed}/>
 
                     <div className="d3_body_div">
                         <div className="d3_body_div_left">
                             <div className="d3_gameboard">
-                                <div className="d3_task">{this.state.number_1}</div>
-                                <div className="d3_task">{this.state.operation_1}</div>
-                                <div className="d3_task">{this.state.number_2}</div>
-                                <div className="d3_task">{this.state.operation_2}</div>
-                                <div className="d3_task">{this.state.number_3}</div>
-                                <div className="d3_task">=</div>
-                                <div className="d3_task" style={{color: this.state.color}}>{this.state.result}</div>
+                                <div className="d3_task">{this.state.task}</div>
+                                <div className="d3_result" style={{color: this.state.color}}>{this.state.result}</div>
                             </div>
                         </div>
 
