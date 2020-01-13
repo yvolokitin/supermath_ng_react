@@ -20,7 +20,7 @@
 }
 .d3_gameboard {
     height: 90%;
-    width: 90%;
+    width: 95%;
     font-family: "Grinched";
     font-size: 6rem;
     display: flex;
@@ -37,7 +37,7 @@
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
 }
 .d3_result {
     width: 10%;

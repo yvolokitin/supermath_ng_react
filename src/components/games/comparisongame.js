@@ -2,10 +2,11 @@ import React from 'react';
 import {Dialog} from '@material-ui/core';
 
 import {generate_comparison_task_from_string} from "./../halpers/functions";
-import SMCircles from "./circles";
-import OperatorBoard from "./../keyboard/operatorboard";
-import GameResults from "./game_results";
+
 import GameHeader from "./game_header";
+import GameFooter from "./game_footer";
+import GameResults from "./game_results";
+import OperatorBoard from "./../keyboard/operatorboard";
 
 import './comparisongame.css';
 
@@ -184,19 +185,19 @@ export default class СomparisonGame extends React.Component {
                 <div style={{height:'100%',width:'100%'}}>
                     <GameHeader onClick={this.onGameClose} counter={this.state.counter} passed={this.state.passed} failed={this.state.failed}/>
 
-                    <div className="co_body_div_board">
-                        <div className="co_expression">{this.state.expression_1}</div>
-                        <div className="co_result" style={{color: this.state.color}}>{this.state.result}</div>
-                        <div className="co_expression">{this.state.expression_2}</div>
+                    <div className="co_body_div_board_wrapper">
+                        <div className="co_body_div_board">
+                            <div className="co_expression">{this.state.expression_1}</div>
+                            <div className="co_result" style={{color: this.state.color}}>{this.state.result}</div>
+                            <div className="co_expression">{this.state.expression_2}</div>
+                        </div>
                     </div>
 
                     <div className="co_body_div_operator">
-                        <OperatorBoard onOperator={this.onOperator} />
+                        <OperatorBoard onOperator={this.onOperator}/>
                     </div>
 
-                    <div className="co_footer_div">
-                        <SMCircles color={this.state.circle}/>
-                    </div>
+                    <GameFooter/>
                 </div>
 
                 <GameResults open={this.state.show_results} user_results={this.state.user_results}

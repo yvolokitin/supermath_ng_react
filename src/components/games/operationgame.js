@@ -3,11 +3,10 @@ import {Dialog} from '@material-ui/core';
 
 import {generate_2digit_task_from_string} from "./../halpers/functions";
 
-import SMCircles from "./circles";
-import SMKeyBoard from "./../keyboard/keyboard";
-
 import GameHeader from "./game_header";
+import GameFooter from "./game_footer";
 import GameResults from "./game_results";
+import SMKeyBoard from "./../keyboard/keyboard";
 
 import './operationgame.css';
 
@@ -200,9 +199,7 @@ export default class OperationGame extends React.Component {
                         </div>
                     </div>
 
-                    <div className="op_footer_div">
-                        <SMCircles color={this.state.circle}/>
-                    </div>
+                    <GameFooter/>
                 </div>
 
                 <GameResults open={this.state.show_results} user_results={this.state.user_results}

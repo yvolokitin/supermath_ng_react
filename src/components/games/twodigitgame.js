@@ -3,11 +3,10 @@ import {Dialog} from '@material-ui/core';
 
 import {generate_2digit_task_from_string} from "./../halpers/functions";
 
-import SMCircles from "./circles";
-import SMKeyBoard from "./../keyboard/keyboard";
-
 import GameHeader from "./game_header";
+import GameFooter from "./game_footer";
 import GameResults from "./game_results";
+import SMKeyBoard from "./../keyboard/keyboard";
 
 import './twodigitgame.css';
 
@@ -234,12 +233,13 @@ export default class TwoDigitGame extends React.Component {
         return (
             <Dialog fullScreen={true} onKeyDown={this.onKeyboard} open={this.props.open}>
                 <div style={{height:'100%',width:'100%'}}>
-                    <GameHeader onClick={this.onGameClose} width='49%' counter={this.state.counter} passed={this.state.passed} failed={this.state.failed}/>
+                    <GameHeader onClick={this.onGameClose} width='40%' counter={this.state.counter} passed={this.state.passed} failed={this.state.failed}/>
 
-                    <div className="d2_body_div">
+                    <div style={{height:'80%',width:'100%'}}>
                         <div className="d2_body_div_left">
                             <div className="d2_gameboard">
                                 <div className="d2_gameplay">
+                                    <div style={{height:'25%',width:'80%'}}></div>
                                     <div className="d2_task">{this.state.number_1}</div>
                                     <div className="d2_task">{this.state.operation}   {this.state.number_2}</div>
                                     <div className="d2_black_line"> </div>
@@ -253,9 +253,7 @@ export default class TwoDigitGame extends React.Component {
                         </div>
                     </div>
 
-                    <div className="d2_footer_div">
-                        <SMCircles color={this.state.circle}/>
-                    </div>
+                    <GameFooter/>
                 </div>
 
                 <GameResults open={this.state.show_results} user_results={this.state.user_results}
