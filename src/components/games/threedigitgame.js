@@ -243,7 +243,7 @@ export default class ThreeDigitGame extends React.Component {
         return (
             <Dialog onClose={() => this.props.onClick()} fullScreen={true} onKeyDown={this.onKeyboard} open={this.props.open}>
                 <div style={{height:'100%',width:'100%'}}>
-                    <GameHeader onClick={this.onGameClose} counter={this.state.counter} passed={this.state.passed} failed={this.state.failed}/>
+                    <GameHeader onClick={this.onGameClose} width='35%' counter={this.state.counter} passed={this.state.passed} failed={this.state.failed}/>
 
                     <div className="d3_body_div">
                         <div className="d3_body_div_left">

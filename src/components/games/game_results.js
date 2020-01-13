@@ -1,20 +1,49 @@
 ﻿import React from 'react';
-import {Dialog, DialogTitle, DialogContent, DialogActions, Typography, Button} from '@material-ui/core';
+import {Dialog, DialogContent, DialogActions, Typography, Button} from '@material-ui/core';
 
+import { withStyles } from '@material-ui/core/styles';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+
+import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
 import ReplayIcon from '@material-ui/icons/Replay';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 import './twodigitgame.css';
 import SMRadialChart from "./../charts/smradialchart";
 
+const styles = theme => ({
+    root: {
+        margin: 0,
+        padding: theme.spacing(2),
+    },
+    closeButton: {
+        position: 'absolute',
+        right: theme.spacing(1),
+        top: theme.spacing(1),
+        color: theme.palette.grey[500],
+    },
+});
+
+const DialogTitle = withStyles(styles)(props => {
+  const { children, classes, onClose, ...other } = props;
+  return (
+    <MuiDialogTitle disableTypography className={classes.root} {...other}>
+      <Typography variant="h6">{children}</Typography>
+      {onClose ? (
+        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </MuiDialogTitle>
+  );
+});
+
 export default class GameResults extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {percent: 0};
-    }
-
-    componentDidMount() {
-        // console.log("componentDidMount " + this.props.task);
+        this.state = {percent: 0,
+                      rate: ''};
     }
 
     componentDidUpdate(prevProps) {
@@ -23,15 +52,30 @@ export default class GameResults extends React.Component {
         if (this.props.user_results !== prevProps.user_results) {
             console.log('user_results ' + this.props.user_results.length);
             var percent_passed = 100 * this.props.passed / this.props.counter;
-            this.setState({percent: percent_passed});
+
+            if (percent_passed === 100) {
+                this.setState({percent: percent_passed, rate: 'Excellent'});
+
+            } else if (percent_passed > 95) {
+                this.setState({percent: percent_passed, rate: 'Quite Good'});
+
+            } else if (percent_passed > 90) {
+                this.setState({percent: percent_passed, rate: 'Good'});
+
+            } else if (percent_passed > 80) {
+                this.setState({percent: percent_passed, rate: 'Well'});
+
+            } else {
+                this.setState({percent: percent_passed, rate: 'Not really Well'});
+            }
         }
     }
 
     render() {
         return (
-            <Dialog onClose={() => this.props.onClick('close')} open={this.props.open} transitionDuration={500} fullWidth={true} maxWidth={false}>
-                <DialogTitle>
-                    <Typography style={{color: '#0000cc', fontFamily: 'Grinched', fontSize: '3.0rem', textAlign:'center'}}>
+            <Dialog open={this.props.open} transitionDuration={500} fullWidth={true} maxWidth={false}>
+                <DialogTitle id="customized-dialog-title" onClose={() => this.props.onClick('close')}>
+                    <Typography style={{color: 'green', fontFamily: 'Grinched', fontSize: '3.0rem', textAlign:'center'}}>
                         SUPERMATH
                     </Typography>
                 </DialogTitle>
@@ -50,7 +94,7 @@ export default class GameResults extends React.Component {
                     </div>
 
                     <Typography gutterBottom style={{color: 'black', fontFamily: 'Grinched', fontSize: '3.0rem', textAlign: 'center'}}>
-                        You reach <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#9757;</span> good score <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128202;</span>
+                        You reach <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#9757;</span> {this.state.rate} score <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128202;</span>
                     </Typography>
 
                     <Typography gutterBottom style={{color: 'black', fontFamily: 'Grinched', fontSize: '3.0rem', textAlign: 'center'}}>

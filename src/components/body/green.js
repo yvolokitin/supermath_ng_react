@@ -40,7 +40,7 @@ var desciptions = [
     "We are sorry, due to task is still under implemenatation, we could not tell you more details",
 ];
 
-export default class Black extends React.Component {
+export default class Green extends React.Component {
     constructor(props) {
         super(props);
         this.state = {infoOpen: false,

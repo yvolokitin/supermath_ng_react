@@ -181,25 +181,25 @@ function generate_2digit_task(operations, range_1, range_2, factor_1=1, factor_2
 
 function generate_comparison_task(operations, range, factor=1) {
     var operation = get_random_operation(operations);
-    var number_1 = 0, number_2 = 0;
+    var expression_1 = 0, expression_2 = 0;
     switch (operation) {
         case OPERATION_GREATER: // >
-            while ((number_1 < number_2) || (number_1 === number_2)) {
-                number_1 = parseInt(get_random_int(range) * factor);
-                number_2 = parseInt(get_random_int(range) * factor);
+            while ((expression_1 < expression_2) || (expression_1 === expression_2)) {
+                expression_1 = parseInt(get_random_int(range) * factor);
+                expression_2 = parseInt(get_random_int(range) * factor);
             }
         break;
 
         case OPERATION_SMALLER: // <
-            while ((number_2 < number_1) || (number_1 === number_2)) {
-                number_1 = parseInt(get_random_int(range) * factor);
-                number_2 = parseInt(get_random_int(range) * factor);
+            while ((expression_2 < expression_1) || (expression_1 === expression_2)) {
+                expression_1 = parseInt(get_random_int(range) * factor);
+                expression_2 = parseInt(get_random_int(range) * factor);
             }
         break;
 
         case OPERATION_EQUALLY: // =
-            number_1 = parseInt(get_random_int(range) * factor);
-            number_2 = number_1;
+            expression_1 = parseInt(get_random_int(range) * factor);
+            expression_2 = expression_1;
         break;
 
         default:
@@ -207,14 +207,14 @@ function generate_comparison_task(operations, range, factor=1) {
         break;
     }
 
-    var return_value = {'number_1': number_1.toString(),
-                        'number_2': number_2.toString(),
+    var return_value = {'expression_1': expression_1.toString(),
+                        'expression_2': expression_2.toString(),
                         'operation': operation.toString()};
 
     console.log("generate_comparison_task:: "
-                + return_value.number_1
+                + return_value.expression_1
                 + return_value.operation
-                + return_value.number_2);
+                + return_value.expression_1);
 
     return return_value;
 }

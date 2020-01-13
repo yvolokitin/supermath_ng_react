@@ -4,7 +4,7 @@
 }
 .d3_body_div_left {
     height: 100%;
-    width: 54%;
+    width: 64%;
     float: left;
 }
 .d3_body_div_right {
@@ -14,27 +14,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid black;
 }
 .d3_gameboard {
     height: 100%;
     width: 100%;
     font-family: "Grinched";
-    font-size: 7rem;
-    border: 1px solid red;
-
+    font-size: 6rem;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .d3_task {
-    width: 14%;
+    width: 12%;
     height: 100%;
-    float: left;
+    color: black;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: black;
 }
 .d3_footer_div {
     height: 10%;

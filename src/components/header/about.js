@@ -1,14 +1,46 @@
 ﻿import React from 'react';
-import {DialogTitle, DialogContent, DialogActions, Typography, Dialog, Card, CardMedia, Button} from '@material-ui/core';
+import {DialogContent, DialogActions, Typography, Dialog, Card, CardMedia, Button} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
+
+const styles = theme => ({
+    root: {
+        margin: 0,
+        padding: theme.spacing(2),
+    },
+    closeButton: {
+        position: 'absolute',
+        right: theme.spacing(1),
+        top: theme.spacing(1),
+        color: theme.palette.grey[500],
+    },
+});
+
+const DialogTitle = withStyles(styles)(props => {
+  const { children, classes, onClose, ...other } = props;
+  return (
+    <MuiDialogTitle disableTypography className={classes.root} {...other}>
+      <Typography variant="h6">{children}</Typography>
+      {onClose ? (
+        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </MuiDialogTitle>
+  );
+});
 
 export default function SMAbout(props) {
     return (
         <Dialog onClose={() => props.onClick()} aria-labelledby="customized-dialog-title" transitionDuration={500} open={props.open}>
-            <DialogTitle>
+            <DialogTitle id="customized-dialog-title" onClose={() => props.onClick()}>
                 <Typography style={{color: 'green', fontFamily: 'Grinched', fontSize: '3.0rem', textAlign:'center'}}>
                     About SuperMath
                 </Typography>
             </DialogTitle>
+
             <DialogContent dividers>
                 <Typography gutterBottom style={{color: 'orange', fontFamily: 'Grinched', fontSize: '2.0rem', textAlign:'center'}}>
                     Use SuperMath as mathematical vitamins!
