@@ -52,24 +52,29 @@ export default class SMLogin extends React.Component {
     }
 
     onUserName(event, newValue) {
-        console.log("event " + event + ", newValue " + newValue);
-        this.setState({name: newValue});
+        // console.log("event " + event + ", newValue " + newValue);
+        // this.setState({name: newValue});
     }
 
     onPassword(event, newValue) {
-        this.setState({pswd: newValue})
+        // this.setState({pswd: newValue})
     }
 
     // curl -i -X POST -H "Content-Type: application/json" -d "{"""user""":"""yura""","""pswd""":"""qwerty123"""}" https://supermathrest.herokuapp.com/api/login
     onLogin(event) {
+        event.preventDefault();
         console.log("event " + event);
-        var auth = {"user": this.state.username, "pswd": this.state.password};
-        axios.post("https://supermathrest.herokuapp.com/api/login", auth)
-             .then(response => console.log("axios.post response " + response.data))
-             .catch(error => console.log("axios.post error " + error));
+        var post_data = {'user': 'yura', 'pswd': 'test'};
+        axios.post('https://supermathrest.herokuapp.com/api/login', post_data)
+            .then(this.onLoginResponse)
+            .catch(error => console.log("axios.post error " + error));
     }
 
-    // <Dialog onClose={() => props.onClick()} fullWidth={true} open={this.props.open}>
+    onLoginResponse(response) {
+        console.log("YURA: axios.post response " + response.data);
+    }
+
+    // this.props.open
     render() {
         return (
             <Dialog onClose={() => this.props.onClick()} fullWidth={true} open={this.props.open}>
