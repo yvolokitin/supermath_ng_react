@@ -1,6 +1,9 @@
 ﻿.games_header_div {
     height: 10%;
     width: 100%;
+    font-size: 2.00rem;
+    font-family: "Grinched";
+    text-shadow: 2px 2px black;
 }
 .games_header_div_left {
     height: 100%;
@@ -10,28 +13,22 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    font-family: "Grinched";
-    font-size: 2.00rem;
-    letter-spacing: 4px;
-    color: red;
-    text-shadow: 1px 1px black;
-    transition-duration: 2s;
-}
-.games_header_div_left:hover {
-    letter-spacing: 6px;
-    text-shadow: 2px 2px black;
+    color: green;
 }
 .games_header_div_right {
     height: 100%;
     width: 49%;
     float: right;
     cursor: pointer;
-    font-family: "Grinched";
-    font-size: 2.00rem;
     color: orange;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-shadow: 1px 1px black;
-    transition-duration: 2s;
+}
+@media only screen and (max-width: 720px) {
+    .games_header_div {
+        font-size: 1.00rem;
+        font-family: "Grinched";
+    }
+
 }

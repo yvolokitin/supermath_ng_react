@@ -166,7 +166,7 @@ export default class White extends React.Component {
                                 <Card className={classes.card}>
                                     <CardActionArea onClick={(e) => this.onGameOpen(card)}>
                                         <CardMedia component="img" alt="Media Card task" height="140" image={images[card]}/>
-                                        <CardContent className={classes.content}>
+                                        <CardContent>
                                             <Typography variant="body2" color="textSecondary" component="p">{headers[card]}</Typography>
                                         </CardContent>
                                     </CardActionArea>    

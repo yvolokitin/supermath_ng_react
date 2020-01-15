@@ -62,11 +62,11 @@ export default function SMBody() {
             <div className={classes.root}>
                 <AppBar position="static" color="default">
                     <Tabs value={value} onChange={handleChange} indicatorColor="primary" textColor="primary" centered={true}>
-                        <Tab style={{color: 'black'}} label="White" {...a11yProps(0)} />
-                        <Tab style={{color: 'orange'}} label="Orange" {...a11yProps(1)} />
-                        <Tab style={{color: 'green'}} label="Green" {...a11yProps(2)} />
-                        <Tab style={{color: 'blue'}} label="Navy" {...a11yProps(3)} />
-                        <Tab style={{color: 'black'}} label="Black" {...a11yProps(4)} />
+                        <Tab style={{color:'black',fontSize:'0.95rem',fontWeight:'bold'}} label="White" {...a11yProps(0)} />
+                        <Tab style={{color:'orange',fontSize:'0.95rem',fontWeight:'bold'}} label="Orange" {...a11yProps(1)} />
+                        <Tab style={{color:'green',fontSize:'0.95rem',fontWeight:'bold'}} label="Green" {...a11yProps(2)} />
+                        <Tab style={{color:'blue',fontSize:'0.95rem',fontWeight:'bold'}} label="Navy" {...a11yProps(3)} />
+                        <Tab style={{color:'black',fontSize:'0.95rem',fontWeight:'bold'}} label="Black" {...a11yProps(4)} />
                     </Tabs>
                 </AppBar>
 
