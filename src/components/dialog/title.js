@@ -21,7 +21,7 @@ export default class SMTitle extends React.Component {
 
     render() {
         return (
-            <MuiDialogTitle disableTypography style={{margin:'0',backgroundColor:'#262626',color:'white'}}>
+            <MuiDialogTitle disableTypography>
                 <Typography variant="h6">
                     {this.props.title}
                 </Typography>

@@ -1,45 +1,12 @@
 ﻿import React from 'react';
 import {DialogContent, DialogActions, Typography, Dialog, Card, CardMedia, Button} from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import CloseIcon from '@material-ui/icons/Close';
-import IconButton from '@material-ui/core/IconButton';
 
-const styles = theme => ({
-    root: {
-        margin: 0,
-        padding: theme.spacing(2),
-    },
-    closeButton: {
-        position: 'absolute',
-        right: theme.spacing(1),
-        top: theme.spacing(1),
-        color: theme.palette.grey[500],
-    },
-});
-
-const DialogTitle = withStyles(styles)(props => {
-  const { children, classes, onClose, ...other } = props;
-  return (
-    <MuiDialogTitle disableTypography className={classes.root} {...other}>
-      <Typography variant="h6">{children}</Typography>
-      {onClose ? (
-        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-      ) : null}
-    </MuiDialogTitle>
-  );
-});
+import SMTitle from "./../dialog/title";
 
 export default function SMAbout(props) {
     return (
         <Dialog onClose={() => props.onClick()} aria-labelledby="customized-dialog-title" transitionDuration={500} open={props.open}>
-            <DialogTitle id="customized-dialog-title" onClose={() => props.onClick()}>
-                <Typography style={{color: 'green', fontFamily: 'Grinched', fontSize: '3.0rem', textAlign:'center'}}>
-                    About SuperMath
-                </Typography>
-            </DialogTitle>
+            <SMTitle title="About SuperMath" onClick={() => props.onClick()}/>
 
             <DialogContent dividers>
                 <Typography gutterBottom style={{color: 'orange', fontFamily: 'Grinched', fontSize: '2.0rem', textAlign:'center'}}>
@@ -61,7 +28,7 @@ export default function SMAbout(props) {
                     In one day, I just personally asked myself - How can I contribute to improve a small part of the world.
                     Im father of two wonderful sons and due to a lot of work responsibility, in some days I could not get so much attantion to them, specially in Mathematics.
                     We could not image our current life now without Mobile phone and Internet and we have it because of Math.
-                    When I developed that Math portal for kids I had vary clear goal - help kids with Math! :-)
+                    When I developed that Math portal for kids I had vary clear goal - help kids with Math!
                 </Typography>
             </DialogContent>
 

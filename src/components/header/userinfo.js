@@ -1,9 +1,10 @@
 ﻿import React from 'react';
-import {Dialog, Paper, Typography} from '@material-ui/core';
-import Avatar from 'react-avatar';
+import {Avatar, Dialog} from '@material-ui/core';
 
 import './userinfo.css';
 import SMTitle from "./../dialog/title";
+
+import logo from './../../images/Martin-Berube-People-Kid.ico';
 
 export default class UserInformation extends React.Component {
     constructor(props) {
@@ -25,19 +26,20 @@ export default class UserInformation extends React.Component {
 
 
 /*
-    <DialogTitle id="customized-dialog-title" onClose={this.onClose}></DialogTitle>
-                <Paper style={{height: 440,backgroundImage:'linear-gradient(to right, #33cc33, #ccff99)'}}>
+import Avatar from 'react-avatar';
+                    <Avatar facebookId="100008343750912" size="150"/>
+                    <Avatar googleId="118096717852922241760" size="100" round={true} src="./../../images/vitamins.jpg"/>
+                    <Avatar vkontakteId="1" size="150"/>
+
 */
     render() {
         return (
             <Dialog open={this.props.open} transitionDuration={500} fullWidth={true} maxWidth={false}>
                 <SMTitle title="User Information" onClick={this.onClose}/>
 
-                <Paper style={{height: 440,backgroundImage:'linear-gradient(to right, #009900, #ff9900)'}}>
-                    <Avatar facebookId="100008343750912" size="150"/>
-                    <Avatar googleId="118096717852922241760" size="100" round={true} src="./../../images/vitamins.jpg"/>
-                    <Avatar vkontakteId="1" size="150"/>
-                </Paper>
+                    <Avatar style={{margin: 10, width: 160, height: 160}}>
+                        <img src={logo} alt='test'/>
+                    </Avatar>
 
             </Dialog>
         );
