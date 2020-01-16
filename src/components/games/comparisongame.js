@@ -10,7 +10,7 @@ import OperatorBoard from "./../keyboard/operatorboard";
 
 import './comparisongame.css';
 
-export default class СomparisonGame extends React.Component {
+export default class ComparisonGame extends React.Component {
     constructor(props) {
         super(props);
         this.onOperator = this.onOperator.bind(this);

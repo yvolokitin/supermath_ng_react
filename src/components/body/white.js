@@ -23,7 +23,7 @@ import classes from './../../index.css';
 import SMDialogInfo from "./info";
 import TwoDigitGame from "./../games/twodigitgame";
 import ThreeDigitGame from "./../games/threedigitgame";
-import СomparisonGame from "./../games/comparisongame";
+import ComparisonGame from "./../games/comparisongame";
 import OperationGame from "./../games/operationgame";
 
 // cards.length = 9
@@ -197,7 +197,7 @@ export default class White extends React.Component {
                                     count={50}
                                     onClick={this.onGameClose}/>
 
-                    <СomparisonGame open={this.state.gameCoOpen}
+                    <ComparisonGame open={this.state.gameCoOpen}
                                     task={tasks[this.state.taskNumber]}
                                     count={50}
                                     onClick={this.onGameClose}/>
