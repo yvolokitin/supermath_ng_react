@@ -70,12 +70,14 @@ export default class OperationGame extends React.Component {
     }
 
     onResultsClose(status) {
+        console.log("onResultsClose, status " + status);
         this.results = [];
+
         if (status === 'close') {
             this.props.onClick("finished", this.state);
         }
 
-        // in case of replay, we have to be able to restart game
+        // hide results, set counter 0 and clear history
         this.set_task();
     }
 
@@ -173,7 +175,8 @@ export default class OperationGame extends React.Component {
                            user_results: this.results,
                            passed: this.state.passed,
                            failed: this.state.failed,
-                           counter: this.state.counter});
+                           counter: this.state.counter,
+                           circle: 'white'});
         }
     }
 
@@ -199,7 +202,7 @@ export default class OperationGame extends React.Component {
                         </div>
                     </div>
 
-                    <GameFooter/>
+                    <GameFooter color={this.state.circle}/>
                 </div>
 
                 <GameResults open={this.state.show_results} user_results={this.state.user_results}

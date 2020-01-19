@@ -11,18 +11,62 @@ import './header.css';
 export default class SMHeader extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {aboutOpen: false,
                       helpOpen: false,
                       loginOpen: false,
                       userInfoOpen: false,
-                      isLogin: false,
-                      userName: 'Sergey',
-                      userPass: 745,
-                      userFail: 13,};
+                      isLogin: localStorage.getItem('isLogin'),
+                      userName: localStorage.getItem('user'),
+                      userAge: localStorage.getItem('age'),
+                      userPass: localStorage.getItem('pass'),
+                      userFail: localStorage.getItem('fail'),
+                     };
+
+        this.onLoginResult = this.onLoginResult.bind(this);
+        this.onLogout = this.onLogout.bind(this);
     }
 
+    onLoginResult(result, user, age, passed, failed) {
+        console.log('onLoginResult ' + result + ', user: ' + user);
+        if (result === 'successed') {
+            this.setState({loginOpen: false,
+                           isLogin: true,
+                           userName: user,
+                           userAge: age,
+                           userPass: passed,
+                           userFail: failed,
+                          });
+
+            // use HTML5 Local Storage if browser supports it
+            if (typeof(Storage) !== "undefined") {
+                localStorage.setItem('isLogin', true);
+                localStorage.setItem('user', user);
+                localStorage.setItem('age', age);
+                localStorage.setItem('pass', passed);
+                localStorage.setItem('fail', failed);
+            }
+
+        } else {
+            this.setState({loginOpen: false,
+                           isLogin: false,
+                          });
+        }
+    }
+
+    onLogout() {
+        console.log("onLogout");
+        this.setState({isLogin:false});
+
+        // remove all info from local storage
+        localStorage.removeItem('isLogin');
+        localStorage.removeItem('user');
+        localStorage.removeItem('age');
+        localStorage.removeItem('pass');
+        localStorage.removeItem('fail');
+    }
 /*
-                        <Button variant="contained" color="primary" startIcon={<PersonOutlineIcon />} onClick={() => this.setState({loginOpen: true})}>Login</Button>
+    <Button variant="contained" color="primary" startIcon={<PersonOutlineIcon />} onClick={() => this.setState({loginOpen: true})}>Login</Button>
 */
     render() {
         return (
@@ -36,7 +80,7 @@ export default class SMHeader extends React.Component {
 
                     { this.state.isLogin ?
                         (
-                        <Typography onClick={() => this.setState({userInfoOpen: true})} style={{marginRight:'1%',cursor:'pointer',fontSize:'2.00rem',fontFamily:'Grinched',fontVariant:'small-caps',color:'orange',textShadow:'1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue'}}>
+                         <Typography onClick={() => this.setState({userInfoOpen: true})} style={{marginRight:'1%',cursor:'pointer',fontSize:'2.00rem',fontFamily:'Grinched',fontVariant:'small-caps',color:'orange',textShadow:'1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue'}}>
                             {this.state.userName}: <font style={{color: 'green'}}>{this.state.userPass}</font> &#128515; <font style={{color: 'red'}}>{this.state.userFail}</font> &#128169;
                          </Typography>
                         )
@@ -46,11 +90,20 @@ export default class SMHeader extends React.Component {
                         )
                     }
 
+                    { this.state.isLogin ?
+                        (
+                         <Typography onClick={this.onLogout} style={{marginLeft:'3%',cursor:'pointer',fontSize:'2.00rem',fontFamily:'Grinched',fontVariant:'small-caps',color:'green',textShadow:'1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue'}}>
+                            logout
+                         </Typography>
+                        )
+                        :
+                        (null)
+                    }
                 </Toolbar>
 
                 <SMHelp open={this.state.helpOpen} onClick={() => this.setState({helpOpen: false})}/>
                 <SMAbout open={this.state.aboutOpen} onClick={() => this.setState({aboutOpen: false})}/>
-                <SMLogin open={this.state.loginOpen} onClick={() => this.setState({loginOpen: false})}/>
+                <SMLogin open={this.state.loginOpen} onClick={this.onLoginResult}/>
 
                 <UserInformation open={this.state.userInfoOpen} onClick={() => this.setState({userInfoOpen: false})}/>
 

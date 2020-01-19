@@ -98,7 +98,7 @@ function generate_3digit_task(operations, range_numbers, factor=1) {
                         + ' ' + number_3.toString()+ ' = ',
                        'result': result.toString()};
 
-    console.log('generate_3digit_task:: ' + return_value.task + '=' + return_value.result);
+    console.log('generate_3digit_task:: ' + return_value.task + return_value.result);
     return return_value;
 }
 

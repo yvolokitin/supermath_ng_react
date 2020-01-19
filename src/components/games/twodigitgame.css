@@ -17,10 +17,8 @@
 .d2_gameboard {
     height: 100%;
     width: 100%;
-
     font-size: 7rem;
     font-family: "Grinched";
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -58,4 +56,24 @@
     border: 0 none;
     float: right;
     border-radius: 5px;
+}
+
+@media only screen and (max-width: 1024px) {
+    .d2_gameboard {
+        font-size: 5rem;
+    }
+}
+
+@media only screen and (max-width: 760px) {
+    .d2_gameboard {
+        font-size: 4rem;
+    }
+    .d2_body_div_left {
+        height: 100%;
+        width: 49%;
+    }
+    .d2_body_div_right {
+        height: 100%;
+        width: 50%;
+    }
 }

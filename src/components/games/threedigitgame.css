@@ -55,3 +55,9 @@
     align-items: center;
     justify-content: center;
 }
+
+@media only screen and (max-width: 1024px) {
+    .d3_gameboard {
+        font-size: 5rem;
+    }
+}

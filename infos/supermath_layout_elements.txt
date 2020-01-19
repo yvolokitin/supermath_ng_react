@@ -14,3 +14,5 @@
 
     <SMFooter> - defines a footer with Copyright
 
+Material Icons:
+https://material-ui.com/components/material-icons/

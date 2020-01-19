@@ -42,14 +42,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-/*
-                <AppBar position="static" color="default">
-                    <Typography variant="h4" align="center" style={{fontFamily:'Grinched',fontVariant:'small-caps',color:'green'}}>
-                    SuperMath 
-                </Typography>
-                </AppBar>
-
-*/
 export default function SMBody() {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);

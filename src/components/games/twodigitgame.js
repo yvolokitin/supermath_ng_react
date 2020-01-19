@@ -36,7 +36,7 @@ export default class TwoDigitGame extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        // console.log("componentDidUpdate " + prevProps.task + ", this.props.task " + this.props.task + ", this.props.count " + this.props.count);
+        console.log("componentDidUpdate " + prevProps.task + ", this.props.task " + this.props.task + ", this.props.count " + this.props.count);
         // Typical usage (don't forget to compare props), otherwise you get infinitive loop
         if (this.props.task !== prevProps.task) {
             if (this.props.open === true) {
@@ -53,7 +53,7 @@ export default class TwoDigitGame extends React.Component {
             this.props.onClick("finished", this.state);
         }
 
-        // in case of replay, we have to be able to restart game
+        // hide results, set counter 0 and clear history
         this.set_task();
     }
 
@@ -98,7 +98,8 @@ export default class TwoDigitGame extends React.Component {
                            user_results: this.results,
                            passed: this.state.passed,
                            failed: this.state.failed,
-                           counter: this.state.counter});
+                           counter: this.state.counter,
+                           circle: 'white'});
         }
 
         // console.log("this.results " + this.results.toString());
@@ -253,7 +254,7 @@ export default class TwoDigitGame extends React.Component {
                         </div>
                     </div>
 
-                    <GameFooter/>
+                    <GameFooter color={this.state.circle}/>
                 </div>
 
                 <GameResults open={this.state.show_results} user_results={this.state.user_results}
