@@ -49,7 +49,7 @@ export default class GameResults extends React.Component {
         localStorage.setItem('pass', pass);
         localStorage.setItem('fail', fail);
 
-        this.props.onClick('close');
+        this.props.onClick('close', pass, fail);
     }
 
     render() {

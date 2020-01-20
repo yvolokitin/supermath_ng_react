@@ -46,12 +46,12 @@ export default class ThreeDigitGame extends React.Component {
         }
     }
 
-    onResultsClose(status) {
+    onResultsClose(status, passed, failed) {
         console.log("onResultsClose, status " + status);
         this.results = [];
 
         if (status === 'close') {
-            this.props.onClick("finished", this.state);
+            this.props.onClick("finished");
         }
 
         // hide results, set counter 0 and clear history

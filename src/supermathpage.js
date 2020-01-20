@@ -39,7 +39,6 @@ export default class SuperMathPage extends React.Component {
 
     onUpdateHeader() {
         this.setState({userUpdate: true});
-
     }
 
     render() {
@@ -47,7 +46,7 @@ export default class SuperMathPage extends React.Component {
             <React.Fragment>
                 <CssBaseline/>
                 <SMHeader info={this.state.userUpdate}/>
-                <SMBody onClick={this.onUpdateHeader}/>
+                <SMBody onUpdate={this.onUpdateHeader}/>
                 <SMFooter text={"SuperMath"}/>
             </React.Fragment>
         );}

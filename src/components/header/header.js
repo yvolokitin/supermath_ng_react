@@ -28,15 +28,23 @@ export default class SMHeader extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log("SMHeader componentDidUpdate");
-        this.setState({userPass: localStorage.getItem('pass'),
-                       userFail: localStorage.getItem('fail'),
-                      });
+        // console.log("SMHeader componentDidUpdate " + this.state.userPass + " " + this.state.userFail);
+        // console.log("localStorage.getItem        " + localStorage.getItem('pass') + " " + localStorage.getItem('fail'));
+        if ((this.state.userPass !== localStorage.getItem('pass')) ||
+            (this.state.userFail !== localStorage.getItem('fail'))) {
+
+                if ((localStorage.getItem('pass') !== null) &&
+                    (localStorage.getItem('fail') !== null)) {
+                        this.setState({userPass: localStorage.getItem('pass'),
+                                       userFail: localStorage.getItem('fail'),
+                                      });
+                }
+        }
     }
 
 
     onLoginResult(result, user, age, passed, failed) {
-        console.log('onLoginResult ' + result + ', user: ' + user);
+        console.log('onLoginResult ' + result + ', user: ' + user + ', age: ' + age + ', pass: '  + passed + ', fail: ' + failed);
         if (result === 'successed') {
             this.setState({loginOpen: false,
                            isLogin: true,
@@ -47,13 +55,11 @@ export default class SMHeader extends React.Component {
                           });
 
             // use HTML5 Local Storage if browser supports it
-            if (typeof(Storage) !== "undefined") {
-                localStorage.setItem('isLogin', true);
-                localStorage.setItem('user', user);
-                localStorage.setItem('age', age);
-                localStorage.setItem('pass', passed);
-                localStorage.setItem('fail', failed);
-            }
+            localStorage.setItem('isLogin', true);
+            localStorage.setItem('user', user);
+            localStorage.setItem('age', age);
+            localStorage.setItem('pass', passed);
+            localStorage.setItem('fail', failed);
 
         } else {
             this.setState({loginOpen: false,
@@ -89,7 +95,9 @@ export default class SMHeader extends React.Component {
                     { this.state.isLogin ?
                         (
                          <Typography onClick={() => this.setState({userInfoOpen: true})} style={{marginRight:'1%',cursor:'pointer',fontSize:'2.00rem',fontFamily:'Grinched',fontVariant:'small-caps',color:'orange',textShadow:'1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue'}}>
-                            {this.state.userName}: <font style={{color: 'green'}}>{this.state.userPass}</font> &#128515; <font style={{color: 'red'}}>{this.state.userFail}</font> &#128169;
+                            {this.state.userName} :
+                            <font style={{color:'green'}}> {this.state.userPass} </font> &#128515;
+                            <font style={{color:'red'}}> {this.state.userFail} </font> &#128169;
                          </Typography>
                         )
                         :

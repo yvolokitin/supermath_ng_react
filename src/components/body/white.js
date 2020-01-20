@@ -111,14 +111,16 @@ export default class White extends React.Component {
     }
 
     onGameClose(status) {
-        console.log("White:: onGameClose called");
+        console.log("White:: onGameClose: " + status);
         // set all types of games as false
         this.setState({game2DOpen: false,
                        game3DOpen: false,
                        gameCoOpen: false,
                        gameOpOpen: false});
 
-        this.props.onClick("finished");
+        if (status === 'finished') {
+            this.props.onUpdate(status);
+        }
     }
 
     render() {

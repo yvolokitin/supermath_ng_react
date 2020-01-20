@@ -50,8 +50,8 @@ export default function SMBody(props) {
     };
 
     const onUpdate = (event, newValue) => {
-        console.log('User pass/fail counters should be updated');
-        props.onClick("finished");
+        console.log('SMBody:: onUpdate ' + newValue);
+        props.onUpdate("finished");
     };
 
     return (
@@ -67,7 +67,7 @@ export default function SMBody(props) {
                     </Tabs>
                 </AppBar>
 
-                <TabPanel style={{backgroundColor:'white'}} value={value} index={0}> <White onClick={onUpdate}/> </TabPanel>
+                <TabPanel style={{backgroundColor:'white'}} value={value} index={0}> <White onUpdate={onUpdate}/> </TabPanel>
                 <TabPanel style={{backgroundColor:'orange'}} value={value} index={1}> <Orange/> </TabPanel>
                 <TabPanel style={{backgroundColor:'green'}} value={value} index={2}> <Green/> </TabPanel>
                 <TabPanel style={{backgroundColor:'blue',}} value={value} index={3}> <Navi/> </TabPanel>
