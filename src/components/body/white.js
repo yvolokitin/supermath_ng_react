@@ -26,7 +26,7 @@ import ThreeDigitGame from "./../games/threedigitgame";
 import ComparisonGame from "./../games/comparisongame";
 import OperationGame from "./../games/operationgame";
 
-const task_amount = 50;
+const task_amount = 2;
 
 var desciptions = [
     "Tasks for Comparision of one-digit numbers (from 0 to 9), where kids can use only three operations: more (>), less (<) and equal (=). There are two one digit numbers displayed with questionmark in between.",
@@ -110,13 +110,15 @@ export default class White extends React.Component {
         }
     }
 
-    onGameClose() {
-        // console.log("onGameClose called");
+    onGameClose(status) {
+        console.log("White:: onGameClose called");
         // set all types of games as false
         this.setState({game2DOpen: false,
                        game3DOpen: false,
                        gameCoOpen: false,
                        gameOpOpen: false});
+
+        this.props.onClick("finished");
     }
 
     render() {

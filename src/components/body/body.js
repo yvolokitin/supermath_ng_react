@@ -42,11 +42,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SMBody() {
+export default function SMBody(props) {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
     const handleChange = (event, newValue) => {
         setValue(newValue);
+    };
+
+    const onUpdate = (event, newValue) => {
+        console.log('User pass/fail counters should be updated');
+        props.onClick("finished");
     };
 
     return (
@@ -62,7 +67,7 @@ export default function SMBody() {
                     </Tabs>
                 </AppBar>
 
-                <TabPanel style={{backgroundColor:'white'}} value={value} index={0}> <White/> </TabPanel>
+                <TabPanel style={{backgroundColor:'white'}} value={value} index={0}> <White onClick={onUpdate}/> </TabPanel>
                 <TabPanel style={{backgroundColor:'orange'}} value={value} index={1}> <Orange/> </TabPanel>
                 <TabPanel style={{backgroundColor:'green'}} value={value} index={2}> <Green/> </TabPanel>
                 <TabPanel style={{backgroundColor:'blue',}} value={value} index={3}> <Navi/> </TabPanel>

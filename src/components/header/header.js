@@ -27,6 +27,14 @@ export default class SMHeader extends React.Component {
         this.onLogout = this.onLogout.bind(this);
     }
 
+    componentDidUpdate(prevProps) {
+        console.log("SMHeader componentDidUpdate");
+        this.setState({userPass: localStorage.getItem('pass'),
+                       userFail: localStorage.getItem('fail'),
+                      });
+    }
+
+
     onLoginResult(result, user, age, passed, failed) {
         console.log('onLoginResult ' + result + ', user: ' + user);
         if (result === 'successed') {

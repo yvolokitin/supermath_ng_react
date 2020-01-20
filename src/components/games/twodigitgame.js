@@ -50,7 +50,7 @@ export default class TwoDigitGame extends React.Component {
         this.results = [];
 
         if (status === 'close') {
-            this.props.onClick("finished", this.state);
+            this.props.onClick("finished");
         }
 
         // hide results, set counter 0 and clear history

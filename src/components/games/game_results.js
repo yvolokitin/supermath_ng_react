@@ -13,6 +13,8 @@ export default class GameResults extends React.Component {
         super(props);
         this.state = {percent: 0,
                       rate: ''};
+
+        this.onClose = this.onClose.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -40,10 +42,20 @@ export default class GameResults extends React.Component {
         }
     }
 
+    onClose() {
+        var pass = parseInt(localStorage.getItem('pass')) + this.props.passed;
+        var fail = parseInt(localStorage.getItem('fail')) + this.props.failed;
+
+        localStorage.setItem('pass', pass);
+        localStorage.setItem('fail', fail);
+
+        this.props.onClick('close');
+    }
+
     render() {
         return (
             <Dialog open={this.props.open} transitionDuration={500} fullWidth={true} maxWidth={false}>
-                <SMTitle title='' onClick={() => this.props.onClick('close')}/>
+                <SMTitle title='' onClick={this.onClose}/>
 
                 <Typography style={{color: 'green',fontSize:'3.0rem',fontFamily:'Grinched',textAlign:'center',textShadow:'2px 2px black'}}>
                     YOUR RESULTS
@@ -80,7 +92,7 @@ export default class GameResults extends React.Component {
 
                 <DialogActions>
                     <Button startIcon={<ReplayIcon/>} onClick={() => this.props.onClick('replay')} color="primary">PLAY AGAIN</Button>
-                    <Button startIcon={<HighlightOffIcon/>} onClick={() => this.props.onClick('close')} color="primary">CLOSE</Button>
+                    <Button startIcon={<HighlightOffIcon/>} onClick={this.onClose} color="primary">CLOSE</Button>
                 </DialogActions>
             </Dialog>
         );
