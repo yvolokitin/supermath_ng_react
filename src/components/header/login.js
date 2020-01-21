@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import {Fab, CircularProgress, Snackbar} from '@material-ui/core';
-import {Dialog, DialogContent, Avatar, TextField, Grid, Link, Button, Checkbox, FormControlLabel} from '@material-ui/core';
+import {Dialog, DialogContent, TextField, Grid, Link, Button, Checkbox, FormControlLabel} from '@material-ui/core';
 
 import Alert from '@material-ui/lab/Alert';
 
@@ -8,8 +8,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import CheckIcon from '@material-ui/icons/Check';
 
 import SMTitle from "./../dialog/title";
-
-import {red, green} from 'material-ui/colors';
 
 import axios from 'axios';
 
@@ -99,7 +97,7 @@ export default class SMLogin extends React.Component {
                         <Fab style={{color:'white',backgroundColor:this.state.color}}>
                             {this.state.success ? <CheckIcon/> : <LockOutlinedIcon/>}
                         </Fab>
-                        {this.state.loading && <CircularProgress size={68} style={{color:green[500],position:'absolute',top:-6,left:-6,zIndex:1,}}/>}
+                        {this.state.loading && <CircularProgress size={68} style={{color:'green',position:'absolute',top:-6,left:-6,zIndex:1,}}/>}
                     </div>
 
                     <DialogContent>
