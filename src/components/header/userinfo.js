@@ -16,7 +16,7 @@ export default class UserInformation extends React.Component {
         this.state = {tab_value: 0,
                       percentage: '',
                       name: '',
-                      };
+                     };
     }
 
     onClose() {
@@ -37,26 +37,25 @@ export default class UserInformation extends React.Component {
 */
     render() {
         return (
-            <Dialog onClick={this.onClose} transitionDuration={600} fullWidth={true} maxWidth={false} scroll='body' open={true}>
+            <Dialog onClick={this.onClose} transitionDuration={600} maxWidth={false} scroll='body' open={true}>
                 <SMTitle title='' onClick={this.onClose} style={{backgroundColor:'white'}}/>
 
-                <div style={{widht:'100%',height:'100%'}}>
-                    <div style={{margin:'2%',widht:'49%',height:'100%',float:'left',textAlign:'center',}}>
+                <div style={{widht:'100%',height:'100%',display:'flex',border: '3px dotted green',}}>
+                    <div style={{margin:'1%',widht:'49%',height:'100%',float:'left',textAlign:'center',}}>
                         <Avatar style={{width:'160px',height:'160px',}}>
                             <img src={logo} alt='test'/>
                         </Avatar>
 
                         <Typography style={{cursor:'pointer',fontSize:'2.00rem',fontFamily:'Grinched',fontVariant:'small-caps',color:'orange',textShadow:'1px 1px 2px black'}}>
-                            Sergey
+                            {this.props.user}
                         </Typography>
 
                         <Typography style={{cursor:'pointer',fontSize:'2.00rem',fontFamily:'Grinched',fontVariant:'small-caps',color:'green',textShadow:'1px 1px 2px black'}}>
-                            6 years old
+                            {this.props.age} years old
                         </Typography>
-
                     </div>
 
-                    <UserDashboard/>
+                    <UserDashboard pass={this.props.pass} fail={this.props.fail}/>
                 </div>
 
             </Dialog>

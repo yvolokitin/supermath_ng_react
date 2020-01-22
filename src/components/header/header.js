@@ -121,7 +121,8 @@ export default class SMHeader extends React.Component {
                 <SMAbout open={this.state.aboutOpen} onClick={() => this.setState({aboutOpen: false})}/>
                 <SMLogin open={this.state.loginOpen} onClick={this.onLoginResult}/>
 
-                <UserInformation open={this.state.userInfoOpen} onClick={() => this.setState({userInfoOpen: false})}/>
+                <UserInformation open={this.state.userInfoOpen} onClick={() => this.setState({userInfoOpen: false})}
+                                 user={this.state.userName} age={this.state.userAge} pass={this.state.userPass} fail={this.state.userFail}/>
 
             </AppBar>
     )};
