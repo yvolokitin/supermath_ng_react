@@ -6,8 +6,6 @@ import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 
-import './title.css';
-
 export default class SMTitle extends React.Component {
     constructor(props) {
         super(props);

@@ -2,7 +2,7 @@
 import {Dialog, DialogContent, DialogActions, Typography, Card, CardMedia, Button} from '@material-ui/core';
 
 import CancelIcon from '@material-ui/icons/Cancel';
-import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
+// import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
 
 import SMTitle from "./../dialog/title";
 

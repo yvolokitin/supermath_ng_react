@@ -34,7 +34,6 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
-        border: '3px dotted black',
     },
     tabs: {
         borderRight: `1px solid ${theme.palette.divider}`,
@@ -46,16 +45,17 @@ const useStyles = makeStyles(theme => ({
         fontWeight: 'bold',
     },
     panel: {
-        
-    },
-    card: {
-        minWidth: 475,
-        minHeight: 275,
-        border: '1px solid red',
+        minWidth: 575,
+        minHeight: 475,
     },
 }));
 
-export default function UserDashboard(props) {
+/*
+                <Card className={classes.card}>
+                </Card>
+
+*/
+export default function Dashboard(props) {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
     const handleTabChange = (event, newValue) => {
@@ -64,15 +64,16 @@ export default function UserDashboard(props) {
 
     return (
         <div className={classes.root}>
-            <Tabs onChange={handleTabChange} orientation="vertical" centered={true} className={classes.tabs} value={value} variant='fullWidth' indicatorColor='primary'>
-                <Tab className={classes.tab} label="Results" {...a11yProps(0)} />
-                <Tab className={classes.tab} label="Messages" {...a11yProps(1)} />
-                <Tab className={classes.tab} label="Friends" {...a11yProps(2)} />
-                <Tab className={classes.tab} label="Parents" {...a11yProps(2)} />
+            <Tabs onChange={handleTabChange} orientation="vertical" className={classes.tabs}
+                  value={value} variant='fullWidth' indicatorColor='primary'>
+
+                    <Tab className={classes.tab} label="Results" {...a11yProps(0)} />
+                    <Tab className={classes.tab} label="Messages" {...a11yProps(1)} />
+                    <Tab className={classes.tab} label="Friends" {...a11yProps(2)} />
+                    <Tab className={classes.tab} label="Parents" {...a11yProps(2)} />
             </Tabs>
 
             <TabPanel value={value} index={0} className={classes.panel}>
-                <Card className={classes.card}>
                 <Typography component="div" style={{fontFamily:'Grinched',fontSize:'2.00rem',fontVariant:'small-caps',textShadow:'1px 1px 2px black'}}>
                             <font style={{color:'blue'}}> YOUR </font> &nbsp; <font style={{color:'red'}}> MATH </font> &nbsp; <font style={{color:'orange'}}> POINTS: </font>
                 </Typography>
@@ -82,7 +83,6 @@ export default function UserDashboard(props) {
                             &nbsp; <font style={{color:'green'}}> {props.pass} </font> &#128515;
                             &nbsp; <font style={{color:'red'}}> {props.fail} </font> &#128169;
                 </Typography>
-                </Card>
             </TabPanel>
 
             <TabPanel value={value} index={1}>
