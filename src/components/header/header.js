@@ -27,6 +27,7 @@ export default class SMHeader extends React.Component {
         this.onLoginResult = this.onLoginResult.bind(this);
         this.onLogout = this.onLogout.bind(this);
 
+        this.onUserInfoOpen = this.onUserInfoOpen.bind(this);
         this.onUserInfoClose = this.onUserInfoClose.bind(this);
     }
 
@@ -43,6 +44,10 @@ export default class SMHeader extends React.Component {
                                       });
                 }
         }
+    }
+
+    onUserInfoOpen() {
+        this.setState({userInfoOpen: true});
     }
 
     onUserInfoClose() {
@@ -102,7 +107,7 @@ export default class SMHeader extends React.Component {
 
                     { this.state.isLogin ?
                         (
-                         <Typography onClick={() => this.setState({userInfoOpen: true})} style={{marginRight:'1%',cursor:'pointer',fontSize:'2.00rem',fontFamily:'Grinched',fontVariant:'small-caps',color:'orange',textShadow:'1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue'}}>
+                         <Typography onClick={this.onUserInfoOpen} style={{marginRight:'1%',cursor:'pointer',fontSize:'2.00rem',fontFamily:'Grinched',fontVariant:'small-caps',color:'orange',textShadow:'1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue'}}>
                             {this.state.userName} :
                             <font style={{color:'green'}}> {this.state.userPass} </font> &#128515;
                             <font style={{color:'red'}}> {this.state.userFail} </font> &#128169;

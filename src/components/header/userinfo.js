@@ -30,19 +30,17 @@ var arr = [ava1,ava2,ava3,ava4,ava5,ava6,ava7,ava8,ava9,ava10,ava11,ava12,ava13,
 export default class UserInformation extends React.Component {
     constructor(props) {
         super(props);
+
         this.onClose = this.onClose.bind(this);
-        this.onLogout = this.onLogout.bind(this);
         this.onChangeAvatar = this.onChangeAvatar.bind(this);
 
-        this.state = {name: '',
-                      ava: ava13,
-                     };
+        this.state = {name: this.props.user, ava: this.props.ava};
     }
 
     componentDidUpdate(prevProps) {
-        // console.log("SMHeader componentDidUpdate " + this.state.userPass + " " + this.state.userFail);
-        // console.log("localStorage.getItem        " + localStorage.getItem('pass') + " " + localStorage.getItem('fail'));
-        if (this.props.ava !== prevProps.ava) {
+        console.log("!!!this.props.ava " + this.props.ava);
+        console.log("!!!this.state.ava " + this.state.ava);
+        if (this.props.ava !== this.state.ava) { // prevProps.ava) {
             for (var i=0; i< arr.length; i++) {
                 if (localStorage.getItem('ava') === arr[i]) {
                     console.log('componentDidUpdate ' + arr[i]);
@@ -57,10 +55,6 @@ export default class UserInformation extends React.Component {
         console.log('onClose');
         // send post update with new avater picture
         this.props.onClick();
-    }
-
-    onLogout() {
-        console.log('onLogout');
     }
 
     onChangeAvatar(newAvatar) {
