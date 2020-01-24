@@ -74,7 +74,7 @@ export default class SMLogin extends React.Component {
 
         this.setState({success: true, loading: false, color:'green'});
 
-        setTimeout(() => {this.props.onClick('successed', 'Sergey', '6', '775', '13');}, 300);
+        setTimeout(() => {this.props.onClick('successed', 'Sergey', '6', './../../images/avatars/queen-icon.png', '775', '13');}, 300);
     }
 
     onLoginError(error) {

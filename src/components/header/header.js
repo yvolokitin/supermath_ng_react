@@ -19,12 +19,15 @@ export default class SMHeader extends React.Component {
                       isLogin: localStorage.getItem('isLogin'),
                       userName: localStorage.getItem('user'),
                       userAge: localStorage.getItem('age'),
+                      userAva: localStorage.getItem('ava'),
                       userPass: localStorage.getItem('pass'),
                       userFail: localStorage.getItem('fail'),
                      };
 
         this.onLoginResult = this.onLoginResult.bind(this);
         this.onLogout = this.onLogout.bind(this);
+
+        this.onUserInfoClose = this.onUserInfoClose.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -42,8 +45,12 @@ export default class SMHeader extends React.Component {
         }
     }
 
+    onUserInfoClose() {
+        this.setState({userInfoOpen: false,
+                       userAva: localStorage.getItem('ava')});
+    }
 
-    onLoginResult(result, user, age, passed, failed) {
+    onLoginResult(result, user, age, ava, passed, failed) {
         console.log('onLoginResult ' + result + ', user: ' + user + ', age: ' + age + ', pass: '  + passed + ', fail: ' + failed);
         if (result === 'successed') {
             this.setState({loginOpen: false,
@@ -58,6 +65,7 @@ export default class SMHeader extends React.Component {
             localStorage.setItem('isLogin', true);
             localStorage.setItem('user', user);
             localStorage.setItem('age', age);
+            localStorage.setItem('ava', ava);
             localStorage.setItem('pass', passed);
             localStorage.setItem('fail', failed);
 
@@ -121,8 +129,9 @@ export default class SMHeader extends React.Component {
                 <SMAbout open={this.state.aboutOpen} onClick={() => this.setState({aboutOpen: false})}/>
                 <SMLogin open={this.state.loginOpen} onClick={this.onLoginResult}/>
 
-                <UserInformation open={this.state.userInfoOpen} onClick={() => this.setState({userInfoOpen: false})}
-                                 user={this.state.userName} age={this.state.userAge} pass={this.state.userPass} fail={this.state.userFail}/>
+                <UserInformation open={this.state.userInfoOpen} onClick={this.onUserInfoClose}
+                                 user={this.state.userName} age={this.state.userAge} ava={this.state.userAva}
+                                 pass={this.state.userPass} fail={this.state.userFail}/>
 
             </AppBar>
     )};
