@@ -18,7 +18,7 @@ import ava10 from './../../images/avatars/clown-icon.png';
 import ava11 from './../../images/avatars/grandma-icon.png';
 import ava12 from './../../images/avatars/lumberjack-icon.png';
 
-import ava13 from './../../images/avatars/Martin-Berube-People-Kid.ico';
+import ava13 from './../../images/avatars/martin-berube.ico';
 import ava14 from './../../images/avatars/pirate-icon.png';
 import ava15 from './../../images/avatars/policeman-icon.png';
 import ava16 from './../../images/avatars/princess-icon.png';
@@ -26,6 +26,7 @@ import ava17 from './../../images/avatars/prisoner-icon.png';
 import ava18 from './../../images/avatars/queen-icon.png';
 
 var arr = [ava1,ava2,ava3,ava4,ava5,ava6,ava7,ava8,ava9,ava10,ava11,ava12,ava13,ava14,ava15,ava16,ava17,ava18];
+var avatar = ava13;
 
 export default class UserInformation extends React.Component {
     constructor(props) {
@@ -34,16 +35,20 @@ export default class UserInformation extends React.Component {
         this.onClose = this.onClose.bind(this);
         this.onChangeAvatar = this.onChangeAvatar.bind(this);
 
-        this.state = {name: this.props.user, ava: this.props.ava};
+        for (var i=0; i< arr.length; i++) {
+            if (arr[i].includes(this.props.ava)) {
+                avatar = arr[i];
+                break;
+            }
+        }
+
+        this.state = {name: this.props.user, ava: avatar};
     }
 
     componentDidUpdate(prevProps) {
-        console.log("!!!this.props.ava " + this.props.ava);
-        console.log("!!!this.state.ava " + this.state.ava);
-        if (this.props.ava !== this.state.ava) { // prevProps.ava) {
+        if (this.props.ava !== prevProps.ava) {
             for (var i=0; i< arr.length; i++) {
-                if (localStorage.getItem('ava') === arr[i]) {
-                    console.log('componentDidUpdate ' + arr[i]);
+                if (arr[i].includes(this.props.ava)) {
                     this.setState({ava: arr[i]});
                     break;
                 }
@@ -58,9 +63,14 @@ export default class UserInformation extends React.Component {
     }
 
     onChangeAvatar(newAvatar) {
-        console.log('onChangeAvatar ' + newAvatar);
         this.setState({ava: newAvatar});
-        localStorage.setItem('ava', newAvatar);
+
+        // onChangeAvatar /static/media/astronaut-icon.2a916653.png
+        // we should save proper value in storage, i.e. astronaut-icon name only
+        var index = newAvatar.indexOf('.');
+        // '/static/media/' length = 14
+        var value = newAvatar.substring(14, index);
+        localStorage.setItem('ava', value);
     }
 /*
     now I have no time for good Tabs dashboard, like this one:
