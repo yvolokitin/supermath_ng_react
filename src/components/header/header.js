@@ -4,6 +4,7 @@ import {AppBar, Toolbar, Typography} from '@material-ui/core';
 import SMHelp from "./help";
 import SMAbout from "./about";
 import SMLogin from "./login";
+import Registration from "./registration";
 import UserInformation from "./userinfo";
 
 import './header.css';
@@ -19,9 +20,12 @@ export default class SMHeader extends React.Component {
         this.onUserInfoOpen = this.onUserInfoOpen.bind(this);
         this.onUserInfoClose = this.onUserInfoClose.bind(this);
 
+        this.onRegistrationClose = this.onRegistrationClose.bind(this);
+
         this.state = {aboutOpen: false,
                       helpOpen: false,
                       loginOpen: false,
+                      registerOpen: false,
                       userInfoOpen: false,
                       isLogin: localStorage.getItem('isLogin') ? localStorage.getItem('isLogin') : false,
                       userName: localStorage.getItem('user') ? localStorage.getItem('user') : 'John',
@@ -44,6 +48,14 @@ export default class SMHeader extends React.Component {
                                        userFail: localStorage.getItem('fail'),
                                       });
                 }
+        }
+    }
+
+    onRegistrationClose(status) {
+        if (status === 'login') {
+            this.setState({registerOpen: false, loginOpen: true});
+        } else {
+            this.setState({registerOpen: false});
         }
     }
 
@@ -119,7 +131,7 @@ export default class SMHeader extends React.Component {
                         )
                         :
                         (
-                        <Typography style={{fontSize:'2.00rem',fontFamily:'Grinched',color:'green'}}> registration </Typography>
+                        <Typography onClick={() => this.setState({registerOpen: true})} style={{fontSize:'2.00rem',fontFamily:'Grinched',color:'green'}}> registration </Typography>
                         )
                     }
 
@@ -142,6 +154,9 @@ export default class SMHeader extends React.Component {
                 <UserInformation open={this.state.userInfoOpen} onClick={this.onUserInfoClose}
                                  user={this.state.userName} age={this.state.userAge} ava={this.state.userAva}
                                  pass={this.state.userPass} fail={this.state.userFail}/>
+
+                <Registration open={this.state.registerOpen} onClick={this.onRegistrationClose}/>
+
             </AppBar>
     )};
 }

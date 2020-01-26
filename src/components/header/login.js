@@ -68,9 +68,9 @@ export default class SMLogin extends React.Component {
         }
     }
 
+    // return jsonify({'id': 13, 'name': user, 'age': 6, 'pass': 767, 'fail': 13}), 200
     onLoginResponse(response) {
-        console.log("YURA: axios.post response " + response.data.user_id);
-        console.log("YURA: axios.post response " + response.data.username);
+        console.log("onLoginResponse:: " + response.data.toString());
 
         this.setState({success: true, loading: false, color:'green'});
 

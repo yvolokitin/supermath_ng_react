@@ -26,7 +26,7 @@ import ThreeDigitGame from "./../games/threedigitgame";
 import ComparisonGame from "./../games/comparisongame";
 import OperationGame from "./../games/operationgame";
 
-const task_amount = 2;
+const task_amount = 1;
 
 var desciptions = [
     "Tasks for Comparision of one-digit numbers (from 0 to 9), where kids can use only three operations: more (>), less (<) and equal (=). There are two one digit numbers displayed with questionmark in between.",

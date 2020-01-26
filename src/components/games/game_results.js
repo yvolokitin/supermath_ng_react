@@ -57,12 +57,12 @@ export default class GameResults extends React.Component {
             <Dialog open={this.props.open} transitionDuration={500} fullWidth={true} maxWidth={false}>
                 <SMTitle title='' onClick={this.onClose}/>
 
-                <Typography style={{color: 'green',fontSize:'3.0rem',fontFamily:'Grinched',textAlign:'center',textShadow:'2px 2px black'}}>
-                    YOUR RESULTS
-                </Typography>
-
                 <DialogContent>
-                    <div style={{display:'flex',margin:'5%',alignItems:'center',justifyContent:'center'}}>
+                    <Typography style={{color: 'green',fontSize:'3.0rem',fontFamily:'Grinched',textAlign:'center',textShadow:'2px 2px black',border:'1px solid red',}}>
+                        YOUR RESULTS
+                    </Typography>
+
+                    <div style={{display:'flex',alignItems:'center',justifyContent:'center',border:'1px solid red',}}>
                         <font style={{margin: '20px', color: 'green', fontFamily: 'Grinched', fontSize: '7.0rem'}}>
                             <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
                             {this.props.passed}

@@ -16,3 +16,6 @@
 
 Material Icons:
 https://material-ui.com/components/material-icons/
+
+Icons:
+http://www.iconarchive.com/
