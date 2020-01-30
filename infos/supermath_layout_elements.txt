@@ -19,3 +19,7 @@ https://material-ui.com/components/material-icons/
 
 Icons:
 http://www.iconarchive.com/
+
+JavaScript Obfuscator https://habrahabr.ru/post/112530/
+from http://discogscounter.getfreehosting.co.uk/js-noalnum_com.php?i=1
+
