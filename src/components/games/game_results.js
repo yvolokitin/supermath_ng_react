@@ -58,20 +58,22 @@ export default class GameResults extends React.Component {
                 <SMTitle title='' onClick={this.onClose}/>
 
                 <DialogContent>
-                    <Typography style={{color: 'green',fontSize:'3.0rem',fontFamily:'Grinched',textAlign:'center',textShadow:'2px 2px black',border:'1px solid red',}}>
-                        YOUR RESULTS
-                    </Typography>
+                    <div style={{marginTop:'2%',display:'flex',alignItems:'center',justifyContent:'center',backgroundColor:'green',}}>
+                        <div style={{width:'100%',height:'10%',color:'white',fontFamily:'Grinched',fontSize:'3.0rem',textAlign:'center'}}>
+                            YOUR RESULTS
+                        </div>
 
-                    <div style={{display:'flex',alignItems:'center',justifyContent:'center',border:'1px solid red',}}>
-                        <font style={{margin: '20px', color: 'green', fontFamily: 'Grinched', fontSize: '7.0rem'}}>
-                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
-                            {this.props.passed}
-                        </font>
-                        <SMRadialChart progress={this.state.percent}/>
-                        <font style={{margin: '20px', color: 'red', fontFamily: 'Grinched', fontSize: '7.0rem'}}>
-                            {this.props.failed}
-                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
-                        </font>
+                        <div style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+                            <font style={{margin: '20px', color:'green',fontFamily: 'Grinched', fontSize: '7.0rem'}}>
+                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
+                                {this.props.passed}
+                            </font>
+                            <SMRadialChart progress={this.state.percent}/>
+                            <font style={{margin: '20px', color: 'red', fontFamily: 'Grinched', fontSize: '7.0rem'}}>
+                                {this.props.failed}
+                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
+                            </font>
+                        </div>
                     </div>
 
                     <Typography gutterBottom style={{color:'black',fontSize:'3.0rem',fontFamily:'Grinched',textAlign:'center',lineHeight:'0.9'}}>
