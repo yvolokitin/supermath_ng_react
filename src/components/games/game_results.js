@@ -1,12 +1,10 @@
 ﻿import React from 'react';
-import {Dialog, DialogContent, DialogActions, Typography, Button} from '@material-ui/core';
+import {Dialog, DialogContent} from '@material-ui/core';
 
-import ReplayIcon from '@material-ui/icons/Replay';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-
-import './twodigitgame.css';
 import SMRadialChart from "./../charts/smradialchart";
 import SMTitle from "./../dialog/title";
+
+import './game_results.css';
 
 export default class GameResults extends React.Component {
     constructor(props) {
@@ -52,50 +50,62 @@ export default class GameResults extends React.Component {
         this.props.onClick('close', pass, fail);
     }
 
+/*
+                <DialogActions>
+                    <Button startIcon={<ReplayIcon/>} onClick={() => this.props.onClick('replay')} color="primary"></Button>
+                    <Button startIcon={<HighlightOffIcon/>} onClick={this.onClose} color="primary">CLOSE</Button>
+                </DialogActions>
+
+fullWidth={true} maxWidth={false} 
+*/
     render() {
         return (
-            <Dialog open={this.props.open} transitionDuration={500} fullWidth={true} maxWidth={false}>
+            <Dialog open={this.props.open} transitionDuration={500} fullWidth={true} maxWidth='md' scroll="body">
                 <SMTitle title='' onClick={this.onClose}/>
 
                 <DialogContent>
-                    <div style={{marginTop:'2%',display:'flex',alignItems:'center',justifyContent:'center',backgroundColor:'green',}}>
-                        <div style={{width:'100%',height:'10%',color:'white',fontFamily:'Grinched',fontSize:'3.0rem',textAlign:'center'}}>
-                            YOUR RESULTS
-                        </div>
+                    <div className='result_board'>
+                        <div className='result_board_title' style={{color:'yellow',}}> YOUR RESULTS </div>
 
-                        <div style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
-                            <font style={{margin: '20px', color:'green',fontFamily: 'Grinched', fontSize: '7.0rem'}}>
+                        <div className='result_board_chart'>
+                            <font style={{color:'#00cc00',}}>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
-                                {this.props.passed}
+                                &nbsp; {this.props.passed} &nbsp;
                             </font>
-                            <SMRadialChart progress={this.state.percent}/>
-                            <font style={{margin: '20px', color: 'red', fontFamily: 'Grinched', fontSize: '7.0rem'}}>
-                                {this.props.failed}
+                            &nbsp; <SMRadialChart progress={this.state.percent}/> &nbsp;
+                            <font style={{color:'red',}}>
+                                &nbsp; {this.props.failed} &nbsp;
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                             </font>
                         </div>
+
+                        <div className='result_board_body'>
+                            You reach <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#9757;</span> &nbsp;
+                            {this.state.rate} score <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128202;</span>
+                        </div>
+
+                        <div className='result_board_body'>
+                            and your brain take extra
+                        </div>
+
+                        <div className='result_board_body'>
+                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128138;</span> pill to became more
+                        </div>
+
+                        <div className='result_board_body'>
+                            smart, strong <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128170;</span>
+                            and health <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128540;</span>
+                        </div>
                     </div>
 
-                    <Typography gutterBottom style={{color:'black',fontSize:'3.0rem',fontFamily:'Grinched',textAlign:'center',lineHeight:'0.9'}}>
-                        You reach <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#9757;</span> {this.state.rate} score <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128202;</span>
-                    </Typography>
+                    <div onClick={() => this.props.onClick('replay')} className='result_board_button_left'>
+                        play again &nbsp; &#8635;
+                    </div>
 
-                    <Typography gutterBottom style={{color:'black',fontSize:'3.0rem',fontFamily:'Grinched',textAlign:'center',lineHeight:'0.9'}}>
-                        and your <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128173;</span> brain take extra <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128138;</span> pillows
-                    </Typography>
-
-                    <Typography gutterBottom style={{color:'black',fontSize:'3.0rem',fontFamily:'Grinched',textAlign:'center',lineHeight:'0.9'}}>
-                        to became more <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128171;</span> smart,
-                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128170;</span>
-                        strong and <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128540;</span> health
-                    </Typography>
-
+                    <div onClick={this.onClose} className='result_board_button_right'>
+                        close &nbsp; &#10006;
+                    </div>
                 </DialogContent>
-
-                <DialogActions>
-                    <Button startIcon={<ReplayIcon/>} onClick={() => this.props.onClick('replay')} color="primary">PLAY AGAIN</Button>
-                    <Button startIcon={<HighlightOffIcon/>} onClick={this.onClose} color="primary">CLOSE</Button>
-                </DialogActions>
             </Dialog>
         );
     }

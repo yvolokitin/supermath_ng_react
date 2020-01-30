@@ -238,7 +238,7 @@ export default class ThreeDigitGame extends React.Component {
                         </div>
                     </div>
 
-                    <GameFooter color={this.state.circle}/>
+                    { this.state.show_results ? (null) : (<GameFooter color={this.state.circle}/>) }
                 </div>
 
                 <GameResults open={this.state.show_results} user_results={this.state.user_results}
