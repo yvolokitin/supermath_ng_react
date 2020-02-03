@@ -45,8 +45,8 @@ export default class TwoDigitGame extends React.Component {
         }
     }
 
-    onResultsClose(status, passed, failed) {
-        console.log("onResultsClose, status " + status);
+    onResultsClose(status) {
+        console.log("onResultsClose:: status " + status);
         this.results = [];
 
         if (status === 'close') {

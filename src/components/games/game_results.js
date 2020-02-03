@@ -1,6 +1,8 @@
 ﻿import React from 'react';
 import {Dialog, DialogContent} from '@material-ui/core';
 
+import axios from 'axios';
+
 import SMRadialChart from "./../charts/smradialchart";
 import SMTitle from "./../dialog/title";
 
@@ -12,7 +14,11 @@ export default class GameResults extends React.Component {
         this.state = {percent: 0,
                       rate: ''};
 
+        this.updateUserResults = this.updateUserResults.bind(this);
+        this.onUserResultsResponse = this.onUserResultsResponse.bind(this);
+        this.onUserResultsError = this.onUserResultsError.bind(this);
         this.onClose = this.onClose.bind(this);
+        this.onReplay = this.onReplay.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -40,16 +46,38 @@ export default class GameResults extends React.Component {
         }
     }
 
-    onClose() {
+    updateUserResults() {
         var pass = parseInt(localStorage.getItem('pass')) + this.props.passed;
         var fail = parseInt(localStorage.getItem('fail')) + this.props.failed;
+        localStorage.setItem('pass', pass); localStorage.setItem('fail', fail);
 
-        localStorage.setItem('pass', pass);
-        localStorage.setItem('fail', fail);
-
-        this.props.onClick('close', pass, fail);
+        // send post update and close window
+        var post_data = {'user_id': localStorage.getItem('user_id'),
+                         'operation': 'results',
+                         'passed': this.props.passed,
+                         'failed': this.props.failed};
+        axios.post('http://supermath.xyz:3000/api/update', post_data)
+            .then(this.onUserResultsResponse)
+            .catch(this.onUserResultsError);
     }
 
+    onUserResultsResponse(response) {
+        console.log("onUserResultsResponse:: error " + response.data.error + ", id " + response.data.id);
+
+    }
+
+    onUserResultsError(error) {
+        console.log("onUserResultsError:: error " + error);
+       
+    }
+
+    onClose() {
+        this.updateUserResults(); this.props.onClick('close');
+    }
+
+    onReplay() {
+        this.updateUserResults(); this.props.onClick('replay');
+    }
 /*
                 <DialogActions>
                     <Button startIcon={<ReplayIcon/>} onClick={() => this.props.onClick('replay')} color="primary"></Button>
@@ -98,7 +126,7 @@ fullWidth={true} maxWidth={false}
                         </div>
                     </div>
 
-                    <div onClick={() => this.props.onClick('replay')} className='result_board_button_left'>
+                    <div onClick={this.onReplay} className='result_board_button_left'>
                         play again &nbsp; &#8635;
                     </div>
 

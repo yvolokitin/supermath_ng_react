@@ -48,7 +48,7 @@ const games = [
     {id: 3, logo: logo3, type: '2d', task: '-,0-10,0-10,1,1', amount: task_amount, desc: desciptions[2], head: 'Tasks for Subtraction of one-digit numbers (from 0 to 10)'},
 
     {id: 4, logo: logo4, type: '2d', task: '+-,0-10,0-10,1,1', amount: task_amount, desc: desciptions[3], head: 'Tasks for Addition and Subtraction of TWO one-digit numbers (from 0 to 10)'},
-    {id: 5, logo: logo5, type: 'op', task: '+-,1-10,1-10,1,1', amount: task_amount, desc: desciptions[4], head: 'Tasks for Math operation (Addition or Subtraction) determination'},
+    {id: 5, logo: logo5, type: 'op', task: '+-,1-10,0-10,1,1', amount: task_amount, desc: desciptions[4], head: 'Tasks for Math operation (Addition or Subtraction) determination'},
     {id: 6, logo: logo12, type: '3d', task: '+-,0-10,1', amount: task_amount, desc: desciptions[5], head: 'Tasks for Addition and Subtraction of THREE one-digit numbers'},
 
     {id: 7, logo: logo7, type: '2d', task: '+-,1-9,10-20,1,1', amount: task_amount, desc: desciptions[6], head: 'Tasks for Addition and Subtraction of one- and two- digit numbers'},

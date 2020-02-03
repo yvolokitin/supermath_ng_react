@@ -28,11 +28,13 @@ export default class SMHeader extends React.Component {
                       registerOpen: false,
                       userInfoOpen: false,
                       isLogin: localStorage.getItem('isLogin') ? localStorage.getItem('isLogin') : false,
-                      userName: localStorage.getItem('user') ? localStorage.getItem('user') : 'John',
-                      userAge: localStorage.getItem('age') ? localStorage.getItem('age') : '85',
+                      userId: localStorage.getItem('user_id') ? localStorage.getItem('user_id') : '0',
+                      userName: localStorage.getItem('name') ? localStorage.getItem('name') : 'Kobe',
+                      userSurname: localStorage.getItem('surname') ? localStorage.getItem('surname') : 'Bryant',
+                      userAge: localStorage.getItem('age') ? localStorage.getItem('age') : '41',
                       userAva: localStorage.getItem('ava') ? localStorage.getItem('ava') : 'martin-berube',
-                      userPass: localStorage.getItem('pass'),
-                      userFail: localStorage.getItem('fail'),
+                      userPass: localStorage.getItem('pass') ? localStorage.getItem('pass') : '60',
+                      userFail: localStorage.getItem('fail') ? localStorage.getItem('fail') : '0',
                      };
     }
 
@@ -72,12 +74,14 @@ export default class SMHeader extends React.Component {
         this.setState({loginOpen: true});
     }
 
-    onLoginResult(result, user, age, ava, passed, failed) {
+    onLoginResult(result, user_id, name, surname, age, ava, passed, failed) {
         // console.log('onLoginResult ' + result + ', user: ' + user + ', age: ' + age+ ', pass: '  + passed + ', fail: ' + failed);
         if (result === 'successed') {
             this.setState({loginOpen: false,
                            isLogin: true,
-                           userName: user,
+                           userId: user_id,
+                           userName: name,
+                           userSurname: surname,
                            userAge: age,
                            userAva: ava,
                            userPass: passed,
@@ -86,7 +90,9 @@ export default class SMHeader extends React.Component {
 
             // use HTML5 Local Storage if browser supports it
             localStorage.setItem('isLogin', true);
-            localStorage.setItem('user', user);
+            localStorage.setItem('user_id', user_id);
+            localStorage.setItem('name', name);
+            localStorage.setItem('surname', surname);
             localStorage.setItem('age', age);
             localStorage.setItem('ava', ava);
             localStorage.setItem('pass', passed);
@@ -94,8 +100,7 @@ export default class SMHeader extends React.Component {
 
         } else {
             this.setState({loginOpen: false,
-                           isLogin: false,
-                          });
+                           isLogin: false});
         }
     }
 
@@ -105,7 +110,9 @@ export default class SMHeader extends React.Component {
 
         // remove all info from local storage
         localStorage.removeItem('isLogin');
-        localStorage.removeItem('user');
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('name');
+        localStorage.removeItem('surname');
         localStorage.removeItem('age');
         localStorage.removeItem('ava');
         localStorage.removeItem('pass');

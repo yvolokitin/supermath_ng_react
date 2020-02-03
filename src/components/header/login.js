@@ -35,30 +35,62 @@ export default class SMLogin extends React.Component {
     }
 
     // event: The event source of the callback. You can pull out the new value by accessing event.target.value (string).
-    onUserName(event, newValue) {
-        // console.log("event " + event + ", newValue " + newValue);
-        // this.setState({name: newValue});
+    onUserName(event) {
+        console.log("onUserName:: event " + event.target.value);
+        this.setState({email: event.target.value});
     }
 
-    onPassword(event, newValue) {
-        // this.setState({pswd: newValue})
+    onPassword(event) {
+        console.log("onUserName:: event " + event.target.value);
+        this.setState({password: event.target.value})
     }
 
     // curl -i -X POST -H "Content-Type: application/json" -d "{"""user""":"""yura""","""pswd""":"""qwerty123"""}" https://supermathrest.herokuapp.com/api/login
     onLogin(event) {
         event.preventDefault();
-        console.log("event " + event);
-
         this.setState({success: false, loading: true});
 
+        // console.log('onLogin ' + this.state.email + ', pswd ' + this.state.password);
         // simulation success login results
         // setTimeout(() => {this.onLoginResponse('qqq');}, 2000);
 
-        // var post_data = {'user': 'yura', 'pswd': 'test'};
-        var post_data = {'user': 'yura', 'pswd': ''};
-        axios.post('https://supermathrest.herokuapp.com/api/login', post_data)
+        // curl -i -X POST -H "Content-Type: application/json" -d "{"""email""":"""volokitin@bk.ru""","""pswd""":"""asdas12"""}" http://supermath.xyz:3000/api/login
+        var post_data = {'email': this.state.email, 'pswd': this.state.password};
+        axios.post('http://supermath.xyz:3000/api/login', post_data)
             .then(this.onLoginResponse)
             .catch(this.onLoginError);
+    }
+
+    // {"age":"Tue, 28 Jan 2014 06:13:13 GMT","ava":"martin-berube","creation":"Fri, 31 Jan 2020 13:13:13 GMT","email":"volokitin@bk.ru","fail":3,"id":1,"name":"Sergey","pass":15,"surname":"Volokitin"}
+    onLoginResponse(response) {
+        console.log("onLoginResponse:: error " + response.data.error + ", id " + response.data.id);
+
+        if ((response.data.error === undefined) && (response.data.id !== undefined)) {
+            this.setState({success: true, loading: false, color:'green'});
+
+            // age calculation based on server response value
+            // "age":"Tue, 28 Jan 2014 06:13:13 GMT" -> need to convert in years
+            var birthday = new Date(response.data.age);
+            var ageDifMs = Date.now() - birthday.getTime();
+            var ageDate = new Date(ageDifMs);
+            var age = Math.abs(ageDate.getUTCFullYear() - 1970);
+
+            setTimeout(() => {this.props.onClick('successed', response.data.id, response.data.name, response.data.surname, age, response.data.ava, response.data.pass, response.data.fail);}, 700);
+
+        } else {
+            if (response.data.error !== undefined) {
+                setTimeout(() => {this.setState({success: false, loading: false, color:'red', loginFailed: true, loginError: response.data.error.toString()});}, 700);
+                // this.setState({success: false, loading: false, color:'red', loginFailed: true, loginError: response.data.error.toString()});
+            } else {
+                setTimeout(() => {this.setState({success: false, loading: false, color:'red', loginFailed: true, loginError: 'Uuupps!Something goes wrong'});}, 700);
+                // this.setState({success: false, loading: false, color:'red', loginFailed: true, loginError: 'Uuupps!Something goes wrong'});
+            }
+        }
+    }
+
+    onLoginError(error) {
+        console.log("axios.post error " + error);
+        this.setState({success: false, loading: false, color:'red', loginFailed: true, loginError: error.toString()});
     }
 
     onLoginClose() {
@@ -66,20 +98,6 @@ export default class SMLogin extends React.Component {
         if (this.state.loading === false) {
             this.props.onClick();
         }
-    }
-
-    // return jsonify({'id': 13, 'name': user, 'age': 6, 'pass': 767, 'fail': 13}), 200
-    onLoginResponse(response) {
-        console.log("onLoginResponse:: " + response.data.toString());
-
-        this.setState({success: true, loading: false, color:'green'});
-
-        setTimeout(() => {this.props.onClick('successed', 'Sergey', '6', 'queen-icon', '775', '13');}, 300);
-    }
-
-    onLoginError(error) {
-        console.log("axios.post error " + error);
-        this.setState({success: false, loading: false, color:'red', loginFailed: true, loginError: error.toString()});
     }
 
 /*
