@@ -1,16 +1,21 @@
 ﻿.operatorboard {
-    min-width: 450px;
-    max-width: 450px;
+    min-width: 550px;
+    max-width: 550px;
 
     min-height: 150px;
     max-height: 150px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     border: 1px solid red;
 }
 .operatorboard button {
   font-family: "Grinched";
-  width: 25%;
-  margin: 1.0rem;
+  width: 120px;
+  height: 120px;
+  margin: 20px;
   font-size: 6.00rem;
   outline: none;
   border: 1px solid #c6c6c6;
