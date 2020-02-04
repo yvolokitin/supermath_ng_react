@@ -197,7 +197,7 @@ export default class ComparisonGame extends React.Component {
                     </div>
 
                     <div className="co_body_div_operator">
-                        <OperatorBoard onOperator={this.onOperator}/>
+                        <OperatorBoard onOperator={this.onOperator} more={true} less={true} equals={true} plus={false} minus={false} mul={false} div={false}/>
                     </div>
 
                     { this.state.show_results ? (null) : (<GameFooter color={this.state.circle}/>) }
