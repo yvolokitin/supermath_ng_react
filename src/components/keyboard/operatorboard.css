@@ -1,6 +1,11 @@
 ﻿.operatorboard {
     min-width: 450px;
     max-width: 450px;
+
+    min-height: 150px;
+    max-height: 150px;
+
+    border: 1px solid red;
 }
 .operatorboard button {
   font-family: "Grinched";
