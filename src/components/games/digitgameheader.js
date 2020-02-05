@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import './game_header.css';
+import './digitgameheader.css';
 
 export default function GameHeader(props) {
     return (

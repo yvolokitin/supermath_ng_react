@@ -1,13 +1,6 @@
 ﻿import React from 'react';
-import {Dialog} from '@material-ui/core';
-
-import {generate_2digit_task_from_string} from "./../halpers/functions";
-
-import GameHeader from "./game_header";
-import GameFooter from "./game_footer";
-import GameResults from "./game_results";
-import SMKeyBoard from "./../keyboard/keyboard";
-
+import {generate_2digit_task_from_string} from "./../../halpers/functions";
+import SMKeyBoard from "./../../keyboard/keyboard";
 import './operationgame.css';
 
 export default class OperationGame extends React.Component {
@@ -182,10 +175,7 @@ export default class OperationGame extends React.Component {
 
     render() {
         return (
-            <Dialog fullScreen={true} onKeyDown={this.onKeyboard} open={this.props.open}>
-                <div style={{height:'100%',width:'100%'}}>
-                    <GameHeader onClick={this.onGameClose} width='49%' counter={this.state.counter} passed={this.state.passed} failed={this.state.failed}/>
-
+            <div style={{height:'100%',width:'100%'}}>
                     <div className="op_body_div">
                         <div className="op_body_div_left">
                             <div className="op_gameboard">
@@ -201,14 +191,7 @@ export default class OperationGame extends React.Component {
                             <SMKeyBoard onDigit={this.onDigit} onOperator={this.onOperator} />
                         </div>
                     </div>
-
-                    { this.state.show_results ? (null) : (<GameFooter color={this.state.circle}/>) }
-                </div>
-
-                <GameResults open={this.state.show_results} user_results={this.state.user_results}
-                             passed={this.state.passed} failed={this.state.failed} counter={this.state.counter}
-                             onClick={this.onResultsClose}/>
-            </Dialog>
+            </div>
         );
     }
 }

@@ -1,26 +1,20 @@
 import React from 'react';
-import {Dialog} from '@material-ui/core';
+import {generate_3digit_task_from_string} from "./../../halpers/functions";
+import SMKeyBoard from "./../../keyboard/keyboard";
+import './threedigitgame.css';
 
-import {generate_comparison_task_from_string} from "./../halpers/functions";
+/*
 
-import GameHeader from "./game_header";
-import GameFooter from "./game_footer";
-import GameResults from "./game_results";
-import OperatorBoard from "./../keyboard/operatorboard";
-
-import './comparisongame.css';
-
-export default class ComparisonGame extends React.Component {
+*/
+export default class ThreeDigitGame extends React.Component {
     constructor(props) {
         super(props);
-        this.onOperator = this.onOperator.bind(this);
+        this.onDigit = this.onDigit.bind(this);
         this.onKeyboard = this.onKeyboard.bind(this);
         this.onGameClose = this.onGameClose.bind(this);
         this.onResultsClose = this.onResultsClose.bind(this);
 
-        this.state = {expression_1: '',
-                      expression_2: '',
-                      comparison: '',
+        this.state = {task: '1 + 1 + 1 = ',
                       result: '?',
                       color: 'grey',
                       circle: 'white',
@@ -58,11 +52,8 @@ export default class ComparisonGame extends React.Component {
     }
 
     set_task() {
-        this.task = generate_comparison_task_from_string(this.props.task);
-        console.log('this.task.expression_1 ' + this.task.expression_1);
-        this.setState({expression_1: this.task.expression_1,
-                       expression_2: this.task.expression_2,
-                       comparison: this.task.comparison,
+        this.task = generate_3digit_task_from_string(this.props.task);
+        this.setState({task: this.task.task,
                        result: '?',
                        color: 'grey',
                        circle: 'white',
@@ -76,19 +67,15 @@ export default class ComparisonGame extends React.Component {
 
     proceed_with_next_task() {
         // save user task results
-        var to_add = {expression_1: this.task.expression_1,
-                      expression_2: this.task.expression_2,
-                      comparison: this.task.comparison,
+        var to_add = {task: this.task.task,
                       result: this.task.result,
                       attempt: this.task.attempt};
         this.results.push(to_add);
 
-        // console.log("proceed_with_next_task " + this.state.counter + ", " + this.props.count);
-        this.task = generate_comparison_task_from_string(this.props.task);
+        console.log("proceed_with_next_task " + this.props.task);
+        this.task = generate_3digit_task_from_string(this.props.task);
         if (this.state.counter < this.props.count) {
-            this.setState({expression_1: this.task.expression_1,
-                           expression_2: this.task.expression_2,
-                           comparison: this.task.comparison,
+            this.setState({task: this.task.task,
                            color: 'grey',
                            circle: 'white',
                            result: '?',
@@ -104,18 +91,31 @@ export default class ComparisonGame extends React.Component {
         }
     }
 
-    onOperator({ target }) {
-        console.log("check operator response " + target.innerText);
-        this.check_response(target.innerText);
+    onGameClose() {
+        console.log("Game has been Interrapted !!!");
+        this.props.onClick("interrapted");
+        this.results = [];
+        this.set_task();
+    }
+
+    onDigit({ target }) {
+        // console.log("onDigit " + target.innerText);
+        this.check_response((target.innerText).toString());
     }
 
     onKeyboard({ key }) {
         // console.log("onKeyboard " + key);
         switch (key) {
-            case '=':
-            case '>':
-            case '<':
-                console.log("check keyboard response " + key);
+            case '0':
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
                 this.check_response(key);
                 break;
 
@@ -129,20 +129,49 @@ export default class ComparisonGame extends React.Component {
         }
     }
 
-    check_response(operator) {
-        var expected_result = this.task.operation.toString();
-        if (expected_result === operator) {
-            this.set_passed(operator);
+    check_response(digit) {
+        var expected_result = this.task.result.toString();
+        if (expected_result.length === 1) {
+            if (digit === expected_result) {
+                this.set_passed(digit);
+            } else {
+                this.set_failed(digit);
+            }
+
+        } else if (expected_result.length > 1) {
+            if (this.state.result === '?') {
+                if (expected_result.charAt(0).toString() === digit) {
+                    this.set_interim(digit);
+                } else {
+                    this.set_failed(digit);
+                }
+            } else {
+                var current = this.state.result + digit;
+                if (current === expected_result) {
+                    this.set_passed(current);
+                } else if (current.length === expected_result.length) {
+                    this.set_failed(current);
+                } else {
+                    var position = this.state.result.length;
+                    var val = expected_result.charAt(position).toString();
+                    // console.log("val " + val + ", digit " + digit + ", position " + position);
+                    if (val === digit) {
+                        this.set_interim(current);
+                    } else {
+                        this.set_failed(current);
+                    }
+                }
+            }
         } else {
-            this.set_failed(operator);
+            alert("ERROR: Unknown check_response() statement " + digit);
         }
     }
 
-    set_failed(operator) {
+    set_failed(digit) {
         // console.log("FAILED from " + this.state.attempt + " attempts");
         if (this.state.attempt === 0) {
             this.setState({color: 'red',
-                           result: operator,
+                           result: digit,
                            circle: 'red',
                            counter: this.state.counter + 1,
                            failed: this.state.failed + 1,
@@ -150,63 +179,55 @@ export default class ComparisonGame extends React.Component {
         } else {
             this.setState({color: 'red',
                            circle: 'red',
-                           result: operator,
+                           result: digit,
                            attempt: this.state.attempt + 1});
         }
 
-        // clear result value in 600 mili seconds
+        // clear result value in 1.5 seconds
         setTimeout(() => {this.setState({color: 'grey', result: '?'});}, 600);
     }
 
-    set_passed(operator) {
+    set_passed(digit) {
         // console.log("PASSED from " + this.state.attempt + " attempts");
         if (this.state.attempt === 0) {
             this.setState({color: 'green',
                            circle: 'green',
-                           result: operator,
+                           result: digit,
                            counter: this.state.counter + 1,
                            passed: this.state.passed + 1});
         } else {
             this.setState({color: 'green',
                            circle: 'yellow',
-                           result: operator});
+                           result: digit});
         }
         // generate new task and update
         setTimeout(() => {this.proceed_with_next_task()}, 600);
     }
 
-    onGameClose() {
-        console.log("Game has been Interrapted !!!");
-        this.props.onClick("interrapted");
-        this.results = [];
-        this.set_task();
+    set_interim(digit) {
+        this.setState({color: 'black',
+                       result: digit});
     }
 
+    /*
+        
+    */
     render() {
         return (
-            <Dialog fullScreen={true} onKeyDown={this.onKeyboard} open={this.props.open}>
-                <div style={{height:'100%',width:'100%'}}>
-                    <GameHeader onClick={this.onGameClose} counter={this.state.counter} passed={this.state.passed} failed={this.state.failed}/>
+            <div style={{height:'100%',width:'100%'}}>
+                <div className="d3_body_div">
+                        <div className="d3_body_div_left">
+                            <div className="d3_gameboard">
+                                <div className="d3_task">{this.state.task}</div>
+                                <div className="d3_result" style={{color: this.state.color}}>{this.state.result}</div>
+                            </div>
+                        </div>
 
-                    <div className="co_body_div_board_wrapper">
-                        <div className="co_body_div_board">
-                            <div className="co_expression">{this.state.expression_1}</div>
-                            <div className="co_result" style={{color: this.state.color}}>{this.state.result}</div>
-                            <div className="co_expression">{this.state.expression_2}</div>
+                        <div className="d3_body_div_right">
+                            <SMKeyBoard onDigit={this.onDigit} onOperator={this.onOperator} />
                         </div>
                     </div>
-
-                    <div className="co_body_div_operator">
-                        <OperatorBoard onOperator={this.onOperator} more={true} less={true} equals={true} plus={false} minus={false} mul={false} div={false}/>
-                    </div>
-
-                    { this.state.show_results ? (null) : (<GameFooter color={this.state.circle}/>) }
-                </div>
-
-                <GameResults open={this.state.show_results} user_results={this.state.user_results}
-                             passed={this.state.passed} failed={this.state.failed} counter={this.state.counter}
-                             onClick={this.onResultsClose}/>
-            </Dialog>
+            </div>
         );
     }
 }

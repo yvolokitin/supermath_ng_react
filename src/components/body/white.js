@@ -21,10 +21,7 @@ import logo13 from './../../images/tasks/task_13.jpg';
 import classes from './../../index.css';
 
 import SMDialogInfo from "./info";
-import TwoDigitGame from "./../games/twodigitgame";
-import ThreeDigitGame from "./../games/threedigitgame";
-import ComparisonGame from "./../games/comparisongame";
-import OperationGame from "./../games/operationgame";
+import DigitGame from "./../games/digitgame";
 
 const task_amount = 1;
 
@@ -71,13 +68,11 @@ export default class White extends React.Component {
                       viewDialogTitleText: '',
                       viewDialogDescriptionText: '',
                       viewDialogImageUrl: '',
-                      game2DOpen: false,
-                      game3DOpen: false,
-                      gameCoOpen: false,
-                      gameOpOpen: false,
                       gameInfo: false,
-                      taskTerms: '',
-                      taskAmount: 0};
+                      gameOpen: false,
+                      gameType: '',
+                      gameTerm: '',
+                      gameAmnt: 0};
     }
 
     onInfoOpen(head, desc, logo, task) {
@@ -98,25 +93,14 @@ export default class White extends React.Component {
     }
 
     onGameOpen(type, task, amount) {
-        console.log('onGameOpen ' + type + ', task: ' + task + ', amount: ' + amount);
-        if (type === '2d') {
-            this.setState({game2DOpen: true, taskTerms: task, taskAmount: amount});
-        } else if (type === '3d') {
-            this.setState({game3DOpen: true, taskTerms: task, taskAmount: amount});
-        } else if (type === 'co') {
-            this.setState({gameCoOpen: true, taskTerms: task, taskAmount: amount});
-        } else if (type === 'op') {
-            this.setState({gameOpOpen: true, taskTerms: task, taskAmount: amount});
-        }
+        console.log('White.onGameOpen ' + type + ', task: ' + task + ', amount: ' + amount);
+        this.setState({gameOpen: true, gameType: type, gameTerm: task, gameAmnt: amount});
     }
 
     onGameClose(status) {
-        console.log("White:: onGameClose: " + status);
+        console.log("White.onGameClose: " + status);
         // set all types of games as false
-        this.setState({game2DOpen: false,
-                       game3DOpen: false,
-                       gameCoOpen: false,
-                       gameOpOpen: false});
+        this.setState({gameOpen: false});
 
         if (status === 'finished') {
             this.props.onUpdate(status);
@@ -154,25 +138,11 @@ export default class White extends React.Component {
                                   task={this.state.taskTerms}
                                   onClick={this.onInfoClose}/>
 
-                    <TwoDigitGame open={this.state.game2DOpen}
-                                  task={this.state.taskTerms}
-                                  count={this.state.taskAmount}
-                                  onClick={this.onGameClose}/>
-
-                    <ThreeDigitGame open={this.state.game3DOpen}
-                                    task={this.state.taskTerms}
-                                    count={this.state.taskAmount}
-                                    onClick={this.onGameClose}/>
-
-                    <ComparisonGame open={this.state.gameCoOpen}
-                                    task={this.state.taskTerms}
-                                    count={this.state.taskAmount}
-                                    onClick={this.onGameClose}/>
-
-                    <OperationGame open={this.state.gameOpOpen}
-                                   task={this.state.taskTerms}
-                                   count={this.state.taskAmount}
-                                   onClick={this.onGameClose}/>
+                    <DigitGame open={this.state.gameOpen}
+                               type={this.state.gameType}
+                               task={this.state.gameTerm}
+                               count={this.state.gameAmnt}
+                               onClick={this.onGameClose}/>
 
                 </Container>
         );

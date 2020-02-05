@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import './game_footer.css';
+import './digitgamefooter.css';
 
 const circles = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
