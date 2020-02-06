@@ -1,28 +1,26 @@
-import React from 'react';
-import {generate_2digit_task_from_string} from "./../../halpers/functions";
-import SMKeyBoard from "./../../keyboard/keyboard";
-import './twodigitgame.css';
+﻿import React from 'react';
+import {generate_2digit_task_from_string} from "./../halpers/functions";
+import {generate_3digit_task_from_string} from "./../halpers/functions";
+import {generate_comparison_task_from_string} from "./../halpers/functions";
+import SMKeyBoard from "./../keyboard/keyboard";
+import './gameboard.css';
 
-export default class TwoDigitGame extends React.Component {
+export default class GameBoard extends React.Component {
     constructor(props) {
         super(props);
         this.onDigit = this.onDigit.bind(this);
         this.onKeyboard = this.onKeyboard.bind(this);
         this.onGameClose = this.onGameClose.bind(this);
 
-        this.state = {number_1: '',
-                      operation: '',
-                      number_2: '',
+        this.state = {task: '',
                       result: '?',
                       color: 'grey',
                       circle: 'white',
-                      counter: 0,
-                      passed: 0,
-                      failed: 0,
-                      attempt: 0,
-                      show_results: false,
-                      user_results: []};
+                      counter: props.counter,
+                      attempt: 0};
 
+        // current task
+        this.task = '';
         // array to store all user tasks
         this.results =[];
     }
@@ -37,32 +35,24 @@ export default class TwoDigitGame extends React.Component {
         }
     }
 
-    onResultsClose(status) {
-        console.log("onResultsClose:: status " + status);
-        this.results = [];
-
-        if (status === 'close') {
-            this.props.onClick("finished");
+    set_task() {
+        if (this.props.type === '2d') {
+            this.task = generate_2digit_task_from_string(this.props.task);
+        } else if (this.props.type === '3d') {
+            this.task = generate_3digit_task_from_string(this.props.task);
+        } else if (this.props.type === 'op') {
+            this.task = generate_2digit_task_from_string(this.props.task);
+        } else if (this.props.type === 'co') {
+            this.task = generate_comparison_task_from_string(this.props.task);
+        } else  {
+            this.task = 'Error: wrong task type is used';
         }
 
-        // hide results, set counter 0 and clear history
-        this.set_task();
-    }
-
-    set_task() {
-        this.task = generate_2digit_task_from_string(this.props.task);
-        this.setState({number_1: this.task.number_1,
-                       operation: this.task.operation,
-                       number_2: this.task.number_2,
+        this.setState({task: this.task.task,
                        result: '?',
                        color: 'grey',
                        circle: 'white',
-                       counter: 0,
-                       passed: 0,
-                       failed: 0,
-                       attempt: 0,
-                       show_results: false,
-                       user_results: []});
+                       attempt: 0});
     }
 
     proceed_with_next_task() {
@@ -195,13 +185,16 @@ export default class TwoDigitGame extends React.Component {
     set_passed(digit) {
         // console.log("PASSED from " + this.state.attempt + " attempts");
         if (this.state.attempt === 0) {
-            this.props.onColorUpdate("black");
-
+            // notify parent to change circles color in game footer
+            this.props.onColorUpdate("green");
+            // notify parent to change circles color in game footer
+            this.props.onColorUpdate("green");
+            // 
             this.setState({color: 'green',
                            circle: 'green',
                            result: digit,
-                           counter: this.state.counter + 1,
-                           passed: this.state.passed + 1});
+                           attempt: 0,
+                           counter: this.state.counter + 1});
         } else {
             this.setState({color: 'green',
                            circle: 'yellow',
@@ -226,15 +219,10 @@ export default class TwoDigitGame extends React.Component {
     render() {
         return (
             <div style={{height:'100%',width:'100%',border:'1px solid black'}}>
-                <div className="d2_body_div_left">
-                    <div className="d2_gameboard">
-                        <div className="d2_gameplay">
-                            <div style={{height:'25%',width:'80%'}}></div>
-                            <div className="d2_task">{this.state.number_1}</div>
-                            <div className="d2_task">{this.state.operation}   {this.state.number_2}</div>
-                            <div className="d2_black_line"> </div>
-                            <div className="d2_result" style={{color: this.state.color}}>{this.state.result}</div>
-                        </div>
+                <div className="line_body_div_left">
+                    <div className="line_gameboard">
+                        <div className="line_task">{this.state.task}</div>
+                        <div className="line_result" style={{color: this.state.color}}>{this.state.result}</div>
                     </div>
                 </div>
 

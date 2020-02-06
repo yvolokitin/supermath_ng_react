@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import axios from 'axios';
-import SMRadialChart from "./../../charts/smradialchart";
+import SMRadialChart from "./../charts/smradialchart";
 import './gameresults.css';
 
 export default class GameResults extends React.Component {

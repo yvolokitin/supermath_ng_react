@@ -4,13 +4,8 @@ import {Dialog} from '@material-ui/core';
 import GameHeader from "./digitgameheader";
 import GameFooter from "./digitgamefooter";
 
-import LineGame from "./gametypes/linegame";
-import TwoDigitGame from "./gametypes/twodigitgame";
-import ThreeDigitGame from "./gametypes/threedigitgame";
-import ComparisonGame from "./gametypes/comparisongame";
-import OperationGame from "./gametypes/operationgame";
-
-import GameResults from "./gameresults/gameresults";
+import GameBoard from "./gameboard";
+import GameResults from "./gameresults";
 
 /*
       <DigitGame open={this.state.gameOpen}
@@ -25,13 +20,9 @@ export default class DigitGame extends React.Component {
 
         this.onGameClose = this.onGameClose.bind(this);
         this.onResultsClose = this.onResultsClose.bind(this);
+        this.onCounterUpdate = this.onCounterUpdate.bind(this);
 
-        this.state = {lineGame: props.type.includes('line') ? true: false,
-                      twoGame: props.type.includes('two') ? true: false,
-                      threeGame: props.type.includes('three') ? true: false,
-                      compGame: props.type.includes('comp') ? true: false,
-                      operGame: props.type.includes('oper') ? true: false,
-                      showResults: props.type.includes('result') ? true: false,
+        this.state = {showResults: false,
                       circle: 'white',
                       counter: 0,
                       passed: 0,
@@ -40,7 +31,7 @@ export default class DigitGame extends React.Component {
         console.log("constructor:: this.state " + this.state.lineGame);
 
         // array to save all user tasks
-        this.results =[];
+        this.tasks =[];
     }
 
     componentDidUpdate(prevProps) {
@@ -64,50 +55,63 @@ export default class DigitGame extends React.Component {
 
     onResultsClose(status) {
         console.log("onResultsClose:: status " + status);
-        this.results = [];
+        this.tasks = [];
 
         if (status === 'close') {
             this.props.onClick("finished");
         }
-
         // hide results, set counter 0 and clear history
-        this.set_task();
+        // this.set_task();
     }
 
     onGameClose() {
         console.log("Game has been Interrapted !!!");
         this.props.onClick("interrapted");
-        this.results = [];
+        this.tasks = [];
         this.set_task();
     }
 
+    /*
+     * if counter === 0 -> user answered right from first time -> passed
+     * if counter > 0 -> user could not properly answer from first time -> failed
+    */
+    onCounterUpdate(counter, task) {
+        if (counter === 0) {
+            this.setState({passed: this.state.passed++});
+        } else {
+            this.setState({failed: this.state.failed++});
+        }
+
+    }
+
+    onColorUpdate(color) {
+        this.setState({circle: color});
+    }
+
+/*
+*/
     render() {
+        /*
+            GameHeader: height: 10%  width: 100%
+            Body <div>: height: 80%  width: 100%
+            GameFooter: height: 10%  width: 100%
+        */
         return (
             <Dialog fullScreen={true} onKeyDown={this.onKeyboard} open={this.props.open}>
-                <div style={{height:'100%',width:'100%'}}>
-                    <GameHeader onClick={this.onGameClose} width='40%' counter={this.state.counter} passed={this.state.passed} failed={this.state.failed}/>
+                <GameHeader onClick={this.onGameClose} width='49%' counter={this.state.counter} passed={this.state.passed} failed={this.state.failed}/>
 
-                    { this.state.lineGame ? (<LineGame />) : (null) }
-
-                    { this.state.twoGame ? (<TwoDigitGame />) : (null) }
-
-                    { this.state.threeGame ? (<ThreeDigitGame />) : (null) }
-
-                    { this.state.compGame ? (<ComparisonGame />) : (null) }
-
-                    { this.state.operGame ? (<OperationGame />) : (null) }
-
+                <div style={{height:'100%',width:'100%',border:'1px solid red'}}>
                     { this.state.showResults ? (
-                        <GameResults open={this.state.show_results} user_results={this.state.user_results}
-                                     passed={this.state.passed} failed={this.state.failed} counter={this.state.counter}
-                                     onClick={this.onResultsClose}/>
-                        ) : (null)
+                            <GameResults open={this.state.show_results} user_results={this.state.user_results}
+                                         passed={this.state.passed} failed={this.state.failed} counter={this.state.counter}
+                                         onClick={this.onResultsClose} onCounter={this.onCounterUpdate} onColor={this.onColorUpdate}/>
+                        ) : (
+                            <GameBoard />
+                        )
                     }
-
-                    { this.state.showResults ? (null) : (<GameFooter color={this.state.circle}/>) }
                 </div>
 
-                
+                { this.state.showResults ? (null) : (<GameFooter color={this.state.circle}/>) }
             </Dialog>
         );
     }
