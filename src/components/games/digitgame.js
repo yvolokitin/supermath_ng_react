@@ -19,7 +19,7 @@ export default class DigitGame extends React.Component {
         super(props);
 
         this.onGameClose = this.onGameClose.bind(this);
-        this.onResultsClose = this.onResultsClose.bind(this);
+        this.onColorUpdate = this.onColorUpdate.bind(this);
         this.onCounterUpdate = this.onCounterUpdate.bind(this);
 
         this.state = {showResults: false,
@@ -28,23 +28,16 @@ export default class DigitGame extends React.Component {
                       passed: 0,
                       failed: 0};
 
-        console.log("constructor:: this.state " + this.state.lineGame);
-
         // array to save all user tasks
         this.tasks =[];
     }
 
     componentDidUpdate(prevProps) {
-        console.log("DigitGameWrapper.componentDidUpdate");
+        console.log("DigitGame.componentDidUpdate");
         // Typical usage (don't forget to compare props), otherwise you get infinitive loop
         if (this.props.task !== prevProps.task) {
             if (this.props.open === true) {
-                this.setState({lineGame: this.props.type.includes('line') ? true: false,
-                               twoGame: this.props.type.includes('two') ? true: false,
-                               threeGame: this.props.type.includes('three') ? true: false,
-                               compGame: this.props.type.includes('comp') ? true: false,
-                               operGame: this.props.type.includes('oper') ? true: false,
-                               showResults: this.props.type.includes('result') ? true: false,
+                this.setState({showResults: false,
                                circle: 'white',
                                counter: 0,
                                passed: 0,
@@ -53,22 +46,15 @@ export default class DigitGame extends React.Component {
         }
     }
 
-    onResultsClose(status) {
-        console.log("onResultsClose:: status " + status);
-        this.tasks = [];
-
+    onGameClose(status) {
         if (status === 'close') {
+            console.log("DigitGame.Game Finished");
             this.props.onClick("finished");
+        } else {
+            console.log("DigitGame.Game Interrapted !!!");
+            this.props.onClick("interrapted");
         }
-        // hide results, set counter 0 and clear history
-        // this.set_task();
-    }
-
-    onGameClose() {
-        console.log("Game has been Interrapted !!!");
-        this.props.onClick("interrapted");
         this.tasks = [];
-        this.set_task();
     }
 
     /*
@@ -76,12 +62,14 @@ export default class DigitGame extends React.Component {
      * if counter > 0 -> user could not properly answer from first time -> failed
     */
     onCounterUpdate(counter, task) {
+        var increment;
         if (counter === 0) {
-            this.setState({passed: this.state.passed++});
+            increment = this.state.passed + 1;
+            this.setState({passed: increment});
         } else {
-            this.setState({failed: this.state.failed++});
+            increment = this.state.failed + 1;
+            this.setState({failed: increment});
         }
-
     }
 
     onColorUpdate(color) {
@@ -104,9 +92,10 @@ export default class DigitGame extends React.Component {
                     { this.state.showResults ? (
                             <GameResults open={this.state.show_results} user_results={this.state.user_results}
                                          passed={this.state.passed} failed={this.state.failed} counter={this.state.counter}
-                                         onClick={this.onResultsClose} onCounter={this.onCounterUpdate} onColor={this.onColorUpdate}/>
+                                         onClick={this.onResultsClose}/>
                         ) : (
-                            <GameBoard />
+                            <GameBoard onClick={this.onGameClose} onCounter={this.onCounterUpdate} onColor={this.onColorUpdate}
+                                       type={this.props.type} task={this.props.task} count={this.props.count}/>
                         )
                     }
                 </div>

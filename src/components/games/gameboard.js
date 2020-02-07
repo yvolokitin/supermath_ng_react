@@ -26,16 +26,15 @@ export default class GameBoard extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log("componentDidUpdate " + prevProps.task + ", this.props.task " + this.props.task + ", this.props.count " + this.props.count);
+        console.log("GameBoard:: componentDidUpdate");
         // Typical usage (don't forget to compare props), otherwise you get infinitive loop
         if (this.props.task !== prevProps.task) {
-            if (this.props.open === true) {
-                this.set_task();
-            }
+            this.set_task();
         }
     }
 
     set_task() {
+        console.log("GameBoard:: set_task " + this.props.type);
         if (this.props.type === '2d') {
             this.task = generate_2digit_task_from_string(this.props.task);
         } else if (this.props.type === '3d') {
