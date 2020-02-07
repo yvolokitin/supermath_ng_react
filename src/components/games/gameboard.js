@@ -12,7 +12,8 @@ export default class GameBoard extends React.Component {
         this.onKeyboard = this.onKeyboard.bind(this);
         this.onGameClose = this.onGameClose.bind(this);
 
-        this.state = {task: '',
+        this.task = this.generate_task();
+        this.state = {task: this.task.task,
                       result: '?',
                       color: 'grey',
                       circle: 'white',
@@ -23,30 +24,36 @@ export default class GameBoard extends React.Component {
         this.task = '';
         // array to store all user tasks
         this.results =[];
+        console.log("GameBoard.constructor(props) " + props.task);
     }
 
     componentDidUpdate(prevProps) {
-        console.log("GameBoard:: componentDidUpdate");
+        console.log("GameBoard.componentDidUpdate " + this.props.task);
         // Typical usage (don't forget to compare props), otherwise you get infinitive loop
         if (this.props.task !== prevProps.task) {
             this.set_task();
         }
     }
 
-    set_task() {
-        console.log("GameBoard:: set_task " + this.props.type);
+    generate_task() {
+        var new_task;
         if (this.props.type === '2d') {
-            this.task = generate_2digit_task_from_string(this.props.task);
+            new_task = generate_2digit_task_from_string(this.props.task);
         } else if (this.props.type === '3d') {
-            this.task = generate_3digit_task_from_string(this.props.task);
+            new_task = generate_3digit_task_from_string(this.props.task);
         } else if (this.props.type === 'op') {
-            this.task = generate_2digit_task_from_string(this.props.task);
+            new_task = generate_2digit_task_from_string(this.props.task);
         } else if (this.props.type === 'co') {
-            this.task = generate_comparison_task_from_string(this.props.task);
+            new_task = generate_comparison_task_from_string(this.props.task);
         } else  {
-            this.task = 'Error: wrong task type is used';
+            new_task = 'Error: wrong task type is used';
         }
+        return new_task;
+    }
 
+    set_task() {
+        console.log("GameBoard.set_task " + this.props.type);
+        this.task = generate_task();
         this.setState({task: this.task.task,
                        result: '?',
                        color: 'grey',

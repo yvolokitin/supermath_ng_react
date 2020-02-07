@@ -22,7 +22,10 @@ export default class DigitGame extends React.Component {
         this.onColorUpdate = this.onColorUpdate.bind(this);
         this.onCounterUpdate = this.onCounterUpdate.bind(this);
 
-        this.state = {showResults: false,
+        this.state = {type: props.type,
+                      task: props.task,
+                      count: props.count,
+                      showResults: false,
                       circle: 'white',
                       counter: 0,
                       passed: 0,
@@ -33,16 +36,17 @@ export default class DigitGame extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log("DigitGame.componentDidUpdate");
         // Typical usage (don't forget to compare props), otherwise you get infinitive loop
         if (this.props.task !== prevProps.task) {
-            if (this.props.open === true) {
-                this.setState({showResults: false,
-                               circle: 'white',
-                               counter: 0,
-                               passed: 0,
-                               failed: 0});
-            }
+            console.log("DigitGame.componentDidUpdate " + this.props.task + ", prevProps.task" + prevProps.task);
+            this.setState({type: this.props.type,
+                           task: this.props.task,
+                           count: this.props.count,
+                           showResults: false,
+                           circle: 'white',
+                           counter: 0,
+                           passed: 0,
+                           failed: 0});
         }
     }
 
@@ -86,7 +90,7 @@ export default class DigitGame extends React.Component {
         */
         return (
             <Dialog fullScreen={true} onKeyDown={this.onKeyboard} open={this.props.open}>
-                <GameHeader onClick={this.onGameClose} width='49%' counter={this.state.counter} passed={this.state.passed} failed={this.state.failed}/>
+                { this.state.showResults ? (null) : (<GameHeader onClick={this.onGameClose} width='49%' counter={this.state.counter} passed={this.state.passed} failed={this.state.failed}/>) }
 
                 <div style={{height:'100%',width:'100%',border:'1px solid red'}}>
                     { this.state.showResults ? (
@@ -95,7 +99,7 @@ export default class DigitGame extends React.Component {
                                          onClick={this.onResultsClose}/>
                         ) : (
                             <GameBoard onClick={this.onGameClose} onCounter={this.onCounterUpdate} onColor={this.onColorUpdate}
-                                       type={this.props.type} task={this.props.task} count={this.props.count}/>
+                                       type={this.state.type} task={this.state.task} count={this.state.count}/>
                         )
                     }
                 </div>
