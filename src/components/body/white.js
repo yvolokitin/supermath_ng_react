@@ -23,7 +23,7 @@ import classes from './../../index.css';
 import SMDialogInfo from "./info";
 import DigitGame from "./../games/digitgame";
 
-const task_amount = 1;
+const task_amount = 2;
 
 var desciptions = [
     "Tasks for Comparision of one-digit numbers (from 0 to 9), where kids can use only three operations: more (>), less (<) and equal (=). There are two one digit numbers displayed with questionmark in between.",
@@ -31,7 +31,7 @@ var desciptions = [
     "Tasks for Subtraction of one-digit numbers. The result of subtraction can be is zero (example, 3-3=0) or a one-digit number (example, 8-4=5)",
 
     "Tasks for Addition and Subtraction of two one-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number",
-    "Tasks for Math operation determination: Addition (+) or Subtraction (-). Kids have two one digit numbers and result of operation with that numbers. Based on operation result, they have to understand what it was: Addition (+) or Subtraction (-)",
+    "Tasks for Math operation determination: Addition (+) or Subtraction (-). Kids have two one digit numbers (from 1 to 10, zero is excluded from range) and result of a math operation with that numbers. Based on operation result, they have to understand what it was: Addition (+) or Subtraction (-). For example, 4 ? 5 = 9, operation is Plus (+)",
     "Tasks for Addition and Subtraction of three one-digit numbers. The result of addition can be an one (example, 1+1+1=3) or two digit number (example, 7+8+9=24), the result of subtraction can be zero (example, 9-5-4=0) or a one-digit number (example, 8-1-1=6)",
 
     "Tasks for Addition and Subtraction of one and two -digit numbers. This is basic level, where one digit number is in range of 1...9 and two digit number is in range of 10...20. The result of Addition can be only two digit number (example, 1+10=11) and Substruction can be zero or one digit number",
@@ -45,7 +45,7 @@ const games = [
     {id: 3, logo: logo3, type: '2d', task: '-,0-10,0-10,1,1', amount: task_amount, desc: desciptions[2], head: 'Tasks for Subtraction of one-digit numbers (from 0 to 10)'},
 
     {id: 4, logo: logo4, type: '2d', task: '+-,0-10,0-10,1,1', amount: task_amount, desc: desciptions[3], head: 'Tasks for Addition and Subtraction of TWO one-digit numbers (from 0 to 10)'},
-    {id: 5, logo: logo5, type: 'op', task: '+-,1-10,0-10,1,1', amount: task_amount, desc: desciptions[4], head: 'Tasks for Math operation (Addition or Subtraction) determination'},
+    {id: 5, logo: logo5, type: 'op', task: '+-,1-10,1-10,1,1', amount: task_amount, desc: desciptions[4], head: 'Tasks for Math operation (Addition or Subtraction) determination'},
     {id: 6, logo: logo12, type: '3d', task: '+-,0-10,1', amount: task_amount, desc: desciptions[5], head: 'Tasks for Addition and Subtraction of THREE one-digit numbers'},
 
     {id: 7, logo: logo7, type: '2d', task: '+-,1-9,10-20,1,1', amount: task_amount, desc: desciptions[6], head: 'Tasks for Addition and Subtraction of one- and two- digit numbers'},
@@ -101,8 +101,7 @@ export default class White extends React.Component {
         console.log("White.onGameClose: " + status);
         // set all types of games as false
         this.setState({gameOpen: false});
-
-        if (status === 'finished') {
+        if (status === 'close') {
             this.props.onUpdate(status);
         }
     }
@@ -141,8 +140,8 @@ export default class White extends React.Component {
                     <DigitGame open={this.state.gameOpen}
                                type={this.state.gameType}
                                task={this.state.gameTerm}
-                               count={this.state.gameAmnt}
-                               onClick={this.onGameClose}/>
+                               amount={this.state.gameAmnt}
+                               onClose={this.onGameClose}/>
 
                 </Container>
         );

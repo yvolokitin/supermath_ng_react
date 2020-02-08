@@ -50,8 +50,7 @@ export default function SMBody(props) {
     };
 
     const onUpdate = (event, newValue) => {
-        console.log('SMBody:: onUpdate ' + newValue);
-        props.onUpdate("finished");
+        props.onUpdate();
     };
 
     return (
@@ -62,7 +61,7 @@ export default function SMBody(props) {
                         <Tab style={{color:'black',fontSize:'0.95rem',fontWeight:'bold'}} label="White" {...a11yProps(0)} />
                         <Tab style={{color:'orange',fontSize:'0.95rem',fontWeight:'bold'}} label="Orange" {...a11yProps(1)} />
                         <Tab style={{color:'green',fontSize:'0.95rem',fontWeight:'bold'}} label="Green" {...a11yProps(2)} />
-                        <Tab style={{color:'blue',fontSize:'0.95rem',fontWeight:'bold'}} label="Navy" {...a11yProps(3)} />
+                        <Tab style={{color:'#3f51b5',fontSize:'0.95rem',fontWeight:'bold'}} label="Navy" {...a11yProps(3)} />
                         <Tab style={{color:'black',fontSize:'0.95rem',fontWeight:'bold'}} label="Black" {...a11yProps(4)} />
                     </Tabs>
                 </AppBar>
@@ -70,7 +69,7 @@ export default function SMBody(props) {
                 <TabPanel style={{backgroundColor:'white'}} value={value} index={0}> <White onUpdate={onUpdate}/> </TabPanel>
                 <TabPanel style={{backgroundColor:'orange'}} value={value} index={1}> <Orange/> </TabPanel>
                 <TabPanel style={{backgroundColor:'green'}} value={value} index={2}> <Green/> </TabPanel>
-                <TabPanel style={{backgroundColor:'blue',}} value={value} index={3}> <Navi/> </TabPanel>
+                <TabPanel style={{backgroundColor:'#3f51b5',}} value={value} index={3}> <Navi/> </TabPanel>
                 <TabPanel style={{backgroundColor:'black'}} value={value} index={4}> <Black/> </TabPanel>
             </div>
         </main>

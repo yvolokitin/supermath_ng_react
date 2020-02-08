@@ -14,6 +14,22 @@ var OPERATION_SMALLER = '<';
 /** @const {string} */
 var OPERATION_EQUALLY = '=';
 
+export function generate_task_from_string(type, task) {
+    console.log('generate_task_from_string ' + type + ', task ' + task);
+    if (type === '2d') {
+        return generate_2digit_task_from_string(task);
+    } else if (type === '3d') {
+        return generate_3digit_task_from_string(task);
+    } else if (type === 'op') {
+        return generate_2digit_task_from_string(task);
+    } else if (type === 'co') {
+        return generate_comparison_task_from_string(task);
+    } else {
+        return 'wrong type and task';
+        // return generate_2digit_task_from_string(task);
+    }
+}
+
 /*
     usage:
         '+,0-10,0-10,1,1'
@@ -22,8 +38,8 @@ var OPERATION_EQUALLY = '=';
     result:
         '+-,0-10,1' -> ['+-', '0-10', '1']
 */
-export function generate_2digit_task_from_string(task_string) {
-    console.log('generate_2digit_task_from_string ' + task_string);
+function generate_2digit_task_from_string(task_string) {
+    // console.log('generate_2digit_task_from_string ' + task_string);
     var array = task_string.split(',');
     return generate_2digit_task(array[0], array[1], array[2], array[3], array[4]);
 }
@@ -34,8 +50,8 @@ export function generate_2digit_task_from_string(task_string) {
     result:
         '+-,0-10,1' -> ['+-', '0-10', '1']
 */
-export function generate_3digit_task_from_string(task_string) {
-    console.log('generate_3digit_task_from_string ' + task_string);
+function generate_3digit_task_from_string(task_string) {
+    // console.log('generate_3digit_task_from_string ' + task_string);
     var array = task_string.split(',');
     return generate_3digit_task(array[0], array[1], array[2]);
 }
@@ -46,8 +62,8 @@ export function generate_3digit_task_from_string(task_string) {
     result:
         '<>=,0-10,1' -> ['<>=', '0-10', '1']
 */
-export function generate_comparison_task_from_string(task_string) {
-    console.log('generate_comparison_task_from_string ' + task_string);
+function generate_comparison_task_from_string(task_string) {
+    // console.log('generate_comparison_task_from_string ' + task_string);
     var array = task_string.split(',');
     return generate_comparison_task(array[0], array[1], array[2]);
 }
@@ -156,16 +172,15 @@ function generate_2digit_task(operations, range_1, range_2, factor_1=1, factor_2
         }
     }
 
+    var return_value = {'task': number_1.toString() + ' ' + operation.toString()
+                        + ' ' + number_2.toString() + ' = ', 'result': result.toString()};
+/*
     var return_value = {'number_1': number_1.toString(),
                         'number_2': number_2.toString(),
                         'operation': operation.toString(),
                         'result': result.toString()};
-
-    console.log("generate_2digit_task:: "
-                + return_value.number_1
-                + return_value.operation
-                + return_value.number_2
-                + "=" + return_value.result);
+*/
+    console.log("generate_2digit_task:: " + return_value.task + return_value.result);
 
     return return_value;
 }

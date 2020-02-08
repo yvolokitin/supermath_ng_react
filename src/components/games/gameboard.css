@@ -17,30 +17,59 @@
 .line_gameboard {
     height: 90%;
     width: 95%;
+
     font-family: "Grinched";
     font-size: 6rem;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     background-color: yellow;
     color: black;
+
     border: 3px solid black;
     border-radius: 15px 50px;
     box-shadow: 7px 7px black;
 }
 .line_task {
-    width: 70%;
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
 }
 .line_result {
-    width: 10%;
     height: 100%;
-    color: black;
-    text-shadow: 2px 2px black;
+    width: 13%;
     display: flex;
     align-items: center;
     justify-content: center;
+    text-shadow: 2px 2px black;
+}
+@media only screen and (max-width: 1024px) {
+    .line_gameboard {
+        font-size: 5rem;
+    }
+}
+@media only screen and (max-width: 760px) {
+    .line_gameboard {
+        font-size: 4rem;
+    }
+    .line_body_div_left {
+        height: 100%;
+        width: 49%;
+    }
+    .line_body_div_right {
+        height: 100%;
+        width: 50%;
+    }
+}
+@media only screen and (max-width: 560px) {
+    .line_gameboard {
+        font-size: 3rem;
+    }
+}
+@media only screen and (max-width: 460px) {
+    .line_gameboard {
+        font-size: 2rem;
+    }
 }

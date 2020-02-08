@@ -27,12 +27,10 @@
 .keyboard button:hover {
   border: 1px solid #aaa;
 }
-
 .keyboard button:active {
   background-color: rgba(0, 0, 0, 0.8);
   outline: none;
 }
-
 .keyboard button:focus {
   outline: none;
 }

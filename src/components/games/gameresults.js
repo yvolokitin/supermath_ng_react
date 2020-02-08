@@ -9,11 +9,7 @@ export default class GameResults extends React.Component {
         this.state = {percent: 0,
                       rate: ''};
 
-        this.updateUserResults = this.updateUserResults.bind(this);
-        this.onUserResultsResponse = this.onUserResultsResponse.bind(this);
-        this.onUserResultsError = this.onUserResultsError.bind(this);
         this.onClose = this.onClose.bind(this);
-        this.onReplay = this.onReplay.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -41,7 +37,8 @@ export default class GameResults extends React.Component {
         }
     }
 
-    updateUserResults() {
+    onClose(status) {
+        // update user passed / failed counter in header and send to server
         var pass = parseInt(localStorage.getItem('pass')) + this.props.passed;
         var fail = parseInt(localStorage.getItem('fail')) + this.props.failed;
         localStorage.setItem('pass', pass); localStorage.setItem('fail', fail);
@@ -52,70 +49,46 @@ export default class GameResults extends React.Component {
                          'passed': this.props.passed,
                          'failed': this.props.failed};
         axios.post('http://supermath.xyz:3000/api/update', post_data)
-            .then(this.onUserResultsResponse)
-            .catch(this.onUserResultsError);
+            .then(function (response) {console.log('updateUserResults: ' + response.data.error + ', id ' + response.data.id);})
+            .catch(function (error) {console.log('onUserResultsError:: error ' + error);});
+
+        this.props.onClose(status);
     }
 
-    onUserResultsResponse(response) {
-        console.log("onUserResultsResponse:: error " + response.data.error + ", id " + response.data.id);
-
-    }
-
-    onUserResultsError(error) {
-        console.log("onUserResultsError:: error " + error);
-       
-    }
-
-    onClose() {
-        this.updateUserResults(); this.props.onClick('close');
-    }
-
-    onReplay() {
-        this.updateUserResults(); this.props.onClick('replay');
-    }
-
+/*
+*/
     render() {
         return (
-            <div className='result_board'>
-                <div className='result_board_title' style={{color:'yellow',}}> YOUR RESULTS </div>
-
-                <div className='result_board_chart'>
-                            <font style={{color:'#00cc00',}}>
-                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
-                                &nbsp; {this.props.passed} &nbsp;
-                            </font>
-                            &nbsp; <SMRadialChart progress={this.state.percent}/> &nbsp;
-                            <font style={{color:'red',}}>
-                                &nbsp; {this.props.failed} &nbsp;
-                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
-                            </font>
+            <div style={{height:'100%',width:'100%',}}>
+                <div className='result_board'>
+                    <div className='result_board_title'> YOUR SCORES </div>
+                    <div className='result_board_chart'>
+                        <font style={{color:'#00cc00',}}>
+                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span> &nbsp; {this.props.passed} &nbsp;
+                        </font>
+                        &nbsp; <SMRadialChart progress={this.state.percent}/> &nbsp;
+                        <font style={{color:'red',}}>
+                            &nbsp; {this.props.failed} &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
+                        </font>
+                    </div>
+                    <div className='result_board_body'>
+                        You reach <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#9757;</span> &nbsp;
+                        {this.state.rate} score <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128202;</span>
+                    </div>
+                    <div className='result_board_body'>
+                        and your brain take extra
+                    </div>
+                    <div className='result_board_body'>
+                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128138;</span> pill to became more
+                    </div>
+                    <div className='result_board_body'>
+                        smart, strong <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128170;</span>
+                        and health <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128540;</span>
+                    </div>
                 </div>
 
-                <div className='result_board_body'>
-                    You reach <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#9757;</span> &nbsp;
-                    {this.state.rate} score <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128202;</span>
-                </div>
-
-                    <div className='result_board_body'>
-                            and your brain take extra
-                    </div>
-
-                    <div className='result_board_body'>
-                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128138;</span> pill to became more
-                    </div>
-
-                    <div className='result_board_body'>
-                            smart, strong <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128170;</span>
-                            and health <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128540;</span>
-                    </div>
-
-                    <div onClick={this.onReplay} className='result_board_button_left'>
-                        play again &nbsp; &#8635;
-                    </div>
-
-                    <div onClick={this.onClose} className='result_board_button_right'>
-                        close &nbsp; &#10006;
-                    </div>
+                <div onClick={() => this.onClose('replay')} className='result_board_button' style={{float:'left'}}>play again &nbsp; &#8635;</div>
+                <div onClick={() => this.onClose('close')} className='result_board_button' style={{float:'right'}}>close &nbsp; &#10006;</div>
             </div>
         );
     }
