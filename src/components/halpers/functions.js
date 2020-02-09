@@ -15,19 +15,61 @@ var OPERATION_SMALLER = '<';
 var OPERATION_EQUALLY = '=';
 
 export function generate_task_from_string(type, task) {
-    console.log('generate_task_from_string ' + type + ', task ' + task);
+    // console.log('generate_task_from_string ' + type + ', task ' + task);
+
+    // 2 numbers task: 1 + 2 = 3
     if (type === '2d') {
         return generate_2digit_task_from_string(task);
+
+    // 3 numbers task: 1 + 2 + 3 = 6
     } else if (type === '3d') {
         return generate_3digit_task_from_string(task);
+
+    // operation determination tasks 1 ? 2 = 3
     } else if (type === 'op') {
         return generate_2digit_task_from_string(task);
+
+    // comparision tasks, 5 < 6
     } else if (type === 'co') {
         return generate_comparison_task_from_string(task);
+
+    // sequence digits like, 1,2,3,4 or 8,7,6,5 etc.
+    } else if (type === 'ds') {
+        return generate_sequence_task(task);
+
+    // undefined tasks, will return error
     } else {
-        return 'wrong type and task';
+        return 'generate_task_from_string: wrong type and task';
         // return generate_2digit_task_from_string(task);
     }
+}
+
+/*
+    usage:
+        '0-10', '10-100', etc.
+    result:
+        '+-,0-10,1' -> ['+-', '0-10', '1']
+*/
+function generate_sequence_task(range) {
+    var number = parseInt(get_random_int(range));
+    var task, result;
+    if (number > 3) {
+        // randomNumber is true => goes down
+        var randomNumber = Math.random() >= 0.5;
+        if (randomNumber) {
+            task = number.toString() + ' , ' + (number-1).toString() + ' , ' + (number-2).toString();
+            result = (number-3).toString();
+        } else {
+            task = number.toString() + ' , ' + (number+1).toString() + ' , ' + (number+2).toString();
+            result = (number+3).toString();
+        }
+    } else {
+        task = number.toString() + ' , ' + (number+1).toString() + ' , ' + (number+2).toString();
+        result = (number+3).toString();
+    }
+
+    console.log('generate_numbers_task_from_string:: ' + task + ', ' + result);
+    return {'task': task + ' , ', 'result': result};
 }
 
 /*
@@ -209,18 +251,18 @@ function generate_comparison_task(operations, range, factor=1) {
         break;
 
         default:
-            alert("RND generator error: Unknown math operation '" + operation + "'");
+            console.log("ERROR: generate_comparison_task: unknown math operation '" + operation + "'");
         break;
     }
 
     var return_value = {'expression_1': expression_1.toString(),
                         'expression_2': expression_2.toString(),
-                        'operation': operation.toString()};
+                        'result': operation.toString()};
 
     console.log("generate_comparison_task:: "
                 + return_value.expression_1
-                + return_value.operation
-                + return_value.expression_1);
+                + return_value.result
+                + return_value.expression_2);
 
     return return_value;
 }
@@ -228,9 +270,10 @@ function generate_comparison_task(operations, range, factor=1) {
 /**
  * @range should be specified with dash: 0-10, 0-100 etc.
  * Returns a random number between min (inclusive) and max (inclusive)
- * from 0 to 10: [0...10]
- * from 10 to 99: [10...99]
- * from 100 to 999: [100...999]
+ * from 0-10: [0...10]
+ * from 10-99: [10...99]
+ * from 100-999: [100...999]
+ * from 1-100: [1...100]
  */
 function get_random_int(range) {
     var numbers = range.split('-');

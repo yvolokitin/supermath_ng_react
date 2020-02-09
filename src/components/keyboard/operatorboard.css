@@ -19,7 +19,7 @@
     border-radius: 50%;
     cursor: pointer;
     color: #444;
-    background-color: #f5f5f5;
+    background-color: #ddd;
 
     -webkit-transition: background-color 1s ease-out;
     -moz-transition: background-color 1s ease-out;
@@ -36,50 +36,12 @@
 }
 
 .operatorboard button:focus {
-  outline: none;
+    outline: none;
 }
 
-#parenthesis-open,
-#parenthesis-close,
-#modulo,
-#clear,
-#more,
-#equals,
-#less,
-#divide,
-#multiply,
-#subtract,
-#add {
-  background-color: #d6d6d6;
-}
-
-#parenthesis-open:active,
-#parenthesis-close:active,
-#modulo:active,
-#clear:active,
-#equals:active,
-#divide:active,
-#multiply:active,
-#subtract:active,
-#add:active,
-#clear:active {
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
-#parenthesis-open:hover,
-#parenthesis-close:hover,
-#modulo:hover,
-#clear:hover,
-#equals:hover,
-#divide:hover,
-#multiply:hover,
-#subtract:hover,
-#add:hover {
-  border: 1px solid #aaa;
-}
-
-#clear {
-  color: #f5f5f5;
-  font-weight: 700;
-  background-color: #fc5d76;
+@media only screen and (max-width: 1220px) {
+    .operatorboard button {
+        width: 130px;
+        height: 90px;
+    }
 }

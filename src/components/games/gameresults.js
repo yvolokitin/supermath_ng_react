@@ -6,33 +6,31 @@ import './gameresults.css';
 export default class GameResults extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {percent: 0,
-                      rate: ''};
-
         this.onClose = this.onClose.bind(this);
+        this.state = {percent: 0, rate: ''};
+        // console.log('GameResults.constructor: ' + this.props.amount + ' / ' + this.props.passed + ' / ' + this.props.failed + '. props.results.length ' + this.props.results.length);
     }
 
     componentDidUpdate(prevProps) {
-        // console.log("componentDidUpdate " + prevProps.task + ", this.props.task " + this.props.task + ", this.props.count " + this.props.count);
         // Typical usage (don't forget to compare props), otherwise you get infinitive loop
-        if (this.props.user_results !== prevProps.user_results) {
-            console.log('user_results ' + this.props.user_results.length);
-            var percent_passed = 100 * this.props.passed / this.props.counter;
+        if (this.props.results !== prevProps.results) {
+            console.log('componentDidUpdate ' + this.props.amount + ' / ' + this.props.passed + ' / ' + this.props.failed + '. props.results.length ' + this.props.results.length);
+            var passed = 100 * this.props.passed / this.props.amount;
 
-            if (percent_passed === 100) {
-                this.setState({percent: percent_passed, rate: 'Excellent'});
-
-            } else if (percent_passed > 95) {
-                this.setState({percent: percent_passed, rate: 'Quite Good'});
-
-            } else if (percent_passed > 90) {
-                this.setState({percent: percent_passed, rate: 'Good'});
-
-            } else if (percent_passed > 80) {
-                this.setState({percent: percent_passed, rate: 'Well'});
-
+            if (passed > 99) {
+                this.setState({percent: passed, rate: 'Excellent'});
+            } else if (passed > 95) {
+                this.setState({percent: passed, rate: 'Quite Good'});
+            } else if (passed > 90) {
+                this.setState({percent: passed, rate: 'Good'});
+            } else if (passed > 80) {
+                this.setState({percent: passed, rate: 'Well'});
+            } else if (passed > 60) {
+                this.setState({percent: passed, rate: 'Not really Well'});
+            } else if (passed > 40) {
+                this.setState({percent: passed, rate: 'Quite Bad'});
             } else {
-                this.setState({percent: percent_passed, rate: 'Not really Well'});
+                this.setState({percent: passed, rate: 'Really Bad'});
             }
         }
     }

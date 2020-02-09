@@ -12,15 +12,11 @@ export default class SMRadialChart extends Component {
 
     componentDidMount() {
         // For initial animation
-        setTimeout(() => {
-            this.setState({setStrokeLength: true});
-        });
+        setTimeout(() => {this.setState({setStrokeLength: true});});
     }
 
     render() {
-        const {
-            className,
-        } = this.props;
+        const { className, } = this.props;
         
         const radius = 80;
         const circumference = 2 * 3.14 * radius;

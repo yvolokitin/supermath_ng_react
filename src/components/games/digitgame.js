@@ -7,13 +7,6 @@ import GameFooter from "./digitgamefooter";
 import GameBoard from "./gameboard";
 import GameResults from "./gameresults";
 
-/*
-      <DigitGame open={this.state.gameOpen}
-                 type={this.state.gameType}
-                 task={this.state.gameTerm}
-                 count={this.state.gameAmnt}
-                 onClick={this.onGameClose}/>
-*/
 export default class DigitGame extends React.Component {
     constructor(props) {
         super(props);
@@ -60,10 +53,7 @@ export default class DigitGame extends React.Component {
         // game was properly closed after showing results
         } else if (status === 'close') {
             this.props.onClose(status);
-            this.setState({type: '',
-                           task: '',
-                           amount: 0,
-                           showResults: false,
+            this.setState({showResults: false,
                            results: [],
                            circle: 'white',
                            total: 0,
@@ -74,10 +64,20 @@ export default class DigitGame extends React.Component {
         // game was properly finished, when all tasks are solved
         } else if (status === 'interrapted') {
             this.props.onClose('interrapted');
+            this.results = [];
 
         // game was re-newed, tbd
+        } else if (status === 'replay') {
+            this.results = [];
+            this.setState({showResults: false,
+                           results: [],
+                           circle: 'white',
+                           total: 0,
+                           passed: 0,
+                           failed: 0});
+
         } else {
-            console.log("YURA YURA, TBD " + status);
+            console.log("ERROR wrong status received: " + status);
         }
     }
 
@@ -112,8 +112,8 @@ export default class DigitGame extends React.Component {
 
                 <div style={{height:'100%',width:'100%',}}>
                     { this.state.showResults ? (
-                            <GameResults open={this.state.showResults} results={this.state.results} passed={this.state.passed}
-                                         failed={this.state.failed} counter={this.state.total} onClose={this.onGameClose}/>
+                            <GameResults open={this.state.showResults} results={this.state.results} amount={this.state.amount}
+                                         passed={this.state.passed} failed={this.state.failed} onClose={this.onGameClose}/>
                         ) : (
                             <GameBoard onClose={this.onGameClose} onCounter={this.onCounterUpdate} onColor={this.onColorUpdate}
                                        type={this.state.type} task={this.state.task} amount={this.state.amount}/>
