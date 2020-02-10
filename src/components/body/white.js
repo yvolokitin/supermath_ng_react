@@ -6,24 +6,24 @@ import {Card, CardActions, CardActionArea, CardContent, CardMedia} from '@materi
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
 
-import logo1 from './../../images/tasks/task_1.jpg';
-import logo2 from './../../images/tasks/task_2.jpg';
-import logo3 from './../../images/tasks/task_3.jpg';
+import logo1 from './../../images/tasks/task_15.jpg';
+import logo2 from './../../images/tasks/task_1.jpg';
+import logo3 from './../../images/tasks/task_2.jpg';
 
-import logo4 from './../../images/tasks/task_4.jpg';
-import logo5 from './../../images/tasks/task_5.jpg';
-import logo12 from './../../images/tasks/task_12.jpg';
+import logo4 from './../../images/tasks/task_3.jpg';
+import logo5 from './../../images/tasks/task_4.jpg';
+import logo6 from './../../images/tasks/task_5.jpg';
 
-import logo7 from './../../images/tasks/task_7.jpg';
-import logo6 from './../../images/tasks/task_6.jpg';
-import logo15 from './../../images/tasks/task_15.jpg';
+import logo7 from './../../images/tasks/task_12.jpg';
+import logo8 from './../../images/tasks/task_7.jpg';
+import logo9 from './../../images/tasks/task_6.jpg';
 
 import classes from './../../index.css';
 
 import SMDialogInfo from "./info";
 import DigitGame from "./../games/digitgame";
 
-const task_amount = 2;
+const task_amount = 5;
 
 var desciptions = [
     "Tasks for Comparision of one-digit numbers (from 0 to 9), where kids can use only three operations: more (>), less (<) and equal (=). There are two one digit numbers displayed with questionmark in between.",
@@ -40,17 +40,17 @@ var desciptions = [
 ];
 
 const games = [
-    {id: 1, logo: logo15, type: 'ds', task: '0-7', amount: task_amount, desc: desciptions[0], head: 'Tasks for determination of one digit number from sequance'},
-    {id: 2, logo: logo1, type: 'co', task: '<>=,0-10,1', amount: task_amount, desc: desciptions[0], head: 'Tasks for simple Comparision of one-digit numbers (from 0 to 10)'},
-    {id: 3, logo: logo2, type: '2d', task: '+,0-10,0-10,1,1', amount: task_amount, desc: desciptions[1], head: 'Tasks for Addition of one-digit numbers (from 0 to 10)'},
+    {id: 1, logo: logo1, type: 'ds', task: '0-7', amount: task_amount, desc: desciptions[0], head: 'Tasks for determination of one digit number from sequance'},
+    {id: 2, logo: logo2, type: 'co', task: '<>=,0-10,1', amount: task_amount, desc: desciptions[0], head: 'Tasks for simple Comparision of one-digit numbers (from 0 to 10)'},
+    {id: 3, logo: logo3, type: '2d', task: '+,0-10,0-10,1,1', amount: task_amount, desc: desciptions[1], head: 'Tasks for Addition of one-digit numbers (from 0 to 10)'},
 
-    {id: 4, logo: logo3, type: '2d', task: '-,0-10,0-10,1,1', amount: task_amount, desc: desciptions[2], head: 'Tasks for Subtraction of one-digit numbers (from 0 to 10)'},
-    {id: 5, logo: logo4, type: '2d', task: '+-,0-10,0-10,1,1', amount: task_amount, desc: desciptions[3], head: 'Tasks for Addition and Subtraction of TWO one-digit numbers (from 0 to 10)'},
-    {id: 6, logo: logo5, type: 'op', task: '+-,1-10,1-10,1,1', amount: task_amount, desc: desciptions[4], head: 'Tasks for Math operation (Addition or Subtraction) determination'},
+    {id: 4, logo: logo4, type: '2d', task: '-,0-10,0-10,1,1', amount: task_amount, desc: desciptions[2], head: 'Tasks for Subtraction of one-digit numbers (from 0 to 10)'},
+    {id: 5, logo: logo5, type: '2d', task: '+-,0-10,0-10,1,1', amount: task_amount, desc: desciptions[3], head: 'Tasks for Addition and Subtraction of TWO one-digit numbers (from 0 to 10)'},
+    {id: 6, logo: logo6, type: 'op', task: '+-,1-10,1-10,1,1', amount: task_amount, desc: desciptions[4], head: 'Tasks for Math operation (Addition or Subtraction) determination'},
 
-    {id: 7, logo: logo12, type: '3d', task: '+-,0-10,1', amount: task_amount, desc: desciptions[5], head: 'Tasks for Addition and Subtraction of THREE one-digit numbers'},
-    {id: 8, logo: logo7, type: '2d', task: '+-,1-9,10-20,1,1', amount: task_amount, desc: desciptions[6], head: 'Tasks for Addition and Subtraction of one- and two- digit numbers'},
-    {id: 9, logo: logo6, type: '2d', task: '+-,0-10,0-10,10,10', amount: task_amount, desc: desciptions[7], head: 'Tasks for of round tens from 10 to 100 (i.e. numbers like 10, 20, ... 100)'},
+    {id: 7, logo: logo7, type: '3d', task: '+-,0-10,1', amount: task_amount, desc: desciptions[5], head: 'Tasks for Addition and Subtraction of THREE one-digit numbers'},
+    {id: 8, logo: logo8, type: '2d', task: '+-,1-9,10-20,1,1', amount: task_amount, desc: desciptions[6], head: 'Addition & Subtraction of one- (0..10) and two- (till 20) digit numbers'},
+    {id: 9, logo: logo9, type: '2d', task: '+-,0-10,0-10,10,10', amount: task_amount, desc: desciptions[7], head: 'Tasks for of round tens from 10 to 100 (i.e. numbers like 10, 20, ... 100)'},
 ];
 
 //    {id: 9, logo: logo13, type: '2d', task: '+-,0-10,0-10,10,1', amount: task_amount, desc: desciptions[8], head: 'Tasks for Addition and Subtraction of one- digit numbers and tens'},

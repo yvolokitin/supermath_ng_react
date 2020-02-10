@@ -27,7 +27,7 @@ export function generate_task_from_string(type, task) {
 
     // operation determination tasks 1 ? 2 = 3
     } else if (type === 'op') {
-        return generate_2digit_task_from_string(task);
+        return operation_task(task);
 
     // comparision tasks, 5 < 6
     } else if (type === 'co') {
@@ -40,7 +40,6 @@ export function generate_task_from_string(type, task) {
     // undefined tasks, will return error
     } else {
         return 'generate_task_from_string: wrong type and task';
-        // return generate_2digit_task_from_string(task);
     }
 }
 
@@ -72,6 +71,17 @@ function generate_sequence_task(range) {
     return {'task': task + ' , ', 'result': result};
 }
 
+function operation_task(task_string) {
+    console.log('operation_task ' + task_string);
+    var array = task_string.split(',');
+    var task = generate_2digit_task(array[0], array[1], array[2], array[3], array[4]);
+    var result = {'expression_1': task.number_1.toString(),
+                  'expression_2': task.number_2.toString() + ' = ' + task.result.toString(),
+                  'result': task.operation.toString()};
+    console.log("generate_comparison_task:: " + result.expression_1 + result.result + result.expression_2);
+    return result;
+}
+
 /*
     usage:
         '+,0-10,0-10,1,1'
@@ -83,7 +93,10 @@ function generate_sequence_task(range) {
 function generate_2digit_task_from_string(task_string) {
     // console.log('generate_2digit_task_from_string ' + task_string);
     var array = task_string.split(',');
-    return generate_2digit_task(array[0], array[1], array[2], array[3], array[4]);
+    var task = generate_2digit_task(array[0], array[1], array[2], array[3], array[4]);
+    var result = {'task': task.number_1.toString() + ' ' + task.operation.toString()
+                  + ' ' + task.number_2.toString() + ' = ', 'result': task.result.toString()};
+    return result;
 }
 
 /*
@@ -214,17 +227,12 @@ function generate_2digit_task(operations, range_1, range_2, factor_1=1, factor_2
         }
     }
 
-    var return_value = {'task': number_1.toString() + ' ' + operation.toString()
-                        + ' ' + number_2.toString() + ' = ', 'result': result.toString()};
-/*
-    var return_value = {'number_1': number_1.toString(),
-                        'number_2': number_2.toString(),
-                        'operation': operation.toString(),
-                        'result': result.toString()};
-*/
-    console.log("generate_2digit_task:: " + return_value.task + return_value.result);
-
-    return return_value;
+    var task = {'number_1': number_1.toString(),
+                'number_2': number_2.toString(),
+                'operation': operation.toString(),
+                'result': result.toString()};
+    console.log("generate_2digit_task:: " + task.number_1 + task.operation + task.number_2 + '=' + task.result);
+    return task;
 }
 
 function generate_comparison_task(operations, range, factor=1) {
@@ -255,16 +263,11 @@ function generate_comparison_task(operations, range, factor=1) {
         break;
     }
 
-    var return_value = {'expression_1': expression_1.toString(),
-                        'expression_2': expression_2.toString(),
-                        'result': operation.toString()};
-
-    console.log("generate_comparison_task:: "
-                + return_value.expression_1
-                + return_value.result
-                + return_value.expression_2);
-
-    return return_value;
+    var result = {'expression_1': expression_1.toString(),
+                  'expression_2': expression_2.toString(),
+                  'result': operation.toString()};
+    console.log("generate_comparison_task:: " + result.expression_1 + result.result + result.expression_2);
+    return result;
 }
 
 /**

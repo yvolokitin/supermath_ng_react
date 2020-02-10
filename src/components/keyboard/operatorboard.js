@@ -9,7 +9,7 @@ export default function OperatorBoard(props) {
             {props.less ? (<button onClick={props.onOperator}>&#60;</button>) : (null)}
 
             {props.plus ? (<button onClick={props.onOperator}>&#43;</button>) : (null)}
-            {props.minus ? (<button onClick={props.onOperator}>&#8722;</button>) : (null)}
+            {props.minus ? (<button onClick={props.onOperator}>&#45;</button>) : (null)}
 
             {props.mul ? (<button onClick={props.onOperator}>&#60;</button>) : (null)}
             {props.div ? (<button onClick={props.onOperator}>&#8725;</button>) : (null)}

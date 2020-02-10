@@ -45,16 +45,11 @@ export default class SMLogin extends React.Component {
         this.setState({password: event.target.value})
     }
 
-    // curl -i -X POST -H "Content-Type: application/json" -d "{"""user""":"""yura""","""pswd""":"""qwerty123"""}" https://supermathrest.herokuapp.com/api/login
+    // curl -i -X POST -H "Content-Type: application/json" -d "{"""email""":"""volokitin@bk.ru""","""pswd""":"""asdas12"""}" http://supermath.xyz:3000/api/login
     onLogin(event) {
         event.preventDefault();
         this.setState({success: false, loading: true});
 
-        // console.log('onLogin ' + this.state.email + ', pswd ' + this.state.password);
-        // simulation success login results
-        // setTimeout(() => {this.onLoginResponse('qqq');}, 2000);
-
-        // curl -i -X POST -H "Content-Type: application/json" -d "{"""email""":"""volokitin@bk.ru""","""pswd""":"""asdas12"""}" http://supermath.xyz:3000/api/login
         var post_data = {'email': this.state.email, 'pswd': this.state.password};
         axios.post('http://supermath.xyz:3000/api/login', post_data)
             .then(this.onLoginResponse)
@@ -100,11 +95,6 @@ export default class SMLogin extends React.Component {
         }
     }
 
-/*
-                    <Avatar style={{margin: 10, width: 60, height: 60, backgroundColor: red[500] }}>
-                        {success ? <CheckIcon/> : <LockOutlinedIcon/>}
-                    </Avatar>
-*/
     render() {
         return (
             <Dialog onClose={this.onLoginClose} fullWidth={true} open={this.props.open}>
@@ -135,10 +125,10 @@ export default class SMLogin extends React.Component {
 
                             <Grid container>
                                 <Grid item xs>
-                                    <Link href="#" variant="body2">Forgot password?</Link>
+                                    <Link style={{cursor:'pointer'}} onClick={() => this.props.onClick('password')} variant="body2">Forgot password?</Link>
                                 </Grid>
                                 <Grid item>
-                                    <Link href="#" variant="body2">{"Don't have an account? Sign Up"}</Link>
+                                    <Link style={{cursor:'pointer'}} onClick={() => this.props.onClick('registration')} variant='body2'>'Don\'t have an account? Sign Up'</Link>
                                 </Grid>
                             </Grid>
                         </form>

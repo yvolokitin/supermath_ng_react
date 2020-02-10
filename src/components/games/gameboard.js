@@ -13,7 +13,7 @@ export default class GameBoard extends React.Component {
         this.onKeyboard = this.onKeyboard.bind(this);
 
         // current task
-        console.log('CALLED: generate_task_from_string ' + props.type + ' ' + props.task);
+        // console.log('CALLED: generate_task_from_string ' + props.type + ' ' + props.task);
         this.task = generate_task_from_string(props.type, props.task);
         this.state = {task: this.task.task,
                       expression_1: this.task.expression_1,
@@ -33,20 +33,19 @@ export default class GameBoard extends React.Component {
     }
 
     set_task() {
-        console.log("GameBoard.set_task " + this.props.type);
+        console.log("GameBoard.set_task " + this.state.counter);
         this.task = generate_task_from_string(this.props.type, this.props.task);
         this.setState({task: this.task.task,
                        expression_1: this.task.expression_1,
                        expression_2: this.task.expression_2,
                        result: '?',
                        color: 'grey',
-                       counter: this.state.counter + 1,
                        attempt: 0});
         this.props.onColor('white');
     }
 
     proceed_with_next_task() {
-        // console.log("proceed_with_next_task " + this.state.counter + ", " + this.props.amount);
+        console.log("proceed_with_next_task:: counter: " + this.state.counter + ", amount: " + this.props.amount);
         if (this.state.counter < this.props.amount) {
             this.set_task();
 
@@ -81,7 +80,7 @@ export default class GameBoard extends React.Component {
     }
 
     onKeyboard({ key }) {
-        // console.log("onKeyboard " + key);
+        console.log("onKeyboard " + key);
         switch (key) {
             case '0':
             case '1':
@@ -108,6 +107,7 @@ export default class GameBoard extends React.Component {
 
     check_response(digit) {
         var expected_result = this.task.result.toString();
+        console.log("check_response, digit: " + digit + ", expected_result: " + expected_result);
         if (expected_result.length === 1) {
             if (digit === expected_result) {
                 this.set_passed(digit);
@@ -176,51 +176,43 @@ export default class GameBoard extends React.Component {
             // notify parent to change circles color in game footer
             this.props.onCounter(this.state.attempt);
             // 
-            this.setState({color: 'green',
-                           result: digit,
-                           attempt: 0,
-                           counter: this.state.counter + 1});
+            this.setState({color: 'green', result: digit, counter: this.state.counter + 1});
         } else {
             this.props.onColor('yellow');
             this.setState({color: 'green', result: digit});
         }
 
         // generate new task and update
-        setTimeout(() => {this.proceed_with_next_task()}, 700);
+        setTimeout(() => {this.proceed_with_next_task()}, 800);
     }
 
     set_interim(digit) {
         this.setState({color: 'black', result: digit});
     }
 
-    /*
-        Warning: The tag <text> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
-                            <text style={{color: 'black'}}>{this.state.counter}</text> &nbsp; &#128279; &nbsp;
-                            <text style={{color: 'green'}}>{this.state.passed}</text> &nbsp; &#128515; &nbsp;
-                            <text style={{color: 'red'}}>{this.state.failed}</text> &nbsp; &#128169;
-
-                        <SMKeyBoard onDigit={this.onDigit} onOperator={this.onOperator} />
-    */
     render() {
         return (
-            <div style={{height:'100%',width:'100%',}}>
-                    <div className="line_body_div_left">
-                        <div className="line_gameboard">
-                            { this.props.type.includes('d') ? (<div className="line_task">{this.state.task}</div>) : (null) }
-                            { this.props.type.includes('d') ? (<div className="line_result" style={{color: this.state.color}}>{this.state.result}</div>) : (null) }
+            <div onKeyDown={this.onKeyboard} style={{height:'100%',width:'100%',}}>
+                <div className="line_body_div_left">
+                    <div className="line_gameboard">
+                        { this.props.type.includes('d') ? (<div className="line_task">{this.state.task}</div>) : (null) }
+                        { this.props.type.includes('d') ? (<div className="line_result" style={{color: this.state.color}}>{this.state.result}</div>) : (null) }
 
-                            { this.props.type.includes('co') ? (<div className="line_expression">{this.state.expression_1}</div>) : (null) }
-                            { this.props.type.includes('co') ? (<div className="line_result" style={{color: this.state.color}}><font>{this.state.result}</font></div>) : (null) }
-                            { this.props.type.includes('co') ? (<div className="line_expression">{this.state.expression_2}</div>) : (null) }
+                        { this.props.type.includes('co') ? (<div className="line_expression">{this.state.expression_1}</div>) : (null) }
+                        { this.props.type.includes('co') ? (<div className="line_result" style={{color: this.state.color}}><font>{this.state.result}</font></div>) : (null) }
+                        { this.props.type.includes('co') ? (<div className="line_expression">{this.state.expression_2}</div>) : (null) }
 
-                        </div>
+                        { this.props.type.includes('op') ? (<div className="line_result"><font>{this.state.expression_1}</font></div>) : (null) }
+                        { this.props.type.includes('op') ? (<div className="line_result" style={{color: this.state.color}}><font>{this.state.result}</font></div>) : (null) }
+                        { this.props.type.includes('op') ? (<div className="line_expression">{this.state.expression_2}</div>) : (null) }
                     </div>
+                </div>
 
-                    <div className="line_body_div_right">
-                        { this.props.type.includes('d') ? (<SMKeyBoard onDigit={this.onDigit} onOperator={this.onOperator} />) : (null) }
-                        { this.props.type.includes('co') ? (<OperatorBoard onOperator={this.onOperator} more={true} less={true} equals={true} plus={false} minus={false} mul={false} div={false}/>) : (null) }
-                        { this.props.type.includes('op') ? (<OperatorBoard onOperator={this.onOperator} more={false} less={false} equals={false} plus={true} minus={true} mul={false} div={false}/>) : (null) }
-                    </div>
+                <div className="line_body_div_right">
+                    { this.props.type.includes('d') ? (<SMKeyBoard onDigit={this.onDigit} onOperator={this.onOperator} />) : (null) }
+                    { this.props.type.includes('co') ? (<OperatorBoard onOperator={this.onOperator} more={true} less={true} equals={true} plus={false} minus={false} mul={false} div={false}/>) : (null) }
+                    { this.props.type.includes('op') ? (<OperatorBoard onOperator={this.onOperator} more={false} less={false} equals={false} plus={true} minus={true} mul={false} div={false}/>) : (null) }
+                </div>
             </div>
         );
     }

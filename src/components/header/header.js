@@ -56,6 +56,7 @@ export default class SMHeader extends React.Component {
     onRegistrationClose(status) {
         if (status === 'login') {
             this.setState({registerOpen: false, loginOpen: true});
+
         } else {
             this.setState({registerOpen: false});
         }
@@ -98,9 +99,15 @@ export default class SMHeader extends React.Component {
             localStorage.setItem('pass', passed);
             localStorage.setItem('fail', failed);
 
+        } else if (result === 'registration') {
+            this.setState({loginOpen: false, isLogin: false, registerOpen: true});
+
+        } else if (result === 'password') {
+            console.log('Not implemented yet');
+            this.setState({loginOpen: false, isLogin: false});
+
         } else {
-            this.setState({loginOpen: false,
-                           isLogin: false});
+            this.setState({loginOpen: false, isLogin: false});
         }
     }
 

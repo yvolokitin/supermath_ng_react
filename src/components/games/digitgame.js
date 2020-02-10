@@ -63,8 +63,13 @@ export default class DigitGame extends React.Component {
 
         // game was properly finished, when all tasks are solved
         } else if (status === 'interrapted') {
-            this.props.onClose('interrapted');
             this.results = [];
+            this.setState({results: [],
+                           circle: 'white',
+                           total: 0,
+                           passed: 0,
+                           failed: 0});
+            this.props.onClose('interrapted');
 
         // game was re-newed, tbd
         } else if (status === 'replay') {
@@ -84,7 +89,7 @@ export default class DigitGame extends React.Component {
     /*
      * if counter === 0 -> user answered right from first time -> passed
      * if counter > 0 -> user could not properly answer from first time -> failed
-    */
+     */
     onCounterUpdate(counter, task) {
         this.results.push(task);
         if (counter === 0) {
@@ -107,7 +112,7 @@ export default class DigitGame extends React.Component {
             GameFooter: height: 10%  width: 100%
         */
         return (
-            <Dialog fullScreen={true} transitionDuration={500} onKeyDown={this.onKeyboard} open={this.props.open}>
+            <Dialog fullScreen={true} transitionDuration={500} open={this.props.open}>
                 { this.state.showResults ? (null) : (<GameHeader onClick={this.onGameClose} width='49%' total={this.state.total} passed={this.state.passed} failed={this.state.failed}/>) }
 
                 <div style={{height:'100%',width:'100%',}}>
