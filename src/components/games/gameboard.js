@@ -20,6 +20,7 @@ export default class GameBoard extends React.Component {
                       expression_2: this.task.expression_2,
                       result: '?',
                       color: 'grey',
+                      board: 'yellow',
                       counter: 0,
                       attempt: 0};
     }
@@ -57,51 +58,58 @@ export default class GameBoard extends React.Component {
 
     onDigit({ target }) {
         // console.log("onDigit " + target.innerText);
-        this.check_response((target.innerText).toString());
+        // skip any checks if in red already
+        if (this.state.board === 'yellow') {
+            this.check_response((target.innerText).toString());
+        }
     }
 
     onOperator({ target }) {
         // console.log("check operator response " + target.innerText);
-        if (this.props.type.includes('d')) {
-            var expected_result = this.task.result.toString();
-            if ((expected_result.length > 1) && (this.state.result !== '?')) {
-                var new_result = this.state.result.substring(0, this.state.result.length - 1);
-                if (new_result.length === 0) {
-                    this.setState({result: '?', color: 'grey'});
+        if (this.state.board === 'yellow') {
+            if (this.props.type.includes('d')) {
+                var expected_result = this.task.result.toString();
+                if ((expected_result.length > 1) && (this.state.result !== '?')) {
+                    var new_result = this.state.result.substring(0, this.state.result.length - 1);
+                    if (new_result.length === 0) {
+                        this.setState({result: '?', color: 'grey'});
+                    } else {
+                        this.setState({result: new_result});
+                    }
                 } else {
-                    this.setState({result: new_result});
+                    console.log("Escaping backspace " + target.innerText);
                 }
             } else {
-                console.log("Escaping backspace " + target.innerText);
+                this.check_response(target.innerText);
             }
-        } else {
-            this.check_response(target.innerText);
         }
     }
 
     onKeyboard({ key }) {
         console.log("onKeyboard " + key);
-        switch (key) {
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-                this.check_response(key);
-                break;
-            case 'Escape':
-                console.log('onKeyboard: Escape');
-                // this.onGameClose('');
-                break;
-
-            default:
-                // console.log("nothing to check");
-                break;
+        // skip any checks if in red already
+        if (this.state.board === 'yellow') {
+            switch (key) {
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                    this.check_response(key);
+                    break;
+                case 'Escape':
+                    console.log('onKeyboard: Escape');
+                    // this.onGameClose('');
+                    break;
+                default:
+                    // console.log("nothing to check");
+                    break;
+            }
         }
     }
 
@@ -153,19 +161,23 @@ export default class GameBoard extends React.Component {
         if (this.state.attempt === 0) {
             // notify parent to change circles color in game footer
             this.props.onCounter(this.state.attempt + 1);
-            this.setState({color: 'red',
+            this.setState({color: 'yellow',
+                           board: 'red',
+                           animation: 'shake 0.8s',
                            result: digit,
                            counter: this.state.counter + 1,
                            failed: this.state.failed + 1,
                            attempt: this.state.attempt + 1});
         } else {
-            this.setState({color: 'red',
+            this.setState({color: 'yellow',
+                           board: 'red',
+                           animation: 'shake 0.6s',
                            result: digit,
                            attempt: this.state.attempt + 1});
         }
 
         // clear result value in 1.5 seconds
-        setTimeout(() => {this.setState({color: 'grey', result: '?'});this.props.onColor('white');}, 700);
+        setTimeout(() => {this.setState({color: 'grey', board: 'yellow', animation: '', result: '?'});this.props.onColor('white');}, 700);
     }
 
     set_passed(digit) {
@@ -192,9 +204,9 @@ export default class GameBoard extends React.Component {
 
     render() {
         return (
-            <div onKeyDown={this.onKeyboard} style={{height:'100%',width:'100%',}}>
+            <div onKeyDown={this.onKeyboard} className="gameboard_wrapper">
                 <div className="line_body_div_left">
-                    <div className="line_gameboard">
+                    <div className="line_gameboard" style={{backgroundColor: this.state.board, animation: this.state.animation}}>
                         { this.props.type.includes('d') ? (<div className="line_task">{this.state.task}</div>) : (null) }
                         { this.props.type.includes('d') ? (<div className="line_result" style={{color: this.state.color}}>{this.state.result}</div>) : (null) }
 
