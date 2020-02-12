@@ -1,95 +1,76 @@
 ﻿import React from 'react';
-import {Avatar, Button, Dialog, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Typography} from '@material-ui/core';
+import {Dialog, TextField, FormControlLabel, Checkbox, Link} from '@material-ui/core';
 
-import { makeStyles } from '@material-ui/core/styles';
+// date picker
+import {DatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
 
-import image from './../../images/monsters/Avengers-Iron-Man-icon.png'
+// import image from './../../images/monsters/Avengers-Iron-Man-icon.png';
+import image from './../../images/help/sign-up.png';
 import SMTitle from './../dialog/title';
 
-const useStyles = makeStyles(theme => ({
-    paper: {
-        margin: theme.spacing(5),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        width: '160px',
-        height:'160px',
-    },
-    form: {
-        width: '100%',
-        marginTop: theme.spacing(3),
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
-    title: {
-        width: '100%',
-        textAlign: 'center',
-        fontSize: '2.00rem',
-        fontFamily:'Grinched',
-        fontVariant:'small-caps',
-        color:'green',
-        textShadow:'2px 2px 2px black',
-    }
-}));
+import './registration.css';
 
 /*
-
+props.open
 */
 export default function Registration(props) {
-    const classes = useStyles();
+    // const [selectedDate, handleDateChange] = React.useState();
+    const [values, setValues] = React.useState({
+        name: '',
+        surname: '',
+        birth: new Date(),
+        email: '',
+        password: '',
+        subscribtion: false,
+    });
+
+    const handleChange = prop => event => {
+        console.log('handleChange ' + event.target.value);
+        setValues({ ...values, [prop]: event.target.value });
+    };
 
     return (
-        <Dialog transitionDuration={600} fullWidth={true} maxWidth='md' open={props.open}>
+        <Dialog transitionDuration={600} fullWidth={true} maxWidth='md' scroll="body" open={true}>
             <SMTitle title='' onClick={() => props.onClick()}/>
-            <CssBaseline />
-            <div className={classes.paper}>
-                <Avatar className={classes.avatar}> <img src={image} alt='User Avatar'/> </Avatar>
-    
-                <Typography className={classes.title} component="h1" variant="h5">
-                    <font style={{color:'orange'}}> SUPERMATH </font>
-                    <font style={{marginLeft:'2%',color:'green'}}> REGISTRATION </font>
-                </Typography>
+            <div className='registration_desk'>
+                <div className='registration_desk_title'>
+                    <img src={image} alt='Registration'/>
+                </div>
 
-                <form className={classes.form} noValidate>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
-                                <TextField required fullWidth id="firstName" autoComplete="fname" name="firstName" variant="outlined" label="Child First Name" autoFocus/>
-                            </Grid>
+                <div className='registration_desk_textfield'>
+                    <TextField autoFocus required fullWidth variant="outlined" label="Child Name" onChange={handleChange('name')}/>
+                </div>
 
-                            <Grid item xs={12} sm={6}>
-                                <TextField fullWidth id="lastName" variant="outlined" name="lastName" label="Child Last Name" autoComplete="lname"/>
-                            </Grid>
+                <div className='registration_desk_textfield'>
+                    <TextField fullWidth variant="outlined" label="Child Surname" onChange={handleChange('surname')}/>
+                </div>
 
-                            <Grid item xs={12}>
-                                <TextField variant="outlined" required fullWidth id="email" label="Email Address" name="email" autoComplete="email"/>
-                            </Grid>
+                <div className='registration_desk_textfield'>
+                    <TextField required fullWidth variant="outlined" label="Child Birthday" type="date" defaultValue="2014-01-28">
+                        <MuiPickersUtilsProvider utils={MomentUtils}>
+                            <DatePicker value={values.birth} onChange={handleChange('birth')}/>
+                        </MuiPickersUtilsProvider>
+                    </TextField>
+                </div>
 
-                            <Grid item xs={12}>
-                                <TextField variant="outlined" required fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password"/>
-                            </Grid>
+                <div className='registration_desk_textfield'>
+                    <TextField required fullWidth variant="outlined" label="Email Address" onChange={handleChange('email')}/>
+                </div>
 
-                            <Grid item xs={12}>
-                                <FormControlLabel control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                    label="I want to receive inspiration, promotions and updates via email."/>
-                            </Grid>
-                        </Grid>
+                <div className='registration_desk_textfield'>
+                    <TextField required fullWidth variant="outlined" label="Password" onChange={handleChange('password')}/>
+                </div>
 
-                        <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-                            Sign Up
-                        </Button>
-                        <Grid container justify="flex-end">
-                            <Grid item>
-                                <Link href="#" variant="body2" onClick={() => props.onClick('login')}>
-                                    Already have an account? Sign in
-                                </Link>
-                            </Grid>
-                        </Grid>
-                    </form>
+                <div className='registration_desk_textfield'>
+                    <FormControlLabel control={<Checkbox value={values.subscribtion} color="primary" />} onChange={handleChange('subscribtion')}
+                                      label='I want to receive inspiration, promotions and updates via email'/>
+                </div>
             </div>
-    </Dialog>
+
+            <div className='registration_desk_button' onClick={() => this.onClose('replay')}>Create account</div>
+
+            <Link href="" style={{marginRight:'5%',float:'right'}} onClick={() => props.onClick('login')}>Already have an account? Sign in</Link>
+        </Dialog>
     );
 }
