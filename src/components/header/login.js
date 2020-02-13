@@ -89,9 +89,9 @@ export default class SMLogin extends React.Component {
     }
 
     onLoginClose() {
-        // ignore close request if in progress
+        // ignore close request if login is in progress
         if (this.state.loading === false) {
-            this.props.onClick();
+            this.props.onClose();
         }
     }
 
@@ -137,7 +137,7 @@ export default class SMLogin extends React.Component {
 
                 <Snackbar onClose={(e) => this.setState({loginFailed:false})} autoHideDuration={10000} open={this.state.loginFailed}>
                     <Alert onClose={(e) => this.setState({loginFailed:false})} severity="error">
-                        Login failed with following reason: {this.state.loginError}
+                        Login failed: {this.state.loginError}
                     </Alert>
                 </Snackbar>
 
