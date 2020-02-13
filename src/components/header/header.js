@@ -169,7 +169,7 @@ export default class SMHeader extends React.Component {
                                  user={this.state.userName} age={this.state.userAge} ava={this.state.userAva}
                                  pass={this.state.userPass} fail={this.state.userFail}/>
 
-                <Registration open={this.state.registerOpen} onClick={this.onRegistrationClose}/>
+                <Registration open={this.state.registerOpen} onClose={this.onRegistrationClose}/>
 
             </AppBar>
     )};

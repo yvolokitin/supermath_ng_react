@@ -12,7 +12,7 @@ import SMTitle from './../dialog/title';
 import './registration.css';
 
 /*
-props.open
+
 */
 export default function Registration(props) {
     // const [selectedDate, handleDateChange] = React.useState();
@@ -26,28 +26,38 @@ export default function Registration(props) {
     });
 
     const handleChange = prop => event => {
-        console.log('handleChange ' + event.target.value);
+        console.log('handleChange ' + prop + ': ' + event.target.value);
         setValues({ ...values, [prop]: event.target.value });
     };
 
+    const onRegistration = prop => event => {
+        console.log('QQQQQQQQQQQQQQQQQ onRegistration "' + values.name + '"');
+        props.onClose();
+        // setValues({ ...values, [prop]: event.target.value });
+
+        var post_data = {'email': this.state.email, 'pswd': this.state.password};
+        axios.post('http://supermath.xyz:3000/api/login', post_data)
+            .then(this.onLoginResponse)
+            .catch(this.onLoginError);
+    };
+
     return (
-        <Dialog transitionDuration={600} fullWidth={true} maxWidth='md' scroll="body" open={true}>
-            <SMTitle title='' onClick={() => props.onClick()}/>
+        <Dialog transitionDuration={600} fullWidth={true} maxWidth='md' scroll='body' open={props.open}>
+            <SMTitle title='' onClick={() => props.onClose()}/>
             <div className='registration_desk'>
-                <div className='registration_desk_title'>
-                    <img src={image} alt='Registration'/>
+                <div className='registration_desk_title'><img src={image} alt='Registration'/></div>
+
+                <div className='registration_desk_textfield'>
+                    <TextField autoFocus required fullWidth variant='outlined' label='Name' onChange={handleChange('name')}/>
                 </div>
 
                 <div className='registration_desk_textfield'>
-                    <TextField autoFocus required fullWidth variant="outlined" label="Child Name" onChange={handleChange('name')}/>
+                    <TextField fullWidth variant='outlined' label='Surname' onChange={handleChange('surname')}/>
                 </div>
 
                 <div className='registration_desk_textfield'>
-                    <TextField fullWidth variant="outlined" label="Child Surname" onChange={handleChange('surname')}/>
-                </div>
-
-                <div className='registration_desk_textfield'>
-                    <TextField required fullWidth variant="outlined" label="Child Birthday" type="date" defaultValue="2014-01-28">
+                    Child Birthday:
+                    <TextField required fullWidth variant='outlined' type='date' defaultValue='dd-MM-yyyy' onChange={handleChange('birth')}>
                         <MuiPickersUtilsProvider utils={MomentUtils}>
                             <DatePicker value={values.birth} onChange={handleChange('birth')}/>
                         </MuiPickersUtilsProvider>
@@ -55,11 +65,11 @@ export default function Registration(props) {
                 </div>
 
                 <div className='registration_desk_textfield'>
-                    <TextField required fullWidth variant="outlined" label="Email Address" onChange={handleChange('email')}/>
+                    <TextField required fullWidth variant='outlined' label="Email Address" onChange={handleChange('email')}/>
                 </div>
 
                 <div className='registration_desk_textfield'>
-                    <TextField required fullWidth variant="outlined" label="Password" onChange={handleChange('password')}/>
+                    <TextField required fullWidth variant='outlined' label="Password" onChange={handleChange('password')}/>
                 </div>
 
                 <div className='registration_desk_textfield'>
@@ -68,7 +78,7 @@ export default function Registration(props) {
                 </div>
             </div>
 
-            <div className='registration_desk_button' onClick={() => this.onClose('replay')}>Create account</div>
+            <div className='registration_desk_button' onClick={onRegistration()}>Create account</div>
 
             <Link href="" style={{marginRight:'5%',float:'right'}} onClick={() => props.onClick('login')}>Already have an account? Sign in</Link>
         </Dialog>
