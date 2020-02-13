@@ -5,6 +5,8 @@ import {Dialog, TextField, FormControlLabel, Checkbox, Link} from '@material-ui/
 import {DatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 
+import axios from 'axios';
+
 // import image from './../../images/monsters/Avengers-Iron-Man-icon.png';
 import image from './../../images/help/sign-up.png';
 import SMTitle from './../dialog/title';
@@ -33,13 +35,24 @@ export default function Registration(props) {
     const onRegistration = prop => event => {
         console.log('QQQQQQQQQQQQQQQQQ onRegistration "' + values.name + '"');
         props.onClose();
-        // setValues({ ...values, [prop]: event.target.value });
 
-        var post_data = {'email': this.state.email, 'pswd': this.state.password};
-        axios.post('http://supermath.xyz:3000/api/login', post_data)
-            .then(this.onLoginResponse)
-            .catch(this.onLoginError);
+        var post_data = {'user': values.name,
+                         'age': values.surname,
+                         'lastname': values.birth,
+                         'email': values.email,
+                         'pswd': values.password};
+        axios.post('http://supermath.xyz:3000/api/reg', post_data)
+            .then(onRegistrationResponse)
+            .catch(onRegistrationError);
     };
+
+    const onRegistrationResponse = response => {
+        console.log('onRegistrationResponse ' + response.error);
+    }
+
+    const onRegistrationError = error => {
+        console.log('onRegistrationError '+ error);
+    }
 
     return (
         <Dialog transitionDuration={600} fullWidth={true} maxWidth='md' scroll='body' open={props.open}>
