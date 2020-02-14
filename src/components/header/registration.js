@@ -58,7 +58,7 @@ export default class Registration extends React.Component {
     onRegistration() {
         var result = validate({username: this.state.name}, constraints);
         // validationResult is undefined if there are no errors
-        console.log('onRegistration.result "' + result + '"');
+        console.log('onRegistration.result "' + result.username + '"');
 
         this.setState({success: false, loading: true, color: '#ffd9b3'});
         var post_data = {'user': this.state.name,
