@@ -29,7 +29,7 @@
         // and must be an email (duh)
         email: true
     },
-    birthdate: {
+    birth: {
         // The user needs to give a birthday
         presence: true,
     },
