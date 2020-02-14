@@ -7,12 +7,17 @@
     margin-left: 5%;
     margin-right: 5%;
 
-    background-color: orange;
-    color: green;
+    color: black;
 
     border: 3px solid black;
     border-radius: 15px 50px;
     box-shadow: 7px 7px black;
+}
+.circular_progress {
+    position:absolute;
+    top: 40%;
+    left: 50%;
+    color: green;
 }
 .registration_desk_title {
     height: 15%;
@@ -28,8 +33,6 @@
 .registration_desk_textfield {
     height: 15%;
     width: 90%;
-
-    color: green;
 
     margin-top: 1%;
     margin-bottom: 1%;

@@ -33,7 +33,7 @@ export default class Registration extends React.Component {
                       password: '',
                       subscribtion: false,
                       success: false,
-                      color: 'red',
+                      color: 'orange',
                       loading: false,
                       loginFailed: false,
                       loginError: '',
@@ -45,6 +45,8 @@ export default class Registration extends React.Component {
         this.onRegistrationClose = this.onRegistrationClose.bind(this);
         this.onRegistrationError = this.onRegistrationError.bind(this);
         this.onRegistrationResponse = this.onRegistrationResponse.bind(this);
+
+        this.time = new Date().getTime();
     }
 
     onChange(event) {
@@ -58,7 +60,7 @@ export default class Registration extends React.Component {
         // validationResult is undefined if there are no errors
         console.log('onRegistration.result "' + result + '"');
 
-        this.setState({success: false, loading: true});
+        this.setState({success: false, loading: true, color: '#ffd9b3'});
         var post_data = {'user': this.state.name,
                          'age': this.state.surname,
                          'lastname': this.state.birth,
@@ -67,15 +69,26 @@ export default class Registration extends React.Component {
         axios.post('http://supermath.xyz:3000/api/reg', post_data)
             .then(this.onRegistrationResponse)
             .catch(this.onRegistrationError);
+
+        this.time = new Date().getTime();
     };
 
     onRegistrationResponse(response) {
+        var diff = new Date().getTime() - this.time;
+        console.log('diff : ' + diff);
         console.log('onRegistrationResponse ' + response.error);
+
+
+
     }
 
     onRegistrationError(error) {
         console.log('onRegistrationError '+ error);
-        this.setState({success: false, loading: false, color:'red', loginFailed: true, loginError: error.toString()});
+        this.setState({success: false,
+                       loading: false,
+                       color:'red',
+                       loginFailed: true,
+                       loginError: error.toString()});
     }
 
     onRegistrationClose(status) {
@@ -91,20 +104,25 @@ export default class Registration extends React.Component {
         return (
             <Dialog onClose={this.onRegistrationClose} transitionDuration={600} fullWidth={true} maxWidth='md' scroll='body' open={this.props.open}>
                 <SMTitle title='' onClick={this.onRegistrationClose}/>
-                <div className='registration_desk'>
-                    <div className='registration_desk_title'><img src={image} alt='Registration'/></div>
 
-                    <div className='registration_desk_textfield'>
-                        <TextField autoFocus required fullWidth variant='outlined' label='Name' onChange={this.onChange}/>
+                <div className='registration_desk' style={{backgroundColor: this.state.color}}>
+                    {this.state.loading ? <CircularProgress size={68} className='circular_progress'/> : null}
+
+                    <div className='registration_desk_title'>
+                        <img src={image} alt='Registration'/>
                     </div>
 
                     <div className='registration_desk_textfield'>
-                        <TextField fullWidth variant='outlined' label='Surname' onChange={this.onChange('surname')}/>
+                        <TextField disabled={this.state.loading} autoFocus required fullWidth variant='outlined' label='Name' onChange={this.onChange}/>
+                    </div>
+
+                    <div className='registration_desk_textfield'>
+                        <TextField disabled={this.state.loading} fullWidth variant='outlined' label='Surname' onChange={this.onChange('surname')}/>
                     </div>
 
                     <div className='registration_desk_textfield'>
                         Child Birthday:
-                        <TextField required fullWidth variant='outlined' type='date' defaultValue='dd-MM-yyyy' onChange={this.onChange}>
+                        <TextField disabled={this.state.loading} required fullWidth variant='outlined' type='date' defaultValue='dd-MM-yyyy' onChange={this.onChange}>
                             <MuiPickersUtilsProvider utils={MomentUtils}>
                                 <DatePicker value={this.state.birth} onChange={this.onChange('birth')}/>
                             </MuiPickersUtilsProvider>
@@ -112,21 +130,22 @@ export default class Registration extends React.Component {
                     </div>
 
                     <div className='registration_desk_textfield'>
-                        <TextField required fullWidth variant='outlined' label="Email Address" onChange={this.onChange}/>
+                        <TextField disabled={this.state.loading} required fullWidth variant='outlined' label="Email Address" onChange={this.onChange}/>
                     </div>
 
                     <div className='registration_desk_textfield'>
-                        <TextField required fullWidth variant='outlined' label="Password" onChange={this.onChange('password')}/>
+                        <TextField disabled={this.state.loading} required fullWidth variant='outlined' label="Password" onChange={this.onChange('password')}/>
                     </div>
 
                     <div className='registration_desk_textfield'>
-                        <FormControlLabel control={<Checkbox value={this.state.subscribtion} color="primary" />} onChange={this.onChange('subscribtion')}
+                        <FormControlLabel disabled={this.state.loading} control={<Checkbox value={this.state.subscribtion}
+                                          color="primary" />} onChange={this.onChange('subscribtion')}
                                           label='I want to receive inspiration, promotions and updates via email'/>
                     </div>
 
                 </div>
                 <div className='registration_desk_button' onClick={this.onRegistration}>Create account</div>
-                <Link href="" style={{marginRight:'5%',float:'right'}} onClick={this.onRegistrationClose('login')}>Already have an account? Sign in</Link>
+                <Link href="" disabled={this.state.loading} style={{marginRight:'5%',float:'right'}} onClick={this.onRegistrationClose('login')}>Already have an account? Sign in</Link>
 
                 <Snackbar onClose={(e) => this.setState({loginFailed:false})} autoHideDuration={10000} open={this.state.loginFailed}>
                     <Alert onClose={(e) => this.setState({loginFailed:false})} severity="error"> {this.state.loginError} </Alert>

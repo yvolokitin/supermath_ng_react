@@ -25,7 +25,7 @@ export default class SMHeader extends React.Component {
         this.state = {aboutOpen: false,
                       helpOpen: false,
                       loginOpen: false,
-                      registerOpen: false,
+                      registerOpen: true, // false
                       userInfoOpen: false,
                       isLogin: localStorage.getItem('isLogin') ? localStorage.getItem('isLogin') : false,
                       userId: localStorage.getItem('user_id') ? localStorage.getItem('user_id') : '0',
