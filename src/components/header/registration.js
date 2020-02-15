@@ -28,7 +28,6 @@ export default class Registration extends React.Component {
                       email: '',
                       pswd: '',
                       subcsr: false,
-                      success: false,
                       color: 'orange',
                       loading: false,
                       error: false,
@@ -75,13 +74,20 @@ export default class Registration extends React.Component {
             return;
         }
 
-        this.setState({success: false, loading: true, color: '#ffd9b3'});
-        var post_data = {'user': this.state.name,
+        var crypto = require('crypto');
+        var mykey = crypto.createCipher('aes-128-cbc', this.state.pswd);
+        var pswdhash = mykey.update('abc', 'utf8', 'hex');
+        pswdhash += mykey.final('hex');
+        console.log('crypto pswdhash: ' + pswdhash);
+
+        this.setState({loading: true, color: '#ffd9b3'});
+        var post_data = {'name': this.state.name,
                          'age': this.state.birth,
                          'lastname': this.state.surname,
                          'email': this.state.email,
-                         'pswd': this.state.pswd};
-        console.log('post_data: ' + post_data.user + ', ' + post_data.age + ', ' + post_data.lastname + ', ' + post_data.email + ', ' + post_data.pswd);
+                         'subcsr': this.state.subcsr,
+                         'pswd': this.state.pswd,
+                         'pswdhash': pswdhash};
         axios.post('http://supermath.xyz:3000/api/reg', post_data)
             .then(this.onRegistrationResponse)
             .catch(this.onRegistrationError);
@@ -96,8 +102,6 @@ export default class Registration extends React.Component {
         }
 
         if ((response.data.error === undefined) && (response.data.id !== undefined)) {
-            this.setState({success: true, color: 'green'});
-
             // age calculation based on server response value
             // 'age': 'Tue, 28 Jan 2014 06:13:13 GMT' -> need to convert in years
             var birthday = new Date(response.data.age);
@@ -107,21 +111,24 @@ export default class Registration extends React.Component {
 
             setTimeout(() => {
                 this.props.onClose('successed', response.data.id, response.data.name, response.data.email, response.data.surname, age, response.data.ava, response.data.pass, response.data.fail);
-                this.setState({loading: false,});
+                this.setState({loading: false, color: 'orange'});
             }, timeout);
 
         } else {
             if (response.data.error !== undefined) {
-                setTimeout(() => {this.setState({success: false, loading: false, color:'red', error: true, message: response.data.error.toString()});}, timeout);
+                setTimeout(() => {this.setState({loading: false, color:'red', error: true, message: response.data.error.toString()});}, timeout);
             } else {
-                setTimeout(() => {this.setState({success: false, loading: false, color:'red', error: true, message: 'Uuupps! Something went wrong'});}, timeout);
+                setTimeout(() => {this.setState({loading: false, color:'red', error: true, message: 'Uuupps! Something went wrong'});}, timeout);
             }
+
+            setTimeout(() => {this.setState({color: 'orange'});}, timeout+1000);
         }
     }
 
     onRegistrationError(error) {
         console.log('onRegistrationError '+ error.toString());
         this.setState({success: false, loading: false, color:'red', error: true, message: error.toString()});
+        setTimeout(() => {this.setState({color: 'orange'});}, 1000);
     }
 
     onClose(status) {

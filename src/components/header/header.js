@@ -75,7 +75,9 @@ export default class SMHeader extends React.Component {
                            userPass: passed,
                            userFail: failed,
                            // close login window
-                           loginOpen: false});
+                           loginOpen: false,
+                           // close registration window
+                           registerOpen: false});
 
             // use HTML5 Local Storage if browser supports it
             localStorage.setItem('isLogin', true);
