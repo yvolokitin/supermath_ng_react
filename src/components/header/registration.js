@@ -27,7 +27,7 @@ export default class Registration extends React.Component {
                       birth: '',
                       email: '',
                       pswd: '',
-                      subscribtion: false,
+                      subcsr: false,
                       success: false,
                       color: 'orange',
                       loading: false,
@@ -35,18 +35,13 @@ export default class Registration extends React.Component {
                       message: '',
                       duration: 10000};
 
-        this.onSubscribtion = this.onSubscribtion.bind(this);
+        this.onClose = this.onClose.bind(this);
 
         this.onRegistration = this.onRegistration.bind(this);
-        this.onRegistrationClose = this.onRegistrationClose.bind(this);
         this.onRegistrationError = this.onRegistrationError.bind(this);
         this.onRegistrationResponse = this.onRegistrationResponse.bind(this);
 
         this.time = new Date().getTime();
-    }
-
-    onSubscribtion(event) {
-        this.setState({pswd: event.target.value})
     }
 
     onRegistration(event) {
@@ -85,7 +80,8 @@ export default class Registration extends React.Component {
                          'age': this.state.birth,
                          'lastname': this.state.surname,
                          'email': this.state.email,
-                         'pswd': this.state.password};
+                         'pswd': this.state.pswd};
+        console.log('post_data: ' + post_data.user + ', ' + post_data.age + ', ' + post_data.lastname + ', ' + post_data.email + ', ' + post_data.pswd);
         axios.post('http://supermath.xyz:3000/api/reg', post_data)
             .then(this.onRegistrationResponse)
             .catch(this.onRegistrationError);
@@ -103,15 +99,15 @@ export default class Registration extends React.Component {
             this.setState({success: true, color: 'green'});
 
             // age calculation based on server response value
-            // "age":"Tue, 28 Jan 2014 06:13:13 GMT" -> need to convert in years
+            // 'age': 'Tue, 28 Jan 2014 06:13:13 GMT' -> need to convert in years
             var birthday = new Date(response.data.age);
             var ageDifMs = Date.now() - birthday.getTime();
             var ageDate = new Date(ageDifMs);
             var age = Math.abs(ageDate.getUTCFullYear() - 1970);
 
             setTimeout(() => {
+                this.props.onClose('successed', response.data.id, response.data.name, response.data.email, response.data.surname, age, response.data.ava, response.data.pass, response.data.fail);
                 this.setState({loading: false,});
-                this.props.onClose('successed', response.data.id, response.data.name, response.data.surname, age, response.data.ava, response.data.pass, response.data.fail);
             }, timeout);
 
         } else {
@@ -128,11 +124,11 @@ export default class Registration extends React.Component {
         this.setState({success: false, loading: false, color:'red', error: true, message: error.toString()});
     }
 
-    onRegistrationClose(status) {
-        console.log('onRegistrationClose '+ status);
+    onClose(status) {
+        console.log('registration.onClose ' + status);
         // ignore close request if registration is in progress
-        if (this.state.loading === false) {
-            // this.props.onClose(status);
+        if (!this.state.loading) {
+            this.props.onClose(status);
         }
     }
 
@@ -141,7 +137,7 @@ export default class Registration extends React.Component {
     render() {
         return (
             <Dialog transitionDuration={600} fullWidth={true} maxWidth='md' scroll='body' open={this.props.open}>
-                <SMTitle title='' onClick={this.onRegistrationClose}/>
+                <SMTitle title='' onClick={() => this.onClose()}/>
 
                 <div className='registration_desk' style={{backgroundColor: this.state.color}}>
                     {this.state.loading ? <CircularProgress size={68} className='circular_progress'/> : null}
@@ -177,13 +173,14 @@ export default class Registration extends React.Component {
 
                     <div className='registration_desk_textfield'>
                         <FormControlLabel disabled={this.state.loading} control={<Checkbox value={this.state.subscribtion}
-                                          color="primary" />} onChange={this.onSubscribtion}
+                                          color="primary" />} onChange={(event) => {this.setState({subcsr: event.target.value})}}
                                           label='I want to receive inspiration, promotions and updates via email'/>
                     </div>
-
                 </div>
+
                 <div className='registration_desk_button' onClick={this.onRegistration}>Create account</div>
-                <Link href="" disabled={this.state.loading} style={{marginRight:'5%',float:'right'}} >Already have an account? Sign in</Link>
+
+                <Link style={{marginRight:'5%',float:'right',cursor:'pointer'}} onClick={() => this.onClose('login')} >Already have an account? Sign in</Link>
 
                 <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}}
                           onClose={(e) => this.setState({error:false})}

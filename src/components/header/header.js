@@ -15,12 +15,10 @@ export default class SMHeader extends React.Component {
 
         this.onLogout = this.onLogout.bind(this);
         this.onLogin = this.onLogin.bind(this);
-        this.onLoginResult = this.onLoginResult.bind(this);
+        this.onResult = this.onResult.bind(this);
 
         this.onUserInfoOpen = this.onUserInfoOpen.bind(this);
         this.onUserInfoClose = this.onUserInfoClose.bind(this);
-
-        this.onRegistrationClose = this.onRegistrationClose.bind(this);
 
         this.state = {aboutOpen: false,
                       helpOpen: false,
@@ -31,6 +29,7 @@ export default class SMHeader extends React.Component {
                       userId: localStorage.getItem('user_id') ? localStorage.getItem('user_id') : '0',
                       userName: localStorage.getItem('name') ? localStorage.getItem('name') : 'Kobe',
                       userSurname: localStorage.getItem('surname') ? localStorage.getItem('surname') : 'Bryant',
+                      userEmail: localStorage.getItem('email') ? localStorage.getItem('email') : 'Kobe.Bryant@email.com',
                       userAge: localStorage.getItem('age') ? localStorage.getItem('age') : '41',
                       userAva: localStorage.getItem('ava') ? localStorage.getItem('ava') : 'martin-berube',
                       userPass: localStorage.getItem('pass') ? localStorage.getItem('pass') : '60',
@@ -47,70 +46,60 @@ export default class SMHeader extends React.Component {
                 if ((localStorage.getItem('pass') !== null) &&
                     (localStorage.getItem('fail') !== null)) {
                         this.setState({userPass: localStorage.getItem('pass'),
-                                       userFail: localStorage.getItem('fail'),
-                                      });
+                                       userFail: localStorage.getItem('fail')});
                 }
-        }
-    }
-
-    onRegistrationClose(status) {
-        if (status === 'login') {
-            this.setState({registerOpen: false, loginOpen: true});
-
-        } else if (status === 'successed') {
-
-
-        } else {
-            this.setState({registerOpen: false});
         }
     }
 
     onUserInfoOpen() {
         this.setState({userInfoOpen: true});
     }
-
     onUserInfoClose() {
-        this.setState({userInfoOpen: false,
-                       userAva: localStorage.getItem('ava')});
+        this.setState({userInfoOpen: false, userAva: localStorage.getItem('ava')});
     }
 
     onLogin() {
         this.setState({loginOpen: true});
     }
 
-    onLoginResult(result, user_id, name, surname, age, ava, passed, failed) {
-        // console.log('onLoginResult ' + result + ', user: ' + user + ', age: ' + age+ ', pass: '  + passed + ', fail: ' + failed);
+    onResult(result, user_id, name, email, surname, age, ava, passed, failed) {
+        // console.log('onResult ' + result + ', user: ' + user + ', age: ' + age+ ', pass: '  + passed + ', fail: ' + failed);
         if (result === 'successed') {
-            this.setState({loginOpen: false,
-                           isLogin: true,
+            this.setState({isLogin: true,
                            userId: user_id,
                            userName: name,
+                           userEmail: email,
                            userSurname: surname,
                            userAge: age,
                            userAva: ava,
                            userPass: passed,
                            userFail: failed,
-                          });
+                           // close login window
+                           loginOpen: false});
 
             // use HTML5 Local Storage if browser supports it
             localStorage.setItem('isLogin', true);
             localStorage.setItem('user_id', user_id);
             localStorage.setItem('name', name);
+            localStorage.setItem('email', email);
             localStorage.setItem('surname', surname);
             localStorage.setItem('age', age);
             localStorage.setItem('ava', ava);
             localStorage.setItem('pass', passed);
             localStorage.setItem('fail', failed);
 
-        } else if (result === 'registration') {
-            this.setState({loginOpen: false, isLogin: false, registerOpen: true});
+        } else if (result === 'register') {
+            this.setState({loginOpen: false, registerOpen: true});
 
-        } else if (result === 'password') {
-            console.log('Not implemented yet');
+        } else if (result === 'login') {
+            this.setState({loginOpen: true, registerOpen: false});
+
+        } else if (result === 'pswd') {
+            console.log('Not implemented yet, just close');
             this.setState({loginOpen: false, isLogin: false});
 
         } else {
-            this.setState({loginOpen: false, isLogin: false});
+            this.setState({loginOpen: false, registerOpen: false, isLogin: false});
         }
     }
 
@@ -122,6 +111,7 @@ export default class SMHeader extends React.Component {
         localStorage.removeItem('isLogin');
         localStorage.removeItem('user_id');
         localStorage.removeItem('name');
+        localStorage.removeItem('email');
         localStorage.removeItem('surname');
         localStorage.removeItem('age');
         localStorage.removeItem('ava');
@@ -166,13 +156,13 @@ export default class SMHeader extends React.Component {
 
                 <SMHelp open={this.state.helpOpen} onClick={() => this.setState({helpOpen: false})}/>
                 <SMAbout open={this.state.aboutOpen} onClick={() => this.setState({aboutOpen: false})}/>
-                <SMLogin open={this.state.loginOpen} onClose={this.onLoginResult}/>
+                <SMLogin open={this.state.loginOpen} onClose={this.onResult}/>
 
                 <UserInformation open={this.state.userInfoOpen} onClick={this.onUserInfoClose}
                                  user={this.state.userName} age={this.state.userAge} ava={this.state.userAva}
                                  pass={this.state.userPass} fail={this.state.userFail}/>
 
-                <Registration open={this.state.registerOpen} onClose={this.onRegistrationClose}/>
+                <Registration open={this.state.registerOpen} onClose={this.onResult}/>
 
             </AppBar>
     )};

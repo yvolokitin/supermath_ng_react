@@ -16,8 +16,8 @@ import './header.css';
 export default class SMLogin extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {email: '',
-                      password: '',
+        this.state = {email: localStorage.getItem('email') ? localStorage.getItem('email') : '',
+                      pswd: localStorage.getItem('pswd') ? localStorage.getItem('pswd') : '',
                       success: false,
                       loading: false,
                       color: 'red',
@@ -25,24 +25,13 @@ export default class SMLogin extends React.Component {
                       loginError: '',
                       };
 
-        this.onUserName = this.onUserName.bind(this);
-        this.onPassword = this.onPassword.bind(this);
+        this.onClose = this.onClose.bind(this);
 
         this.onLogin = this.onLogin.bind(this);
         this.onLoginError = this.onLoginError.bind(this);
-        this.onLoginClose = this.onLoginClose.bind(this);
         this.onLoginResponse = this.onLoginResponse.bind(this);
-    }
 
-    // event: The event source of the callback. You can pull out the new value by accessing event.target.value (string).
-    onUserName(event) {
-        console.log("onUserName:: event " + event.target.value);
-        this.setState({email: event.target.value});
-    }
-
-    onPassword(event) {
-        console.log("onUserName:: event " + event.target.value);
-        this.setState({password: event.target.value})
+        this.time = new Date().getTime();
     }
 
     // curl -i -X POST -H "Content-Type: application/json" -d "{"""email""":"""volokitin@bk.ru""","""pswd""":"""asdas12"""}" http://supermath.xyz:3000/api/login
@@ -50,19 +39,26 @@ export default class SMLogin extends React.Component {
         event.preventDefault();
         this.setState({success: false, loading: true});
 
-        var post_data = {'email': this.state.email, 'pswd': this.state.password};
+        console.log('onLogin.email ' + this.state.email + ', pswd ' + this.state.pswd);
+
+        var post_data = {'email': this.state.email, 'pswd': this.state.pswd};
         axios.post('http://supermath.xyz:3000/api/login', post_data)
             .then(this.onLoginResponse)
             .catch(this.onLoginError);
+
+        this.time = new Date().getTime();
     }
 
     // {"age":"Tue, 28 Jan 2014 06:13:13 GMT","ava":"martin-berube","creation":"Fri, 31 Jan 2020 13:13:13 GMT","email":"volokitin@bk.ru","fail":3,"id":1,"name":"Sergey","pass":15,"surname":"Volokitin"}
     onLoginResponse(response) {
         console.log("onLoginResponse:: error " + response.data.error + ", id " + response.data.id);
 
-        if ((response.data.error === undefined) && (response.data.id !== undefined)) {
-            this.setState({success: true, loading: false, color:'green'});
+        var timeout = new Date().getTime() - this.time;
+        if (timeout < 2000) {
+            timeout = 2000;
+        }
 
+        if ((response.data.error === undefined) && (response.data.id !== undefined)) {
             // age calculation based on server response value
             // "age":"Tue, 28 Jan 2014 06:13:13 GMT" -> need to convert in years
             var birthday = new Date(response.data.age);
@@ -70,15 +66,16 @@ export default class SMLogin extends React.Component {
             var ageDate = new Date(ageDifMs);
             var age = Math.abs(ageDate.getUTCFullYear() - 1970);
 
-            setTimeout(() => {this.props.onClick('successed', response.data.id, response.data.name, response.data.surname, age, response.data.ava, response.data.pass, response.data.fail);}, 700);
+            setTimeout(() => {
+                this.props.onClose('successed', response.data.id, response.data.name, response.data.email, response.data.surname, age, response.data.ava, response.data.pass, response.data.fail);
+                this.setState({success: true, loading: false, color:'green'});
+            }, timeout);
 
         } else {
             if (response.data.error !== undefined) {
-                setTimeout(() => {this.setState({success: false, loading: false, color:'red', loginFailed: true, loginError: response.data.error.toString()});}, 700);
-                // this.setState({success: false, loading: false, color:'red', loginFailed: true, loginError: response.data.error.toString()});
+                setTimeout(() => {this.setState({success: false, loading: false, color:'red', loginFailed: true, loginError: response.data.error.toString()});}, timeout);
             } else {
-                setTimeout(() => {this.setState({success: false, loading: false, color:'red', loginFailed: true, loginError: 'Uuupps! Something went wrong'});}, 700);
-                // this.setState({success: false, loading: false, color:'red', loginFailed: true, loginError: 'Uuupps!Something goes wrong'});
+                setTimeout(() => {this.setState({success: false, loading: false, color:'red', loginFailed: true, loginError: 'Uuupps! Something went wrong'});}, timeout);
             }
         }
     }
@@ -88,17 +85,18 @@ export default class SMLogin extends React.Component {
         this.setState({success: false, loading: false, color:'red', loginFailed: true, loginError: error.toString()});
     }
 
-    onLoginClose() {
+    onClose(status) {
+        console.log("login.onClose " + status);
         // ignore close request if login is in progress
-        if (this.state.loading === false) {
-            this.props.onClose();
+        if (!this.state.loading) {
+            this.props.onClose(status);
         }
     }
 
     render() {
         return (
-            <Dialog onClose={this.onLoginClose} fullWidth={true} open={this.props.open}>
-                <SMTitle title='' onClick={this.onLoginClose}/>
+            <Dialog fullWidth={true} open={this.props.open}>
+                <SMTitle title='' onClick={() => this.onClose()}/>
 
                 <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
                     <div style={{position:'relative',}}>
@@ -110,35 +108,37 @@ export default class SMLogin extends React.Component {
 
                     <DialogContent>
                         <form noValidate>
-                            <TextField variant="outlined" margin="normal" required fullWidth id="email"
-                                       label="Email Address" name="email" autoComplete="email" autoFocus
-                                       onChange={this.onUserName} disabled={this.state.loading}/>
-                            <TextField variant="outlined" margin="normal" required fullWidth id="password"
-                                       label="Password" name="password" type="password" autoComplete="current-password"
-                                       onChange={this.onPassword} disabled={this.state.loading}/>
+                            <TextField disabled={this.state.loading} onChange={(event) => {this.setState({email: event.target.value})}}
+                                       required fullWidth autoFocus variant='outlined' margin='normal' label='Email Address' autoComplete='email'/>
+
+                            <TextField disabled={this.state.loading} onChange={(event) => {this.setState({pswd: event.target.value})}}
+                                       required fullWidth variant='outlined' margin='normal' label='Password'
+                                       type='password' autoComplete='current-password'/>
+
                             <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me"/>
 
-                            <Button type="submit" fullWidth variant="contained" color="primary"
-                                    onClick={this.onLogin} disabled={this.state.loading}>
+                            <Button disabled={this.state.loading} onClick={this.onLogin} fullWidth type='submit' variant='contained' color='primary'>
                                 Login
                             </Button>
 
                             <Grid container>
                                 <Grid item xs>
-                                    <Link style={{cursor:'pointer'}} onClick={() => this.props.onClick('password')} variant="body2">Forgot password?</Link>
+                                    <Link onClick={() => this.onClose('pswd')} style={{cursor:'pointer'}}
+                                          variant="body2">Forgot password?</Link>
                                 </Grid>
                                 <Grid item>
-                                    <Link style={{cursor:'pointer'}} onClick={() => this.props.onClick('registration')} variant='body2'>'Don\'t have an account? Sign Up'</Link>
+                                    <Link onClick={() => this.onClose('register')} style={{cursor:'pointer'}}
+                                          variant='body2'>'Don\'t have an account? Sign Up'</Link>
                                 </Grid>
                             </Grid>
                         </form>
                     </DialogContent>
                 </div>
 
-                <Snackbar onClose={(e) => this.setState({loginFailed:false})} autoHideDuration={10000} open={this.state.loginFailed}>
-                    <Alert onClose={(e) => this.setState({loginFailed:false})} severity="error">
-                        Login failed: {this.state.loginError}
-                    </Alert>
+                <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}}
+                          onClose={(e) => this.setState({loginFailed:false})}
+                          autoHideDuration={10000} open={this.state.loginFailed}>
+                            <Alert onClose={(e) => this.setState({loginFailed:false})} severity="error">Login failed: {this.state.loginError}</Alert>
                 </Snackbar>
 
             </Dialog>
