@@ -7,7 +7,6 @@
     width: 61%;
     float: left;
     display: flex;
-    align-items: center;
     justify-content: center;
 }
 .line_body_div_right {
@@ -71,9 +70,9 @@
     100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 1020px) {
     .line_gameboard {
-        font-size: 5rem;
+        font-size: 4rem;
     }
 }
 @media only screen and (max-width: 760px) {
@@ -89,13 +88,18 @@
         width: 50%;
     }
 }
-@media only screen and (max-width: 560px) {
+@media only screen and (max-width: 760px) {
     .line_gameboard {
         font-size: 3rem;
     }
 }
-@media only screen and (max-width: 460px) {
+@media only screen and (max-width: 560px) {
     .line_gameboard {
         font-size: 2rem;
+    }
+}
+@media only screen and (max-width: 460px) {
+    .line_gameboard {
+        font-size: 1rem;
     }
 }

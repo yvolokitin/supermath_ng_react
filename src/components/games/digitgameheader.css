@@ -32,3 +32,9 @@
         text-shadow: 1px 1px black;
     }
 }
+@media only screen and (max-height: 770px) {
+    .games_header_div {
+        height: 5%;
+        margin-top: 1%;
+    }
+}
