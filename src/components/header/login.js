@@ -77,7 +77,7 @@ export default class SMLogin extends React.Component {
                 setTimeout(() => {this.setState({success: false, loading: false, color:'red', loginFailed: true, loginError: response.data.error.toString()});}, 700);
                 // this.setState({success: false, loading: false, color:'red', loginFailed: true, loginError: response.data.error.toString()});
             } else {
-                setTimeout(() => {this.setState({success: false, loading: false, color:'red', loginFailed: true, loginError: 'Uuupps!Something goes wrong'});}, 700);
+                setTimeout(() => {this.setState({success: false, loading: false, color:'red', loginFailed: true, loginError: 'Uuupps! Something went wrong'});}, 700);
                 // this.setState({success: false, loading: false, color:'red', loginFailed: true, loginError: 'Uuupps!Something goes wrong'});
             }
         }

@@ -9,13 +9,13 @@
         },
         format: {
             // We don't allow anything that a-z and 0-9
-            pattern: "[a-z0-9]+",
+            pattern: '[a-z0-9]+',
             // but we don't care if the username is uppercase or lowercase
-            flags: "i",
-            message: "can only contain a-z and 0-9"
+            flags: 'i',
+            message: 'can only contain a-z and 0-9'
         }
     },
-    password: {
+    pswd: {
         // Password is required
         presence: true,
         // And must be at least 5 characters long
@@ -32,10 +32,9 @@
     birth: {
         // The user needs to give a birthday
         presence: true,
-        format: {
-            // We don't allow anything that 0-9
-            pattern: "[0-9]+",
-            message: "can only contain numbers 0-9"
+        length: {
+            minimum: 10,
+            message: 'Should be specified in exact format: dd/mm/yyyy'
         }
     },
 };

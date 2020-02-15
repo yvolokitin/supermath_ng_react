@@ -25,7 +25,7 @@ export default class SMHeader extends React.Component {
         this.state = {aboutOpen: false,
                       helpOpen: false,
                       loginOpen: false,
-                      registerOpen: true, // false
+                      registerOpen: false,
                       userInfoOpen: false,
                       isLogin: localStorage.getItem('isLogin') ? localStorage.getItem('isLogin') : false,
                       userId: localStorage.getItem('user_id') ? localStorage.getItem('user_id') : '0',
@@ -56,6 +56,9 @@ export default class SMHeader extends React.Component {
     onRegistrationClose(status) {
         if (status === 'login') {
             this.setState({registerOpen: false, loginOpen: true});
+
+        } else if (status === 'successed') {
+
 
         } else {
             this.setState({registerOpen: false});
@@ -163,7 +166,7 @@ export default class SMHeader extends React.Component {
 
                 <SMHelp open={this.state.helpOpen} onClick={() => this.setState({helpOpen: false})}/>
                 <SMAbout open={this.state.aboutOpen} onClick={() => this.setState({aboutOpen: false})}/>
-                <SMLogin open={this.state.loginOpen} onClick={this.onLoginResult}/>
+                <SMLogin open={this.state.loginOpen} onClose={this.onLoginResult}/>
 
                 <UserInformation open={this.state.userInfoOpen} onClick={this.onUserInfoClose}
                                  user={this.state.userName} age={this.state.userAge} ava={this.state.userAva}

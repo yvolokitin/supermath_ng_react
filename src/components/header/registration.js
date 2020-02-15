@@ -4,10 +4,6 @@ import {Snackbar, CircularProgress} from '@material-ui/core';
 
 import Alert from '@material-ui/lab/Alert';
 
-// date picker
-import {DatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
-import MomentUtils from '@date-io/moment';
-
 // email validator
 import { validate } from 'validate.js';
 import constraints from './constraints';
@@ -28,7 +24,7 @@ export default class Registration extends React.Component {
         super(props);
         this.state = {name: '',
                       surname: '',
-                      birth: new Date(),
+                      birth: '',
                       email: '',
                       pswd: '',
                       subscribtion: false,
@@ -39,7 +35,6 @@ export default class Registration extends React.Component {
                       message: '',
                       duration: 10000};
 
-        this.onBirth = this.onBirth.bind(this);
         this.onSubscribtion = this.onSubscribtion.bind(this);
 
         this.onRegistration = this.onRegistration.bind(this);
@@ -50,20 +45,12 @@ export default class Registration extends React.Component {
         this.time = new Date().getTime();
     }
 
-    onBirth(event) {
-        console.log('onBirth.birth ' + event);
-
-
-        // this.setState({birth: event.target.value})
-    }
-
     onSubscribtion(event) {
         this.setState({pswd: event.target.value})
     }
 
     onRegistration(event) {
         event.preventDefault();
-
         var result = validate({name: this.state.name}, constraints);
         if ('name' in result) {
             this.setState({error: true,
@@ -71,7 +58,6 @@ export default class Registration extends React.Component {
                            message: result.name});
             return;
         }
-
         result = validate({birth: this.state.birth}, constraints);
         if ('birth' in result) {
             this.setState({error: true,
@@ -79,7 +65,6 @@ export default class Registration extends React.Component {
                            message: result.birth});
             return;
         }
-
         result = validate({email: this.state.email}, constraints);
         if ('email' in result) {
             this.setState({error: true,
@@ -87,8 +72,7 @@ export default class Registration extends React.Component {
                            message: result.email});
             return;
         }
-
-        result = validate({email: this.state.email}, constraints);
+        result = validate({pswd: this.state.pswd}, constraints);
         if ('pswd' in result) {
             this.setState({error: true,
                            duration: 5000,
@@ -98,8 +82,8 @@ export default class Registration extends React.Component {
 
         this.setState({success: false, loading: true, color: '#ffd9b3'});
         var post_data = {'user': this.state.name,
-                         'age': this.state.surname,
-                         'lastname': this.state.birth,
+                         'age': this.state.birth,
+                         'lastname': this.state.surname,
                          'email': this.state.email,
                          'pswd': this.state.password};
         axios.post('http://supermath.xyz:3000/api/reg', post_data)
@@ -110,26 +94,42 @@ export default class Registration extends React.Component {
     };
 
     onRegistrationResponse(response) {
-        var diff = new Date().getTime() - this.time;
-        console.log('diff : ' + diff);
-        console.log('onRegistrationResponse ' + response.error);
+        var timeout = new Date().getTime() - this.time;
+        if (timeout < 2000) {
+            timeout = 2000;
+        }
 
+        if ((response.data.error === undefined) && (response.data.id !== undefined)) {
+            this.setState({success: true, color: 'green'});
 
+            // age calculation based on server response value
+            // "age":"Tue, 28 Jan 2014 06:13:13 GMT" -> need to convert in years
+            var birthday = new Date(response.data.age);
+            var ageDifMs = Date.now() - birthday.getTime();
+            var ageDate = new Date(ageDifMs);
+            var age = Math.abs(ageDate.getUTCFullYear() - 1970);
 
+            setTimeout(() => {
+                this.setState({loading: false,});
+                this.props.onClose('successed', response.data.id, response.data.name, response.data.surname, age, response.data.ava, response.data.pass, response.data.fail);
+            }, timeout);
+
+        } else {
+            if (response.data.error !== undefined) {
+                setTimeout(() => {this.setState({success: false, loading: false, color:'red', error: true, message: response.data.error.toString()});}, timeout);
+            } else {
+                setTimeout(() => {this.setState({success: false, loading: false, color:'red', error: true, message: 'Uuupps! Something went wrong'});}, timeout);
+            }
+        }
     }
 
     onRegistrationError(error) {
-        console.log('onRegistrationError '+ error);
-        this.setState({success: false,
-                       loading: false,
-                       color:'red',
-                       isError: true,
-                       error: error.toString()});
+        console.log('onRegistrationError '+ error.toString());
+        this.setState({success: false, loading: false, color:'red', error: true, message: error.toString()});
     }
 
     onRegistrationClose(status) {
         console.log('onRegistrationClose '+ status);
-
         // ignore close request if registration is in progress
         if (this.state.loading === false) {
             // this.props.onClose(status);
@@ -137,9 +137,6 @@ export default class Registration extends React.Component {
     }
 
 /*
-   <TextField disabled={this.state.loading} onChange={this.onBirth} required fullWidth variant='outlined' defaultValue='dd-mm-yyyy'>
-    </TextField>
-
 */
     render() {
         return (
@@ -164,10 +161,8 @@ export default class Registration extends React.Component {
                     </div>
 
                     <div className='registration_desk_textfield'>
-                        <font style={{marginRight:'1%'}}>Birthday*</font>
-                        <MuiPickersUtilsProvider utils={MomentUtils}>
-                            <DatePicker value={this.state.birth} onChange={this.onBirth}/>
-                        </MuiPickersUtilsProvider>
+                        <TextField disabled={this.state.loading} onChange={(event) => {this.setState({birth: event.target.value})}}
+                                   fullWidth variant='outlined' type='date' placeholder='Birthday'/>
                     </div>
 
                     <div className='registration_desk_textfield'>
