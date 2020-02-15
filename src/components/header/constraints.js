@@ -32,6 +32,11 @@
     birth: {
         // The user needs to give a birthday
         presence: true,
+        format: {
+            // We don't allow anything that 0-9
+            pattern: "[0-9]+",
+            message: "can only contain numbers 0-9"
+        }
     },
 };
 

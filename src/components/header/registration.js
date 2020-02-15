@@ -1,6 +1,6 @@
 ﻿import React from 'react';
-import {Dialog, TextField, FormControlLabel, Checkbox, Link, Slide} from '@material-ui/core';
-import {Snackbar, Fab, CircularProgress} from '@material-ui/core';
+import {Dialog, TextField, FormControlLabel, Checkbox, Link} from '@material-ui/core';
+import {Snackbar, CircularProgress} from '@material-ui/core';
 
 import Alert from '@material-ui/lab/Alert';
 
@@ -37,13 +37,8 @@ export default class Registration extends React.Component {
                       loading: false,
                       error: false,
                       message: '',
-                      duration: 10000,
-                      };
+                      duration: 10000};
 
-        this.onName = this.onName.bind(this);
-        this.onSurname = this.onSurname.bind(this);
-        this.onEmail = this.onEmail.bind(this);
-        this.onPswd = this.onPswd.bind(this);
         this.onBirth = this.onBirth.bind(this);
         this.onSubscribtion = this.onSubscribtion.bind(this);
 
@@ -55,36 +50,33 @@ export default class Registration extends React.Component {
         this.time = new Date().getTime();
     }
 
-    onName(event) {
-        this.setState({name: event.target.value});
-    }
-
-    onSurname(event) {
-        this.setState({surname: event.target.value});
-    };
-
-    onEmail(event) {
-        this.setState({email: event.target.value})
-    }
-
-    onPswd(event) {
-        this.setState({pswd: event.target.value})
-    }
-
     onBirth(event) {
-        this.setState({birth: event.target.value})
+        console.log('onBirth.birth ' + event);
+
+
+        // this.setState({birth: event.target.value})
     }
 
     onSubscribtion(event) {
         this.setState({pswd: event.target.value})
     }
 
-    onRegistration() {
+    onRegistration(event) {
+        event.preventDefault();
+
         var result = validate({name: this.state.name}, constraints);
         if ('name' in result) {
             this.setState({error: true,
                            duration: 5000,
                            message: result.name});
+            return;
+        }
+
+        result = validate({birth: this.state.birth}, constraints);
+        if ('birth' in result) {
+            this.setState({error: true,
+                           duration: 5000,
+                           message: result.birth});
             return;
         }
 
@@ -101,14 +93,6 @@ export default class Registration extends React.Component {
             this.setState({error: true,
                            duration: 5000,
                            message: result.pswd});
-            return;
-        }
-
-        result = validate({birth: this.state.birth}, constraints);
-        if ('birth' in result) {
-            this.setState({error: true,
-                           duration: 5000,
-                           message: result.birth});
             return;
         }
 
@@ -152,9 +136,14 @@ export default class Registration extends React.Component {
         }
     }
 
+/*
+   <TextField disabled={this.state.loading} onChange={this.onBirth} required fullWidth variant='outlined' defaultValue='dd-mm-yyyy'>
+    </TextField>
+
+*/
     render() {
         return (
-            <Dialog onClose={this.onRegistrationClose} transitionDuration={600} fullWidth={true} maxWidth='md' scroll='body' open={this.props.open}>
+            <Dialog transitionDuration={600} fullWidth={true} maxWidth='md' scroll='body' open={this.props.open}>
                 <SMTitle title='' onClick={this.onRegistrationClose}/>
 
                 <div className='registration_desk' style={{backgroundColor: this.state.color}}>
@@ -165,28 +154,30 @@ export default class Registration extends React.Component {
                     </div>
 
                     <div className='registration_desk_textfield'>
-                        <TextField disabled={this.state.loading} onChange={this.onName} autoFocus required fullWidth variant='outlined' label='Name'/>
+                        <TextField disabled={this.state.loading} onChange={(event) => {this.setState({name: event.target.value})}}
+                                   autoFocus required fullWidth variant='outlined' label='Name'/>
                     </div>
 
                     <div className='registration_desk_textfield'>
-                        <TextField disabled={this.state.loading} onChange={this.onSurname} fullWidth variant='outlined' label='Surname'/>
+                        <TextField disabled={this.state.loading} onChange={(event) => {this.setState({surname: event.target.value})}}
+                                   fullWidth variant='outlined' label='Surname'/>
                     </div>
 
                     <div className='registration_desk_textfield'>
-                        Child Birthday:
-                        <TextField disabled={this.state.loading} onChange={this.onBirth} required fullWidth variant='outlined' type='date' defaultValue='dd-MM-yyyy'>
-                            <MuiPickersUtilsProvider utils={MomentUtils}>
-                                <DatePicker value={this.state.birth} onChange={this.onBirth}/>
-                            </MuiPickersUtilsProvider>
-                        </TextField>
+                        <font style={{marginRight:'1%'}}>Birthday*</font>
+                        <MuiPickersUtilsProvider utils={MomentUtils}>
+                            <DatePicker value={this.state.birth} onChange={this.onBirth}/>
+                        </MuiPickersUtilsProvider>
                     </div>
 
                     <div className='registration_desk_textfield'>
-                        <TextField disabled={this.state.loading} onChange={this.onEmail} required fullWidth variant='outlined' label="Email"/>
+                        <TextField disabled={this.state.loading} onChange={(event) => {this.setState({email: event.target.value})}}
+                                   required fullWidth variant='outlined' label="Email"/>
                     </div>
 
                     <div className='registration_desk_textfield'>
-                        <TextField disabled={this.state.loading} onChange={this.onPswd} required fullWidth variant='outlined' label="Password"/>
+                        <TextField disabled={this.state.loading} onChange={(event) => {this.setState({pswd: event.target.value})}}
+                                   required fullWidth variant='outlined' label="Password"/>
                     </div>
 
                     <div className='registration_desk_textfield'>
@@ -197,7 +188,7 @@ export default class Registration extends React.Component {
 
                 </div>
                 <div className='registration_desk_button' onClick={this.onRegistration}>Create account</div>
-                <Link href="" disabled={this.state.loading} style={{marginRight:'5%',float:'right'}} onClick={this.onRegistrationClose('login')}>Already have an account? Sign in</Link>
+                <Link href="" disabled={this.state.loading} style={{marginRight:'5%',float:'right'}} >Already have an account? Sign in</Link>
 
                 <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}}
                           onClose={(e) => this.setState({error:false})}
