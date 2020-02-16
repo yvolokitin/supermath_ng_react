@@ -5,11 +5,6 @@
     align-items: center;
     justify-content: center;
 }
-@media only screen and (max-width: 760px) {
-    .game_footer_div {
-        display: none;
-    }
-}
 @media only screen and (max-height: 770px) {
     .game_footer_div {
         height: 5%;
@@ -17,6 +12,11 @@
     }
 }
 @media only screen and (max-height: 500px) {
+    .game_footer_div {
+        display: none;
+    }
+}
+@media only screen and (max-width: 460px) {
     .game_footer_div {
         display: none;
     }

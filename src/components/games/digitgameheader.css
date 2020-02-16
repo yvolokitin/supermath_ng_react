@@ -7,7 +7,7 @@
 }
 .games_header_div_left {
     height: 100%;
-    width: 50%;
+    width: 61%;
     padding: 2%;
     float: left;
     cursor: pointer;
@@ -17,7 +17,7 @@
 }
 .games_header_div_right {
     height: 100%;
-    width: 49%;
+    width: 38%;
     float: right;
     cursor: pointer;
     color: orange;
@@ -31,10 +31,20 @@
         font-family: "Grinched";
         text-shadow: 1px 1px black;
     }
+    .games_header_div_left {
+        width: 49%;
+    }
+    .games_header_div_right {
+        width: 50%;
+    }
 }
 @media only screen and (max-height: 770px) {
     .games_header_div {
         height: 5%;
         margin-top: 1%;
+
+        font-size: 1.5rem;
+        font-family: "Grinched";
+        text-shadow: 1px 1px black;
     }
 }

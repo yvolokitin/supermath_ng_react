@@ -23,30 +23,36 @@ export default class GameBoard extends React.Component {
                       board: 'yellow',
                       counter: 0,
                       attempt: 0};
+
+        // to ignore user actions during animation
+        this.loading = false;
     }
 
     componentDidUpdate(prevProps) {
         // console.log("GameBoard.componentDidUpdate " + this.props.task);
         // Typical usage (don't forget to compare props), otherwise you get infinitive loop
         if (this.props.task !== prevProps.task) {
+            this.timer = new Date().getTime();
             this.set_task();
         }
     }
 
     set_task() {
-        console.log("GameBoard.set_task " + this.state.counter);
+        // console.log("GameBoard.set_task " + this.state.counter);
         this.task = generate_task_from_string(this.props.type, this.props.task);
         this.setState({task: this.task.task,
                        expression_1: this.task.expression_1,
                        expression_2: this.task.expression_2,
+                       board: 'yellow',
                        result: '?',
                        color: 'grey',
                        attempt: 0});
         this.props.onColor('white');
+        this.loading = false;
     }
 
     proceed_with_next_task() {
-        console.log("proceed_with_next_task:: counter: " + this.state.counter + ", amount: " + this.props.amount);
+        // console.log("proceed_with_next_task:: counter: " + this.state.counter + ", amount: " + this.props.amount);
         if (this.state.counter < this.props.amount) {
             this.set_task();
 
@@ -59,14 +65,14 @@ export default class GameBoard extends React.Component {
     onDigit({ target }) {
         // console.log("onDigit " + target.innerText);
         // skip any checks if in red already
-        if (this.state.board === 'yellow') {
+        if (this.loading === false) {
             this.check_response((target.innerText).toString());
         }
     }
 
     onOperator({ target }) {
         // console.log("check operator response " + target.innerText);
-        if (this.state.board === 'yellow') {
+        if (this.loading === false) {
             if (this.props.type.includes('d')) {
                 var expected_result = this.task.result.toString();
                 if ((expected_result.length > 1) && (this.state.result !== '?')) {
@@ -88,7 +94,7 @@ export default class GameBoard extends React.Component {
     onKeyboard({ key }) {
         console.log("onKeyboard " + key);
         // skip any checks if in red already
-        if (this.state.board === 'yellow') {
+        if (this.loading === false) {
             switch (key) {
                 case '0':
                 case '1':
@@ -114,8 +120,9 @@ export default class GameBoard extends React.Component {
     }
 
     check_response(digit) {
+        this.loading = true;
         var expected_result = this.task.result.toString();
-        console.log("check_response, digit: " + digit + ", expected_result: " + expected_result);
+        // console.log("check_response, digit: " + digit + ", expected_result: " + expected_result);
         if (expected_result.length === 1) {
             if (digit === expected_result) {
                 this.set_passed(digit);
@@ -177,7 +184,11 @@ export default class GameBoard extends React.Component {
         }
 
         // clear result value in 1.5 seconds
-        setTimeout(() => {this.setState({color: 'grey', board: 'yellow', animation: '', result: '?'});this.props.onColor('white');}, 700);
+        setTimeout(() => {
+            this.setState({color: 'grey', board: 'yellow', animation: '', result: '?'});
+            this.props.onColor('white');
+            this.loading = false;
+        }, 700);
     }
 
     set_passed(digit) {
@@ -188,10 +199,10 @@ export default class GameBoard extends React.Component {
             // notify parent to change circles color in game footer
             this.props.onCounter(this.state.attempt);
             // 
-            this.setState({color: 'green', result: digit, counter: this.state.counter + 1});
+            this.setState({board: 'green', color: 'yellow', result: digit, counter: this.state.counter + 1});
         } else {
             this.props.onColor('yellow');
-            this.setState({color: 'green', result: digit});
+            this.setState({board: 'green', color: 'yellow', result: digit});
         }
 
         // generate new task and update
@@ -200,6 +211,7 @@ export default class GameBoard extends React.Component {
 
     set_interim(digit) {
         this.setState({color: 'black', result: digit});
+        this.loading = false;
     }
 
     render() {

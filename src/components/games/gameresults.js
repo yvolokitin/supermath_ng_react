@@ -7,32 +7,73 @@ export default class GameResults extends React.Component {
     constructor(props) {
         super(props);
         this.onClose = this.onClose.bind(this);
-        this.state = {percent: 0, rate: ''};
-        // console.log('GameResults.constructor: ' + this.props.amount + ' / ' + this.props.passed + ' / ' + this.props.failed + '. props.results.length ' + this.props.results.length);
+
+        var duration = this.props.duration;
+        var user_hours = 0, user_minutes = 0, user_seconds = 0;
+        if (duration > (1000 * 60 * 60)) {
+            user_hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+            duration = duration - user_hours*(1000 * 60 * 60);
+        }
+        if (duration > (1000 * 60)) {
+            user_minutes = Math.floor((duration / (1000 * 60)) % 60);
+            duration = duration - user_minutes*(1000 * 60);
+        }
+        if (duration > 1000) {
+            user_seconds = Math.floor((duration / 1000) % 60);
+        }
+        var passed = 100 * this.props.passed / this.props.amount;
+        var user_rate = '';
+        if (passed > 99) { user_rate = 'Excellent';
+        } else if (passed > 95) { user_rate = 'Quite Good';
+        } else if (passed > 90) { user_rate = 'Good';
+        } else if (passed > 80) { user_rate = 'Well';
+        } else if (passed > 60) { user_rate = 'Not really Well';
+        } else if (passed > 40) { user_rate = 'Quite Bad';
+        } else { user_rate = 'Really Bad'; }
+
+        this.state = {percent: passed,
+                      rate: user_rate,
+                      hours: user_hours,
+                      minutes: user_minutes,
+                      seconds: user_seconds};
     }
 
     componentDidUpdate(prevProps) {
         // Typical usage (don't forget to compare props), otherwise you get infinitive loop
+        console.log('GameResults.componentDidUpdate ' + this.props.amount + ' / ' + this.props.passed + ' / ' + this.props.failed  + '. duration ' + this.props.duration + '. length ' + this.props.results.length);
         if (this.props.results !== prevProps.results) {
-            console.log('componentDidUpdate ' + this.props.amount + ' / ' + this.props.passed + ' / ' + this.props.failed + '. props.results.length ' + this.props.results.length);
-            var passed = 100 * this.props.passed / this.props.amount;
-
-            if (passed > 99) {
-                this.setState({percent: passed, rate: 'Excellent'});
-            } else if (passed > 95) {
-                this.setState({percent: passed, rate: 'Quite Good'});
-            } else if (passed > 90) {
-                this.setState({percent: passed, rate: 'Good'});
-            } else if (passed > 80) {
-                this.setState({percent: passed, rate: 'Well'});
-            } else if (passed > 60) {
-                this.setState({percent: passed, rate: 'Not really Well'});
-            } else if (passed > 40) {
-                this.setState({percent: passed, rate: 'Quite Bad'});
-            } else {
-                this.setState({percent: passed, rate: 'Really Bad'});
-            }
+            this.set_results();
         }
+    }
+
+    set_results() {
+        var duration = this.props.duration;
+        var user_hours = 0, user_minutes = 0, user_seconds = 0;
+        if (duration > (1000 * 60 * 60)) {
+            user_hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+            duration = duration - user_hours*(1000 * 60 * 60);
+        }
+        if (duration > (1000 * 60)) {
+            user_minutes = Math.floor((duration / (1000 * 60)) % 60);
+            duration = duration - user_minutes*(1000 * 60);
+        }
+        if (duration > 1000) {
+            user_seconds = Math.floor((duration / 1000) % 60);
+        }
+        var passed = 100 * this.props.passed / this.props.amount;
+        var user_rate = '';
+        if (passed > 99) { user_rate = 'Excellent';
+        } else if (passed > 95) { user_rate = 'Quite Good';
+        } else if (passed > 90) { user_rate = 'Good';
+        } else if (passed > 80) { user_rate = 'Well';
+        } else if (passed > 60) { user_rate = 'Not really Well';
+        } else if (passed > 40) { user_rate = 'Quite Bad';
+        } else { user_rate = 'Really Bad'; }
+        this.setState({percent: passed,
+                       rate: user_rate,
+                       hours: user_hours,
+                       minutes: user_minutes,
+                       seconds: user_seconds});
     }
 
     onClose(status) {
@@ -59,7 +100,9 @@ export default class GameResults extends React.Component {
         return (
             <div style={{height:'100%',width:'100%',}}>
                 <div className='result_board'>
-                    <div className='result_board_title'> YOUR SCORES </div>
+                    <div className='result_board_title'>
+                        You time: {this.state.hours} hours, {this.state.minutes} minutes, {this.state.seconds} seconds
+                    </div>
                     <div className='result_board_chart'>
                         <font style={{color:'#00cc00',}}>
                             <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span> &nbsp; {this.props.passed} &nbsp;

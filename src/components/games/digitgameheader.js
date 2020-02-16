@@ -14,7 +14,7 @@ export default function GameHeader(props) {
             <div className="games_header_div_left">
                 <font onClick={() => props.onClick('interrapted')}>SUPERMATH</font>
             </div>
-            <div className="games_header_div_right" style={{width: props.width}}>
+            <div className="games_header_div_right">
                 <font style={{color: 'black'}}>{props.total}</font> &nbsp; &#128279; &nbsp;
                 <font style={{color: 'green'}}>{props.passed}</font> &nbsp; &#128515; &nbsp;
                 <font style={{color: 'red'}}>{props.failed}</font> &nbsp; &#128169;

@@ -7,6 +7,8 @@ import GameFooter from "./digitgamefooter";
 import GameBoard from "./gameboard";
 import GameResults from "./gameresults";
 
+import './digitgame.css';
+
 export default class DigitGame extends React.Component {
     constructor(props) {
         super(props);
@@ -23,16 +25,21 @@ export default class DigitGame extends React.Component {
                       circle: 'white',
                       total: 0,
                       passed: 0,
-                      failed: 0};
+                      failed: 0,
+                      duration: 0};
 
         // all user task results
         this.results = [];
+
+        // count general time to solve all tasks
+        this.timer = new Date().getTime();
     }
 
     componentDidUpdate(prevProps) {
         // Typical usage (don't forget to compare props), otherwise you get infinitive loop
         if (this.props.task !== prevProps.task) {
             console.log("DigitGame.componentDidUpdate " + this.props.task + ", prevProps.task" + prevProps.task);
+            this.timer = new Date().getTime();
             this.setState({type: this.props.type,
                            task: this.props.task,
                            amount: this.props.amount,
@@ -48,7 +55,8 @@ export default class DigitGame extends React.Component {
         console.log("DigitGame.onGameClose " + status);
         // game was unexpecdetly closed by user during play
         if (status === 'finished') {
-            this.setState({showResults: true, results: this.results});
+            this.setState({showResults: true, results: this.results,
+                           duration: (new Date().getTime() - this.timer)});
 
         // game was properly closed after showing results
         } else if (status === 'close') {
@@ -113,12 +121,13 @@ export default class DigitGame extends React.Component {
         */
         return (
             <Dialog fullScreen={true} transitionDuration={500} open={this.props.open}>
-                { this.state.showResults ? (null) : (<GameHeader onClick={this.onGameClose} width='49%' total={this.state.total} passed={this.state.passed} failed={this.state.failed}/>) }
+                { this.state.showResults ? (null) : (<GameHeader onClick={this.onGameClose} total={this.state.total} passed={this.state.passed} failed={this.state.failed}/>) }
 
-                <div style={{height:'100%',width:'100%',}}>
+                <div className='digitgamebody'>
                     { this.state.showResults ? (
-                            <GameResults open={this.state.showResults} results={this.state.results} amount={this.state.amount}
-                                         passed={this.state.passed} failed={this.state.failed} onClose={this.onGameClose}/>
+                            <GameResults open={this.state.showResults} passed={this.state.passed} failed={this.state.failed}
+                                         results={this.state.results} amount={this.state.amount} duration={this.state.duration}
+                                         onClose={this.onGameClose}/>
                         ) : (
                             <GameBoard onClose={this.onGameClose} onCounter={this.onCounterUpdate} onColor={this.onColorUpdate}
                                        type={this.state.type} task={this.state.task} amount={this.state.amount}/>
