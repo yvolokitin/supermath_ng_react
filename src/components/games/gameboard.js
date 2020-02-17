@@ -214,9 +214,7 @@ export default class GameBoard extends React.Component {
         this.loading = false;
     }
 
-    render() {
-        return (
-            <div onKeyDown={this.onKeyboard} className="gameboard_wrapper">
+/*
                 <div className="line_body_div_left">
                     <div className="line_gameboard" style={{backgroundColor: this.state.board, animation: this.state.animation}}>
                         { this.props.type.includes('d') ? (<div className="line_task">{this.state.task}</div>) : (null) }
@@ -237,6 +235,42 @@ export default class GameBoard extends React.Component {
                     { this.props.type.includes('co') ? (<OperatorBoard onOperator={this.onOperator} more={true} less={true} equals={true} plus={false} minus={false} mul={false} div={false}/>) : (null) }
                     { this.props.type.includes('op') ? (<OperatorBoard onOperator={this.onOperator} more={false} less={false} equals={false} plus={true} minus={true} mul={false} div={false}/>) : (null) }
                 </div>
+*/
+    render() {
+        return (
+            <div onKeyDown={this.onKeyboard} className="gameboard_wrapper">
+                {this.props.type.includes('d') ? (
+                    <>
+                      <div className="line_body_div_left">
+                        <div className="line_gameboard" style={{backgroundColor: this.state.board, animation: this.state.animation}}>
+                            <div className="line_task">{this.state.task}</div>
+                            <div className="line_result" style={{color: this.state.color}}>{this.state.result}</div>
+                        </div>
+                      </div>
+                      <div className="line_body_div_right">
+                          <SMKeyBoard onDigit={this.onDigit} onOperator={this.onOperator} />
+                      </div>
+                    </>
+                ):(
+                    <>
+                      <div className='line_body_div_up'>
+                        <div className="line_gameboard" style={{backgroundColor: this.state.board, animation: this.state.animation}}>
+                          { this.props.type.includes('co') ? (<div className="line_expression">{this.state.expression_1}</div>) : (null) }
+                          { this.props.type.includes('co') ? (<div className="line_result" style={{color: this.state.color}}><font>{this.state.result}</font></div>) : (null) }
+                          { this.props.type.includes('co') ? (<div className="line_expression">{this.state.expression_2}</div>) : (null) }
+
+                          { this.props.type.includes('op') ? (<div className="line_result"><font>{this.state.expression_1}</font></div>) : (null) }
+                          { this.props.type.includes('op') ? (<div className="line_result" style={{color: this.state.color}}><font>{this.state.result}</font></div>) : (null) }
+                          { this.props.type.includes('op') ? (<div className="line_expression">{this.state.expression_2}</div>) : (null) }
+                        </div>
+                      </div>
+
+                      <div className="line_body_div_right">
+                        { this.props.type.includes('co') ? (<OperatorBoard onOperator={this.onOperator} more={true} less={true} equals={true} plus={false} minus={false} mul={false} div={false}/>) : (null) }
+                        { this.props.type.includes('op') ? (<OperatorBoard onOperator={this.onOperator} more={false} less={false} equals={false} plus={true} minus={true} mul={false} div={false}/>) : (null) }
+                      </div>
+                    </>
+                )}
             </div>
         );
     }

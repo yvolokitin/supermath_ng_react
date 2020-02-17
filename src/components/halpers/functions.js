@@ -29,9 +29,13 @@ export function generate_task_from_string(type, task) {
     } else if (type === 'op') {
         return operation_task(task);
 
-    // comparision tasks, 5 < 6
-    } else if (type === 'co') {
-        return generate_comparison_task_from_string(task);
+    // comparision digits, 5 < 6
+    } else if (type === 'comp_dig') {
+        return generate_comparison_digits_from_string(task);
+
+    // comparision expressions, 2+3 vs 9-3 (<>=)
+    } else if (type === 'comp_exp') {
+        return generate_comparison_expressions_from_string(task);
 
     // sequence digits like, 1,2,3,4 or 8,7,6,5 etc.
     } else if (type === 'ds') {
@@ -117,10 +121,40 @@ function generate_3digit_task_from_string(task_string) {
     result:
         '<>=,0-10,1' -> ['<>=', '0-10', '1']
 */
-function generate_comparison_task_from_string(task_string) {
-    // console.log('generate_comparison_task_from_string ' + task_string);
+function generate_comparison_digits_from_string(task_string) {
+    // console.log('generate_comparison_digits_from_string ' + task_string);
     var array = task_string.split(',');
     return generate_comparison_task(array[0], array[1], array[2]);
+}
+
+// 111
+/*
+ * usage: <>=,+-,0-10,1
+ * 
+ */
+function generate_comparison_expressions_from_string(task_string) {
+    console.log('generate_comparison_expressions_from_string ' + task_string);
+    var array = task_string.split(',');
+
+    // generate_2digit_task('+', '0,9', '0,9', 1, 1) - sum of one digit numbers
+    var task1 = generate_2digit_task(array[1], array[2], array[2], array[3], array[3]);
+    var expression_1 = task1.number_1 + ' ' + task1.operation + ' ' + task1.number_2;
+    var task2 = generate_2digit_task(array[1], array[2], array[2], array[3], array[3]);
+    var expression_2 = task2.number_1 + ' ' + task2.operation + ' ' + task2.number_2;
+
+/*
+    var task = {'number_1': number_1.toString(),
+                'number_2': number_2.toString(),
+                'operation': operation.toString(),
+                'result': result.toString()};
+*/
+
+    var result = {'expression_1': expression_1,
+                  'expression_2': expression_2,
+                  'result': task.operation.toString()};
+    console.log("generate_comparison_task:: " + result.expression_1 + result.result + result.expression_2);
+    return result;
+
 }
 
 function generate_3digit_task(operations, range_numbers, factor=1) {
@@ -175,7 +209,7 @@ function generate_3digit_task(operations, range_numbers, factor=1) {
 
 /*
     usage example:
-        generate_2digit_task('+', '0,9', '0,9', 1, 1) - sum of one figit numbers
+        generate_2digit_task('+', '0,9', '0,9', 1, 1) - sum of one digit numbers
         generate_2digit_task('+-', '0,10', '0,10', 10, 10) - sum/sub of tens
         generate_2digit_task('+-*', '0,10', '0,10') - sum/sub/mul of one digit numbers
 */

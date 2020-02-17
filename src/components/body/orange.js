@@ -6,17 +6,17 @@ import {Card, CardActions, CardActionArea, CardContent, CardMedia} from '@materi
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
 
-import logo1 from './../../images/tasks/task_17.jpg';
-import logo2 from './../../images/tasks/task_14.jpg';
-import logo3 from './../../images/tasks/task_3.jpg';
+import logo1 from './../../images/tasks/orange_1.jpg';
+import logo2 from './../../images/tasks/orange_2.jpg';
+import logo3 from './../../images/tasks/orange_3.jpg';
 
-import logo4 from './../../images/tasks/task_4.jpg';
-import logo5 from './../../images/tasks/task_5.jpg';
-import logo6 from './../../images/tasks/task_12.jpg';
+import logo4 from './../../images/tasks/orange_4.jpg';
+import logo5 from './../../images/tasks/orange_5.jpg';
+import logo6 from './../../images/tasks/orange_6.jpg';
 
-import logo7 from './../../images/tasks/task_7.jpg';
-import logo8 from './../../images/tasks/task_6.jpg';
-import logo9 from './../../images/tasks/task_15.jpg';
+import logo7 from './../../images/tasks/orange_7.jpg';
+import logo8 from './../../images/tasks/orange_7.jpg';
+import logo9 from './../../images/tasks/orange_7.jpg';
 
 import classes from './../../index.css';
 

@@ -18,6 +18,14 @@
     align-items: center;
     justify-content: center;
 }
+.line_body_div_up {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid red;
+}
 .line_gameboard {
     height: 90%;
     width: 95%;
