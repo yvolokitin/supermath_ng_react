@@ -79,10 +79,10 @@ function operation_task(task_string) {
     console.log('operation_task ' + task_string);
     var array = task_string.split(',');
     var task = generate_2digit_task(array[0], array[1], array[2], array[3], array[4]);
-    var result = {'expression_1': task.number_1.toString(),
-                  'expression_2': task.number_2.toString() + ' = ' + task.result.toString(),
+    var result = {'expr1': task.number_1.toString(),
+                  'expr2': task.number_2.toString() + ' = ' + task.result.toString(),
                   'result': task.operation.toString()};
-    console.log("generate_comparison_task:: " + result.expression_1 + result.result + result.expression_2);
+    console.log("operation_task:: " + result.expr1 + result.result + result.expr2);
     return result;
 }
 
@@ -123,8 +123,40 @@ function generate_3digit_task_from_string(task_string) {
 */
 function generate_comparison_digits_from_string(task_string) {
     // console.log('generate_comparison_digits_from_string ' + task_string);
+
     var array = task_string.split(',');
-    return generate_comparison_task(array[0], array[1], array[2]);
+    var operations = array[0], range = array[1], factor = parseInt(array[2]);
+    var operation = get_random_operation(operations);
+
+    var expr1 = '', expr2 = '';
+    switch (operation) {
+        case OPERATION_GREATER: // >
+            while ((expr1 < expr2) || (expr1 === expr2)) {
+                expr1 = get_random_int(range) * factor;
+                expr2 = get_random_int(range) * factor;
+            }
+        break;
+
+        case OPERATION_SMALLER: // <
+            while ((expr2 < expr1) || (expr1 === expr2)) {
+                expr1 = get_random_int(range) * factor;
+                expr2 = get_random_int(range) * factor;
+            }
+        break;
+
+        case OPERATION_EQUALLY: // =
+            expr1 = expr2 = get_random_int(range) * factor;
+        break;
+
+        default:
+            console.log("ERROR: generate_comparison_digits_from_string: unknown math operation '" + operation + "'");
+        break;
+    }
+
+    var task = {'expr1': expr1, 'expr2': expr2, 'result': operation};
+    console.log("generate_comparison_digits_from_string:: " + task.expr1 + task.result + task.expr2);
+
+    return task;
 }
 
 // 111
@@ -138,23 +170,18 @@ function generate_comparison_expressions_from_string(task_string) {
 
     // generate_2digit_task('+', '0,9', '0,9', 1, 1) - sum of one digit numbers
     var task1 = generate_2digit_task(array[1], array[2], array[2], array[3], array[3]);
-    var expression_1 = task1.number_1 + ' ' + task1.operation + ' ' + task1.number_2;
+    var expr1 = task1.number_1 + ' ' + task1.operation + ' ' + task1.number_2;
     var task2 = generate_2digit_task(array[1], array[2], array[2], array[3], array[3]);
-    var expression_2 = task2.number_1 + ' ' + task2.operation + ' ' + task2.number_2;
+    var expr2 = task2.number_1 + ' ' + task2.operation + ' ' + task2.number_2;
 
-/*
-    var task = {'number_1': number_1.toString(),
-                'number_2': number_2.toString(),
-                'operation': operation.toString(),
-                'result': result.toString()};
-*/
+    var operation = '', num1 = parseInt(task1.result), num2 = parseInt(task2.result);
+    if (num1 > num2) { operation = '>'; }
+    else if (num1 < num2) { operation = '<'; }
+    else { operation = '='; }
 
-    var result = {'expression_1': expression_1,
-                  'expression_2': expression_2,
-                  'result': task.operation.toString()};
-    console.log("generate_comparison_task:: " + result.expression_1 + result.result + result.expression_2);
-    return result;
-
+    var task = {'expr1': expr1, 'expr2': expr2, 'result': operation};
+    console.log("generate_comparison_expressions_from_string:: " + task.expr1 + task.result + task.expr2);
+    return task;
 }
 
 function generate_3digit_task(operations, range_numbers, factor=1) {
@@ -267,41 +294,6 @@ function generate_2digit_task(operations, range_1, range_2, factor_1=1, factor_2
                 'result': result.toString()};
     console.log("generate_2digit_task:: " + task.number_1 + task.operation + task.number_2 + '=' + task.result);
     return task;
-}
-
-function generate_comparison_task(operations, range, factor=1) {
-    var operation = get_random_operation(operations);
-    var expression_1 = 0, expression_2 = 0;
-    switch (operation) {
-        case OPERATION_GREATER: // >
-            while ((expression_1 < expression_2) || (expression_1 === expression_2)) {
-                expression_1 = parseInt(get_random_int(range) * factor);
-                expression_2 = parseInt(get_random_int(range) * factor);
-            }
-        break;
-
-        case OPERATION_SMALLER: // <
-            while ((expression_2 < expression_1) || (expression_1 === expression_2)) {
-                expression_1 = parseInt(get_random_int(range) * factor);
-                expression_2 = parseInt(get_random_int(range) * factor);
-            }
-        break;
-
-        case OPERATION_EQUALLY: // =
-            expression_1 = parseInt(get_random_int(range) * factor);
-            expression_2 = expression_1;
-        break;
-
-        default:
-            console.log("ERROR: generate_comparison_task: unknown math operation '" + operation + "'");
-        break;
-    }
-
-    var result = {'expression_1': expression_1.toString(),
-                  'expression_2': expression_2.toString(),
-                  'result': operation.toString()};
-    console.log("generate_comparison_task:: " + result.expression_1 + result.result + result.expression_2);
-    return result;
 }
 
 /**

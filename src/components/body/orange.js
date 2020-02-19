@@ -41,8 +41,8 @@ var desciptions = [
 
 const games = [
     {id: 1, logo: logo1, type: 'ds', task: '10-97', amount: task_amount, desc: desciptions[0], head: 'Tasks for determination of two digit number from sequance'},
-    {id: 2, logo: logo2, type: 'co', task: '<>=,0-10,1', amount: task_amount, desc: desciptions[0], head: 'Tasks for simple Comparision of one-digit numbers (from 0 to 10)'},
-    {id: 3, logo: logo3, type: '2d', task: '+,0-10,0-10,1,1', amount: task_amount, desc: desciptions[1], head: 'Tasks for Addition of one-digit numbers (from 0 to 10)'},
+    {id: 2, logo: logo2, type: 'comp_dig', task: '<>=,10-99,1', amount: task_amount, desc: desciptions[0], head: 'Comparision of two-digit numbers (from 10 to 100)'},
+    {id: 3, logo: logo3, type: '2d', task: '+,0-10,0-10,10,10', amount: task_amount, desc: desciptions[1], head: 'Addition and Subtraction of round numbers (10, 20, ... 100)'},
 
     {id: 4, logo: logo4, type: '2d', task: '-,0-10,0-10,1,1', amount: task_amount, desc: desciptions[2], head: 'Tasks for Subtraction of one-digit numbers (from 0 to 10)'},
     {id: 5, logo: logo5, type: '2d', task: '+-,0-10,0-10,1,1', amount: task_amount, desc: desciptions[3], head: 'Tasks for Addition and Subtraction of TWO one-digit numbers (from 0 to 10)'},
