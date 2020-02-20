@@ -18,16 +18,16 @@ export function generate_task_from_string(type, task) {
     // console.log('generate_task_from_string ' + type + ', task ' + task);
 
     // 2 numbers task: 1 + 2 = 3
-    if (type === '2d') {
+    if (type === '2digit') {
         return generate_2digit_task_from_string(task);
 
     // 3 numbers task: 1 + 2 + 3 = 6
-    } else if (type === '3d') {
+    } else if (type === '3digit') {
         return generate_3digit_task_from_string(task);
 
-    // operation determination tasks 1 ? 2 = 3
-    } else if (type === 'op') {
-        return operation_task(task);
+    // sequence digits like, 1,2,3,4 or 8,7,6,5 etc.
+    } else if (type === 'linedigit') {
+        return generate_sequence_task(task);
 
     // comparision digits, 5 < 6
     } else if (type === 'comp_dig') {
@@ -37,9 +37,9 @@ export function generate_task_from_string(type, task) {
     } else if (type === 'comp_exp') {
         return generate_comparison_expressions_from_string(task);
 
-    // sequence digits like, 1,2,3,4 or 8,7,6,5 etc.
-    } else if (type === 'ds') {
-        return generate_sequence_task(task);
+    // operation determination tasks 1 ? 2 = 3
+    } else if (type === 'op') {
+        return operation_task(task);
 
     // undefined tasks, will return error
     } else {

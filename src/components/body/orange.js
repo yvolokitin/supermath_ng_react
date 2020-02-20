@@ -40,17 +40,17 @@ var desciptions = [
 ];
 
 const games = [
-    {id: 1, logo: logo1, type: 'ds', task: '10-97', amount: task_amount, desc: desciptions[0], head: 'Tasks for determination of two digit number from sequance'},
+    {id: 1, logo: logo1, type: 'linedigit', task: '10-97', amount: task_amount, desc: desciptions[0], head: 'Tasks for determination of two digit number from sequance'},
     {id: 2, logo: logo2, type: 'comp_dig', task: '<>=,10-99,1', amount: task_amount, desc: desciptions[0], head: 'Comparision of two-digit numbers (from 10 to 100)'},
-    {id: 3, logo: logo3, type: '2d', task: '+,0-10,0-10,10,10', amount: task_amount, desc: desciptions[1], head: 'Addition and Subtraction of round numbers (10, 20, ... 100)'},
+    {id: 3, logo: logo3, type: '2digit', task: '+,0-10,0-10,10,10', amount: task_amount, desc: desciptions[1], head: 'Addition and Subtraction of round numbers (10, 20, ... 100)'},
 
-    {id: 4, logo: logo4, type: '2d', task: '-,0-10,0-10,1,1', amount: task_amount, desc: desciptions[2], head: 'Tasks for Subtraction of one-digit numbers (from 0 to 10)'},
-    {id: 5, logo: logo5, type: '2d', task: '+-,0-10,0-10,1,1', amount: task_amount, desc: desciptions[3], head: 'Tasks for Addition and Subtraction of TWO one-digit numbers (from 0 to 10)'},
+    {id: 4, logo: logo4, type: '2digit', task: '-,0-10,0-10,1,1', amount: task_amount, desc: desciptions[2], head: 'Tasks for Subtraction of one-digit numbers (from 0 to 10)'},
+    {id: 5, logo: logo5, type: '2digit', task: '+-,0-10,0-10,1,1', amount: task_amount, desc: desciptions[3], head: 'Tasks for Addition and Subtraction of TWO one-digit numbers (from 0 to 10)'},
     {id: 6, logo: logo6, type: 'op', task: '+-,1-10,1-10,1,1', amount: task_amount, desc: desciptions[4], head: 'Tasks for Math operation (Addition or Subtraction) determination'},
 
-    {id: 7, logo: logo7, type: '3d', task: '+-,0-10,1', amount: task_amount, desc: desciptions[5], head: 'Tasks for Addition and Subtraction of THREE one-digit numbers'},
-    {id: 8, logo: logo8, type: '2d', task: '+-,1-9,10-20,1,1', amount: task_amount, desc: desciptions[6], head: 'Tasks for Addition and Subtraction of one- and two- digit numbers'},
-    {id: 9, logo: logo9, type: '2d', task: '+-,0-10,0-10,10,10', amount: task_amount, desc: desciptions[7], head: 'Tasks for of round tens from 10 to 100 (i.e. numbers like 10, 20, ... 100)'},
+    {id: 7, logo: logo7, type: '3digit', task: '+-,0-10,1', amount: task_amount, desc: desciptions[5], head: 'Tasks for Addition and Subtraction of THREE one-digit numbers'},
+    {id: 8, logo: logo8, type: '2digit', task: '+-,1-9,10-20,1,1', amount: task_amount, desc: desciptions[6], head: 'Tasks for Addition and Subtraction of one- and two- digit numbers'},
+    {id: 9, logo: logo9, type: '2digit', task: '+-,0-10,0-10,10,10', amount: task_amount, desc: desciptions[7], head: 'Tasks for of round tens from 10 to 100 (i.e. numbers like 10, 20, ... 100)'},
 ];
 
 //    {id: 9, logo: logo13, type: '2d', task: '+-,0-10,0-10,10,1', amount: task_amount, desc: desciptions[8], head: 'Tasks for Addition and Subtraction of one- digit numbers and tens'},

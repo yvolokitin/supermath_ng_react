@@ -84,6 +84,14 @@
     90% { transform: translate(1px, 2px) rotate(0deg); }
     100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
+@keyframes smooth_yellow_to_green {
+    from {background-color: yellow;}
+    to {background-color: green;}
+}
+@keyframes smooth_green_to_yellow {
+    from {background-color: green;}
+    to {background-color: yellow;}
+}
 
 @media only screen and (max-width: 1020px) {
     .line_gameboard {

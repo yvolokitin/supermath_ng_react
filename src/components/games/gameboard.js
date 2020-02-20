@@ -8,12 +8,13 @@ export default class GameBoard extends React.Component {
     constructor(props) {
         super(props);
 
+        console.log('constructor.GameBoard ' + props.type + ' ' + props.task);
+
         this.onDigit = this.onDigit.bind(this);
         this.onOperator = this.onOperator.bind(this);
         this.onKeyboard = this.onKeyboard.bind(this);
 
         // current task
-        // console.log('CALLED: generate_task_from_string ' + props.type + ' ' + props.task);
         this.task = generate_task_from_string(props.type, props.task);
         this.state = {task: this.task.task,
                       expr1: this.task.expr1,
@@ -29,7 +30,7 @@ export default class GameBoard extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log("GameBoard.componentDidUpdate " + this.props.task);
+        // console.log("GameBoard.componentDidUpdate " + this.props.task + ', prevProps.task: ' + prevProps.task);
         // Typical usage (don't forget to compare props), otherwise you get infinitive loop
         if (this.props.task !== prevProps.task) {
             this.timer = new Date().getTime();
@@ -45,6 +46,7 @@ export default class GameBoard extends React.Component {
                        expr1: this.task.expr1,
                        expr2: this.task.expr2,
                        board: 'yellow',
+                       animation: 'none',
                        result: '?',
                        color: 'grey',
                        attempt: 0});
@@ -200,10 +202,12 @@ export default class GameBoard extends React.Component {
             // notify parent to change circles color in game footer
             this.props.onCounter(this.state.attempt);
             // 
-            this.setState({board: 'green', color: 'yellow', result: digit, counter: this.state.counter + 1});
+            // this.setState({board: 'green', color: 'yellow', result: digit, counter: this.state.counter + 1});
+            this.setState({animation: 'smooth_yellow_to_green 0.8s', color: 'yellow', result: digit, counter: this.state.counter + 1});
         } else {
             this.props.onColor('yellow');
-            this.setState({board: 'green', color: 'yellow', result: digit});
+            // this.setState({board: 'green', color: 'yellow', result: digit});
+            this.setState({animation: 'smooth_yellow_to_green 0.8s', color: 'yellow', result: digit});
         }
 
         // generate new task and update
@@ -240,7 +244,7 @@ export default class GameBoard extends React.Component {
     render() {
         return (
             <div onKeyDown={this.onKeyboard} className="gameboard_wrapper">
-                {this.props.type.includes('d') ? (
+                {this.props.type.includes('digit') ? (
                     <>
                       <div className="line_body_div_left">
                         <div className="line_gameboard" style={{backgroundColor: this.state.board, animation: this.state.animation}}>
@@ -255,19 +259,23 @@ export default class GameBoard extends React.Component {
                 ):(
                     <>
                       <div className='line_body_div_up'>
-                        <div className="line_gameboard" style={{backgroundColor: this.state.board, animation: this.state.animation}}>
-                          { this.props.type.includes('co') ? (<div className="line_expression">{this.state.expr1}</div>) : (null) }
-                          { this.props.type.includes('co') ? (<div className="line_result" style={{color: this.state.color}}><font>{this.state.result}</font></div>) : (null) }
-                          { this.props.type.includes('co') ? (<div className="line_expression">{this.state.expr2}</div>) : (null) }
+                        <div className='line_gameboard' style={{backgroundColor: this.state.board, animation: this.state.animation}}>
+                          { this.props.type.includes('comp_dig') ? (<div className='line_result'>{this.state.expr1}</div>) : (null) }
+                          { this.props.type.includes('comp_dig') ? (<div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>) : (null) }
+                          { this.props.type.includes('comp_dig') ? (<div className='line_result'>{this.state.expr2}</div>) : (null) }
 
-                          { this.props.type.includes('op') ? (<div className="line_result"><font>{this.state.expr1}</font></div>) : (null) }
-                          { this.props.type.includes('op') ? (<div className="line_result" style={{color: this.state.color}}><font>{this.state.result}</font></div>) : (null) }
-                          { this.props.type.includes('op') ? (<div className="line_expression">{this.state.expr2}</div>) : (null) }
+                          { this.props.type.includes('comp_exp') ? (<div className='line_expression'>{this.state.expr1}</div>) : (null) }
+                          { this.props.type.includes('comp_exp') ? (<div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>) : (null) }
+                          { this.props.type.includes('comp_exp') ? (<div className='line_expression'>{this.state.expr2}</div>) : (null) }
+
+                          { this.props.type.includes('op') ? (<div className='line_result'><font>{this.state.expr1}</font></div>) : (null) }
+                          { this.props.type.includes('op') ? (<div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>) : (null) }
+                          { this.props.type.includes('op') ? (<div className='line_expression'>{this.state.expr2}</div>) : (null) }
                         </div>
                       </div>
 
                       <div className='line_body_div_bottom'>
-                        { this.props.type.includes('co') ? (<OperatorBoard onOperator={this.onOperator} more={true} less={true} equals={true} plus={false} minus={false} mul={false} div={false}/>) : (null) }
+                        { this.props.type.includes('comp') ? (<OperatorBoard onOperator={this.onOperator} more={true} less={true} equals={true} plus={false} minus={false} mul={false} div={false}/>) : (null) }
                         { this.props.type.includes('op') ? (<OperatorBoard onOperator={this.onOperator} more={false} less={false} equals={false} plus={true} minus={true} mul={false} div={false}/>) : (null) }
                       </div>
                     </>
