@@ -14,16 +14,30 @@ var OPERATION_SMALLER = '<';
 /** @const {string} */
 var OPERATION_EQUALLY = '=';
 
-export function generate_task_from_string(type, task) {
-    // console.log('generate_task_from_string ' + type + ', task ' + task);
+/*
+ * Task generation from type and settings
+ */
+export function generate_task(type, settings) {
+    console.log('generate_task ' + type + ', settings ' + settings);
+    var array = settings.split(',');
 
-    // 2 numbers task: 1 + 2 = 3
+    // depends from type, result may have different properties
+    var task, result = {};
+
+    // 2 numbers task, like: 1 + 2 = 3
     if (type === '2digit') {
-        return generate_2digit_task_from_string(task);
+        task = generate_2digit_task(array[0], array[1], array[2], array[3], array[4]);
+        result = {'expr1': task.number_1 + ' ' + task.operation
+                  + ' ' + task.number_2 + ' = ', 'result': task.result};
+        console.log('generate_task: ' + result.expr1 + '' + result.result);
 
     // 3 numbers task: 1 + 2 + 3 = 6
     } else if (type === '3digit') {
-        return generate_3digit_task_from_string(task);
+        result = generate_3digit_task(array[0], array[1], array[2]);
+        console.log('generate_task: ' + result.expr1 + result.result);
+
+    } else if (type === '2digit_arg') {
+        result = generate_2digit_task_arguments_from_string(task);
 
     // sequence digits like, 1,2,3,4 or 8,7,6,5 etc.
     } else if (type === 'linedigit') {
@@ -43,8 +57,10 @@ export function generate_task_from_string(type, task) {
 
     // undefined tasks, will return error
     } else {
-        return 'generate_task_from_string: wrong type and task';
+        result = 'generate_task_from_string: wrong type and task';
     }
+
+    return result;
 }
 
 /*
@@ -86,33 +102,10 @@ function operation_task(task_string) {
     return result;
 }
 
-/*
-    usage:
-        '+,0-10,0-10,1,1'
-        '+-,0-10,0-10,10,10'
-        '+-,0-100,0-10,10,10'
-    result:
-        '+-,0-10,1' -> ['+-', '0-10', '1']
-*/
-function generate_2digit_task_from_string(task_string) {
+function generate_2digit_task_arguments_from_string(task_string) {
     // console.log('generate_2digit_task_from_string ' + task_string);
     var array = task_string.split(',');
-    var task = generate_2digit_task(array[0], array[1], array[2], array[3], array[4]);
-    var result = {'task': task.number_1.toString() + ' ' + task.operation.toString()
-                  + ' ' + task.number_2.toString() + ' = ', 'result': task.result.toString()};
-    return result;
-}
-
-/*
-    usage:
-        '+-,0-10,1'
-    result:
-        '+-,0-10,1' -> ['+-', '0-10', '1']
-*/
-function generate_3digit_task_from_string(task_string) {
-    // console.log('generate_3digit_task_from_string ' + task_string);
-    var array = task_string.split(',');
-    return generate_3digit_task(array[0], array[1], array[2]);
+    return generate_2digit_task(array[0], array[1], array[2], array[3], array[4]);
 }
 
 /*
@@ -225,13 +218,10 @@ function generate_3digit_task(operations, range_numbers, factor=1) {
         result = result * number_3;
     }
 
-    var return_value = {'task': number_1.toString() + ' ' + operation_1.toString()
-                        + ' ' + number_2.toString() + ' ' + operation_2.toString()
-                        + ' ' + number_3.toString()+ ' = ',
-                       'result': result.toString()};
-
-    console.log('generate_3digit_task:: ' + return_value.task + return_value.result);
-    return return_value;
+    var task = {'expr1': number_1.toString() + ' ' + operation_1.toString()
+                + ' ' + number_2.toString() + ' ' + operation_2.toString()
+                + ' ' + number_3.toString()+ ' = ', 'result': result.toString()};
+    return task;
 }
 
 /*
@@ -289,8 +279,8 @@ function generate_2digit_task(operations, range_1, range_2, factor_1=1, factor_2
     }
 
     var task = {'number_1': number_1.toString(),
-                'number_2': number_2.toString(),
                 'operation': operation.toString(),
+                'number_2': number_2.toString(),
                 'result': result.toString()};
     console.log("generate_2digit_task:: " + task.number_1 + task.operation + task.number_2 + '=' + task.result);
     return task;

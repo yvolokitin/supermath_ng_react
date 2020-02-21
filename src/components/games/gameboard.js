@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import {generate_task_from_string} from "./../halpers/functions";
+import {generate_task} from "./../halpers/functions";
 import SMKeyBoard from "./../keyboard/keyboard";
 import OperatorBoard from "./../keyboard/operatorboard";
 import './gameboard.css';
@@ -14,11 +14,7 @@ export default class GameBoard extends React.Component {
         this.onOperator = this.onOperator.bind(this);
         this.onKeyboard = this.onKeyboard.bind(this);
 
-        // current task
-        this.task = generate_task_from_string(props.type, props.task);
-        this.state = {task: this.task.task,
-                      expr1: this.task.expr1,
-                      expr2: this.task.expr2,
+        this.state = {task: generate_task(props.type, props.task),
                       result: '?',
                       color: 'grey',
                       board: 'yellow',
@@ -40,14 +36,10 @@ export default class GameBoard extends React.Component {
 
     set_task() {
         console.log("GameBoard.set_task " + this.state.counter);
-        this.task = generate_task_from_string(this.props.type, this.props.task);
-        console.log("this.task.expr1 " + this.task.expr1);
-        this.setState({task: this.task.task,
-                       expr1: this.task.expr1,
-                       expr2: this.task.expr2,
+        this.setState({task: generate_task(this.props.type, this.props.task),
+                       result: '?',
                        board: 'yellow',
                        animation: 'none',
-                       result: '?',
                        color: 'grey',
                        attempt: 0});
         this.props.onColor('white');
@@ -76,7 +68,7 @@ export default class GameBoard extends React.Component {
     onOperator({ target }) {
         // console.log("check operator response " + target.innerText);
         if (this.loading === false) {
-            if (this.props.type.includes('d')) {
+            if (this.props.type.includes('digit')) {
                 var expected_result = this.task.result.toString();
                 if ((expected_result.length > 1) && (this.state.result !== '?')) {
                     var new_result = this.state.result.substring(0, this.state.result.length - 1);
@@ -124,7 +116,7 @@ export default class GameBoard extends React.Component {
 
     check_response(digit) {
         this.loading = true;
-        var expected_result = this.task.result.toString();
+        var expected_result = this.state.task.result.toString();
         // console.log("check_response, digit: " + digit + ", expected_result: " + expected_result);
         if (expected_result.length === 1) {
             if (digit === expected_result) {
@@ -248,7 +240,7 @@ export default class GameBoard extends React.Component {
                     <>
                       <div className="line_body_div_left">
                         <div className="line_gameboard" style={{backgroundColor: this.state.board, animation: this.state.animation}}>
-                            <div className="line_task">{this.state.task}</div>
+                            <div className="line_task">{this.state.task.expr1}</div>
                             <div className="line_result" style={{color: this.state.color}}>{this.state.result}</div>
                         </div>
                       </div>
@@ -256,7 +248,9 @@ export default class GameBoard extends React.Component {
                           <SMKeyBoard onDigit={this.onDigit} onOperator={this.onOperator} />
                       </div>
                     </>
-                ):(
+                ):( null ) }
+
+                {this.props.type.includes('comp_') ? (
                     <>
                       <div className='line_body_div_up'>
                         <div className='line_gameboard' style={{backgroundColor: this.state.board, animation: this.state.animation}}>
@@ -279,7 +273,23 @@ export default class GameBoard extends React.Component {
                         { this.props.type.includes('op') ? (<OperatorBoard onOperator={this.onOperator} more={false} less={false} equals={false} plus={true} minus={true} mul={false} div={false}/>) : (null) }
                       </div>
                     </>
-                )}
+                ):( null ) }
+
+                {this.props.type.includes('unknown') ? (
+                    <>
+                      <div className="line_body_div_left">
+                        <div className="line_gameboard" style={{backgroundColor: this.state.board, animation: this.state.animation}}>
+                            <div className="line_task">{this.state.task}</div>
+                            <div className="line_result" style={{color: this.state.color}}>{this.state.result}</div>
+                        </div>
+                      </div>
+                      <div className="line_body_div_right">
+                          <SMKeyBoard onDigit={this.onDigit} onOperator={this.onOperator} />
+                      </div>
+                    </>
+                ):( null ) }
+
+
             </div>
         );
     }
