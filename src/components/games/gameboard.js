@@ -68,7 +68,7 @@ export default class GameBoard extends React.Component {
     onOperator({ target }) {
         // console.log("check operator response " + target.innerText);
         if (this.loading === false) {
-            if (this.props.type.includes('digit')) {
+            if (this.props.type.includes('digits')) {
                 var expected_result = this.task.result.toString();
                 if ((expected_result.length > 1) && (this.state.result !== '?')) {
                     var new_result = this.state.result.substring(0, this.state.result.length - 1);
@@ -271,7 +271,7 @@ export default class GameBoard extends React.Component {
                         </div>
                       </div>
                       <div className="line_body_div_right">
-                          {this.props.type.includes('2digit_arg') ? (
+                          {this.props.task.includes('o,') ? (
                             <OperatorBoard onOperator={this.onOperator} plus={true} minus={true}/>
                           ) : (
                             <SMKeyBoard onDigit={this.onDigit} onOperator={this.onOperator}/>
@@ -284,23 +284,18 @@ export default class GameBoard extends React.Component {
                     <>
                       <div className='line_body_div_up'>
                         <div className='line_gameboard' style={{backgroundColor: this.state.board, animation: this.state.animation}}>
-                          { this.props.type.includes('comp_dig') ? (<div className='line_result'>{this.state.expr1}</div>) : (null) }
-                          { this.props.type.includes('comp_dig') ? (<div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>) : (null) }
-                          { this.props.type.includes('comp_dig') ? (<div className='line_result'>{this.state.expr2}</div>) : (null) }
+                          { this.props.type.includes('comp_nums') ? (<div className='line_result'>{this.state.task.expr1}</div>) : (null) }
+                          { this.props.type.includes('comp_nums') ? (<div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>) : (null) }
+                          { this.props.type.includes('comp_nums') ? (<div className='line_result'>{this.state.task.expr2}</div>) : (null) }
 
-                          { this.props.type.includes('comp_exp') ? (<div className='line_expression'>{this.state.expr1}</div>) : (null) }
-                          { this.props.type.includes('comp_exp') ? (<div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>) : (null) }
-                          { this.props.type.includes('comp_exp') ? (<div className='line_expression'>{this.state.expr2}</div>) : (null) }
-
-                          { this.props.type.includes('op') ? (<div className='line_result'><font>{this.state.expr1}</font></div>) : (null) }
-                          { this.props.type.includes('op') ? (<div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>) : (null) }
-                          { this.props.type.includes('op') ? (<div className='line_expression'>{this.state.expr2}</div>) : (null) }
+                          { this.props.type.includes('comp_expr') ? (<div className='line_expression'>{this.state.task.expr1}</div>) : (null) }
+                          { this.props.type.includes('comp_expr') ? (<div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>) : (null) }
+                          { this.props.type.includes('comp_expr') ? (<div className='line_expression'>{this.state.task.expr2}</div>) : (null) }
                         </div>
                       </div>
 
                       <div className='line_body_div_bottom'>
-                        { this.props.type.includes('comp') ? (<OperatorBoard onOperator={this.onOperator} more={true} less={true} equals={true} plus={false} minus={false} mul={false} div={false}/>) : (null) }
-                        { this.props.type.includes('op') ? (<OperatorBoard onOperator={this.onOperator} more={false} less={false} equals={false} plus={true} minus={true} mul={false} div={false}/>) : (null) }
+                          <OperatorBoard onOperator={this.onOperator} more={true} less={true} equals={true}/>
                       </div>
                     </>
                 ):( null ) }

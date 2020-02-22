@@ -7,13 +7,6 @@ var OPERATION_MUL = '*';
 /** @const {string} */
 var OPERATION_DIV = '/';
 
-/** @const {string} */
-var OPERATION_GREATER = '>';
-/** @const {string} */
-var OPERATION_SMALLER = '<';
-/** @const {string} */
-var OPERATION_EQUALLY = '=';
-
 /*
  * Task generation from type and settings
  */
@@ -25,16 +18,18 @@ export function generate_task(type, settings) {
     var task, result = {};
 
     // 2 numbers task, like: 1 + 2 = 3
-    if (type === '2digit') {
+    if (type === '2digits') {
         task = generate_2digit_task(array[0], array[1], array[2], array[3], array[4]);
         result = {'expr1': task.num1 + ' ' + task.operation + ' ' + task.num2 + ' = ', 'result': task.result};
-        console.log('generate_task: ' + result.expr1 + '' + result.result);
+        console.log(type + 'generate_task: ' + result.expr1 + '' + result.result);
 
     // 3 numbers task: 1 + 2 + 3 = 6
-    } else if (type === '3digit') {
+    } else if (type === '3digits') {
         result = generate_3digit_task(array[0], array[1], array[2]);
-        console.log('generate_task: ' + result.expr1 + result.result);
+        console.log(type + 'generate_task: ' + result.expr1 + result.result);
 
+    // math operation determination tasks 1 ? 2 = 3
+    // argument operation determination tasks 7 + ? = 9 or ? - 6 = 2
     } else if (type === '2digit_arg') {
         task = generate_2digit_task(array[1], array[2], array[3], array[4], array[5]);
         var expected = task.num1, argument = '1'; 
@@ -48,28 +43,33 @@ export function generate_task(type, settings) {
 
         result = {'num1': task.num1, 'num2': task.num2, 'operation': task.operation,
                   'outcome': task.result, 'result': expected, 'argument': argument};
-        console.log('generate_task: ' + result.num1 + result.operation + result.num2 + '=' + result.result);
+        console.log(type + 'generate_task: ' + result.num1 + result.operation + result.num2 + '=' + result.result);
+
+    // {'num1': number_1, 'num2': number_2, 'operation': operation, 'result': result};
+    } else if (type === '2digit_column') {
+        result = generate_2digit_task(array[0], array[1], array[2], array[3], array[4]);
+        console.log(type + 'generate_task: ' + result.expr1 + '' + result.result);
 
     // sequence digits like, 1,2,3,4 or 8,7,6,5 etc.
-    } else if (type === 'linedigit') {
+    } else if (type === 'linedigits') {
         result = generate_sequence_task(settings);
-        console.log('generate_task: ' + result.expr1 + result.result);
+        console.log(type + 'generate_task: ' + result.expr1 + result.result);
 
     // comparision digits, 5 < 6
-    } else if (type === 'comp_dig') {
-        return generate_comparison_digits_from_string(task);
+    } else if (type === 'comp_nums') {
+        // <>=,0-10,1 -> operations, range, factor
+        result = generate_comparison_digits(array[0], array[1], parseInt(array[2]));
+        console.log(type + 'generate_task: ' + result.expr1 + result.result + result.expr2);
 
     // comparision expressions, 2+3 vs 9-3 (<>=)
-    } else if (type === 'comp_exp') {
-        return generate_comparison_expressions_from_string(task);
-
-    // operation determination tasks 1 ? 2 = 3
-    } else if (type === 'op') {
-        return operation_task(task);
+    } else if (type === 'comp_expr') {
+        // <>=,+-,0-10,1 -> operations, range_1, range_2, factor_1, factor_2
+        result = generate_comparison_expressions(array[1], array[2], array[2], parseInt(array[3]), parseInt(array[3]));
+        console.log(type + ' generate_task: ' + result.expr1 + result.result + result.expr2);
 
     // undefined tasks, will return error
     } else {
-        result = 'generate_task_from_string: wrong type and task';
+        result = 'generate_task_from_string: wrong type "' + type + '" or task: "' + task + '"';
     }
 
     return result;
@@ -101,84 +101,39 @@ function generate_sequence_task(range) {
     return {'expr1': task + ' , ', 'result': result};
 }
 
-function operation_task(task_string) {
-    console.log('operation_task ' + task_string);
-    var array = task_string.split(',');
-    var task = generate_2digit_task(array[0], array[1], array[2], array[3], array[4]);
-    var result = {'expr1': task.number_1.toString(),
-                  'expr2': task.number_2.toString() + ' = ' + task.result.toString(),
-                  'result': task.operation.toString()};
-    console.log("operation_task:: " + result.expr1 + result.result + result.expr2);
-    return result;
-}
-
 /*
     usage:
         '<>=,0-10,1'
     result:
         '<>=,0-10,1' -> ['<>=', '0-10', '1']
 */
-function generate_comparison_digits_from_string(task_string) {
-    // console.log('generate_comparison_digits_from_string ' + task_string);
+function generate_comparison_digits(operations, range, factor) {
+    var num1 = get_random_int(range) * factor;
+    var num2 = get_random_int(range) * factor;
 
-    var array = task_string.split(',');
-    var operations = array[0], range = array[1], factor = parseInt(array[2]);
-    var operation = get_random_operation(operations);
+    var operation = '=';
+    if (num1 > num2) { operation = '>'; }
+    else if (num1 < num2) { operation = '<'; }
 
-    var expr1 = '', expr2 = '';
-    switch (operation) {
-        case OPERATION_GREATER: // >
-            while ((expr1 < expr2) || (expr1 === expr2)) {
-                expr1 = get_random_int(range) * factor;
-                expr2 = get_random_int(range) * factor;
-            }
-        break;
-
-        case OPERATION_SMALLER: // <
-            while ((expr2 < expr1) || (expr1 === expr2)) {
-                expr1 = get_random_int(range) * factor;
-                expr2 = get_random_int(range) * factor;
-            }
-        break;
-
-        case OPERATION_EQUALLY: // =
-            expr1 = expr2 = get_random_int(range) * factor;
-        break;
-
-        default:
-            console.log("ERROR: generate_comparison_digits_from_string: unknown math operation '" + operation + "'");
-        break;
-    }
-
-    var task = {'expr1': expr1, 'expr2': expr2, 'result': operation};
-    console.log("generate_comparison_digits_from_string:: " + task.expr1 + task.result + task.expr2);
-
-    return task;
+    return {'expr1': num1, 'expr2': num2, 'result': operation};
 }
 
-// 111
 /*
  * usage: <>=,+-,0-10,1
  * 
  */
-function generate_comparison_expressions_from_string(task_string) {
-    console.log('generate_comparison_expressions_from_string ' + task_string);
-    var array = task_string.split(',');
-
-    // generate_2digit_task('+', '0,9', '0,9', 1, 1) - sum of one digit numbers
-    var task1 = generate_2digit_task(array[1], array[2], array[2], array[3], array[3]);
-    var expr1 = task1.number_1 + ' ' + task1.operation + ' ' + task1.number_2;
-    var task2 = generate_2digit_task(array[1], array[2], array[2], array[3], array[3]);
-    var expr2 = task2.number_1 + ' ' + task2.operation + ' ' + task2.number_2;
+function generate_comparison_expressions(operations, range_1, range_2, factor_1, factor_2) {
+    var task1 = generate_2digit_task(operations, range_1, range_2, factor_1, factor_2);
+    var expr1 = task1.num1 + ' ' + task1.operation + ' ' + task1.num2;
+    var task2 = generate_2digit_task(operations, range_1, range_2, factor_1, factor_2);
+    var expr2 = task2.num1 + ' ' + task2.operation + ' ' + task2.num2;
 
     var operation = '', num1 = parseInt(task1.result), num2 = parseInt(task2.result);
     if (num1 > num2) { operation = '>'; }
     else if (num1 < num2) { operation = '<'; }
     else { operation = '='; }
 
-    var task = {'expr1': expr1, 'expr2': expr2, 'result': operation};
-    console.log("generate_comparison_expressions_from_string:: " + task.expr1 + task.result + task.expr2);
-    return task;
+    return {'expr1': expr1, 'expr2': expr2, 'result': operation};
 }
 
 function generate_3digit_task(operations, range_numbers, factor=1) {
