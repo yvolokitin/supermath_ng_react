@@ -44,9 +44,10 @@ const useStyles = makeStyles(theme => ({
 
 export default function SMBody(props) {
     const classes = useStyles();
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = React.useState(localStorage.getItem('belt') ? parseInt(localStorage.getItem('belt')) : 0);
     const handleChange = (event, newValue) => {
         setValue(newValue);
+        localStorage.setItem('belt', newValue);
     };
 
     const onUpdate = (event, newValue) => {

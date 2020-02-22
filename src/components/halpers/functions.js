@@ -21,12 +21,12 @@ export function generate_task(type, settings) {
     if (type === '2digits') {
         task = generate_2digit_task(array[0], array[1], array[2], array[3], array[4]);
         result = {'expr1': task.num1 + ' ' + task.operation + ' ' + task.num2 + ' = ', 'result': task.result};
-        console.log(type + 'generate_task: ' + result.expr1 + '' + result.result);
+        console.log(type + ' generate_task: ' + result.expr1 + '' + result.result);
 
     // 3 numbers task: 1 + 2 + 3 = 6
     } else if (type === '3digits') {
         result = generate_3digit_task(array[0], array[1], array[2]);
-        console.log(type + 'generate_task: ' + result.expr1 + result.result);
+        console.log(type + ' generate_task: ' + result.expr1 + result.result);
 
     // math operation determination tasks 1 ? 2 = 3
     // argument operation determination tasks 7 + ? = 9 or ? - 6 = 2
@@ -43,23 +43,23 @@ export function generate_task(type, settings) {
 
         result = {'num1': task.num1, 'num2': task.num2, 'operation': task.operation,
                   'outcome': task.result, 'result': expected, 'argument': argument};
-        console.log(type + 'generate_task: ' + result.num1 + result.operation + result.num2 + '=' + result.result);
+        console.log(type + ' generate_task: ' + result.num1 + result.operation + result.num2 + '=' + result.result);
 
     // {'num1': number_1, 'num2': number_2, 'operation': operation, 'result': result};
-    } else if (type === '2digit_column') {
+    } else if (type === 'digit_2column') {
         result = generate_2digit_task(array[0], array[1], array[2], array[3], array[4]);
-        console.log(type + 'generate_task: ' + result.expr1 + '' + result.result);
+        console.log(type + ' generate_task: ' + result.num1 + result.operation + result.num2 + '=' + result.result);
 
     // sequence digits like, 1,2,3,4 or 8,7,6,5 etc.
     } else if (type === 'linedigits') {
         result = generate_sequence_task(settings);
-        console.log(type + 'generate_task: ' + result.expr1 + result.result);
+        console.log(type + ' generate_task: ' + result.expr1 + result.result);
 
     // comparision digits, 5 < 6
     } else if (type === 'comp_nums') {
         // <>=,0-10,1 -> operations, range, factor
         result = generate_comparison_digits(array[0], array[1], parseInt(array[2]));
-        console.log(type + 'generate_task: ' + result.expr1 + result.result + result.expr2);
+        console.log(type + ' generate_task: ' + result.expr1 + result.result + result.expr2);
 
     // comparision expressions, 2+3 vs 9-3 (<>=)
     } else if (type === 'comp_expr') {
@@ -69,7 +69,8 @@ export function generate_task(type, settings) {
 
     // undefined tasks, will return error
     } else {
-        result = 'generate_task_from_string: wrong type "' + type + '" or task: "' + task + '"';
+        result = 'generate_task_from_string: wrong type "' + type + '" or task: "' + settings + '"';
+        console.log(type + ' generate_task: ' + result);
     }
 
     return result;

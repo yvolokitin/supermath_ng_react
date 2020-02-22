@@ -68,8 +68,8 @@ export default class GameBoard extends React.Component {
     onOperator({ target }) {
         // console.log("check operator response " + target.innerText);
         if (this.loading === false) {
-            if (this.props.type.includes('digits')) {
-                var expected_result = this.task.result.toString();
+            if (this.props.type.includes('digit')) {
+                var expected_result = this.state.task.result.toString();
                 if ((expected_result.length > 1) && (this.state.result !== '?')) {
                     var new_result = this.state.result.substring(0, this.state.result.length - 1);
                     if (new_result.length === 0) {
@@ -155,8 +155,8 @@ export default class GameBoard extends React.Component {
     }
 
     set_failed(digit) {
-        // console.log("FAILED from " + this.state.attempt + " attempts");
-        console.log('set_failed ' + digit + ', expected: ' + this.state.task.result.toString());
+        // console.log('set_failed from ' + this.state.attempt + ' attempts');
+        // console.log('set_failed ' + digit + ', expected: ' + this.state.task.result.toString());
         // notify parent to change circles color in game footer
         this.props.onColor('red');
 
@@ -262,12 +262,24 @@ export default class GameBoard extends React.Component {
                                 <div className='line_result'>=</div>
                                 <div className='line_result'>{this.state.task.outcome}</div>
                               </>
-                            ) : (
+                            ) : ( null )}
+
+                            {this.props.type.includes('_2column') ? (
+                              <div style={{height:'90%',width:'90%'}}>
+                                <div style={{height:'25%',width:'80%'}}></div>
+                                <div className='column_number'>{this.state.task.num1}</div>
+                                <div className='column_number'>{this.state.task.operation}   {this.state.task.num2}</div>
+                                <div className='column_black_line'> </div>
+                                <div className='column_result' style={{color: this.state.color}}>{this.state.result}</div>
+                              </div>
+                            ) : ( null )}
+
+                            {this.props.type.includes('digits') ? (
                               <>
                                 <div className='line_task'>{this.state.task.expr1}</div>
                                 <div className='line_result' style={{color: this.state.color}}>{this.state.result}</div>
                               </>
-                            )}
+                            ) : ( null )}
                         </div>
                       </div>
                       <div className="line_body_div_right">

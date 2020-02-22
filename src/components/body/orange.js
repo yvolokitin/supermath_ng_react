@@ -48,12 +48,10 @@ const games = [
     {id: 5, logo: logo5, type: '2digits', task: '-,0-10,0-10,10,1', amount: task_amount, desc: desciptions[2], head: 'Addition and Subtraction of round and one-digit numbers (0..10)'},
     {id: 6, logo: logo6, type: '2digits', task: '+-,0-10,10-100,1,1', amount: task_amount, desc: desciptions[3], head: 'Addition and Subtraction of two (10..100) and one-digit numbers'},
 
-    {id: 7, logo: logo7, type: '2digits', task: '+-,10-100,10-100,1,1', amount: task_amount, desc: desciptions[5], head: 'Tasks for Addition and Subtraction of two digit numbers'},
-    {id: 8, logo: logo8, type: '2digit', task: '+-,1-9,10-20,1,1', amount: task_amount, desc: desciptions[6], head: 'Tasks for Addition and Subtraction of one- and two- digit numbers'},
-    {id: 9, logo: logo9, type: '2digit', task: '+-,0-10,0-10,10,10', amount: task_amount, desc: desciptions[7], head: 'Tasks for of round tens from 10 to 100 (i.e. numbers like 10, 20, ... 100)'},
+    {id: 7, logo: logo7, type: '2digits', task: '+-,10-100,10-100,1,1', amount: task_amount, desc: desciptions[5], head: 'Addition and Subtraction of two two-digit numbers'},
+    {id: 8, logo: logo8, type: 'digit_2column', task: '+-,1-99,1-99,10,10', amount: task_amount, desc: desciptions[7], head: 'Long Addition and Subtraction of round numbers'},
+    {id: 9, logo: logo9, type: 'digit_2column', task: '+-,10-100,100-999,1,1', amount: task_amount, desc: desciptions[6], head: 'Long Addition and Subtraction of two- and three- digit numbers'},
 ];
-
-//    {id: 9, logo: logo13, type: '2d', task: '+-,0-10,0-10,10,1', amount: task_amount, desc: desciptions[8], head: 'Tasks for Addition and Subtraction of one- digit numbers and tens'},
 
 export default class Orange extends React.Component {
     constructor(props) {
