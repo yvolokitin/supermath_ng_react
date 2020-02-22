@@ -156,7 +156,7 @@ export default class GameBoard extends React.Component {
 
     set_failed(digit) {
         // console.log("FAILED from " + this.state.attempt + " attempts");
-
+        console.log('set_failed ' + digit + ', expected: ' + this.state.task.result.toString());
         // notify parent to change circles color in game footer
         this.props.onColor('red');
 
@@ -240,12 +240,42 @@ export default class GameBoard extends React.Component {
                     <>
                       <div className="line_body_div_left">
                         <div className="line_gameboard" style={{backgroundColor: this.state.board, animation: this.state.animation}}>
-                            <div className="line_task">{this.state.task.expr1}</div>
-                            <div className="line_result" style={{color: this.state.color}}>{this.state.result}</div>
+                            {this.props.type.includes('2digit_arg') ? (
+                              <>
+                                {this.state.task.argument.includes('1') ? (
+                                    <div className='line_result' style={{color: this.state.color}}>{this.state.result}</div>
+                                ) : (
+                                    <div className='line_result'>{this.state.task.num1}</div>
+                                )}
+
+                                {this.state.task.argument.includes('o') ? (
+                                    <div className='line_result' style={{color: this.state.color}}>{this.state.result}</div>
+                                ) : (
+                                    <div className='line_result'>{this.state.task.operation}</div>
+                                )}
+
+                                {this.state.task.argument.includes('2') ? (
+                                    <div className='line_result' style={{color: this.state.color}}>{this.state.result}</div>
+                                ) : (
+                                    <div className='line_result'>{this.state.task.num2}</div>
+                                )}
+                                <div className='line_result'>=</div>
+                                <div className='line_result'>{this.state.task.outcome}</div>
+                              </>
+                            ) : (
+                              <>
+                                <div className='line_task'>{this.state.task.expr1}</div>
+                                <div className='line_result' style={{color: this.state.color}}>{this.state.result}</div>
+                              </>
+                            )}
                         </div>
                       </div>
                       <div className="line_body_div_right">
-                          <SMKeyBoard onDigit={this.onDigit} onOperator={this.onOperator} />
+                          {this.props.type.includes('2digit_arg') ? (
+                            <OperatorBoard onOperator={this.onOperator} plus={true} minus={true}/>
+                          ) : (
+                            <SMKeyBoard onDigit={this.onDigit} onOperator={this.onOperator}/>
+                          )}
                       </div>
                     </>
                 ):( null ) }

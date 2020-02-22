@@ -27,8 +27,7 @@ export function generate_task(type, settings) {
     // 2 numbers task, like: 1 + 2 = 3
     if (type === '2digit') {
         task = generate_2digit_task(array[0], array[1], array[2], array[3], array[4]);
-        result = {'expr1': task.number_1 + ' ' + task.operation
-                  + ' ' + task.number_2 + ' = ', 'result': task.result};
+        result = {'expr1': task.num1 + ' ' + task.operation + ' ' + task.num2 + ' = ', 'result': task.result};
         console.log('generate_task: ' + result.expr1 + '' + result.result);
 
     // 3 numbers task: 1 + 2 + 3 = 6
@@ -37,11 +36,24 @@ export function generate_task(type, settings) {
         console.log('generate_task: ' + result.expr1 + result.result);
 
     } else if (type === '2digit_arg') {
-        result = generate_2digit_task_arguments_from_string(task);
+        task = generate_2digit_task(array[1], array[2], array[3], array[4], array[5]);
+        var expected = task.num1, argument = '1'; 
+        if (array[0] === 'd') {
+            if (Math.random() >= 0.5) {
+                argument = '2'; expected = task.num2;
+            }
+        } else {
+            argument = 'o'; expected = task.operation;
+        }
+
+        result = {'num1': task.num1, 'num2': task.num2, 'operation': task.operation,
+                  'outcome': task.result, 'result': expected, 'argument': argument};
+        console.log('generate_task: ' + result.num1 + result.operation + result.num2 + '=' + result.result);
 
     // sequence digits like, 1,2,3,4 or 8,7,6,5 etc.
     } else if (type === 'linedigit') {
-        return generate_sequence_task(task);
+        result = generate_sequence_task(settings);
+        console.log('generate_task: ' + result.expr1 + result.result);
 
     // comparision digits, 5 < 6
     } else if (type === 'comp_dig') {
@@ -86,9 +98,7 @@ function generate_sequence_task(range) {
         task = number.toString() + ' , ' + (number+1).toString() + ' , ' + (number+2).toString();
         result = (number+3).toString();
     }
-
-    console.log('generate_numbers_task_from_string:: ' + task + ', ' + result);
-    return {'task': task + ' , ', 'result': result};
+    return {'expr1': task + ' , ', 'result': result};
 }
 
 function operation_task(task_string) {
@@ -100,12 +110,6 @@ function operation_task(task_string) {
                   'result': task.operation.toString()};
     console.log("operation_task:: " + result.expr1 + result.result + result.expr2);
     return result;
-}
-
-function generate_2digit_task_arguments_from_string(task_string) {
-    // console.log('generate_2digit_task_from_string ' + task_string);
-    var array = task_string.split(',');
-    return generate_2digit_task(array[0], array[1], array[2], array[3], array[4]);
 }
 
 /*
@@ -267,6 +271,7 @@ function generate_2digit_task(operations, range_1, range_2, factor_1=1, factor_2
 
         default:
             alert("RND generator error: Unknown math operation '" + operation + "'");
+            number_1 = number_2 = result = operation = 'error';
         break;
     }
 
@@ -278,12 +283,7 @@ function generate_2digit_task(operations, range_1, range_2, factor_1=1, factor_2
         }
     }
 
-    var task = {'number_1': number_1.toString(),
-                'operation': operation.toString(),
-                'number_2': number_2.toString(),
-                'result': result.toString()};
-    console.log("generate_2digit_task:: " + task.number_1 + task.operation + task.number_2 + '=' + task.result);
-    return task;
+    return {'num1': number_1, 'num2': number_2, 'operation': operation, 'result': result};
 }
 
 /**
