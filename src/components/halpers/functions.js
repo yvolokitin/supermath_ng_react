@@ -239,6 +239,9 @@ function generate_2digit_task(operations, range_1, range_2, factor_1=1, factor_2
         }
     }
 
+    // replace * to x for better visualization
+    if (operation === OPERATION_MUL) {operation='x'}
+
     return {'num1': number_1, 'num2': number_2, 'operation': operation, 'result': result};
 }
 
