@@ -44,9 +44,9 @@ var desciptions = [
 ];
 
 const games = [
-    {id: 1, logo: logo1, type: '2digits', task: '*,0-5,0-5,1,1', amount: task_amount, desc: desciptions[0], head: 'Multiplication two one-digit number from 0 to 5'},
-    {id: 2, logo: logo2, type: '2digits', task: '*,0-10,0-10,1,1', amount: task_amount, desc: desciptions[0], head: 'Multiplication two one-digit number from 0 to 10'},
-    {id: 3, logo: logo3, type: '2digit_arg', task: 'd,*,0-10,0-10,1,1', amount: task_amount, desc: desciptions[1], head: 'Multiplication two one-digit number from 0 to 10'},
+    {id: 1, logo: logo1, type: '2digits', task: '*,1-5,1-5,1,1', amount: task_amount, desc: desciptions[0], head: 'Multiplication two one-digit number from 0 to 5'},
+    {id: 2, logo: logo2, type: '2digits', task: '*,1-10,1-10,1,1', amount: task_amount, desc: desciptions[0], head: 'Multiplication two one-digit number from 0 to 10'},
+    {id: 3, logo: logo3, type: '2digit_arg', task: 'd,*,1-10,1-10,1,1', amount: task_amount, desc: desciptions[1], head: 'Multiplication two one-digit number from 0 to 10'},
 
     {id: 4, logo: logo4, type: '2digits', task: '-,0-10,0-10,1,1', amount: task_amount, desc: desciptions[2], head: 'Subtraction of one-digit numbers (from 0 to 10)'},
     {id: 5, logo: logo5, type: '2digits', task: '+-,0-10,0-10,1,1', amount: task_amount, desc: desciptions[3], head: 'Addition and Subtraction of two one-digit numbers (from 0 to 10)'},
