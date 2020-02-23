@@ -162,7 +162,7 @@ export default class GameBoard extends React.Component {
 
         if (this.state.attempt === 0) {
             // notify parent to change circles color in game footer
-            this.props.onCounter(this.state.attempt + 1);
+            this.props.onCounter(this.state.attempt + 1, this.state.task);
             this.setState({color: 'yellow',
                            board: 'red',
                            animation: 'shake 0.8s',
@@ -192,7 +192,7 @@ export default class GameBoard extends React.Component {
             // notify parent to change circles color in game footer
             this.props.onColor('green');
             // notify parent to change circles color in game footer
-            this.props.onCounter(this.state.attempt);
+            this.props.onCounter(this.state.attempt, this.state.task);
             // 
             // this.setState({board: 'green', color: 'yellow', result: digit, counter: this.state.counter + 1});
             this.setState({animation: 'smooth_yellow_to_green 0.8s', color: 'yellow', result: digit, counter: this.state.counter + 1});

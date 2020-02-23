@@ -43,10 +43,10 @@ var desciptions = [
 //    "Tasks for Addition and Subtraction of one digit numbers and round tens numbers from 10 to 100 (numbers 10, 20, 30 ... 100). ",
 ];
 
-// exclude multiplacation to ZERO (o) due to issue with many possible options, like 0x1=0, 0x2=0 etc.
 const games = [
-    {id: 1, logo: logo1, type: '2digits', task: '*,1-5,1-5,1,1', amount: task_amount, desc: desciptions[0], head: 'Multiplication two one-digit number from 0 to 5'},
-    {id: 2, logo: logo2, type: '2digits', task: '*,1-10,1-10,1,1', amount: task_amount, desc: desciptions[0], head: 'Multiplication two one-digit number from 0 to 10'},
+    {id: 1, logo: logo1, type: '2digits', task: '*,0-5,0-5,1,1', amount: task_amount, desc: desciptions[0], head: 'Multiplication two one-digit number from 0 to 5'},
+    {id: 2, logo: logo2, type: '2digits', task: '*,0-10,0-10,1,1', amount: task_amount, desc: desciptions[0], head: 'Multiplication two one-digit number from 0 to 10'},
+    // exclude multiplacation to ZERO (o) due to issue with many possible options, like 0x1=0, 0x2=0 etc.
     {id: 3, logo: logo3, type: '2digit_arg', task: 'd,*,1-10,1-10,1,1', amount: task_amount, desc: desciptions[1], head: 'Multiplication two one-digit number from 0 to 10'},
 
     {id: 4, logo: logo4, type: '2digits', task: '-,0-10,0-10,1,1', amount: task_amount, desc: desciptions[2], head: 'Subtraction of one-digit numbers (from 0 to 10)'},

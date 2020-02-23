@@ -25,6 +25,19 @@
     align-items: center;
     justify-content: center;
 }
+.games_header_div_right:hover {
+    border: 3px dotted grey;
+    border-radius: 25px;
+}
+.games_header_div_left_avatar {
+    height: 25px;
+    width: 25px;
+    margin-left: 2%;
+    margin-bottom: 1%;
+    cursor: pointer;
+    font-size: large;
+}
+
 @media only screen and (max-width: 760px) {
     .games_header_div {
         font-size: 1.5rem;

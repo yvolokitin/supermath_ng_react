@@ -98,13 +98,25 @@ export default class DigitGame extends React.Component {
      * if counter === 0 -> user answered right from first time -> passed
      * if counter > 0 -> user could not properly answer from first time -> failed
      */
-    onCounterUpdate(counter, task) {
-        this.results.push(task);
+    onCounterUpdate(counter, user_task) {
+        // console.log('onCounterUpdate ' + counter + ', task: ' + user_task);
         if (counter === 0) {
             this.setState({total: this.state.total + 1, passed: this.state.passed + 1});
         } else {
             this.setState({total: this.state.total + 1, failed: this.state.failed + 1});
         }
+
+        var format = '', color = counter ? 'red' : 'green';
+
+        if (this.state.type === '2digits') {format = user_task.expr1 + user_task.result;}
+        else if (this.state.type === '3digits') {format = user_task.expr1 + user_task.result;}
+        else if (this.state.type === '2digit_arg') { format = user_task.expr1 + user_task.result; }
+        else if (this.state.type === 'digit_2column') { format = user_task.num1 + user_task.operation + user_task.num2 + '=' + user_task.result }
+        else if (this.state.type === 'linedigits') { format = user_task.expr1 + user_task.result; }
+        else if (this.state.type === 'comp_nums') { format = user_task.expr1 + user_task.result + user_task.expr2; }
+        else if (this.state.type === 'comp_expr') {format = user_task.expr1 + user_task.result + user_task.expr2; }
+
+        this.results.push({'task': format, 'color': color});
     }
 
     onColorUpdate(color) {

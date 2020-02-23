@@ -7,6 +7,10 @@ import Alert from '@material-ui/lab/Alert';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import CheckIcon from '@material-ui/icons/Check';
 
+// email validator
+import { validate } from 'validate.js';
+import constraints from './constraints';
+
 import SMTitle from "./../dialog/title";
 
 import axios from 'axios';
@@ -21,9 +25,8 @@ export default class SMLogin extends React.Component {
                       success: false,
                       loading: false,
                       color: 'red',
-                      loginFailed: false,
-                      loginError: '',
-                      };
+                      error: false,
+                      message: ''};
 
         this.onClose = this.onClose.bind(this);
 
@@ -37,6 +40,24 @@ export default class SMLogin extends React.Component {
     // curl -i -X POST -H "Content-Type: application/json" -d "{"""email""":"""volokitin@bk.ru""","""pswd""":"""asdas12"""}" http://supermath.xyz:3000/api/login
     onLogin(event) {
         event.preventDefault();
+
+        var result = validate({email: this.state.email}, constraints);
+        if ('email' in result) {
+            this.setState({success: false,
+                           error: true,
+                           duration: 5000,
+                           message: result.email});
+            return;
+        }
+        result = validate({pswd: this.state.pswd}, constraints);
+        if ('pswd' in result) {
+            this.setState({success: false,
+                           error: true,
+                           duration: 5000,
+                           message: result.pswd});
+            return;
+        }
+
         this.setState({success: false, loading: true});
 
         console.log('onLogin.email ' + this.state.email + ', pswd ' + this.state.pswd);
@@ -73,16 +94,16 @@ export default class SMLogin extends React.Component {
 
         } else {
             if (response.data.error !== undefined) {
-                setTimeout(() => {this.setState({success: false, loading: false, color:'red', loginFailed: true, loginError: response.data.error.toString()});}, timeout);
+                setTimeout(() => {this.setState({success: false, loading: false, color:'red', error: true, message: response.data.error.toString()});}, timeout);
             } else {
-                setTimeout(() => {this.setState({success: false, loading: false, color:'red', loginFailed: true, loginError: 'Uuupps! Something went wrong'});}, timeout);
+                setTimeout(() => {this.setState({success: false, loading: false, color:'red', error: true, message: 'Uuupps! Something went wrong'});}, timeout);
             }
         }
     }
 
     onLoginError(error) {
         console.log("axios.post error " + error);
-        this.setState({success: false, loading: false, color:'red', loginFailed: true, loginError: error.toString()});
+        this.setState({success: false, loading: false, color:'red', error: true, message: error.toString()});
     }
 
     onClose(status) {
@@ -136,9 +157,8 @@ export default class SMLogin extends React.Component {
                 </div>
 
                 <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}}
-                          onClose={(e) => this.setState({loginFailed:false})}
-                          autoHideDuration={10000} open={this.state.loginFailed}>
-                            <Alert onClose={(e) => this.setState({loginFailed:false})} severity="error">Login failed: {this.state.loginError}</Alert>
+                          onClose={(e) => this.setState({error:false})} open={this.state.error}>
+                            <Alert onClose={(e) => this.setState({error:false})} severity="error">Login failed: {this.state.message}</Alert>
                 </Snackbar>
 
             </Dialog>
