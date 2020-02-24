@@ -1,11 +1,12 @@
 import React from 'react';
 import {AppBar, Toolbar, Typography} from '@material-ui/core';
 
-import SMHelp from "./help";
-import SMAbout from "./about";
-import SMLogin from "./login";
-import Registration from "./registration";
-import UserInformation from "./userinfo";
+import SMHelp from './help';
+import SMAbout from './about';
+import SMLogin from './login';
+import Registration from './registration';
+import UserInformation from './userinfo';
+import AlertDialog from './../alert/alert';
 
 import './header.css';
 
@@ -13,7 +14,6 @@ export default class SMHeader extends React.Component {
     constructor(props) {
         super(props);
 
-        this.onLogout = this.onLogout.bind(this);
         this.onLogin = this.onLogin.bind(this);
         this.onResult = this.onResult.bind(this);
 
@@ -23,6 +23,7 @@ export default class SMHeader extends React.Component {
         this.state = {aboutOpen: false,
                       helpOpen: false,
                       loginOpen: false,
+                      logoutOpen: false,
                       registerOpen: false,
                       userInfoOpen: false,
                       isLogin: localStorage.getItem('isLogin') ? localStorage.getItem('isLogin') : false,
@@ -100,25 +101,28 @@ export default class SMHeader extends React.Component {
             console.log('Not implemented yet, just close');
             this.setState({loginOpen: false, isLogin: false});
 
+        } else if (result === 'logout') {
+            console.log("onLogout");
+            this.setState({isLogin:false,logoutOpen:false});
+
+            // remove all info from local storage
+            localStorage.removeItem('isLogin');
+            localStorage.removeItem('user_id');
+            localStorage.removeItem('name');
+            localStorage.removeItem('email');
+            localStorage.removeItem('surname');
+            localStorage.removeItem('age');
+            localStorage.removeItem('belt');
+            localStorage.removeItem('ava');
+            localStorage.removeItem('pass');
+            localStorage.removeItem('fail');
+
+        } else if (result === 'close') {
+            this.setState({logoutOpen: false});
+
         } else {
             this.setState({loginOpen: false, registerOpen: false, isLogin: false});
         }
-    }
-
-    onLogout() {
-        console.log("onLogout");
-        this.setState({isLogin:false});
-
-        // remove all info from local storage
-        localStorage.removeItem('isLogin');
-        localStorage.removeItem('user_id');
-        localStorage.removeItem('name');
-        localStorage.removeItem('email');
-        localStorage.removeItem('surname');
-        localStorage.removeItem('age');
-        localStorage.removeItem('ava');
-        localStorage.removeItem('pass');
-        localStorage.removeItem('fail');
     }
 
     render() {
@@ -140,13 +144,13 @@ export default class SMHeader extends React.Component {
                         )
                         :
                         (
-                        <Typography onClick={() => this.setState({registerOpen: true})} style={{fontSize:'2.00rem',fontFamily:'Grinched',color:'green'}}> registration </Typography>
+                        <Typography onClick={() => this.setState({registerOpen:true})} style={{fontSize:'2.00rem',fontFamily:'Grinched',color:'green'}}> registration </Typography>
                         )
                     }
 
                     { this.state.isLogin ?
                         (
-                         <Typography onClick={this.onLogout} style={{marginLeft:'2%',color:'green',fontSize:'2.00rem',fontFamily:'Grinched'}}> logout </Typography>
+                         <Typography onClick={() => this.setState({logoutOpen:true})} style={{marginLeft:'2%',color:'green',fontSize:'2.00rem',fontFamily:'Grinched'}}> logout </Typography>
                         )
                         :
                         (
@@ -166,6 +170,12 @@ export default class SMHeader extends React.Component {
 
                 <Registration open={this.state.registerOpen} onClose={this.onResult}/>
 
+                <AlertDialog open={this.state.logoutOpen}
+                             title='Do you really want to Logout?'
+                             answer_yes='Yes, Please Do it'
+                             answer_no='No, I Wanna Stay as'
+                             name={this.state.userName}
+                             onClose={this.onResult}/>
             </AppBar>
     )};
 }
