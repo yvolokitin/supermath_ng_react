@@ -1,0 +1,41 @@
+﻿.op_body_div {
+    height: 80%;
+    width: 100%;
+}
+.op_body_div_left {
+    height: 100%;
+    width: 64%;
+    float: left;
+}
+.op_body_div_right {
+    height: 100%;
+    width: 35%;
+    float: right;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.op_gameboard {
+    height: 100%;
+    width: 100%;
+    font-family: "Grinched";
+    font-size: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.op_task {
+    width: 12%;
+    height: 100%;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.op_footer_div {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
