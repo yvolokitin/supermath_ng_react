@@ -1,0 +1,72 @@
+﻿.registration_desk {
+    height: 90%;
+    width: 90%;
+
+    margin-top: 1%;
+    margin-bottom: 3%;
+    margin-left: 5%;
+    margin-right: 5%;
+
+    color: black;
+
+    border: 3px solid black;
+    border-radius: 15px 50px;
+    box-shadow: 7px 7px black;
+}
+.circular_progress {
+    position:absolute;
+    top: 40%;
+    left: 50%;
+    color: green;
+}
+.registration_desk_title {
+    height: 15%;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.registration_desk_title img {
+    height: 100%;
+}
+.registration_desk_textfield {
+    height: 15%;
+    width: 90%;
+
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: 5%;
+    margin-right: 5%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.registration_desk_button {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 5%;
+    margin-right: 5%;
+
+    width: 90%;
+
+    cursor: pointer;
+    color: black;
+    font-size: 1.5rem;
+    text-align: center;
+
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+}
+.registration_desk_button:hover {
+    border: 1px solid #aaa;
+}
+.registration_desk_button:active {
+  background-color: rgba(0, 0, 0, 0.8);
+  outline: none;
+}
+.registration_desk_button:focus {
+  outline: none;
+}

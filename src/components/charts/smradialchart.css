@@ -1,7 +1,11 @@
-﻿.radial-chart {
+﻿.radial-svg {
+    width: 180px;
+    height: 180px;
+}
+.radial-chart {
     position: relative;
     display: inline-block;
-    transition: all 0.3s ease-in;
+    transition: all 0.5s ease-in;
 }
 .radial-chart.no-progress .radial-chart-progress {
     opacity: 0;
@@ -11,4 +15,10 @@
     transform-origin: center;
     transition: all 1.2s cubic-bezier(0.58, 0.16, 0.5, 1.14);
     transition-delay: 0.5s;
+}
+@media only screen and (max-width: 760px) {
+    .radial-svg {
+        width: 70px;
+        height: 70px;
+    }
 }

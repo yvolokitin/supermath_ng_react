@@ -12,15 +12,11 @@ export default class SMRadialChart extends Component {
 
     componentDidMount() {
         // For initial animation
-        setTimeout(() => {
-            this.setState({setStrokeLength: true});
-        });
+        setTimeout(() => {this.setState({setStrokeLength: true});});
     }
 
     render() {
-        const {
-            className,
-        } = this.props;
+        const { className, } = this.props;
         
         const radius = 80;
         const circumference = 2 * 3.14 * radius;
@@ -28,11 +24,11 @@ export default class SMRadialChart extends Component {
 
         return (
             <div className={classNames('radial-chart', className, {'no-progress': strokeLength === 0})}>
-                <svg viewBox="0 0 180 180" width="180" height="180">
+                <svg className='radial-svg' viewBox="0 0 180 180">
                     <circle cx="90" cy="90" r={radius} stroke="red" strokeWidth="20" fill="none"/>
 
-                    <circle className="radial-chart-progress" stroke="green"
-                            strokeWidth="20" strokeDasharray={`${strokeLength},${circumference}`}
+                    <circle className='radial-chart-progress' stroke="#00cc00"
+                            strokeWidth="21" strokeDasharray={`${strokeLength},${circumference}`}
                             strokeLinecap="round" fill="none" cx="90" cy="90" r={radius}/>
                 </svg>
             </div>

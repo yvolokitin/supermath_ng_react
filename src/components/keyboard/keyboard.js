@@ -26,9 +26,9 @@ export default class SMKeyBoard extends React.Component {
                 <button id="two" onClick={this.props.onDigit}>2</button>
                 <button id="three" onClick={this.props.onDigit}>3</button>
 
-                <button id="subtract" onClick={this.props.onOperator}>-</button>
+                <button id="dot" onClick={this.props.onOperator}>.</button>
                 <button id="zero" onClick={this.props.onDigit}>0</button>
-                <button id="add" onClick={this.props.onOperator}>+</button>
+                <button id="clear" onClick={this.props.onOperator}>&#60;</button>
             </div>
         );
     }

@@ -31,12 +31,17 @@ import SMFooter from "./components/footer/footer";
           );}
 */
 export default class SuperMathPage extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {userUpdate: false};
+    }
+
     render() {
         return (
             <React.Fragment>
-                <CssBaseline />
-                <SMHeader />
-                <SMBody />
+                <CssBaseline/>
+                <SMHeader info={this.state.userUpdate}/>
+                <SMBody onUpdate={() => this.setState({userUpdate: true})}/>
                 <SMFooter text={"SuperMath"}/>
             </React.Fragment>
         );}

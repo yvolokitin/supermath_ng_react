@@ -6,93 +6,51 @@ import {Card, CardActions, CardActionArea, CardContent, CardMedia} from '@materi
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
 
-import logo14 from './../../images/tasks/task_14.jpg';
-import logo8 from './../../images/tasks/task_8.jpg';
-import logo10 from './../../images/tasks/task_10.jpg';
+import logo1 from './../../images/tasks/orange_1.jpg';
+import logo2 from './../../images/tasks/orange_2.jpg';
+import logo3 from './../../images/tasks/orange_3.jpg';
 
-import logo4 from './../../images/tasks/task_4.jpg';
-import logo5 from './../../images/tasks/task_5.jpg';
-import logo12 from './../../images/tasks/task_12.jpg';
+import logo4 from './../../images/tasks/orange_4.jpg';
+import logo5 from './../../images/tasks/orange_5.jpg';
+import logo6 from './../../images/tasks/orange_6.jpg';
+
+import logo7 from './../../images/tasks/orange_7.jpg';
+import logo8 from './../../images/tasks/orange_8.jpg';
+import logo9 from './../../images/tasks/orange_9.jpg';
 
 import classes from './../../index.css';
 
 import SMDialogInfo from "./info";
-import TwoDigitGame from "./../games/twodigitgame";
-import ThreeDigitGame from "./../games/threedigitgame";
-import СomparisonGame from "./../games/comparisongame";
-import OperationGame from "./../games/operationgame";
+import DigitGame from "./../games/digitgame";
 
-// cards.length = 9
-const cards = [0, 1, 2, 3, 4, 5,];
-
-const images = [
-    logo14, logo8, logo10,
-    logo4, logo5, logo12,
-];
-
-// co - comparision, 2d two digits, 3d three digits, op operation determination
-const types = ['co', '2d', '2d',
-               '2d', 'op', '3d',
-               '2d', '2d', '2d'];
-
-const tasks = [
-    '<>=,10-99,1',
-    '-,0-10,0-10,1,1',
-    '+,0-10,0-10,1,1',
-
-    '+-,0-10,0-10,1,1',
-    '+-,1-10,1-10,1,1',
-    '+-,0-10,1',
-];
-/*
-const titles = [
-    "One-digit Numbers Addition",
-    "One-digit Numbers Subtraction",
-    "One-digit Addition & Subtraction",
-
-    "Addition and Subtraction of tens/rounds",
-    "One- & Two- digit Addition & Subtraction (basic)",
-    "One- & Two- digit Addition & Subtraction (advanced)",
-
-    "Tens and Hungred Add & Sub",
-    "Two-digit Addition & Subtraction",
-    "One-digit Multiplication",
-];
-
-    "Addition and Subtraction of hunred and tens",
-    "Tasks for Addition and Subtraction of two-digit numbers",
-    "Tasks for Multiplcation of one-digit numbers (from 0 to 10)",
-*/
-const headers = [
-    "Tasks for Comparision of two-digit numbers (from 0 to 10)",
-    "Tasks for Addition of one-digit numbers (from 0 to 10)",
-    "Tasks for Subtraction of one-digit numbers (from 0 to 10)",
-
-    "Tasks for Addition and Subtraction of TWO one-digit numbers (from 0 to 10)",
-    "Tasks for Math operation (Addition and Subtraction) determination",
-    "Tasks for Addition and Subtraction of THREE one-digit numbers",
-
-    "Tasks for Addition and Subtraction of one- and two- digit numbers",
-    "Tasks for of round tens from 10 to 100 (i.e. numbers like 10, 20, ... 100)",
-    "Tasks for Addition and Subtraction of one- digit numbers and tens",
-];
+const task_amount = 50;
 
 var desciptions = [
-    "Tasks for Comparision of two-digit numbers (from 10 to 99), where kids can use only three operations: more (>), less (<) and equal (=). There are two one digit numbers displayed with questionmark in between.",
+    "Tasks for Comparision of one-digit numbers (from 0 to 9), where kids can use only three operations: more (>), less (<) and equal (=). There are two one digit numbers displayed with questionmark in between.",
     "Tasks for Addition of one-digit numbers. Kids have to add two simple one digit numbers, where the result of addition can be an one (example, 2+2=4) or two digit number (9+9=18)",
     "Tasks for Subtraction of one-digit numbers. The result of subtraction can be is zero (example, 3-3=0) or a one-digit number (example, 8-4=5)",
 
-    "Tasks for Addition and Subtraction of one-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number",
-    // "Tasks for kids in age 3 - 6 years for Understanding of one of two mathematical operation: addition or subtraction. You will know both arguments (numbers), the result of an operation and have 10 seconds timeout to solve each task",
-    // "Tasks for kids in age 3 - 6 years for Comparision of two-digit numbers (from 0 to 9), where you can to use only more (>), less (<) and equal (=) labels and have 10 seconds timeout to solve each task",
+    "Tasks for Addition and Subtraction of two one-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number",
+    "Tasks for Math operation determination: Addition (+) or Subtraction (-). Kids have two one digit numbers (from 1 to 10, zero is excluded from range) and result of a math operation with that numbers. Based on operation result, they have to understand what it was: Addition (+) or Subtraction (-). For example, 4 ? 5 = 9, operation is Plus (+)",
+    "Tasks for Addition and Subtraction of three one-digit numbers. The result of addition can be an one (example, 1+1+1=3) or two digit number (example, 7+8+9=24), the result of subtraction can be zero (example, 9-5-4=0) or a one-digit number (example, 8-1-1=6)",
 
-    "Tasks for kids in age 3 - 6 years for Addition and Subtraction of round tens numbers from 10 to 100 (numbers 10, 20, 30 ... 100). You have 10 seconds timeout to solve each task.",
-    "Tasks for kids in age 3 - 6 years for Addition and Subtraction of one- and two- digit numbers. Basic level, where one number is in range 0..10 and second one is in 10..20.",
-    "Tasks for kids in age 3 - 6 years for Addition and Subtraction of two-digit numbers. Advamced level, where one number is in range 0..10 and second one is in 10..100. The result of addition can be an two (for example 9+13=22) or three digit number (for example 9+99=108), the result of subtraction is two or one digit number or zero",
+    "Tasks for Addition and Subtraction of one and two -digit numbers. This is basic level, where one digit number is in range of 1...9 and two digit number is in range of 10...20. The result of Addition can be only two digit number (example, 1+10=11) and Substruction can be zero or one digit number",
+    "Tasks for Addition and Subtraction of round tens numbers from 10 to 100, in other words 10, 20, 30, 40, 50, 60, 70, 80, 90 and 100. Kids have to Add or Sub two tens number. Results can be zero (example, 40-40=0), two digit number (example, 20-30=50 or 80-70=10) or three digit number (90+90=180)",
+    "Tasks for Addition and Subtraction of one digit numbers and round tens numbers from 10 to 100 (numbers 10, 20, 30 ... 100). ",
+];
 
-    "Tasks for kids in age 3 - 6 years for Addition and Subtraction of round hundred and tens numbers from 10 to 100 (numbers 10, 20, 30 ... 100, 110 .... 1000). You have 10 seconds timeout to solve each task",
-    "Tasks for kids in age 3 - 6 years for Addition and Subtraction of two-digit numbers. Each number is a random number in range from 10 to 100. The result of addition can be an two or three digit number, the result of subtraction is two or one digit number or zero",
-    "Tasks for kids in age 3 - 6 years for Multiplication of one-digit numbers. ",
+const games = [
+    {id: 1, logo: logo1, type: 'linedigits', task: '10-97', amount: task_amount, desc: desciptions[0], head: 'Tasks for determination of two digit number from sequance'},
+    {id: 2, logo: logo2, type: 'comp_nums', task: '<>=,10-99,1', amount: task_amount, desc: desciptions[0], head: 'Comparision of two-digit numbers (from 10 to 100)'},
+    {id: 3, logo: logo3, type: '2digits', task: '+-,0-10,10-20,1,1', amount: task_amount, desc: desciptions[3], head: 'Addition and Subtraction of two (10..20) and one-digit numbers'},
+
+    {id: 4, logo: logo4, type: '2digits', task: '+,0-10,0-10,10,10', amount: task_amount, desc: desciptions[1], head: 'Addition and Subtraction of round numbers (10, 20, ... 100)'},
+    {id: 5, logo: logo5, type: '2digits', task: '-,0-10,0-10,10,1', amount: task_amount, desc: desciptions[2], head: 'Addition and Subtraction of round and one-digit numbers (0..10)'},
+    {id: 6, logo: logo6, type: '2digits', task: '+-,0-10,10-100,1,1', amount: task_amount, desc: desciptions[3], head: 'Addition and Subtraction of two (10..100) and one-digit numbers'},
+
+    {id: 7, logo: logo7, type: '2digits', task: '+-,10-100,10-100,1,1', amount: task_amount, desc: desciptions[5], head: 'Addition and Subtraction of two two-digit numbers'},
+    {id: 8, logo: logo8, type: 'digit_2column', task: '+-,1-99,1-99,10,10', amount: task_amount, desc: desciptions[7], head: 'Long Addition and Subtraction of round numbers'},
+    {id: 9, logo: logo9, type: 'digit_2column', task: '+-,10-100,100-999,1,1', amount: task_amount, desc: desciptions[6], head: 'Long Addition and Subtraction of two- and three- digit numbers'},
 ];
 
 export default class Orange extends React.Component {
@@ -100,6 +58,8 @@ export default class Orange extends React.Component {
         super(props);
 
         this.onInfoOpen = this.onInfoOpen.bind(this);
+        this.onInfoClose = this.onInfoClose.bind(this);
+
         this.onGameOpen = this.onGameOpen.bind(this);
         this.onGameClose = this.onGameClose.bind(this);
 
@@ -108,43 +68,41 @@ export default class Orange extends React.Component {
                       viewDialogTitleText: '',
                       viewDialogDescriptionText: '',
                       viewDialogImageUrl: '',
-                      game2DOpen: false,
-                      game3DOpen: false,
-                      gameCoOpen: false,
-                      gameOpOpen: false,
                       gameInfo: false,
-                      taskNumber: -1};
+                      gameOpen: false,
+                      gameType: '',
+                      gameTerm: '',
+                      gameAmnt: 0};
     }
 
-    onInfoOpen(card_id) {
+    onInfoOpen(head, desc, logo, task) {
         this.setState({infoOpen: true,
-                       infoTitle: headers[card_id],
-                       infoText: desciptions[card_id],
-                       infoIURL: images[card_id]});
+                       infoTitle: head,
+                       infoText: desc,
+                       infoIURL: logo,
+                       // taskTerms: task,
+                    });
     }
 
-    onGameOpen(task_id) {
-        if (types[task_id] === '2d') {
-            this.setState({game2DOpen: true, taskNumber: task_id});
-        } else if (types[task_id] === '3d') {
-            this.setState({game3DOpen: true, taskNumber: task_id});
-        } else if (types[task_id] === 'co') {
-            this.setState({gameCoOpen: true, taskNumber: task_id});
-        } else if (types[task_id] === 'op') {
-            this.setState({gameOpOpen: true, taskNumber: task_id});
+    onInfoClose(type, task_id) {
+        // console.log('onInfoClose ' + type + ', task_id: ' + task_id);
+        this.setState({infoOpen: false});
+        if (type === 'play') {
+            this.onGameOpen(task_id);
         }
     }
 
-    onGameClose() {
-        // console.log("onGameClose called");
-        if (this.state.game2DOpen === true) {
-            this.setState({game2DOpen: false});
-        } else if (this.state.game3DOpen === true) {
-            this.setState({game3DOpen: false});
-        } else if (this.state.gameCoOpen === true) {
-            this.setState({gameCoOpen: false});
-        } else if (this.state.gameOpOpen === true) {
-            this.setState({gameOpOpen: false});
+    onGameOpen(type, task, amount) {
+        console.log('Orange.onGameOpen ' + type + ', task: ' + task + ', amount: ' + amount);
+        this.setState({gameOpen: true, gameType: type, gameTerm: task, gameAmnt: amount});
+    }
+
+    onGameClose(status) {
+        console.log("Orange.onGameClose: " + status);
+        // set all types of games as false
+        this.setState({gameOpen: false});
+        if (status === 'close') {
+            this.props.onUpdate(status);
         }
     }
 
@@ -152,20 +110,20 @@ export default class Orange extends React.Component {
         return (
                 <Container className={classes.grid} maxWidth="md">
                     <Grid container spacing={3}>
-                        {cards.map(card => (
-                            <Grid item key={card} xs={12} sm={6} md={4}>
+                        {games.map((game, key) => (
+                            <Grid item key={game.id} xs={12} sm={6} md={4}>
                                 <Card className={classes.card}>
-                                    <CardActionArea onClick={(e) => this.onGameOpen(card)}>
-                                        <CardMedia component="img" alt="Media Card task" height="140" image={images[card]}/>
-                                        <CardContent className={classes.content}>
-                                            <Typography variant="body2" color="textSecondary" component="p">{headers[card]}</Typography>
+                                    <CardActionArea onClick={(e) => this.onGameOpen(game.type, game.task, game.amount)}>
+                                        <CardMedia component="img" alt="Game task" height="140" image={game.logo}/>
+                                        <CardContent>
+                                            <Typography variant="body2" color="textSecondary" component="p">{game.head}</Typography>
                                         </CardContent>
                                     </CardActionArea>    
                                     <CardActions>
                                         <Button size="small" color="primary" startIcon={<VisibilityIcon />}
-                                                onClick={(e) => this.onInfoOpen(card)}>View Details</Button>
+                                                onClick={(e) => this.onInfoOpen(game.head, game.desc, game.logo, game.task)}>View Details</Button>
                                         <Button size="small" color="primary" startIcon={<PlayCircleFilledWhiteIcon />}
-                                                onClick={(e) => this.onGameOpen(card)}>Play</Button>
+                                                onClick={(e) => this.onGameOpen(game.type, game.task, game.amount)}>Play</Button>
                                     </CardActions>
                                 </Card>
                             </Grid>
@@ -176,27 +134,14 @@ export default class Orange extends React.Component {
                                   title={this.state.infoTitle}
                                   text={this.state.infoText}
                                   imgUrl={this.state.infoIURL}
-                                  onClick={() => this.setState({infoOpen: false})}/>
+                                  task={this.state.taskTerms}
+                                  onClick={this.onInfoClose}/>
 
-                    <TwoDigitGame open={this.state.game2DOpen}
-                                  task={tasks[this.state.taskNumber]}
-                                  count={50}
-                                  onClick={this.onGameClose}/>
-
-                    <ThreeDigitGame open={this.state.game3DOpen}
-                                    task={tasks[this.state.taskNumber]}
-                                    count={50}
-                                    onClick={this.onGameClose}/>
-
-                    <СomparisonGame open={this.state.gameCoOpen}
-                                    task={tasks[this.state.taskNumber]}
-                                    count={50}
-                                    onClick={this.onGameClose}/>
-
-                    <OperationGame open={this.state.gameOpOpen}
-                                   task={tasks[this.state.taskNumber]}
-                                   count={2}
-                                   onClick={this.onGameClose}/>
+                    <DigitGame open={this.state.gameOpen}
+                               type={this.state.gameType}
+                               task={this.state.gameTerm}
+                               amount={this.state.gameAmnt}
+                               onClose={this.onGameClose}/>
 
                 </Container>
         );

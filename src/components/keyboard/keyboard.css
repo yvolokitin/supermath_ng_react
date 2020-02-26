@@ -1,46 +1,41 @@
 ﻿.keyboard {
-    min-height: 270px;
-    max-height: 270px;
-    min-width: 320px;
-    max-width: 320px;
-    border: 1px solid black;
+    min-height: 265px;
+    max-height: 265px;
+    min-width: 340px;
+    max-width: 340px;
 }
 
 .keyboard button {
-  font-family: "Grinched";
-  -webkit-box-flex: 1;
-  flex: 1 1 calc(25% - 0.5rem);
-  width: 30%;
-  margin: 0.33rem;
-  font-size: 2.75rem;
-  outline: none;
-  border: 1px solid #c6c6c6;
-  border-radius: 2px;
-  text-transform: uppercase;
-  cursor: pointer;
-  color: #444;
-  background-color: #f5f5f5;
-  -webkit-transition: background-color 1s ease-out;
-  -moz-transition: background-color 1s ease-out;
-  transition: background-color 1s ease-out;
+    font-family: "Grinched";
+    -webkit-box-flex: 1;
+    flex: 1 1 calc(25% - 0.5rem);
+    width: 30%;
+    margin: 0.33rem;
+    font-size: 2.75rem;
+    outline: none;
+    border: 1px solid #c6c6c6;
+    border-radius: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #444;
+    background-color: #f5f5f5;
+    -webkit-transition: background-color 1s ease-out;
+    -moz-transition: background-color 1s ease-out;
+    transition: background-color 1s ease-out;
 }
 
 .keyboard button:hover {
-  border: 1px solid #aaa;
+    border: 1px solid #aaa;
 }
-
 .keyboard button:active {
-  background-color: rgba(0, 0, 0, 0.8);
-  outline: none;
+    background-color: rgba(0, 0, 0, 0.8);
+    outline: none;
 }
-
 .keyboard button:focus {
-  outline: none;
+    outline: none;
 }
 
-#parenthesis-open,
-#parenthesis-close,
-#modulo,
+#dot,
 #clear,
 #more,
 #equals,
@@ -49,12 +44,10 @@
 #multiply,
 #subtract,
 #add {
-  background-color: #d6d6d6;
+    background-color: #d6d6d6;
 }
 
-#parenthesis-open:active,
-#parenthesis-close:active,
-#modulo:active,
+#dot:active,
 #clear:active,
 #equals:active,
 #divide:active,
@@ -62,23 +55,21 @@
 #subtract:active,
 #add:active,
 #clear:active {
-  background-color: rgba(0, 0, 0, 0.8);
+     background-color: rgba(0, 0, 0, 0.8);
 }
 
-#parenthesis-open:hover,
-#parenthesis-close:hover,
-#modulo:hover,
+#dot:hover,
 #clear:hover,
 #equals:hover,
 #divide:hover,
 #multiply:hover,
 #subtract:hover,
 #add:hover {
-  border: 1px solid #aaa;
+     border: 1px solid #aaa;
 }
 
 #clear {
-  color: #f5f5f5;
-  font-weight: 700;
-  background-color: #fc5d76;
+    color: #E5E5E5;
+    background-color: #fdaeba;
+    font-weight: 700;
 }

@@ -1,0 +1,19 @@
+﻿.digitgamebody {
+    height: 80%;
+    width: 100%;
+}
+@media only screen and (max-height: 770px) {
+    .digitgamebody {
+        height: 88%;
+    }
+}
+@media only screen and (max-height: 500px) {
+    .game_footer_div {
+        height: 94%;
+    }
+}
+@media only screen and (max-width: 460px) {
+    .game_footer_div {
+        height: 94%;
+    }
+}

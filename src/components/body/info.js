@@ -1,79 +1,42 @@
 ﻿import React from 'react';
-import {Typography, Dialog, Card, CardMedia, Button, IconButton} from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
+import {Dialog, DialogContent, DialogActions, Typography, Card, CardMedia, Button} from '@material-ui/core';
 
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
+import CancelIcon from '@material-ui/icons/Cancel';
+// import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
 
-import {withStyles} from '@material-ui/core/styles';
+import SMTitle from "./../dialog/title";
 
-const styles = theme => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(2),
-  },
-  closeButton: {
-    position: 'absolute',
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
-  },
-});
-
-const DialogTitle = withStyles(styles)(props => {
-  const { children, classes, onClose, ...other } = props;
-  return (
-    <MuiDialogTitle disableTypography className={classes.root} {...other}>
-      <Typography variant="h6">{children}</Typography>
-      {onClose ? (
-        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-      ) : null}
-    </MuiDialogTitle>
-  );
-});
-
-const DialogContent = withStyles(theme => ({
-  root: {
-    padding: theme.spacing(2),
-  },
-}))(MuiDialogContent);
-
-const DialogActions = withStyles(theme => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(1),
-  },
-}))(MuiDialogActions);
-
+/*
+                <Button size="small" color="primary" startIcon={<PlayCircleFilledWhiteIcon />}
+                        onClick={() => props.onClick('play', props.taskId)}>Play</Button>
+*/
 export default function SMDialogInfo(props) {
     return (
-        <Dialog onClose={() => props.onClick()} aria-labelledby="customized-dialog-title" transitionDuration={500} open={props.open}>
-                      <DialogTitle onClose={() => props.onClick()}>{props.title}</DialogTitle>
+        <Dialog onClose={() => props.onClick('close')} aria-labelledby='customized-dialog-title' transitionDuration={500} open={props.open} scroll="body">
+            <SMTitle title='' onClick={() => props.onClick()}/>
 
-                      <DialogContent dividers>
-                        <Typography gutterBottom>{props.text}</Typography>
+            <DialogContent>
+                <Typography style={{margin:'3%',color:'orange',fontFamily:'Grinched',fontSize:'2.5rem',textShadow:'1px 1px 2px black',lineHeight:'1.0'}}>{props.title}</Typography>
 
-                        <Card style={{display: 'flex', flexDirection: 'column'}}>
-                            <CardMedia component="img" alt="Media Card task" height="100%" image={props.imgUrl}/>
-                        </Card>
+                <Typography style={{margin:'3%',textAlign:'justify',fontWeight:'bold'}}>{props.text}</Typography>
 
-                        <Typography gutterBottom>
-                            SuperMath is designed to help students transition from counting or calculating to recalling the basic arithmetic facts.
-                            The timer allows SuperMath to distinguish a recalled answer from a counted or calculated answer.
-                            The default three-second mastery threshold is carefully selected to be long enough to type in a recalled answer,
-                            but not long enough for the student to comfortably enter a counted or calculated answer.
-                            Via Settings, we have added the ability to hide/pause the timer, though student answers are still evaluated.
-                            With less time pressure, students may not answer as quickly as they can, potentially resulting in lower scores
-                            or slower progress than they might otherwise achieve.
-                        </Typography>
+                <Card style={{margin:'4%',display:'flex',flexDirection:'column'}}>
+                    <CardMedia component="img" alt="Media Card task" height="100%" image={props.imgUrl}/>
+                </Card>
 
-                      </DialogContent>
-                      <DialogActions>
-                          <Button onClick={() => props.onClick()} color="primary">Play</Button>
-                      </DialogActions>
-                    </Dialog>
+                <Typography style={{margin:'3%',textAlign:'justify',fontWeight:'bold'}}>
+                    SuperMath helps students transition from counting or calculating the basic math
+                    facts to recalling them. Quickly recalling math facts, instead of calculating them,
+                    frees up mental resources for higher-level operations. SuperMath’s timed activities
+                    encourage students to answer questions as quickly as possible.
+                </Typography>
+
+            </DialogContent>
+
+            <DialogActions style={{margin:'3%',}}>
+                <Button size="small" color="primary" startIcon={<CancelIcon />}
+                        onClick={() => props.onClick('close')}>Close</Button>
+            </DialogActions>
+        </Dialog>
     );
 }

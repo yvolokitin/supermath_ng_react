@@ -1,37 +1,24 @@
-﻿import React, { useState } from 'react';
-import {Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText, Typography, Grid, Paper, Button} from '@material-ui/core';
+﻿import React from 'react';
+import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
 
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
+export default function AlertDialog(props) {
+    return (
+        <Dialog onClose={() => props.onClose('close')} open={props.open}>
+            <DialogTitle id="alert-dialog-title">{props.title}</DialogTitle>
+            <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    <span role='img' aria-labelledby='jsx-a11y/accessible-emoji' style={{fontSize:'70px'}}>&#9748;</span>
+                    <span role='img' aria-labelledby='jsx-a11y/accessible-emoji' style={{fontSize:'70px'}}>&#127810;</span>
+                    <span role='img' aria-labelledby='jsx-a11y/accessible-emoji' style={{fontSize:'70px'}}>&#128148;</span>
+                    <span role='img' aria-labelledby='jsx-a11y/accessible-emoji' style={{fontSize:'70px'}}>&#128406;</span>
+                    <span role='img' aria-labelledby='jsx-a11y/accessible-emoji' style={{fontSize:'70px'}}>&#128168;</span>
+                </DialogContentText>
+            </DialogContent>
 
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-
-import {makeStyles, withStyles} from '@material-ui/core/styles';
-
-export default class SMDialogAlert extends React.Component {
-    constructor(props) {
-        super(props);
-            this.state = {
-                value: null,
-            };
-    }
-
-    render() {
-        return (
-            <Dialog open={openAlert} onClose={handleCloseAlert} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-                <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        Would you like to EXIT from current Game?
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleEscapeGame} color="primary">YES</Button>
-                    <Button onClick={handleCloseAlert} color="primary" autoFocus>NO</Button>
-                </DialogActions>
-            </Dialog>
-        );
-    }
+            <DialogActions>
+                <Button onClick={() => props.onClose('logout')} color="primary" autoFocus>{props.answer_yes}</Button>
+                <Button onClick={() => props.onClose('close')} color="primary">{props.answer_no}<font style={{color:'red'}}>&nbsp;&quot;{props.name}&quot;</font></Button>
+            </DialogActions>
+        </Dialog>
+  );
 }
