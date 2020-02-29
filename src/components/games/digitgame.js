@@ -90,7 +90,7 @@ export default class DigitGame extends React.Component {
                            failed: 0});
 
         } else {
-            console.log("ERROR wrong status received: " + status);
+            console.log("onGameClose: Wrong status received: " + status);
         }
     }
 

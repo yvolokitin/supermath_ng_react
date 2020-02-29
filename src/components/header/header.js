@@ -172,8 +172,8 @@ export default class SMHeader extends React.Component {
 
                 <AlertDialog open={this.state.logoutOpen}
                              title='Do you really want to Logout?'
-                             answer_yes='Yes, Please Do it'
-                             answer_no='No, I Wanna Stay as'
+                             yes='Yes, Please Do it'
+                             no='No, I Wanna Stay as'
                              name={this.state.userName}
                              onClose={this.onResult}/>
             </AppBar>

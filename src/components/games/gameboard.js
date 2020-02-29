@@ -321,7 +321,7 @@ export default class GameBoard extends React.Component {
                         </div>
                       </div>
                       <div className="line_body_div_right">
-                          <SMKeyBoard onDigit={this.onDigit} onOperator={this.onOperator} />
+                          <SMKeyBoard onDigit={this.onDigit} onOperator={this.onOperator}/>
                       </div>
                     </>
                 ):( null ) }

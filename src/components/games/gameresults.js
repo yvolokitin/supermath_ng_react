@@ -63,14 +63,22 @@ export default class GameResults extends React.Component {
         var fail = parseInt(localStorage.getItem('fail')) + this.props.failed;
         localStorage.setItem('pass', pass); localStorage.setItem('fail', fail);
 
-        // send post update and close window
-        var post_data = {'user_id': localStorage.getItem('user_id'),
-                         'operation': 'results',
-                         'passed': this.props.passed,
-                         'failed': this.props.failed};
-        axios.post('http://supermath.xyz:3000/api/update', post_data)
-            .then(function (response) {console.log('updateUserResults: ' + response.data.error + ', id ' + response.data.id);})
-            .catch(function (error) {console.log('onUserResultsError:: error ' + error);});
+        // send post update if user login and close window
+        if (localStorage.getItem('user_id') !== null) {
+            var post_data = {'user_id': localStorage.getItem('user_id'),
+                             'operation': 'results',
+                             'passed': this.props.passed,
+                             'failed': this.props.failed,
+                             'duration': this.props.duration,
+                             'percent': this.state.result.percent,
+                             'rate': this.state.result.rate,
+                            };
+            axios.post('http://supermath.xyz:3000/api/update', post_data)
+                .then(function (response) {console.log('updateUserResults: ' + response.data.error + ', id ' + response.data.id);})
+                .catch(function (error) {console.log('onUserResultsError:: error ' + error);});
+        } else {
+            console.log('GameResults.onClose: do not sent results');
+        }
 
         this.props.onClose(status);
     }
