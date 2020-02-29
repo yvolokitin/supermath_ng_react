@@ -148,6 +148,7 @@ export default class White extends React.Component {
                                type={this.state.gameType}
                                task={this.state.gameTerm}
                                amount={this.state.gameAmnt}
+                               belt='white'
                                onClose={this.onGameClose}/>
 
                 </Container>

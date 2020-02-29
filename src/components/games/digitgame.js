@@ -139,7 +139,7 @@ export default class DigitGame extends React.Component {
                     { this.state.showResults ? (
                             <GameResults open={this.state.showResults} passed={this.state.passed} failed={this.state.failed}
                                          results={this.state.results} amount={this.state.amount} duration={this.state.duration}
-                                         onClose={this.onGameClose}/>
+                                         belt={this.props.belt} onClose={this.onGameClose}/>
                         ) : (
                             <GameBoard onClose={this.onGameClose} onCounter={this.onCounterUpdate} onColor={this.onColorUpdate}
                                        type={this.state.type} task={this.state.task} amount={this.state.amount}/>

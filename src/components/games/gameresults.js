@@ -58,13 +58,15 @@ export default class GameResults extends React.Component {
     }
 
     onClose(status) {
-        // update user passed / failed counter in header and send to server
-        var pass = parseInt(localStorage.getItem('pass')) + this.props.passed;
-        var fail = parseInt(localStorage.getItem('fail')) + this.props.failed;
-        localStorage.setItem('pass', pass); localStorage.setItem('fail', fail);
+        console.log('GameResults.onClose: ' + this.props.belt);
 
         // send post update if user login and close window
         if (localStorage.getItem('user_id') !== null) {
+            // update user passed / failed counter in header and send to server
+            var pass = parseInt(localStorage.getItem('pass')) + this.props.passed;
+            var fail = parseInt(localStorage.getItem('fail')) + this.props.failed;
+            localStorage.setItem('pass', pass); localStorage.setItem('fail', fail);
+
             var post_data = {'user_id': localStorage.getItem('user_id'),
                              'operation': 'results',
                              'passed': this.props.passed,
@@ -72,6 +74,7 @@ export default class GameResults extends React.Component {
                              'duration': this.props.duration,
                              'percent': this.state.result.percent,
                              'rate': this.state.result.rate,
+                             'belt': this.props.belt,
                             };
             axios.post('http://supermath.xyz:3000/api/update', post_data)
                 .then(function (response) {console.log('updateUserResults: ' + response.data.error + ', id ' + response.data.id);})

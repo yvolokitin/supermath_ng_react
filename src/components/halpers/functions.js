@@ -11,7 +11,7 @@ var OPERATION_DIV = '/';
  * Task generation from type and settings
  */
 export function generate_task(type, settings) {
-    console.log('generate_task ' + type + ', settings ' + settings);
+    // console.log('generate_task ' + type + ', settings ' + settings);
     var array = settings.split(',');
 
     // depends from type, result may have different properties

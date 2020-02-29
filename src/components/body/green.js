@@ -146,6 +146,7 @@ export default class Green extends React.Component {
                                type={this.state.gameType}
                                task={this.state.gameTerm}
                                amount={this.state.gameAmnt}
+                               belt='green'
                                onClose={this.onGameClose}/>
 
                 </Container>
