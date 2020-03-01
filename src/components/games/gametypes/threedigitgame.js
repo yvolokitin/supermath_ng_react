@@ -163,7 +163,7 @@ export default class ThreeDigitGame extends React.Component {
                 }
             }
         } else {
-            alert("ERROR: Unknown check_response() statement " + digit);
+            alert("ERROR: Wrong check_response() statement " + digit);
         }
     }
 

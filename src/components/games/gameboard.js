@@ -1,7 +1,8 @@
 ﻿import React from 'react';
-import {generate_task} from "./../halpers/functions";
-import SMKeyBoard from "./../keyboard/keyboard";
-import OperatorBoard from "./../keyboard/operatorboard";
+import {generate_task} from './../halpers/functions';
+import SMKeyBoard from './../keyboard/keyboard';
+import OperatorBoard from './../keyboard/operatorboard';
+import LineNumbersBoard from './../keyboard/linenumbersboard';
 import './gameboard.css';
 
 export default class GameBoard extends React.Component {
@@ -150,7 +151,8 @@ export default class GameBoard extends React.Component {
                 }
             }
         } else {
-            alert("ERROR: Unknown check_response() statement " + digit);
+            alert('GameBoard.check_response: wrong check_response() statement ' + digit + ', expected_result: ' + expected_result);
+            console.log('GameBoard.check_response: wrong check_response() statement ' + digit + ', expected_result: ' + expected_result);
         }
     }
 
@@ -312,16 +314,30 @@ export default class GameBoard extends React.Component {
                     </>
                 ):( null ) }
 
-                {this.props.type.includes('unknown') ? (
+                {this.props.type.includes('line_') ? (
                     <>
-                      <div className="line_body_div_left">
-                        <div className="line_gameboard" style={{backgroundColor: this.state.board, animation: this.state.animation}}>
-                            <div className="line_task">{this.state.task}</div>
-                            <div className="line_result" style={{color: this.state.color}}>{this.state.result}</div>
+                      <div className='line_body_div_up'>
+                        <div className='line_gameboard' style={{backgroundColor: this.state.board, animation: this.state.animation}}>
+                          { this.props.type.includes('line_compnums') ? (<div className='line_result'>{this.state.task.expr1}</div>):(null)}
+                          { this.props.type.includes('line_compnums') ? (<div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>):(null)}
+                          { this.props.type.includes('line_compnums') ? (<div className='line_result'>{this.state.task.expr2}</div>):(null)}
+
+                          { this.props.type.includes('line_compexpr') ? (<div className='line_expression'>{this.state.task.expr1}</div>):(null)}
+                          { this.props.type.includes('line_compexpr') ? (<div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>):(null)}
+                          { this.props.type.includes('line_compexpr') ? (<div className='line_expression'>{this.state.task.expr2}</div>):(null)}
+
+                          { this.props.type.includes('numbers') ? (<div className='line_task'>{this.state.task.expr1}</div>):(null)}
+                          { this.props.type.includes('numbers') ? (<div className='line_result' style={{color: this.state.color}}>{this.state.result}</div>):(null)}
                         </div>
                       </div>
-                      <div className="line_body_div_right">
-                          <SMKeyBoard onDigit={this.onDigit} onOperator={this.onOperator}/>
+
+                      <div className='line_body_div_bottom'>
+                          { this.props.type.includes('line_comp') ? (
+                              <OperatorBoard onOperator={this.onOperator} more={true} less={true} equals={true}/>
+                            ):(
+                              <LineNumbersBoard onDigit={this.onDigit} onOperator={this.onOperator}/>
+                            )
+                          }
                       </div>
                     </>
                 ):( null ) }

@@ -1,4 +1,4 @@
-﻿/** @const {string} */
+/** @const {string} */
 var OPERATION_SUM = '+';
 /** @const {string} */
 var OPERATION_SUB = '-';
@@ -25,6 +25,7 @@ export function generate_task(type, settings) {
 
     // 3 numbers task: 1 + 2 + 3 = 6
     } else if (type === '3digits') {
+        // operations, range_numbers, factor
         result = generate_3digit_task(array[0], array[1], array[2]);
         console.log(type + ' generate_task: ' + result.expr1 + result.result);
 
@@ -66,6 +67,12 @@ export function generate_task(type, settings) {
         // <>=,+-,0-10,1 -> operations, range_1, range_2, factor_1, factor_2
         result = generate_comparison_expressions(array[1], array[2], array[2], parseInt(array[3]), parseInt(array[3]));
         console.log(type + ' generate_task: ' + result.expr1 + result.result + result.expr2);
+
+    } else if (type === 'line_5numbers') {
+        // input string: '+-*,5,0-10,1' -> (0)operations: +-*, (1)#numbers: 5, (2)range: 0-10, (3)factor: 1
+        // operations, range_numbers, factor
+        result = generate_3digit_task(array[0], array[2], array[3]);
+        console.log(type + ' generate_task: ' + result.expr1 + result.result);
 
     // undefined tasks, will return error
     } else {
@@ -178,8 +185,12 @@ function generate_3digit_task(operations, range_numbers, factor=1) {
         result = result * number_3;
     }
 
-    var task = {'expr1': number_1.toString() + ' ' + operation_1.toString()
-                + ' ' + number_2.toString() + ' ' + operation_2.toString()
+    // replace * to x for better visualization
+    if (operation_1 === OPERATION_MUL) {operation_1='x'}
+    if (operation_2 === OPERATION_MUL) {operation_2='x'}
+
+    var task = {'expr1': number_1.toString() + ' ' + operation_1
+                + ' ' + number_2.toString() + ' ' + operation_2
                 + ' ' + number_3.toString()+ ' = ', 'result': result.toString()};
     return task;
 }

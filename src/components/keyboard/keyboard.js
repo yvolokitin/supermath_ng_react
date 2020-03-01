@@ -1,15 +1,6 @@
 ﻿import React from 'react';
 import './keyboard.css';
 
-/*
-                <button id="dot" onClick={this.props.onDecimal}>.</button>
-                <button id="clear" onClick={this.props.onClear}>Clear</button>
-
-                <button id="more" onClick={this.props.onOperator}>&#62;</button>
-                <button id="equals" onClick={this.props.onOperator}>=</button>
-                <button id="less" onClick={this.props.onOperator}>&#60;</button>
-*/
-// export default function SMKeyBoard(props) {
 export default class SMKeyBoard extends React.Component {
     render() {
         return (
