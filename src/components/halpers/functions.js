@@ -71,7 +71,7 @@ export function generate_task(type, settings) {
     } else if (type === 'line_5numbers') {
         // input string: '+-*,5,0-10,1' -> (0)operations: +-*, (1)#numbers: 5, (2)range: 0-10, (3)factor: 1
         // operations, range_numbers, factor
-        result = generate_3digit_task(array[0], array[2], array[3]);
+        result = generate_5digit_task(array[0], array[2], array[3]);
         console.log(type + ' generate_task: ' + result.expr1 + result.result);
 
     // undefined tasks, will return error
@@ -142,6 +142,167 @@ function generate_comparison_expressions(operations, range_1, range_2, factor_1,
     else { operation = '='; }
 
     return {'expr1': expr1, 'expr2': expr2, 'result': operation};
+}
+
+function generate_5digit_task(operations, range, factor=1) {
+    var number_1 = parseInt(get_random_int('1-10'));
+    var number_2 = parseInt(get_random_int('1-10'));
+    var result = number_1 * number_2;
+    var expression = number_1.toString() + ' x ' + number_2.toString();
+
+    var number, number_3, number_4, result34, operation_2, operation_3 = 'na', operation_4;
+    if (result < 10) {
+        number = parseInt(get_random_int('0-10'));
+        operation_2 = '*'; result = result * number;
+        expression = number + ' x ' + expression;
+
+    } else {
+        operation_2 = get_random_operation(operations);
+        if (operation_2 === '+') {
+            number = parseInt(get_random_int('20-100'));
+            if (Math.random() >= 0.5) {
+                expression = number + ' + ' + expression; 
+            } else {
+                expression = expression + ' + ' + number; 
+            }
+            result = result + number;
+
+        } else if (operation_2 === '-') {
+            number = parseInt(get_random_int('40-99'));
+            if (number > result) {
+                result = number - result;
+                expression = number + ' - ' + expression;
+            } else {
+                result = result - number;
+                expression = expression  + ' - ' + number;
+            }
+
+        } else if (operation_2 === '*') {
+            number_3 = parseInt(get_random_int('1-10'));
+            number_4 = parseInt(get_random_int('0-10'));
+            result34 = number_3 * number_4;
+
+            operation_3 = get_random_operation('+-');
+            if (operation_3 === '+') {
+                expression = expression  + ' + ' + number_3 + ' x ' + number_4;
+                result = result + result34;
+            } else { // else -
+                if (result > result34) {
+                    expression = expression  + ' - ' + number_3 + ' x ' + number_4;
+                    result = result - result34;
+                } else {
+                    expression = number_3 + ' x ' + number_4 + ' - ' + expression;
+                    result = result34 - result;
+                }
+            }
+        }        
+    }
+
+    var number_N = parseInt(get_random_int('60-100'));
+    if (operation_2 === '*') {
+        operation_4 = get_random_operation('+-');
+        if (operation_4 === '+') {
+            if (Math.random() >= 0.5) {
+                expression = number_N + ' + ' + expression; 
+            } else {
+                expression = expression + ' + ' + number_N; 
+            }
+            result = result + number_N;
+
+        } else { // else -
+            // if: number_N - 3*4 - 2*3
+            if (operation_3 === '-') {
+                // re-calculate result due to --=+
+                result = number_1 * number_2 + number_3 * number_4;
+                if (number_N > result) {
+                    result = number_N - result; expression = number_N + ' - ' + expression;
+                } else {
+                    result = result - number_N; expression = expression + ' - ' + number_N;
+                }
+
+            } else {
+                if (result > number_N) {
+                    result = result - number_N;
+                    expression = expression + ' - ' + number_N; 
+                } else {
+                    result = number_N - result;
+                    expression = number_N + ' - ' + expression; 
+                }
+            }
+        }
+
+    } else {
+        operation_4 = get_random_operation(operations);
+        if (operation_4 === '+') {
+            if (Math.random() >= 0.5) {
+                expression = number_N + ' + ' + expression; 
+            } else {
+                expression = expression + ' + ' + number_N;
+            }
+            result = result + number_N;
+
+        } else if (operation_4 === '-') {
+            // IF: number_N - 100 - 3*4
+            if (operation_2 === '-') {
+                result = number + number_1 * number_2;
+                if (number_N > result) {
+                    result = number_N - result;
+                    expression = number_N + ' - ' + expression;
+                } else {
+                    result = result - number_N;
+                    expression = expression + ' - ' + number_N;
+                }
+            } else {
+                if (result > number) {
+                    result = result - number;
+                    expression = expression + ' - ' + number; 
+                } else {
+                    result = number - result;
+                    expression = number + ' - ' + expression; 
+                }
+            }
+
+        } else { // else *
+            number_3 = parseInt(get_random_int(range));
+            number_4 = parseInt(get_random_int(range));
+            result34 = number_3 * number_4;
+
+            operation_4 = get_random_operation('+-');
+            if (operation_3 === '+') {
+                if (Math.random() >= 0.5) {
+                    expression = expression  + ' + ' + number_3 + ' x ' + number_4;
+                } else {
+                    expression = number_3 + ' x ' + number_4 + ' + ' + expression;
+                }
+                result = result + result34;
+
+            } else { // else -
+                // IF: 8 x 7 - 67 - 4 x 7 =
+                if (operation_2 === '-') {
+                    result = number + number_1 * number_2;
+                    if (result34 > result) {
+                        result = result34 - result;
+                        expression = number_3 + ' x ' + number_4 + ' - ' + expression;
+                    } else {
+                        result = result - result34;
+                        expression = expression  + ' - ' + number_3 + ' x ' + number_4;
+                    }
+
+                } else {
+                    if (result > result34) {
+                        expression = expression  + ' - ' + number_3 + ' x ' + number_4;
+                        result = result - result34;
+                    } else {
+                        expression = number_3 + ' x ' + number_4 + ' - ' + expression;
+                        result = result34 - result;
+                    }
+                }
+            }
+        }
+    }
+
+    var task = {'expr1': expression + ' = ', 'result': result.toString()};
+    return task;
 }
 
 function generate_3digit_task(operations, range_numbers, factor=1) {
