@@ -24,10 +24,14 @@ Game Types:
     comp_nums: n <=> m
     comp_expr: z+x <=> c-v
 
-    digit_2column 222
-                 - 11
-                    ?
-    digit_3column
+    digit_2column: 222
+                  - 11
+                     ?
+
+    digit_3column: 333
+                 + 222
+                 + 111
+                     ?
 
     line_compnums
     line_compexpr

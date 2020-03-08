@@ -13,7 +13,8 @@ export default class GameResults extends React.Component {
         super(props);
 
         this.onClose = this.onClose.bind(this);
-        this.onResults = this.onResults.bind(this);
+        this.onUpdateResults = this.onUpdateResults.bind(this);
+        this.onUpdateResultsError = this.onUpdateResultsError.bind(this);
 
         this.state = {result: this.calculate(),
                       userResults: false};
@@ -75,10 +76,11 @@ export default class GameResults extends React.Component {
                              'percent': this.state.result.percent,
                              'rate': this.state.result.rate,
                              'belt': this.props.belt,
+                             'task': this.props.belt,
                             };
             axios.post('http://supermath.xyz:3000/api/update', post_data)
-                .then(function (response) {console.log('updateUserResults: ' + response.data.error + ', id ' + response.data.id);})
-                .catch(function (error) {console.log('onUserResultsError:: error ' + error);});
+                .then(this.onUpdateResults)
+                .catch(this.onUpdateResultsError);
         } else {
             console.log('GameResults.onClose: do not sent results');
         }
@@ -86,8 +88,23 @@ export default class GameResults extends React.Component {
         this.props.onClose(status);
     }
 
-    onResults() {
+    onUpdateResults(response) {
+        console.log('onUpdateResults: ' + response.data.error + ', id ' + response.data.id);
+        if ('data' in response) {
+            if ('error' in response.data) {
+                console.log('onUpdateResults: received error from server ' + response.data.error);
+            } else if ('id' in response.data) {
+                console.log('onUpdateResults: results synced for ' + response.data.id);
+            } else {
+                console.log('onUpdateResults: no error and id in data message from server');
+            }
+        } else {
+            console.log('onUpdateResults: received no data in response from server');
+        }
+    }
 
+    onUpdateResultsError(error) {
+        console.log('onUserResultsError:: error ' + error);
     }
 
 /*
