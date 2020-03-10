@@ -1,20 +1,10 @@
 ﻿import React from 'react';
-import {AutoRotatingCarousel, Slide} from 'material-auto-rotating-carousel';
 import {Typography} from '@material-ui/core';
+import {AutoRotatingCarousel, Slide} from 'material-auto-rotating-carousel';
 
 import image from './../../images/help/belts.jpg';
 
-/*
 export default function SMHelp(props) {
-    return (<></>
-    );
-}
-
-*/
-export default function SMHelp(props) {
-    var text = 'The White level is designed to operate with digit numerbs from 0 to 10 and focused on basic arithmetical knowledge. The Orange is used for two digit numbers. The Green, Navy and Black';
-    var desc = 'All Programs are divided in five Levels (aka belts in karate or kung fu). Each Color corresponds certain level of tasks complexity. For begginers, the White Color is provided, which darkens with the growth of skills. The Black shows that a student has reached good skills in solving of Math problems';
-
     return (
         <AutoRotatingCarousel
             autoplay={false}
@@ -31,14 +21,68 @@ export default function SMHelp(props) {
                         </Typography>
                         <img src={image} style={{marginTop:'2%',marginBottom:'2%',width:'90%',border:'4px solid green',borderRadius:'5px',}} alt='kids'/>
                         <Typography style={{marginLeft:'4%',marginRight:'4%',fontFamily:'Arial',fontSize:'1.5rem',color:'green',lineHeight:'1.0',textAlign:'justify',fontWeight:'bold'}}>
-                            {desc}
+                            All Programs are divided in five Levels (aka belts in karate or kung fu). Each Color corresponds certain level of tasks
+                            complexity. For begginers, the White Color is provided, which darkens with the growth of skills. The Black shows that a
+                            student has reached good skills in solving of Math problems
                         </Typography>
                     </div>
                 }
                 mediaBackgroundStyle={{backgroundColor:'orange'}}
                 style = {{backgroundColor:'green'}}
-                title = ''
-                subtitle = {text}/>
+                title = '' subtitle = ''/>
+
+            <Slide
+                id='white'
+                media={
+                    <div>
+                        <Typography style={{fontFamily:'Grinched',fontSize:'2.5rem',color:'white',textShadow:'1px 1px 2px black'}}>
+                            WHITE Level
+                        </Typography>
+                        <Typography style={{marginLeft:'4%',marginRight:'4%',fontFamily:'Arial',fontSize:'1.5rem',color:'black',lineHeight:'1.0',textAlign:'justify',fontWeight:'bold'}}>
+                            The White level is designed to operate with one-digit numbers (except of 10) in range from 0 to 10.
+                            It is focused on basic arithmetical operations knowledge like Comparision, Addition and Aubstruction.
+                            The last 4 programs require some quick wit from the child.
+                        </Typography>
+                    </div>
+                }
+                mediaBackgroundStyle={{backgroundColor:'white'}}
+                style = {{backgroundColor:'white'}}
+                title = '' subtitle = ''/>
+
+            <Slide
+                id='orange'
+                media={
+                    <div>
+                        <Typography style={{fontFamily:'Grinched',fontSize:'2.5rem',color:'white',textShadow:'1px 1px 2px black'}}>
+                            Orange Level
+                        </Typography>
+                        <Typography style={{marginLeft:'4%',marginRight:'4%',fontFamily:'Arial',fontSize:'1.5rem',color:'white',lineHeight:'1.0',textAlign:'justify',fontWeight:'bold'}}>
+                            The Orange is used for two-digit numbers in range from 10 to 100.
+                            
+                        </Typography>
+                    </div>
+                }
+                mediaBackgroundStyle={{backgroundColor:'orange'}}
+                style = {{backgroundColor:'orange'}}
+                title = '' subtitle = ''/>
+
+            <Slide
+                id='orange'
+                media={
+                    <div>
+                        <Typography style={{fontFamily:'Grinched',fontSize:'2.5rem',color:'white',textShadow:'1px 1px 2px black'}}>
+                            Green Level
+                        </Typography>
+                        <Typography style={{marginLeft:'4%',marginRight:'4%',fontFamily:'Arial',fontSize:'1.5rem',color:'white',lineHeight:'1.0',textAlign:'justify',fontWeight:'bold'}}>
+                            The Green level is designed for Multiplication of one digit numbers and more advanced associated operations.
+                            
+                        </Typography>
+                    </div>
+                }
+                mediaBackgroundStyle={{backgroundColor:'green'}}
+                style = {{backgroundColor:'green'}}
+                title = '' subtitle = ''/>
+
             <Slide
                 media={<img src='http://www.icons101.com/icon_png/size_256/id_79394/youtube.png' alt='youtube'/>}
                 mediaBackgroundStyle={{backgroundColor:'red'}}

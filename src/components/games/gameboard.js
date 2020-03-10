@@ -276,6 +276,17 @@ export default class GameBoard extends React.Component {
                               </div>
                             ) : ( null )}
 
+                            {this.props.type.includes('_3column') ? (
+                              <div style={{height:'90%',width:'90%'}}>
+                                <div style={{height:'25%',width:'80%'}}></div>
+                                <div className='column_number'>{this.state.task.num1}</div>
+                                <div className='column_number'>{this.state.task.operation1}   {this.state.task.num2}</div>
+                                <div className='column_number'>{this.state.task.operation2}   {this.state.task.num3}</div>
+                                <div className='column_black_line'> </div>
+                                <div className='column_result' style={{color: this.state.color}}>{this.state.result}</div>
+                              </div>
+                            ) : ( null )}
+
                             {this.props.type.includes('digits') ? (
                               <>
                                 <div className='line_task'>{this.state.task.expr1}</div>

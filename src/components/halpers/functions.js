@@ -51,6 +51,12 @@ export function generate_task(type, settings) {
         result = generate_2digit_task(array[0], array[1], array[2], array[3], array[4]);
         console.log(type + ' generate_task: ' + result.num1 + result.operation + result.num2 + '=' + result.result);
 
+    // +-,10-999,1
+    } else if (type === 'digit_3column') {
+        // operations, range_numbers, factor
+        result = generate_3digit_task(array[0], array[1], array[2], 'column');
+        console.log(type + ' generate_task: ' + result.num1 + result.operation1 + result.num2 + result.operation2 + result.num3 + '=' + result.result);
+
     // sequence digits like, 1,2,3,4 or 8,7,6,5 etc.
     } else if (type === 'linedigits') {
         result = generate_sequence_task(settings);
@@ -305,7 +311,7 @@ function generate_5digit_task(operations, range, factor=1) {
     return task;
 }
 
-function generate_3digit_task(operations, range_numbers, factor=1) {
+function generate_3digit_task(operations, range_numbers, factor=1, type='line') {
     var operation_1 = get_random_operation(operations);
     var operation_2 = get_random_operation(operations);
 
@@ -350,9 +356,17 @@ function generate_3digit_task(operations, range_numbers, factor=1) {
     if (operation_1 === OPERATION_MUL) {operation_1='x'}
     if (operation_2 === OPERATION_MUL) {operation_2='x'}
 
-    var task = {'expr1': number_1.toString() + ' ' + operation_1
-                + ' ' + number_2.toString() + ' ' + operation_2
-                + ' ' + number_3.toString()+ ' = ', 'result': result.toString()};
+    var task = {};
+    if (type === 'line') {
+        task = {'expr1': number_1.toString() + ' ' + operation_1
+                    + ' ' + number_2.toString() + ' ' + operation_2
+                    + ' ' + number_3.toString()+ ' = ', 'result': result.toString()};
+    } else {
+        task = {'num1': number_1.toString(), 'operation1': operation_1,
+                'num2': number_2.toString(), 'operation2': operation_2,
+                'num3': number_3.toString(), 'result': result.toString()};
+    }
+
     return task;
 }
 
