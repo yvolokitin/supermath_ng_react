@@ -50,10 +50,10 @@ const games = [
     {id: 3, logo: logo3, type: '2digit_arg', task: 'd,*,1-10,1-10,1,1', amount: task_amount, desc: desciptions[1], head: 'Multiplication two one-digit number from 0 to 10'},
 
     {id: 4, logo: logo4, type: 'line_5numbers', task: '+-*,5,0-10,1', amount: 23, desc: desciptions[2], head: 'Addition, Subtraction and Multiplication of 4 or 5 numbers'},
-    {id: 6, logo: logo6, type: 'line_5numbers', task: '+-,5,100-9999,1', amount: task_amount, desc: desciptions[4], head: 'Addition and Subtraction of 4 or 5 big numbers (100...9999)'},
-    {id: 7, logo: logo7, type: 'digit_3column', task: '+-,100-999,1', amount: task_amount, desc: desciptions[5], head: 'Addition and Subtraction of three numbers (10..999)'},
+    {id: 5, logo: logo7, type: 'digit_3column', task: '+-,100-999,1', amount: task_amount, desc: desciptions[5], head: 'Addition and Subtraction of three numbers (10..999)'},
+    {id: 6, logo: logo6, type: 'line_4numbers', task: '+-,1-999,1', amount: task_amount, desc: desciptions[4], head: 'Addition and Subtraction of 4 or 5 big numbers (100...9999)'},
 
-    {id: 5, logo: logo5, type: '2digits', task: '+-,0-10,0-10,1,1', amount: task_amount, desc: desciptions[3], head: 'Addition and Subtraction of two one-digit numbers (from 0 to 10)'},
+    {id: 7, logo: logo5, type: '2digits', task: '+-,0-10,0-10,1,1', amount: task_amount, desc: desciptions[3], head: 'Addition and Subtraction of two one-digit numbers (from 0 to 10)'},
     {id: 8, logo: logo8, type: 'comp_expr', task: '<>=,+-,0-10,1', amount: task_amount, desc: desciptions[6], head: 'Comparison of two expressions for one digit numbers'},
     {id: 9, logo: logo9, type: '2digit_arg', task: 'd,+-,0-10,0-10,1,1', amount: task_amount, desc: desciptions[7], head: 'Addition and Subtraction of two one-digit numbers (from 0 to 10)'},
 ];
