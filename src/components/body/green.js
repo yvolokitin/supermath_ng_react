@@ -49,7 +49,7 @@ const games = [
     // exclude multiplacation to ZERO (o) due to issue with many possible options, like 0x1=0, 0x2=0 etc.
     {id: 3, logo: logo3, type: '2digit_arg', task: 'd,*,1-10,1-10,1,1', amount: task_amount, desc: desciptions[1], head: 'Multiplication two one-digit number from 0 to 10'},
 
-    {id: 4, logo: logo4, type: 'line_5numbers', task: '+-*,5,0-10,1', amount: 23, desc: desciptions[2], head: 'Addition, Subtraction and Multiplication of 4 or 5 numbers'},
+    {id: 4, logo: logo4, type: 'line_5numbers', task: '-*,5,0-10,1', amount: 23, desc: desciptions[2], head: 'Addition, Subtraction and Multiplication of 4 or 5 numbers'},
     {id: 5, logo: logo7, type: 'digit_3column', task: '+-,100-999,1', amount: task_amount, desc: desciptions[5], head: 'Addition and Subtraction of three numbers (10..999)'},
     {id: 6, logo: logo6, type: 'line_4numbers', task: '+-,1-999,1', amount: task_amount, desc: desciptions[4], head: 'Addition and Subtraction of 4 or 5 big numbers (100...9999)'},
 
