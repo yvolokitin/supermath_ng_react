@@ -157,34 +157,47 @@ function generate_comparison_expressions(operations, range_1, range_2, factor_1,
 }
 
 function generate_4digit_task(operations, range, factor=1) {
-    var num1 = parseInt(get_random_int(range));
-    var num2 = parseInt(get_random_int(range));
+    var num1 = parseInt(get_random_int('1-9'));
+    var num2 = parseInt(get_random_int('11-99'));
+    var num3 = parseInt(get_random_int('101-999'));
+    var num4 = parseInt(get_random_int('1001-9999'));
 
-    var result, expression;
-    if (num1 > num2) {
-        result = num1 - num2;
-        expression = num1.toString() + ' - ' + num2.toString();
-    } else {
-        result = num1 - num2;
-        expression = num1.toString() + ' + ' + num2.toString();
+    var result = num4, expression = '';
+    var operation = get_random_operation(operations);
+    if (operation === '+') {
+        expression = num4.toString() + ' + ' + num3.toString();
+        result = num3 + num4;
+    } else { // else -
+        expression = num4.toString() + ' - ' + num3.toString();
+        result = num4 - num3;
     }
 
-    var num3 = parseInt(get_random_int(range));
-    if (result > num3) {
-        result = result - num3;
-        expression += ' - ' + num3.toString();
-    } else {
-        result = result + num3;
-        expression += ' + ' + num3.toString();
+    operation = get_random_operation(operations);
+    if (operation === '+') {
+        expression = expression + ' + ' + num2.toString();
+        result += num2;
+    } else { // else -
+        if (result > num2) {
+            expression = expression + ' - ' + num2.toString();
+            result -= num2;
+        } else {
+            expression = expression + ' + ' + num2.toString();
+            result += num2;
+        }
     }
 
-    var num4 = parseInt(get_random_int(range));
-    if (result > num4) {
-        result = result - num4;
-        expression += ' - ' + num4.toString();
-    } else {
-        result = result + num4;
-        expression += ' + ' + num4.toString();
+    operation = get_random_operation(operations);
+    if (operation === '+') {
+        expression = expression + ' + ' + num1.toString();
+        result += num1;
+    } else { // else -
+        if (result > num1) {
+            expression = expression + ' - ' + num1.toString();
+            result -= num1;
+        } else {
+            expression = expression + ' + ' + num1.toString();
+            result += num1;
+        }
     }
 
     var task = {'expr1': expression + ' = ', 'result': result.toString()};

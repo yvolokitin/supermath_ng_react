@@ -40,7 +40,7 @@ export default function SMHelp(props) {
                         </Typography>
                         <Typography style={{marginLeft:'4%',marginRight:'4%',fontFamily:'Arial',fontSize:'1.5rem',color:'black',lineHeight:'1.0',textAlign:'justify',fontWeight:'bold'}}>
                             The White level is designed to operate with one-digit numbers (except of 10) in range from 0 to 10.
-                            It is focused on basic arithmetical operations knowledge like Comparision, Addition and Aubstruction.
+                            It is focused on basic arithmetical operations knowledge like Comparision, Addition and Substruction.
                             The last 4 programs require some quick wit from the child.
                         </Typography>
                     </div>
@@ -57,8 +57,12 @@ export default function SMHelp(props) {
                             Orange Level
                         </Typography>
                         <Typography style={{marginLeft:'4%',marginRight:'4%',fontFamily:'Arial',fontSize:'1.5rem',color:'white',lineHeight:'1.0',textAlign:'justify',fontWeight:'bold'}}>
-                            The Orange is used for two-digit numbers in range from 10 to 100.
-                            
+                            The Orange is used for two-digit numbers in range from 10 to 100. The hungred is only one exception of three digit number
+                        </Typography>
+
+                        <Typography style={{marginLeft:'4%',marginRight:'4%',fontFamily:'Arial',fontSize:'1.5rem',color:'white',lineHeight:'1.0',textAlign:'justify',fontWeight:'bold'}}>
+                            The Orange level is operates with Addition and Substruction. Where the addition of two whole numbers is the total amount of those values combined.
+                            And Subtraction is the operation of removing objects from a collection. The result of a subtraction is called a difference.
                         </Typography>
                     </div>
                 }
@@ -74,8 +78,13 @@ export default function SMHelp(props) {
                             Green Level
                         </Typography>
                         <Typography style={{marginLeft:'4%',marginRight:'4%',fontFamily:'Arial',fontSize:'1.5rem',color:'white',lineHeight:'1.0',textAlign:'justify',fontWeight:'bold'}}>
-                            The Green level is designed for Multiplication of one digit numbers and more advanced associated operations.
-                            
+                            The Green level is introduced tasks for Multiplication of one digit numbers and more advanced associated operations.
+                        </Typography>
+                        <Typography style={{marginLeft:'4%',marginRight:'4%',marginTop:'4%',fontFamily:'Arial',fontSize:'1.5rem',color:'white',lineHeight:'1.0',textAlign:'justify',fontWeight:'bold'}}>
+                            Multiplication (often denoted by the cross symbol 'x') is one of the four elementary mathematical operations of arithmetic,
+                            with the others being addition, subtraction and division. The multiplication of whole numbers may be thought as a repeated
+                            addition; that is, the multiplication of two numbers is equivalent to adding as many copies of one of them,
+                            the multiplicand, as the value of the other one, the multiplier.
                         </Typography>
                     </div>
                 }

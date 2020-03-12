@@ -26,9 +26,9 @@ import DigitGame from "./../games/digitgame";
 const task_amount = 30;
 
 var desciptions = [
-    "Tasks for one-digit numbers (from 0 to 9) sequences, where kids have three consecutive numbers (for example: 1, 2, 3) and have to understand the next (fourth - 4). The last number displayed with questionmark. Number sequences can be ascending (example, 4-5-6-?) and descending (example, 5-4-3-?)",
-    "Tasks for Comparision of one-digit numbers (from 0 to 9), where kids can use only three operations: more (>), less (<) and equal (=). There are two one digit numbers displayed with questionmark in between",
-    "Tasks for Addition of one-digit numbers. Kids have to add two simple one digit numbers, where the result of addition can be an one (example, 2+2=4) or two digit number (9+9=18)",
+    'Tasks for multiplication of one-digit numbers from 0 to 5. Generally, it is ' + task_amount + ' tasks per one exercise. ',
+    'Tasks for multiplication of one-digit numbers from 0 to 10 (10 is exception and only one two digit number). ',
+    'Tasks for multiplication of one-digit numbers from 0 to 10 (10 is exception and only one two digit number).  ',
 
     "Tasks for Subtraction of one-digit numbers. The result of subtraction can be is zero (example, 3-3=0) or a one-digit number (example, 8-4=5)",
     "Tasks for Addition and Subtraction of two one-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number",
