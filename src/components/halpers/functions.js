@@ -26,7 +26,12 @@ export function generate_task(type, settings) {
     // 3 numbers task: 1 + 2 + 3 = 6
     } else if (type === '3digits') {
         // operations, range_numbers, factor
-        result = generate_3digit_task(array[0], array[1], array[2]);
+        // if operations = +-
+        if (array[0] === '+-') {
+            result = generate_3digit_task(array[0], array[1], array[2]);
+        } else {
+            result = generate_muldiv_task();
+        }
         console.log(type + ' generate_task: ' + result.expr1 + result.result);
 
     // math operation determination tasks 1 ? 2 = 3
@@ -93,6 +98,23 @@ export function generate_task(type, settings) {
     }
 
     return result;
+}
+
+function generate_muldiv_task() {
+    var num1 = parseInt(get_random_int('4-9'));
+    var num2 = parseInt(get_random_int('6-9'));
+    var num12 = num1 * num2;
+    var num3 = parseInt(get_random_int('3-9'));
+    var expression = '', result = 0;
+
+    if (Math.random() >= 0.5) { // : first
+        expression = num12.toString() + ' : ' + num2.toString() + ' x ' + num3.toString();
+    } else { // * first
+        expression = num3.toString()  + ' x ' +  num12.toString() + ' : ' + num2.toString();
+    }
+    result = num1*num3;
+
+    return {'expr1': expression + ' = ', 'result': result};
 }
 
 /*
@@ -175,28 +197,28 @@ function generate_4digit_task(operations, range, factor=1) {
     operation = get_random_operation(operations);
     if (operation === '+') {
         expression = expression + ' + ' + num2.toString();
-        result += num2;
+        result = result + num2;
     } else { // else -
         if (result > num2) {
             expression = expression + ' - ' + num2.toString();
             result -= num2;
         } else {
             expression = expression + ' + ' + num2.toString();
-            result += num2;
+            result = result + num2;
         }
     }
 
     operation = get_random_operation(operations);
     if (operation === '+') {
         expression = expression + ' + ' + num1.toString();
-        result += num1;
+        result = result + num1;
     } else { // else -
         if (result > num1) {
             expression = expression + ' - ' + num1.toString();
             result -= num1;
         } else {
             expression = expression + ' + ' + num1.toString();
-            result += num1;
+            result = result + num1;
         }
     }
 
@@ -235,7 +257,8 @@ function generate_5digit_task(operations, range, factor=1) {
         } else if (operation_2 === '-') {
             number = parseInt(get_random_int('40-99'));
             if (result > number) {
-                result = result - number; expression += ' - ' + number.toString();
+                result = result - number;
+                expression = expression + ' - ' + number.toString();
             } else {
                 result = number - result;
                 expression = number + ' - ' + expression;
@@ -250,15 +273,17 @@ function generate_5digit_task(operations, range, factor=1) {
             if (result34 < 10) {
                 number = parseInt(get_random_int('6-10'));
                 result34 = result34 * number;
-                expr34 += ' x ' + number.toString();
+                expr34 = expr34 + ' x ' + number.toString();
             }
 
             operation_3 = get_random_operation('+-');
             if (operation_3 === '+') {
-                expression += ' + ' + expr34; result += result34;
+                expression = expression + ' + ' + expr34;
+                result = result + result34;
             } else { // else -
                 if (result > result34) {
-                    expression += ' - ' + expr34; result = result - result34;
+                    expression = expression + ' - ' + expr34;
+                    result = result - result34;
                 } else {
                     expression = expr34 + ' - ' + expression;
                     result = result34 - result;
@@ -292,12 +317,13 @@ function generate_5digit_task(operations, range, factor=1) {
                     result = number_N - result14;
                     expression = number_N  + ' - ' + expression;
                 } else { // if number_N < result
-                    result += number_N;
+                    result = result + number_N;
                     expression = number_N + ' + ' + expression;
                 }
 
             } else { // operation_3 WAS plus
-                result += number_N; expression = expression + ' + ' + number_N;
+                result = result + number_N;
+                expression = expression + ' + ' + number_N;
             }
         }
     } else {
@@ -313,9 +339,11 @@ function generate_5digit_task(operations, range, factor=1) {
         } else if (operation_4 === '-') {
             // If operation_2 WAS minus: result = 85 - 9 x 3
             if (result > number_N) {
-                result = result - number_N; expression = expression + ' - ' + number_N;
+                result = result - number_N;
+                expression = expression + ' - ' + number_N;
             } else { // result < number_N, 86
-                result += number_N; expression = expression + ' + ' + number_N;
+                result = result + number_N;
+                expression = expression + ' + ' + number_N;
             }
 
         } else { // else *
@@ -326,29 +354,31 @@ function generate_5digit_task(operations, range, factor=1) {
             operation_3 = get_random_operation('+-');
             if (operation_3 === '+') {
                 if (Math.random() >= 0.5) {
-                    expression += ' + ' + number_3 + ' x ' + number_4;
+                    expression = expression + ' + ' + number_3 + ' x ' + number_4;
                 } else {
                     expression = number_3 + ' x ' + number_4 + ' + ' + expression;
                 }
-                result += result34;
+                result = result + result34;
 
             } else { // else -: (5 x 10 - 48) - ?
                 // IF: 8 x 7 - 67 - 4 x 7 =
                 if (operation_2 === '-') {
                     // result = number + number_1 * number_2;
                     if (result > result34) {
-                        result -= result34; expression += ' - ' + number_3 + ' x ' + number_4;
+                        result = result - result34;
+                        expression = expression + ' - ' + number_3 + ' x ' + number_4;
                     } else { // result < result34 -> replace operation on +
-                        result += result34; expression += number_3 + ' x ' + number_4;
+                        result = result + result34;
+                        expression = expression + ' + ' + number_3 + ' x ' + number_4;
                     }
                 } else {
                     // if operation_2 is PLUS -> may swap and add it on begin OR on end
                     if (Math.random() >= 0.5) {
-                        expression += ' + ' + number_3 + ' x ' + number_4;
+                        expression = expression + ' + ' + number_3 + ' x ' + number_4;
                     } else {
                         expression = number_3 + ' x ' + number_4 + ' + ' + expression;
                     }
-                    result += result34;
+                    result = result + result34;
                 }
             }
         }
@@ -365,7 +395,7 @@ function generate_5digit_task(operations, range, factor=1) {
         } else {
             expression = number + ' + ' + expression;
         }
-        result += number;
+        result = result + number;
     }
 
     var task = {'expr1': expression + ' = ', 'result': result.toString()};
