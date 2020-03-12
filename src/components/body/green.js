@@ -37,10 +37,6 @@ var desciptions = [
     "Tasks for Addition and Subtraction of three one-digit numbers. The result of addition can be an one (example, 1+1+1=3) or two digit number (example, 7+8+9=24), the result of subtraction can be zero (example, 9-5-4=0) or a one-digit number (example, 8-1-1=6)",
     "Tasks for results Comparision of two arithmetic expressions each of one consists from two one-digit numbers (3+4 and 9-2) and one mathematical operation: plus or minus. Kids have to solve both expressions in mind and select one of the appropriate operation: more (>), less (<) and equal (=). The result of each expression can be zero, one or two digit number",
     "Tasks for Addition and Subtraction of two one-digit numbers, where kids know only one of the argument and result of math task. Based on mathematical operation they have to find another argument",
-
-//    "Tasks for Addition and Subtraction of round tens numbers from 10 to 100, in other words 10, 20, 30, 40, 50, 60, 70, 80, 90 and 100. Kids have to Add or Sub two tens number. Results can be zero (example, 40-40=0), two digit number (example, 20-30=50 or 80-70=10) or three digit number (90+90=180)",
-//    "Tasks for Addition and Subtraction of one and two -digit numbers. This is basic level, where one digit number is in range of 1...9 and two digit number is in range of 10...20. The result of Addition can be only two digit number (example, 1+10=11) and Substruction can be zero or one digit number",
-//    "Tasks for Addition and Subtraction of one digit numbers and round tens numbers from 10 to 100 (numbers 10, 20, 30 ... 100). ",
 ];
 
 const games = [
@@ -49,13 +45,13 @@ const games = [
     // exclude multiplacation to ZERO (o) due to issue with many possible options, like 0x1=0, 0x2=0 etc.
     {id: 3, logo: logo3, type: '2digit_arg', task: 'd,*,1-10,1-10,1,1', amount: task_amount, desc: desciptions[1], head: 'Multiplication two one-digit number from 0 to 10'},
 
-    {id: 4, logo: logo4, type: 'line_5numbers', task: '-*,5,0-10,1', amount: 23, desc: desciptions[2], head: 'Addition, Subtraction and Multiplication of 4 or 5 numbers'},
+    {id: 4, logo: logo4, type: 'line_5numbers', task: '-*,5,0-10,1', amount: task_amount, desc: desciptions[2], head: 'Addition, Subtraction and Multiplication of 4 or 5 numbers'},
     {id: 5, logo: logo5, type: 'digit_3column', task: '+-,100-999,1', amount: task_amount, desc: desciptions[5], head: 'Addition and Subtraction of three numbers (10..999)'},
     {id: 6, logo: logo6, type: 'line_4numbers', task: '+-,1-999,1', amount: task_amount, desc: desciptions[4], head: 'Addition and Subtraction of 4 or 5 big numbers (100...9999)'},
 
-    {id: 7, logo: logo7, type: 'digit_2column', task: '*,10-999,10-999,1,1', amount: task_amount, desc: desciptions[3], head: 'Long Multiplication of two- and three-digit numbers (from 10 to 999)'},
-    {id: 8, logo: logo8, type: 'comp_expr', task: '<>=,+-,0-10,1', amount: task_amount, desc: desciptions[6], head: 'Comparison of two expressions for one digit numbers'},
-    {id: 9, logo: logo9, type: '2digit_arg', task: 'd,+-,0-10,0-10,1,1', amount: task_amount, desc: desciptions[7], head: 'Addition and Subtraction of two one-digit numbers (from 0 to 10)'},
+    {id: 7, logo: logo7, type: '2digits', task: ':,1-10,1-10,1,1', amount: task_amount, desc: desciptions[6], head: 'Division of two numbers, where divider and result are one digit'},
+    {id: 8, logo: logo8, type: '2digit_arg', task: 'd,:,1-10,1-10,1,1', amount: task_amount, desc: desciptions[7], head: 'Division of two numbers with unknown dividend or divisor'},
+    {id: 9, logo: logo9, type: 'digit_2column', task: '*,10-999,10-999,1,1', amount: task_amount, desc: desciptions[3], head: 'Long Multiplication of two- and three-digit numbers (from 10 to 999)'},
 ];
 
 export default class Green extends React.Component {

@@ -5,7 +5,7 @@ var OPERATION_SUB = '-';
 /** @const {string} */
 var OPERATION_MUL = '*';
 /** @const {string} */
-var OPERATION_DIV = '/';
+var OPERATION_DIV = ':';
 
 /*
  * Task generation from type and settings
