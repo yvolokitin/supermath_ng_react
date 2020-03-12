@@ -118,6 +118,14 @@
     to {background-color: yellow;}
 }
 
+@media only screen and (max-width: 1200px) {
+    .line_gameboard {
+        font-size: 5rem;
+    }
+    .line_result {
+        width: 17%;
+    }
+}
 @media only screen and (max-width: 1020px) {
     .line_gameboard {
         font-size: 4rem;
@@ -125,7 +133,7 @@
 }
 @media only screen and (max-width: 760px) {
     .line_gameboard {
-        font-size: 4rem;
+        font-size: 3rem;
     }
     .line_body_div_left {
         height: 100%;
@@ -147,9 +155,6 @@
     }
 }
 @media only screen and (max-width: 460px) {
-    .line_gameboard {
-        font-size: 4rem;
-    }
     .line_body_div_left {
         height: 50%;
         width: 100%;
