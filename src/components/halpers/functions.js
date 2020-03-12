@@ -363,7 +363,7 @@ function generate_5digit_task(operations, range, factor=1) {
         if (Math.random() >= 0.5) {
             expression = expression + ' + ' + number;
         } else {
-            expression = number + ' - ' + expression;
+            expression = number + ' + ' + expression;
         }
         result += number;
     }
