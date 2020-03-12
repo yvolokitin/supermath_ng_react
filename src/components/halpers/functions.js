@@ -192,61 +192,70 @@ function generate_4digit_task(operations, range, factor=1) {
 }
 
 function generate_5digit_task(operations, range, factor=1) {
+    var number, number_3, number_4, result12, result34, operation_2, operation_3, operation_4;
+
     var number_1 = parseInt(get_random_int('2-10'));
     var number_2 = parseInt(get_random_int('2-10'));
-    var result = number_1 * number_2;
     var expression = number_1.toString() + ' x ' + number_2.toString();
 
-    var number, number_3, number_4, result34, operation_2, operation_3 = 'na', operation_4;
+    var result = number_1 * number_2;
     if (result < 10) {
-        number = parseInt(get_random_int('1-10'));
+        // lets make third multiplier as max as possible
+        number = parseInt(get_random_int('6-10'));
+        expression = expression + ' x ' + number.toString();
         operation_2 = '*'; result = result * number;
-        expression = number + ' x ' + expression;
+
+        console.log('000 YURA*:: expression ' + expression + ', result ' + result + ', number ' + number);
 
     } else {
         operation_2 = get_random_operation(operations);
         if (operation_2 === '+') {
-            number = parseInt(get_random_int('20-100'));
-            if (Math.random() >= 0.5) {
-                expression = number + ' + ' + expression; 
-            } else {
-                expression = expression + ' + ' + number; 
-            }
+            number = parseInt(get_random_int('30-100'));
             result = result + number;
+            if (Math.random() >= 0.5) {
+                expression = number.toString() + ' + ' + expression; 
+            } else {
+                expression = expression + ' + ' + number.toString();
+            }
+            console.log('111 YURA+:: expression ' + expression + ', result ' + result + ', number ' + number);
 
         } else if (operation_2 === '-') {
             number = parseInt(get_random_int('40-99'));
-            if (number > result) {
+            if (result > number) {
+                result = result - number; expression += ' - ' + number.toString();
+            } else {
                 result = number - result;
                 expression = number + ' - ' + expression;
-            } else {
-                result = result - number;
-                expression = expression  + ' - ' + number;
             }
+            console.log('222 YURA-:: expression ' + expression + ', result ' + result + ', number ' + number);
 
         } else if (operation_2 === '*') {
-            number_3 = parseInt(get_random_int('1-10'));
-            number_4 = parseInt(get_random_int('1-10'));
-            result34 = number_3 * number_4;
+            number_3 = parseInt(get_random_int('2-10'));
+            number_4 = parseInt(get_random_int('2-10'));
+            result34 = number_3 * number_4; result12 = result;
+            var expr34 = number_3.toString() + ' x ' + number_4.toString();
+            if (result34 < 10) {
+                number = parseInt(get_random_int('6-10'));
+                result34 = result34 * number;
+                expr34 += ' x ' + number.toString();
+            }
 
             operation_3 = get_random_operation('+-');
             if (operation_3 === '+') {
-                expression = expression  + ' + ' + number_3 + ' x ' + number_4;
-                result = result + result34;
+                expression += ' + ' + expr34; result += result34;
             } else { // else -
                 if (result > result34) {
-                    expression = expression  + ' - ' + number_3 + ' x ' + number_4;
-                    result = result - result34;
+                    expression += ' - ' + expr34; result = result - result34;
                 } else {
-                    expression = number_3 + ' x ' + number_4 + ' - ' + expression;
+                    expression = expr34 + ' - ' + expression;
                     result = result34 - result;
                 }
             }
-        }
 
-        console.log('000 YURA DEBUG: expression ' + expression);
-        console.log('000 YURA DEBUG: result ' + result);
+            console.log('333 YURA*:: expression ' + expression + ', result ' + result + ', operation_3: ' + operation_3 + ', expr34 ' + expr34);
+        }
     }
+
 
     var number_N = parseInt(get_random_int('60-100'));
     // if operation_2 WAS multiplication -> no more multiplications
@@ -265,21 +274,19 @@ function generate_5digit_task(operations, range, factor=1) {
             // if operation_3 WAS minus: number_N - (3*4 - 2*3)
             if (operation_3 === '-') {
                 // re-calculate result due to -- = +
-                if (result > number_N) {
-                    result = number_1 * number_2 - number_3 * number_4 - number_N;
-                    expression = expression + ' - ' + number_N;
-                } else { // if number_N > result
-                    result = number_N - (number_1 * number_2 + number_3 * number_4);
-                    expression = number_N + ' - ' + expression;
+                var result14 = result12 + result34;
+                if (number_N > result14) { // number_N > (3*4 - 2*3)
+                    result = number_N - result14;
+                    expression = number_N  + ' - ' + expression;
+                } else { // if number_N < result
+                    result += number_N;
+                    expression = number_N + ' + ' + expression;
                 }
 
             } else { // operation_3 WAS plus
-                result += number_N; expression += ' + ' + number_N;
+                result += number_N; expression = expression + ' + ' + number_N;
             }
         }
-
-        console.log('111 YURA DEBUG: expression ' + expression + ' ||| result ' + result + ' operation_4 ' + operation_4);
-
     } else {
         operation_4 = get_random_operation(operations);
         console.log('222 YURA DEBUG: operation_4 ' + operation_4);
@@ -291,40 +298,19 @@ function generate_5digit_task(operations, range, factor=1) {
             }
             result = result + number_N;
         } else if (operation_4 === '-') {
-            console.log('222 YURA DEBUG: operation_2 ' + operation_2 + ', result ' + result + ', number ' + number);
-            // IF: number_N - 100 - 3*4
-            if (operation_2 === '-') {
-                result = number + number_1 * number_2;
-                if (number_N > result) {
-                    result = number_N - result;
-                    expression = number_N + ' - ' + expression;
-                } else { // number_N < result
-                    result = result + number_N;
-                    expression = expression + ' + ' + number_N;
-                }
-            } else {
-                if (result > number) {
-                    result = result - number;
-                    expression = expression + ' - ' + number; 
-                } else { // result < number
-                    result = number - result;
-                    expression = number + ' - ' + expression; 
-                }
+            // If operation_2 WAS minus: result = 85 - 9 x 3
+            if (result > number_N) {
+                result = result - number_N; expression = expression + ' - ' + number_N;
+            } else { // result < number_N, 86
+                result += number_N; expression = expression + ' + ' + number_N;
             }
 
-            console.log('222 YURA DEBUG: result ' + result);
-            console.log('222 YURA DEBUG: expression ' + expression);
-            console.log('222 YURA DEBUG: number ' + number);
-
         } else { // else *
-            console.log('333 YURA DEBUG: expression ' + expression + ' ||| operation_4 ' + operation_4);
-
-            number_3 = parseInt(get_random_int(range));
-            number_4 = parseInt(get_random_int(range));
+            number_3 = parseInt(get_random_int('7-9'));
+            number_4 = parseInt(get_random_int('7-9'));
             result34 = number_3 * number_4;
 
             operation_3 = get_random_operation('+-');
-            console.log('333 YURA DEBUG: operation_3 ' + operation_3 + ', result ' + result + ', expression: ' + expression);
             if (operation_3 === '+') {
                 if (Math.random() >= 0.5) {
                     expression += ' + ' + number_3 + ' x ' + number_4;
@@ -352,11 +338,21 @@ function generate_5digit_task(operations, range, factor=1) {
                     result += result34;
                 }
             }
-            console.log('333 YURA DEBUG: result ' + result + ', expression: ' + expression);
         }
+    }
 
-        console.log('444 YURA DEBUG: result ' + result);
-        console.log('444 YURA DEBUG: expression ' + expression);
+
+    // 2 x 7 + 3 x 8 + 63 = 18 length is good enough
+    // 3 x 2 x 7 + 80 = 14 length, which is too short
+    // 85 + 4 x 2 x 10 = 15 length, which is too short
+    if (expression.length < 16) {
+        number = parseInt(get_random_int('30-80'));
+        if (Math.random() >= 0.5) {
+            expression = expression + ' + ' + number;
+        } else {
+            expression = number + ' x ' + expression;
+        }
+        result += number;
     }
 
     var task = {'expr1': expression + ' = ', 'result': result.toString()};
