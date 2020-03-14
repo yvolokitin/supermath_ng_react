@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 
 import {Typography, Container, Grid, Button} from '@material-ui/core';
 import {Card, CardActions, CardActionArea, CardContent, CardMedia} from '@material-ui/core';
@@ -108,9 +108,7 @@ export default class White extends React.Component {
         console.log("White.onGameClose: " + status);
         // set all types of games as false
         this.setState({gameOpen: false});
-        if (status === 'close') {
-            this.props.onUpdate(status);
-        }
+        this.props.onUpdate(status);
     }
 
     render() {

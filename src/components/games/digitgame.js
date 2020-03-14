@@ -1,4 +1,6 @@
 ﻿import React from 'react';
+import axios from 'axios';
+
 import {Dialog} from '@material-ui/core';
 
 import GameHeader from "./digitgameheader";
@@ -71,13 +73,29 @@ export default class DigitGame extends React.Component {
 
         // game was properly finished, when all tasks are solved
         } else if (status === 'interrapted') {
+            console.log('Game interraption with ' + this.state.failed);
+            this.props.onClose(status);
+            if (localStorage.getItem('user_id') !== null) {
+                // update user failed counter in header and send to server
+                var fail = parseInt(localStorage.getItem('fail')) + parseInt(this.state.failed);
+                localStorage.setItem('fail', fail);
+                var post_data = {'user_id': localStorage.getItem('user_id'),
+                                 'operation': 'results',
+                                 'passed': 0,
+                                 'failed': this.state.failed,
+                                 'duration': (new Date().getTime() - this.timer),
+                                 'percent': 0,
+                                 'rate': 'Quite Bad',
+                                 'belt': this.props.belt,
+                                 'task': this.state.type};
+                axios.post('http://supermath.xyz:3000/api/update', post_data);
+            } else {
+                console.log('DigitGame.status: ' + status + ', do not sent results');
+            }
+
+            this.setState({results: [], circle: 'white',
+                           total: 0, passed: 0, failed: 0});
             this.results = [];
-            this.setState({results: [],
-                           circle: 'white',
-                           total: 0,
-                           passed: 0,
-                           failed: 0});
-            this.props.onClose('interrapted');
 
         // game was re-newed, tbd
         } else if (status === 'replay') {
