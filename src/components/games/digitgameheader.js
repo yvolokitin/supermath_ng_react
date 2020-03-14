@@ -15,6 +15,8 @@ export default function GameHeader(props) {
         setValue(false);
     }
 
+    const texter = 'You will lose All your Passed scores data if you Exit (when ' + props.failed.toString() + ' Fails will be kept)! We are strongly recommend you to finish current Math tasks';
+
     return (
         <div className="games_header_div">
             <div className='games_header_div_left'>
@@ -28,9 +30,8 @@ export default function GameHeader(props) {
 
             <AlertDialog open={value}
                          title='Do you really want to Exit from the game?'
-                         text='You will lose your Passed scores data if you Exit! We are strongly recommend you to finish current Math tasks'
-                         yes='Exit'
-                         no='Let Me Continue'
+                         text={texter}
+                         yes='Exit' no='Let Me Continue'
                          onClose={onAlertDialog}/>
         </div>
     );
