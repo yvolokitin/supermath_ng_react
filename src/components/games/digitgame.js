@@ -121,12 +121,19 @@ export default class DigitGame extends React.Component {
         var format = '', color = counter ? 'red' : 'green';
         if (this.state.type === '2digits') {format = user_task.expr1 + user_task.result;}
         else if (this.state.type === '3digits') {format = user_task.expr1 + user_task.result;}
-        else if (this.state.type === '2digit_arg') { format = user_task.expr1 + user_task.result; }
-        else if (this.state.type === 'digit_2column') { format = user_task.num1 + user_task.operation + user_task.num2 + '=' + user_task.result }
+        else if (this.state.type === '2digit_arg') {
+            format = user_task.expr1 + user_task.result;
+            if (user_task.argument.includes('1')) {format = '?';} else {format = user_task.num1;}
+            if (user_task.argument.includes('o')) {format = format + ' ? ';} else {format = format + ' ' + user_task.operation + ' ';}
+            if (user_task.argument.includes('2')) {format = format + '? = ' + user_task.outcome;} else {format = format + user_task.num2 + ' = ' + user_task.outcome;}
+
+        } else if (this.state.type === 'digit_2column') { format = user_task.num1 + user_task.operation + user_task.num2 + '=' + user_task.result }
+        else if (this.state.type === 'digit_3column') { format = user_task.num1 + ' ' + user_task.operation1 + ' ' + user_task.num2 + ' ' + user_task.operation2 + ' ' + user_task.num3 + ' = ' + user_task.result }
         else if (this.state.type === 'linedigits') { format = user_task.expr1 + user_task.result; }
         else if (this.state.type === 'comp_nums') { format = user_task.expr1 + user_task.result + user_task.expr2; }
         else if (this.state.type === 'comp_expr') {format = user_task.expr1 + user_task.result + user_task.expr2; }
 
+        console.log('format ' + format + ', user_task.expr1: ' + user_task.expr1);
         this.results.push({'task': format, 'color': color});
 
         if (counter === 0) {
