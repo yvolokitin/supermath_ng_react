@@ -1,10 +1,8 @@
 ﻿import React from 'react';
 import axios from 'axios';
 
-import {Snackbar, Table, TableBody, TableCell, TableRow} from '@material-ui/core';
-import Alert from '@material-ui/lab/Alert';
-
 import SMRadialChart from "./../charts/smradialchart";
+import GameProgress from "./digitgameprogress";
 
 import './gameresults.css';
 
@@ -141,23 +139,16 @@ export default class GameResults extends React.Component {
                     </div>
                 </div>
 
-                <div onClick={() => this.onClose('replay')} className='result_board_button' style={{float:'left'}}>play again &nbsp; &#8635;</div>
-                <div onClick={() => this.onClose('close')} className='result_board_button' style={{float:'right'}}>close &nbsp; &#10006;</div>
+                <div onClick={(e) => this.setState({userResults:true})} className='result_board_button' style={{float:'left',marginLeft: '5%'}}>show details</div>
+                <div onClick={() => this.onClose('replay')} className='result_board_button' style={{float:'right',marginRight:'4%'}}>play again &nbsp; &#8635;</div>
+                <div onClick={() => this.onClose('close')} className='result_board_button' style={{float:'right',marginRight:'1%'}}>close &nbsp; &#10006;</div>
 
-                <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}} onClose={(e) => this.setState({userResults:false})} open={this.state.userResults}>
-                    <Alert onClose={(e) => this.setState({userResults:false})} icon={false} variant='filled' severity='info'>
-                        <Table>
-                            <TableBody>
-                                {this.props.results.map((task, key) => (
-                                    <TableRow key={key} style={{backgroundColor: 'orange', border: '2px solid black'}}>
-                                        <TableCell component='th' scope='row' style={{color: task.color}}> {task.task} </TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </Alert>
-                </Snackbar>
-
+                <GameProgress open={this.state.userResults}
+                              total={this.props.total}
+                              passed={this.props.passed}
+                              failed={this.props.failed}
+                              results={this.props.results}
+                              onClose={(e) => this.setState({userResults:false})}/>
             </div>
         );
     }

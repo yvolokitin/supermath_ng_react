@@ -26,9 +26,9 @@ import DigitGame from "./../games/digitgame";
 const task_amount = 30;
 
 var desciptions = [
-    'Tasks for multiplication of one-digit numbers from 0 to 5. Generally, it is ' + task_amount + ' tasks per one exercise. ',
-    'Tasks for multiplication of one-digit numbers from 0 to 10 (10 is exception and only one two digit number). ',
-    'Tasks for multiplication of one-digit numbers from 0 to 10 (10 is exception and only one two digit number).  ',
+    'Tasks for multiplication of one-digit numbers from 0 to 5. Multiplication often denoted by the cross symbol x or by an asterisk * or dot. For example: 3 x 1 = 3, 3 x 3 = 9 or 5 x 3 = 15. In total, it is ' + task_amount + ' tasks per one exercise.',
+    'Tasks for multiplication of one-digit numbers from 0 to 10 (10 is exception and is only one two digit number). Multiplication often denoted by the cross symbol x or by an asterisk * or dot. For example: 7 x 3 = 21, 5 x 6 = 30 or 8 x 8 = 64. In total, it is ' + task_amount + ' tasks per one exercise.',
+    'Tasks for multiplication of one-digit numbers from 0 to 10 (10 is exception and is only one two digit number). Multiplication often denoted by the cross symbol x or by an asterisk * or dot. For example: 7 x 3 = 21, 5 x 6 = 30 or 8 x 8 = 64. In total, it is ' + task_amount + ' tasks per one exercise.',
 
     "Tasks for Subtraction of one-digit numbers. The result of subtraction can be is zero (example, 3-3=0) or a one-digit number (example, 8-4=5)",
     "Tasks for Addition and Subtraction of two one-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number",
@@ -41,17 +41,17 @@ var desciptions = [
 
 const games = [
     {id: 1, logo: logo1, type: '2digits', task: '*,0-5,0-5,1,1', amount: task_amount, desc: desciptions[0], head: 'Multiplication two one-digit number from 0 to 5'},
-    {id: 2, logo: logo2, type: '2digits', task: '*,0-10,0-10,1,1', amount: task_amount, desc: desciptions[0], head: 'Multiplication two one-digit number from 0 to 10'},
+    {id: 2, logo: logo2, type: '2digits', task: '*,1-10,1-10,1,1', amount: task_amount, desc: desciptions[1], head: 'Multiplication two one-digit number from 0 to 10'},
     // exclude multiplacation to ZERO (o) due to issue with many possible options, like 0x1=0, 0x2=0 etc.
-    {id: 3, logo: logo3, type: '2digit_arg', task: 'd,*,1-10,1-10,1,1', amount: task_amount, desc: desciptions[1], head: 'Multiplication two one-digit number from 0 to 10'},
+    {id: 3, logo: logo3, type: '2digit_arg', task: 'd,*,1-10,1-10,1,1', amount: task_amount, desc: desciptions[2], head: 'Multiplication two one-digit number from 1 to 10'},
 
-    {id: 4, logo: logo4, type: '2digits', task: ':,1-10,1-10,1,1', amount: task_amount, desc: desciptions[6], head: 'Division of two numbers, where divider and result are one digit'},
-    {id: 5, logo: logo5, type: '2digits', task: ':,11-99,2-9,1,1', amount: task_amount, desc: desciptions[7], head: 'Division of two numbers with unknown dividend or divisor'},
+    {id: 4, logo: logo4, type: '2digits', task: ':,1-10,1-10,1,1', amount: task_amount, desc: desciptions[3], head: 'Division of two numbers, where divider and result are one digit'},
+    {id: 5, logo: logo5, type: '2digits', task: ':,11-99,2-9,1,1', amount: task_amount, desc: desciptions[4], head: 'Division of two numbers with unknown dividend or divisor'},
     {id: 6, logo: logo6, type: '3digits', task: '*:,0-10,1', amount: task_amount, desc: desciptions[5], head: 'Multiplication and Division of three numbers'},
 
-    {id: 7, logo: logo7, type: 'line_5numbers', task: '-*,5,0-10,1', amount: task_amount, desc: desciptions[2], head: 'Addition, Subtraction and Multiplication of 4 or 5 numbers'},
-    {id: 8, logo: logo8, type: 'digit_3column', task: '+-,100-999,1', amount: task_amount, desc: desciptions[5], head: 'Addition and Subtraction of three numbers (10..999)'},
-    {id: 9, logo: logo9, type: 'line_4numbers', task: '+-,1-999,1', amount: task_amount, desc: desciptions[4], head: 'Addition and Subtraction of 4 or 5 big numbers (100...9999)'},
+    {id: 7, logo: logo7, type: 'line_5numbers', task: '-*,5,0-10,1', amount: task_amount, desc: desciptions[6], head: 'Addition, Subtraction and Multiplication of 4 or 5 numbers'},
+    {id: 8, logo: logo8, type: 'digit_3column', task: '+-,100-999,1', amount: task_amount, desc: desciptions[7], head: 'Addition and Subtraction of three numbers (10..999)'},
+    {id: 9, logo: logo9, type: 'line_4numbers', task: '+-,1-999,1', amount: task_amount, desc: desciptions[8], head: 'Addition and Subtraction of 4 or 5 big numbers (100...9999)'},
 ];
 
 export default class Green extends React.Component {

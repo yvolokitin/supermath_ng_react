@@ -26,31 +26,31 @@ import DigitGame from "./../games/digitgame";
 const task_amount = 30;
 
 var desciptions = [
-    'Tasks for multiplication of one-digit numbers from 0 to 5. Generally, it is ' + task_amount + ' tasks per one exercise. ',
-    'Tasks for multiplication of one-digit numbers from 0 to 10 (10 is exception and only one two digit number). ',
-    'Tasks for multiplication of one-digit numbers from 0 to 10 (10 is exception and only one two digit number).  ',
+    'Tasks for Long Multiplication of of two- and three-digit numbers (from 10 to 999)',
+    '',
+    '',
 
-    "Tasks for Subtraction of one-digit numbers. The result of subtraction can be is zero (example, 3-3=0) or a one-digit number (example, 8-4=5)",
-    "Tasks for Addition and Subtraction of two one-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number",
-    "Tasks for Math operation determination: Addition (+) or Subtraction (-). Kids have two one digit numbers (from 1 to 10, zero is excluded from range) and result of a math operation with that numbers. Based on operation result, they have to understand what it was: Addition (+) or Subtraction (-). For example, 4 ? 5 = 9, operation is Plus (+)",
+    '',
+    '',
+    '',
 
-    "Tasks for Addition and Subtraction of three one-digit numbers. The result of addition can be an one (example, 1+1+1=3) or two digit number (example, 7+8+9=24), the result of subtraction can be zero (example, 9-5-4=0) or a one-digit number (example, 8-1-1=6)",
-    "Tasks for results Comparision of two arithmetic expressions each of one consists from two one-digit numbers (3+4 and 9-2) and one mathematical operation: plus or minus. Kids have to solve both expressions in mind and select one of the appropriate operation: more (>), less (<) and equal (=). The result of each expression can be zero, one or two digit number",
-    "Tasks for Addition and Subtraction of two one-digit numbers, where kids know only one of the argument and result of math task. Based on mathematical operation they have to find another argument",
+    '',
+    '',
+    '',
 ];
 
 const games = [
-    {id: 1, logo: logo1, type: 'digit_2column', task: '*,10-999,10-999,1,1', amount: task_amount, desc: desciptions[3], head: 'Long Multiplication of two- and three-digit numbers (from 10 to 999)'},
-    {id: 2, logo: logo2, type: '2digits', task: '*,0-10,0-10,1,1', amount: task_amount, desc: desciptions[0], head: 'Multiplication two one-digit number from 0 to 10'},
-    {id: 3, logo: logo3, type: '2digit_arg', task: 'd,*,1-10,1-10,1,1', amount: task_amount, desc: desciptions[1], head: 'Multiplication two one-digit number from 0 to 10'},
+    {id: 1, logo: logo1, type: 'digit_2column', task: '*,10-999,10-999,1,1', amount: task_amount, desc: desciptions[0], head: 'Long Multiplication of two- and three-digit numbers (from 10 to 999)'},
+    {id: 2, logo: logo2, type: 'none', task: '', amount: task_amount, desc: desciptions[1], head: 'Task is under development and not defined yet'},
+    {id: 3, logo: logo3, type: 'none', task: '', amount: task_amount, desc: desciptions[2], head: 'Task is under development and not defined yet'},
 
-    {id: 4, logo: logo4, type: 'line_5numbers', task: '-*,5,0-10,1', amount: task_amount, desc: desciptions[2], head: 'Addition, Subtraction and Multiplication of 4 or 5 numbers'},
-    {id: 5, logo: logo5, type: 'digit_3column', task: '+-,100-999,1', amount: task_amount, desc: desciptions[5], head: 'Addition and Subtraction of three numbers (10..999)'},
-    {id: 6, logo: logo6, type: 'line_4numbers', task: '+-,1-999,1', amount: task_amount, desc: desciptions[4], head: 'Addition and Subtraction of 4 or 5 big numbers (100...9999)'},
+    {id: 4, logo: logo4, type: 'none', task: '', amount: task_amount, desc: desciptions[3], head: 'Task is under development and not defined yet'},
+    {id: 5, logo: logo5, type: 'none', task: '', amount: task_amount, desc: desciptions[4], head: 'Task is under development and not defined yet'},
+    {id: 6, logo: logo6, type: 'none', task: '', amount: task_amount, desc: desciptions[5], head: 'Task is under development and not defined yet'},
 
-    {id: 7, logo: logo7, type: '2digits', task: ':,1-10,1-10,1,1', amount: task_amount, desc: desciptions[6], head: 'Division of two numbers, where divider and result are one digit'},
-    {id: 8, logo: logo8, type: '2digit_arg', task: 'd,:,1-10,1-10,1,1', amount: task_amount, desc: desciptions[7], head: 'Division of two numbers with unknown dividend or divisor'},
-    {id: 9, logo: logo9, type: '3digits', task: '*:,0-10,1', amount: task_amount, desc: desciptions[5], head: 'Multiplication and Division of three numbers'},
+    {id: 7, logo: logo7, type: 'none', task: '', amount: task_amount, desc: desciptions[6], head: 'Task is under development and not defined yet'},
+    {id: 8, logo: logo8, type: 'none', task: '', amount: task_amount, desc: desciptions[7], head: 'Task is under development and not defined yet'},
+    {id: 9, logo: logo9, type: 'none', task: '', amount: task_amount, desc: desciptions[8], head: 'Task is under development and not defined yet'},
 ];
 
 export default class Navi extends React.Component {

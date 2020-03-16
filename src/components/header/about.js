@@ -41,14 +41,15 @@ export default function SMAbout(props) {
                 </Typography>
 
                 <Typography style={{margin:'3%',textAlign:'justify',fontWeight:'bold'}}>
-                    In one day, I just personally asked myself - How can I contribute to improve a small part of the world.
-                    Im father of two wonderful sons and due to a lot of work responsibility, in some days I could not get so much attantion to them, specially in Mathematics.
-                    We could not image our current life now without Mobile phone and Internet and we have it because of Math.
-                    When I developed that Math portal for kids I had vary clear goal - help kids with Math!
+                    SuperMath is a nonprofit organization dedicated to math achievement for all. Our goal is to develop effective, efficient,
+                    adaptive, and intrinsically rewarding supplemental math activities.
                 </Typography>
 
                 <Typography style={{margin:'3%',textAlign:'justify',fontWeight:'bold'}}>
-                    Thanks, Yura.
+                    In one day, I just personally asked myself - How can I contribute to improve a small part of the world.
+                    Im father of two wonderful kids and due to a lot of work responsibility, in some days I could not get so much attantion to them, specially in Mathematics.
+                    We could not image our current life now without Mobile phone and Internet and we have it because of Math.
+                    When I developed that Math portal for kids I had vary clear goal - help kids with Math!
                 </Typography>
             </DialogContent>
 
