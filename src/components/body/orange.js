@@ -23,7 +23,7 @@ import classes from './../../index.css';
 import SMDialogInfo from "./info";
 import DigitGame from "./../games/digitgame";
 
-const task_amount = 50;
+const task_amount = 30;
 
 var desciptions = [
     "Tasks for Comparision of one-digit numbers (from 0 to 9), where kids can use only three operations: more (>), less (<) and equal (=). There are two one digit numbers displayed with questionmark in between.",

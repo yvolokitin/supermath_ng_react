@@ -23,7 +23,7 @@ import classes from './../../index.css';
 import SMDialogInfo from "./info";
 import DigitGame from "./../games/digitgame";
 
-const task_amount = 50;
+const task_amount = 30;
 
 var desciptions = [
     "Tasks for one-digit numbers (from 0 to 9) sequences, where kids have three consecutive numbers (for example: 1, 2, 3) and have to understand the next (fourth - 4). The last number displayed with questionmark. Number sequences can be ascending (example, 4-5-6-?) and descending (example, 5-4-3-?)",

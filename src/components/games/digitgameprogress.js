@@ -9,27 +9,20 @@ export default function GameProgress(props) {
 
     return (
         <Dialog onClose={() => props.onClose()} open={props.open}>
-            <DialogTitle>{"Looking for your results?"}</DialogTitle>
-            <DialogContent>
-                <DialogContentText>
+            <DialogTitle>
                     <font style={{color: 'black'}}>{props.total}</font> &nbsp; &#128279; &nbsp;
                     <font style={{color: 'green'}}>{props.passed}</font> &nbsp; &#128515; &nbsp;
-                    <font style={{color: 'red'}}>{props.failed}</font> &nbsp; &#128169;
-                </DialogContentText>
+                    <font style={{color: 'red'}}>{props.failed}</font> &nbsp; &#128169; &nbsp;
 
+                    <font style={{color: 'black'}}>{props.results.length}</font> &nbsp; &#128279; &nbsp;
+            </DialogTitle>
+            <DialogContent>
                 <TableContainer component={Paper}>
                   <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell align='center'>User Task</TableCell>
-                        <TableCell align='center'>Color</TableCell>
-                      </TableRow>
-                    </TableHead>
                     <TableBody>
                       {props.results.map(row => (
                         <TableRow key={row.task}>
-                          <TableCell component='th' scope='row'>{row.task}</TableCell>
-                          <TableCell align='center'>{row.color}</TableCell>
+                          <TableCell align='center' component='th' scope='row' style={{backgroundColor: row.color}}>{row.task}</TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
