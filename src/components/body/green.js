@@ -30,13 +30,13 @@ var desciptions = [
     'Tasks for multiplication of one-digit numbers from 0 to 10 (10 is exception and is only one two digit number). Multiplication often denoted by the cross symbol x or by an asterisk * or dot. For example: 7 x 3 = 21, 5 x 6 = 30 or 8 x 8 = 64. In total, it is ' + task_amount + ' tasks per one exercise.',
     'Tasks for multiplication of one-digit numbers from 0 to 10 (10 is exception and is only one two digit number). Multiplication often denoted by the cross symbol x or by an asterisk * or dot. For example: 7 x 3 = 21, 5 x 6 = 30 or 8 x 8 = 64. In total, it is ' + task_amount + ' tasks per one exercise.',
 
-    "Tasks for Subtraction of one-digit numbers. The result of subtraction can be is zero (example, 3-3=0) or a one-digit number (example, 8-4=5)",
-    "Tasks for Addition and Subtraction of two one-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number",
-    "Tasks for Math operation determination: Addition (+) or Subtraction (-). Kids have two one digit numbers (from 1 to 10, zero is excluded from range) and result of a math operation with that numbers. Based on operation result, they have to understand what it was: Addition (+) or Subtraction (-). For example, 4 ? 5 = 9, operation is Plus (+)",
+    'Division of two numbers, where divider and result are one digit',
+    'Division of two numbers with unknown dividend or divisor',
+    'Multiplication and Division of three numbers',
 
-    "Tasks for Addition and Subtraction of three one-digit numbers. The result of addition can be an one (example, 1+1+1=3) or two digit number (example, 7+8+9=24), the result of subtraction can be zero (example, 9-5-4=0) or a one-digit number (example, 8-1-1=6)",
-    "Tasks for results Comparision of two arithmetic expressions each of one consists from two one-digit numbers (3+4 and 9-2) and one mathematical operation: plus or minus. Kids have to solve both expressions in mind and select one of the appropriate operation: more (>), less (<) and equal (=). The result of each expression can be zero, one or two digit number",
-    "Tasks for Addition and Subtraction of two one-digit numbers, where kids know only one of the argument and result of math task. Based on mathematical operation they have to find another argument",
+    'Addition, Subtraction and Multiplication of 4 or 5 numbers',
+    'Long Addition and Subtraction of three three-digit numbers (10..999). ',
+    'Addition and Subtraction of four numbers, where each number has different length: one-digit, two-digit, three- and four-digit.',
 ];
 
 const games = [
@@ -51,7 +51,7 @@ const games = [
 
     {id: 7, logo: logo7, type: 'line_5numbers', task: '-*,5,0-10,1', amount: task_amount, desc: desciptions[6], head: 'Addition, Subtraction and Multiplication of 4 or 5 numbers'},
     {id: 8, logo: logo8, type: 'digit_3column', task: '+-,100-999,1', amount: task_amount, desc: desciptions[7], head: 'Addition and Subtraction of three numbers (10..999)'},
-    {id: 9, logo: logo9, type: 'line_4numbers', task: '+-,1-999,1', amount: task_amount, desc: desciptions[8], head: 'Addition and Subtraction of 4 or 5 big numbers (100...9999)'},
+    {id: 9, logo: logo9, type: 'line_4numbers', task: '+-,1-999,1', amount: task_amount, desc: desciptions[8], head: 'Addition and Subtraction of four numbers'},
 ];
 
 export default class Green extends React.Component {

@@ -26,7 +26,7 @@ import DigitGame from "./../games/digitgame";
 const task_amount = 30;
 
 var desciptions = [
-    'Tasks for Long Multiplication of of two- and three-digit numbers (from 10 to 999)',
+    'Tasks for Long Multiplication of of two- and three-digit numbers (from 10 to 999). Multiplication often denoted by the cross symbol x or by an asterisk * or dot. For example, 631 x 104 = ? (result is 65624) OR 306 x 703 = ? (results is 215118).',
     '',
     '',
 
