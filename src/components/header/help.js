@@ -29,25 +29,28 @@ export default function SMHelp(props) {
                 }
                 mediaBackgroundStyle={{backgroundColor:'orange'}}
                 style = {{backgroundColor:'green'}}
-                title = '' subtitle = ''/>
+                title = 'Tasks and Colors organization'
+                subtitle = 'You can easely follow your own organizational things and ideas. It is not really mandatory to follow all programms one by one from each color. The main idea in the color organization is just get you some initial basic logical structure, which will help you in perception of tasks.'/>
 
             <Slide
                 id='white'
                 media={
                     <div>
-                        <Typography style={{fontFamily:'Grinched',fontSize:'2.5rem',color:'white',textShadow:'1px 1px 2px black'}}>
-                            WHITE Level
+                        <Typography style={{fontFamily:'Grinched',fontSize:'2.5rem',color:'black'}}>
+                            White Level
                         </Typography>
                         <Typography style={{marginLeft:'4%',marginRight:'4%',fontFamily:'Arial',fontSize:'1.5rem',color:'black',lineHeight:'1.0',textAlign:'justify',fontWeight:'bold'}}>
-                            The White level is designed to operate with one-digit numbers (except of 10) in range from 0 to 10.
-                            It is focused on basic arithmetical operations knowledge like Comparision, Addition and Substruction.
-                            The last 4 programs require some quick wit from the child.
+                            The White level is designed to operate with one-digit numbers in range from 0 to 10 (where 10 is the only one two-digit number exception).
+                            The main focus of current level is two basic arithmetic operations: Addition and Subtruction. It starts from the numbers understanding
+                            (determination of right secuance and order) and Comparision operations with continuation on Addition and Subtruction.
+                            The last programs give kids more challange and drive smart thinking for them.
                         </Typography>
                     </div>
                 }
                 mediaBackgroundStyle={{backgroundColor:'white'}}
-                style = {{backgroundColor:'white'}}
-                title = '' subtitle = ''/>
+                style = {{backgroundColor:'black'}}
+                title = 'Tasks structure'
+                subtitle = 'Determination of one digit number from sequance. Comparision of one-digit numbers. Addition of one-digit numbers. Subtraction of one-digit numbers. Addition and Subtraction of two one-digit numbers. Mathematical operation (Addition or Subtraction) determination. Addition and Subtraction of three one-digit numbers. Comparison of two expressions for one digit numbers. Addition and Subtraction of two one-digit numbers with unknown argument.'/>
 
             <Slide
                 id='orange'
@@ -57,7 +60,7 @@ export default function SMHelp(props) {
                             Orange Level
                         </Typography>
                         <Typography style={{marginLeft:'4%',marginRight:'4%',fontFamily:'Arial',fontSize:'1.5rem',color:'white',lineHeight:'1.0',textAlign:'justify',fontWeight:'bold'}}>
-                            The Orange is used for two-digit numbers in range from 10 to 100. The hungred is only one exception of three digit number
+                            The Orange level is used for two-digit numbers in range from 10 to 100. The hungred is only one exception of three digit number
                         </Typography>
 
                         <Typography style={{marginLeft:'4%',marginRight:'4%',fontFamily:'Arial',fontSize:'1.5rem',color:'white',lineHeight:'1.0',textAlign:'justify',fontWeight:'bold'}}>
@@ -68,7 +71,8 @@ export default function SMHelp(props) {
                 }
                 mediaBackgroundStyle={{backgroundColor:'orange'}}
                 style = {{backgroundColor:'orange'}}
-                title = '' subtitle = ''/>
+                title = 'Tasks structure'
+                subtitle = 'Tasks for determination of two digit number from sequance. Comparision of two-digit numbers. Addition and Subtraction of two and one-digit numbers. Addition and Subtraction of round numbers. Addition and Subtraction of round and one-digit numbers. Addition and Subtraction of one-digit and two-digit numbers. Addition and Subtraction of two two-digit numbers.'/>
 
             <Slide
                 id='orange'
@@ -96,7 +100,7 @@ export default function SMHelp(props) {
                 media={<img src='http://www.icons101.com/icon_png/size_256/id_79394/youtube.png' alt='youtube'/>}
                 mediaBackgroundStyle={{backgroundColor:'red'}}
                 style={{backgroundColor: 'red'}}
-                title='Watch our SuperMath overview video on YouTube'
+                title='Watch our SuperMath overview'
                 subtitle='SuperMath helps students transition from counting or calculating the basic math facts to recalling them. Quickly recalling math facts,
                     instead of calculating them, frees up mental resources for higher-level operations. SuperMath’s timed activities encourage students to answer
                     questions as quickly as possible.'/>

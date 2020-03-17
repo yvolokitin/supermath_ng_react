@@ -37,8 +37,6 @@ var desciptions = [
     'Tasks for Addition and Subtraction of three one-digit numbers. The result of addition can be an one (example, 1+1+1=3) or two digit number (example, 7+8+9=24), the result of subtraction can be zero (example, 9-5-4=0) or a one-digit number (example, 8-1-1=6)',
     'Tasks for results Comparision of two arithmetic expressions each of one consists from two one-digit numbers (3+4 and 9-2) and one mathematical operation: plus or minus. Kids have to solve both expressions in mind and select one of the appropriate operation: more (>), less (<) and equal (=). The result of each expression can be zero, one or two digit number',
     'Tasks for Addition and Subtraction of two one-digit numbers, where kids know only one of the argument and result of math task. Based on mathematical operation they have to find another argument. For example, 6 + ? = 9 (results is 3) OR 7 - ? = 0 (result is 0)',
-//    "Tasks for Addition and Subtraction of one and two -digit numbers.  The result of Addition can be only two digit number (example, 1+10=11) and Substruction can be zero or one digit number",
-//    "Tasks for Addition and Subtraction of one digit numbers and round tens numbers from 10 to 100 (numbers 10, 20, 30 ... 100). ",
 ];
 
 const games = [

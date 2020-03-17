@@ -27,7 +27,7 @@ const task_amount = 30;
 
 var desciptions = [
     'Tasks for Long Multiplication of of two- and three-digit numbers (from 10 to 999). Multiplication often denoted by the cross symbol x or by an asterisk * or dot. For example, 631 x 104 = ? (result is 65624) OR 306 x 703 = ? (results is 215118).',
-    '',
+    'Tasks for Division with remainder of two natural numbers provides a quotient, which is the number of times the second one is contained in the first one, and a remainder, which is the part of the first number that remains, when in the course of computing the quotient, no further full chunk of the size of the second number can be allocated.',
     '',
 
     '',
@@ -41,7 +41,7 @@ var desciptions = [
 
 const games = [
     {id: 1, logo: logo1, type: 'digit_2column', task: '*,10-999,10-999,1,1', amount: task_amount, desc: desciptions[0], head: 'Long Multiplication of two- and three-digit numbers (from 10 to 999)'},
-    {id: 2, logo: logo2, type: 'none', task: '', amount: task_amount, desc: desciptions[1], head: 'Task is under development and not defined yet'},
+    {id: 2, logo: logo2, type: 'none', task: '', amount: task_amount, desc: desciptions[1], head: 'Division of one and two digit numbers with remainder'},
     {id: 3, logo: logo3, type: 'none', task: '', amount: task_amount, desc: desciptions[2], head: 'Task is under development and not defined yet'},
 
     {id: 4, logo: logo4, type: 'none', task: '', amount: task_amount, desc: desciptions[3], head: 'Task is under development and not defined yet'},

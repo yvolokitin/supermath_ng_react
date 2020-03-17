@@ -34,9 +34,9 @@ var desciptions = [
     'Tasks for Addition and Subtraction of one-digit number and tens numbers from 10 to 100 (10, 20, 30, 40, 50, 60, 70, 80, 90 and 100). Kids have to Add or Sub two numbers. For example, 70 - 4 = ? (result is 66) OR 3 + 40 = ? (result is 34).',
     'Tasks for Addition and Subtraction of one- and two- digit numbers.',
 
-    'Tasks for Addition and Subtraction of two two-digit numbers. For example, 85 - 51 = ? (result is 34) OR 88 + 24 = ? (result is 122).',
+    'Tasks for Addition and Subtraction of two two-digit numbers, where numbers are in range from 10 to 100 (100 is the only three digit number, which is exception). The results pf operation can be Zero, one-, two- and three-digit number. For example, 85 - 51 = ? (result is 34) OR 88 + 24 = ? (result is 122).',
     'Tasks for Long Addition and Subtraction of round numbers - Hundreds and Tens. Two numbers should be resulted in column and each number may contain Hundreds and Tens. For example, 420 + 950 = ? (result is 1370) OR 390 - 20 = ? (result is 370).',
-    'Tasks for Long Addition and Subtraction of two- and three-digit numbers. 862 + 96 = ? (result is 958) OR 280 - 41 = ? (result is 239).',
+    'Tasks for Long Addition and Subtraction of two- and three-digit numbers. The numbers are added a column and should be solved from right to left direction. 862 + 96 = ? (result is 958) OR 280 - 41 = ? (result is 239).',
 ];
 
 const games = [

@@ -26,8 +26,8 @@ import DigitGame from "./../games/digitgame";
 const task_amount = 30;
 
 var desciptions = [
-    'Tasks for Long Addition and Subtraction of big eight-and nine-digit numbers (from 1 000 000 till 99 999 999). ',
-    'Tasks for Long Multiplication of two four-digit numbers (from 1000 to 9999). ',
+    'Tasks for Long Addition and Subtraction of big eight-and nine-digit numbers (from 1 000 000 till 99 999 999). The numbers are added in column and should be solved from right to left direction. For example, 17757470 - 1188236 = ? (result is 16569234) OR 55911555 + 19724263 = ? (results is 75635818).',
+    'Tasks for Long Multiplication of two four-digit numbers (from 1000 to 9999). Long Multiplication is a special method for multiplying larger numbers in column. For example, 3968 x 3499 = ? (result is 13884032) OR 2811 x 2367 = ? (result is 6653637).',
     '',
 
     '',
@@ -40,8 +40,8 @@ var desciptions = [
 ];
 
 const games = [
-    {id: 1, logo: logo1, type: 'digit_2column', task: '+-,1000000-99999999,1000000-99999999,1,1', amount: 30, desc: desciptions[7], head: 'Long Addition and Subtraction of big numbers'},
-    {id: 2, logo: logo2, type: 'digit_2column', task: '*,1000-9999,1000-9999,1,1', amount: 30, desc: desciptions[3], head: 'Long Multiplication of big numbers (from 1000 to 9999)'},
+    {id: 1, logo: logo1, type: 'digit_2column', task: '+-,1000000-99999999,1000000-99999999,1,1', amount: 30, desc: desciptions[0], head: 'Long Addition and Subtraction of big numbers'},
+    {id: 2, logo: logo2, type: 'digit_2column', task: '*,1000-9999,1000-9999,1,1', amount: 30, desc: desciptions[1], head: 'Long Multiplication of big numbers (from 1000 to 9999)'},
     {id: 3, logo: logo3, type: 'none', task: '', amount: task_amount, desc: desciptions[2], head: 'Task is under development and not defined yet'},
 
     {id: 4, logo: logo4, type: 'none', task: '', amount: task_amount, desc: desciptions[3], head: 'Task is under development and not defined yet'},

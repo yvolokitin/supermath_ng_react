@@ -30,13 +30,13 @@ var desciptions = [
     'Tasks for multiplication of one-digit numbers from 0 to 10 (10 is exception and is only one two digit number). Multiplication often denoted by the cross symbol x or by an asterisk * or dot. For example: 7 x 3 = 21, 5 x 6 = 30 or 8 x 8 = 64. In total, it is ' + task_amount + ' tasks per one exercise.',
     'Tasks for multiplication of one-digit numbers from 0 to 10 (10 is exception and is only one two digit number). Multiplication often denoted by the cross symbol x or by an asterisk * or dot. For example: 7 x 3 = 21, 5 x 6 = 30 or 8 x 8 = 64. In total, it is ' + task_amount + ' tasks per one exercise.',
 
-    'Division of two numbers, where divider and result are one digit',
-    'Division of two numbers with unknown dividend or divisor',
-    'Multiplication and Division of three numbers',
+    'Division of two numbers, where divider and result are one-digit number. Division is one of the four basic operations of arithmetic, the ways that numbers are combined to make new numbers. Several symbols are used for the division operator, like the colon (:) and the slash (/).',
+    'Division of two numbers, where divider is one-digit number and result is two-digit number. The colon (:) is used as the division operator. For example, 340 : 4 = ? (result is 85) OR 195 : 5 = ? (result is 39).',
+    'Multiplication and Division of three numbers, where one-digit numbers are used for Multiplication and two digit-number for dividend of Division operation. The first calculation should be always the Division even if it is not the first operation (Otherwise, solution will be quite complex). For example, 28 : 7 x 9 = ? (result is 36) OR 6 x 36 : 9 = ? (result is 24).',
 
-    'Addition, Subtraction and Multiplication of 4 or 5 numbers',
-    'Long Addition and Subtraction of three three-digit numbers (10..999). ',
-    'Addition and Subtraction of four numbers, where each number has different length: one-digit, two-digit, three- and four-digit.',
+    'Addition, Subtraction and Multiplication of 4 or 5 numbers. Kids have to determiny the right secuance of operatnios (Multiplication always goes before Addition and Subtraction), make correct calculation and answer. Multiplication happaned between one-digit numbers only, when Addition and Subtraction can use two-digit numbers. It can be at least one Multiplication (two in most cases).',
+    'Long Addition and Subtraction of three three-digit numbers in range of 100 ... 999. The numbers are added a column and should be solved from right to left direction. For example, 623 + 116 - 316 = ? (result is 423) OR 863 - 474 + 275 = ? (result is 664).',
+    'Addition and Subtraction of four numbers, where each number has different length: one-digit, two-digit, three- and four-digit. For example, 4051 + 655 + 70 + 5 = ? (result is 4781).',
 ];
 
 const games = [
@@ -50,7 +50,7 @@ const games = [
     {id: 6, logo: logo6, type: '3digits', task: '*:,0-10,1', amount: task_amount, desc: desciptions[5], head: 'Multiplication and Division of three numbers'},
 
     {id: 7, logo: logo7, type: 'line_5numbers', task: '-*,5,0-10,1', amount: task_amount, desc: desciptions[6], head: 'Addition, Subtraction and Multiplication of 4 or 5 numbers'},
-    {id: 8, logo: logo8, type: 'digit_3column', task: '+-,100-999,1', amount: task_amount, desc: desciptions[7], head: 'Addition and Subtraction of three numbers (10..999)'},
+    {id: 8, logo: logo8, type: 'digit_3column', task: '+-,100-999,1', amount: task_amount, desc: desciptions[7], head: 'Addition and Subtraction of three numbers (100..999)'},
     {id: 9, logo: logo9, type: 'line_4numbers', task: '+-,1-999,1', amount: task_amount, desc: desciptions[8], head: 'Addition and Subtraction of four numbers'},
 ];
 

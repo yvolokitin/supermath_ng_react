@@ -7,12 +7,12 @@ import SMTitle from "./../dialog/title";
 import vitamins from './../../images/vitamins.jpg';
 
 /*
-                    <font style={{color:'red'}}>Use</font>&nbsp; &nbsp;
-                    <font style={{color:'green'}}>SuperMath</font>&nbsp; &nbsp;
-                    <font style={{color:'orange'}}>as</font>&nbsp; &nbsp;
-                    <font style={{color:'blue'}}>mathematical</font>&nbsp; &nbsp;
-                    <font style={{color:'green'}}>Vitamins</font> &nbsp; <font style={{color:'red'}}>!</font>
-
+                <Typography style={{margin:'3%',textAlign:'justify',fontWeight:'bold'}}>
+                    In one day, I just personally asked myself - How can I contribute to improve a small part of the world.
+                    Im father of two wonderful kids and due to a lot of work responsibility, in some days I could not get so much attantion to them, specially in Mathematics.
+                    We could not image our current life now without Mobile phone and Internet and we have it because of Math.
+                    When I developed that Math portal for kids I had vary clear goal - help kids with Math!
+                </Typography>
 */
 export default function SMAbout(props) {
     return (
@@ -46,10 +46,8 @@ export default function SMAbout(props) {
                 </Typography>
 
                 <Typography style={{margin:'3%',textAlign:'justify',fontWeight:'bold'}}>
-                    In one day, I just personally asked myself - How can I contribute to improve a small part of the world.
-                    Im father of two wonderful kids and due to a lot of work responsibility, in some days I could not get so much attantion to them, specially in Mathematics.
-                    We could not image our current life now without Mobile phone and Internet and we have it because of Math.
-                    When I developed that Math portal for kids I had vary clear goal - help kids with Math!
+                    At the current moment, we are fully filled first three levels of colors: White, Orange and Green.
+                    The remaining Navy and Black colors still in progress to be filled. Both included only a few tasks.
                 </Typography>
             </DialogContent>
 
