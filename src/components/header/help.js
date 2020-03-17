@@ -4,6 +4,15 @@ import {AutoRotatingCarousel, Slide} from 'material-auto-rotating-carousel';
 
 import image from './../../images/help/belts.jpg';
 
+/*
+            <Slide
+                media={<img src='http://www.icons101.com/icon_png/size_256/id_76704/Google_Settings.png' alt='settings'/>}
+                mediaBackgroundStyle={{ backgroundColor:'green'}}
+                style={{backgroundColor:'green'}}
+                title='Settgins'
+                subtitle='tbd...'/>
+
+*/
 export default function SMHelp(props) {
     return (
         <AutoRotatingCarousel
@@ -75,7 +84,7 @@ export default function SMHelp(props) {
                 subtitle = 'Tasks for determination of two digit number from sequance. Comparision of two-digit numbers. Addition and Subtraction of two and one-digit numbers. Addition and Subtraction of round numbers. Addition and Subtraction of round and one-digit numbers. Addition and Subtraction of one-digit and two-digit numbers. Addition and Subtraction of two two-digit numbers.'/>
 
             <Slide
-                id='orange'
+                id='green'
                 media={
                     <div>
                         <Typography style={{fontFamily:'Grinched',fontSize:'2.5rem',color:'white',textShadow:'1px 1px 2px black'}}>
@@ -111,13 +120,6 @@ export default function SMHelp(props) {
                 style={{backgroundColor: 'blue'}}
                 title='Sign-up, Sign-in and Enrollment'
                 subtitle='If you do not have SuperMath account, you can do it easely. Just press by current link and create it in a few seconds.'/>
-
-            <Slide
-                media={<img src='http://www.icons101.com/icon_png/size_256/id_76704/Google_Settings.png' alt='settings'/>}
-                mediaBackgroundStyle={{ backgroundColor:'green'}}
-                style={{backgroundColor:'green'}}
-                title='Settgins'
-                subtitle='tbd...'/>
 
         </AutoRotatingCarousel>
     );
