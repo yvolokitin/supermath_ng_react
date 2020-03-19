@@ -68,10 +68,10 @@ export default function SMBody(props) {
                 </AppBar>
 
                 <TabPanel style={{backgroundColor:'white'}} value={value} index={0}> <White onUpdate={onUpdate} lang={props.lang}/> </TabPanel>
-                <TabPanel style={{backgroundColor:'orange'}} value={value} index={1}> <Orange onUpdate={onUpdate}/> </TabPanel>
-                <TabPanel style={{backgroundColor:'green'}} value={value} index={2}> <Green onUpdate={onUpdate}/> </TabPanel>
-                <TabPanel style={{backgroundColor:'#3f51b5',}} value={value} index={3}> <Navi onUpdate={onUpdate}/> </TabPanel>
-                <TabPanel style={{backgroundColor:'black'}} value={value} index={4}> <Black onUpdate={onUpdate}/> </TabPanel>
+                <TabPanel style={{backgroundColor:'orange'}} value={value} index={1}> <Orange onUpdate={onUpdate} lang={props.lang}/> </TabPanel>
+                <TabPanel style={{backgroundColor:'green'}} value={value} index={2}> <Green onUpdate={onUpdate} lang={props.lang}/> </TabPanel>
+                <TabPanel style={{backgroundColor:'#3f51b5',}} value={value} index={3}> <Navi onUpdate={onUpdate} lang={props.lang}/> </TabPanel>
+                <TabPanel style={{backgroundColor:'black'}} value={value} index={4}> <Black onUpdate={onUpdate} lang={props.lang}/> </TabPanel>
             </div>
         </main>
     );

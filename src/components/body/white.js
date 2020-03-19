@@ -23,7 +23,7 @@ import classes from './../../index.css';
 import SMDialogInfo from "./info";
 import DigitGame from "./../games/digitgame";
 
-import {white_titles, white_descriptions} from './../halpers/constants';
+import {white_titles, white_descriptions} from './../halpers/white';
 
 const task_amount = 30;
 const games = [
@@ -67,7 +67,6 @@ export default class White extends React.Component {
                        infoTitle: title,
                        infoText: descr,
                        infoIURL: logo,
-                       // taskTerms: task,
                     });
     }
 
