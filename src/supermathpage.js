@@ -33,28 +33,40 @@ import SMFooter from "./components/footer/footer";
 export default class SuperMathPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {userUpdate: false};
-    }
 
-    render() {
         // language detector
         const getNavigatorLanguage = () => (navigator.languages && navigator.languages.length) ? navigator.languages[0] : navigator.userLanguage || navigator.language || navigator.browserLanguage || 'en';
-        var userLng = localStorage.getItem('lang');
-        if (userLng === null) {
-            userLng = getNavigatorLanguage();
-            if (userLng.includes('en')) { userLng = 'en'; }
-            else if (userLng.includes('ru')) { userLng = 'ru'; }
-            else if (userLng.includes('nl')) { userLng = 'nl'; }
-            else { userLng = 'en'; }
+        var language = localStorage.getItem('lang');
+        if (language === null) {
+            language = getNavigatorLanguage();
+            if (language.includes('en')) { language = 'en'; }
+            else if (language.includes('ru')) { language = 'ru'; }
+            else if (language.includes('nl')) { language = 'nl'; }
+            else { language = 'en'; }
         }
-        // console.log('User Language: ' + userLng);
 
+        this.state = {userUpdate: false, userLng: language};
+        console.log('SuperMathPage.constructor language ' + language);
+
+        this.onUpdate = this.onUpdate.bind(this);
+    }
+
+    onUpdate(language) {
+        if ((language !== undefined) && (language !== null)) {
+            console.log('SuperMathPage.onUpdate language: ' + language);
+            this.setState({userLng: language});
+            localStorage.setItem('lang', language);
+        }
+    }
+
+    // (e) => this.onInfoOpen(game.id, game.desc, game.logo, game.task)
+    render() {
         return (
             <React.Fragment>
                 <CssBaseline/>
-                <SMHeader info={this.state.userUpdate} lang={userLng}/>
-                <SMBody onUpdate={() => this.setState({userUpdate: true})} lang={userLng}/>
-                <SMFooter text={"SuperMath"} lang={userLng}/>
+                <SMHeader onUpdate={(event) => this.onUpdate(event)} info={this.state.userUpdate} lang={this.state.userLng}/>
+                <SMBody onUpdate={() => this.setState({userUpdate: true})} lang={this.state.userLng}/>
+                <SMFooter text={"SuperMath"} lang={this.state.userLng}/>
             </React.Fragment>
         );
     }

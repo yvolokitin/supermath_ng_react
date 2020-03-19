@@ -19,6 +19,7 @@ export default class SMHeader extends React.Component {
 
         this.onLogin = this.onLogin.bind(this);
         this.onResult = this.onResult.bind(this);
+        this.onLanguage = this.onLanguage.bind(this);
 
         this.onUserInfoOpen = this.onUserInfoOpen.bind(this);
         this.onUserInfoClose = this.onUserInfoClose.bind(this);
@@ -41,8 +42,6 @@ export default class SMHeader extends React.Component {
                       userPass: localStorage.getItem('pass') ? localStorage.getItem('pass') : '60',
                       userFail: localStorage.getItem('fail') ? localStorage.getItem('fail') : '0',
                      };
-
-        console.log('this.state.userLng: ' + this.state.userLng);
     }
 
     componentDidUpdate(prevProps) {
@@ -132,6 +131,16 @@ export default class SMHeader extends React.Component {
         }
     }
 
+    onLanguage(language) {
+        if (language !== undefined) {
+            console.log('SMHeader.onLanguage: ' + language);
+            this.setState({langSelector: false, userLng: language});
+            this.props.onUpdate(language);
+        } else {
+            this.setState({langSelector: false});
+        }
+    }
+
     render() {
         var about = header[this.state.userLng].about;
         var help = header[this.state.userLng].help;
@@ -187,8 +196,8 @@ export default class SMHeader extends React.Component {
                     </Typography>
                 </Toolbar>
 
-                <SMHelp open={this.state.helpOpen} onClick={() => this.setState({helpOpen: false})}/>
-                <SMAbout open={this.state.aboutOpen} onClick={() => this.setState({aboutOpen: false})}/>
+                <SMHelp open={this.state.helpOpen} lang={this.state.userLng} onClick={() => this.setState({helpOpen: false})}/>
+                <SMAbout open={this.state.aboutOpen} lang={this.state.userLng} onClick={() => this.setState({aboutOpen: false})}/>
                 <SMLogin open={this.state.loginOpen} onClose={this.onResult}/>
 
                 <UserInformation open={this.state.userInfoOpen} onClick={this.onUserInfoClose}
@@ -197,7 +206,7 @@ export default class SMHeader extends React.Component {
 
                 <Registration open={this.state.registerOpen} onClose={this.onResult}/>
 
-                <Language open={this.state.langSelector} onClose={() => this.setState({langSelector: false})} lang={this.state.userLng}/>
+                <Language open={this.state.langSelector} onClose={this.onLanguage} lang={this.state.userLng}/>
 
                 <AlertDialog open={this.state.logoutOpen}
                              title='Do you really want to Logout?'

@@ -1,42 +1,48 @@
 ﻿import React from 'react';
-import {DialogContent, DialogActions, Typography, Dialog, Card, CardMedia, Button} from '@material-ui/core';
-
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-
-import CancelIcon from '@material-ui/icons/Cancel';
+import {Dialog, Card, CardMedia, Button} from '@material-ui/core';
+import {Radio, RadioGroup, FormControlLabel} from '@material-ui/core';
 
 import SMTitle from "./../dialog/title";
 
 import world from './../../images/world.jpg';
+import './language.css';
 
 export default function Language(props) {
     const [value, setValue] = React.useState(props.lang);
     const handleChange = event => {
         setValue(event.target.value);
+        console.log('event.target.value: ' + event.target.value);
     };
 
+    const onSave = () => {
+        console.log('onClose value: ' + value);
+        props.onClose(value);
+    }
+
+/*
+                <FormControlLabel value='pl' control={<Radio />} label='Poland / Polish'/>
+*/
     return (
         <Dialog onClose={() => props.onClose()} transitionDuration={500} open={props.open} scroll='body'>
-            <SMTitle title='' onClick={() => props.onClose()}/>
+            <SMTitle title='Select your language' className='language_title' onClick={() => props.onClose()}/>
 
-            <Typography gutterBottom style={{margin:'3%',color:'green',fontFamily:'Grinched',fontSize:'2.5rem',textAlign:'center',textShadow:'1px 1px 2px black',lineHeight:'0.9'}}>
-                Select your language
-            </Typography>
-
-            <Card style={{margin:'5%',display:'flex',flexDirection:'column',fontWeight:'bold'}}>
-                <CardMedia component='img' style={{boder:'3px solid black'}} alt='World map' height='140' src={world}/>
+            <Card style={{marginLeft:'5%',marginRight:'5%',display:'flex',flexDirection:'column'}}>
+                <CardMedia component='img' alt='World map' height='140' src={world}/>
             </Card>
 
-            <RadioGroup value={value} onChange={handleChange}>
+            <RadioGroup value={value} onChange={handleChange} className='language_selector' style={{border:'1px solid grey'}}>
                 <FormControlLabel value='en' control={<Radio />} label='English (GB and US)'/>
-                <FormControlLabel value='nl' control={<Radio />} label='Dutch / Nederlands'/>
+                <FormControlLabel value='de' control={<Radio />} label='German / Deutsch'/>
+                <FormControlLabel value='fr' control={<Radio />} label='French / Français'/>
+                <FormControlLabel value='es' control={<Radio />} label='Spanish / Espanol'/>
+                <FormControlLabel value='it' control={<Radio />} label='Italian / Italiano'/>
+                <FormControlLabel value='nl' control={<Radio />} label='Nederlands / Dutch'/>
                 <FormControlLabel value='ru' control={<Radio />} label='Russian / Русский'/>
             </RadioGroup>
 
+            <Card style={{margin:'5%',display:'flex',flexDirection:'column'}}>
+                <Button variant='contained' onClick={onSave}>Save</Button>
+            </Card>
         </Dialog>
     );
 }
