@@ -6,9 +6,12 @@ import SMAbout from './about';
 import SMLogin from './login';
 import Registration from './registration';
 import UserInformation from './userinfo';
+import Language from './language';
+
 import AlertDialog from './../alert/alert';
 
 import './header.css';
+import {header} from './../halpers/constants';
 
 export default class SMHeader extends React.Component {
     constructor(props) {
@@ -26,8 +29,10 @@ export default class SMHeader extends React.Component {
                       logoutOpen: false,
                       registerOpen: false,
                       userInfoOpen: false,
+                      langSelector: false,
                       isLogin: localStorage.getItem('isLogin') ? localStorage.getItem('isLogin') : false,
                       userId: localStorage.getItem('user_id') ? localStorage.getItem('user_id') : '0',
+                      userLng: props.lang,
                       userName: localStorage.getItem('name') ? localStorage.getItem('name') : 'Kobe',
                       userSurname: localStorage.getItem('surname') ? localStorage.getItem('surname') : 'Bryant',
                       userEmail: localStorage.getItem('email') ? localStorage.getItem('email') : 'Kobe.Bryant@email.com',
@@ -36,6 +41,8 @@ export default class SMHeader extends React.Component {
                       userPass: localStorage.getItem('pass') ? localStorage.getItem('pass') : '60',
                       userFail: localStorage.getItem('fail') ? localStorage.getItem('fail') : '0',
                      };
+
+        console.log('this.state.userLng: ' + this.state.userLng);
     }
 
     componentDidUpdate(prevProps) {
@@ -126,12 +133,23 @@ export default class SMHeader extends React.Component {
     }
 
     render() {
+        var about = header[this.state.userLng].about;
+        var help = header[this.state.userLng].help;
+        var login = header[this.state.userLng].login;
+        var logout = header[this.state.userLng].logout;
+        var register = header[this.state.userLng].register;
+        var lang = header[this.state.userLng].lang;
+
         return (
             <AppBar position="static">
                 <Toolbar style={{cursor:'pointer',fontVariant:'small-caps',textShadow:'1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue',}}>
                     <Typography onClick={() => window.location.reload()} style={{fontFamily:'Grinched',fontSize:'2.00rem',fontVariant:'small-caps',color:'orange'}}>SuperMath</Typography>
-                    <Typography onClick={() => this.setState({aboutOpen: true})} style={{marginLeft:'1%',fontFamily:'Grinched',fontSize:'2.00rem',color:'green'}}>about</Typography>
-                    <Typography onClick={() => this.setState({helpOpen: true})} style={{marginLeft:'1%',fontFamily:'Grinched',fontSize:'2.00rem',color:'green'}}>help</Typography>
+                    <Typography onClick={() => this.setState({aboutOpen: true})} style={{marginLeft:'1%',fontFamily:'Grinched',fontSize:'2.00rem',color:'green'}}>
+                        {about}
+                    </Typography>
+                    <Typography onClick={() => this.setState({helpOpen: true})} style={{marginLeft:'1%',fontFamily:'Grinched',fontSize:'2.00rem',color:'green'}}>
+                        {help}
+                    </Typography>
 
                     <Typography variant="h5" style={{flexGrow:1}}></Typography>
                     { this.state.isLogin ?
@@ -144,20 +162,29 @@ export default class SMHeader extends React.Component {
                         )
                         :
                         (
-                        <Typography onClick={() => this.setState({registerOpen:true})} style={{fontSize:'2.00rem',fontFamily:'Grinched',color:'green'}}> registration </Typography>
+                         <Typography onClick={() => this.setState({registerOpen:true})} style={{fontSize:'2.00rem',fontFamily:'Grinched',color:'green'}}>
+                            {register}
+                         </Typography>
                         )
                     }
 
                     { this.state.isLogin ?
                         (
-                         <Typography onClick={() => this.setState({logoutOpen:true})} style={{marginLeft:'2%',color:'green',fontSize:'2.00rem',fontFamily:'Grinched'}}> logout </Typography>
+                         <Typography onClick={() => this.setState({logoutOpen:true})} style={{marginLeft:'2%',color:'green',fontSize:'2.00rem',fontFamily:'Grinched'}}>
+                            {logout}
+                         </Typography>
                         )
                         :
                         (
-                         <Typography onClick={this.onLogin} style={{marginLeft:'2%',color:'orange',fontSize:'2.00rem',fontFamily:'Grinched'}}> login </Typography>
+                         <Typography onClick={this.onLogin} style={{marginLeft:'2%',color:'orange',fontSize:'2.00rem',fontFamily:'Grinched'}}>
+                            {login}
+                         </Typography>
                         )
                     }
 
+                    <Typography onClick={() => this.setState({langSelector:true})} style={{marginLeft:'1%',fontSize:'2.00rem',fontFamily:'Grinched',color:'green'}}>
+                        {lang}
+                    </Typography>
                 </Toolbar>
 
                 <SMHelp open={this.state.helpOpen} onClick={() => this.setState({helpOpen: false})}/>
@@ -169,6 +196,8 @@ export default class SMHeader extends React.Component {
                                  pass={this.state.userPass} fail={this.state.userFail}/>
 
                 <Registration open={this.state.registerOpen} onClose={this.onResult}/>
+
+                <Language open={this.state.langSelector} onClose={() => this.setState({langSelector: false})} lang={this.state.userLng}/>
 
                 <AlertDialog open={this.state.logoutOpen}
                              title='Do you really want to Logout?'
