@@ -72,10 +72,11 @@ export default class DigitGame extends React.Component {
             this.results = [];
 
         // game was properly finished, when all tasks are solved
+        // if task is interrapted, we would like to send failed resulst as punishment
         } else if (status === 'interrapted') {
             console.log('Game interraption with ' + this.state.failed);
             this.props.onClose(status);
-            if (localStorage.getItem('user_id') !== null) {
+            if ((localStorage.getItem('user_id') !== null) && (this.state.failed > 0)) {
                 // update user failed counter in header and send to server
                 var fail = parseInt(localStorage.getItem('fail')) + parseInt(this.state.failed);
                 localStorage.setItem('fail', fail);

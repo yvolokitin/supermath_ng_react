@@ -2,6 +2,8 @@
 import {Dialog, Card, CardMedia, Button} from '@material-ui/core';
 import {Radio, RadioGroup, FormControlLabel} from '@material-ui/core';
 
+import axios from 'axios';
+
 import SMTitle from "./../dialog/title";
 
 import world from './../../images/world.jpg';
@@ -17,6 +19,16 @@ export default function Language(props) {
     const onSave = () => {
         console.log('onClose value: ' + value);
         props.onClose(value);
+
+        if (localStorage.getItem('user_id') !== null) {
+            // update user failed counter in header and send to server
+            var post_data = {'user_id': localStorage.getItem('user_id'),
+                             'operation': 'lang',
+                             'lang': value};
+                axios.post('http://supermath.xyz:3000/api/update', post_data);
+        } else {
+            console.log('Language.onSave: do not sent language change \'' + value + '\'');
+        }
     }
 
 /*
