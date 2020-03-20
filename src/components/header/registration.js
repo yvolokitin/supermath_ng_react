@@ -23,6 +23,7 @@ export default class Registration extends React.Component {
     constructor(props) {
         super(props);
         this.state = {name: '',
+                      lang: props.lang,
                       surname: '',
                       birth: '',
                       email: '',
@@ -82,6 +83,7 @@ export default class Registration extends React.Component {
 
         this.setState({loading: true, color: '#ffd9b3'});
         var post_data = {'name': this.state.name,
+                         'lang': this.state.lang,
                          'age': this.state.birth,
                          'lastname': this.state.surname,
                          'email': this.state.email,
@@ -110,7 +112,8 @@ export default class Registration extends React.Component {
             var age = Math.abs(ageDate.getUTCFullYear() - 1970);
 
             setTimeout(() => {
-                this.props.onClose('successed', response.data.id, response.data.name, response.data.email, response.data.surname, age, response.data.ava, response.data.pass, response.data.fail);
+                this.props.onClose('successed', response.data.id, response.data.name, response.data.lang, response.data.email,
+                                    response.data.surname, age, response.data.ava, response.data.pass, response.data.fail);
                 this.setState({loading: false, color: 'orange'});
             }, timeout);
 

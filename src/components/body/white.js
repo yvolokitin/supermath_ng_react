@@ -61,11 +61,9 @@ export default class White extends React.Component {
     }
 
     onInfoOpen(id, logo, task) {
-        var title = white_titles[this.props.lang][id];
-        var descr = white_descriptions[this.props.lang][id];
         this.setState({infoOpen: true,
-                       infoTitle: title,
-                       infoText: descr,
+                       infoTitle: white_titles[this.props.lang][id],
+                       infoText: white_descriptions[this.props.lang][id],
                        infoIURL: logo,
                     });
     }

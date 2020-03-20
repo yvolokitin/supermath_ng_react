@@ -88,7 +88,8 @@ export default class SMLogin extends React.Component {
             var age = Math.abs(ageDate.getUTCFullYear() - 1970);
 
             setTimeout(() => {
-                this.props.onClose('successed', response.data.id, response.data.name, response.data.email, response.data.surname, age, response.data.ava, response.data.pass, response.data.fail);
+                this.props.onClose('successed', response.data.id, response.data.name, response.data.lang, response.data.email,
+                                   response.data.surname, age, response.data.ava, response.data.pass, response.data.fail);
                 this.setState({success: true, loading: false, color:'green'});
             }, timeout);
 

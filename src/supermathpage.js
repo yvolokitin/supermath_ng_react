@@ -39,9 +39,12 @@ export default class SuperMathPage extends React.Component {
         var language = localStorage.getItem('lang');
         if (language === null) {
             language = getNavigatorLanguage();
-            if (language.includes('en')) { language = 'en'; }
-            else if (language.includes('ru')) { language = 'ru'; }
+            if (language.includes('ru')) { language = 'ru'; }
             else if (language.includes('nl')) { language = 'nl'; }
+            else if (language.includes('de')) { language = 'de'; }
+            else if (language.includes('es')) { language = 'es'; }
+            else if (language.includes('it')) { language = 'it'; }
+            else if (language.includes('fr')) { language = 'fr'; }
             else { language = 'en'; }
         }
 

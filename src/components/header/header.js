@@ -33,8 +33,8 @@ export default class SMHeader extends React.Component {
                       langSelector: false,
                       isLogin: localStorage.getItem('isLogin') ? localStorage.getItem('isLogin') : false,
                       userId: localStorage.getItem('user_id') ? localStorage.getItem('user_id') : '0',
-                      userLng: props.lang,
                       userName: localStorage.getItem('name') ? localStorage.getItem('name') : 'Kobe',
+                      userLng: props.lang,
                       userSurname: localStorage.getItem('surname') ? localStorage.getItem('surname') : 'Bryant',
                       userEmail: localStorage.getItem('email') ? localStorage.getItem('email') : 'Kobe.Bryant@email.com',
                       userAge: localStorage.getItem('age') ? localStorage.getItem('age') : '41',
@@ -69,12 +69,13 @@ export default class SMHeader extends React.Component {
         this.setState({loginOpen: true});
     }
 
-    onResult(result, user_id, name, email, surname, age, ava, passed, failed) {
+    onResult(result, user_id, name, lang, email, surname, age, ava, passed, failed) {
         // console.log('onResult ' + result + ', user: ' + user + ', age: ' + age+ ', pass: '  + passed + ', fail: ' + failed);
         if (result === 'successed') {
             this.setState({isLogin: true,
                            userId: user_id,
                            userName: name,
+                           userLng: lang,
                            userEmail: email,
                            userSurname: surname,
                            userAge: age,
@@ -90,6 +91,7 @@ export default class SMHeader extends React.Component {
             localStorage.setItem('isLogin', true);
             localStorage.setItem('user_id', user_id);
             localStorage.setItem('name', name);
+            localStorage.setItem('land', lang);
             localStorage.setItem('email', email);
             localStorage.setItem('surname', surname);
             localStorage.setItem('age', age);
@@ -115,6 +117,8 @@ export default class SMHeader extends React.Component {
             localStorage.removeItem('isLogin');
             localStorage.removeItem('user_id');
             localStorage.removeItem('name');
+            // keep language setting
+            // localStorage.removeItem('lang');
             localStorage.removeItem('email');
             localStorage.removeItem('surname');
             localStorage.removeItem('age');
@@ -204,7 +208,7 @@ export default class SMHeader extends React.Component {
                                  user={this.state.userName} age={this.state.userAge} ava={this.state.userAva}
                                  pass={this.state.userPass} fail={this.state.userFail}/>
 
-                <Registration open={this.state.registerOpen} onClose={this.onResult}/>
+                <Registration open={this.state.registerOpen} onClose={this.onResult} lang={this.state.userLng}/>
 
                 <Language open={this.state.langSelector} onClose={this.onLanguage} lang={this.state.userLng}/>
 
