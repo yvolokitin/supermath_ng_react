@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "SuperMath",
+  "name": "SuperMath arithmetic",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,12 +8,92 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "Icon-16.png",
+      "type": "image/png",
+      "sizes": "16x16"
+    },
+    {
+      "src": "Icon-32.png",
+      "type": "image/png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "Icon-36.png",
+      "type": "image/png",
+      "sizes": "36x36"
+    },
+    {
+      "src": "Icon-48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "Icon-57.png",
+      "type": "image/png",
+      "sizes": "57x57"
+    },
+    {
+      "src": "Icon-64.png",
+      "type": "image/png",
+      "sizes": "64x64"
+    },
+    {
+      "src": "Icon-72.png",
+      "type": "image/png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "Icon-76.png",
+      "type": "image/png",
+      "sizes": "76x76"
+    },
+    {
+      "src": "Icon-96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "Icon-120.png",
+      "type": "image/png",
+      "sizes": "120x120"
+    },
+    {
+      "src": "Icon-128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "Icon-152.png",
+      "type": "image/png",
+      "sizes": "152x152"
+    },
+    {
+      "src": "Icon-167.png",
+      "type": "image/png",
+      "sizes": "167x167"
+    },
+    {
+      "src": "Icon-180.png",
+      "type": "image/png",
+      "sizes": "180x180"
+    },
+    {
+      "src": "Icon-192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "Icon-196.png",
+      "type": "image/png",
+      "sizes": "196x196"
+    },
+    {
+      "src": "Icon-256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "Icon-512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
