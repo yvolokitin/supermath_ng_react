@@ -8,6 +8,9 @@ export const header = {
         'logout': 'logout',
         'register': 'registration',
         'lang': 'en',
+        'logout_title': 'Do you really want to Logout?',
+        'logout_yes': 'Yes, Please Do it',
+        'logout_no': 'No, I Wanna Stay as',
     },
     // Russian
     'ru': {
@@ -17,6 +20,9 @@ export const header = {
         'logout': 'выйти',
         'register': 'регистрация',
         'lang': 'ru',
+        'logout_title': 'Вы действительно хотите Выйти?',
+        'logout_yes': 'Да, Пожалуйста и поскорее!',
+        'logout_no': 'Нет, хочу остаться как ',
     },
     // Dutch
     'nl' : {
@@ -26,6 +32,9 @@ export const header = {
         'logout': 'uitloggen',
         'register': 'registratie',
         'lang': 'nl',
+        'logout_title': 'Wil je echt uitloggen?',
+        'logout_yes': 'Ja, doe het alsjeblieft',
+        'logout_no': 'Nee, ik wil blijven zoals ',
     },
     // French
     'fr' : {
@@ -35,6 +44,9 @@ export const header = {
         'logout': 'deconnecter',
         'register': 'enregistrement',
         'lang': 'fr',
+        'logout_title': 'Voulez-vous vraiment vous déconnecter?',
+        'logout_yes': 'Oui, veuillez le faire',
+        'logout_no': 'Non, je veux rester ',
     },
     // German
     'de' : {
@@ -44,6 +56,9 @@ export const header = {
         'logout': 'ausloggen',
         'register': 'registrieren',
         'lang': 'de',
+        'logout_title': 'Mochten Sie sich wirklich abmelden?',
+        'logout_yes': 'Ja, bitte mach es',
+        'logout_no': 'Nein, ich mochte bleiben als',
     },
     // Spanish
     'es' : {
@@ -53,6 +68,9 @@ export const header = {
         'logout': 'cerrar',
         'register': 'registrarse',
         'lang': 'es',
+        'logout_title': 'Realmente quieres cerrar sesion?',
+        'logout_yes': 'Si, por favor hazlo',
+        'logout_no': 'No, quiero quedarme como ',
     },
     // Italian
     'it' : {
@@ -62,5 +80,8 @@ export const header = {
         'logout': 'disconnettersi',
         'register': 'registrati',
         'lang': 'it',
+        'logout_title': 'Vuoi davvero disconnetterti?',
+        'logout_yes': 'Si, per favore fallo',
+        'logout_no': 'No, voglio restare come',
     },
 };

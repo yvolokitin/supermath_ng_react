@@ -17,9 +17,8 @@ export default function Language(props) {
     };
 
     const onSave = () => {
-        console.log('onClose value: ' + value);
+        // console.log('onClose value: ' + value);
         props.onClose(value);
-
         if (localStorage.getItem('user_id') !== null) {
             // update user failed counter in header and send to server
             var post_data = {'user_id': localStorage.getItem('user_id'),

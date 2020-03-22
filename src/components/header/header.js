@@ -11,7 +11,7 @@ import Language from './language';
 import AlertDialog from './../alert/alert';
 
 import './header.css';
-import {header} from './../halpers/constants';
+import {header} from './../halpers/header';
 
 export default class SMHeader extends React.Component {
     constructor(props) {
@@ -146,22 +146,15 @@ export default class SMHeader extends React.Component {
     }
 
     render() {
-        var about = header[this.state.userLng].about;
-        var help = header[this.state.userLng].help;
-        var login = header[this.state.userLng].login;
-        var logout = header[this.state.userLng].logout;
-        var register = header[this.state.userLng].register;
-        var lang = header[this.state.userLng].lang;
-
         return (
             <AppBar position="static">
                 <Toolbar style={{cursor:'pointer',fontVariant:'small-caps',textShadow:'1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue',}}>
                     <Typography onClick={() => window.location.reload()} style={{fontFamily:'Grinched',fontSize:'2.00rem',fontVariant:'small-caps',color:'orange'}}>SuperMath</Typography>
                     <Typography onClick={() => this.setState({aboutOpen: true})} style={{marginLeft:'1%',fontFamily:'Grinched',fontSize:'2.00rem',color:'green'}}>
-                        {about}
+                        {header[this.state.userLng]['about']}
                     </Typography>
                     <Typography onClick={() => this.setState({helpOpen: true})} style={{marginLeft:'1%',fontFamily:'Grinched',fontSize:'2.00rem',color:'green'}}>
-                        {help}
+                        {header[this.state.userLng]['help']}
                     </Typography>
 
                     <Typography variant="h5" style={{flexGrow:1}}></Typography>
@@ -176,7 +169,7 @@ export default class SMHeader extends React.Component {
                         :
                         (
                          <Typography onClick={() => this.setState({registerOpen:true})} style={{fontSize:'2.00rem',fontFamily:'Grinched',color:'green'}}>
-                            {register}
+                            header[this.state.userLng]['register']
                          </Typography>
                         )
                     }
@@ -184,19 +177,19 @@ export default class SMHeader extends React.Component {
                     { this.state.isLogin ?
                         (
                          <Typography onClick={() => this.setState({logoutOpen:true})} style={{marginLeft:'2%',color:'green',fontSize:'2.00rem',fontFamily:'Grinched'}}>
-                            {logout}
+                            {header[this.state.userLng]['logout']}
                          </Typography>
                         )
                         :
                         (
                          <Typography onClick={this.onLogin} style={{marginLeft:'2%',color:'orange',fontSize:'2.00rem',fontFamily:'Grinched'}}>
-                            {login}
+                            {header[this.state.userLng]['login']}
                          </Typography>
                         )
                     }
 
                     <Typography onClick={() => this.setState({langSelector:true})} style={{marginLeft:'1%',fontSize:'2.00rem',fontFamily:'Grinched',color:'green'}}>
-                        {lang}
+                        {header[this.state.userLng]['lang']}
                     </Typography>
                 </Toolbar>
 
@@ -213,9 +206,9 @@ export default class SMHeader extends React.Component {
                 <Language open={this.state.langSelector} onClose={this.onLanguage} lang={this.state.userLng}/>
 
                 <AlertDialog open={this.state.logoutOpen}
-                             title='Do you really want to Logout?'
-                             yes='Yes, Please Do it'
-                             no='No, I Wanna Stay as'
+                             title={header[this.state.userLng]['logout_title']}
+                             yes={header[this.state.userLng]['logout_yes']}
+                             no={header[this.state.userLng]['logout_no']}
                              name={this.state.userName}
                              onClose={this.onResult}/>
             </AppBar>
