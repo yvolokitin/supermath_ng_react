@@ -169,7 +169,7 @@ export default class SMHeader extends React.Component {
                         :
                         (
                          <Typography onClick={() => this.setState({registerOpen:true})} style={{fontSize:'2.00rem',fontFamily:'Grinched',color:'green'}}>
-                            header[this.state.userLng]['register']
+                            {header[this.state.userLng]['register']}
                          </Typography>
                         )
                     }
