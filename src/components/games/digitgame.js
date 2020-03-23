@@ -81,6 +81,7 @@ export default class DigitGame extends React.Component {
                 var fail = parseInt(localStorage.getItem('fail')) + parseInt(this.state.failed);
                 localStorage.setItem('fail', fail);
                 var post_data = {'user_id': localStorage.getItem('user_id'),
+                                 'hash': localStorage.getItem('pswdhash'),
                                  'operation': 'results',
                                  'passed': 0,
                                  'failed': this.state.failed,

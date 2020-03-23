@@ -79,7 +79,8 @@ export default class Registration extends React.Component {
         var mykey = crypto.createCipher('aes-128-cbc', this.state.pswd);
         var pswdhash = mykey.update('abc', 'utf8', 'hex');
         pswdhash += mykey.final('hex');
-        console.log('crypto pswdhash: ' + pswdhash);
+        localStorage.setItem('pswdhash', pswdhash);
+        console.log('onRegistration -> crypto pswdhash: ' + pswdhash);
 
         this.setState({loading: true, color: '#ffd9b3'});
         var post_data = {'name': this.state.name,
@@ -142,8 +143,8 @@ export default class Registration extends React.Component {
         }
     }
 
-/*
-*/
+    /*
+    */
     render() {
         return (
             <Dialog transitionDuration={600} fullWidth={true} maxWidth='md' scroll='body' open={this.props.open}>

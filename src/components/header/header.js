@@ -117,6 +117,7 @@ export default class SMHeader extends React.Component {
             localStorage.removeItem('isLogin');
             localStorage.removeItem('user_id');
             localStorage.removeItem('name');
+            localStorage.removeItem('pswdhash');
             // keep language setting
             // localStorage.removeItem('lang');
             localStorage.removeItem('email');

@@ -60,8 +60,14 @@ export default class SMLogin extends React.Component {
 
         this.setState({success: false, loading: true});
 
-        console.log('onLogin.email ' + this.state.email + ', pswd ' + this.state.pswd);
+        var crypto = require('crypto');
+        var mykey = crypto.createCipher('aes-128-cbc', this.state.pswd);
+        var pswdhash = mykey.update('abc', 'utf8', 'hex');
+        pswdhash += mykey.final('hex');
+        localStorage.setItem('pswdhash', pswdhash);
+        console.log('onLogin -> crypto pswdhash: ' + pswdhash);
 
+        // console.log('onLogin.email ' + this.state.email + ', pswd ' + this.state.pswd);
         var post_data = {'email': this.state.email, 'pswd': this.state.pswd};
         axios.post('http://supermath.xyz:3000/api/login', post_data)
             .then(this.onLoginResponse)

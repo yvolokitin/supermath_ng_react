@@ -22,6 +22,7 @@ export default function Language(props) {
         if (localStorage.getItem('user_id') !== null) {
             // update user failed counter in header and send to server
             var post_data = {'user_id': localStorage.getItem('user_id'),
+                             'hash': localStorage.getItem('pswdhash'),
                              'operation': 'lang',
                              'lang': value};
                 axios.post('http://supermath.xyz:3000/api/update', post_data);

@@ -67,6 +67,7 @@ export default class GameResults extends React.Component {
             localStorage.setItem('pass', pass); localStorage.setItem('fail', fail);
 
             var post_data = {'user_id': localStorage.getItem('user_id'),
+                             'hash': localStorage.getItem('pswdhash'),
                              'operation': 'results',
                              'passed': this.props.passed,
                              'failed': this.props.failed,
