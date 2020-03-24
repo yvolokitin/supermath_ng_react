@@ -1,7 +1,5 @@
 ﻿import React from 'react';
-import {Fab, CircularProgress, Snackbar} from '@material-ui/core';
-import {Dialog, DialogContent, TextField, Grid, Link, Button, Checkbox, FormControlLabel} from '@material-ui/core';
-
+import {Dialog, DialogContent, TextField, Grid, Link, Button, Fab, CircularProgress, Snackbar} from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -13,17 +11,16 @@ import constraints from './constraints';
 
 import SMTitle from './../dialog/title';
 
-import {login} from './../halpers/login';
+import {forget} from './../halpers/forget';
 
 import axios from 'axios';
 
 import './header.css';
 
-export default class Login extends React.Component {
+export default class Forget extends React.Component {
     constructor(props) {
         super(props);
         this.state = {email: localStorage.getItem('email') ? localStorage.getItem('email') : '',
-                      pswd: localStorage.getItem('pswd') ? localStorage.getItem('pswd') : '',
                       success: false,
                       loading: false,
                       color: 'red',
@@ -33,14 +30,14 @@ export default class Login extends React.Component {
 
         this.onClose = this.onClose.bind(this);
 
-        this.onLogin = this.onLogin.bind(this);
-        this.onLoginError = this.onLoginError.bind(this);
-        this.onLoginResponse = this.onLoginResponse.bind(this);
+        this.onForget = this.onForget.bind(this);
+        this.onForgetError = this.onForgetError.bind(this);
+        this.onForgetResponse = this.onForgetResponse.bind(this);
 
         this.time = new Date().getTime();
     }
 
-    onLogin(event) {
+    onForget(event) {
         event.preventDefault();
 
         var result = validate({email: this.state.email}, constraints);
@@ -67,19 +64,19 @@ export default class Login extends React.Component {
         var pswdhash = mykey.update('abc', 'utf8', 'hex');
         pswdhash += mykey.final('hex');
         localStorage.setItem('pswdhash', pswdhash);
-        console.log('onLogin -> crypto pswdhash: ' + pswdhash);
+        console.log('onForget -> crypto pswdhash: ' + pswdhash);
 
-        // console.log('onLogin.email ' + this.state.email + ', pswd ' + this.state.pswd);
+        // console.log('onForget.email ' + this.state.email + ', pswd ' + this.state.pswd);
         var post_data = {'email': this.state.email, 'pswd': this.state.pswd};
         axios.post('http://supermath.xyz:3000/api/login', post_data)
-            .then(this.onLoginResponse)
-            .catch(this.onLoginError);
+            .then(this.onForgetResponse)
+            .catch(this.onForgetError);
 
         this.time = new Date().getTime();
     }
 
-    onLoginResponse(response) {
-        console.log('onLoginResponse:: error ' + response.data.error + ', id ' + response.data.id);
+    onForgetResponse(response) {
+        console.log('onForgetResponse:: error ' + response.data.error + ', id ' + response.data.id);
 
         var timeout = new Date().getTime() - this.time;
         if (timeout < 2000) {
@@ -109,7 +106,7 @@ export default class Login extends React.Component {
         }
     }
 
-    onLoginError(error) {
+    onForgetError(error) {
         console.log("axios.post error " + error);
         this.setState({success: false, loading: false, color:'red', error: true, message: error.toString()});
     }
@@ -123,6 +120,9 @@ export default class Login extends React.Component {
     }
 
     /*
+                                <Grid item>
+                                    <Link onClick={() => this.onClose('register')} style={{cursor:'pointer'}} variant='body2'>{forget[this.props.lang]['signup']}</Link>
+                                </Grid>
     */
     render() {
         return (
@@ -140,24 +140,15 @@ export default class Login extends React.Component {
                     <DialogContent>
                         <form noValidate>
                             <TextField disabled={this.state.loading} onChange={(event) => {this.setState({email: event.target.value})}}
-                                       required fullWidth autoFocus variant='outlined' margin='normal' autoComplete='email' label={login[this.props.lang]['email']}/>
+                                       required fullWidth autoFocus variant='outlined' margin='normal' autoComplete='email' label={forget[this.props.lang]['email']}/>
 
-                            <TextField disabled={this.state.loading} onChange={(event) => {this.setState({pswd: event.target.value})}}
-                                       required fullWidth variant='outlined' margin='normal' label={login[this.props.lang]['password']}
-                                       type='password' autoComplete='current-password'/>
-
-                            <FormControlLabel control={<Checkbox value='remember' defaultChecked={true} color='primary'/>} label={login[this.props.lang]['remember']}/>
-
-                            <Button disabled={this.state.loading} onClick={this.onLogin} fullWidth type='submit' variant='contained' color='primary'>
-                                {login[this.props.lang]['login']}
+                            <Button disabled={this.state.loading} onClick={this.onForget} fullWidth type='submit' variant='contained' color='primary'>
+                                {forget[this.props.lang]['send']}
                             </Button>
 
                             <Grid container>
                                 <Grid item xs>
-                                    <Link onClick={() => this.onClose('forget')} style={{cursor:'pointer'}} variant='body2'>{login[this.props.lang]['forgot']}</Link>
-                                </Grid>
-                                <Grid item>
-                                    <Link onClick={() => this.onClose('register')} style={{cursor:'pointer'}} variant='body2'>{login[this.props.lang]['signup']}</Link>
+                                    <Link onClick={() => this.onClose('login')} style={{cursor:'pointer'}} variant='body2'>{forget[this.props.lang]['login']}</Link>
                                 </Grid>
                             </Grid>
                         </form>
@@ -166,7 +157,7 @@ export default class Login extends React.Component {
 
                 <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}} onClose={(e) => this.setState({error:false})} autoHideDuration={this.state.duration} open={this.state.error}>
                     <Alert onClose={(e) => this.setState({error:false})} severity='error'>
-                        {login[this.props.lang]['error']}: {this.state.message}
+                        {forget[this.props.lang]['error']}: {this.state.message}
                     </Alert>
                 </Snackbar>
 

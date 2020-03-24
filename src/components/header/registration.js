@@ -5,8 +5,10 @@ import {Snackbar, CircularProgress} from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 
 // email validator
-import { validate } from 'validate.js';
+import {validate} from 'validate.js';
 import constraints from './constraints';
+
+import {registration} from './../halpers/registration';
 
 import axios from 'axios';
 
@@ -33,7 +35,7 @@ export default class Registration extends React.Component {
                       loading: false,
                       error: false,
                       message: '',
-                      duration: 10000};
+                      duration: 15000};
 
         this.onClose = this.onClose.bind(this);
 
@@ -159,12 +161,12 @@ export default class Registration extends React.Component {
 
                     <div className='registration_desk_textfield'>
                         <TextField disabled={this.state.loading} onChange={(event) => {this.setState({name: event.target.value})}}
-                                   autoFocus required fullWidth variant='outlined' label='Name'/>
+                                   autoFocus required fullWidth variant='outlined' label={registration[this.props.lang]['name']}/>
                     </div>
 
                     <div className='registration_desk_textfield'>
                         <TextField disabled={this.state.loading} onChange={(event) => {this.setState({surname: event.target.value})}}
-                                   fullWidth variant='outlined' label='Surname'/>
+                                   fullWidth variant='outlined' label={registration[this.props.lang]['surname']}/>
                     </div>
 
                     <div className='registration_desk_textfield'>
@@ -174,30 +176,32 @@ export default class Registration extends React.Component {
 
                     <div className='registration_desk_textfield'>
                         <TextField disabled={this.state.loading} onChange={(event) => {this.setState({email: event.target.value})}}
-                                   required fullWidth variant='outlined' label="Email"/>
+                                   required fullWidth variant='outlined' label={registration[this.props.lang]['email']}/>
                     </div>
 
                     <div className='registration_desk_textfield'>
                         <TextField disabled={this.state.loading} onChange={(event) => {this.setState({pswd: event.target.value})}}
-                                   required fullWidth variant='outlined' label="Password"/>
+                                   required fullWidth variant='outlined' label={registration[this.props.lang]['password']}/>
                     </div>
 
                     <div className='registration_desk_textfield'>
-                        <FormControlLabel disabled={this.state.loading} control={<Checkbox value={this.state.subscribtion}
-                                          color="primary" />} onChange={(event) => {this.setState({subcsr: event.target.value})}}
-                                          label='I want to receive inspiration, promotions and updates via email'/>
+                        <FormControlLabel disabled={this.state.loading}
+                                          control={<Checkbox value={this.state.subscribtion} defaultChecked={true} color='primary'/>}
+                                          onChange={(event) => {this.setState({subcsr: event.target.value})}}
+                                          label={registration[this.props.lang]['subscribe']}/>
                     </div>
                 </div>
 
-                <div className='registration_desk_button' onClick={this.onRegistration}>Create account</div>
+                <div className='registration_desk_button' onClick={this.onRegistration}>{registration[this.props.lang]['create']}</div>
 
-                <Link style={{marginRight:'5%',float:'right',cursor:'pointer'}} onClick={() => this.onClose('login')} >Already have an account? Sign in</Link>
+                <Link style={{marginRight:'5%',float:'right',cursor:'pointer'}} onClick={() => this.onClose('login')}>
+                    {registration[this.props.lang]['registered']}
+                </Link>
 
-                <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}}
-                          onClose={(e) => this.setState({error:false})}
-                          autoHideDuration={this.state.duration}
-                          open={this.state.error}>
-                            <Alert onClose={(e) => this.setState({error:false})} severity="error"> {this.state.message} </Alert>
+                <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}} onClose={(e) => this.setState({error:false})} autoHideDuration={this.state.duration} open={this.state.error}>
+                    <Alert onClose={(e) => this.setState({error:false})} severity='error'>
+                        {registration[this.props.lang]['error']}: {this.state.message}
+                    </Alert>
                 </Snackbar>
 
             </Dialog>

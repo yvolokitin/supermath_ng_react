@@ -34,7 +34,7 @@
         presence: true,
         length: {
             minimum: 10,
-            message: 'Should be specified in exact format: dd/mm/yyyy'
+            message: 'Birth Date should be specified in exact format: dd/mm/yyyy'
         }
     },
 };

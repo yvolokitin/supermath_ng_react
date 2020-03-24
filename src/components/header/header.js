@@ -3,7 +3,9 @@ import {AppBar, Toolbar, Typography} from '@material-ui/core';
 
 import SMHelp from './help';
 import SMAbout from './about';
+
 import Login from './login';
+import Forget from './forget';
 import Registration from './registration';
 import UserInformation from './userinfo';
 import Language from './language';
@@ -18,6 +20,7 @@ export default class SMHeader extends React.Component {
         super(props);
 
         this.onLogin = this.onLogin.bind(this);
+        this.onForget = this.onForget.bind(this);
         this.onResult = this.onResult.bind(this);
         this.onLanguage = this.onLanguage.bind(this);
 
@@ -28,6 +31,7 @@ export default class SMHeader extends React.Component {
                       helpOpen: false,
                       loginOpen: false,
                       logoutOpen: false,
+                      forgetOpen: false,
                       registerOpen: false,
                       userInfoOpen: false,
                       langSelector: false,
@@ -69,6 +73,10 @@ export default class SMHeader extends React.Component {
         this.setState({loginOpen: true});
     }
 
+    onForget() {
+        this.setState({forgetOpen: true});
+    }
+
     onResult(result, user_id, name, lang, email, surname, age, ava, passed, failed) {
         // console.log('onResult ' + result + ', user: ' + user + ', age: ' + age+ ', pass: '  + passed + ', fail: ' + failed);
         if (result === 'successed') {
@@ -103,11 +111,11 @@ export default class SMHeader extends React.Component {
             this.setState({loginOpen: false, registerOpen: true});
 
         } else if (result === 'login') {
-            this.setState({loginOpen: true, registerOpen: false});
+            this.setState({loginOpen: true, forgetOpen: false, registerOpen: false});
 
-        } else if (result === 'pswd') {
-            console.log('Not implemented yet, just close');
-            this.setState({loginOpen: false, isLogin: false});
+        } else if (result === 'forget') {
+            // console.log('Not implemented yet, just close');
+            this.setState({loginOpen: false, forgetOpen: true, isLogin: false});
 
         } else if (result === 'logout') {
             console.log("onLogout");
@@ -198,6 +206,7 @@ export default class SMHeader extends React.Component {
                 <SMAbout open={this.state.aboutOpen} onClick={() => this.setState({aboutOpen: false})} lang={this.state.userLng}/>
 
                 <Login open={this.state.loginOpen} onClose={this.onResult} lang={this.state.userLng}/>
+                <Forget open={this.state.forgetOpen} onClose={this.onResult} lang={this.state.userLng}/>
 
                 <UserInformation open={this.state.userInfoOpen} onClick={this.onUserInfoClose}
                                  user={this.state.userName} age={this.state.userAge} ava={this.state.userAva}
