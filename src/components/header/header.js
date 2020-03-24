@@ -140,7 +140,7 @@ export default class SMHeader extends React.Component {
             this.setState({logoutOpen: false});
 
         } else {
-            this.setState({loginOpen: false, registerOpen: false, isLogin: false});
+            this.setState({loginOpen: false, forgetOpen: false, registerOpen: false, isLogin: false});
         }
     }
 
