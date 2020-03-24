@@ -17,7 +17,7 @@ import axios from 'axios';
 
 import './header.css';
 
-export default class SMLogin extends React.Component {
+export default class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {email: localStorage.getItem('email') ? localStorage.getItem('email') : '',

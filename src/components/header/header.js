@@ -3,7 +3,7 @@ import {AppBar, Toolbar, Typography} from '@material-ui/core';
 
 import SMHelp from './help';
 import SMAbout from './about';
-import SMLogin from './login';
+import Login from './login';
 import Registration from './registration';
 import UserInformation from './userinfo';
 import Language from './language';
@@ -194,13 +194,14 @@ export default class SMHeader extends React.Component {
                     </Typography>
                 </Toolbar>
 
-                <SMHelp open={this.state.helpOpen} lang={this.state.userLng} onClick={() => this.setState({helpOpen: false})}/>
-                <SMAbout open={this.state.aboutOpen} lang={this.state.userLng} onClick={() => this.setState({aboutOpen: false})}/>
-                <SMLogin open={this.state.loginOpen} onClose={this.onResult}/>
+                <SMHelp open={this.state.helpOpen} onClick={() => this.setState({helpOpen: false})} lang={this.state.userLng}/>
+                <SMAbout open={this.state.aboutOpen} onClick={() => this.setState({aboutOpen: false})} lang={this.state.userLng}/>
+
+                <Login open={this.state.loginOpen} onClose={this.onResult} lang={this.state.userLng}/>
 
                 <UserInformation open={this.state.userInfoOpen} onClick={this.onUserInfoClose}
                                  user={this.state.userName} age={this.state.userAge} ava={this.state.userAva}
-                                 pass={this.state.userPass} fail={this.state.userFail}/>
+                                 pass={this.state.userPass} fail={this.state.userFail} lang={this.state.userLng}/>
 
                 <Registration open={this.state.registerOpen} onClose={this.onResult} lang={this.state.userLng}/>
 
