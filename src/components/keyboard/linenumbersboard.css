@@ -36,3 +36,8 @@
 .linekeyboard button:focus {
     outline: none;
 }
+@media only screen and (max-width: 1200px) {
+    .linekeyboard button {
+        font-size: 2.00rem;
+    }
+}
