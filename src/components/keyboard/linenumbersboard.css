@@ -38,6 +38,9 @@
 }
 @media only screen and (max-width: 1200px) {
     .linekeyboard button {
-        font-size: 2.00rem;
+        width: 67px;
+        height: 77px;
+        margin: 5px;
+        font-size: 2.5rem;
     }
 }
