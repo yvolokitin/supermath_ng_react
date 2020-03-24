@@ -1,4 +1,4 @@
-﻿.gameboard_wrapper {
+.gameboard_wrapper {
     height: 100%;
     width: 100%;
 }
@@ -33,7 +33,7 @@
     justify-content: center;
 }
 .line_gameboard {
-    height: 90%;
+    height: 80%;
     width: 95%;
 
     font-family: "Grinched";

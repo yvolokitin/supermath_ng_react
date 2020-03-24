@@ -1,15 +1,16 @@
 ﻿.linekeyboard {
     width: 95%;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     border: 1px solid grey;
     border-radius: 10px;
 }
 .linekeyboard button {
-    width: 73px;
-    height: 73px;
-    margin: 10px;
+    width: 9%;
+    margin: 1%;
 
     font-family: "Grinched";
     font-size: 4.00rem;
@@ -32,19 +33,4 @@
 }
 .linekeyboard button:focus {
     outline: none;
-}
-@media only screen and (max-width: 1020px) {
-    .operatorboard button {
-        width: 63px;
-        height: 63px;
-        margin: 5px;
-    }
-}
-@media only screen and (max-width: 800px) {
-    .operatorboard button {
-        width: 43px;
-        height: 43px;
-        margin: 2px;
-        font-size: 2.00rem;
-    }
 }
