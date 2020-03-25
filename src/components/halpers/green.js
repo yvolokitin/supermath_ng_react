@@ -2,8 +2,6 @@
 export const green_titles = {
     // English
     'en': {
-        'play': 'Play',
-        'details': 'View Details',
         '1': 'Multiplication two one-digit number from 0 to 5',
         '2': 'Multiplication two one-digit number from 0 to 10',
         '3': 'Multiplication two one-digit number from 1 to 10',
@@ -16,8 +14,6 @@ export const green_titles = {
     },
     // Russian
     'ru': {
-        'play': 'Играть',
-        'details': 'Детали Игры',
         '1': 'Умножение двух однозначных чисел от 0 до 5',
         '2': 'Умножение двух однозначных чисел от 1 до 10',
         '3': 'Умножение двух однозначных чисел от 1 до 10',
@@ -30,8 +26,6 @@ export const green_titles = {
     },
     // Dutch
     'nl' : {
-        'play': 'Play',
-        'details': 'View Details',
         '1': 'Multiplication two one-digit number from 0 to 5',
         '2': 'Multiplication two one-digit number from 0 to 10',
         '3': 'Multiplication two one-digit number from 1 to 10',
@@ -44,8 +38,6 @@ export const green_titles = {
     },
     // French
     'fr' : {
-        'play': 'Play',
-        'details': 'View Details',
         '1': 'Multiplication two one-digit number from 0 to 5',
         '2': 'Multiplication two one-digit number from 0 to 10',
         '3': 'Multiplication two one-digit number from 1 to 10',
@@ -58,8 +50,6 @@ export const green_titles = {
     },
     // German
     'de' : {
-        'play': 'Play',
-        'details': 'View Details',
         '1': 'Multiplication two one-digit number from 0 to 5',
         '2': 'Multiplication two one-digit number from 0 to 10',
         '3': 'Multiplication two one-digit number from 1 to 10',
@@ -72,8 +62,6 @@ export const green_titles = {
     },
     // Spanish
     'es' : {
-        'play': 'Play',
-        'details': 'View Details',
         '1': 'Multiplication two one-digit number from 0 to 5',
         '2': 'Multiplication two one-digit number from 0 to 10',
         '3': 'Multiplication two one-digit number from 1 to 10',
@@ -86,8 +74,6 @@ export const green_titles = {
     },
     // Italian
     'it' : {
-        'play': 'Play',
-        'details': 'View Details',
         '1': 'Multiplication two one-digit number from 0 to 5',
         '2': 'Multiplication two one-digit number from 0 to 10',
         '3': 'Multiplication two one-digit number from 1 to 10',

@@ -2,8 +2,6 @@
 export const orange_titles = {
     // English
     'en': {
-        'play': 'Play',
-        'details': 'View Details',
         '1': 'Determination of two digit number from sequence',
         '2': 'Comparision of two two-digit numbers (from 11 to 99)',
         '3': 'Addition and Subtraction of two (10..20) and one-digit numbers',
@@ -16,8 +14,6 @@ export const orange_titles = {
     },
     // Russian
     'ru': {
-        'play': 'Играть',
-        'details': 'Детали Игры',
         '1': 'Определение двузначного числа по последовательности',
         '2': 'Сравнение двух двузначных чисел от 10 до 100 (100 трехзначное)',
         '3': 'Сложение и Вычитание однозначного и двузначного чисел (10..20)',
@@ -30,8 +26,6 @@ export const orange_titles = {
     },
     // Dutch
     'nl' : {
-        'play': 'Play',
-        'details': 'View Details',
         '1': 'Tasks for determination of two digit number from sequance',
         '2': 'Comparision of two-digit numbers (from 10 to 100)',
         '3': 'Addition and Subtraction of two (10..20) and one-digit numbers',
@@ -44,8 +38,6 @@ export const orange_titles = {
     },
     // French
     'fr' : {
-        'play': 'Play',
-        'details': 'View Details',
         '1': 'Tasks for determination of two digit number from sequance',
         '2': 'Comparision of two-digit numbers (from 10 to 100)',
         '3': 'Addition and Subtraction of two (10..20) and one-digit numbers',
@@ -58,8 +50,6 @@ export const orange_titles = {
     },
     // German
     'de' : {
-        'play': 'Play',
-        'details': 'View Details',
         '1': 'Tasks for determination of two digit number from sequance',
         '2': 'Comparision of two-digit numbers (from 10 to 100)',
         '3': 'Addition and Subtraction of two (10..20) and one-digit numbers',
@@ -72,8 +62,6 @@ export const orange_titles = {
     },
     // Spanish
     'es' : {
-        'play': 'Play',
-        'details': 'View Details',
         '1': 'Tasks for determination of two digit number from sequance',
         '2': 'Comparision of two-digit numbers (from 10 to 100)',
         '3': 'Addition and Subtraction of two (10..20) and one-digit numbers',
@@ -86,8 +74,6 @@ export const orange_titles = {
     },
     // Italian
     'it' : {
-        'play': 'Play',
-        'details': 'View Details',
         '1': 'Tasks for determination of two digit number from sequance',
         '2': 'Comparision of two-digit numbers (from 10 to 100)',
         '3': 'Addition and Subtraction of two (10..20) and one-digit numbers',

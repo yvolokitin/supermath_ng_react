@@ -104,13 +104,13 @@ export default class White extends React.Component {
                                     </CardContent>
                                 </CardActionArea>    
                                 <CardActions>
-                                    <Button size='small' color='primary' startIcon={<VisibilityIcon />}
+                                    <Button size='small' color='primary' startIcon={<VisibilityIcon/>}
                                             onClick={(e) => this.onInfoOpen(game.id, game.logo, game.task)}>
-                                                {white_titles[this.props.lang]['details']}
+                                                {this.props.info}
                                     </Button>
-                                    <Button size='small' color='primary' startIcon={<PlayCircleFilledWhiteIcon />}
+                                    <Button size='small' color='primary' startIcon={<PlayCircleFilledWhiteIcon/>}
                                             onClick={(e) => this.onGameOpen(game.type, game.task, game.amount)}>
-                                                {white_titles[this.props.lang]['play']}
+                                                {this.props.play}
                                     </Button>
                                 </CardActions>
                             </Card>

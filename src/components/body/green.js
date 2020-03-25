@@ -20,8 +20,8 @@ import logo9 from './../../images/tasks/green_9.jpg';
 
 import classes from './../../index.css';
 
-import Info from "./info";
-import DigitGame from "./../games/digitgame";
+import Info from './info';
+import DigitGame from './../games/digitgame';
 
 import {green_titles, green_descriptions} from './../halpers/green';
 const task_amount = 30;
@@ -93,13 +93,13 @@ export default class Green extends React.Component {
 
     render() {
         return (
-            <Container className={classes.grid} maxWidth="md">
+            <Container className={classes.grid} maxWidth='md'>
                 <Grid container spacing={3}>
                     {games.map((game, key) => (
                         <Grid item key={game.id} xs={12} sm={6} md={4}>
                             <Card className={classes.card}>
                                 <CardActionArea onClick={(e) => this.onGameOpen(game.type, game.task, game.amount)}>
-                                    <CardMedia component="img" alt="Game task" height="140" image={game.logo}/>
+                                    <CardMedia component='img' alt='Game task' height='140' image={game.logo}/>
                                     <CardContent>
                                         <Typography variant='body2' color='textSecondary' component='p'>
                                             {green_titles[this.props.lang][game.id]}
@@ -107,13 +107,13 @@ export default class Green extends React.Component {
                                     </CardContent>
                                 </CardActionArea>    
                                 <CardActions>
-                                    <Button size='small' color='primary' startIcon={<VisibilityIcon />}
+                                    <Button size='small' color='primary' startIcon={<VisibilityIcon/>}
                                             onClick={(e) => this.onInfoOpen(game.id, game.logo, game.task)}>
-                                                {green_titles[this.props.lang]['details']}
+                                                {this.props.info}
                                     </Button>
-                                    <Button size='small' color='primary' startIcon={<PlayCircleFilledWhiteIcon />}
+                                    <Button size='small' color='primary' startIcon={<PlayCircleFilledWhiteIcon/>}
                                             onClick={(e) => this.onGameOpen(game.type, game.task, game.amount)}>
-                                                {green_titles[this.props.lang]['play']}
+                                                {this.props.play}
                                     </Button>
                                 </CardActions>
                             </Card>
@@ -137,7 +137,7 @@ export default class Green extends React.Component {
                            belt='green'
                            onClose={this.onGameClose}/>
 
-                </Container>
+            </Container>
         );
     }
 }
