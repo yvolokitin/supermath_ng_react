@@ -20,7 +20,7 @@ import logo9 from './../../images/tasks/black_9.jpg';
 
 import classes from './../../index.css';
 
-import SMDialogInfo from "./info";
+import Info from "./info";
 import DigitGame from "./../games/digitgame";
 
 const task_amount = 30;
@@ -130,12 +130,12 @@ export default class Black extends React.Component {
                         ))}
                     </Grid>
 
-                    <SMDialogInfo open={this.state.infoOpen}
-                                  title={this.state.infoTitle}
-                                  text={this.state.infoText}
-                                  imgUrl={this.state.infoIURL}
-                                  task={this.state.taskTerms}
-                                  onClick={this.onInfoClose}/>
+                    <Info open={this.state.infoOpen}
+                          title={this.state.infoTitle}
+                          text={this.state.infoText}
+                          imgUrl={this.state.infoIURL}
+                          task={this.state.taskTerms}
+                          onClick={this.onInfoClose}/>
 
                     <DigitGame open={this.state.gameOpen}
                                type={this.state.gameType}

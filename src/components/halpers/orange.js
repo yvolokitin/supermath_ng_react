@@ -1,31 +1,37 @@
-﻿// orange beld titles
+﻿// orange level / beld titles
 export const orange_titles = {
     // English
     'en': {
-        '1': 'Tasks for determination of two digit number from sequance',
-        '2': 'Comparision of two-digit numbers (from 10 to 100)',
+        'play': 'Play',
+        'details': 'View Details',
+        '1': 'Determination of two digit number from sequence',
+        '2': 'Comparision of two two-digit numbers (from 11 to 99)',
         '3': 'Addition and Subtraction of two (10..20) and one-digit numbers',
         '4': 'Addition and Subtraction of round numbers (10, 20, ... 100)',
         '5': 'Addition and Subtraction of round and one-digit numbers (0..10)',
         '6': 'Addition and Subtraction of one-digit and two-digit numbers',
-        '7': 'Addition and Subtraction of two two-digit numbers',
+        '7': 'Addition and Subtraction of two two-digit numbers (11..99)',
         '8': 'Long Addition and Subtraction of round numbers',
         '9': 'Long Addition and Subtraction of two- and three- digit numbers',
     },
     // Russian
     'ru': {
-        '1': 'Tasks for determination of two digit number from sequance',
-        '2': 'Comparision of two-digit numbers (from 10 to 100)',
-        '3': 'Addition and Subtraction of two (10..20) and one-digit numbers',
-        '4': 'Addition and Subtraction of round numbers (10, 20, ... 100)',
-        '5': 'Addition and Subtraction of round and one-digit numbers (0..10)',
-        '6': 'Addition and Subtraction of one-digit and two-digit numbers',
-        '7': 'Addition and Subtraction of two two-digit numbers',
-        '8': 'Long Addition and Subtraction of round numbers',
-        '9': 'Long Addition and Subtraction of two- and three- digit numbers',
+        'play': 'Играть',
+        'details': 'Детали Игры',
+        '1': 'Определение двузначного числа по последовательности',
+        '2': 'Сравнение двух двузначных чисел от 10 до 100 (100 трехзначное)',
+        '3': 'Сложение и Вычитание однозначного и двузначного чисел (10..20)',
+        '4': 'Сложение и Вычитание целых чисел от 10 до 100 (10, 20, ... 100)',
+        '5': 'Сложение и Вычитание однозначного числа (1..9) с целым (10...100)',
+        '6': 'Сложение и Вычитание однозначного числа (1..9) с двузначным (11..99)',
+        '7': 'Сложение и Вычитание двух двузначных чисел (11..99)',
+        '8': 'Сложение и Вычитание в столбик целых трех- и двузначных чисел',
+        '9': 'Сложение и Вычитание в столбик трех- и двузначных чисел',
     },
     // Dutch
     'nl' : {
+        'play': 'Play',
+        'details': 'View Details',
         '1': 'Tasks for determination of two digit number from sequance',
         '2': 'Comparision of two-digit numbers (from 10 to 100)',
         '3': 'Addition and Subtraction of two (10..20) and one-digit numbers',
@@ -38,6 +44,8 @@ export const orange_titles = {
     },
     // French
     'fr' : {
+        'play': 'Play',
+        'details': 'View Details',
         '1': 'Tasks for determination of two digit number from sequance',
         '2': 'Comparision of two-digit numbers (from 10 to 100)',
         '3': 'Addition and Subtraction of two (10..20) and one-digit numbers',
@@ -50,6 +58,8 @@ export const orange_titles = {
     },
     // German
     'de' : {
+        'play': 'Play',
+        'details': 'View Details',
         '1': 'Tasks for determination of two digit number from sequance',
         '2': 'Comparision of two-digit numbers (from 10 to 100)',
         '3': 'Addition and Subtraction of two (10..20) and one-digit numbers',
@@ -62,6 +72,8 @@ export const orange_titles = {
     },
     // Spanish
     'es' : {
+        'play': 'Play',
+        'details': 'View Details',
         '1': 'Tasks for determination of two digit number from sequance',
         '2': 'Comparision of two-digit numbers (from 10 to 100)',
         '3': 'Addition and Subtraction of two (10..20) and one-digit numbers',
@@ -74,6 +86,8 @@ export const orange_titles = {
     },
     // Italian
     'it' : {
+        'play': 'Play',
+        'details': 'View Details',
         '1': 'Tasks for determination of two digit number from sequance',
         '2': 'Comparision of two-digit numbers (from 10 to 100)',
         '3': 'Addition and Subtraction of two (10..20) and one-digit numbers',

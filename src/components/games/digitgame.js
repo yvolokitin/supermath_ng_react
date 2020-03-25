@@ -163,21 +163,21 @@ export default class DigitGame extends React.Component {
         */
         return (
             <Dialog fullScreen={true} transitionDuration={500} open={this.props.open}>
-                { this.state.showResults ? (null) : (<GameHeader onClick={this.onGameClose} total={this.state.total} passed={this.state.passed} failed={this.state.failed} results={this.state.results}/>) }
+                { this.state.showResults ? (null) : (<GameHeader onClick={this.onGameClose} lang={this.props.lang} total={this.state.total} passed={this.state.passed} failed={this.state.failed} results={this.state.results}/>) }
 
                 <div className='digitgamebody'>
                     { this.state.showResults ? (
                             <GameResults open={this.state.showResults} passed={this.state.passed} failed={this.state.failed}
                                          results={this.state.results} amount={this.state.amount} duration={this.state.duration}
-                                         belt={this.props.belt} onClose={this.onGameClose}/>
+                                         belt={this.props.belt} lang={this.props.lang} onClose={this.onGameClose}/>
                         ) : (
                             <GameBoard onClose={this.onGameClose} onCounter={this.onCounterUpdate} onColor={this.onColorUpdate}
-                                       type={this.state.type} task={this.state.task} amount={this.state.amount}/>
+                                       type={this.state.type} task={this.state.task} amount={this.state.amount} lang={this.props.lang}/>
                         )
                     }
                 </div>
 
-                { this.state.showResults ? (null) : (<GameFooter color={this.state.circle}/>) }
+                { this.state.showResults ? (null) : (<GameFooter color={this.state.circle} lang={this.props.lang}/>) }
             </Dialog>
         );
     }

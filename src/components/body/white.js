@@ -20,7 +20,7 @@ import logo9 from './../../images/tasks/white_9.jpg';
 
 import classes from './../../index.css';
 
-import SMDialogInfo from "./info";
+import Info from "./info";
 import DigitGame from "./../games/digitgame";
 
 import {white_titles, white_descriptions} from './../halpers/white';
@@ -104,27 +104,33 @@ export default class White extends React.Component {
                                     </CardContent>
                                 </CardActionArea>    
                                 <CardActions>
-                                    <Button size="small" color="primary" startIcon={<VisibilityIcon />}
-                                            onClick={(e) => this.onInfoOpen(game.id, game.logo, game.task)}>View Details</Button>
-                                    <Button size="small" color="primary" startIcon={<PlayCircleFilledWhiteIcon />}
-                                            onClick={(e) => this.onGameOpen(game.type, game.task, game.amount)}>Play</Button>
+                                    <Button size='small' color='primary' startIcon={<VisibilityIcon />}
+                                            onClick={(e) => this.onInfoOpen(game.id, game.logo, game.task)}>
+                                                {white_titles[this.props.lang]['details']}
+                                    </Button>
+                                    <Button size='small' color='primary' startIcon={<PlayCircleFilledWhiteIcon />}
+                                            onClick={(e) => this.onGameOpen(game.type, game.task, game.amount)}>
+                                                {white_titles[this.props.lang]['play']}
+                                    </Button>
                                 </CardActions>
                             </Card>
                         </Grid>
                     ))}
                 </Grid>
 
-                <SMDialogInfo open={this.state.infoOpen}
-                              title={this.state.infoTitle}
-                              text={this.state.infoText}
-                              imgUrl={this.state.infoIURL}
-                              task={this.state.taskTerms}
-                              onClick={this.onInfoClose}/>
+                <Info open={this.state.infoOpen}
+                      title={this.state.infoTitle}
+                      text={this.state.infoText}
+                      imgUrl={this.state.infoIURL}
+                      task={this.state.taskTerms}
+                      lang={this.props.lang}
+                      onClick={this.onInfoClose}/>
 
                 <DigitGame open={this.state.gameOpen}
                            type={this.state.gameType}
                            task={this.state.gameTerm}
                            amount={this.state.gameAmnt}
+                           lang={this.props.lang}
                            belt='white'
                            onClose={this.onGameClose}/>
             </Container>

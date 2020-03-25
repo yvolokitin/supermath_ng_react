@@ -4,6 +4,8 @@ import GameProgress from "./digitgameprogress";
 
 import AlertDialog from './../alert/alert';
 
+import {gameheader} from './../halpers/gameheader';
+
 /*
 */
 export default function GameHeader(props) {
@@ -21,8 +23,6 @@ export default function GameHeader(props) {
         setProgress(false);
     }
 
-    const texter = 'You will lose All your Passed scores data if you Exit (when ' + props.failed.toString() + ' Fails will be kept)! We are strongly recommend you to finish current Math tasks';
-
     return (
         <div className="games_header_div">
             <div className='games_header_div_left'>
@@ -35,9 +35,10 @@ export default function GameHeader(props) {
             </div>
 
             <AlertDialog open={value}
-                         title='Do you really want to Exit from the game?'
-                         text={texter}
-                         yes='Exit' no='Let Me Continue'
+                         title={gameheader[props.lang]['title']}
+                         text={gameheader[props.lang]['text']}
+                         yes={gameheader[props.lang]['yes']}
+                         no={gameheader[props.lang]['no']}
                          onClose={onAlertDialog}/>
 
             <GameProgress open={progress}

@@ -20,7 +20,7 @@ import logo9 from './../../images/tasks/orange_9.jpg';
 
 import classes from './../../index.css';
 
-import SMDialogInfo from "./info";
+import Info from "./info";
 import DigitGame from "./../games/digitgame";
 
 import {orange_titles, orange_descriptions} from './../halpers/orange';
@@ -28,14 +28,14 @@ const task_amount = 30;
 
 const games = [
     {id: 1, logo: logo1, type: 'linedigits', task: '10-97', amount: task_amount},
-    {id: 2, logo: logo2, type: 'comp_nums', task: '<>=,10-99,1', amount: task_amount},
+    {id: 2, logo: logo2, type: 'comp_nums', task: '<>=,11-99,1', amount: task_amount},
     {id: 3, logo: logo3, type: '2digits', task: '+-,0-10,10-20,1,1', amount: task_amount},
     {id: 4, logo: logo4, type: '2digits', task: '+-,0-10,0-10,10,10', amount: task_amount},
-    {id: 5, logo: logo5, type: '2digits', task: '+-,1-10,1-10,10,1', amount: task_amount},
-    {id: 6, logo: logo6, type: '2digits', task: '+-,0-10,10-100,1,1', amount: task_amount},
-    {id: 7, logo: logo7, type: '2digits', task: '+-,10-100,10-100,1,1', amount: task_amount},
+    {id: 5, logo: logo5, type: '2digits', task: '+-,1-10,1-9,10,1', amount: task_amount},
+    {id: 6, logo: logo6, type: '2digits', task: '+-,1-9,11-99,1,1', amount: task_amount},
+    {id: 7, logo: logo7, type: '2digits', task: '+-,11-99,11-99,1,1', amount: task_amount},
     {id: 8, logo: logo8, type: 'digit_2column', task: '+-,1-99,1-99,10,10', amount: task_amount},
-    {id: 9, logo: logo9, type: 'digit_2column', task: '+-,10-100,100-999,1,1', amount: task_amount},
+    {id: 9, logo: logo9, type: 'digit_2column', task: '+-,11-99,101-999,1,1', amount: task_amount},
 ];
 
 export default class Orange extends React.Component {
@@ -106,27 +106,33 @@ export default class Orange extends React.Component {
                                     </CardContent>
                                 </CardActionArea>    
                                 <CardActions>
-                                    <Button size="small" color="primary" startIcon={<VisibilityIcon />}
-                                            onClick={(e) => this.onInfoOpen(game.id, game.logo, game.task)}>View Details</Button>
-                                    <Button size="small" color="primary" startIcon={<PlayCircleFilledWhiteIcon />}
-                                            onClick={(e) => this.onGameOpen(game.type, game.task, game.amount)}>Play</Button>
+                                    <Button size='small' color='primary' startIcon={<VisibilityIcon />}
+                                            onClick={(e) => this.onInfoOpen(game.id, game.logo, game.task)}>
+                                                {orange_titles[this.props.lang]['details']}
+                                    </Button>
+                                    <Button size='small' color='primary' startIcon={<PlayCircleFilledWhiteIcon />}
+                                            onClick={(e) => this.onGameOpen(game.type, game.task, game.amount)}>
+                                                {orange_titles[this.props.lang]['play']}
+                                    </Button>
                                 </CardActions>
                             </Card>
                         </Grid>
                     ))}
                 </Grid>
 
-                <SMDialogInfo open={this.state.infoOpen}
-                              title={this.state.infoTitle}
-                              text={this.state.infoText}
-                              imgUrl={this.state.infoIURL}
-                              task={this.state.taskTerms}
-                              onClick={this.onInfoClose}/>
+                <Info open={this.state.infoOpen}
+                      title={this.state.infoTitle}
+                      text={this.state.infoText}
+                      imgUrl={this.state.infoIURL}
+                      task={this.state.taskTerms}
+                      lang={this.props.lang}
+                      onClick={this.onInfoClose}/>
 
                 <DigitGame open={this.state.gameOpen}
                            type={this.state.gameType}
                            task={this.state.gameTerm}
                            amount={this.state.gameAmnt}
+                           lang={this.props.lang}
                            belt='orange'
                            onClose={this.onGameClose}/>
 

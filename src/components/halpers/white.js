@@ -2,6 +2,8 @@
 export const white_titles = {
     // English
     'en': {
+        'play': 'Play',
+        'details': 'View Details',
         '1': 'Determination of one digit number from sequence',
         '2': 'Comparison of one-digit numbers (from 0 to 10)',
         '3': 'Addition of one-digit numbers (from 0 to 10)',
@@ -14,7 +16,9 @@ export const white_titles = {
     },
     // Russian
     'ru': {
-        '1': 'Determination of one digit number from sequence',
+        'play': 'Играть',
+        'details': 'Детали Игры',
+        '1': 'Определение однозначного числа по последовательности',
         '2': 'Сравнение двух однозначиных чисел (от 0 до 10)',
         '3': 'Сложение двух однозначиных чисел (от 0 до 10)',
         '4': 'Вычитание двух однозначиных чисел (от 0 до 10)',
@@ -26,6 +30,8 @@ export const white_titles = {
     },
     // Dutch
     'nl' : {
+        'play': 'Play',
+        'details': 'View Details',
         '1': 'Bepaling van een cijfer uit de reeks (van 0 tot 10)',
         '2': 'Vergelijking van getallen van een cijfer (van 0 tot 10)',
         '3': 'Optellen van getallen van een cijfer (van 0 tot 10)',
@@ -38,6 +44,8 @@ export const white_titles = {
     },
     // French
     'fr' : {
+        'play': 'Play',
+        'details': 'View Details',
         '1': 'Determination d\'un nombre a un chiffre a partir de la sequence',
         '2': 'Comparision of one-digit numbers (from 0 to 10)',
         '3': 'Addition of one-digit numbers (from 0 to 10)',
@@ -50,6 +58,8 @@ export const white_titles = {
     },
     // German
     'de' : {
+        'play': 'Play',
+        'details': 'View Details',
         '1': 'Bestimmung einer einstelligen Nummer aus der Sequenz',
         '2': 'Comparision of one-digit numbers (from 0 to 10)',
         '3': 'Addition of one-digit numbers (from 0 to 10)',
@@ -62,6 +72,8 @@ export const white_titles = {
     },
     // Spanish
     'es' : {
+        'play': 'Play',
+        'details': 'View Details',
         '1': 'Determinacion del numero de un digito a partir de la secuencia.',
         '2': 'Comparision of one-digit numbers (from 0 to 10)',
         '3': 'Addition of one-digit numbers (from 0 to 10)',
@@ -74,6 +86,8 @@ export const white_titles = {
     },
     // Italian
     'it' : {
+        'play': 'Play',
+        'details': 'View Details',
         '1': 'Determinazione di un numero di cifre dalla sequenza',
         '2': 'Comparision of one-digit numbers (from 0 to 10)',
         '3': 'Addition of one-digit numbers (from 0 to 10)',
