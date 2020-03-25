@@ -15,14 +15,14 @@ export const white_titles = {
     // Russian
     'ru': {
         '1': 'Determination of one digit number from sequence',
-        '2': 'Comparison of one-digit numbers (from 0 to 10)',
-        '3': 'Addition of one-digit numbers (from 0 to 10)',
-        '4': 'Subtraction of one-digit numbers (from 0 to 10)',
-        '5': 'Addition and Subtraction of two one-digit numbers (from 0 to 10)',
-        '6': 'Mathematical operation (Addition or Subtraction) determination',
-        '7': 'Addition and Subtraction of three one-digit numbers',
-        '8': 'Comparison of two expressions for one digit numbers',
-        '9': 'Addition and Subtraction of two one-digit numbers (from 0 to 10)',
+        '2': 'Сравнение двух однозначиных чисел (от 0 до 10)',
+        '3': 'Сложение двух однозначиных чисел (от 0 до 10)',
+        '4': 'Вычитание двух однозначиных чисел (от 0 до 10)',
+        '5': 'Сложение и Вычитание двух однозначиных чисел (от 0 до 10)',
+        '6': 'Определение Математической операции (Сложение или Вычитание)',
+        '7': 'Сложение и Вычитание трех однозначных чисел (от 0 до 10)',
+        '8': 'Сравнение выражений двух однозначных чисел (от 0 до 10)',
+        '9': 'Сложение и Вычитание двух однозначиных чисел (от 0 до 10)',
     },
     // Dutch
     'nl' : {
