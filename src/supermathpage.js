@@ -49,14 +49,14 @@ export default class SuperMathPage extends React.Component {
         }
 
         this.state = {userUpdate: false, userLng: language};
-        console.log('SuperMathPage.constructor language ' + language);
-
         this.onUpdate = this.onUpdate.bind(this);
+
+        // console.log('SuperMathPage.constructor language ' + language);
     }
 
     onUpdate(language) {
         if ((language !== undefined) && (language !== null)) {
-            console.log('SuperMathPage.onUpdate language: ' + language);
+            // console.log('SuperMathPage.onUpdate language: ' + language);
             this.setState({userLng: language});
             localStorage.setItem('lang', language);
         }

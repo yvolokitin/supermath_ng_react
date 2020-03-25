@@ -146,7 +146,7 @@ export default class SMHeader extends React.Component {
 
     onLanguage(language) {
         if (language !== undefined) {
-            console.log('SMHeader.onLanguage: ' + language);
+            // console.log('SMHeader.onLanguage: ' + language);
             this.setState({langSelector: false, userLng: language});
             this.props.onUpdate(language);
         } else {
