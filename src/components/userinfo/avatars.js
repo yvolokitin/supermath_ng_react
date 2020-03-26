@@ -1,102 +1,42 @@
 ﻿import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
+import {Grid, Avatar} from '@material-ui/core';
 
 export default class Avatars extends React.Component {
     constructor(props) {
         super(props);
-        this.onChangeAvatar = this.onChangeAvatar.bind(this);
+        this.onAvatarChange = this.onAvatarChange.bind(this);
+
+        this.state = {index: props.index};
     }
 
-    onChangeAvatar(newAvatar) {
-        console.log('onChangeAvatar ' + newAvatar);
-        this.setState({ava: newAvatar});
+    onAvatarChange(avatar, id) {
+        console.log('onChangeAvatar ' + avatar + ', id ' + id);
+        this.setState({index: id});
+        this.props.onAvatarUpdate(avatar, id);
 
         // onChangeAvatar /static/media/astronaut-icon.2a916653.png
         // we should save proper value in storage, i.e. astronaut-icon name only
-        var index = newAvatar.indexOf('.');
+         var index = avatar.indexOf('.');
         // '/static/media/' length = 14
-        var value = newAvatar.substring(14, index);
+        var value = avatar.substring(14, index);
         localStorage.setItem('ava', value);
+        console.log('value ' + value);
     }
 
-/*
-                        <Avatar key={avatar} style={{margin:'10px',width:'120px',height:'120px',cursor:'pointer'}}>
-                            <img onClick={() => this.onChangeAvatar(avatar)} src={avatar} alt='avatar'/>
-                        </Avatar>
-*/
     render() {
         return (
             <div className='avatarsboard'>
+                <Grid container spacing={0}>
                 {
-                    this.props.avatars.map(avatar => (
-                        <Avatar key={avatar} style={{margin:'10px',width:'120px',height:'120px',cursor:'pointer',border:'1px solid red'}}
-                                alt="Remy Sharp" src={avatar}/>
+                    this.props.avatars.map((avatar, id) => (
+                        <Grid item key={id} xs={2} style={{padding:'1%',display:'flex',alignItems:'center',justifyContent:'center',}}>
+                            <Avatar src={avatar} alt='avatar' onClick={(e) => this.onAvatarChange(avatar, id)} 
+                                    style={{width:'140px',height:'140px',cursor:'pointer',border:'1px solid grey'}}/>
+                        </Grid>
                     ))
                 }
+                </Grid>
             </div>
         );
     }
 }
-
-/*
-                <Avatar style={{margin:'2%',width:'120px',height:'120px',cursor:'pointer',':hover':{border:'3px solid black'},}}>
-                        <img onClick={() => this.onChangeAvatar(ava1)} src={ava1} alt='test'/>
-                    </Avatar>
-                    <Avatar style={{margin:'2%',width:'120px',height:'120px',cursor:'pointer'}}>
-                        <img onClick={() => this.onChangeAvatar(ava2)} src={ava2} alt='test'/>
-                    </Avatar>
-                    <Avatar style={{margin:'2%',width:'120px',height:'120px',cursor:'pointer'}}>
-                        <img onClick={() => this.onChangeAvatar(ava3)} src={ava3} alt='test'/>
-                    </Avatar>
-                    <Avatar style={{margin:'2%',width:'120px',height:'120px',cursor:'pointer'}}>
-                        <img onClick={() => this.onChangeAvatar(ava4)} src={ava4} alt='test'/>
-                    </Avatar>
-                    <Avatar style={{margin:'2%',width:'120px',height:'120px',cursor:'pointer'}}>
-                        <img onClick={() => this.onChangeAvatar(ava5)} src={ava5} alt='test'/>
-                    </Avatar>
-                    <Avatar style={{margin:'2%',width:'120px',height:'120px',cursor:'pointer'}}>
-                        <img onClick={() => this.onChangeAvatar(ava6)} src={ava6} alt='test'/>
-                    </Avatar>
-                </div>
-
-                <div style={{margin:'1%',maxWidth:'100%',display:'flex',alignItems:'center',justifyContent:'center',}}>
-                    <Avatar style={{margin:'2%',width:'120px',height:'120px',cursor:'pointer'}}>
-                        <img onClick={() => this.onChangeAvatar(ava7)} src={ava7} alt='test'/>
-                    </Avatar>
-                    <Avatar style={{margin:'2%',width:'120px',height:'120px',cursor:'pointer'}}>
-                        <img onClick={() => this.onChangeAvatar(ava8)} src={ava8} alt='test'/>
-                    </Avatar>
-                    <Avatar style={{margin:'2%',width:'120px',height:'120px',cursor:'pointer'}}>
-                        <img onClick={() => this.onChangeAvatar(ava9)} src={ava9} alt='test'/>
-                    </Avatar>
-                    <Avatar style={{margin:'2%',width:'120px',height:'120px',cursor:'pointer'}}>
-                        <img onClick={() => this.onChangeAvatar(ava10)} src={ava10} alt='test'/>
-                    </Avatar>
-                    <Avatar style={{margin:'2%',width:'120px',height:'120px',cursor:'pointer'}}>
-                        <img onClick={() => this.onChangeAvatar(ava11)} src={ava11} alt='test'/>
-                    </Avatar>
-                    <Avatar style={{margin:'2%',width:'120px',height:'120px',cursor:'pointer'}}>
-                        <img onClick={() => this.onChangeAvatar(ava12)} src={ava12} alt='test'/>
-                    </Avatar>
-                </div>
-
-                <div style={{margin:'1%',maxWidth:'100%',display:'flex',alignItems:'center',justifyContent:'center',}}>
-                    <Avatar style={{margin:'2%',width:'120px',height:'120px',cursor:'pointer'}}>
-                        <img onClick={() => this.onChangeAvatar(ava13)} src={ava13} alt='test'/>
-                    </Avatar>
-                    <Avatar style={{margin:'2%',width:'120px',height:'120px',cursor:'pointer'}}>
-                        <img onClick={() => this.onChangeAvatar(ava14)} src={ava14} alt='test'/>
-                    </Avatar>
-                    <Avatar style={{margin:'2%',width:'120px',height:'120px',cursor:'pointer'}}>
-                        <img onClick={() => this.onChangeAvatar(ava15)} src={ava15} alt='test'/>
-                    </Avatar>
-                    <Avatar style={{margin:'2%',width:'120px',height:'120px',cursor:'pointer'}}>
-                        <img onClick={() => this.onChangeAvatar(ava16)} src={ava16} alt='test'/>
-                    </Avatar>
-                    <Avatar style={{margin:'2%',width:'120px',height:'120px',cursor:'pointer'}}>
-                        <img onClick={() => this.onChangeAvatar(ava17)} src={ava17} alt='test'/>
-                    </Avatar>
-                    <Avatar style={{margin:'2%',width:'120px',height:'120px',cursor:'pointer'}}>
-                        <img onClick={() => this.onChangeAvatar(ava18)} src={ava18} alt='test'/>
-                    </Avatar>
-*/

@@ -208,7 +208,7 @@ export default class SMHeader extends React.Component {
                 <Login open={this.state.loginOpen} onClose={this.onResult} lang={this.state.userLng}/>
                 <Forget open={this.state.forgetOpen} onClose={this.onResult} lang={this.state.userLng}/>
 
-                <UserInformation open={this.state.userInfoOpen} onClick={this.onUserInfoClose}
+                <UserInformation open={this.state.userInfoOpen} onUpdate={this.onUserInfoClose}
                                  user={this.state.userName} age={this.state.userAge} avatar={this.state.userAva}
                                  pass={this.state.userPass} fail={this.state.userFail} lang={this.state.userLng}/>
 

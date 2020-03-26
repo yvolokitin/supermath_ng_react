@@ -59,6 +59,7 @@ export default class UserInformation extends React.Component {
 
         this.onClose = this.onClose.bind(this);
         this.onTabChange = this.onTabChange.bind(this);
+        this.onAvatarUpdate = this.onAvatarUpdate.bind(this);
 
         var avatars = [ava1,ava2,ava3,ava4,ava5,ava6,ava7,ava8,ava9,ava10,ava11,ava12,ava13,ava14,ava15,ava16,ava17,ava18];
         var index = 13;
@@ -91,13 +92,17 @@ export default class UserInformation extends React.Component {
     onClose() {
         console.log('onClose');
         // send post update with new avater picture
-        this.props.onClick();
+        this.props.onUpdate();
+    }
+
+    onAvatarUpdate(avatar, index) {
+        console.log('onUpdate ' + index);
+        this.setState({index: index});
     }
 
     onTabChange(value) {
         console.log('onTabChange: ' + value);
     }
-
 
     render() {
         return (
@@ -115,24 +120,22 @@ export default class UserInformation extends React.Component {
                         </div>
                     </div>
                     <div className='userinfoboard_avatar_div'>
-                        <Avatar style={{width:'180px',height:'180px',}}>
-                            <img src={this.state.avatars[this.state.index]} alt='avatar'/>
-                        </Avatar>
+                        <Avatar style={{width:'180px',height:'180px',}} src={this.state.avatars[this.state.index]} alt='avatar'/>
                     </div>
                 </div>
 
                 <AppBar position='static' color='transparent' style={{marginLeft:'2%',width:'96%',border:'1px solid grey',boxShadow:'10px 10px grey',backgroundColor:'yellow'}}>
                     <Tabs value={this.state.tab} onChange={this.onTabChange} indicatorColor='primary' textColor='primary' centered={true}>
-                        <Tab label={userinfo[this.props.lang]['avatar']} {...a11yProps(0)}/>
-                        <Tab label={userinfo[this.props.lang]['exchange']} {...a11yProps(1)}/>
-                        <Tab label={userinfo[this.props.lang]['settings']} {...a11yProps(2)}/>
-                        <Tab label={userinfo[this.props.lang]['progress']} {...a11yProps(3)}/>
-                        <Tab label={userinfo[this.props.lang]['friends']} {...a11yProps(4)}/>
+                        <Tab style={{color:'green',fontSize:'0.95rem',fontWeight:'bold'}} label={userinfo[this.props.lang]['avatar']} {...a11yProps(0)}/>
+                        <Tab style={{color:'green',fontSize:'0.95rem',fontWeight:'bold'}} label={userinfo[this.props.lang]['exchange']} {...a11yProps(1)}/>
+                        <Tab style={{color:'green',fontSize:'0.95rem',fontWeight:'bold'}} label={userinfo[this.props.lang]['settings']} {...a11yProps(2)}/>
+                        <Tab style={{color:'green',fontSize:'0.95rem',fontWeight:'bold'}} label={userinfo[this.props.lang]['progress']} {...a11yProps(3)}/>
+                        <Tab style={{color:'green',fontSize:'0.95rem',fontWeight:'bold'}} label={userinfo[this.props.lang]['friends']} {...a11yProps(4)}/>
                     </Tabs>
                 </AppBar>
 
                 <TabPanel value={this.state.tab} index={0}>
-                    <Avatars avatars={this.state.avatars} index={this.state.index}/>
+                    <Avatars avatars={this.state.avatars} index={this.state.index} onAvatarUpdate={this.onAvatarUpdate}/>
                 </TabPanel>
 
                 <TabPanel value={this.state.tab} index={1}> Settings </TabPanel>
