@@ -7,9 +7,9 @@ import SMAbout from './about';
 import Login from './login';
 import Forget from './forget';
 import Registration from './registration';
-import UserInformation from './userinfo';
 import Language from './language';
 
+import UserInformation from './../userinfo/userinfo';
 import AlertDialog from './../alert/alert';
 
 import './header.css';
@@ -33,7 +33,7 @@ export default class SMHeader extends React.Component {
                       logoutOpen: false,
                       forgetOpen: false,
                       registerOpen: false,
-                      userInfoOpen: false,
+                      userInfoOpen: true, // false,
                       langSelector: false,
                       isLogin: localStorage.getItem('isLogin') ? localStorage.getItem('isLogin') : false,
                       userId: localStorage.getItem('user_id') ? localStorage.getItem('user_id') : '0',
@@ -209,7 +209,7 @@ export default class SMHeader extends React.Component {
                 <Forget open={this.state.forgetOpen} onClose={this.onResult} lang={this.state.userLng}/>
 
                 <UserInformation open={this.state.userInfoOpen} onClick={this.onUserInfoClose}
-                                 user={this.state.userName} age={this.state.userAge} ava={this.state.userAva}
+                                 user={this.state.userName} age={this.state.userAge} avatar={this.state.userAva}
                                  pass={this.state.userPass} fail={this.state.userFail} lang={this.state.userLng}/>
 
                 <Registration open={this.state.registerOpen} onClose={this.onResult} lang={this.state.userLng}/>
