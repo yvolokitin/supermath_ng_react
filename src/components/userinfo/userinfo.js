@@ -91,8 +91,9 @@ export default class UserInformation extends React.Component {
         this.setState({index: index});
     }
 
-    onTabChange(value) {
+    onTabChange(event, value) {
         console.log('onTabChange: ' + value);
+        this.setState({tab: value});
     }
 
     render() {
@@ -118,8 +119,8 @@ export default class UserInformation extends React.Component {
                 <AppBar position='static' color='transparent' style={{marginLeft:'2%',width:'96%',border:'1px solid grey',boxShadow:'10px 10px grey',backgroundColor:'yellow'}}>
                     <Tabs value={this.state.tab} onChange={this.onTabChange} indicatorColor='primary' textColor='primary' centered={true}>
                         <Tab style={{color:'green',fontSize:'0.95rem',fontWeight:'bold'}} label={userinfo[this.props.lang]['avatar']} {...a11yProps(0)}/>
-                        <Tab style={{color:'green',fontSize:'0.95rem',fontWeight:'bold'}} label={userinfo[this.props.lang]['exchange']} {...a11yProps(1)}/>
-                        <Tab style={{color:'green',fontSize:'0.95rem',fontWeight:'bold'}} label={userinfo[this.props.lang]['settings']} {...a11yProps(2)}/>
+                        <Tab style={{color:'green',fontSize:'0.95rem',fontWeight:'bold'}} label={userinfo[this.props.lang]['settings']} {...a11yProps(1)}/>
+                        <Tab style={{color:'green',fontSize:'0.95rem',fontWeight:'bold'}} label={userinfo[this.props.lang]['exchange']} {...a11yProps(2)}/>
                         <Tab style={{color:'green',fontSize:'0.95rem',fontWeight:'bold'}} label={userinfo[this.props.lang]['progress']} {...a11yProps(3)}/>
                         <Tab style={{color:'green',fontSize:'0.95rem',fontWeight:'bold'}} label={userinfo[this.props.lang]['friends']} {...a11yProps(4)}/>
                     </Tabs>
@@ -132,7 +133,7 @@ export default class UserInformation extends React.Component {
                 <TabPanel value={this.state.tab} index={1}> Settings </TabPanel>
                 <TabPanel value={this.state.tab} index={2}> Exchange </TabPanel>
                 <TabPanel value={this.state.tab} index={3}> Progress </TabPanel>
-                <TabPanel value={this.state.tab} index={4}> Settings </TabPanel>
+                <TabPanel value={this.state.tab} index={4}> Friends </TabPanel>
 
             </Dialog>
         );

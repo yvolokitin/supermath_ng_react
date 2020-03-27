@@ -32,7 +32,7 @@ export default class SMHeader extends React.Component {
                       logoutOpen: false,
                       forgetOpen: false,
                       registerOpen: false,
-                      userInfoOpen: false,
+                      userInfoOpen: true, // false,
                       langSelector: false,
                       userLng: props.lang,
                       isLogin: localStorage.getItem('isLogin') ? localStorage.getItem('isLogin') : false,
