@@ -1,6 +1,8 @@
 import React from 'react';
 import {AppBar, Toolbar, Typography} from '@material-ui/core';
 
+import axios from 'axios';
+
 import SMHelp from './help';
 import SMAbout from './about';
 
@@ -19,13 +21,10 @@ export default class SMHeader extends React.Component {
     constructor(props) {
         super(props);
 
-        this.onLogin = this.onLogin.bind(this);
         this.onForget = this.onForget.bind(this);
         this.onResult = this.onResult.bind(this);
+        this.onUserInfo = this.onUserInfo.bind(this);
         this.onLanguage = this.onLanguage.bind(this);
-
-        this.onUserInfoOpen = this.onUserInfoOpen.bind(this);
-        this.onUserInfoClose = this.onUserInfoClose.bind(this);
 
         this.state = {aboutOpen: false,
                       helpOpen: false,
@@ -33,16 +32,16 @@ export default class SMHeader extends React.Component {
                       logoutOpen: false,
                       forgetOpen: false,
                       registerOpen: false,
-                      userInfoOpen: true, // false,
+                      userInfoOpen: false,
                       langSelector: false,
+                      userLng: props.lang,
                       isLogin: localStorage.getItem('isLogin') ? localStorage.getItem('isLogin') : false,
                       userId: localStorage.getItem('user_id') ? localStorage.getItem('user_id') : '0',
                       userName: localStorage.getItem('name') ? localStorage.getItem('name') : 'Kobe',
-                      userLng: props.lang,
                       userSurname: localStorage.getItem('surname') ? localStorage.getItem('surname') : 'Bryant',
+                      userAva: localStorage.getItem('avatar') ? localStorage.getItem('avatar') : 'martin-berube',
                       userEmail: localStorage.getItem('email') ? localStorage.getItem('email') : 'Kobe.Bryant@email.com',
                       userAge: localStorage.getItem('age') ? localStorage.getItem('age') : '41',
-                      userAva: localStorage.getItem('ava') ? localStorage.getItem('ava') : 'martin-berube',
                       userPass: localStorage.getItem('pass') ? localStorage.getItem('pass') : '60',
                       userFail: localStorage.getItem('fail') ? localStorage.getItem('fail') : '0',
                      };
@@ -62,15 +61,29 @@ export default class SMHeader extends React.Component {
         }
     }
 
-    onUserInfoOpen() {
-        this.setState({userInfoOpen: true});
-    }
-    onUserInfoClose() {
-        this.setState({userInfoOpen: false, userAva: localStorage.getItem('ava')});
+    onUserInfo() {
+        this.setState({userInfoOpen: false,
+                       userAva: localStorage.getItem('avatar')});
+
+        // need to update use avatar and other changed values
+        if (localStorage.getItem('user_id') !== null) {
+            // update user failed counter in header and send to server
+            var post_data = {'user_id': localStorage.getItem('user_id'),
+                             'hash': localStorage.getItem('pswdhash'),
+                             'operation': 'avatar',
+                             'avatar': localStorage.getItem('avatar')};
+                axios.post('http://supermath.xyz:3000/api/update', post_data);
+        }
     }
 
-    onLogin() {
-        this.setState({loginOpen: true});
+    onLanguage(language) {
+        if (language !== undefined) {
+            // console.log('SMHeader.onLanguage: ' + language);
+            this.setState({langSelector: false, userLng: language});
+            this.props.onUpdate(language);
+        } else {
+            this.setState({langSelector: false});
+        }
     }
 
     onForget() {
@@ -103,7 +116,7 @@ export default class SMHeader extends React.Component {
             localStorage.setItem('email', email);
             localStorage.setItem('surname', surname);
             localStorage.setItem('age', age);
-            localStorage.setItem('ava', ava);
+            localStorage.setItem('avatar', ava);
             localStorage.setItem('pass', passed);
             localStorage.setItem('fail', failed);
 
@@ -132,7 +145,7 @@ export default class SMHeader extends React.Component {
             localStorage.removeItem('surname');
             localStorage.removeItem('age');
             localStorage.removeItem('belt');
-            localStorage.removeItem('ava');
+            localStorage.removeItem('avatar');
             localStorage.removeItem('pass');
             localStorage.removeItem('fail');
 
@@ -141,16 +154,6 @@ export default class SMHeader extends React.Component {
 
         } else {
             this.setState({loginOpen: false, forgetOpen: false, registerOpen: false, isLogin: false});
-        }
-    }
-
-    onLanguage(language) {
-        if (language !== undefined) {
-            // console.log('SMHeader.onLanguage: ' + language);
-            this.setState({langSelector: false, userLng: language});
-            this.props.onUpdate(language);
-        } else {
-            this.setState({langSelector: false});
         }
     }
 
@@ -169,7 +172,7 @@ export default class SMHeader extends React.Component {
                     <Typography variant="h5" style={{flexGrow:1}}></Typography>
                     { this.state.isLogin ?
                         (
-                         <Typography onClick={this.onUserInfoOpen} style={{fontSize:'2.00rem',fontFamily:'Grinched',color:'orange'}}>
+                         <Typography onClick={() => this.setState({userInfoOpen: true})} style={{fontSize:'2.00rem',fontFamily:'Grinched',color:'orange'}}>
                             {this.state.userName} :
                             <font style={{color:'green'}}> {this.state.userPass} </font> &#128515;
                             <font style={{color:'red'}}> {this.state.userFail} </font> &#128169;
@@ -191,7 +194,7 @@ export default class SMHeader extends React.Component {
                         )
                         :
                         (
-                         <Typography onClick={this.onLogin} style={{marginLeft:'2%',color:'orange',fontSize:'2.00rem',fontFamily:'Grinched'}}>
+                         <Typography onClick={() => this.setState({loginOpen: true})} style={{marginLeft:'2%',color:'orange',fontSize:'2.00rem',fontFamily:'Grinched'}}>
                             {header[this.state.userLng]['login']}
                          </Typography>
                         )
@@ -208,7 +211,7 @@ export default class SMHeader extends React.Component {
                 <Login open={this.state.loginOpen} onClose={this.onResult} lang={this.state.userLng}/>
                 <Forget open={this.state.forgetOpen} onClose={this.onResult} lang={this.state.userLng}/>
 
-                <UserInformation open={this.state.userInfoOpen} onUpdate={this.onUserInfoClose}
+                <UserInformation open={this.state.userInfoOpen} onUpdate={this.onUserInfo}
                                  user={this.state.userName} age={this.state.userAge} avatar={this.state.userAva}
                                  pass={this.state.userPass} fail={this.state.userFail} lang={this.state.userLng}/>
 

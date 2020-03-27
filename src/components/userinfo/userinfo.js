@@ -57,9 +57,8 @@ export default class UserInformation extends React.Component {
     constructor(props) {
         super(props);
 
-        this.onClose = this.onClose.bind(this);
+        this.onAvatar = this.onAvatar.bind(this);
         this.onTabChange = this.onTabChange.bind(this);
-        this.onAvatarUpdate = this.onAvatarUpdate.bind(this);
 
         var avatars = [ava1,ava2,ava3,ava4,ava5,ava6,ava7,ava8,ava9,ava10,ava11,ava12,ava13,ava14,ava15,ava16,ava17,ava18];
         var index = 13;
@@ -74,9 +73,8 @@ export default class UserInformation extends React.Component {
                       index: index,
                       avatars: avatars,
                       name: props.user};
-
-        console.log('avatars.length: ' + avatars.length);
     }
+
 /*
     componentDidUpdate(prevProps) {
         if (this.props.avatar !== prevProps.avatar) {
@@ -89,14 +87,7 @@ export default class UserInformation extends React.Component {
         }
     }
 */
-    onClose() {
-        console.log('onClose');
-        // send post update with new avater picture
-        this.props.onUpdate();
-    }
-
-    onAvatarUpdate(avatar, index) {
-        console.log('onUpdate ' + index);
+    onAvatar(avatar, index) {
         this.setState({index: index});
     }
 
@@ -107,7 +98,7 @@ export default class UserInformation extends React.Component {
     render() {
         return (
             <Dialog open={this.props.open} fullScreen={true} transitionDuration={600}>
-                <SMTitle title='' onClick={this.onClose} style={{display:'flex',backgroundColor:'white'}}/>
+                <SMTitle title='' onClick={() => this.props.onUpdate()} style={{display:'flex',backgroundColor:'white'}}/>
 
                 <div className='userinfoboard'>
                     <div className='userinfoboard_name_age'>
@@ -135,7 +126,7 @@ export default class UserInformation extends React.Component {
                 </AppBar>
 
                 <TabPanel value={this.state.tab} index={0}>
-                    <Avatars avatars={this.state.avatars} index={this.state.index} onAvatarUpdate={this.onAvatarUpdate}/>
+                    <Avatars avatars={this.state.avatars} index={this.state.index} onAvatar={this.onAvatar}/>
                 </TabPanel>
 
                 <TabPanel value={this.state.tab} index={1}> Settings </TabPanel>
