@@ -90,7 +90,7 @@ export default class SMHeader extends React.Component {
         this.setState({forgetOpen: true});
     }
 
-    onResult(result, user_id, name, lang, email, surname, age, ava, passed, failed) {
+    onResult(result, user_id, name, lang, email, surname, age, avatar, passed, failed) {
         // console.log('onResult ' + result + ', user: ' + user + ', age: ' + age+ ', pass: '  + passed + ', fail: ' + failed);
         if (result === 'successed') {
             this.setState({isLogin: true,
@@ -100,7 +100,7 @@ export default class SMHeader extends React.Component {
                            userEmail: email,
                            userSurname: surname,
                            userAge: age,
-                           userAva: ava,
+                           userAva: avatar,
                            userPass: passed,
                            userFail: failed,
                            // close login window
@@ -116,7 +116,7 @@ export default class SMHeader extends React.Component {
             localStorage.setItem('email', email);
             localStorage.setItem('surname', surname);
             localStorage.setItem('age', age);
-            localStorage.setItem('avatar', ava);
+            localStorage.setItem('avatar', avatar);
             localStorage.setItem('pass', passed);
             localStorage.setItem('fail', failed);
 
@@ -212,8 +212,11 @@ export default class SMHeader extends React.Component {
                 <Forget open={this.state.forgetOpen} onClose={this.onResult} lang={this.state.userLng}/>
 
                 <UserInformation open={this.state.userInfoOpen} onUpdate={this.onUserInfo}
-                                 user={this.state.userName} age={this.state.userAge} avatar={this.state.userAva}
-                                 pass={this.state.userPass} fail={this.state.userFail} lang={this.state.userLng}/>
+                                 id={this.state.userId} email={this.state.userEmail}
+                                 user={this.state.userName} surname={this.state.userSurname}
+                                 age={this.state.userAge} avatar={this.state.userAva}
+                                 pass={this.state.userPass} fail={this.state.userFail}
+                                 lang={this.state.userLng}/>
 
                 <Registration open={this.state.registerOpen} onClose={this.onResult} lang={this.state.userLng}/>
 

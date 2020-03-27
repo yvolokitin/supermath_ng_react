@@ -1,23 +1,50 @@
 ﻿import React from 'react';
-import {Grid, Avatar} from '@material-ui/core';
+import {Grid, TextField, Button} from '@material-ui/core';
 
-export default class Avatars extends React.Component {
+/*
+    <Settings id={this.props.id} email={this.props.email} user={this.props.user} surname={this.props.surname} age={this.props.age} lang={this.props.lang}/>
+*/
+export default class Settings extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {name: props.user,
+                      surname: props.surname,
+                      email: props.email,
+                      birth: '',
+                      pswd: ''};
+
+        console.log('Settings.constructor ' + props.id + ', ' + props.email + ', ' + props.user + ', ' + props.surname + ', ' + props.age);
     }
 
     render() {
+        console.log('this.state.name ' + this.state.name);
         return (
             <div className='settingsboard'>
                 <Grid container spacing={0}>
-                {
-                    this.props.avatars.map((avatar, id) => (
-                        <Grid item key={id} xs={2} style={{padding:'1%',display:'flex',alignItems:'center',justifyContent:'center',border:'1px solid grey'}}>
-                            <Avatar src={avatar} alt='avatar' onClick={(e) => this.onAvatar(avatar, id)} 
-                                    style={{width:'140px',height:'140px',cursor:'pointer',border:'1px solid grey'}}/>
-                        </Grid>
-                    ))
-                }
+                    <Grid item xs={12} sm={6} style={{padding:'3%'}}>
+                        <TextField onChange={(event) => {this.setState({name: event.target.value})}} required
+                                   fullWidth variant='outlined' label='Name' value={this.state.name}/>
+                        <Button size='small' color='primary'>save</Button>
+                    </Grid>
+
+                    <Grid item xs={12} sm={6}style={{padding:'3%'}}>
+                        <TextField onChange={(event) => {this.setState({name: event.target.value})}} required
+                                   fullWidth variant='outlined' label='Surname' value={this.state.surname}/>
+                        <Button size='small' color='primary'>save</Button>
+                    </Grid>
+
+                    <Grid item xs={12} sm={6}style={{padding:'3%'}}>
+                        <TextField onChange={(event) => {this.setState({name: event.target.value})}} required
+                                   fullWidth variant='outlined' label='Email' value={this.state.email}/>
+                        <Button size='small' color='primary'>save</Button>
+                    </Grid>
+
+                    <Grid item xs={12} sm={6}style={{padding:'3%'}}>
+                        <TextField onChange={(event) => {this.setState({name: event.target.value})}} required
+                                   fullWidth variant='outlined' label='Set New Password' value={this.state.pswd}/>
+                        <Button size='small' color='primary'>save</Button>
+                    </Grid>
                 </Grid>
             </div>
         );

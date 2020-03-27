@@ -4,7 +4,11 @@ import PropTypes from 'prop-types';
 import {AppBar, Tabs, Tab, Box, Avatar, Dialog, Typography} from '@material-ui/core';
 
 import SMTitle from './../dialog/title';
+
 import Avatars from './avatars';
+import Settings from './settings';
+import Friends from './friends';
+import Progress from './progress';
 
 import {userinfo} from './../halpers/userinfo';
 import './userinfo.css';
@@ -69,7 +73,7 @@ export default class UserInformation extends React.Component {
             }
         }
 
-        this.state = {tab: 0,
+        this.state = {tab: 1,
                       index: index,
                       avatars: avatars,
                       name: props.user};
@@ -130,11 +134,19 @@ export default class UserInformation extends React.Component {
                     <Avatars avatars={this.state.avatars} index={this.state.index} onAvatar={this.onAvatar}/>
                 </TabPanel>
 
-                <TabPanel value={this.state.tab} index={1}> Settings </TabPanel>
-                <TabPanel value={this.state.tab} index={2}> Exchange </TabPanel>
-                <TabPanel value={this.state.tab} index={3}> Progress </TabPanel>
-                <TabPanel value={this.state.tab} index={4}> Friends </TabPanel>
+                <TabPanel value={this.state.tab} index={1}>
+                    <Settings id={this.props.id} email={this.props.email} user={this.props.user} surname={this.props.surname} age={this.props.age} lang={this.props.lang}/>
+                </TabPanel>
 
+                <TabPanel value={this.state.tab} index={2}> Exchange </TabPanel>
+
+                <TabPanel value={this.state.tab} index={3}>
+                    <Progress/>
+                </TabPanel>
+
+                <TabPanel value={this.state.tab} index={4}>
+                    <Friends/>
+                </TabPanel>
             </Dialog>
         );
     }
