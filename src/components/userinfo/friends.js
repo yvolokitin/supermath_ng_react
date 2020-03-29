@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import {Grid, Card, CardMedia} from '@material-ui/core';
+import {Card, CardMedia} from '@material-ui/core';
 
 import friends from './../../images/friends.jpg';
 

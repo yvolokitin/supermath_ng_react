@@ -17,7 +17,7 @@ import AlertDialog from './../alert/alert';
 import './header.css';
 import {header} from './../halpers/header';
 
-export default class SMHeader extends React.Component {
+export default class Header extends React.Component {
     constructor(props) {
         super(props);
 
@@ -34,52 +34,59 @@ export default class SMHeader extends React.Component {
                       registerOpen: false,
                       userInfoOpen: true, // false,
                       langSelector: false,
-                      userLng: props.lang,
+
                       isLogin: localStorage.getItem('isLogin') ? localStorage.getItem('isLogin') : false,
-                      userId: localStorage.getItem('user_id') ? localStorage.getItem('user_id') : '0',
-                      userName: localStorage.getItem('name') ? localStorage.getItem('name') : 'Kobe',
-                      userSurname: localStorage.getItem('surname') ? localStorage.getItem('surname') : 'Bryant',
-                      userAva: localStorage.getItem('avatar') ? localStorage.getItem('avatar') : 'martin-berube',
-                      userEmail: localStorage.getItem('email') ? localStorage.getItem('email') : 'Kobe.Bryant@email.com',
-                      userAge: localStorage.getItem('age') ? localStorage.getItem('age') : '41',
-                      userPass: localStorage.getItem('pass') ? localStorage.getItem('pass') : '60',
-                      userFail: localStorage.getItem('fail') ? localStorage.getItem('fail') : '0',
+
+                      // current user information
+                      lang: props.lang,
+                      id: localStorage.getItem('user_id') ? localStorage.getItem('user_id') : '0',
+                      name: localStorage.getItem('name') ? localStorage.getItem('name') : 'Kobe',
+                      surname: localStorage.getItem('surname') ? localStorage.getItem('surname') : '',
+                      avatar: localStorage.getItem('avatar') ? localStorage.getItem('avatar') : 'martin-berube',
+                      email: localStorage.getItem('email') ? localStorage.getItem('email') : 'Kobe.Bryant@email.com',
+                      age: localStorage.getItem('age') ? localStorage.getItem('age') : '41',
+                      pass: localStorage.getItem('pass') ? localStorage.getItem('pass') : '60',
+                      fail: localStorage.getItem('fail') ? localStorage.getItem('fail') : '0',
                      };
     }
 
     componentDidUpdate(prevProps) {
-        // console.log("SMHeader componentDidUpdate " + this.state.userPass + " " + this.state.userFail);
+        // console.log("SMHeader componentDidUpdate " + this.state.pass + " " + this.state.fail);
         // console.log("localStorage.getItem        " + localStorage.getItem('pass') + " " + localStorage.getItem('fail'));
-        if ((this.state.userPass !== localStorage.getItem('pass')) ||
-            (this.state.userFail !== localStorage.getItem('fail'))) {
+        if ((this.state.pass !== localStorage.getItem('pass')) ||
+            (this.state.fail !== localStorage.getItem('fail'))) {
 
                 if ((localStorage.getItem('pass') !== null) &&
                     (localStorage.getItem('fail') !== null)) {
-                        this.setState({userPass: localStorage.getItem('pass'),
-                                       userFail: localStorage.getItem('fail')});
+                        this.setState({pass: localStorage.getItem('pass'),
+                                       fail: localStorage.getItem('fail')});
                 }
         }
     }
 
-    onUserInfo() {
-        this.setState({userInfoOpen: false,
-                       userAva: localStorage.getItem('avatar')});
+    onUserInfo(property, value) {
+        console.log('SMHeader.onUserInfo ' + property + ': ' + value);
+        if (property === 'close') {
+            this.setState({userInfoOpen: false});
 
-        // need to update use avatar and other changed values
-        if (localStorage.getItem('user_id') !== null) {
-            // update user failed counter in header and send to server
-            var post_data = {'user_id': localStorage.getItem('user_id'),
-                             'hash': localStorage.getItem('pswdhash'),
-                             'operation': 'avatar',
-                             'avatar': localStorage.getItem('avatar')};
-                axios.post('http://supermath.xyz:3000/api/update', post_data);
+        } else {
+            this.setState({userInfoOpen: false, avatar: localStorage.getItem('avatar')});
+            // need to update use avatar and other changed values
+            if (this.state.id !== 0) {
+                // update user failed counter in header and send to server
+                var post_data = {'user_id': this.state.id,
+                                 'hash': localStorage.getItem('pswdhash'),
+                                 'operation': property,
+                                  property: value};
+                    axios.post('http://supermath.xyz:3000/api/update', post_data);
+            }
         }
     }
 
     onLanguage(language) {
         if (language !== undefined) {
             // console.log('SMHeader.onLanguage: ' + language);
-            this.setState({langSelector: false, userLng: language});
+            this.setState({langSelector: false, lang: language});
             this.props.onUpdate(language);
         } else {
             this.setState({langSelector: false});
@@ -90,19 +97,19 @@ export default class SMHeader extends React.Component {
         this.setState({forgetOpen: true});
     }
 
-    onResult(result, user_id, name, lang, email, surname, age, avatar, passed, failed) {
+    onResult(result, user_id, name, language, email, surname, age, avatar, passed, failed) {
         // console.log('onResult ' + result + ', user: ' + user + ', age: ' + age+ ', pass: '  + passed + ', fail: ' + failed);
         if (result === 'successed') {
             this.setState({isLogin: true,
-                           userId: user_id,
-                           userName: name,
-                           userLng: lang,
-                           userEmail: email,
-                           userSurname: surname,
-                           userAge: age,
-                           userAva: avatar,
-                           userPass: passed,
-                           userFail: failed,
+                           id: user_id,
+                           'name': name,
+                           'lang': language,
+                           'email': email,
+                           'surname': surname,
+                           'age': age,
+                           'avatar': avatar,
+                           'pass': passed,
+                           'fail': failed,
                            // close login window
                            loginOpen: false,
                            // close registration window
@@ -112,7 +119,7 @@ export default class SMHeader extends React.Component {
             localStorage.setItem('isLogin', true);
             localStorage.setItem('user_id', user_id);
             localStorage.setItem('name', name);
-            localStorage.setItem('land', lang);
+            localStorage.setItem('land', language);
             localStorage.setItem('email', email);
             localStorage.setItem('surname', surname);
             localStorage.setItem('age', age);
@@ -163,25 +170,25 @@ export default class SMHeader extends React.Component {
                 <Toolbar style={{cursor:'pointer',fontVariant:'small-caps',textShadow:'1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue',}}>
                     <Typography onClick={() => window.location.reload()} style={{fontFamily:'Grinched',fontSize:'2.00rem',fontVariant:'small-caps',color:'orange'}}>SuperMath</Typography>
                     <Typography onClick={() => this.setState({aboutOpen: true})} style={{marginLeft:'1%',fontFamily:'Grinched',fontSize:'2.00rem',color:'green'}}>
-                        {header[this.state.userLng]['about']}
+                        {header[this.state.lang]['about']}
                     </Typography>
                     <Typography onClick={() => this.setState({helpOpen: true})} style={{marginLeft:'1%',fontFamily:'Grinched',fontSize:'2.00rem',color:'green'}}>
-                        {header[this.state.userLng]['help']}
+                        {header[this.state.lang]['help']}
                     </Typography>
 
                     <Typography variant="h5" style={{flexGrow:1}}></Typography>
                     { this.state.isLogin ?
                         (
                          <Typography onClick={() => this.setState({userInfoOpen: true})} style={{fontSize:'2.00rem',fontFamily:'Grinched',color:'orange'}}>
-                            {this.state.userName} :
-                            <font style={{color:'green'}}> {this.state.userPass} </font> &#128515;
-                            <font style={{color:'red'}}> {this.state.userFail} </font> &#128169;
+                            {this.state.name} :
+                            <font style={{color:'green'}}> {this.state.pass} </font> &#128515;
+                            <font style={{color:'red'}}> {this.state.fail} </font> &#128169;
                          </Typography>
                         )
                         :
                         (
                          <Typography onClick={() => this.setState({registerOpen:true})} style={{fontSize:'2.00rem',fontFamily:'Grinched',color:'green'}}>
-                            {header[this.state.userLng]['register']}
+                            {header[this.state.lang]['register']}
                          </Typography>
                         )
                     }
@@ -189,44 +196,44 @@ export default class SMHeader extends React.Component {
                     { this.state.isLogin ?
                         (
                          <Typography onClick={() => this.setState({logoutOpen:true})} style={{marginLeft:'2%',color:'green',fontSize:'2.00rem',fontFamily:'Grinched'}}>
-                            {header[this.state.userLng]['logout']}
+                            {header[this.state.lang]['logout']}
                          </Typography>
                         )
                         :
                         (
                          <Typography onClick={() => this.setState({loginOpen: true})} style={{marginLeft:'2%',color:'orange',fontSize:'2.00rem',fontFamily:'Grinched'}}>
-                            {header[this.state.userLng]['login']}
+                            {header[this.state.lang]['login']}
                          </Typography>
                         )
                     }
 
                     <Typography onClick={() => this.setState({langSelector:true})} style={{marginLeft:'1%',fontSize:'2.00rem',fontFamily:'Grinched',color:'green'}}>
-                        {header[this.state.userLng]['lang']}
+                        {header[this.state.lang]['lang']}
                     </Typography>
                 </Toolbar>
 
-                <SMHelp open={this.state.helpOpen} onClick={() => this.setState({helpOpen: false})} lang={this.state.userLng}/>
-                <SMAbout open={this.state.aboutOpen} onClick={() => this.setState({aboutOpen: false})} lang={this.state.userLng}/>
+                <SMHelp open={this.state.helpOpen} onClick={() => this.setState({helpOpen: false})} lang={this.state.lang}/>
+                <SMAbout open={this.state.aboutOpen} onClick={() => this.setState({aboutOpen: false})} lang={this.state.lang}/>
 
-                <Login open={this.state.loginOpen} onClose={this.onResult} lang={this.state.userLng}/>
-                <Forget open={this.state.forgetOpen} onClose={this.onResult} lang={this.state.userLng}/>
+                <Login open={this.state.loginOpen} onClose={this.onResult} lang={this.state.lang}/>
+                <Forget open={this.state.forgetOpen} onClose={this.onResult} lang={this.state.lang}/>
 
                 <UserInformation open={this.state.userInfoOpen} onUpdate={this.onUserInfo}
-                                 id={this.state.userId} email={this.state.userEmail}
-                                 user={this.state.userName} surname={this.state.userSurname}
-                                 age={this.state.userAge} avatar={this.state.userAva}
-                                 pass={this.state.userPass} fail={this.state.userFail}
-                                 lang={this.state.userLng}/>
+                                 id={this.state.id} email={this.state.email}
+                                 name={this.state.name} surname={this.state.surname}
+                                 age={this.state.age} avatar={this.state.avatar}
+                                 pass={this.state.pass} fail={this.state.fail}
+                                 lang={this.state.lang}/>
 
-                <Registration open={this.state.registerOpen} onClose={this.onResult} lang={this.state.userLng}/>
+                <Registration open={this.state.registerOpen} onClose={this.onResult} lang={this.state.lang}/>
 
-                <Language open={this.state.langSelector} onClose={this.onLanguage} lang={this.state.userLng}/>
+                <Language open={this.state.langSelector} onClose={this.onLanguage} lang={this.state.lang}/>
 
                 <AlertDialog open={this.state.logoutOpen}
-                             title={header[this.state.userLng]['logout_title']}
-                             yes={header[this.state.userLng]['logout_yes']}
-                             no={header[this.state.userLng]['logout_no']}
-                             name={this.state.userName}
+                             title={header[this.state.lang]['logout_title']}
+                             yes={header[this.state.lang]['logout_yes']}
+                             no={header[this.state.lang]['logout_no']}
+                             name={this.state.name}
                              onClose={this.onResult}/>
             </AppBar>
     )};

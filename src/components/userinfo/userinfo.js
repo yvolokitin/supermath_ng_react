@@ -62,6 +62,7 @@ export default class UserInformation extends React.Component {
         super(props);
 
         this.onAvatar = this.onAvatar.bind(this);
+        this.onSettings = this.onSettings.bind(this);
         this.onTabChange = this.onTabChange.bind(this);
 
         var avatars = [ava1,ava2,ava3,ava4,ava5,ava6,ava7,ava8,ava9,ava10,ava11,ava12,ava13,ava14,ava15,ava16,ava17,ava18];
@@ -76,7 +77,11 @@ export default class UserInformation extends React.Component {
         this.state = {tab: 1,
                       index: index,
                       avatars: avatars,
-                      name: props.user};
+                      name: props.name,
+                      surname: props.surname,
+                      email: props.email,
+                      pswd: props.pswd,
+                      };
     }
 
 /*
@@ -95,8 +100,13 @@ export default class UserInformation extends React.Component {
         this.setState({index: index});
     }
 
+    onSettings(property, value) {
+        console.log('UserInformation.onSettings: ' + property + ', value ' + value);
+        this.setState({property: value});
+    }
+
     onTabChange(event, value) {
-        console.log('onTabChange: ' + value);
+        console.log('UserInformation.onTabChange: ' + value);
         this.setState({tab: value});
     }
 
@@ -135,7 +145,8 @@ export default class UserInformation extends React.Component {
                 </TabPanel>
 
                 <TabPanel value={this.state.tab} index={1}>
-                    <Settings id={this.props.id} email={this.props.email} user={this.props.user} surname={this.props.surname} age={this.props.age} lang={this.props.lang}/>
+                    <Settings email={this.props.email} user={this.props.user} surname={this.props.surname} age={this.props.age}
+                              id={this.props.id} lang={this.props.lang} onSettings={this.onSettings}/>
                 </TabPanel>
 
                 <TabPanel value={this.state.tab} index={2}> Exchange </TabPanel>
