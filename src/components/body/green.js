@@ -34,8 +34,8 @@ const games = [
     {id: 4, logo: logo4, type: '2digits', task: ':,1-10,1-10,1,1', amount: task_amount},
     {id: 5, logo: logo5, type: '2digits', task: ':,11-99,2-9,1,1', amount: task_amount},
     {id: 6, logo: logo6, type: '3digits', task: '*:,0-10,1', amount: task_amount},
-    {id: 7, logo: logo7, type: 'line_5numbers', task: '-*,5,0-10,1', amount: task_amount},
-    {id: 8, logo: logo8, type: 'digit_3column', task: '+-,100-999,1', amount: task_amount},
+    {id: 7, logo: logo7, type: '2digits', task: '*,11-20,11-20,1,1', amount: task_amount},
+    {id: 8, logo: logo8, type: 'line_5numbers', task: '-*,5,0-10,1', amount: task_amount},
     {id: 9, logo: logo9, type: 'line_4numbers', task: '+-,1-999,1', amount: task_amount},
 ];
 

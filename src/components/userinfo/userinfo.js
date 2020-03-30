@@ -112,7 +112,7 @@ export default class UserInformation extends React.Component {
     }
 
     onTabChange(event, value) {
-        console.log('UserInformation.onTabChange: ' + value);
+        // console.log('UserInformation.onTabChange: ' + value);
         this.setState({tab: value});
     }
 

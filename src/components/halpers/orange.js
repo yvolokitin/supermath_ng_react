@@ -9,7 +9,7 @@ export const orange_titles = {
         '5': 'Addition and Subtraction of round and one-digit numbers (0..10)',
         '6': 'Addition and Subtraction of one-digit and two-digit numbers',
         '7': 'Addition and Subtraction of two two-digit numbers (11..99)',
-        '8': 'Long Addition and Subtraction of round numbers',
+        '8': 'Addition and Subtraction of two round numbers (two and three digit)',
         '9': 'Long Addition and Subtraction of two- and three- digit numbers',
     },
     // Russian
@@ -21,7 +21,7 @@ export const orange_titles = {
         '5': 'Сложение и Вычитание однозначного числа (1..9) с целым (10...100)',
         '6': 'Сложение и Вычитание однозначного числа (1..9) с двузначным (11..99)',
         '7': 'Сложение и Вычитание двух двузначных чисел (11..99)',
-        '8': 'Сложение и Вычитание в столбик целых трех- и двузначных чисел',
+        '8': 'Сложение и Вычитание двух круглых чисел (сотен и десятков)',
         '9': 'Сложение и Вычитание в столбик трех- и двузначных чисел',
     },
     // Dutch

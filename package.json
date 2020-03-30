@@ -1,6 +1,6 @@
 {
   "name": "supermath_ng_react",
-  "version": "0.1.17",
+  "version": "0.1.16",
   "private": false,
   "homepage": "https://yvolokitin.github.io/supermath_ng_react",
   "dependencies": {
@@ -33,7 +33,7 @@
     "extends": "react-app"
   },
   "browserslist": {
-    "production": [
+    "production": [   
       ">0.2%",
       "not dead",
       "not op_mini all"

@@ -27,8 +27,8 @@ import {navi_titles, navi_descriptions} from './../halpers/navi';
 
 const task_amount = 30;
 const games = [
-    {id: 1, logo: logo1, type: 'digit_2column', task: '*,10-999,10-999,1,1', amount: task_amount},
-    {id: 2, logo: logo2, type: 'none', task: '', amount: task_amount},
+    {id: 1, logo: logo1, type: 'digit_3column', task: '+-,100-999,1', amount: task_amount},
+    {id: 2, logo: logo2, type: 'digit_2column', task: '*,10-999,10-999,1,1', amount: task_amount},
     {id: 3, logo: logo3, type: 'none', task: '', amount: task_amount},
     {id: 4, logo: logo4, type: 'none', task: '', amount: task_amount},
     {id: 5, logo: logo5, type: 'none', task: '', amount: task_amount},
