@@ -85,7 +85,11 @@ export default class Login extends React.Component {
         if (timeout < 2000) {
             timeout = 2000;
         }
+/*
+        if ('data' in response) {
 
+        }
+*/
         if ((response.data.error === undefined) && (response.data.id !== undefined)) {
             // age calculation based on server response value
             // "age":"Tue, 28 Jan 2014 06:13:13 GMT" -> need to convert in years

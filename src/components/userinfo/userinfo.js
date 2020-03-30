@@ -7,6 +7,7 @@ import SMTitle from './../dialog/title';
 
 import Avatars from './avatars';
 import Settings from './settings';
+import Exchange from './exchange';
 import Friends from './friends';
 import Progress from './progress';
 
@@ -74,7 +75,7 @@ export default class UserInformation extends React.Component {
             }
         }
 
-        this.state = {tab: 1,
+        this.state = {tab: 0,
                       index: index,
                       avatars: avatars,
                       name: props.name,
@@ -98,11 +99,16 @@ export default class UserInformation extends React.Component {
 */
     onAvatar(avatar, index) {
         this.setState({index: index});
+        this.props.onUpdate('avatar', avatar);
     }
 
     onSettings(property, value) {
-        console.log('UserInformation.onSettings: ' + property + ', value ' + value);
-        this.setState({property: value});
+        // console.log('UserInformation.onSettings: ' + property + ', value ' + value);
+        if (property === 'name') {this.setState({name: value});}
+        else if (property === 'surname') {this.setState({surname: value});}
+        else if (property === 'email') {this.setState({email: value});}
+        else if (property === 'pswd') {this.setState({pswd: value});}
+        this.props.onUpdate(property, value);
     }
 
     onTabChange(event, value) {
@@ -113,12 +119,12 @@ export default class UserInformation extends React.Component {
     render() {
         return (
             <Dialog open={this.props.open} fullScreen={true} transitionDuration={600}>
-                <SMTitle title='' onClick={() => this.props.onUpdate()} style={{display:'flex',backgroundColor:'white'}}/>
+                <SMTitle title='' onClick={() => this.props.onUpdate('close')} style={{display:'flex',backgroundColor:'white'}}/>
 
                 <div className='userinfoboard'>
                     <div className='userinfoboard_name_age'>
                         <div className='userinfoboard_name_age_na'>
-                            {this.props.user}, {this.props.age} {userinfo[this.props.lang]['years']}
+                            {this.state.name}, {this.props.age} {userinfo[this.props.lang]['years']}
                         </div>
                         <div className='userinfoboard_name_age_na'>
                             &nbsp; <font style={{color:'green'}}> {this.props.pass} </font> &#128515;
@@ -145,18 +151,20 @@ export default class UserInformation extends React.Component {
                 </TabPanel>
 
                 <TabPanel value={this.state.tab} index={1}>
-                    <Settings email={this.props.email} user={this.props.user} surname={this.props.surname} age={this.props.age}
+                    <Settings user={this.props.name} email={this.props.email} surname={this.props.surname} age={this.props.age}
                               id={this.props.id} lang={this.props.lang} onSettings={this.onSettings}/>
                 </TabPanel>
 
-                <TabPanel value={this.state.tab} index={2}> Exchange </TabPanel>
+                <TabPanel value={this.state.tab} index={2}>
+                    <Exchange lang={this.props.lang}/>
+                </TabPanel>
 
                 <TabPanel value={this.state.tab} index={3}>
-                    <Progress/>
+                    <Progress lang={this.props.lang}/>
                 </TabPanel>
 
                 <TabPanel value={this.state.tab} index={4}>
-                    <Friends/>
+                    <Friends lang={this.props.lang}/>
                 </TabPanel>
             </Dialog>
         );

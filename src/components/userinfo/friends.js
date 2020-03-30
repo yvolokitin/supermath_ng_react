@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import {Card, CardMedia} from '@material-ui/core';
 
-import friends from './../../images/friends.jpg';
+import image from './../../images/under_development.gif';
 
 export default class Friends extends React.Component {
     constructor(props) {
@@ -19,7 +19,7 @@ export default class Friends extends React.Component {
         return (
             <div className='friendsboard'>
                 <Card style={{display:'flex',flexDirection:'column'}}>
-                    <CardMedia component='img' style={{boder:'3px solid black'}} alt='Vitamins!' height='540' src={friends}/>
+                    <CardMedia component='img' style={{boder:'3px solid black'}} alt='Vitamins!' height='540' src={image}/>
                 </Card>
             </div>
         );

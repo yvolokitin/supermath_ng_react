@@ -32,14 +32,11 @@ export default class Header extends React.Component {
                       logoutOpen: false,
                       forgetOpen: false,
                       registerOpen: false,
-                      userInfoOpen: true, // false,
+                      userInfoOpen: false,
                       langSelector: false,
-
-                      isLogin: localStorage.getItem('isLogin') ? localStorage.getItem('isLogin') : false,
-
                       // current user information
                       lang: props.lang,
-                      id: localStorage.getItem('user_id') ? localStorage.getItem('user_id') : '0',
+                      id: localStorage.getItem('user_id') ? parseInt(localStorage.getItem('user_id')) : '0',
                       name: localStorage.getItem('name') ? localStorage.getItem('name') : 'Kobe',
                       surname: localStorage.getItem('surname') ? localStorage.getItem('surname') : '',
                       avatar: localStorage.getItem('avatar') ? localStorage.getItem('avatar') : 'martin-berube',
@@ -65,22 +62,62 @@ export default class Header extends React.Component {
     }
 
     onUserInfo(property, value) {
-        console.log('SMHeader.onUserInfo ' + property + ': ' + value);
         if (property === 'close') {
             this.setState({userInfoOpen: false});
 
         } else {
-            this.setState({userInfoOpen: false, avatar: localStorage.getItem('avatar')});
+            // console.log('SMHeader.onUserInfo ' + property + ': ' + value);
+            var pswdhash = localStorage.getItem('pswdhash');
+            var post_data = {'user_id': this.state.id,
+                             'operation': property,
+                             'pswdhash': pswdhash};
+            if (property === 'name') {
+                this.setState({name: value});
+                post_data['name'] = value;
+            } else if (property === 'surname') {
+                this.setState({surname: value});
+                post_data['surname'] = value;
+            } else if (property === 'email') {
+                this.setState({email: value});
+                post_data['email'] = value;
+            } else if (property === 'pswd') {
+                // for new pswd we have to generate new hash
+                // pswd = request.json.get('pswd')
+                // newhash = request.json.get('newhash')
+                this.setState({pswd: value});
+                post_data['pswd'] = value;
+            } else if (property === 'avatar') {
+                this.setState({avatar: value});
+                post_data['avatar'] = value;
+            }
+
+            // this.setState({userInfoOpen: false, avatar: localStorage.getItem('avatar')});
             // need to update use avatar and other changed values
-            if (this.state.id !== 0) {
+            if ((this.state.id > 0) && (pswdhash !== null)) {
                 // update user failed counter in header and send to server
-                var post_data = {'user_id': this.state.id,
-                                 'hash': localStorage.getItem('pswdhash'),
-                                 'operation': property,
-                                  property: value};
-                    axios.post('http://supermath.xyz:3000/api/update', post_data);
+                axios.post('http://supermath.xyz:3000/api/update', post_data)
+                    .then(this.onApiUpdate)
+                    .catch(this.onApiUpdateError);
             }
         }
+    }
+
+    onApiUpdate(response) {
+        if ('data' in response) {
+            if ('error' in response.data) {
+                console.log('ERROR Header.onApiUpdate received ' + response.data.error);
+            } else if ('id' in response.data) {
+                console.log('Header.onApiUpdate: succeeded, ' + response.data.id);
+            } else {
+                console.log('ERROR: Header.onApiUpdate no error and id in data message from server');
+            }
+        } else {
+            console.log('ERROR: Header.onApiUpdate received no data in response from server');
+        }
+    }
+
+    onUpdateResultsError(error) {
+        console.log('Header.onUpdateResultsError -> error ' + error);
     }
 
     onLanguage(language) {
@@ -100,8 +137,7 @@ export default class Header extends React.Component {
     onResult(result, user_id, name, language, email, surname, age, avatar, passed, failed) {
         // console.log('onResult ' + result + ', user: ' + user + ', age: ' + age+ ', pass: '  + passed + ', fail: ' + failed);
         if (result === 'successed') {
-            this.setState({isLogin: true,
-                           id: user_id,
+            this.setState({'id': parseInt(user_id),
                            'name': name,
                            'lang': language,
                            'email': email,
@@ -110,13 +146,12 @@ export default class Header extends React.Component {
                            'avatar': avatar,
                            'pass': passed,
                            'fail': failed,
-                           // close login window
-                           loginOpen: false,
-                           // close registration window
-                           registerOpen: false});
+                            // close login window
+                            loginOpen: false,
+                            // close registration window
+                            registerOpen: false});
 
             // use HTML5 Local Storage if browser supports it
-            localStorage.setItem('isLogin', true);
             localStorage.setItem('user_id', user_id);
             localStorage.setItem('name', name);
             localStorage.setItem('land', language);
@@ -135,16 +170,16 @@ export default class Header extends React.Component {
 
         } else if (result === 'forget') {
             // console.log('Not implemented yet, just close');
-            this.setState({loginOpen: false, forgetOpen: true, isLogin: false});
+            this.setState({loginOpen: false, forgetOpen: true});
 
         } else if (result === 'logout') {
             console.log("onLogout");
-            this.setState({isLogin:false,logoutOpen:false});
+            this.setState({id: 0, logoutOpen:false});
 
             // remove all info from local storage
-            localStorage.removeItem('isLogin');
             localStorage.removeItem('user_id');
             localStorage.removeItem('name');
+            localStorage.removeItem('pswd');
             localStorage.removeItem('pswdhash');
             // keep language setting
             // localStorage.removeItem('lang');
@@ -160,7 +195,7 @@ export default class Header extends React.Component {
             this.setState({logoutOpen: false});
 
         } else {
-            this.setState({loginOpen: false, forgetOpen: false, registerOpen: false, isLogin: false});
+            this.setState({loginOpen: false, forgetOpen: false, registerOpen: false});
         }
     }
 
@@ -177,7 +212,7 @@ export default class Header extends React.Component {
                     </Typography>
 
                     <Typography variant="h5" style={{flexGrow:1}}></Typography>
-                    { this.state.isLogin ?
+                    { (this.state.id > 0) ?
                         (
                          <Typography onClick={() => this.setState({userInfoOpen: true})} style={{fontSize:'2.00rem',fontFamily:'Grinched',color:'orange'}}>
                             {this.state.name} :
@@ -193,7 +228,7 @@ export default class Header extends React.Component {
                         )
                     }
 
-                    { this.state.isLogin ?
+                    { (this.state.id > 0) ?
                         (
                          <Typography onClick={() => this.setState({logoutOpen:true})} style={{marginLeft:'2%',color:'green',fontSize:'2.00rem',fontFamily:'Grinched'}}>
                             {header[this.state.lang]['logout']}
