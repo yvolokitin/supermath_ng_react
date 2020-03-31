@@ -2,6 +2,8 @@
 import {Typography} from '@material-ui/core';
 import {AutoRotatingCarousel, Slide} from 'material-auto-rotating-carousel';
 
+import {help} from './../translations/help';
+
 import image from './../../images/help/belts.jpg';
 
 /*
@@ -23,10 +25,12 @@ export default function SMHelp(props) {
             style={{position: 'absolute'}}>
 
             <Slide
+                id='common'
                 media={
                     <div>
                         <Typography style={{fontFamily:'Grinched',fontVariant:'small-caps',fontSize:'2.5rem',color:'green',textShadow:'1px 1px 2px black'}}>
-                            <font style={{color:'#b37700'}}>SuperMath</font> programs organization and levels
+                            <font style={{color:'#b37700',marginRight:'7px'}}>SuperMath</font>
+                            {help[props.lang]['common_title']}
                         </Typography>
                         <img src={image} style={{marginTop:'2%',marginBottom:'2%',width:'90%',border:'4px solid green',borderRadius:'5px',}} alt='kids'/>
                         <Typography style={{marginLeft:'4%',marginRight:'4%',fontFamily:'Arial',fontSize:'1.5rem',color:'green',lineHeight:'1.0',textAlign:'justify',fontWeight:'bold'}}>

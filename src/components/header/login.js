@@ -13,7 +13,7 @@ import constraints from './constraints';
 
 import SMTitle from './../dialog/title';
 
-import {login} from './../halpers/login';
+import {login} from './../translations/login';
 
 import axios from 'axios';
 

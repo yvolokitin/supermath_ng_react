@@ -23,7 +23,7 @@ import classes from './../../index.css';
 import Info from './info';
 import DigitGame from './../games/digitgame';
 
-import {green_titles, green_descriptions} from './../halpers/green';
+import {green_titles, green_descriptions} from './../translations/green';
 const task_amount = 30;
 
 const games = [
@@ -35,8 +35,8 @@ const games = [
     {id: 5, logo: logo5, type: '2digits', task: ':,11-99,2-9,1,1', amount: task_amount},
     {id: 6, logo: logo6, type: '3digits', task: '*:,0-10,1', amount: task_amount},
     {id: 7, logo: logo7, type: '2digits', task: '*,11-20,11-20,1,1', amount: task_amount},
-    {id: 8, logo: logo8, type: 'line_5numbers', task: '-*,5,0-10,1', amount: task_amount},
-    {id: 9, logo: logo9, type: 'line_4numbers', task: '+-,1-999,1', amount: task_amount},
+    {id: 8, logo: logo8, type: '3digits', task: '*,1-10,1', amount: task_amount},
+    {id: 9, logo: logo9, type: 'line_5numbers', task: '-*,5,0-10,1', amount: task_amount},
 ];
 
 export default class Green extends React.Component {

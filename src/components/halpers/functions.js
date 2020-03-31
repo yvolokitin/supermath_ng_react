@@ -29,8 +29,10 @@ export function generate_task(type, settings) {
         // if operations = +-
         if (array[0] === '+-') {
             result = generate_3digit_task(array[0], array[1], array[2]);
-        } else {
-            result = generate_muldiv_task();
+        } else if (array[0] === '*') {
+            result = generate_3digit_mul_task();
+        } else { // *:
+            result = generate_3digit_div_task();
         }
         console.log(type + ' generate_task: ' + result.expr1 + result.result);
 
@@ -100,7 +102,26 @@ export function generate_task(type, settings) {
     return result;
 }
 
-function generate_muldiv_task() {
+function generate_3digit_mul_task() {
+    var num1 = parseInt(get_random_int('4-9'));
+    var num2 = parseInt(get_random_int('6-9'));
+    var num3 = parseInt(get_random_int('3-9'));
+
+    var expression = '', result = 0;
+    // below statments just for ordering
+    if (Math.random() < 0.3) {
+        expression = num1.toString() + ' x ' + num2.toString() + ' x ' + num3.toString();
+    } else if (Math.random() < 0.8) {
+        expression = num1.toString() + ' x ' + num3.toString() + ' x ' + num2.toString();
+    } else {
+        expression = num3.toString()  + ' x ' +  num1.toString() + ' x ' + num2.toString();
+    }
+    result = num1*num2*num3;
+
+    return {'expr1': expression + ' = ', 'result': result};
+}
+
+function generate_3digit_div_task() {
     var num1 = parseInt(get_random_int('4-9'));
     var num2 = parseInt(get_random_int('6-9'));
     var num12 = num1 * num2;

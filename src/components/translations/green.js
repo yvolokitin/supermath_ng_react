@@ -8,8 +8,8 @@ export const green_titles = {
         '4': 'Division of two numbers, where divider and result are one digit',
         '5': 'Division of three-, two- and one- digit numbers',
         '6': 'Multiplication and Division of three numbers',
-        '7': 'Multiplication two two-digit number from 11 to 20',
-        '8': 'Addition, Subtraction and Multiplication of 4 or 5 numbers',
+        '7': 'Multiplication of two two-digit number from 11 to 20',
+        '8': 'Multiplication of three one-digit numbers (1..9)',
         '9': 'Addition and Subtraction of four numbers',
     },
     // Russian
@@ -21,8 +21,8 @@ export const green_titles = {
         '5': 'Деление трехзначных, двузначных и однозначных чисел',
         '6': 'Умножение и Деление трех чисел (однозначных и двузначных)',
         '7': 'Сложение, Вычитание и Умножение четырех и пяти чисел',
-        '8': 'Сложение и Вычитание трех трехзначных в столбик (100..999)',
-        '9': 'Сложение и Вычитание четырех-, трех-, двузначных и однозначного',
+        '8': '',
+        '9': '',
     },
     // Dutch
     'nl' : {
@@ -33,7 +33,7 @@ export const green_titles = {
         '5': 'Division of two numbers with unknown dividend or divisor',
         '6': 'Multiplication and Division of three numbers',
         '7': 'Multiplication two two-digit number from 11 to 20',
-        '8': 'Addition, Subtraction and Multiplication of 4 or 5 numbers',
+        '8': 'Multiplication of three one-digit numbers (1..9)',
         '9': 'Addition and Subtraction of four numbers',
     },
     // French
@@ -45,7 +45,7 @@ export const green_titles = {
         '5': 'Division of two numbers with unknown dividend or divisor',
         '6': 'Multiplication and Division of three numbers',
         '7': 'Multiplication two two-digit number from 11 to 20',
-        '8': 'Addition, Subtraction and Multiplication of 4 or 5 numbers',
+        '8': 'Multiplication of three one-digit numbers (1..9)',
         '9': 'Addition and Subtraction of four numbers',
     },
     // German
@@ -57,7 +57,7 @@ export const green_titles = {
         '5': 'Division of two numbers with unknown dividend or divisor',
         '6': 'Multiplication and Division of three numbers',
         '7': 'Multiplication two two-digit number from 11 to 20',
-        '8': 'Addition, Subtraction and Multiplication of 4 or 5 numbers',
+        '8': 'Multiplication of three one-digit numbers (1..9)',
         '9': 'Addition and Subtraction of four numbers',
     },
     // Spanish
@@ -69,7 +69,7 @@ export const green_titles = {
         '5': 'Division of two numbers with unknown dividend or divisor',
         '6': 'Multiplication and Division of three numbers',
         '7': 'Multiplication two two-digit number from 11 to 20',
-        '8': 'Addition, Subtraction and Multiplication of 4 or 5 numbers',
+        '8': 'Multiplication of three one-digit numbers (1..9)',
         '9': 'Addition and Subtraction of four numbers',
     },
     // Italian
@@ -81,7 +81,7 @@ export const green_titles = {
         '5': 'Division of two numbers with unknown dividend or divisor',
         '6': 'Multiplication and Division of three numbers',
         '7': 'Multiplication two two-digit number from 11 to 20',
-        '8': 'Addition, Subtraction and Multiplication of 4 or 5 numbers',
+        '8': 'Multiplication of three one-digit numbers (1..9)',
         '9': 'Addition and Subtraction of four numbers',
     },
 };

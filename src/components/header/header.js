@@ -15,7 +15,7 @@ import UserInformation from './../userinfo/userinfo';
 import AlertDialog from './../alert/alert';
 
 import './header.css';
-import {header} from './../halpers/header';
+import {header} from './../translations/header';
 
 export default class Header extends React.Component {
     constructor(props) {

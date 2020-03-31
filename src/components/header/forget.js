@@ -11,7 +11,7 @@ import constraints from './constraints';
 
 import SMTitle from './../dialog/title';
 
-import {forget} from './../halpers/forget';
+import {forget} from './../translations/forget';
 
 import axios from 'axios';
 

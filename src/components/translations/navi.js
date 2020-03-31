@@ -3,9 +3,9 @@ export const navi_titles = {
     // English
     'en': {
         '1': 'Long Addition and Subtraction of three numbers (100..999)',
-        '2': 'Long Multiplication of two- and three-digit numbers (from 10 to 999)',
-        '3': 'Division of one and two digit numbers with remainder',
-        '4': 'Task is under development and not defined yet',
+        '2': 'Addition, Subtraction and Multiplication of 4 or 5 numbers',
+        '3': 'Long Multiplication of two- and three-digit numbers (from 10 to 999)',
+        '4': 'Division of one and two digit numbers with remainder',
         '5': 'Task is under development and not defined yet',
         '6': 'Task is under development and not defined yet',
         '7': 'Task is under development and not defined yet',
@@ -14,10 +14,10 @@ export const navi_titles = {
     },
     // Russian
     'ru': {
-        '1': 'Long Addition and Subtraction of three numbers (100..999)',
-        '2': 'Long Multiplication of two- and three-digit numbers (from 10 to 999)',
-        '3': 'Division of one and two digit numbers with remainder',
-        '4': 'Задача в разработке или еще не до конца готова',
+        '1': 'Сложение и Вычитание трех трехзначных в столбик (100..999)',
+        '2': 'Сложение и Вычитание четырех-, трех-, двузначных и однозначного',
+        '3': 'Long Multiplication of two- and three-digit numbers (from 10 to 999)',
+        '4': 'Division of one and two digit numbers with remainder',
         '5': 'Задача в разработке или еще не до конца готова',
         '6': 'Задача в разработке или еще не до конца готова',
         '7': 'Задача в разработке или еще не до конца готова',
@@ -27,9 +27,9 @@ export const navi_titles = {
     // Dutch
     'nl' : {
         '1': 'Long Addition and Subtraction of three numbers (100..999)',
-        '2': 'Long Multiplication of two- and three-digit numbers (from 10 to 999)',
-        '3': 'Division of one and two digit numbers with remainder',
-        '4': 'Task is under development and not defined yet',
+        '2': 'Addition, Subtraction and Multiplication of 4 or 5 numbers',
+        '3': 'Long Multiplication of two- and three-digit numbers (from 10 to 999)',
+        '4': 'Division of one and two digit numbers with remainder',
         '5': 'Task is under development and not defined yet',
         '6': 'Task is under development and not defined yet',
         '7': 'Task is under development and not defined yet',
@@ -39,9 +39,9 @@ export const navi_titles = {
     // French
     'fr' : {
         '1': 'Long Addition and Subtraction of three numbers (100..999)',
-        '2': 'Long Multiplication of two- and three-digit numbers (from 10 to 999)',
-        '3': 'Division of one and two digit numbers with remainder',
-        '4': 'Task is under development and not defined yet',
+        '2': 'Addition, Subtraction and Multiplication of 4 or 5 numbers',
+        '3': 'Long Multiplication of two- and three-digit numbers (from 10 to 999)',
+        '4': 'Division of one and two digit numbers with remainder',
         '5': 'Task is under development and not defined yet',
         '6': 'Task is under development and not defined yet',
         '7': 'Task is under development and not defined yet',
@@ -51,9 +51,9 @@ export const navi_titles = {
     // German
     'de' : {
         '1': 'Long Addition and Subtraction of three numbers (100..999)',
-        '2': 'Long Multiplication of two- and three-digit numbers (from 10 to 999)',
-        '3': 'Division of one and two digit numbers with remainder',
-        '4': 'Task is under development and not defined yet',
+        '2': 'Addition, Subtraction and Multiplication of 4 or 5 numbers',
+        '3': 'Long Multiplication of two- and three-digit numbers (from 10 to 999)',
+        '4': 'Division of one and two digit numbers with remainder',
         '5': 'Task is under development and not defined yet',
         '6': 'Task is under development and not defined yet',
         '7': 'Task is under development and not defined yet',
@@ -63,9 +63,9 @@ export const navi_titles = {
     // Spanish
     'es' : {
         '1': 'Long Addition and Subtraction of three numbers (100..999)',
-        '2': 'Long Multiplication of two- and three-digit numbers (from 10 to 999)',
-        '3': 'Division of one and two digit numbers with remainder',
-        '4': 'Task is under development and not defined yet',
+        '2': 'Addition, Subtraction and Multiplication of 4 or 5 numbers',
+        '3': 'Long Multiplication of two- and three-digit numbers (from 10 to 999)',
+        '4': 'Division of one and two digit numbers with remainder',
         '5': 'Task is under development and not defined yet',
         '6': 'Task is under development and not defined yet',
         '7': 'Task is under development and not defined yet',
@@ -75,9 +75,9 @@ export const navi_titles = {
     // Italian
     'it' : {
         '1': 'Long Addition and Subtraction of three numbers (100..999)',
-        '2': 'Long Multiplication of two- and three-digit numbers (from 10 to 999)',
-        '3': 'Division of one and two digit numbers with remainder',
-        '4': 'Task is under development and not defined yet',
+        '2': 'Addition, Subtraction and Multiplication of 4 or 5 numbers',
+        '3': 'Long Multiplication of two- and three-digit numbers (from 10 to 999)',
+        '4': 'Division of one and two digit numbers with remainder',
         '5': 'Task is under development and not defined yet',
         '6': 'Task is under development and not defined yet',
         '7': 'Task is under development and not defined yet',

@@ -1,11 +1,9 @@
 ﻿import React from 'react';
 import {Dialog, DialogContent, DialogActions, Typography, Card, CardMedia, Button} from '@material-ui/core';
-
 import CancelIcon from '@material-ui/icons/Cancel';
 
 import SMTitle from './../dialog/title';
-
-import {info} from './../halpers/info';
+import {info} from './../translations/info';
 
 export default function Info(props) {
     return (

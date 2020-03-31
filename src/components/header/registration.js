@@ -8,7 +8,7 @@ import Alert from '@material-ui/lab/Alert';
 import {validate} from 'validate.js';
 import constraints from './constraints';
 
-import {registration} from './../halpers/registration';
+import {registration} from './../translations/registration';
 
 import axios from 'axios';
 

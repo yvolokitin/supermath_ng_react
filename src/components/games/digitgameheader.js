@@ -4,10 +4,8 @@ import GameProgress from "./digitgameprogress";
 
 import AlertDialog from './../alert/alert';
 
-import {gameheader} from './../halpers/gameheader';
+import {gameheader} from './../translations/gameheader';
 
-/*
-*/
 export default function GameHeader(props) {
     const [value, setValue] = React.useState(false);
     const [progress, setProgress] = React.useState(false);

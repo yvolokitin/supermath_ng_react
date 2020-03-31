@@ -11,7 +11,7 @@ import Exchange from './exchange';
 import Friends from './friends';
 import Progress from './progress';
 
-import {userinfo} from './../halpers/userinfo';
+import {userinfo} from './../translations/userinfo';
 import './userinfo.css';
 
 import ava1 from './../../images/avatars/astronaut-icon.png';

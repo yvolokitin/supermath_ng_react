@@ -23,7 +23,7 @@ import classes from './../../index.css';
 import Info from "./info";
 import DigitGame from "./../games/digitgame";
 
-import {black_titles, black_descriptions} from './../halpers/black';
+import {black_titles, black_descriptions} from './../translations/black';
 
 const task_amount = 30;
 

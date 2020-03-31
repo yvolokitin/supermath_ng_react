@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import {Typography, Grid, TextField, Button} from '@material-ui/core';
 
-import {settings} from './../halpers/settings';
+import {settings} from './../translations/settings';
 
 /*
     <Settings id={this.props.id} email={this.props.email} user={this.props.user} surname={this.props.surname} age={this.props.age} lang={this.props.lang}/>

@@ -5,7 +5,7 @@ import Link from '@material-ui/core/Link';
 
 import AlertDialog from './../alert/alert';
 
-import {footer} from './../halpers/footer';
+import {footer} from './../translations/footer';
 
 export default function SMFooter(props) {
     const [value, setValue] = React.useState(false);

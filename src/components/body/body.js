@@ -11,7 +11,7 @@ import Green from "./green";
 import Navi from "./navi";
 import Black from "./black";
 
-import {body} from './../halpers/body';
+import {body} from './../translations/body';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
