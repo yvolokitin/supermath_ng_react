@@ -34,16 +34,14 @@ export default function SMHelp(props) {
                         </Typography>
                         <img src={image} style={{marginTop:'2%',marginBottom:'2%',width:'90%',border:'4px solid green',borderRadius:'5px',}} alt='kids'/>
                         <Typography style={{marginLeft:'4%',marginRight:'4%',fontFamily:'Arial',fontSize:'1.5rem',color:'green',lineHeight:'1.0',textAlign:'justify',fontWeight:'bold'}}>
-                            All Programs are divided in five Levels (aka belts in karate or kung fu). Each Color corresponds certain level of tasks
-                            complexity. For begginers, the White Color is provided, which darkens with the growth of skills. The Black shows that a
-                            student has reached good skills in solving of Math problems
+                            {help[props.lang]['common_body']}
                         </Typography>
                     </div>
                 }
                 mediaBackgroundStyle={{backgroundColor:'orange'}}
                 style = {{backgroundColor:'green'}}
-                title = 'Tasks and Colors organization'
-                subtitle = 'You can easely follow your own organizational things and ideas. It is not really mandatory to follow all programms one by one from each color. The main idea in the color organization is just get you some initial basic logical structure, which will help you in perception of tasks.'/>
+                title = {help[props.lang]['common_ext_title']}
+                subtitle = {help[props.lang]['common_ext_body']}/>
 
             <Slide
                 id='white'
