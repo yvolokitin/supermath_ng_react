@@ -107,10 +107,11 @@ export default class Header extends React.Component {
             console.log('SMHeader.onLanguage: ' + language);
             localStorage.setItem('land', language);
             this.setState({langSelector: false, lang: language});
+            console.log('pswdhash: ' + localStorage.getItem('pswdhash'));
             if (this.state.id > 0) {
                 // update user failed counter in header and send to server
                 var post_data = {'user_id': this.state.id,
-                                 'hash': localStorage.getItem('pswdhash'),
+                                 'pswdhash': localStorage.getItem('pswdhash'),
                                  'operation': 'lang',
                                  'lang': language};
                 axios.post('http://supermath.xyz:3000/api/update', post_data)

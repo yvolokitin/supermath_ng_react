@@ -1,4 +1,4 @@
-﻿import React from 'react';
+﻿import React, {useState} from 'react';
 import {Dialog, Card, CardMedia, Button} from '@material-ui/core';
 import {Radio, RadioGroup, FormControlLabel} from '@material-ui/core';
 
@@ -7,10 +7,10 @@ import world from './../../images/world.jpg';
 import './language.css';
 
 export default function Language(props) {
-    const [value, setValue] = React.useState(props.lang);
+    const [value, setValue] = useState(props.lang);
     const handleChange = event => {
+        // console.log('event.target.value: ' + event.target.value);
         setValue(event.target.value);
-        console.log('event.target.value: ' + event.target.value);
     };
 
     const onSave = () => {

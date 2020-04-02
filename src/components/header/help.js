@@ -17,15 +17,8 @@ import image from './../../images/help/belts.jpg';
 */
 export default function SMHelp(props) {
     return (
-        <AutoRotatingCarousel
-            autoplay={false}
-            open={props.open}
-            onClose={() => props.onClick()}
-            onStart={() => props.onClick()}
-            style={{position: 'absolute'}}>
-
-            <Slide
-                id='common'
+        <AutoRotatingCarousel autoplay={false} open={props.open}  onClose={() => props.onClick()} onStart={() => props.onClick()} style={{position: 'absolute'}}>
+            <Slide id='common'
                 media={
                     <div>
                         <Typography style={{fontFamily:'Grinched',fontVariant:'small-caps',fontSize:'2.5rem',color:'green',textShadow:'1px 1px 2px black'}}>
@@ -43,69 +36,41 @@ export default function SMHelp(props) {
                 title = {help[props.lang]['common_ext_title']}
                 subtitle = {help[props.lang]['common_ext_body']}/>
 
-            <Slide
-                id='white'
+            <Slide id='white'
                 media={
                     <div>
-                        <Typography style={{fontFamily:'Grinched',fontSize:'2.5rem',color:'black'}}>
-                            White Level
-                        </Typography>
+                        <Typography style={{fontFamily:'Grinched',fontSize:'2.5rem',color:'black'}}> {help[props.lang]['white_title']} </Typography>
                         <Typography style={{marginLeft:'4%',marginRight:'4%',fontFamily:'Arial',fontSize:'1.5rem',color:'black',lineHeight:'1.0',textAlign:'justify',fontWeight:'bold'}}>
-                            The White level is designed to operate with one-digit numbers in range from 0 to 10 (where 10 is the only one two-digit number exception).
-                            The main focus of current level is two basic arithmetic operations: Addition and Subtruction. It starts from the numbers understanding
-                            (determination of right secuance and order) and Comparision operations with continuation on Addition and Subtruction.
-                            The last programs give kids more challange and drive smart thinking for them.
+                            {help[props.lang]['white_body']}
                         </Typography>
                     </div>
                 }
-                mediaBackgroundStyle={{backgroundColor:'white'}}
-                style = {{backgroundColor:'black'}}
-                title = 'Tasks structure'
-                subtitle = 'Determination of one digit number from sequance. Comparision of one-digit numbers. Addition of one-digit numbers. Subtraction of one-digit numbers. Addition and Subtraction of two one-digit numbers. Mathematical operation (Addition or Subtraction) determination. Addition and Subtraction of three one-digit numbers. Comparison of two expressions for one digit numbers. Addition and Subtraction of two one-digit numbers with unknown argument.'/>
+                mediaBackgroundStyle={{backgroundColor:'white'}} style={{backgroundColor:'black'}}
+                title={help[props.lang]['white_ext_title']} subtitle={help[props.lang]['white_ext_body']}/>
 
-            <Slide
-                id='orange'
+            <Slide id='orange'
                 media={
                     <div>
-                        <Typography style={{fontFamily:'Grinched',fontSize:'2.5rem',color:'white',textShadow:'1px 1px 2px black'}}>
-                            Orange Level
-                        </Typography>
+                        <Typography style={{fontFamily:'Grinched',fontSize:'2.5rem',color:'white',textShadow:'1px 1px 2px black'}}> {help[props.lang]['orange_title']} </Typography>
                         <Typography style={{marginLeft:'4%',marginRight:'4%',fontFamily:'Arial',fontSize:'1.5rem',color:'white',lineHeight:'1.0',textAlign:'justify',fontWeight:'bold'}}>
-                            The Orange level is used for two-digit numbers in range from 10 to 100. The hungred is only one exception of three digit number
-                        </Typography>
-
-                        <Typography style={{marginLeft:'4%',marginRight:'4%',fontFamily:'Arial',fontSize:'1.5rem',color:'white',lineHeight:'1.0',textAlign:'justify',fontWeight:'bold'}}>
-                            The Orange level is operates with Addition and Substruction. Where the addition of two whole numbers is the total amount of those values combined.
-                            And Subtraction is the operation of removing objects from a collection. The result of a subtraction is called a difference.
+                            {help[props.lang]['orange_body']}
                         </Typography>
                     </div>
                 }
-                mediaBackgroundStyle={{backgroundColor:'orange'}}
-                style = {{backgroundColor:'orange'}}
-                title = 'Tasks structure'
-                subtitle = 'Tasks for determination of two digit number from sequance. Comparision of two-digit numbers. Addition and Subtraction of two and one-digit numbers. Addition and Subtraction of round numbers. Addition and Subtraction of round and one-digit numbers. Addition and Subtraction of one-digit and two-digit numbers. Addition and Subtraction of two two-digit numbers.'/>
+                mediaBackgroundStyle={{backgroundColor:'orange'}} style={{backgroundColor:'orange'}}
+                title={help[props.lang]['orange_ext_title']} subtitle={help[props.lang]['orange_ext_body']}/>
 
-            <Slide
-                id='green'
+            <Slide id='green'
                 media={
                     <div>
-                        <Typography style={{fontFamily:'Grinched',fontSize:'2.5rem',color:'white',textShadow:'1px 1px 2px black'}}>
-                            Green Level
-                        </Typography>
+                        <Typography style={{fontFamily:'Grinched',fontSize:'2.5rem',color:'white',textShadow:'1px 1px 2px black'}}> {help[props.lang]['green_title']} </Typography>
                         <Typography style={{marginLeft:'4%',marginRight:'4%',fontFamily:'Arial',fontSize:'1.5rem',color:'white',lineHeight:'1.0',textAlign:'justify',fontWeight:'bold'}}>
-                            The Green level is introduced tasks for Multiplication of one digit numbers and more advanced associated operations.
-                        </Typography>
-                        <Typography style={{marginLeft:'4%',marginRight:'4%',marginTop:'4%',fontFamily:'Arial',fontSize:'1.5rem',color:'white',lineHeight:'1.0',textAlign:'justify',fontWeight:'bold'}}>
-                            Multiplication (often denoted by the cross symbol 'x') is one of the four elementary mathematical operations of arithmetic,
-                            with the others being addition, subtraction and division. The multiplication of whole numbers may be thought as a repeated
-                            addition; that is, the multiplication of two numbers is equivalent to adding as many copies of one of them,
-                            the multiplicand, as the value of the other one, the multiplier.
+                            {help[props.lang]['green_body']}
                         </Typography>
                     </div>
                 }
-                mediaBackgroundStyle={{backgroundColor:'green'}}
-                style = {{backgroundColor:'green'}}
-                title = '' subtitle = ''/>
+                mediaBackgroundStyle={{backgroundColor:'green'}} style={{backgroundColor:'green'}}
+                title={help[props.lang]['green_ext_title']} subtitle={help[props.lang]['green_ext_body']}/>
 
             <Slide
                 media={<img src='http://www.icons101.com/icon_png/size_256/id_79394/youtube.png' alt='youtube'/>}
