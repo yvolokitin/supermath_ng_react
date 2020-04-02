@@ -48,16 +48,16 @@ export default class SuperMathPage extends React.Component {
             else { language = 'en'; }
         }
 
-        this.state = {userUpdate: false, userLng: language};
+        this.state = {'userUpdate': false, 'language': language};
         this.onUpdate = this.onUpdate.bind(this);
 
-        // console.log('SuperMathPage.constructor language ' + language);
+        console.log('SuperMathPage.constructor language ' + language);
     }
 
     onUpdate(language) {
         if ((language !== undefined) && (language !== null)) {
             // console.log('SuperMathPage.onUpdate language: ' + language);
-            this.setState({userLng: language});
+            this.setState({'language': language});
             localStorage.setItem('lang', language);
         }
     }
@@ -67,9 +67,9 @@ export default class SuperMathPage extends React.Component {
         return (
             <React.Fragment>
                 <CssBaseline/>
-                <Header onUpdate={(event) => this.onUpdate(event)} info={this.state.userUpdate} lang={this.state.userLng}/>
-                <SMBody onUpdate={() => this.setState({userUpdate: true})} lang={this.state.userLng}/>
-                <SMFooter text={"SuperMath"} lang={this.state.userLng}/>
+                <Header onUpdate={(event) => this.onUpdate(event)} info={this.state.userUpdate} lang={this.state.language}/>
+                <SMBody onUpdate={() => this.setState({userUpdate: true})} lang={this.state.language}/>
+                <SMFooter text={"SuperMath"} lang={this.state.language}/>
             </React.Fragment>
         );
     }

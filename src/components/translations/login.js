@@ -9,6 +9,8 @@ export const login = {
         'forgot': 'Forgot password?',
         'signup': 'Don\'t have an account? Sign Up',
         'error': 'Login failed',
+        'error_no_data': 'Uuupps! Something went wrong. Received NO data in response from server',
+        'error_no_error': 'Uuupps! Something went wrong, no ID or ERROR in data response from server',
     },
     // Russian
     'ru': {
@@ -19,6 +21,8 @@ export const login = {
         'forgot': 'Забыли пароль?',
         'signup': 'Создать аккаунт',
         'error': 'Ошибка входа',
+        'error_no_data': 'Uuupps! Something went wrong. Received NO data in response from server',
+        'error_no_error': 'Uuupps! Something went wrong, no ID or ERROR in data response from server',
     },
     // Dutch
     'nl' : {
@@ -29,6 +33,8 @@ export const login = {
         'forgot': 'Forgot password?',
         'signup': 'Don\'t have an account? Sign Up',
         'error': 'Login failed',
+        'error_no_data': 'Uuupps! Something went wrong. Received NO data in response from server',
+        'error_no_error': 'Uuupps! Something went wrong, no ID or ERROR in data response from server',
     },
     // French
     'fr' : {
@@ -39,6 +45,8 @@ export const login = {
         'forgot': 'Forgot password?',
         'signup': 'Don\'t have an account? Sign Up',
         'error': 'Login failed',
+        'error_no_data': 'Uuupps! Something went wrong. Received NO data in response from server',
+        'error_no_error': 'Uuupps! Something went wrong, no ID or ERROR in data response from server',
     },
     // German
     'de' : {
@@ -49,6 +57,8 @@ export const login = {
         'forgot': 'Forgot password?',
         'signup': 'Don\'t have an account? Sign Up',
         'error': 'Login failed',
+        'error_no_data': 'Uuupps! Something went wrong. Received NO data in response from server',
+        'error_no_error': 'Uuupps! Something went wrong, no ID or ERROR in data response from server',
     },
     // Spanish
     'es' : {
@@ -59,6 +69,8 @@ export const login = {
         'forgot': 'Forgot password?',
         'signup': 'Don\'t have an account? Sign Up',
         'error': 'Login failed',
+        'error_no_data': 'Uuupps! Something went wrong. Received NO data in response from server',
+        'error_no_error': 'Uuupps! Something went wrong, no ID or ERROR in data response from server',
     },
     // Italian
     'it' : {
@@ -69,5 +81,7 @@ export const login = {
         'forgot': 'Forgot password?',
         'signup': 'Don\'t have an account? Sign Up',
         'error': 'Login failed',
+        'error_no_data': 'Uuupps! Something went wrong. Received NO data in response from server',
+        'error_no_error': 'Uuupps! Something went wrong, no ID or ERROR in data response from server',
     },
 };
