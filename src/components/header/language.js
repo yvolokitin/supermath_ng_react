@@ -2,10 +2,7 @@
 import {Dialog, Card, CardMedia, Button} from '@material-ui/core';
 import {Radio, RadioGroup, FormControlLabel} from '@material-ui/core';
 
-import axios from 'axios';
-
 import SMTitle from "./../dialog/title";
-
 import world from './../../images/world.jpg';
 import './language.css';
 
@@ -17,23 +14,10 @@ export default function Language(props) {
     };
 
     const onSave = () => {
-        // console.log('onClose value: ' + value);
+        console.log('Language.onClose ' + value);
         props.onClose(value);
-        if (localStorage.getItem('user_id') !== null) {
-            // update user failed counter in header and send to server
-            var post_data = {'user_id': localStorage.getItem('user_id'),
-                             'hash': localStorage.getItem('pswdhash'),
-                             'operation': 'lang',
-                             'lang': value};
-                axios.post('http://supermath.xyz:3000/api/update', post_data);
-        } else {
-            console.log('Language.onSave: do not sent language change \'' + value + '\'');
-        }
     }
 
-/*
-                <FormControlLabel value='pl' control={<Radio />} label='Poland / Polish'/>
-*/
     return (
         <Dialog onClose={() => props.onClose()} transitionDuration={500} open={props.open} scroll='body'>
             <SMTitle title='Select your language' className='language_title' onClick={() => props.onClose()}/>

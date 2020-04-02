@@ -124,7 +124,7 @@ export default class UserInformation extends React.Component {
                 <div className='userinfoboard'>
                     <div className='userinfoboard_name_age'>
                         <div className='userinfoboard_name_age_na'>
-                            {this.state.name}, {this.props.age} {userinfo[this.props.lang]['years']}
+                            {this.state.name} {this.state.surname}, {this.props.age} {userinfo[this.props.lang]['years']}
                         </div>
                         <div className='userinfoboard_name_age_na'>
                             &nbsp; <font style={{color:'green'}}> {this.props.pass} </font> &#128515;

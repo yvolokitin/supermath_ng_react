@@ -36,7 +36,7 @@ export default class Header extends React.Component {
                       langSelector: false,
                       // current user information
                       lang: props.lang,
-                      id: localStorage.getItem('user_id') ? parseInt(localStorage.getItem('user_id')) : '0',
+                      id: localStorage.getItem('user_id') ? parseInt(localStorage.getItem('user_id')) : 0,
                       name: localStorage.getItem('name') ? localStorage.getItem('name') : 'Kobe',
                       surname: localStorage.getItem('surname') ? localStorage.getItem('surname') : '',
                       avatar: localStorage.getItem('avatar') ? localStorage.getItem('avatar') : 'martin-berube',
@@ -102,6 +102,31 @@ export default class Header extends React.Component {
         }
     }
 
+    onLanguage(language) {
+        if (language !== undefined) {
+            console.log('SMHeader.onLanguage: ' + language);
+            localStorage.setItem('land', language);
+            this.setState({langSelector: false, lang: language});
+            if (this.state.id > 0) {
+                // update user failed counter in header and send to server
+                var post_data = {'user_id': this.state.id,
+                                 'hash': localStorage.getItem('pswdhash'),
+                                 'operation': 'lang',
+                                 'lang': language};
+                axios.post('http://supermath.xyz:3000/api/update', post_data)
+                    .then(this.onApiUpdate)
+                    .catch(this.onApiUpdateError);
+            } else {
+                console.log('Language.onSave: do not sent language change to ' + language);
+            }
+
+            this.props.onUpdate(language);
+
+        } else {
+            this.setState({langSelector: false});
+        }
+    }
+
     onApiUpdate(response) {
         if ('data' in response) {
             if ('error' in response.data) {
@@ -120,22 +145,12 @@ export default class Header extends React.Component {
         console.log('Header.onUpdateResultsError -> error ' + error);
     }
 
-    onLanguage(language) {
-        if (language !== undefined) {
-            // console.log('SMHeader.onLanguage: ' + language);
-            this.setState({langSelector: false, lang: language});
-            this.props.onUpdate(language);
-        } else {
-            this.setState({langSelector: false});
-        }
-    }
-
     onForget() {
         this.setState({forgetOpen: true});
     }
 
     onResult(result, user_id, name, language, email, surname, age, avatar, passed, failed) {
-        // console.log('onResult ' + result + ', user: ' + user + ', age: ' + age+ ', pass: '  + passed + ', fail: ' + failed);
+        console.log('onResult ' + result + ', ' + user_id + ', ' + name +  ', ' + language + ', ' + email + ', ' + surname + ', age: ' + age + ', avatar: '  + avatar);
         if (result === 'successed') {
             this.setState({'id': parseInt(user_id),
                            'name': name,
@@ -154,13 +169,18 @@ export default class Header extends React.Component {
             // use HTML5 Local Storage if browser supports it
             localStorage.setItem('user_id', user_id);
             localStorage.setItem('name', name);
-            localStorage.setItem('land', language);
             localStorage.setItem('email', email);
             localStorage.setItem('surname', surname);
             localStorage.setItem('age', age);
             localStorage.setItem('avatar', avatar);
             localStorage.setItem('pass', passed);
             localStorage.setItem('fail', failed);
+
+            // need to notify body and footer on update language
+            // supermathpage.js will call localStorage.setItem
+            if (language !== localStorage.getItem('lang')) {
+                this.props.onUpdate(language);
+            }
 
         } else if (result === 'register') {
             this.setState({loginOpen: false, registerOpen: true});

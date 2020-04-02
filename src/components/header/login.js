@@ -85,32 +85,38 @@ export default class Login extends React.Component {
         if (timeout < 2000) {
             timeout = 2000;
         }
-/*
+
         if ('data' in response) {
+            if ('id' in response.data) {
+                // age calculation based on server response value
+                // "age":"Tue, 28 Jan 2014 06:13:13 GMT" -> need to convert in years
+                var birthday = new Date(response.data.age);
+                var ageDifMs = Date.now() - birthday.getTime();
+                var ageDate = new Date(ageDifMs);
+                var age = Math.abs(ageDate.getUTCFullYear() - 1970);
+                // onResult(result, user_id, name, language, email, surname, age, avatar, passed, failed) {
+                setTimeout(() => {
+                    this.props.onClose('successed', response.data.id, response.data.name, response.data.lang, response.data.email,
+                                       response.data.surname, age, response.data.avatar, response.data.pass, response.data.fail);
+                    this.setState({success: true, loading: false, color:'green'});
+                }, timeout);
 
-        }
-*/
-        if ((response.data.error === undefined) && (response.data.id !== undefined)) {
-            // age calculation based on server response value
-            // "age":"Tue, 28 Jan 2014 06:13:13 GMT" -> need to convert in years
-            var birthday = new Date(response.data.age);
-            var ageDifMs = Date.now() - birthday.getTime();
-            var ageDate = new Date(ageDifMs);
-            var age = Math.abs(ageDate.getUTCFullYear() - 1970);
-
-            setTimeout(() => {
-                this.props.onClose('successed', response.data.id, response.data.name, response.data.lang, response.data.email,
-                                   response.data.surname, age, response.data.ava, response.data.pass, response.data.fail);
-                this.setState({success: true, loading: false, color:'green'});
-            }, timeout);
-
-        } else {
-            if (response.data.error !== undefined) {
-                setTimeout(() => {this.setState({success: false, loading: false, color:'red', error: true, message: response.data.error.toString()});}, timeout);
+            } else if ('error' in response.data) {
+                setTimeout(() => {
+                    this.setState({success: false, loading: false, color:'red', error: true,
+                                   message: response.data.error.toString()});}, timeout);
             } else {
-                setTimeout(() => {this.setState({success: false, loading: false, color:'red', error: true, message: 'Uuupps! Something went wrong'});}, timeout);
+                var message = login[this.props.lang]['error_no_error'];
+                setTimeout(() => {
+                    this.setState({'success': false, 'loading': false, 'color':'red', 'error': true, 'message': message});
+                }, timeout);
             }
-        }
+        } else {
+            setTimeout(() => {
+                var message = login[this.props.lang]['error_no_data'];
+                this.setState({'success': false, 'loading': false, 'color': 'red', 'error': true, 'message': message});
+            }, timeout);
+        } 
     }
 
     onLoginError(error) {
