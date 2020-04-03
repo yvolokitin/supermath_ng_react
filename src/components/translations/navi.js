@@ -2,15 +2,15 @@
 export const navi_titles = {
     // English
     'en': {
-        '1': 'Long Addition and Subtraction of three numbers (100..999)',
-        '2': 'Addition, Subtraction and Multiplication of 4 or 5 numbers',
-        '3': 'Long Multiplication of two- and three-digit numbers (from 10 to 999)',
-        '4': 'Division of one and two digit numbers with remainder',
+        '1': 'Addition one digit number and fractional (decimal fraction)',
+        '2': 'Task is under development and not defined yet',
+        '3': 'Task is under development and not defined yet',
+        '4': 'Task is under development and not defined yet',
         '5': 'Task is under development and not defined yet',
-        '6': 'Task is under development and not defined yet',
-        '7': 'Task is under development and not defined yet',
-        '8': 'Task is under development and not defined yet',
-        '9': 'Task is under development and not defined yet',
+        '6': 'Division of one and two digit numbers with remainder',
+        '7': 'Long Addition and Subtraction of three numbers (100..999)',
+        '8': 'Addition, Subtraction and Multiplication of 4 or 5 numbers',
+        '9': 'Long Multiplication of two- and three-digit numbers (from 10 to 999)',
     },
     // Russian
     'ru': {

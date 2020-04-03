@@ -4,7 +4,7 @@
 }
 .line_body_div_left {
     height: 100%;
-    width: 61%;
+    width: 64%;
     float: left;
     display: flex;
     align-items: center;
@@ -12,7 +12,7 @@
 }
 .line_body_div_right {
     height: 100%;
-    width: 38%;
+    width: 35%;
     float: right;
     display: flex;
     align-items: center;
@@ -58,6 +58,30 @@
 .line_result {
     height: 100%;
     width: 13%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 2px 2px black;
+}
+.line_3result {
+    height: 100%;
+    width: 17%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 2px 2px black;
+}
+.line_4result {
+    height: 100%;
+    width: 21%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 2px 2px black;
+}
+.line_5result {
+    height: 100%;
+    width: 25%;
     display: flex;
     align-items: center;
     justify-content: center;

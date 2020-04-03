@@ -122,6 +122,7 @@ export default class DigitGame extends React.Component {
         // console.log('onCounterUpdate ' + counter + ', task: ' + user_task);
         var format = '', color = counter ? 'red' : 'green';
         if (this.state.type === '2digits') {format = user_task.expr1 + user_task.result;}
+        else if (this.state.type === '2digits_fr') {format = user_task.expr1 + user_task.result;}
         else if (this.state.type === '3digits') {format = user_task.expr1 + user_task.result;}
         else if (this.state.type === '2digit_arg') {
             format = user_task.expr1 + user_task.result;

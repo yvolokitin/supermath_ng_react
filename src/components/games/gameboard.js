@@ -69,7 +69,10 @@ export default class GameBoard extends React.Component {
     onOperator({ target }) {
         // console.log("check operator response " + target.innerText);
         if (this.loading === false) {
-            if (this.props.type.includes('digit')) {
+            if (this.props.type.includes('_fr')) {
+                this.check_response(target.innerText);
+
+            } else if (this.props.type.includes('digit')) {
                 var expected_result = this.state.task.result.toString();
                 if ((expected_result.length > 1) && (this.state.result !== '?')) {
                     var new_result = this.state.result.substring(0, this.state.result.length - 1);
@@ -79,7 +82,7 @@ export default class GameBoard extends React.Component {
                         this.setState({result: new_result});
                     }
                 } else {
-                    console.log("Escaping backspace " + target.innerText);
+                    console.log('Escaping backspace ' + target.innerText);
                 }
             } else {
                 this.check_response(target.innerText);
@@ -290,7 +293,21 @@ export default class GameBoard extends React.Component {
                             {this.props.type.includes('digits') ? (
                               <>
                                 <div className='line_task'>{this.state.task.expr1}</div>
-                                <div className='line_result' style={{color: this.state.color}}>{this.state.result}</div>
+                                {(this.state.task.result.toString().length < 3) ? (
+                                    <div className='line_result' style={{color: this.state.color}}>{this.state.result}</div>
+                                  ) : ( null )}
+
+                                {(this.state.task.result.toString().length === 3) ? (
+                                    <div className='line_3result' style={{color: this.state.color}}>{this.state.result}</div>
+                                  ) : ( null )}
+
+                                {(this.state.task.result.toString().length === 4) ? (
+                                    <div className='line_4result' style={{color: this.state.color}}>{this.state.result}</div>
+                                  ) : ( null )}
+
+                                {(this.state.task.result.toString().length > 4) ? (
+                                    <div className='line_5result' style={{color: this.state.color}}>{this.state.result}</div>
+                                  ) : ( null )}
                               </>
                             ) : ( null )}
                         </div>

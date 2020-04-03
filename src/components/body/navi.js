@@ -27,15 +27,17 @@ import {navi_titles, navi_descriptions} from './../translations/navi';
 
 const task_amount = 30;
 const games = [
-    {id: 1, logo: logo1, type: 'digit_3column', task: '+-,100-999,1', amount: task_amount},
-    {id: 2, logo: logo2, type: 'line_4numbers', task: '+-,1-999,1', amount: task_amount},
-    {id: 3, logo: logo3, type: 'digit_2column', task: '*,10-999,10-999,1,1', amount: task_amount},
+    {id: 1, logo: logo1, type: '2digits_fr', task: '+,1-99,1-10,0,1', amount: task_amount},
+    {id: 2, logo: logo2, type: '2digits_fr', task: '+-,1-99,1-99,1,1', amount: task_amount},
+    {id: 3, logo: logo3, type: '2digits_fr', task: '+-,1-99,1-99,2,1', amount: task_amount},
+
     {id: 4, logo: logo4, type: 'none', task: '', amount: task_amount},
     {id: 5, logo: logo5, type: 'none', task: '', amount: task_amount},
     {id: 6, logo: logo6, type: 'none', task: '', amount: task_amount},
-    {id: 7, logo: logo7, type: 'none', task: '', amount: task_amount},
-    {id: 8, logo: logo8, type: 'none', task: '', amount: task_amount},
-    {id: 9, logo: logo9, type: 'none', task: '', amount: task_amount},
+
+    {id: 7, logo: logo7, type: 'digit_3column', task: '+-,100-999,1', amount: task_amount},
+    {id: 8, logo: logo8, type: 'line_4numbers', task: '+-,1-999,1', amount: task_amount},
+    {id: 9, logo: logo9, type: 'digit_2column', task: '*,10-999,10-999,1,1', amount: task_amount},
 ];
 
 export default class Navi extends React.Component {
@@ -77,7 +79,7 @@ export default class Navi extends React.Component {
     }
 
     onGameOpen(type, task, amount) {
-        console.log('White.onGameOpen ' + type + ', task: ' + task + ', amount: ' + amount);
+        console.log('NAVI.onGameOpen ' + type + ', task: ' + task + ', amount: ' + amount);
         this.setState({gameOpen: true, gameType: type, gameTerm: task, gameAmnt: amount});
     }
 

@@ -23,6 +23,11 @@ export function generate_task(type, settings) {
         result = {'expr1': task.num1 + ' ' + task.operation + ' ' + task.num2 + ' = ', 'result': task.result};
         console.log(type + ' generate_task: ' + result.expr1 + '' + result.result);
 
+    } else if (type === '2digits_fr') {
+        task = generate_2digit_fractional_task(array[0], array[1], array[2], array[3], array[4]);
+        result = {'expr1': task.num1 + ' ' + task.operation + ' ' + task.num2 + ' = ', 'result': task.result};
+        console.log(type + ' generate_task: ' + result.expr1 + '' + result.result);
+
     // 3 numbers task: 1 + 2 + 3 = 6
     } else if (type === '3digits') {
         // operations, range_numbers, factor
@@ -95,7 +100,7 @@ export function generate_task(type, settings) {
 
     // undefined tasks, will return error
     } else {
-        result = 'generate_task_from_string: wrong type "' + type + '" or task: "' + settings + '"';
+        result = 'generate_task: wrong type "' + type + '" or task: "' + settings + '"';
         console.log(type + ' generate_task: ' + result);
     }
 
@@ -554,13 +559,13 @@ function get_random_int(range) {
     var numbers = range.split('-');
     if (numbers.length < 2) {
         alert("get_random_int error: wrong range format '" + range + "'");
-        return;
+        return 0;
+
+    } else {
+        var minum = parseInt(numbers[0]);
+        var maxum = parseInt(numbers[1]);
+        return Math.floor(Math.random() * (maxum - minum + 1)) + minum;
     }
-
-    var minum = parseInt(numbers[0]);
-    var maxum = parseInt(numbers[1]);
-
-    return Math.floor(Math.random() * (maxum - minum + 1)) + minum;
 }
 
 /**
@@ -576,4 +581,69 @@ function get_random_operation(operations) {
         operation = array[Math.floor(Math.random() * (array.length))];
     }
     return operation;
+}
+
+function generate_2digit_fractional_task(operations, range_1, range_2, factor_1=1, factor_2=1) {
+    var operation = get_random_operation(operations);
+    var number_1 = 0, number_2 = 0, result = 0;
+
+    switch (operation) {
+        case OPERATION_SUM:
+            number_1 = get_rnd_fractional(range_1, factor_1);
+            number_2 = get_rnd_fractional(range_2, factor_2);
+            result = number_1 + number_2;
+        break;
+
+        case OPERATION_SUB:
+            number_1 = get_rnd_fractional(range_1, factor_1);
+            number_2 = get_rnd_fractional(range_2, factor_2);
+            // swap numbers if first less than second
+            if (number_1 < number_2) {
+                var tmp = number_1;
+                number_1 = number_2;
+                number_2 = tmp;
+            }
+            result = number_1 - number_2;
+        break;
+
+        case OPERATION_MUL:
+            number_1 = get_rnd_fractional(range_1, factor_1);
+            number_2 = get_rnd_fractional(range_2, factor_2);
+            result = number_1 * number_2;
+        break;
+
+        default:
+            alert('ERROR: generate_2digit_fractional_task ' + operation);
+            number_1 = number_2 = result = operation = 'error';
+        break;
+    }
+
+    // replace * to x for better visualization
+    if (operation === OPERATION_MUL) {operation='x'}
+
+    var number_z = result.toFixed(factor_1);
+    if (parseInt(factor_2) > parseInt(factor_1)) {
+        number_z = result.toFixed(factor_2);
+    }
+
+    console.log('number_z: ' + number_z);
+
+    return {'num1': number_1, 'num2': number_2, 'operation': operation, 'result': number_z};
+}
+
+function get_rnd_fractional(range, decimalPlaces) {
+    // range: min-max
+    var numbers = range.split('-');
+    if (numbers.length !== 2) {
+        alert('get_rnd_fractional error: wrong range format ' + range);
+        return 0;
+
+    } else {
+        var minum = parseInt(numbers[0]);
+        var maxum = parseInt(numbers[1]);
+        var rand = Math.random() * (maxum - minum) + minum;
+        // var rand = Math.floor(Math.random() * (maxum - minum + 1)) + minum;
+        var power = Math.pow(10, decimalPlaces);
+        return Math.floor(rand * power) / power;
+    }
 }
