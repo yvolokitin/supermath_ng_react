@@ -107,10 +107,18 @@ export default class GameBoard extends React.Component {
                 case '9':
                     this.check_response(key);
                     break;
+
+                case '.':
+                    if (this.props.type.includes('_fr')) {
+                        this.check_response('.');
+                    }
+                    break;
+
                 case 'Escape':
                     console.log('onKeyboard: Escape');
                     // this.onGameClose('');
                     break;
+
                 default:
                     // console.log("nothing to check");
                     break;
@@ -355,7 +363,25 @@ export default class GameBoard extends React.Component {
                           { this.props.type.includes('line_compexpr') ? (<div className='line_expression'>{this.state.task.expr2}</div>):(null)}
 
                           { this.props.type.includes('numbers') ? (<div className='line_task'>{this.state.task.expr1}</div>):(null)}
-                          { this.props.type.includes('numbers') ? (<div className='line_result' style={{color: this.state.color}}>{this.state.result}</div>):(null)}
+                          { this.props.type.includes('numbers') ? (
+                            <>
+                                {(this.state.task.result.toString().length < 3) ? (
+                                    <div className='line_result' style={{color: this.state.color}}>{this.state.result}</div>
+                                  ) : ( null )}
+
+                                {(this.state.task.result.toString().length === 3) ? (
+                                    <div className='line_3result' style={{color: this.state.color}}>{this.state.result}</div>
+                                  ) : ( null )}
+
+                                {(this.state.task.result.toString().length === 4) ? (
+                                    <div className='line_4result' style={{color: this.state.color}}>{this.state.result}</div>
+                                  ) : ( null )}
+
+                                {(this.state.task.result.toString().length > 4) ? (
+                                    <div className='line_5result' style={{color: this.state.color}}>{this.state.result}</div>
+                                  ) : ( null )}
+                            </>
+                            ):(null)}
                         </div>
                       </div>
 

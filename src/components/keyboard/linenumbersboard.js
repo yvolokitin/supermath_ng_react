@@ -14,6 +14,7 @@ export default function LineNumbersBoard(props) {
             <button onClick={props.onDigit}>7</button>
             <button onClick={props.onDigit}>8</button>
             <button onClick={props.onDigit}>9</button>
+            <button onClick={props.onOperator}>.</button>
         </div>
     );
 }

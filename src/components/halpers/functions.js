@@ -23,7 +23,7 @@ export function generate_task(type, settings) {
         result = {'expr1': task.num1 + ' ' + task.operation + ' ' + task.num2 + ' = ', 'result': task.result};
         console.log(type + ' generate_task: ' + result.expr1 + '' + result.result);
 
-    } else if (type === '2digits_fr') {
+    } else if ((type === '2digits_fr') || (type === 'line_2numbers_fr')) {
         task = generate_2digit_fractional_task(array[0], array[1], array[2], array[3], array[4]);
         result = {'expr1': task.num1 + ' ' + task.operation + ' ' + task.num2 + ' = ', 'result': task.result};
         console.log(type + ' generate_task: ' + result.expr1 + '' + result.result);
