@@ -621,14 +621,26 @@ function generate_2digit_fractional_task(operations, range_1, range_2, factor_1=
     // replace * to x for better visualization
     if (operation === OPERATION_MUL) {operation='x'}
 
-    var number_z = result.toFixed(factor_1);
     if (parseInt(factor_2) > parseInt(factor_1)) {
-        number_z = result.toFixed(factor_2);
+        result = result.toFixed(factor_2);
+    } else {
+        result = result.toFixed(factor_1);
     }
 
-    console.log('number_z: ' + number_z);
+    var position = result.toString().indexOf('.');
+    var number = result.toString().slice(position, result.length);
+    if ((number === '.0') || (number === '.00') || (number === '.000') || (number === '.0000')) {
+        result = result.toString().slice(0, position);
+    }
 
-    return {'num1': number_1, 'num2': number_2, 'operation': operation, 'result': number_z};
+    if ((operation === OPERATION_SUM) || (operation === OPERATION_MUL)) {
+        // randomNumber is true => swap number_1 & number_2
+        if (Math.random() >= 0.5) {
+            tmp = number_1; number_1 = number_2; number_2 = tmp;
+        }
+    }
+
+    return {'num1': number_1, 'num2': number_2, 'operation': operation, 'result': result};
 }
 
 function get_rnd_fractional(range, decimalPlaces) {
