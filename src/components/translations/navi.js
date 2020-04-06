@@ -2,9 +2,9 @@
 export const navi_titles = {
     // English
     'en': {
-        '1': 'Addition one digit number and fractional (decimal fraction)',
-        '2': 'Task is under development and not defined yet',
-        '3': 'Task is under development and not defined yet',
+        '1': 'Addition one digit number and one decimal point (tenths fractional)',
+        '2': 'Addition and Subtraction of two decimal points (tenths fractional)',
+        '3': 'Addition and Subtraction of two decimal fractions (tenths and hundredths)',
         '4': 'Task is under development and not defined yet',
         '5': 'Task is under development and not defined yet',
         '6': 'Division of one and two digit numbers with remainder',
@@ -14,9 +14,9 @@ export const navi_titles = {
     },
     // Russian
     'ru': {
-        '1': 'Сложение и Вычитание трех трехзначных в столбик (100..999)',
-        '2': 'Сложение и Вычитание четырех-, трех-, двузначных и однозначного',
-        '3': 'Long Multiplication of two- and three-digit numbers (from 10 to 999)',
+        '1': 'Сложение однозначного целого числа (1..9) и десятичной дроби',
+        '2': 'Сложение и Вычитание двух десятичных дробей (десятая)',
+        '3': 'Сложение и Вычитание двух десятичных дробей (десятые и сотые)',
         '4': 'Division of one and two digit numbers with remainder',
         '5': 'Задача в разработке или еще не до конца готова',
         '6': 'Задача в разработке или еще не до конца готова',
