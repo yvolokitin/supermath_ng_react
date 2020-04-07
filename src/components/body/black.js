@@ -29,7 +29,7 @@ const task_amount = 30;
 
 const games = [
     {id: 1, logo: logo1, type: 'digit_2column', task: '+-,1000000-99999999,1000000-99999999,1,1', amount: task_amount},
-    {id: 2, logo: logo2, type: 'digit_2column', task: '*,1000-9999,1000-9999,1,1', amount: task_amount},
+    {id: 2, logo: logo2, type: 'digit_2column', task: 'x,1000-9999,1000-9999,1,1', amount: task_amount},
     {id: 3, logo: logo3, type: 'none', task: '', amount: task_amount},
     {id: 4, logo: logo4, type: 'none', task: '', amount: task_amount},
     {id: 5, logo: logo5, type: 'none', task: '', amount: task_amount},

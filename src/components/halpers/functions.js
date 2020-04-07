@@ -3,7 +3,7 @@ var OPERATION_SUM = '+';
 /** @const {string} */
 var OPERATION_SUB = '-';
 /** @const {string} */
-var OPERATION_MUL = '*';
+var OPERATION_MUL = 'x';
 /** @const {string} */
 var OPERATION_DIV = ':';
 
@@ -354,7 +354,6 @@ function generate_5digit_task(operations, range, factor=1) {
         }
     } else {
         operation_4 = get_random_operation(operations);
-        console.log('222 YURA DEBUG: operation_4 ' + operation_4);
         if (operation_4 === '+') {
             if (Math.random() >= 0.5) {
                 expression = number_N + ' + ' + expression; 
@@ -541,30 +540,81 @@ function generate_2digit_task(operations, range_1, range_2, factor_1=1, factor_2
         }
     }
 
-    // replace * to x for better visualization
-    if (operation === OPERATION_MUL) {operation='x'}
+    return {'num1': number_1, 'num2': number_2, 'operation': operation, 'result': result};
+}
+
+function generate_2digit_fractional_task(operations, range_1, range_2, rank_1=1, rank_2=1) {
+    var operation = get_random_operation(operations);
+    var number_1 = get_random_int(range_1, rank_1)
+    var number_2 = get_random_int(range_2, rank_2);
+
+    if ((operation !== 'error') && (number_1 !== 'error') && (number_2 !== 'error')) {
+        var result = 0;
+        switch (operation) {
+            case OPERATION_SUM:
+                result = number_1 + number_2;
+                break;
+            case OPERATION_SUB:
+                // swap numbers if first less than second
+                if (number_1 < number_2) {
+                    var tmp = number_1; number_1 = number_2; number_2 = tmp;
+                }
+                result = number_1 - number_2;
+                break;
+            case OPERATION_MUL:
+                result = number_1 * number_2;
+                break;
+            default:
+                alert('ERROR: generate_2digit_fractional_task ' + operation);
+                number_1 = number_2 = result = operation = 'error';
+                break;
+        }
+
+        if (parseInt(rank_2) > parseInt(rank_1)) {
+            result = result.toFixed(rank_2);
+        } else {
+            result = result.toFixed(rank_1);
+        }
+
+        var position = result.toString().indexOf('.');
+        var number = result.toString().slice(position, result.length);
+        if ((number === '.0') || (number === '.00') || (number === '.000') || (number === '.0000')) {
+            result = result.toString().slice(0, position);
+        }
+
+        if ((operation === OPERATION_SUM) || (operation === OPERATION_MUL)) {
+            // randomNumber is true => swap number_1 & number_2
+            if (Math.random() >= 0.5) {
+                tmp = number_1; number_1 = number_2; number_2 = tmp;
+            }
+        }
+
+    } else {
+        number_1 = number_2 = result = operation = 'error';    
+    }
 
     return {'num1': number_1, 'num2': number_2, 'operation': operation, 'result': result};
 }
 
 /**
  * @range should be specified with dash: 0-10, 0-100 etc.
+ * @rank is the rank of fractional number. For example, 0 means Integer, 1 means tenth: x.1, x.3 etc.
  * Returns a random number between min (inclusive) and max (inclusive)
  * from 0-10: [0...10]
  * from 10-99: [10...99]
  * from 100-999: [100...999]
  * from 1-100: [1...100]
  */
-function get_random_int(range) {
+function get_random_int(range, rank=0) {
     var numbers = range.split('-');
     if (numbers.length < 2) {
-        alert("get_random_int error: wrong range format '" + range + "'");
-        return 0;
-
+        alert('get_random_int error: wrong range format ' + range);
+        return 'error';
     } else {
         var minum = parseInt(numbers[0]);
         var maxum = parseInt(numbers[1]);
-        return Math.floor(Math.random() * (maxum - minum + 1)) + minum;
+        return (Math.random() * (maxum - minum) + minum).toFixed(rank);
+        // return Math.floor(Math.random() * (maxum - minum + 1)) + minum;
     }
 }
 
@@ -574,88 +624,14 @@ function get_random_int(range) {
  */
 function get_random_operation(operations) {
     var operation = '';
-    if (operations.length === 1) {
+    if (operations.length < 1) {
+        alert('get_random_operation: wrong operations format ' + operations);
+        operation = 'error';
+    } else if (operations.length === 1) {
         operation = operations;
     } else {
         var array = operations.split('');
         operation = array[Math.floor(Math.random() * (array.length))];
     }
     return operation;
-}
-
-function generate_2digit_fractional_task(operations, range_1, range_2, factor_1=1, factor_2=1) {
-    var operation = get_random_operation(operations);
-    var number_1 = 0, number_2 = 0, result = 0;
-
-    switch (operation) {
-        case OPERATION_SUM:
-            number_1 = get_rnd_fractional(range_1, factor_1);
-            number_2 = get_rnd_fractional(range_2, factor_2);
-            result = number_1 + number_2;
-        break;
-
-        case OPERATION_SUB:
-            number_1 = get_rnd_fractional(range_1, factor_1);
-            number_2 = get_rnd_fractional(range_2, factor_2);
-            // swap numbers if first less than second
-            if (number_1 < number_2) {
-                var tmp = number_1;
-                number_1 = number_2;
-                number_2 = tmp;
-            }
-            result = number_1 - number_2;
-        break;
-
-        case OPERATION_MUL:
-            number_1 = get_rnd_fractional(range_1, factor_1);
-            number_2 = get_rnd_fractional(range_2, factor_2);
-            result = number_1 * number_2;
-        break;
-
-        default:
-            alert('ERROR: generate_2digit_fractional_task ' + operation);
-            number_1 = number_2 = result = operation = 'error';
-        break;
-    }
-
-    // replace * to x for better visualization
-    if (operation === OPERATION_MUL) {operation='x'}
-
-    if (parseInt(factor_2) > parseInt(factor_1)) {
-        result = result.toFixed(factor_2);
-    } else {
-        result = result.toFixed(factor_1);
-    }
-
-    var position = result.toString().indexOf('.');
-    var number = result.toString().slice(position, result.length);
-    if ((number === '.0') || (number === '.00') || (number === '.000') || (number === '.0000')) {
-        result = result.toString().slice(0, position);
-    }
-
-    if ((operation === OPERATION_SUM) || (operation === OPERATION_MUL)) {
-        // randomNumber is true => swap number_1 & number_2
-        if (Math.random() >= 0.5) {
-            tmp = number_1; number_1 = number_2; number_2 = tmp;
-        }
-    }
-
-    return {'num1': number_1, 'num2': number_2, 'operation': operation, 'result': result};
-}
-
-function get_rnd_fractional(range, decimalPlaces) {
-    // range: min-max
-    var numbers = range.split('-');
-    if (numbers.length !== 2) {
-        alert('get_rnd_fractional error: wrong range format ' + range);
-        return 0;
-
-    } else {
-        var minum = parseInt(numbers[0]);
-        var maxum = parseInt(numbers[1]);
-        var rand = Math.random() * (maxum - minum) + minum;
-        // var rand = Math.floor(Math.random() * (maxum - minum + 1)) + minum;
-        var power = Math.pow(10, decimalPlaces);
-        return Math.floor(rand * power) / power;
-    }
 }

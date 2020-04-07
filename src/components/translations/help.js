@@ -41,7 +41,7 @@ export const help = {
 
         'white_title': 'Белый Пояс',
         'white_body': 'The White level is designed to operate with one-digit numbers in range from 0 to 10 (where 10 is the only one two-digit number exception). The main focus of current level is two basic arithmetic operations: Addition and Subtruction. It starts from the numbers understanding (determination of right secuance and order) and Comparision operations with continuation on Addition and Subtruction. The last programs give kids more challange and drive smart thinking for them.',
-        'white_ext_title': 'White Tasks structure',
+        'white_ext_title': 'Программы',
         'white_ext_body': 'Determination of one digit number from sequance. Comparision of one-digit numbers. Addition of one-digit numbers. Subtraction of one-digit numbers. Addition and Subtraction of two one-digit numbers. Mathematical operation (Addition or Subtraction) determination. Addition and Subtraction of three one-digit numbers. Comparison of two expressions for one digit numbers. Addition and Subtraction of two one-digit numbers with unknown argument',
 
         'orange_title': 'Оранжевый Пояс',

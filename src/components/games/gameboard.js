@@ -81,6 +81,12 @@ export default class GameBoard extends React.Component {
                     } else {
                         this.setState({result: new_result});
                     }
+
+                // white, level 6:
+                // {id: 6, logo: logo6, type: '2digit_arg', task: 'o,+-,1-10,1-10,1,1', amount: task_amount},
+                } else if ((this.props.type === '2digit_arg') && (this.props.task.includes('o'))) {
+                    this.check_response(target.innerText);
+
                 } else {
                     console.log('Escaping backspace ' + target.innerText);
                 }
@@ -109,8 +115,44 @@ export default class GameBoard extends React.Component {
                     break;
 
                 case '.':
+                case ',':
                     if (this.props.type.includes('_fr')) {
                         this.check_response('.');
+                    }
+                    break;
+
+                case '+':
+                case '-':
+                case 'x':
+                case '*':
+                case '/':
+                case ':':
+                    // white, level 6:
+                    // {id: 6, logo: logo6, type: '2digit_arg', task: 'o,+-,1-10,1-10,1,1', amount: task_amount},
+                    if ((this.props.type === '2digit_arg') && (this.props.task.includes('o'))) {
+                        this.check_response(key);
+                    }
+                    break;
+
+                case '>':
+                case 'ArrowRight':
+                    if (this.props.type === 'comp_expr') {
+                        this.check_response('>');
+                    }
+                    break;
+
+                case '<':
+                case 'ArrowLeft':
+                    if (this.props.type === 'comp_expr') {
+                        this.check_response('<');
+                    }
+                    break;
+
+                case '=':
+                case 'ArrowUp':
+                case 'ArrowDown':
+                    if (this.props.type === 'comp_expr') {
+                        this.check_response('=');
                     }
                     break;
 

@@ -32,12 +32,12 @@ const games = [
     {id: 3, logo: logo3, type: '2digits_fr', task: '+-,1-99,1-99,2,1', amount: task_amount},
 
     {id: 4, logo: logo4, type: 'line_2numbers_fr', task: '+-,1-99,1-99,3,3', amount: task_amount},
-    {id: 5, logo: logo5, type: '2digits_fr', task: '*,1-10,1-10,0,1', amount: task_amount},
-    {id: 6, logo: logo6, type: '2digits_fr', task: '*,1-10,1-10,1,1', amount: task_amount},
+    {id: 5, logo: logo5, type: '2digits_fr', task: 'x,1-10,1-10,0,1', amount: task_amount},
+    {id: 6, logo: logo6, type: '2digits_fr', task: 'x,1-10,1-10,1,1', amount: task_amount},
 
     {id: 7, logo: logo7, type: 'digit_3column', task: '+-,100-999,1', amount: task_amount},
     {id: 8, logo: logo8, type: 'line_4numbers', task: '+-,1-999,1', amount: task_amount},
-    {id: 9, logo: logo9, type: 'digit_2column', task: '*,10-999,10-999,1,1', amount: task_amount},
+    {id: 9, logo: logo9, type: 'digit_2column', task: 'x,10-999,10-999,1,1', amount: task_amount},
 ];
 
 export default class Navi extends React.Component {
