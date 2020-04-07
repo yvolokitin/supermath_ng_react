@@ -19,7 +19,7 @@ export const white_titles = {
         '3': 'Сложение двух однозначиных чисел (от 0 до 10)',
         '4': 'Вычитание двух однозначиных чисел (от 0 до 10)',
         '5': 'Сложение и Вычитание двух однозначиных чисел (от 0 до 10)',
-        '6': 'Определение Математической операции (Сложение или Вычитание)',
+        '6': 'Определение арифметической операции (Сложение или Вычитание)',
         '7': 'Сложение и Вычитание трех однозначных чисел (от 0 до 10)',
         '8': 'Сравнение выражений двух однозначных чисел (от 0 до 10)',
         '9': 'Сложение и Вычитание двух однозначиных чисел (от 0 до 10)',
@@ -102,8 +102,8 @@ export const white_descriptions = {
     },
     // Russian
     'ru': {
-        '1': 'Tasks for one-digit numbers (from 0 to 9) sequences, where kids have three consecutive numbers (for example: 1, 2, 3) and have to understand the next (fourth - 4). The last number displayed with questionmark. Number sequences can be ascending (example, 4-5-6-?) and descending (example, 5-4-3-?)',
-        '2': 'Tasks for Comparision of one-digit numbers (from 0 to 9), where kids can use only three operations: more (>), less (<) and equal (=). There are two one digit numbers displayed with questionmark in between',
+        '1': 'Задачи на определение однозначного числа по приведенной последовательности в порядке возрастания или убывания. Учащемуся даны 3 последовательных числа, например 1-2-3-? и ему необходимо определить следующее. Числа обязательно указаны по порядку и могут следовать по возрастанию или убыванию. Число, которое необходимо определить — помечено знаком вопроса. Например, 4-5-6-? (правильный ответ 7) или 5-4-3-? (правильный ответ 2).',
+        '2': 'Задачи на сравнение двух однозначных чисел от 0 до 9. Учащемуся необходимо сравнить два числа и верно определить одну их трех операций: больше (>), меньше (<) или равно (=). Числа для сравнения обозначены слева и справа, между числами стоит знак вопроса, который соответствует операции сравнения. Например, 6 ? 7 (правильный ответ меньше, <) или 9 ? 2 (правильный ответ больше >) или 8 ? 8 (правильный ответ равно =).',
         '3': 'Tasks for Addition of one-digit numbers. Kids have to add two simple one digit numbers, where the result of addition can be an one (example, 2+2=4) or two digit number (9+9=18)',
         '4': 'Tasks for Subtraction of one-digit numbers. The result of subtraction can be is zero (example, 3-3=0) or a one-digit number (example, 8-4=5)',
         '5': 'Tasks for Addition and Subtraction of two one-digit numbers. The result of addition can be an one or two digit number, the result of subtraction is zero or a one-digit number',
