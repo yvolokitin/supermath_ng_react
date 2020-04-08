@@ -58,6 +58,8 @@ function a11yProps(index) {
     };
 }
 
+var avatars = [ava1,ava2,ava3,ava4,ava5,ava6,ava7,ava8,ava9,ava10,ava11,ava12,ava13,ava14,ava15,ava16,ava17,ava18];
+
 export default class UserInformation extends React.Component {
     constructor(props) {
         super(props);
@@ -66,7 +68,6 @@ export default class UserInformation extends React.Component {
         this.onSettings = this.onSettings.bind(this);
         this.onTabChange = this.onTabChange.bind(this);
 
-        var avatars = [ava1,ava2,ava3,ava4,ava5,ava6,ava7,ava8,ava9,ava10,ava11,ava12,ava13,ava14,ava15,ava16,ava17,ava18];
         var index = 13;
         for (var i=0; i<avatars.length; i++) {
             if (avatars[i].includes(this.props.avatar)) {
@@ -75,28 +76,33 @@ export default class UserInformation extends React.Component {
             }
         }
 
-        this.state = {tab: 0,
-                      index: index,
-                      avatars: avatars,
-                      name: props.name,
-                      surname: props.surname,
-                      email: props.email,
-                      pswd: props.pswd,
-                      };
+        this.state = {'tab': 0,
+                      'index': index,
+                      'avatars': avatars,
+                      'name': props.name,
+                      'surname': props.surname,
+                      'email': props.email,
+                      'pswd': props.pswd,};
     }
 
-/*
     componentDidUpdate(prevProps) {
-        if (this.props.avatar !== prevProps.avatar) {
-            for (var i=0; i< this.avatars.length; i++) {
-                if (this.state.avatars[i].includes(this.props.avatar)) {
-                    this.setState({index: i});
-                    break;
+        // if ids do not match -> user changed
+        if (this.props.id !== prevProps.id) {
+            var index = 13;
+            for (var i=0; i<avatars.length; i++) {
+                if (avatars[i].includes(this.props.avatar)) {
+                    index = i; break;
                 }
             }
+
+            this.setState({'index': index,
+                           'name': this.props.name,
+                           'surname': this.props.surname,
+                           'email': this.props.email,
+                           'pswd': this.props.pswd,});
         }
     }
-*/
+
     onAvatar(avatar, index) {
         this.setState({index: index});
         this.props.onUpdate('avatar', avatar);
