@@ -32,7 +32,7 @@ export default class Header extends React.Component {
                       logoutOpen: false,
                       forgetOpen: false,
                       registerOpen: false,
-                      userInfoOpen: false,
+                      userInfoOpen: true, // false,
                       langSelector: false,
                       // current user information
                       lang: props.lang,
