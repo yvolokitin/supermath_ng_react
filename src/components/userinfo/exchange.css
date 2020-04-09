@@ -1,24 +1,40 @@
 ﻿.exchangeboard {
     height: 100%;
     width: 100%;
-
     padding-top: 1%;
     padding-bottom: 1%;
-    border: 3px solid grey;
-    border-radius: 10px;
+
+    line-height: 0.9;
+    text-shadow: 1px 1px 2px black;
+}
+.exchangegriditem {
+    line-height: 0.9;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+.exchangegriditemgreen {
+    color: green;
+}
+.exchangegriditemred {
+    color: red;
 }
 .exchangebutton {
-    padding-left: 5%;
-    padding-right: 5%;
-    margin: 10%;
+    padding-left: 4%;
+    padding-right: 4%;
+    margin: 2%;
     color: orange;
     cursor: pointer;
+    line-height: 0.9;
     border: 3px solid orange;
     border-radius: 5px;
 }
-.exchangetext {
+.exchangebuttongreen {
+    padding-left: 2%;
+    padding-right: 2%;
+    margin: 2%;
     color: green;
-    text-align: center;
-    font-size: 1rem;
-    font-family: 'Arial';
+    cursor: pointer;
+    line-height: 0.9;
+    border: 3px solid green;
+    border-radius: 5px;
 }
