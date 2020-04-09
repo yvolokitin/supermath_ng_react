@@ -1,7 +1,24 @@
 ﻿.exchangeboard {
     height: 100%;
     width: 100%;
-    display: inline;
 
-    border: 1px solid red;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border: 3px solid grey;
+    border-radius: 10px;
+}
+.exchangebutton {
+    padding-left: 5%;
+    padding-right: 5%;
+    margin: 10%;
+    color: orange;
+    cursor: pointer;
+    border: 3px solid orange;
+    border-radius: 5px;
+}
+.exchangetext {
+    color: green;
+    text-align: center;
+    font-size: 1rem;
+    font-family: 'Arial';
 }

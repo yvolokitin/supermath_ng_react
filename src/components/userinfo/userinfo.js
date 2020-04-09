@@ -162,7 +162,7 @@ export default class UserInformation extends React.Component {
                 </TabPanel>
 
                 <TabPanel value={this.state.tab} index={2}>
-                    <Exchange lang={this.props.lang}/>
+                    <Exchange lang={this.props.lang} passed={this.props.pass} failed={this.props.fail}/>
                 </TabPanel>
 
                 <TabPanel value={this.state.tab} index={3}>
