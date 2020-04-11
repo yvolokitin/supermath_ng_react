@@ -53,7 +53,8 @@ export default class DigitGame extends React.Component {
         }
     }
 
-    onGameClose(status) {
+    // closed, pass, fail passed only when game is closed
+    onGameClose(status, pass, fail) {
         console.log("DigitGame.onGameClose " + status);
         // game was unexpecdetly closed by user during play
         if (status === 'finished') {
@@ -62,7 +63,8 @@ export default class DigitGame extends React.Component {
 
         // game was properly closed after showing results
         } else if (status === 'close') {
-            this.props.onClose(status);
+            console.log('Game.onGameClose status ' + status + ', pass ' + pass + ', fail ' + fail);
+            this.props.onClose(status, pass, fail);
             this.setState({showResults: false,
                            results: [],
                            circle: 'white',
@@ -72,16 +74,19 @@ export default class DigitGame extends React.Component {
             this.results = [];
 
         // game was properly finished, when all tasks are solved
-        // if task is interrapted, we would like to send failed resulst as punishment
         } else if (status === 'interrapted') {
             console.log('Game interraption with ' + this.state.failed);
-            this.props.onClose(status);
+
+            // even if user had passed, we make it zero as punishment
+            this.props.onClose(status, 0, this.state.failed);
+
+            // if task is interrapted, we would like to keep results as punishment
             if ((localStorage.getItem('user_id') !== null) && (this.state.failed > 0)) {
                 // update user failed counter in header and send to server
-                var fail = parseInt(localStorage.getItem('fail')) + parseInt(this.state.failed);
-                localStorage.setItem('fail', fail);
+                var fails = parseInt(localStorage.getItem('fail')) + parseInt(this.state.failed);
+                localStorage.setItem('fail', fails);
                 var post_data = {'user_id': localStorage.getItem('user_id'),
-                                 'hash': localStorage.getItem('pswdhash'),
+                                 'pswdhash': localStorage.getItem('pswdhash'),
                                  'operation': 'results',
                                  'passed': 0,
                                  'failed': this.state.failed,

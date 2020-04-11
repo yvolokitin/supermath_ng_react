@@ -82,11 +82,14 @@ export default class Black extends React.Component {
         this.setState({gameOpen: true, gameType: type, gameTerm: task, gameAmnt: amount});
     }
 
-    onGameClose(status) {
-        console.log('BLACK.onGameClose: ' + status);
+    onGameClose(status, pass=0, fail=0) {
+        console.log('Black.onGameClose: ' + status + ', ' + pass + ', ' + fail);
         // set all types of games as false
         this.setState({gameOpen: false});
-        if (status === 'close') {
+
+        if ((pass !== 0) || (fail !== 0)) {
+            this.props.onUpdate(status, pass, fail);
+        } else {
             this.props.onUpdate(status);
         }
     }

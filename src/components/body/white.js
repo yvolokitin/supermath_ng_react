@@ -25,7 +25,7 @@ import DigitGame from "./../games/digitgame";
 
 import {white_titles, white_descriptions} from './../translations/white';
 
-const task_amount = 30;
+const task_amount = 1; // 30;
 const games = [
     {id: 1, logo: logo1, type: 'linedigits', task: '0-7', amount: task_amount},
     {id: 2, logo: logo2, type: 'comp_nums', task: '<>=,0-10,1', amount: task_amount},
@@ -81,11 +81,16 @@ export default class White extends React.Component {
         this.setState({gameOpen: true, gameType: type, gameTerm: task, gameAmnt: amount});
     }
 
-    onGameClose(status) {
-        console.log("White.onGameClose: " + status);
+    onGameClose(status, pass=0, fail=0) {
+        console.log('White.onGameClose: ' + status + ', ' + pass + ', ' + fail);
         // set all types of games as false
         this.setState({gameOpen: false});
-        this.props.onUpdate(status);
+
+        if ((pass !== 0) || (fail !== 0)) {
+            this.props.onUpdate(status, pass, fail);
+        } else {
+            this.props.onUpdate(status);
+        }
     }
 
     render() {

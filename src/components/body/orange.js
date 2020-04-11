@@ -81,11 +81,14 @@ export default class Orange extends React.Component {
         this.setState({gameOpen: true, gameType: type, gameTerm: task, gameAmnt: amount});
     }
 
-    onGameClose(status) {
-        console.log("Orange.onGameClose: " + status);
+    onGameClose(status, pass=0, fail=0) {
+        console.log('Orange.onGameClose: ' + status + ', ' + pass + ', ' + fail);
         // set all types of games as false
         this.setState({gameOpen: false});
-        if (status === 'close') {
+
+        if ((pass !== 0) || (fail !== 0)) {
+            this.props.onUpdate(status, pass, fail);
+        } else {
             this.props.onUpdate(status);
         }
     }

@@ -1,6 +1,8 @@
 ﻿import React from 'react';
 import {Grid, Typography} from '@material-ui/core';
+
 import './exchange.css';
+import {exchange} from './../translations/exchange';
 
 export default class Exchange extends React.Component {
     constructor(props) {
@@ -37,14 +39,15 @@ export default class Exchange extends React.Component {
     }
 
     onSave() {
-        console.log('send REST request');
+        console.log('pass values to UserInfo: ' + this.state.passed + ', ' + this.state.failed);
+        this.props.onExchange(this.state.passed, this.state.failed);
     }
 
     render() {
         return (
             <div className='exchangeboard'>
                 <Typography gutterBottom style={{color:'orange',fontFamily:'Grinched',fontSize:'3.5rem',textAlign:'center',textShadow:'1px 1px 2px black',lineHeight:'0.9',}}>
-                    exchange your poops
+                    {exchange[this.props.lang]['description']}
                 </Typography>
 
                 <Grid container spacing={3} justify='center' alignItems='center' style={{textAlign:'center',fontFamily:'Grinched',fontSize:'3rem',lineHeight:'1.1'}}>
@@ -68,11 +71,17 @@ export default class Exchange extends React.Component {
 
                 <Grid container spacing={3} justify='center' alignItems='center' style={{textAlign:'center',fontFamily:'Grinched',fontSize:'3rem',lineHeight:'1.1'}}>
                     <Grid item xs={3}>
-                        <font className='exchangebuttongreen' onClick={(e) => this.onSave()}>save</font>
-                        <font className='exchangebutton' onClick={(e) => this.onCounterChanged(-1)}>-</font>
-                        <font className='exchangebutton' onClick={(e) => this.onCounterChanged(1)}>+</font>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <font className='exchangebuttongreen' style={{float:'left'}} onClick={(e) => this.onSave()}>
+                            {exchange[this.props.lang]['save']}
+                        </font>
+
+                        <font className='exchangebutton' style={{float:'right'}} onClick={(e) => this.onCounterChanged(1)}>+</font>
+                        <font className='exchangebutton' style={{float:'right'}} onClick={(e) => this.onCounterChanged(-1)}>-</font>
                     </Grid>
                 </Grid>
+
             </div>
         );
     }

@@ -66,6 +66,7 @@ export default class UserInformation extends React.Component {
 
         this.onAvatar = this.onAvatar.bind(this);
         this.onSettings = this.onSettings.bind(this);
+        this.onExchange = this.onExchange.bind(this);
         this.onTabChange = this.onTabChange.bind(this);
 
         var index = 13;
@@ -117,6 +118,11 @@ export default class UserInformation extends React.Component {
         this.props.onUpdate(property, value);
     }
 
+    onExchange(passed, failed) {
+        console.log('UserInformation.onExchange: ' + passed + ',  ' + failed);
+        this.props.onUpdate('passfail', passed, failed);
+    }
+
     onTabChange(event, value) {
         // console.log('UserInformation.onTabChange: ' + value);
         this.setState({tab: value});
@@ -162,7 +168,7 @@ export default class UserInformation extends React.Component {
                 </TabPanel>
 
                 <TabPanel value={this.state.tab} index={2}>
-                    <Exchange lang={this.props.lang} passed={this.props.pass} failed={this.props.fail}/>
+                    <Exchange lang={this.props.lang} passed={this.props.pass} failed={this.props.fail} onExchange={this.onExchange}/>
                 </TabPanel>
 
                 <TabPanel value={this.state.tab} index={3}>

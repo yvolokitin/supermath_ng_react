@@ -32,7 +32,7 @@ export default class Header extends React.Component {
                       logoutOpen: false,
                       forgetOpen: false,
                       registerOpen: false,
-                      userInfoOpen: true, // false,
+                      userInfoOpen: false,
                       langSelector: false,
                       // current user information
                       lang: props.lang,
@@ -48,22 +48,46 @@ export default class Header extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        // console.log("SMHeader componentDidUpdate " + this.state.pass + " " + this.state.fail);
-        // console.log("localStorage.getItem        " + localStorage.getItem('pass') + " " + localStorage.getItem('fail'));
-        if ((this.state.pass !== localStorage.getItem('pass')) ||
-            (this.state.fail !== localStorage.getItem('fail'))) {
+        console.log('Header.componentDidUpdate ' + this.props.passed + '. ' + this.props.failed);
+        console.log('Header.localStorage.getItem ' + localStorage.getItem('pass') + ', ' + localStorage.getItem('fail'));
 
-                if ((localStorage.getItem('pass') !== null) &&
-                    (localStorage.getItem('fail') !== null)) {
-                        this.setState({pass: localStorage.getItem('pass'),
-                                       fail: localStorage.getItem('fail')});
-                }
+        if ((this.props.passed !== prevProps.passed) || (this.props.failed !== prevProps.failed)) {
+            this.setState({pass: this.props.passed, fail: this.props.failed});
+/*
+        } else if ((this.state.pass !== localStorage.getItem('pass')) || (this.state.fail !== localStorage.getItem('fail'))) {
+            if ((localStorage.getItem('pass') !== null) && (localStorage.getItem('fail') !== null)) {
+                this.setState({pass: localStorage.getItem('pass'), fail: localStorage.getItem('fail')});
+            }
+*/
+        } else {
+            console.log('Header.componentDidUpdate NO ' + prevProps.pass);
         }
     }
 
-    onUserInfo(property, value) {
+    onUserInfo(property, value, asset='na') {
         if (property === 'close') {
             this.setState({userInfoOpen: false});
+
+        } else if (property === 'passfail') {
+            console.log('Header.onUserInfo ' + value + ', ' + asset);
+            this.setState({pass: value, fail: asset});
+
+            var pb = (value >>> 0).toString(2);
+            console.log('Decimal to Binary ' + pb);
+/*
+            var pswdhash = localStorage.getItem('pswdhash');
+            var post_data = {'user_id': this.state.id,
+                             'passed': property,
+                             'failed': pswdhash};
+            if ((this.state.id > 0) && (pswdhash !== null)) {
+                // update user failed counter in header and send to server
+                axios.post('http://supermath.xyz:3000/api/counter', post_data)
+                    .then(this.onApiUpdate)
+                    .catch(this.onApiUpdateError);
+            }
+*/
+            var fb = parseInt(pb, 2).toString(10);
+            console.log('Binary to Decimal ' + fb);
 
         } else {
             // console.log('SMHeader.onUserInfo ' + property + ': ' + value);

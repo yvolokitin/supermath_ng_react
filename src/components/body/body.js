@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function SMBody(props) {
+export default function Body(props) {
     const classes = useStyles();
     const [value, setValue] = React.useState(localStorage.getItem('belt') ? parseInt(localStorage.getItem('belt')) : 0);
     const handleChange = (event, newValue) => {
@@ -52,8 +52,14 @@ export default function SMBody(props) {
         localStorage.setItem('belt', newValue);
     };
 
-    const onUpdate = (event, newValue) => {
-        props.onUpdate();
+    // const onUpdate = (event, newValue) => {
+    const onUpdate = (status, passed, failed) => {
+        console.log('Body.onUpdate ' + status + ': ' + passed + ', ' + failed);
+        if (status === 'close') {
+            props.onUpdate('counter', passed, failed);
+        } else {
+            console.log('Body DO NOT SEND on top');
+        }
     };
 
     return (
@@ -70,19 +76,24 @@ export default function SMBody(props) {
                 </AppBar>
 
                 <TabPanel style={{backgroundColor:'white'}} value={value} index={0}>
-                    <White onUpdate={onUpdate} play={body[props.lang]['play']} info={body[props.lang]['info']} lang={props.lang}/>
+                    <White onUpdate={(status, passed, failed) => onUpdate(status, passed, failed)} play={body[props.lang]['play']}
+                           info={body[props.lang]['info']} lang={props.lang}/>
                 </TabPanel>
                 <TabPanel style={{backgroundColor:'orange'}} value={value} index={1}>
-                    <Orange onUpdate={onUpdate} play={body[props.lang]['play']} info={body[props.lang]['info']} lang={props.lang}/>
+                    <Orange onUpdate={(status, passed, failed) => onUpdate(status, passed, failed)}
+                            play={body[props.lang]['play']} info={body[props.lang]['info']} lang={props.lang}/>
                 </TabPanel>
                 <TabPanel style={{backgroundColor:'green'}} value={value} index={2}>
-                    <Green onUpdate={onUpdate} play={body[props.lang]['play']} info={body[props.lang]['info']} lang={props.lang}/>
+                    <Green onUpdate={(status, passed, failed) => onUpdate(status, passed, failed)}
+                           play={body[props.lang]['play']} info={body[props.lang]['info']} lang={props.lang}/>
                 </TabPanel>
                 <TabPanel style={{backgroundColor:'#3f51b5',}} value={value} index={3}>
-                    <Navi onUpdate={onUpdate} play={body[props.lang]['play']} info={body[props.lang]['info']} lang={props.lang}/>
+                    <Navi onUpdate={(status, passed, failed) => onUpdate(status, passed, failed)}
+                          play={body[props.lang]['play']} info={body[props.lang]['info']} lang={props.lang}/>
                 </TabPanel>
                 <TabPanel style={{backgroundColor:'black'}} value={value} index={4}>
-                    <Black onUpdate={onUpdate} play={body[props.lang]['play']} info={body[props.lang]['info']} lang={props.lang}/>
+                    <Black onUpdate={(status, passed, failed) => onUpdate(status, passed, failed)}
+                           play={body[props.lang]['play']} info={body[props.lang]['info']} lang={props.lang}/>
                 </TabPanel>
             </div>
         </main>

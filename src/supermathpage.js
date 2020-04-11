@@ -2,7 +2,7 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Header from "./components/header/header";
-import SMBody from "./components/body/body";
+import Body from "./components/body/body";
 import SMFooter from "./components/footer/footer";
 
 /*
@@ -15,7 +15,7 @@ import SMFooter from "./components/footer/footer";
                 - Login (TBD, need to add Profile, Logout etc.)
                 - Language selector
 
-        <SMBody> - defines a main section with:
+        <Body> - defines a main section with:
             - main SuperMath Logo exactly under navigation bar
             - playing cards/games on the page
 
@@ -48,28 +48,47 @@ export default class SuperMathPage extends React.Component {
             else { language = 'en'; }
         }
 
-        this.state = {'userUpdate': false, 'language': language};
+        this.state = {'language': language,
+                      'passed': localStorage.getItem('pass') ? localStorage.getItem('pass') : '0',
+                      'failed': localStorage.getItem('fail') ? localStorage.getItem('fail') : '0',
+                      };
         this.onUpdate = this.onUpdate.bind(this);
 
         console.log('SuperMathPage.constructor language ' + language);
     }
 
-    onUpdate(language) {
-        if ((language !== undefined) && (language !== null)) {
-            // console.log('SuperMathPage.onUpdate language: ' + language);
-            this.setState({'language': language});
-            localStorage.setItem('lang', language);
+    // status, passed, failed
+    onUpdate(property, value, asset) {
+        console.log('SuperMathPage.onUpdate ' + property + ': ' + value + ', ' + asset);
+
+        if (property === 'language') {
+            if ((value !== undefined) && (value !== null)) {
+                // console.log('SuperMathPage.onUpdate language: ' + language);
+                this.setState({'language': value});
+                localStorage.setItem('lang', value);
+            }
+
+        } else if (property === 'counter') {
+            this.setState({'passed': value, 'failed': asset});
         }
     }
 
-    // (e) => this.onInfoOpen(game.id, game.desc, game.logo, game.task)
     render() {
         return (
             <React.Fragment>
                 <CssBaseline/>
-                <Header onUpdate={(event) => this.onUpdate(event)} info={this.state.userUpdate} lang={this.state.language}/>
-                <SMBody onUpdate={() => this.setState({userUpdate: true})} lang={this.state.language}/>
-                <SMFooter text={"SuperMath"} lang={this.state.language}/>
+
+                <Header onUpdate={this.onUpdate}
+                        lang={this.state.language}
+                        passed={this.state.passed}
+                        failed={this.state.failed}/>
+
+                <Body onUpdate={this.onUpdate}
+                      lang={this.state.language}/>
+
+                <SMFooter text={"SuperMath"}
+                          lang={this.state.language}/>
+
             </React.Fragment>
         );
     }
