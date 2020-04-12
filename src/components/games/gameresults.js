@@ -87,7 +87,7 @@ export default class GameResults extends React.Component {
                              'percent': this.state.result.percent,
                              'rate': this.state.result.rate,
                              'belt': this.props.belt,
-                             'task': this.props.belt,
+                             'task': this.props.type,
                             };
             axios.post('http://supermath.xyz:3000/api/update', post_data)
                 .then(this.onUpdateResults)
@@ -96,6 +96,7 @@ export default class GameResults extends React.Component {
             console.log('GameResults.onClose: do not sent results');
         }
 
+        // on close and on replay -> updated passed/failed counters
         this.props.onClose(status, passed, failed);
     }
 
@@ -124,8 +125,8 @@ export default class GameResults extends React.Component {
                 <div className='result_board'>
                     <div className='result_board_title'>
                         {gameresults[this.props.lang]['time']} {this.state.result.hours} {gameresults[this.props.lang]['hours']},
-                        {this.state.result.minutes} {gameresults[this.props.lang]['minutes']},
-                        {this.state.result.seconds} {gameresults[this.props.lang]['seconds']}
+                        &nbsp; {this.state.result.minutes} {gameresults[this.props.lang]['minutes']},
+                        &nbsp; {this.state.result.seconds} {gameresults[this.props.lang]['seconds']}
                     </div>
                     <div className='result_board_chart' onClick={(e) => this.setState({userResults:true})}>
                         <font style={{color:'#00cc00',}}>
@@ -139,7 +140,7 @@ export default class GameResults extends React.Component {
                     <div className='result_board_body'>
                         {gameresults[this.props.lang]['reach']} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#9757;</span> &nbsp;
                         <font style={{color:'red'}}>{this.state.result.rate}</font> {gameresults[this.props.lang]['score']}
-                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128202;</span>
+                        &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128202;</span>
                     </div>
                     <div className='result_board_body'>
                         {gameresults[this.props.lang]['brain']}

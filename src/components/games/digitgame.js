@@ -55,15 +55,14 @@ export default class DigitGame extends React.Component {
 
     // closed, pass, fail passed only when game is closed
     onGameClose(status, pass, fail) {
-        console.log("DigitGame.onGameClose " + status);
+        console.log('DigitGame.onGameClose ' + status);
         // game was unexpecdetly closed by user during play
         if (status === 'finished') {
             this.setState({showResults: true, results: this.results,
                            duration: (new Date().getTime() - this.timer)});
 
         // game was properly closed after showing results
-        } else if (status === 'close') {
-            console.log('Game.onGameClose status ' + status + ', pass ' + pass + ', fail ' + fail);
+        } else if ((status === 'close') || (status === 'replay')) {
             this.props.onClose(status, pass, fail);
             this.setState({showResults: false,
                            results: [],
@@ -97,22 +96,13 @@ export default class DigitGame extends React.Component {
                                  'task': this.state.type};
                 axios.post('http://supermath.xyz:3000/api/update', post_data);
             } else {
-                console.log('DigitGame.status: ' + status + ', do not sent results');
+                console.log('DigitGame.status: ' + status + ', do not sent results for user '
+                            + localStorage.getItem('user_id') + ', fail #: ' + this.state.failed);
             }
 
             this.setState({results: [], circle: 'white',
                            total: 0, passed: 0, failed: 0});
             this.results = [];
-
-        // game was re-newed, tbd
-        } else if (status === 'replay') {
-            this.results = [];
-            this.setState({showResults: false,
-                           results: [],
-                           circle: 'white',
-                           total: 0,
-                           passed: 0,
-                           failed: 0});
 
         } else {
             console.log("onGameClose: Wrong status received: " + status);
@@ -175,7 +165,7 @@ export default class DigitGame extends React.Component {
                     { this.state.showResults ? (
                             <GameResults open={this.state.showResults} passed={this.state.passed} failed={this.state.failed}
                                          results={this.state.results} amount={this.state.amount} duration={this.state.duration}
-                                         belt={this.props.belt} lang={this.props.lang} onClose={this.onGameClose}/>
+                                         belt={this.props.belt} lang={this.props.lang} type={this.state.type} onClose={this.onGameClose}/>
                         ) : (
                             <GameBoard onClose={this.onGameClose} onCounter={this.onCounterUpdate} onColor={this.onColorUpdate}
                                        type={this.state.type} task={this.state.task} amount={this.state.amount} lang={this.props.lang}/>

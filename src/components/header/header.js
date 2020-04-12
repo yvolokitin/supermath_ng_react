@@ -36,62 +36,56 @@ export default class Header extends React.Component {
                       langSelector: false,
                       // current user information
                       lang: props.lang,
+                      pass: props.passed,
+                      fail: props.failed,
+                      belt: props.belt,
                       id: localStorage.getItem('user_id') ? parseInt(localStorage.getItem('user_id')) : 0,
                       name: localStorage.getItem('name') ? localStorage.getItem('name') : 'Kobe',
                       surname: localStorage.getItem('surname') ? localStorage.getItem('surname') : '',
                       avatar: localStorage.getItem('avatar') ? localStorage.getItem('avatar') : 'martin-berube',
                       email: localStorage.getItem('email') ? localStorage.getItem('email') : 'Kobe.Bryant@email.com',
                       age: localStorage.getItem('age') ? localStorage.getItem('age') : '41',
-                      pass: localStorage.getItem('pass') ? localStorage.getItem('pass') : '60',
-                      fail: localStorage.getItem('fail') ? localStorage.getItem('fail') : '0',
                      };
     }
 
     componentDidUpdate(prevProps) {
         console.log('Header.componentDidUpdate ' + this.props.passed + '. ' + this.props.failed);
-        console.log('Header.localStorage.getItem ' + localStorage.getItem('pass') + ', ' + localStorage.getItem('fail'));
-
         if ((this.props.passed !== prevProps.passed) || (this.props.failed !== prevProps.failed)) {
             this.setState({pass: this.props.passed, fail: this.props.failed});
-/*
-        } else if ((this.state.pass !== localStorage.getItem('pass')) || (this.state.fail !== localStorage.getItem('fail'))) {
-            if ((localStorage.getItem('pass') !== null) && (localStorage.getItem('fail') !== null)) {
-                this.setState({pass: localStorage.getItem('pass'), fail: localStorage.getItem('fail')});
-            }
-*/
-        } else {
-            console.log('Header.componentDidUpdate NO ' + prevProps.pass);
         }
     }
 
     onUserInfo(property, value, asset='na') {
+        var pswdhash = localStorage.getItem('pswdhash');
+
         if (property === 'close') {
             this.setState({userInfoOpen: false});
 
         } else if (property === 'passfail') {
-            console.log('Header.onUserInfo ' + value + ', ' + asset);
+            console.log('Header.onUserInfo ' + value + ', ' + asset + ', ' + localStorage.getItem('belt'));
             this.setState({pass: value, fail: asset});
+            localStorage.setItem('pass', value);
+            localStorage.setItem('fail', asset);
 
-            var pb = (value >>> 0).toString(2);
-            console.log('Decimal to Binary ' + pb);
-/*
-            var pswdhash = localStorage.getItem('pswdhash');
-            var post_data = {'user_id': this.state.id,
-                             'passed': property,
-                             'failed': pswdhash};
             if ((this.state.id > 0) && (pswdhash !== null)) {
+                var passkey = parseInt(this.state.id) * value;
+                var passbin = (passkey >>> 0).toString(2); // xor
+                var failkey = parseInt(this.state.id) * asset;
+                var failbin = (failkey >>> 0).toString(2);
+                console.log('Binary ' + passkey + ': ' + passbin + ', ' + failkey + ': ' + failbin);
+                var post = {'user_id': this.state.id,
+                            'pswdhash': pswdhash,
+                            'passed': passbin,
+                            'failed': failbin,
+                            'belt': localStorage.getItem('belt')};
                 // update user failed counter in header and send to server
-                axios.post('http://supermath.xyz:3000/api/counter', post_data)
+                axios.post('http://supermath.xyz:3000/api/counter', post)
                     .then(this.onApiUpdate)
                     .catch(this.onApiUpdateError);
             }
-*/
-            var fb = parseInt(pb, 2).toString(10);
-            console.log('Binary to Decimal ' + fb);
 
         } else {
             // console.log('SMHeader.onUserInfo ' + property + ': ' + value);
-            var pswdhash = localStorage.getItem('pswdhash');
             var post_data = {'user_id': this.state.id,
                              'operation': property,
                              'pswdhash': pswdhash};
@@ -174,8 +168,9 @@ export default class Header extends React.Component {
         this.setState({forgetOpen: true});
     }
 
-    onResult(result, user_id, name, language, email, surname, age, avatar, passed, failed) {
-        console.log('onResult ' + result + ', ' + user_id + ', ' + name +  ', ' + language + ', ' + email + ', ' + surname + ', age: ' + age + ', avatar: '  + avatar);
+    onResult(result, user_id, name, language, email, age, surname, avatar, passed, failed, belt) {
+        // console.log('Header.onResult ' + result + ', ' + user_id + ', ' + name +  ', ' + language + ', ' + email + ', ' + surname);
+        console.log('Header.onResult ' + passed + ', ' + failed + ', age: ' + age + ', avatar: '  + avatar + ', belt: ' + belt);
         if (result === 'successed') {
             this.setState({'id': parseInt(user_id),
                            'name': name,
@@ -184,6 +179,7 @@ export default class Header extends React.Component {
                            'surname': surname,
                            'age': age,
                            'avatar': avatar,
+                           'belt': belt,
                            'pass': passed,
                            'fail': failed,
                             // close login window
@@ -201,11 +197,9 @@ export default class Header extends React.Component {
             localStorage.setItem('pass', passed);
             localStorage.setItem('fail', failed);
 
-            // need to notify body and footer on update language
+            // need to notify body and footer on updated language and belt color
             // supermathpage.js will call localStorage.setItem
-            if (language !== localStorage.getItem('lang')) {
-                this.props.onUpdate(language);
-            }
+            this.props.onUpdate('language', language, belt);
 
         } else if (result === 'register') {
             this.setState({loginOpen: false, registerOpen: true});
@@ -226,15 +220,16 @@ export default class Header extends React.Component {
             localStorage.removeItem('name');
             localStorage.removeItem('pswd');
             localStorage.removeItem('pswdhash');
-            // keep language setting
-            // localStorage.removeItem('lang');
             localStorage.removeItem('email');
             localStorage.removeItem('surname');
             localStorage.removeItem('age');
-            localStorage.removeItem('belt');
             localStorage.removeItem('avatar');
             localStorage.removeItem('pass');
             localStorage.removeItem('fail');
+
+            // keep language and belt properties
+            // localStorage.removeItem('lang');
+            // localStorage.removeItem('belt');
 
         } else if (result === 'close') {
             this.setState({logoutOpen: false});

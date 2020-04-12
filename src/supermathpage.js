@@ -51,22 +51,22 @@ export default class SuperMathPage extends React.Component {
         this.state = {'language': language,
                       'passed': localStorage.getItem('pass') ? localStorage.getItem('pass') : '0',
                       'failed': localStorage.getItem('fail') ? localStorage.getItem('fail') : '0',
-                      };
+                      'belt': localStorage.getItem('fail') ? localStorage.getItem('fail') : 'white',};
         this.onUpdate = this.onUpdate.bind(this);
 
-        console.log('SuperMathPage.constructor language ' + language);
+        console.log('SuperMathPage.constructor language ' + language + ', belt ' + localStorage.getItem('belt'));
     }
 
     // status, passed, failed
+    // 'language', language, belt
     onUpdate(property, value, asset) {
         console.log('SuperMathPage.onUpdate ' + property + ': ' + value + ', ' + asset);
 
         if (property === 'language') {
-            if ((value !== undefined) && (value !== null)) {
-                // console.log('SuperMathPage.onUpdate language: ' + language);
-                this.setState({'language': value});
-                localStorage.setItem('lang', value);
-            }
+            console.log('SuperMathPage LANG ' + value + ', BELT: ' + asset);
+            this.setState({'language': value, 'belt': asset});
+            localStorage.setItem('lang', value);
+            localStorage.setItem('belt', asset);
 
         } else if (property === 'counter') {
             this.setState({'passed': value, 'failed': asset});
@@ -84,6 +84,7 @@ export default class SuperMathPage extends React.Component {
                         failed={this.state.failed}/>
 
                 <Body onUpdate={this.onUpdate}
+                      belt = {this.state.belt}
                       lang={this.state.language}/>
 
                 <SMFooter text={"SuperMath"}

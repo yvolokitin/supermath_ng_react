@@ -44,9 +44,20 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+function get_belt_id(color) {
+    var belt_id = 0; // 0 is default white color
+    if ((color !== undefined) || (color !== null)) {
+        if (color === 'orange') { belt_id = 1; }
+        else if (color === 'green') { belt_id = 2; }
+        else if (color === 'navi') { belt_id = 3; }
+        else if (color === 'black') { belt_id = 4; }
+    }
+    return belt_id;
+}
+
 export default function Body(props) {
     const classes = useStyles();
-    const [value, setValue] = React.useState(localStorage.getItem('belt') ? parseInt(localStorage.getItem('belt')) : 0);
+    const [value, setValue] = React.useState(get_belt_id(props.belt));
     const handleChange = (event, newValue) => {
         setValue(newValue);
         localStorage.setItem('belt', newValue);
@@ -55,10 +66,8 @@ export default function Body(props) {
     // const onUpdate = (event, newValue) => {
     const onUpdate = (status, passed, failed) => {
         console.log('Body.onUpdate ' + status + ': ' + passed + ', ' + failed);
-        if (status === 'close') {
+        if ((status === 'close') || (status === 'replay')) {
             props.onUpdate('counter', passed, failed);
-        } else {
-            console.log('Body DO NOT SEND on top');
         }
     };
 

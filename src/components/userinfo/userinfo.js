@@ -77,7 +77,7 @@ export default class UserInformation extends React.Component {
             }
         }
 
-        this.state = {'tab': 2,
+        this.state = {'tab': 0,
                       'index': index,
                       'avatars': avatars,
                       'name': props.name,

@@ -96,8 +96,8 @@ export default class Login extends React.Component {
                 var age = Math.abs(ageDate.getUTCFullYear() - 1970);
                 // onResult(result, user_id, name, language, email, surname, age, avatar, passed, failed) {
                 setTimeout(() => {
-                    this.props.onClose('successed', response.data.id, response.data.name, response.data.lang, response.data.email,
-                                       response.data.surname, age, response.data.avatar, response.data.pass, response.data.fail);
+                    this.props.onClose('successed', response.data.id, response.data.name, response.data.lang, response.data.email, age,
+                                       response.data.surname, response.data.avatar, response.data.pass, response.data.fail, response.data.belt);
                     this.setState({success: true, loading: false, color:'green'});
                 }, timeout);
 

@@ -18,6 +18,16 @@ export default class Exchange extends React.Component {
                       };
     }
 
+    componentDidUpdate(prevProps) {
+        if ((this.props.passed !== prevProps.passed) || (this.props.failed !== prevProps.failed)) {
+            this.setState({pass: this.props.passed,
+                           fail: this.props.failed,
+                           counter: 0,
+                           sailed: 0,
+                          });
+        }
+    }
+
     onCounterChanged(value) {
         if (value > 0) {
             if (this.state.passed > (value*50)) {

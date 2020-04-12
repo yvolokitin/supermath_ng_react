@@ -27,7 +27,8 @@ import {orange_titles, orange_descriptions} from './../translations/orange';
 const task_amount = 30;
 
 const games = [
-    {id: 1, logo: logo1, type: 'linedigits', task: '10-97', amount: task_amount},
+    // id1 starts from 12 due to: 13-12-11-10, if less it will be 10-9-8-7
+    {id: 1, logo: logo1, type: 'linedigits', task: '13-97', amount: task_amount},
     {id: 2, logo: logo2, type: 'comp_nums', task: '<>=,11-99,1', amount: task_amount},
     {id: 3, logo: logo3, type: '2digits', task: '+-,0-10,10-20,1,1', amount: task_amount},
     {id: 4, logo: logo4, type: '2digits', task: '+-,0-10,0-10,10,10', amount: task_amount},
@@ -83,8 +84,10 @@ export default class Orange extends React.Component {
 
     onGameClose(status, pass=0, fail=0) {
         console.log('Orange.onGameClose: ' + status + ', ' + pass + ', ' + fail);
-        // set all types of games as false
-        this.setState({gameOpen: false});
+        if (status !== 'replay') {
+            // set all types of games as false
+            this.setState({gameOpen: false});
+        }
 
         if ((pass !== 0) || (fail !== 0)) {
             this.props.onUpdate(status, pass, fail);
