@@ -36,9 +36,9 @@ export default class Header extends React.Component {
                       langSelector: false,
                       // current user information
                       lang: props.lang,
+                      belt: props.belt,
                       pass: props.passed,
                       fail: props.failed,
-                      belt: props.belt,
                       id: localStorage.getItem('user_id') ? parseInt(localStorage.getItem('user_id')) : 0,
                       name: localStorage.getItem('name') ? localStorage.getItem('name') : 'Kobe',
                       surname: localStorage.getItem('surname') ? localStorage.getItem('surname') : '',
