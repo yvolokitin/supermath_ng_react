@@ -34,6 +34,8 @@ export default class SuperMathPage extends React.Component {
     constructor(props) {
         super(props);
 
+        this.onUpdate = this.onUpdate.bind(this);
+
         // language detector
         const getNavigatorLanguage = () => (navigator.languages && navigator.languages.length) ? navigator.languages[0] : navigator.userLanguage || navigator.language || navigator.browserLanguage || 'en';
         var language = localStorage.getItem('lang');
@@ -51,8 +53,7 @@ export default class SuperMathPage extends React.Component {
         this.state = {'language': language,
                       'passed': localStorage.getItem('pass') ? localStorage.getItem('pass') : '0',
                       'failed': localStorage.getItem('fail') ? localStorage.getItem('fail') : '0',
-                      'belt': localStorage.getItem('fail') ? localStorage.getItem('fail') : 'white',};
-        this.onUpdate = this.onUpdate.bind(this);
+                      'belt': localStorage.getItem('belt') ? localStorage.getItem('belt') : 'white',};
 
         console.log('SuperMathPage.constructor language ' + language + ', belt ' + localStorage.getItem('belt'));
     }

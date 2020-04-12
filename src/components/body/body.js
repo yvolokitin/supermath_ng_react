@@ -46,11 +46,15 @@ const useStyles = makeStyles(theme => ({
 
 function get_belt_id(color) {
     var belt_id = 0; // 0 is default white color
-    if ((color !== undefined) || (color !== null)) {
-        if (color === 'orange') { belt_id = 1; }
-        else if (color === 'green') { belt_id = 2; }
-        else if (color === 'navi') { belt_id = 3; }
-        else if (color === 'black') { belt_id = 4; }
+    if (isNaN(color)) {
+        if ((color !== undefined) || (color !== null)) {
+            if (color === 'orange') { belt_id = 1; }
+            else if (color === 'green') { belt_id = 2; }
+            else if (color === 'navi') { belt_id = 3; }
+            else if (color === 'black') { belt_id = 4; }
+        }
+    } else {
+        belt_id = parseInt(color);
     }
     return belt_id;
 }

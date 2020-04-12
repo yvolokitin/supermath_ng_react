@@ -40,7 +40,7 @@ const games = [
     {id: 8, logo: logo8, type: '2digits', task: '+-,11-99,11-99,1,1', amount: task_amount},
     {id: 9, logo: logo9, type: '2digits', task: '+-,1-9,1-9,100,100', amount: task_amount},
 
-    {id: 10, logo: logo10, type: '2digits', task: '+-,1-99,1-99,10,10', amount: task_amount},
+    {id: 10, logo: logo10, type: '2digits', task: '+-,1-9,1-9,10,100', amount: task_amount},
     {id: 11, logo: logo11, type: '2digits', task: '+-,1-99,1-99,10,10', amount: task_amount},
     {id: 12, logo: logo12, type: 'digit_2column', task: '+-,11-99,101-999,1,1', amount: task_amount},
 ];
