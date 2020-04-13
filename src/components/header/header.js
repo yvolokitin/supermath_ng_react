@@ -122,7 +122,7 @@ export default class Header extends React.Component {
 
     onLanguage(language) {
         if (language !== undefined) {
-            console.log('SMHeader.onLanguage: ' + language);
+            console.log('Header.onLanguage: ' + language);
             localStorage.setItem('land', language);
             this.setState({langSelector: false, lang: language});
             console.log('pswdhash: ' + localStorage.getItem('pswdhash'));
@@ -139,7 +139,7 @@ export default class Header extends React.Component {
                 console.log('Language.onSave: do not sent language change to ' + language);
             }
 
-            this.props.onUpdate(language);
+            this.props.onUpdate('language', language, this.state.belt);
 
         } else {
             this.setState({langSelector: false});

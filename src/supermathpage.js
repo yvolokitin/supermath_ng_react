@@ -65,9 +65,15 @@ export default class SuperMathPage extends React.Component {
 
         if (property === 'language') {
             console.log('SuperMathPage LANG ' + value + ', BELT: ' + asset);
-            this.setState({'language': value, 'belt': asset});
             localStorage.setItem('lang', value);
-            localStorage.setItem('belt', asset);
+
+            if ((asset !== undefined) && (asset !== null)) {
+                this.setState({'language': value, 'belt': asset});
+                localStorage.setItem('belt', asset);
+            } else {
+                this.setState({'language': value});
+            }
+
 
         } else if (property === 'counter') {
             this.setState({'passed': value, 'failed': asset});

@@ -93,9 +93,13 @@ export default class White extends React.Component {
         }
     }
 
+    /*
+        inverting all colors:
+        <Container style={{background:'#FFF',filter:'invert(1) hue-rotate(210deg)'}} className={classes.grid} maxWidth='md'>
+    */
     render() {
         return (
-            <Container className={classes.grid} maxWidth="md">
+            <Container className={classes.grid} maxWidth='md'>
                 <Grid container spacing={3}>
                     {games.map((game, key) => (
                         <Grid item key={game.id} xs={12} sm={6} md={4}>

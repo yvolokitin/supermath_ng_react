@@ -19,7 +19,7 @@ export default function Info(props) {
                     {props.text}
                 </Typography>
 
-                <Card style={{margin:'4%',display:'flex',flexDirection:'column'}}>
+                <Card style={{margin:'3%',display:'flex',flexDirection:'column'}}>
                     <CardMedia component='img' alt='Media Card task' height='100%' image={props.imgUrl}/>
                 </Card>
 
