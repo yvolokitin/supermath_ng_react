@@ -21,6 +21,9 @@ export default class Header extends React.Component {
     constructor(props) {
         super(props);
 
+        this.onApiUpdate = this.onApiUpdate.bind(this);
+        this.onApiUpdateError = this.onApiUpdateError.bind(this);
+
         this.onForget = this.onForget.bind(this);
         this.onResult = this.onResult.bind(this);
         this.onRefresh = this.onRefresh.bind(this);
@@ -59,9 +62,9 @@ export default class Header extends React.Component {
     onRefresh(event) {
         event.preventDefault();
 
-        console.log('Header.onRefresh ' + this.state.id + ': ' + this.state.email);
         var pswdhash = localStorage.getItem('pswdhash');
-        if ((this.state.id > 0) && (pswdhash !== null) && (this.state.email.length > 0)) {
+        console.log('Header.onRefresh ' + this.state.id + ', pswdhash: ' + pswdhash);
+        if ((this.state.id > 0) && (pswdhash !== null)) {
             var post_data = {'user_id': this.state.id, 'pswdhash': pswdhash};
             axios.post('http://supermath.xyz:3000/api/refresh', post_data)
                 .then(this.onApiUpdate)
@@ -163,34 +166,6 @@ export default class Header extends React.Component {
         }
     }
 
-    onApiUpdate(response) {
-        if ('data' in response) {
-            if ('error' in response.data) {
-                console.log('ERROR Header.onApiUpdate received ' + response.data.error);
-            } else if ('id' in response.data) {
-                console.log('Header.onApiUpdate: succeeded, ' + response.data.id);
-                // refreshing page if received from server (usually, it forced by user)
-                if ('refresh' in response.data) {
-                    window.location.reload();
-                }
-            } else {
-                console.log('ERROR: Header.onApiUpdate no error and id in data message from server');
-            }
-        } else {
-            console.log('ERROR: Header.onApiUpdate received no data in response from server');
-        }
-    }
-
-    onUpdateResultsError(error) {
-        console.log('Header.onUpdateResultsError -> error ' + error);
-        // refreshing page
-        window.location.reload();
-    }
-
-    onForget() {
-        this.setState({forgetOpen: true});
-    }
-
     onResult(result, user_id, name, language, email, age, surname, avatar, passed, failed, belt) {
         // console.log('Header.onResult ' + result + ', ' + user_id + ', ' + name +  ', ' + language + ', ' + email + ', ' + surname);
         console.log('Header.onResult ' + passed + ', ' + failed + ', age: ' + age + ', avatar: '  + avatar + ', belt: ' + belt);
@@ -260,6 +235,50 @@ export default class Header extends React.Component {
         } else {
             this.setState({loginOpen: false, forgetOpen: false, registerOpen: false});
         }
+    }
+
+    onApiUpdate(response) {
+        if ('data' in response) {
+            if ('error' in response.data) {
+                console.log('ERROR Header.onApiUpdate received ' + response.data.error);
+
+            } else if ('id' in response.data) {
+                console.log('Header.onApiUpdate: successed, ' + response.data.id);
+                if (('name' in response.data) && ('lang' in response.data) &&
+                    ('age' in response.data) && ('surname' in response.data) &&
+                    ('email' in response.data) && ('creation' in response.data) &&
+                    ('pass' in response.data) && ('fail' in response.data) &&
+                    ('avatar' in response.data) && ('belt' in response.data)) {
+                        var birthday = new Date(response.data.age);
+                        var ageDifMs = Date.now() - birthday.getTime();
+                        var ageDate = new Date(ageDifMs);
+                        var age = Math.abs(ageDate.getUTCFullYear() - 1970);
+
+                        this.onResult('successed', response.data.id, response.data.name, response.data.lang, response.data.email, age,
+                                       response.data.surname, response.data.avatar, response.data.pass, response.data.fail, response.data.belt);
+                }
+
+                // refreshing page if received from server (usually, it forced by user)
+                if ('refresh' in response.data) {
+                    console.log('!!!! window.location.reload()');
+                    window.location.reload();
+                }
+            } else {
+                console.log('ERROR: Header.onApiUpdate no error and id in data message from server');
+            }
+        } else {
+            console.log('ERROR: Header.onApiUpdate received no data in response from server');
+        }
+    }
+
+    onApiUpdateError(error) {
+        console.log('Header.onApiUpdateError -> error ' + error);
+        // refreshing page
+        window.location.reload();
+    }
+
+    onForget() {
+        this.setState({forgetOpen: true});
     }
 
     render() {
