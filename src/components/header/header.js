@@ -23,6 +23,7 @@ export default class Header extends React.Component {
 
         this.onForget = this.onForget.bind(this);
         this.onResult = this.onResult.bind(this);
+        this.onRefresh = this.onRefresh.bind(this);
         this.onUserInfo = this.onUserInfo.bind(this);
         this.onLanguage = this.onLanguage.bind(this);
 
@@ -43,7 +44,7 @@ export default class Header extends React.Component {
                       name: localStorage.getItem('name') ? localStorage.getItem('name') : 'Kobe',
                       surname: localStorage.getItem('surname') ? localStorage.getItem('surname') : '',
                       avatar: localStorage.getItem('avatar') ? localStorage.getItem('avatar') : 'martin-berube',
-                      email: localStorage.getItem('email') ? localStorage.getItem('email') : 'Kobe.Bryant@email.com',
+                      email: localStorage.getItem('email') ? localStorage.getItem('email') : '',
                       age: localStorage.getItem('age') ? localStorage.getItem('age') : '41',
                      };
     }
@@ -52,6 +53,22 @@ export default class Header extends React.Component {
         console.log('Header.componentDidUpdate ' + this.props.passed + '. ' + this.props.failed);
         if ((this.props.passed !== prevProps.passed) || (this.props.failed !== prevProps.failed)) {
             this.setState({pass: this.props.passed, fail: this.props.failed});
+        }
+    }
+
+    onRefresh(event) {
+        event.preventDefault();
+
+        console.log('Header.onRefresh ' + this.state.id + ': ' + this.state.email);
+        var pswdhash = localStorage.getItem('pswdhash');
+        if ((this.state.id > 0) && (pswdhash !== null) && (this.state.email.length > 0)) {
+            var post_data = {'user_id': this.state.id, 'pswdhash': pswdhash};
+            axios.post('http://supermath.xyz:3000/api/refresh', post_data)
+                .then(this.onApiUpdate)
+                .catch(this.onApiUpdateError);
+
+        } else { // else user is logouted and should be login
+            this.setState({loginOpen:true});
         }
     }
 
@@ -152,6 +169,10 @@ export default class Header extends React.Component {
                 console.log('ERROR Header.onApiUpdate received ' + response.data.error);
             } else if ('id' in response.data) {
                 console.log('Header.onApiUpdate: succeeded, ' + response.data.id);
+                // refreshing page if received from server (usually, it forced by user)
+                if ('refresh' in response.data) {
+                    window.location.reload();
+                }
             } else {
                 console.log('ERROR: Header.onApiUpdate no error and id in data message from server');
             }
@@ -162,6 +183,8 @@ export default class Header extends React.Component {
 
     onUpdateResultsError(error) {
         console.log('Header.onUpdateResultsError -> error ' + error);
+        // refreshing page
+        window.location.reload();
     }
 
     onForget() {
@@ -243,7 +266,7 @@ export default class Header extends React.Component {
         return (
             <AppBar position="static">
                 <Toolbar style={{cursor:'pointer',fontVariant:'small-caps',textShadow:'1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue',}}>
-                    <Typography onClick={() => window.location.reload()} style={{fontFamily:'Grinched',fontSize:'2.00rem',fontVariant:'small-caps',color:'orange'}}>SuperMath</Typography>
+                    <Typography onClick={this.onRefresh} style={{fontFamily:'Grinched',fontSize:'2.00rem',fontVariant:'small-caps',color:'orange'}}>SuperMath</Typography>
                     <Typography onClick={() => this.setState({aboutOpen: true})} style={{marginLeft:'1%',fontFamily:'Grinched',fontSize:'2.00rem',color:'green'}}>
                         {header[this.state.lang]['about']}
                     </Typography>

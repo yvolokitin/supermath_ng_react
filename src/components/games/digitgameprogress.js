@@ -3,20 +3,22 @@
 import {Dialog, DialogTitle, DialogActions, DialogContent, Button} from '@material-ui/core';
 import {Table, TableRow, TableBody, TableCell, TableContainer, Paper} from '@material-ui/core';
 
+import './digitgameprogress.css';
+
 export default function GameProgress(props) {
     return (
         <Dialog onClose={() => props.onClose()} open={props.open}>
             <DialogTitle>
-                <font style={{padding: '5px', margin: '5px', color: 'black', border: '1px solid black', borderRadius: '5px'}}>
+                <font className='digitgameprogress_title' style={{color:'black'}}>
                     {props.results.length} &nbsp; &#128279; &nbsp;
                 </font>
-                <font style={{padding: '5px', margin: '5px', color: 'green', border: '1px solid green', borderRadius: '5px'}}>
+                <font className='digitgameprogress_title' style={{color:'green'}}>
                     {props.passed} &nbsp; &#128515; &nbsp;
                 </font>
-                <font style={{padding: '5px', margin: '5px', color: 'red', border: '1px solid red', borderRadius: '5px'}}>
+                <font className='digitgameprogress_title' style={{color:'red'}}>
                     {props.failed} &nbsp; &#128169; &nbsp;
                 </font>
-                <font style={{color: 'white'}}>&nbsp; &nbsp; 01234556789 &nbsp; &nbsp; </font>
+                <font style={{color:'white'}}>&nbsp; &nbsp; 01234556789 &nbsp; &nbsp; </font>
             </DialogTitle>
             <DialogContent>
                 <TableContainer component={Paper}>
@@ -24,7 +26,10 @@ export default function GameProgress(props) {
                         <TableBody>
                             {props.results.map((row, index) => (
                                 <TableRow key={index}>
-                                    <TableCell align='center' component='th' scope='row' style={{backgroundColor: row.color}}>{row.task}</TableCell>
+                                    <TableCell align='center' component='th' scope='row'
+                                               style={{backgroundColor: row.color}}>
+                                                    <font className='digitgameprogress_table'>{row.task}</font>
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -33,7 +38,7 @@ export default function GameProgress(props) {
             </DialogContent>
 
             <DialogActions>
-                <Button onClick={() => props.onClose()} color="primary" autoFocus>Close</Button>
+                <Button onClick={() => props.onClose()} className='digitgameprogress_close' color='primary' autoFocus>Close</Button>
             </DialogActions>
         </Dialog>
     )

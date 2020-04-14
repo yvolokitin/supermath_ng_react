@@ -1,0 +1,19 @@
+﻿.digitgameprogress_title {
+    padding: 5px;
+    margin: 5px;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 2rem;
+    font-weight: bold;
+}
+.digitgameprogress_table {
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    line-height: 0.3;
+}
+.digitgameprogress_close {
+    font-size: 3rem;
+    font-weight: bold;
+}
