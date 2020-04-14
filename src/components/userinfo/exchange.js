@@ -30,18 +30,18 @@ export default class Exchange extends React.Component {
 
     onCounterChanged(value) {
         if (value > 0) {
-            if (this.state.passed > (value*50)) {
+            if (this.state.passed > (value*30)) {
                 this.setState({'counter': (this.state.counter + 1),
-                               'sailed': (this.state.sailed + 50),
-                               'passed': this.state.passed - 50,
+                               'sailed': (this.state.sailed + 30),
+                               'passed': (this.state.passed - 30),
                                'failed': (this.state.failed - 1),
                                });
             }
         } else {
             if (this.state.counter > 0) {
                 this.setState({'counter': (this.state.counter - 1),
-                               'sailed': (this.state.sailed - 50),
-                               'passed': (this.state.passed + 50),
+                               'sailed': (this.state.sailed - 30),
+                               'passed': (this.state.passed + 30),
                                'failed': (this.state.failed + 1),
                                });
             }
@@ -87,7 +87,7 @@ export default class Exchange extends React.Component {
                             {exchange[this.props.lang]['save']}
                         </font>
 
-                        <font className='exchangebutton' style={{float:'right'}} onClick={(e) => this.onCounterChanged(1)}>+</font>
+                        <font className='exchangebutton' style={{float:'right',marginLeft:'5px'}} onClick={(e) => this.onCounterChanged(1)}>+</font>
                         <font className='exchangebutton' style={{float:'right'}} onClick={(e) => this.onCounterChanged(-1)}>-</font>
                     </Grid>
                 </Grid>

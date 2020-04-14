@@ -21,7 +21,6 @@
 .exchangebutton {
     padding-left: 4%;
     padding-right: 4%;
-    margin: 2%;
     color: orange;
     cursor: pointer;
     line-height: 0.9;
@@ -31,7 +30,6 @@
 .exchangebuttongreen {
     padding-left: 2%;
     padding-right: 2%;
-    margin: 2%;
     color: green;
     cursor: pointer;
     line-height: 0.9;

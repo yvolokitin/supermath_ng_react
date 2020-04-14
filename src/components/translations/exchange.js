@@ -2,22 +2,22 @@
 export const exchange = {
     // English
     'en': {
-        'description': 'exchange your poops',
+        'description': 'exchange your poops (1p=30smiley)',
         'save': 'save',
     },
     // Russian
     'ru': {
-        'description': 'обменяй свои каловые массы',
+        'description': 'обменяй фекашки (1ф=30смайлов)',
         'save': 'обмен',
     },
     // Dutch
     'nl' : {
-        'description': 'wissel je poept uit',
+        'description': 'wissel je poept uit (1p=30smiley)',
         'save': 'sparen',
     },
     // French
     'fr' : {
-        'description': 'echange tes caca',
+        'description': 'echange tes caca (1p=30smiley)',
         'save': 'sauver',
     },
     // German
