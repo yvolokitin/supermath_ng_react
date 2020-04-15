@@ -31,8 +31,8 @@ const games = [
     // id1 starts from 12 due to: 13-12-11-10, if less it will be 10-9-8-7
     {id: 1, logo: logo1, type: 'linedigits', task: '13-97', amount: task_amount},
     {id: 2, logo: logo2, type: 'comp_nums', task: '<>=,11-99,1', amount: task_amount},
-    {id: 3, logo: logo3, type: '2digits', task: '+-,0-10,10-20,1,1', amount: task_amount},
-    {id: 4, logo: logo4, type: '2digits', task: '+-,0-10,0-10,10,10', amount: task_amount},
+    {id: 3, logo: logo3, type: '2digits', task: '+-,1-9,10-20,1,1', amount: task_amount},
+    {id: 4, logo: logo4, type: '2digits', task: '+-,1-10,1-10,10,10', amount: task_amount},
     {id: 5, logo: logo5, type: '2digits', task: '+-,1-10,1-9,10,1', amount: task_amount},
     {id: 6, logo: logo6, type: '2digits', task: '+-,1-9,11-99,1,1', amount: task_amount},
 
