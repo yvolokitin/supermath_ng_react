@@ -34,7 +34,7 @@ export default class Header extends React.Component {
                       helpOpen: false,
                       loginOpen: false,
                       logoutOpen: false,
-                      forgetOpen: false,
+                      forgetOpen: true, // false,
                       registerOpen: false,
                       userInfoOpen: false,
                       langSelector: false,

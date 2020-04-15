@@ -26,7 +26,11 @@ export default class Forget extends React.Component {
                       color: 'red',
                       error: false,
                       message: '',
-                      duration: 15000};
+                      duration: 15000,
+                      // if # attempts > 3 in last 15 secs -> flooding -> ignore such requests
+                      attempts: 0,
+                      // timeout 15 secs if send > 3 requests in timeout time (15 secs)
+                      timeout: 15000};
 
         this.onClose = this.onClose.bind(this);
 
@@ -46,41 +50,38 @@ export default class Forget extends React.Component {
                            error: true,
                            duration: 5000,
                            message: result.email});
-            return;
+
+        } else {
+            var maxtiming = parseInt(localStorage.getItem('forget_timeout'));
+            var maxattempts = parseInt(localStorage.getItem('forget_attempts'));
+            if ((((new Date().getTime()) - maxtiming) < 15000) && (maxattempts < 3)) {
+                this.setState({success: false,
+                               error: true,
+                               duration: 5000,
+                               message: 'Too many attempt in the short perioud of time, please, try again later'});
+                localStorage.setItem('forget_timeout', attempt);
+    
+            } else {
+                console.log('onForget.email ' + this.state.email);
+                var attempt = this.state.attempts + 1;
+                localStorage.setItem('forget_attempts', attempt);
+                localStorage.setItem('forget_timeout', attempt);
+                this.setState({success: false, loading: true, attempts: attempt});
+                var post_data = {'email': this.state.email};
+                axios.post('http://supermath.xyz:3000/api/forget', post_data)
+                    .then(this.onForgetResponse)
+                    .catch(this.onForgetError);
+                this.time = new Date().getTime();
+            }
         }
-        result = validate({pswd: this.state.pswd}, constraints);
-        if ('pswd' in result) {
-            this.setState({success: false,
-                           error: true,
-                           duration: 5000,
-                           message: result.pswd});
-            return;
-        }
-
-        this.setState({success: false, loading: true});
-
-        var crypto = require('crypto');
-        var mykey = crypto.createCipher('aes-128-cbc', this.state.pswd);
-        var pswdhash = mykey.update('abc', 'utf8', 'hex');
-        pswdhash += mykey.final('hex');
-        localStorage.setItem('pswdhash', pswdhash);
-        console.log('onForget -> crypto pswdhash: ' + pswdhash);
-
-        // console.log('onForget.email ' + this.state.email + ', pswd ' + this.state.pswd);
-        var post_data = {'email': this.state.email, 'pswd': this.state.pswd};
-        axios.post('http://supermath.xyz:3000/api/login', post_data)
-            .then(this.onForgetResponse)
-            .catch(this.onForgetError);
-
-        this.time = new Date().getTime();
     }
 
     onForgetResponse(response) {
         console.log('onForgetResponse:: error ' + response.data.error + ', id ' + response.data.id);
 
         var timeout = new Date().getTime() - this.time;
-        if (timeout < 2000) {
-            timeout = 2000;
+        if (timeout < 3000) {
+            timeout = 3000 - timeout;
         }
 
         if ((response.data.error === undefined) && (response.data.id !== undefined)) {
@@ -108,7 +109,15 @@ export default class Forget extends React.Component {
 
     onForgetError(error) {
         console.log("axios.post error " + error);
-        this.setState({success: false, loading: false, color:'red', error: true, message: error.toString()});
+
+        var timeout = new Date().getTime() - this.time;
+        if (timeout < 3000) {
+            timeout = 3000 - timeout;
+        }
+
+        setTimeout(() => {
+            this.setState({success: false, loading: false, color:'red', error: true, message: error.toString()});
+        }, timeout);
     }
 
     onClose(status) {
@@ -120,9 +129,9 @@ export default class Forget extends React.Component {
     }
 
     /*
-                                <Grid item>
-                                    <Link onClick={() => this.onClose('register')} style={{cursor:'pointer'}} variant='body2'>{forget[this.props.lang]['signup']}</Link>
-                                </Grid>
+        <Grid item>
+            <Link onClick={() => this.onClose('register')} style={{cursor:'pointer'}} variant='body2'>{forget[this.props.lang]['signup']}</Link>
+        </Grid>
     */
     render() {
         return (
@@ -148,7 +157,9 @@ export default class Forget extends React.Component {
 
                             <Grid container>
                                 <Grid item xs>
-                                    <Link onClick={() => this.onClose('login')} style={{cursor:'pointer'}} variant='body2'>{forget[this.props.lang]['login']}</Link>
+                                    <Link disabled={this.state.loading} onClick={() => this.onClose('login')} style={{cursor:'pointer'}} variant='body2'>
+                                        {forget[this.props.lang]['login']}
+                                    </Link>
                                 </Grid>
                             </Grid>
                         </form>
