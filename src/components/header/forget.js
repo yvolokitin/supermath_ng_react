@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import {Dialog, DialogContent, TextField, Grid, Link, Button, Fab, CircularProgress, Snackbar} from '@material-ui/core';
+import {Dialog, DialogContent, Typography, TextField, Grid, Link, Button, Fab, CircularProgress, Snackbar} from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -20,17 +20,13 @@ import './header.css';
 export default class Forget extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {email: localStorage.getItem('email') ? localStorage.getItem('email') : '',
+        this.state = {email: '',
                       success: false,
                       loading: false,
                       color: 'red',
                       error: false,
                       message: '',
-                      duration: 15000,
-                      // if # attempts > 3 in last 15 secs -> flooding -> ignore such requests
-                      attempts: 0,
-                      // timeout 15 secs if send > 3 requests in timeout time (15 secs)
-                      timeout: 15000};
+                      duration: 15000,};
 
         this.onClose = this.onClose.bind(this);
 
@@ -52,21 +48,20 @@ export default class Forget extends React.Component {
                            message: result.email});
 
         } else {
-            var maxtiming = parseInt(localStorage.getItem('forget_timeout'));
-            var maxattempts = parseInt(localStorage.getItem('forget_attempts'));
-            if ((((new Date().getTime()) - maxtiming) < 15000) && (maxattempts < 3)) {
+            var forgettime = parseInt(localStorage.getItem('forgettime'));
+            if (((new Date().getTime()) - forgettime) < 15000) {
                 this.setState({success: false,
                                error: true,
-                               duration: 5000,
-                               message: 'Too many attempt in the short perioud of time, please, try again later'});
-                localStorage.setItem('forget_timeout', attempt);
+                               duration: 15000,
+                               message: forget[this.props.lang]['later']});
+                localStorage.setItem('forgettime', new Date().getTime());
     
             } else {
                 console.log('onForget.email ' + this.state.email);
-                var attempt = this.state.attempts + 1;
-                localStorage.setItem('forget_attempts', attempt);
-                localStorage.setItem('forget_timeout', attempt);
-                this.setState({success: false, loading: true, attempts: attempt});
+
+                localStorage.setItem('forgettime', new Date().getTime());
+
+                this.setState({success: false, loading: true});
                 var post_data = {'email': this.state.email};
                 axios.post('http://supermath.xyz:3000/api/forget', post_data)
                     .then(this.onForgetResponse)
@@ -77,33 +72,30 @@ export default class Forget extends React.Component {
     }
 
     onForgetResponse(response) {
-        console.log('onForgetResponse:: error ' + response.data.error + ', id ' + response.data.id);
+        console.log('onForgetResponse:: email ' + response.data.email + ', error ' + response.data.error);
 
         var timeout = new Date().getTime() - this.time;
         if (timeout < 3000) {
             timeout = 3000 - timeout;
         }
 
-        if ((response.data.error === undefined) && (response.data.id !== undefined)) {
-            // age calculation based on server response value
-            // "age":"Tue, 28 Jan 2014 06:13:13 GMT" -> need to convert in years
-            var birthday = new Date(response.data.age);
-            var ageDifMs = Date.now() - birthday.getTime();
-            var ageDate = new Date(ageDifMs);
-            var age = Math.abs(ageDate.getUTCFullYear() - 1970);
+        if ('data' in response) {
+            if ('email' in response.data) {
+                console.log('ERROR Header.onApiUpdate received ' + response.data.error);
+                setTimeout(() => {
+                    this.setState({success: true, loading: false});
+                }, timeout);
 
-            setTimeout(() => {
-                this.props.onClose('successed', response.data.id, response.data.name, response.data.lang, response.data.email,
-                                   response.data.surname, age, response.data.ava, response.data.pass, response.data.fail);
-                this.setState({success: true, loading: false, color:'green'});
-            }, timeout);
+            } else if ('error' in response.data) {
+                setTimeout(() => {
+                    this.setState({success: false, loading: false, color:'red', error: true, message: response.data.error});
+                }, timeout);
 
-        } else {
-            if (response.data.error !== undefined) {
-                setTimeout(() => {this.setState({success: false, loading: false, color:'red', error: true, message: response.data.error.toString()});}, timeout);
             } else {
-                setTimeout(() => {this.setState({success: false, loading: false, color:'red', error: true, message: 'Uuupps! Something went wrong'});}, timeout);
+                console.log('ERROR: Header.onApiUpdate no error and id in data message from server');
             }
+        } else {
+            console.log('ERROR: Header.onApiUpdate received no data in response from server');
         }
     }
 
@@ -147,6 +139,10 @@ export default class Forget extends React.Component {
                     </div>
 
                     <DialogContent>
+                        <Typography style={{marginTop:'3%',marginBottom:'3%',flexGrow:1}}>
+                            {forget[this.props.lang]['description']}
+                        </Typography>
+
                         <form noValidate>
                             <TextField disabled={this.state.loading} onChange={(event) => {this.setState({email: event.target.value})}}
                                        required fullWidth autoFocus variant='outlined' margin='normal' autoComplete='email' label={forget[this.props.lang]['email']}/>

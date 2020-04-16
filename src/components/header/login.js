@@ -70,7 +70,7 @@ export default class Login extends React.Component {
         console.log('onLogin -> crypto pswdhash: ' + pswdhash);
 
         // console.log('onLogin.email ' + this.state.email + ', pswd ' + this.state.pswd);
-        var post_data = {'email': this.state.email, 'pswd': this.state.pswd};
+        var post_data = {'email': this.state.email, 'pswdhash': pswdhash};
         axios.post('http://supermath.xyz:3000/api/login', post_data)
             .then(this.onLoginResponse)
             .catch(this.onLoginError);
