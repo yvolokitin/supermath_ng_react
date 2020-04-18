@@ -50,7 +50,9 @@ export default class Exchange extends React.Component {
 
     onSave() {
         console.log('pass values to UserInfo: ' + this.state.passed + ', ' + this.state.failed);
-        this.props.onExchange(this.state.passed, this.state.failed);
+        if (this.state.sailed > 0) {
+            this.props.onExchange(this.state.passed, this.state.failed);
+        }
     }
 
     render() {
