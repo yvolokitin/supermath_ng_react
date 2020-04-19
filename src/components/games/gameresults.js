@@ -15,7 +15,9 @@ export default class GameResults extends React.Component {
         this.onUpdateResults = this.onUpdateResults.bind(this);
         this.onUpdateResultsError = this.onUpdateResultsError.bind(this);
 
-        this.state = {result: this.calculate(),
+        
+        this.state = {id: localStorage.getItem('user_id') ? parseInt(localStorage.getItem('user_id')) : 0,
+                      result: this.calculate(),
                       userResults: false};
     }
 
@@ -56,7 +58,8 @@ export default class GameResults extends React.Component {
     }
 
     set_results() {
-        this.setState({result: this.calculate()});
+        this.setState({id: localStorage.getItem('user_id') ? parseInt(localStorage.getItem('user_id')) : 0,
+                       result: this.calculate()});
     }
 
     onClose(status) {
@@ -128,6 +131,7 @@ export default class GameResults extends React.Component {
                         &nbsp; {this.state.result.minutes} {gameresults[this.props.lang]['minutes']},
                         &nbsp; {this.state.result.seconds} {gameresults[this.props.lang]['seconds']}
                     </div>
+
                     <div className='result_board_chart' onClick={(e) => this.setState({userResults:true})}>
                         <font style={{color:'#00cc00',}}>
                             <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span> &nbsp; {this.props.passed} &nbsp;
@@ -137,21 +141,34 @@ export default class GameResults extends React.Component {
                             &nbsp; {this.props.failed} &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                         </font>
                     </div>
+
                     <div className='result_board_body'>
                         {gameresults[this.props.lang]['reach']} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#9757;</span> &nbsp;
                         <font style={{color:'red'}}>{this.state.result.rate}</font> {gameresults[this.props.lang]['score']}
                         &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128202;</span>
                     </div>
-                    <div className='result_board_body'>
-                        {gameresults[this.props.lang]['brain']}
-                    </div>
-                    <div className='result_board_body'>
-                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128138;</span> {gameresults[this.props.lang]['pill']}
-                    </div>
-                    <div className='result_board_body'>
-                        {gameresults[this.props.lang]['smart']} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128170;</span>
-                        {gameresults[this.props.lang]['health']} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128540;</span>
-                    </div>
+
+                    { (this.state.id > 0) ?
+                      (
+                        <>
+                          <div className='result_board_body'>
+                            {gameresults[this.props.lang]['brain']}
+                          </div>
+                          <div className='result_board_body'>
+                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128138;</span> {gameresults[this.props.lang]['pill']}
+                          </div>
+                          <div className='result_board_body'>
+                            {gameresults[this.props.lang]['smart']} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128170;</span>
+                            {gameresults[this.props.lang]['health']} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128540;</span>
+                          </div>
+                        </>
+                      ) : (
+                          <div className='result_board_body'>
+                            {gameresults[this.props.lang]['register']}
+                          </div>
+                      )
+                    }
+
                 </div>
 
                 <div onClick={(e) => this.setState({userResults:true})} className='result_board_button' style={{float:'left',marginLeft: '5%'}}>
