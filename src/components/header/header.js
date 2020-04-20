@@ -55,7 +55,10 @@ export default class Header extends React.Component {
     componentDidUpdate(prevProps) {
         console.log('Header.componentDidUpdate ' + this.props.passed + '. ' + this.props.failed);
         if ((this.props.passed !== prevProps.passed) || (this.props.failed !== prevProps.failed)) {
-            this.setState({pass: this.props.passed, fail: this.props.failed});
+            // check if user login -> update counters
+            if (this.state.id > 0) {
+                this.setState({pass: this.props.passed, fail: this.props.failed});
+            }
         }
     }
 

@@ -90,9 +90,13 @@ export default class Orange extends React.Component {
 
     onGameClose(status, pass=0, fail=0) {
         console.log('Orange.onGameClose: ' + status + ', ' + pass + ', ' + fail);
+
+        // on replay -> game should continue
         if (status !== 'replay') {
             // set all types of games as false
             this.setState({gameOpen: false});
+        } else {
+            console.log('Orange.onGameClose, Game must go on -> ' + this.state.gameOpen);
         }
 
         if ((pass !== 0) || (fail !== 0)) {

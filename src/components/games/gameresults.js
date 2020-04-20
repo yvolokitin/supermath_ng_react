@@ -144,7 +144,7 @@ export default class GameResults extends React.Component {
 
                     <div className='result_board_body'>
                         {gameresults[this.props.lang]['reach']} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#9757;</span> &nbsp;
-                        <font style={{color:'red'}}>{this.state.result.rate}</font> {gameresults[this.props.lang]['score']}
+                        <font style={{color:'orange'}}>{this.state.result.rate}</font> {gameresults[this.props.lang]['score']}
                         &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128202;</span>
                     </div>
 
@@ -163,9 +163,19 @@ export default class GameResults extends React.Component {
                           </div>
                         </>
                       ) : (
-                          <div className='result_board_body'>
-                            {gameresults[this.props.lang]['register']}
+                        <>
+                          <div className='result_board_body' onClick={() => this.onClose('close')} style={{cursor:'pointer'}}>
+                            <font style={{color:'red'}}>
+                              {gameresults[this.props.lang]['register']}
+                            </font>
                           </div>
+
+                          <div className='result_board_body'>
+                            <font style={{color:'yellow'}}>
+                              {gameresults[this.props.lang]['save_results']}
+                            </font>
+                          </div>
+                        </>
                       )
                     }
 

@@ -87,6 +87,7 @@ export default class SuperMathPage extends React.Component {
 
                 <Header onUpdate={this.onUpdate}
                         lang={this.state.language}
+                        belt = {this.state.belt}
                         passed={this.state.passed}
                         failed={this.state.failed}/>
 

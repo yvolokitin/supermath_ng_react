@@ -85,8 +85,14 @@ export default class Navi extends React.Component {
 
     onGameClose(status, pass=0, fail=0) {
         console.log('Navi.onGameClose: ' + status + ', ' + pass + ', ' + fail);
-        // set all types of games as false
-        this.setState({gameOpen: false});
+
+        // on replay -> game should continue
+        if (status !== 'replay') {
+            // set all types of games as false
+            this.setState({gameOpen: false});
+        } else {
+            console.log('Navi.onGameClose, Game must go on -> ' + this.state.gameOpen);
+        }
 
         if ((pass !== 0) || (fail !== 0)) {
             this.props.onUpdate(status, pass, fail);
