@@ -3,26 +3,25 @@ export const welcome = {
     // English
     'en': {
         'ok': 'ok',
-        'subject': 'Welcome to SuperMathSuperMath.xyz',
-        'title': 'Welcome to Arithmetical world',
-        'description': 'SuperMath is a collection of free math activities to practice straightforward arithmetic problems that adapt as they learn.',
-        'text': 'Kids can keep results, trade points, select avatars and track the progress using fluency reports and dashboards.',
+        'title': 'Welcome to Arithmetical world!',
+        'message': '',
+        'text': 'SuperMath is a collection of free math activities to practice straightforward arithmetic problems that adapt as they learn.',
+        'good': 'Excellent!',
     },
     // Russian
     'ru': {
         'ok': 'ok',
-        'subject': 'Welcome to SuperMathSuperMath.xyz',
-        'title': 'Welcome to Arithmetical world',
-        'description': 'SuperMath is a collection of free math activities to practice straightforward arithmetic problems that adapt as they learn.',
-        'text': 'Kids can keep results, trade points, select avatars and track the progress using fluency reports and dashboards.',
+        'title': 'Добро пожаловавть в Мир Арифметики!',
+        'message': 'Теперь все твои результаты будут автоматически сохраняться, ты можешь контролировать свои успехи и обмениваться заработанными очками со своими друзьями.',
+        'text': 'SuperMath - это набор бесплатных математических упражнений для практики простых и сложных арифметических действий.',
+        'good': 'Отлично!',
     },
     // Dutch
     'nl' : {
         'ok': 'ok',
-        'subject': 'Welcome to SuperMathSuperMath.xyz',
         'title': 'Welcome to Arithmetical world',
-        'description': 'SuperMath is a collection of free math activities to practice straightforward arithmetic problems that adapt as they learn.',
-        'text': 'Kids can keep results, trade points, select avatars and track the progress using fluency reports and dashboards.',
+        'message': '',
+        'text': '',
     },
     // French
     'fr' : {

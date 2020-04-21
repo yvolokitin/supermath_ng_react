@@ -38,7 +38,7 @@ export default class Header extends React.Component {
                       forgetOpen: false,
                       userInfoOpen: false,
                       langSelector: false,
-                      welcomeOpen: false,
+                      welcomeOpen: true, // false,
                       registerOpen: props.register,
                       // current user information
                       lang: props.lang,
@@ -368,6 +368,8 @@ export default class Header extends React.Component {
                          lang={this.state.lang}
                          name={this.state.name}
                          surname={this.state.surname}
+                         passed={this.state.pass}
+                         failed={this.state.fail}
                          onClose={() => this.setState({welcomeOpen: false})}/>
 
                 <AlertDialog open={this.state.logoutOpen}
