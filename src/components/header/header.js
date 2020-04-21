@@ -10,6 +10,7 @@ import Login from './login';
 import Forget from './forget';
 import Registration from './registration';
 import Language from './language';
+import Welcome from './welcome';
 
 import UserInformation from './../userinfo/userinfo';
 import AlertDialog from './../alert/alert';
@@ -35,9 +36,10 @@ export default class Header extends React.Component {
                       loginOpen: false,
                       logoutOpen: false,
                       forgetOpen: false,
-                      registerOpen: false,
                       userInfoOpen: false,
                       langSelector: false,
+                      welcomeOpen: false,
+                      registerOpen: props.register,
                       // current user information
                       lang: props.lang,
                       belt: props.belt,
@@ -53,12 +55,21 @@ export default class Header extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log('Header.componentDidUpdate ' + this.props.passed + '. ' + this.props.failed);
-        if ((this.props.passed !== prevProps.passed) || (this.props.failed !== prevProps.failed)) {
+        if (this.props.register !== this.state.registerOpen) {
+            console.log('Header.componentDidUpdate ' + this.props.register + ', passed: ' + this.props.passed + ',failed: ' + this.props.failed);
+            if ((parseInt(this.props.passed) > 0) || (parseInt(this.props.failed) > 0)) {
+                this.setState({registerOpen: this.props.register, pass: this.props.passed, fail: this.props.failed});
+            } else {
+                this.setState({registerOpen: this.props.register});
+            }
+        } else if ((this.props.passed !== prevProps.passed) || (this.props.failed !== prevProps.failed)) {
+            console.log('Header.componentDidUpdate ' + this.props.passed + '. ' + this.props.failed);
             // check if user login -> update counters
             if (this.state.id > 0) {
                 this.setState({pass: this.props.passed, fail: this.props.failed});
             }
+        } else {
+            console.log('Header.componentDidUpdate, no updates');
         }
     }
 
@@ -345,9 +356,19 @@ export default class Header extends React.Component {
                                  pass={this.state.pass} fail={this.state.fail}
                                  lang={this.state.lang}/>
 
-                <Registration open={this.state.registerOpen} onClose={this.onResult} lang={this.state.lang}/>
+                <Registration open={this.state.registerOpen}
+                              onClose={this.onResult}
+                              lang={this.state.lang}
+                              passed={this.props.passed}
+                              failed={this.props.failed}/>
 
                 <Language open={this.state.langSelector} onClose={this.onLanguage} lang={this.state.lang}/>
+
+                <Welcome open={this.state.welcomeOpen}
+                         lang={this.state.lang}
+                         name={this.state.name}
+                         surname={this.state.surname}
+                         onClose={() => this.setState({welcomeOpen: false})}/>
 
                 <AlertDialog open={this.state.logoutOpen}
                              title={header[this.state.lang]['logout_title']}

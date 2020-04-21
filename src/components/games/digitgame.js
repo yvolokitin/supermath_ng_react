@@ -62,7 +62,10 @@ export default class DigitGame extends React.Component {
                            duration: (new Date().getTime() - this.timer)});
 
         // game was properly closed after showing results
-        } else if ((status === 'close') || (status === 'replay')) {
+        // and user decided to exit/replay/register
+        } else if ((status === 'close') ||
+                   (status === 'replay') ||
+                   (status === 'register')) {
             this.props.onClose(status, pass, fail);
             this.setState({showResults: false,
                            results: [],

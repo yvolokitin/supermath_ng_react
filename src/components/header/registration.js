@@ -92,7 +92,9 @@ export default class Registration extends React.Component {
                          'email': this.state.email,
                          'subcsr': this.state.subcsr,
                          'pswd': this.state.pswd,
-                         'pswdhash': pswdhash};
+                         'pswdhash': pswdhash,
+                         'passed': this.props.passed,
+                         'failed': this.props.failed};
         axios.post('http://supermath.xyz:3000/api/reg', post_data)
             .then(this.onRegistrationResponse)
             .catch(this.onRegistrationError);

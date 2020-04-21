@@ -51,6 +51,7 @@ export default class SuperMathPage extends React.Component {
         }
 
         this.state = {'language': language,
+                      'register': false,
                       'passed': localStorage.getItem('pass') ? localStorage.getItem('pass') : '0',
                       'failed': localStorage.getItem('fail') ? localStorage.getItem('fail') : '0',
                       'belt': localStorage.getItem('belt') ? localStorage.getItem('belt') : 'white',};
@@ -74,9 +75,15 @@ export default class SuperMathPage extends React.Component {
                 this.setState({'language': value});
             }
 
-
         } else if (property === 'counter') {
             this.setState({'passed': value, 'failed': asset});
+
+        } else if (property === 'register') {
+            if ((value > 0) || (asset > 0)) {
+                this.setState({'register': true, 'passed': value, 'failed': asset});
+            } else {
+                this.setState({'register': true});
+            }
         }
     }
 
@@ -89,7 +96,8 @@ export default class SuperMathPage extends React.Component {
                         lang={this.state.language}
                         belt = {this.state.belt}
                         passed={this.state.passed}
-                        failed={this.state.failed}/>
+                        failed={this.state.failed}
+                        register={this.state.register}/>
 
                 <Body onUpdate={this.onUpdate}
                       belt = {this.state.belt}

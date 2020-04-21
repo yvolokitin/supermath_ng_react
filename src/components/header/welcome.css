@@ -1,0 +1,80 @@
+﻿.welcome_title {
+    margin: 3%;
+    color: orange;
+    font-family: 'Grinched';
+    font-size: 1.5rem;
+    text-align: center;
+    text-shadow: '1px 1px 2px black';
+    line-height: 0.9;
+}
+.welcome_wrapper {
+    width: 70%;
+    height: 70%;
+    background: white;
+}
+.welcome_header_line {
+    width: 100%;
+    height: 7px;
+    margin-top: 17px;
+    background-color: #660066;
+}
+.welcome_lightblue_line {
+    float: left;
+    width: 5%;
+    height: 100%;
+    background-color: #33ccff;
+}
+.welcome_blue_line {
+    float: left;
+    width: 15%;
+    height: 100%;
+    background-color: #007399;
+}
+.welcome_darkgreen_line {
+    float: left;
+    width: 5%;
+    height: 100%;
+    background-color: #001a00
+}
+.welcome_green_line {
+    float: left;
+    width: 15%;
+    height: 100%;
+    background-color: #006600;
+}
+.welcome_lightgreen_line {
+    float: left;
+    width: 15%;
+    height: 100%;
+    background-color: #33ff33;
+}
+.welcome_yellow_line {
+    float: left;
+    width: 5%;
+    height: 100%;
+    background-color: #ffcc66;
+}
+.welcome_orange_line {
+    float: left;
+    width: 15%;
+    height: 100%;
+    background-color: #ff9933;
+}
+.welcome_lightred_line {
+    float: left;
+    width: 5%;
+    height: 100%;
+    background-color: #ff8566;
+}
+.welcome_red_line {
+    float: left;
+    width: 10%;
+    height: 100%;
+    background-color: #ff0000;
+}
+.welcome_violend_line {
+    float: left;
+    width: 7%;
+    height: 100%;
+    background-color: #9900cc;
+}

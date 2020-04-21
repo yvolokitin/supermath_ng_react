@@ -164,13 +164,13 @@ export default class GameResults extends React.Component {
                         </>
                       ) : (
                         <>
-                          <div className='result_board_body' onClick={() => this.onClose('close')} style={{cursor:'pointer'}}>
+                          <div className='result_board_body' onClick={() => this.onClose('register')} style={{cursor:'pointer'}}>
                             <font style={{color:'red'}}>
                               {gameresults[this.props.lang]['register']}
                             </font>
                           </div>
 
-                          <div className='result_board_body'>
+                          <div className='result_board_body' onClick={() => this.onClose('register')} style={{cursor:'pointer'}}>
                             <font style={{color:'yellow'}}>
                               {gameresults[this.props.lang]['save_results']}
                             </font>
