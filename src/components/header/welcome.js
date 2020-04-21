@@ -5,6 +5,7 @@ import SMTitle from "./../dialog/title";
 import './welcome.css';
 
 import {welcome} from './../translations/welcome';
+import image from './../../images/welcome/avatars.jpg';
 
 export default function Welcome(props) {
     return (
@@ -52,8 +53,8 @@ export default function Welcome(props) {
                     {welcome[props.lang]['text']}
                 </div>
 
-                <div className='welcome_content_img'>
-                    <img src='http://supermath.xyz:3000/static/images/userinfo_image.jpg' alt='tasks_image' width='90%'/>
+                <div className='welcome_content' style={{marginTop:'2%'}}>
+                    <img src={image} alt='avatars' style={{width:'100%',padding:'1%',border:'1px solid grey'}}/>
                 </div>
 
                 <div className='welcome_header_line'>
@@ -69,7 +70,7 @@ export default function Welcome(props) {
                     <div className='welcome_violend_line'></div>
                 </div>
 
-                <div className='welcome_content_img'>
+                <div className='welcome_content_img' style={{marginTop:'5%'}}>
                     <Button variant='contained' onClick={() => props.onClose('close')}>
                         {welcome[props.lang]['good']}
                     </Button>

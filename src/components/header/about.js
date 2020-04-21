@@ -51,6 +51,19 @@ export default function SMAbout(props) {
                 <Typography style={{margin:'3%',textAlign:'justify',fontWeight:'bold'}}> {about[props.lang]['colors']} </Typography>
             </DialogContent>
 
+                <div className='about_header_line'>
+                    <div className='about_lightblue_line'></div>
+                    <div className='about_blue_line'></div>
+                    <div className='about_darkgreen_line'></div>
+                    <div className='about_green_line'></div>
+                    <div className='about_lightgreen_line'></div>
+                    <div className='about_yellow_line'></div>
+                    <div className='about_orange_line'></div>
+                    <div className='about_lightred_line'></div>
+                    <div className='about_red_line'></div>
+                    <div className='about_violend_line'></div>
+                </div>
+
             <DialogActions>
                 <Button size="small" color="primary" startIcon={<CancelIcon />}
                         onClick={() => props.onClick()}> {about[props.lang]['close']} </Button>

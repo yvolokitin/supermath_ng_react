@@ -38,7 +38,7 @@ export default class Header extends React.Component {
                       forgetOpen: false,
                       userInfoOpen: false,
                       langSelector: false,
-                      welcomeOpen: true, // false,
+                      welcomeOpen: false,
                       registerOpen: props.register,
                       // current user information
                       lang: props.lang,
