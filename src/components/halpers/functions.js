@@ -544,25 +544,25 @@ function generate_2digit_task(operations, range_1, range_2, factor_1=1, factor_2
 }
 
 function generate_2digit_fractional_task(operations, range_1, range_2, rank_1=1, rank_2=1) {
-    var operation = get_random_operation(operations);
-    var number_1 = get_random_int(range_1, rank_1)
-    var number_2 = get_random_int(range_2, rank_2);
+    var result, operation = get_random_operation(operations);
+    var number_1 = parseFloat(get_random_int(range_1, rank_1));
+    var number_2 = parseFloat(get_random_int(range_2, rank_2));
 
     if ((operation !== 'error') && (number_1 !== 'error') && (number_2 !== 'error')) {
-        var result = 0;
+        var operation_result = 0;
         switch (operation) {
             case OPERATION_SUM:
-                result = number_1 + number_2;
+                operation_result = number_1 + number_2;
                 break;
             case OPERATION_SUB:
                 // swap numbers if first less than second
                 if (number_1 < number_2) {
                     var tmp = number_1; number_1 = number_2; number_2 = tmp;
                 }
-                result = number_1 - number_2;
+                operation_result = number_1 - number_2;
                 break;
             case OPERATION_MUL:
-                result = number_1 * number_2;
+                operation_result = number_1 * number_2;
                 break;
             default:
                 alert('ERROR: generate_2digit_fractional_task ' + operation);
@@ -571,9 +571,9 @@ function generate_2digit_fractional_task(operations, range_1, range_2, rank_1=1,
         }
 
         if (parseInt(rank_2) > parseInt(rank_1)) {
-            result = result.toFixed(rank_2);
+            result = parseFloat(operation_result).toFixed(rank_2);
         } else {
-            result = result.toFixed(rank_1);
+            result = parseFloat(operation_result).toFixed(rank_1);
         }
 
         var position = result.toString().indexOf('.');
@@ -613,7 +613,9 @@ function get_random_int(range, rank=0) {
     } else {
         var minum = parseInt(numbers[0]);
         var maxum = parseInt(numbers[1]);
-        return (Math.random() * (maxum - minum) + minum).toFixed(rank);
+        var operation = (Math.random() * (maxum - minum) + minum);
+        var rnd = parseFloat(operation).toFixed(rank);
+        return rnd;
         // return Math.floor(Math.random() * (maxum - minum + 1)) + minum;
     }
 }
