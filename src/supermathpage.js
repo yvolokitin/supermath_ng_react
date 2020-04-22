@@ -56,7 +56,7 @@ export default class SuperMathPage extends React.Component {
                       'failed': localStorage.getItem('fail') ? localStorage.getItem('fail') : '0',
                       'belt': localStorage.getItem('belt') ? localStorage.getItem('belt') : 'white',};
 
-        console.log('SuperMathPage.constructor language ' + language + ', belt ' + localStorage.getItem('belt'));
+        // console.log('SuperMathPage.constructor language ' + language + ', belt ' + localStorage.getItem('belt'));
     }
 
     // status, passed, failed
@@ -84,6 +84,9 @@ export default class SuperMathPage extends React.Component {
             } else {
                 this.setState({'register': true});
             }
+
+        } else if (property === 'unregister') {
+            this.setState({'register': false});
         }
     }
 

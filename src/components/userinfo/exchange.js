@@ -29,21 +29,21 @@ export default class Exchange extends React.Component {
     }
 
     onCounterChanged(value) {
-        if (value > 0) {
-            if (this.state.passed > (value*30)) {
-                this.setState({'counter': (this.state.counter + 1),
-                               'sailed': (this.state.sailed + 30),
-                               'passed': (this.state.passed - 30),
-                               'failed': (this.state.failed - 1),
-                               });
-            }
-        } else {
-            if (this.state.counter > 0) {
-                this.setState({'counter': (this.state.counter - 1),
-                               'sailed': (this.state.sailed - 30),
-                               'passed': (this.state.passed + 30),
-                               'failed': (this.state.failed + 1),
-                               });
+        if (this.state.failed > 0) {
+            if (value > 0) {
+                if (this.state.passed > (value*30)) {
+                    this.setState({'counter': (this.state.counter + 1),
+                                   'sailed': (this.state.sailed + 30),
+                                   'passed': (this.state.passed - 30),
+                                   'failed': (this.state.failed - 1)});
+                }
+            } else {
+                if (this.state.counter > 0) {
+                    this.setState({'counter': (this.state.counter - 1),
+                                   'sailed': (this.state.sailed - 30),
+                                   'passed': (this.state.passed + 30),
+                                   'failed': (this.state.failed + 1)});
+                }
             }
         }
     }

@@ -28,6 +28,7 @@ export default class Header extends React.Component {
         this.onForget = this.onForget.bind(this);
         this.onResult = this.onResult.bind(this);
         this.onRefresh = this.onRefresh.bind(this);
+        this.onWelcome = this.onWelcome.bind(this);
         this.onUserInfo = this.onUserInfo.bind(this);
         this.onLanguage = this.onLanguage.bind(this);
 
@@ -46,22 +47,24 @@ export default class Header extends React.Component {
                       pass: props.passed,
                       fail: props.failed,
                       id: localStorage.getItem('user_id') ? parseInt(localStorage.getItem('user_id')) : 0,
-                      name: localStorage.getItem('name') ? localStorage.getItem('name') : 'Kobe',
+                      name: localStorage.getItem('name') ? localStorage.getItem('name') : '',
                       surname: localStorage.getItem('surname') ? localStorage.getItem('surname') : '',
                       avatar: localStorage.getItem('avatar') ? localStorage.getItem('avatar') : 'martin-berube',
                       email: localStorage.getItem('email') ? localStorage.getItem('email') : '',
-                      age: localStorage.getItem('age') ? localStorage.getItem('age') : '41',
+                      age: localStorage.getItem('age') ? localStorage.getItem('age') : '',
                      };
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.register !== this.state.registerOpen) {
+        console.log('Header.componentDidUpdate, this.props.register ' + this.props.register + ', prevProps.register: ' + prevProps.register);
+        if (this.props.register !== prevProps.register) {
             console.log('Header.componentDidUpdate ' + this.props.register + ', passed: ' + this.props.passed + ',failed: ' + this.props.failed);
             if ((parseInt(this.props.passed) > 0) || (parseInt(this.props.failed) > 0)) {
                 this.setState({registerOpen: this.props.register, pass: this.props.passed, fail: this.props.failed});
             } else {
                 this.setState({registerOpen: this.props.register});
             }
+
         } else if ((this.props.passed !== prevProps.passed) || (this.props.failed !== prevProps.failed)) {
             console.log('Header.componentDidUpdate ' + this.props.passed + '. ' + this.props.failed);
             // check if user login -> update counters
@@ -86,6 +89,14 @@ export default class Header extends React.Component {
 
         } else { // else user is logouted and should be login
             this.setState({loginOpen:true});
+        }
+    }
+
+    onWelcome(property) {
+        if (property === 'userinfo') {
+            this.setState({userInfoOpen: true, welcomeOpen: false});
+        } else {
+            this.setState({welcomeOpen: false});
         }
     }
 
@@ -184,6 +195,12 @@ export default class Header extends React.Component {
         // console.log('Header.onResult ' + result + ', ' + user_id + ', ' + name +  ', ' + language + ', ' + email + ', ' + surname);
         console.log('Header.onResult ' + passed + ', ' + failed + ', age: ' + age + ', avatar: '  + avatar + ', belt: ' + belt);
         if (result === 'successed') {
+            var welcomeScreen = false;
+            if (this.state.registerOpen === true) {
+                this.props.onUpdate('unregister');
+                welcomeScreen = true;
+            }
+
             this.setState({'id': parseInt(user_id),
                            'name': name,
                            'lang': language,
@@ -197,7 +214,7 @@ export default class Header extends React.Component {
                             // close login window
                             loginOpen: false,
                             // close registration window
-                            registerOpen: false});
+                            welcomeOpen: welcomeScreen});
 
             // use HTML5 Local Storage if browser supports it
             localStorage.setItem('user_id', user_id);
@@ -214,10 +231,14 @@ export default class Header extends React.Component {
             this.props.onUpdate('language', language, belt);
 
         } else if (result === 'register') {
-            this.setState({loginOpen: false, registerOpen: true});
+            this.setState({loginOpen: false});
+            this.props.onUpdate('register');
 
         } else if (result === 'login') {
-            this.setState({loginOpen: true, forgetOpen: false, registerOpen: false});
+            this.setState({loginOpen: true, forgetOpen: false});
+            if (this.state.registerOpen === true) {
+                this.props.onUpdate('unregister');
+            }
 
         } else if (result === 'forget') {
             // console.log('Not implemented yet, just close');
@@ -247,7 +268,11 @@ export default class Header extends React.Component {
             this.setState({logoutOpen: false});
 
         } else {
-            this.setState({loginOpen: false, forgetOpen: false, registerOpen: false});
+            if (this.state.registerOpen === true) {
+                this.props.onUpdate('unregister');
+            } else {
+                this.setState({loginOpen: false, forgetOpen: false, welcomeOpen: false});
+            }
         }
     }
 
@@ -318,7 +343,7 @@ export default class Header extends React.Component {
                         )
                         :
                         (
-                         <Typography onClick={() => this.setState({registerOpen:true})} style={{fontSize:'2.00rem',fontFamily:'Grinched',color:'green'}}>
+                         <Typography onClick={() => this.props.onUpdate('register')} style={{fontSize:'2.00rem',fontFamily:'Grinched',color:'green'}}>
                             {header[this.state.lang]['register']}
                          </Typography>
                         )
@@ -370,7 +395,7 @@ export default class Header extends React.Component {
                          surname={this.state.surname}
                          passed={this.state.pass}
                          failed={this.state.fail}
-                         onClose={() => this.setState({welcomeOpen: false})}/>
+                         onClose={this.onWelcome}/>
 
                 <AlertDialog open={this.state.logoutOpen}
                              title={header[this.state.lang]['logout_title']}

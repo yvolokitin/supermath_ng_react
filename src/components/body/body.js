@@ -72,6 +72,12 @@ export default function Body(props) {
         console.log('Body.onUpdate ' + status + ': ' + passed + ', ' + failed);
         if ((status === 'close') || (status === 'replay')) {
             props.onUpdate('counter', passed, failed);
+
+        } else if ((status === 'interrapted')) {
+            var fail = failed + parseInt(localStorage.getItem('fail'));
+            var pass = parseInt(localStorage.getItem('pass'));
+            props.onUpdate('counter', pass, fail);
+
         } else if ((status === 'register')) {
             props.onUpdate('register', passed, failed);
         }

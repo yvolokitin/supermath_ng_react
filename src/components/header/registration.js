@@ -82,7 +82,7 @@ export default class Registration extends React.Component {
         var pswdhash = mykey.update('abc', 'utf8', 'hex');
         pswdhash += mykey.final('hex');
         localStorage.setItem('pswdhash', pswdhash);
-        console.log('onRegistration -> crypto pswdhash: ' + pswdhash);
+        // console.log('onRegistration -> crypto pswdhash: ' + pswdhash);
 
         this.setState({loading: true, color: '#ffd9b3'});
         var post_data = {'name': this.state.name,

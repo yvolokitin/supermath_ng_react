@@ -67,9 +67,8 @@ export default class Login extends React.Component {
         var pswdhash = mykey.update('abc', 'utf8', 'hex');
         pswdhash += mykey.final('hex');
         localStorage.setItem('pswdhash', pswdhash);
-        console.log('onLogin -> crypto pswdhash: ' + pswdhash);
+        // console.log('onLogin -> crypto pswdhash: ' + pswdhash);
 
-        // console.log('onLogin.email ' + this.state.email + ', pswd ' + this.state.pswd);
         var post_data = {'email': this.state.email, 'pswdhash': pswdhash};
         axios.post('http://supermath.xyz:3000/api/login', post_data)
             .then(this.onLoginResponse)

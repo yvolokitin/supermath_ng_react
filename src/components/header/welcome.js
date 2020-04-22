@@ -1,5 +1,6 @@
 ﻿import React from 'react';
-import {Dialog, Button, AppBar, Toolbar, Typography} from '@material-ui/core';
+import {Dialog, DialogActions, Button, AppBar, Toolbar, Typography} from '@material-ui/core';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 import SMTitle from "./../dialog/title";
 import './welcome.css';
@@ -35,9 +36,9 @@ export default function Welcome(props) {
                     <p> {welcome[props.lang]['message']} </p>
                 </div>
 
-                <div className='welcome_content'>
+                <div onClick={() => props.onClose('userinfo')} className='welcome_content'>
                     <AppBar position="static">
-                        <Toolbar onClick={() => props.onClose('')} style={{textShadow:'1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue',cursor:'pointer'}}>
+                        <Toolbar style={{textShadow:'1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue',cursor:'pointer'}}>
                             <Typography style={{fontFamily:'Grinched',fontSize:'2.00rem',fontVariant:'small-caps',color:'orange'}}></Typography>
                             <Typography variant="h5" style={{flexGrow:1}}></Typography>
                             <Typography style={{fontSize:'2.0rem',fontFamily:'Grinched',color:'orange'}}>
@@ -49,11 +50,11 @@ export default function Welcome(props) {
                     </AppBar>
                 </div>
 
-                <div className='welcome_content' style={{marginTop:'2%'}}>
+                <div className='welcome_content' style={{marginTop:'4%'}}>
                     {welcome[props.lang]['text']}
                 </div>
 
-                <div className='welcome_content' style={{marginTop:'2%'}}>
+                <div onClick={() => props.onClose('userinfo')} className='welcome_content' style={{marginTop:'2%',cursor:'pointer'}}>
                     <img src={image} alt='avatars' style={{width:'100%',padding:'1%',border:'1px solid grey'}}/>
                 </div>
 
@@ -70,11 +71,12 @@ export default function Welcome(props) {
                     <div className='welcome_violend_line'></div>
                 </div>
 
-                <div className='welcome_content_img' style={{marginTop:'5%'}}>
-                    <Button variant='contained' onClick={() => props.onClose('close')}>
-                        {welcome[props.lang]['good']}
+                <DialogActions>
+                    <Button size="small" color="primary" startIcon={<CancelIcon/>} style={{marginTop:'2%'}}
+                            onClick={() => props.onClose()}>
+                        {welcome[props.lang]['close']}
                     </Button>
-                </div>
+               </DialogActions>
             </div>
         </Dialog>
     );
