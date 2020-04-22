@@ -77,13 +77,13 @@ export default class DigitGame extends React.Component {
 
         // game was properly finished, when all tasks are solved
         } else if (status === 'interrapted') {
-            console.log('Game interraption with ' + this.state.failed);
-
-            // even if user had passed, we make it zero as punishment
-            this.props.onClose(status, 0, this.state.failed);
+            console.log('Game interraption with ' + this.state.failed + ' fails');
 
             // if task is interrapted, we would like to keep results as punishment
             if ((localStorage.getItem('user_id') !== null) && (this.state.failed > 0)) {
+                // even if user had passed, we make it zero as punishment
+                this.props.onClose(status, 0, this.state.failed);
+
                 // update user failed counter in header and send to server
                 var fails = parseInt(localStorage.getItem('fail')) + parseInt(this.state.failed);
                 localStorage.setItem('fail', fails);
@@ -99,12 +99,10 @@ export default class DigitGame extends React.Component {
                                  'task': this.state.type};
                 axios.post('http://supermath.xyz:3000/api/update', post_data);
             } else {
-                console.log('DigitGame.status: ' + status + ', do not sent results for user '
-                            + localStorage.getItem('user_id') + ', fail #: ' + this.state.failed);
+                this.props.onClose('close', 0, 0);
             }
 
-            this.setState({results: [], circle: 'white',
-                           total: 0, passed: 0, failed: 0});
+            this.setState({results: [], circle: 'white', total: 0, passed: 0, failed: 0});
             this.results = [];
 
         } else {
