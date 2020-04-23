@@ -38,9 +38,9 @@ export default class DigitGame extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
+        // console.log("DigitGame.componentDidUpdate " + this.props.task + ", prevProps.task" + prevProps.task);
         // Typical usage (don't forget to compare props), otherwise you get infinitive loop
         if (this.props.task !== prevProps.task) {
-            console.log("DigitGame.componentDidUpdate " + this.props.task + ", prevProps.task" + prevProps.task);
             this.timer = new Date().getTime();
             this.setState({type: this.props.type,
                            task: this.props.task,
@@ -55,7 +55,7 @@ export default class DigitGame extends React.Component {
 
     // closed, pass, fail passed only when game is closed
     onGameClose(status, pass, fail) {
-        console.log('DigitGame.onGameClose ' + status);
+        // console.log('DigitGame.onGameClose ' + status);
         // game was unexpecdetly closed by user during play
         if (status === 'finished') {
             this.setState({showResults: true, results: this.results,

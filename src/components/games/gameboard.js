@@ -9,8 +9,6 @@ export default class GameBoard extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log('constructor.GameBoard ' + props.type + ' ' + props.task);
-
         this.onDigit = this.onDigit.bind(this);
         this.onOperator = this.onOperator.bind(this);
         this.onKeyboard = this.onKeyboard.bind(this);
@@ -21,13 +19,21 @@ export default class GameBoard extends React.Component {
                       board: 'yellow',
                       counter: 0,
                       attempt: 0};
+    }
+
+    componentDidMount() {
+        window.addEventListener('keydown', this.onKeyboard);
 
         // to ignore user actions during animation
         this.loading = false;
     }
 
+    componentWillUnmount() {
+        window.removeEventListener('keydown', this.onKeyboard);
+    }
+
     componentDidUpdate(prevProps) {
-        // console.log("GameBoard.componentDidUpdate " + this.props.task + ', prevProps.task: ' + prevProps.task);
+        // console.log('GameBoard.componentDidUpdate task ' + this.props.task + ', prevProps.task: ' + prevProps.task);
         // Typical usage (don't forget to compare props), otherwise you get infinitive loop
         if (this.props.task !== prevProps.task) {
             this.timer = new Date().getTime();
@@ -36,7 +42,7 @@ export default class GameBoard extends React.Component {
     }
 
     set_task() {
-        console.log("GameBoard.set_task " + this.state.counter);
+        // console.log("GameBoard.set_task " + this.state.counter);
         this.setState({task: generate_task(this.props.type, this.props.task),
                        result: '?',
                        board: 'yellow',
@@ -59,10 +65,14 @@ export default class GameBoard extends React.Component {
     }
 
     onDigit({ target }) {
-        // console.log("onDigit " + target.innerText);
-        // skip any checks if in red already
-        if (this.loading === false) {
-            this.check_response((target.innerText).toString());
+        if ('innerText' in target) {
+            // console.log('onDigit ' + target.innerText);
+            // skip any checks if in red already
+            if (this.loading === false) {
+                this.check_response((target.innerText).toString());
+            }
+        } else {
+            console.log('onDigit received wrong argument');
         }
     }
 
@@ -97,7 +107,7 @@ export default class GameBoard extends React.Component {
     }
 
     onKeyboard({ key }) {
-        console.log("onKeyboard " + key);
+        // console.log('onKeyboard ' + key);
         // skip any checks if in red already
         if (this.loading === false) {
             switch (key) {
@@ -266,31 +276,12 @@ export default class GameBoard extends React.Component {
         this.loading = false;
     }
 
-/*
-                <div className="line_body_div_left">
-                    <div className="line_gameboard" style={{backgroundColor: this.state.board, animation: this.state.animation}}>
-                        { this.props.type.includes('d') ? (<div className="line_task">{this.state.task}</div>) : (null) }
-                        { this.props.type.includes('d') ? (<div className="line_result" style={{color: this.state.color}}>{this.state.result}</div>) : (null) }
-
-                        { this.props.type.includes('co') ? (<div className="line_expression">{this.state.expr1}</div>) : (null) }
-                        { this.props.type.includes('co') ? (<div className="line_result" style={{color: this.state.color}}><font>{this.state.result}</font></div>) : (null) }
-                        { this.props.type.includes('co') ? (<div className="line_expression">{this.state.expr2}</div>) : (null) }
-
-                        { this.props.type.includes('op') ? (<div className="line_result"><font>{this.state.expr1}</font></div>) : (null) }
-                        { this.props.type.includes('op') ? (<div className="line_result" style={{color: this.state.color}}><font>{this.state.result}</font></div>) : (null) }
-                        { this.props.type.includes('op') ? (<div className="line_expression">{this.state.expr2}</div>) : (null) }
-                    </div>
-                </div>
-
-                <div className="line_body_div_right">
-                    { this.props.type.includes('d') ? (<SMKeyBoard onDigit={this.onDigit} onOperator={this.onOperator} />) : (null) }
-                    { this.props.type.includes('co') ? (<OperatorBoard onOperator={this.onOperator} more={true} less={true} equals={true} plus={false} minus={false} mul={false} div={false}/>) : (null) }
-                    { this.props.type.includes('op') ? (<OperatorBoard onOperator={this.onOperator} more={false} less={false} equals={false} plus={true} minus={true} mul={false} div={false}/>) : (null) }
-                </div>
-*/
+    /*
+            <div onKeyDown={this.onKeyboard} className="gameboard_wrapper">
+    */
     render() {
         return (
-            <div onKeyDown={this.onKeyboard} className="gameboard_wrapper">
+            <div className='gameboard_wrapper'>
                 {this.props.type.includes('digit') ? (
                     <>
                       <div className="line_body_div_left">
