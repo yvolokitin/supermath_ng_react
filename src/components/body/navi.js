@@ -24,20 +24,19 @@ import Info from './info';
 import DigitGame from './../games/digitgame';
 
 import {navi_titles, navi_descriptions} from './../translations/navi';
-
 const task_amount = 30;
+
 const games = [
-    {id: 1, logo: logo1, type: '2digits_fr', task: '+,1-99,1-10,0,1', amount: task_amount},
-    {id: 2, logo: logo2, type: '2digits_fr', task: '+-,1-99,1-99,1,1', amount: task_amount},
-    {id: 3, logo: logo3, type: '2digits_fr', task: '+-,1-99,1-99,2,1', amount: task_amount},
-
-    {id: 4, logo: logo4, type: 'line_2numbers_fr', task: '+-,1-99,1-99,3,3', amount: task_amount},
-    {id: 5, logo: logo5, type: '2digits_fr', task: 'x,1-10,1-10,0,1', amount: task_amount},
-    {id: 6, logo: logo6, type: '2digits_fr', task: 'x,1-10,1-10,1,1', amount: task_amount},
-
-    {id: 7, logo: logo7, type: 'digit_3column', task: '+-,100-999,1', amount: task_amount},
-    {id: 8, logo: logo8, type: 'line_4numbers', task: '+-,1-999,1', amount: task_amount},
-    {id: 9, logo: logo9, type: 'digit_2column', task: 'x,10-999,10-999,1,1', amount: task_amount},
+    {id: 1, logo: logo1, type: '2digits', task: 'x,0-5,0-5,1,1', amount: task_amount},
+    {id: 2, logo: logo2, type: '2digits', task: 'x,1-10,1-10,1,1', amount: task_amount},
+    // exclude multiplacation to ZERO (o) due to issue with many possible options, like 0x1=0, 0x2=0 etc.
+    {id: 3, logo: logo3, type: '2digit_arg', task: 'd,x,1-10,1-10,1,1', amount: task_amount},
+    {id: 4, logo: logo4, type: '2digits', task: ':,1-10,1-10,1,1', amount: task_amount},
+    {id: 5, logo: logo5, type: '2digits', task: ':,11-99,2-9,1,1', amount: task_amount},
+    {id: 6, logo: logo6, type: '3digits', task: 'x:,0-10,1', amount: task_amount},
+    {id: 7, logo: logo7, type: '2digits', task: 'x,11-20,11-20,1,1', amount: task_amount},
+    {id: 8, logo: logo8, type: '3digits', task: 'x,1-10,1', amount: task_amount},
+    {id: 9, logo: logo9, type: 'line_5numbers', task: '-x,5,0-10,1', amount: task_amount},
 ];
 
 export default class Navi extends React.Component {
@@ -79,7 +78,7 @@ export default class Navi extends React.Component {
     }
 
     onGameOpen(type, task, amount) {
-        console.log('NAVI.onGameOpen ' + type + ', task: ' + task + ', amount: ' + amount);
+        // console.log('Navi.onGameOpen ' + type + ', task: ' + task + ', amount: ' + amount);
         this.setState({gameOpen: true, gameType: type, gameTerm: task, gameAmnt: amount});
     }
 
@@ -146,6 +145,7 @@ export default class Navi extends React.Component {
                            lang={this.props.lang}
                            belt='navi'
                            onClose={this.onGameClose}/>
+
             </Container>
         );
     }

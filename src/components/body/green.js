@@ -27,16 +27,17 @@ import {green_titles, green_descriptions} from './../translations/green';
 const task_amount = 30;
 
 const games = [
-    {id: 1, logo: logo1, type: '2digits', task: 'x,0-5,0-5,1,1', amount: task_amount},
-    {id: 2, logo: logo2, type: '2digits', task: 'x,1-10,1-10,1,1', amount: task_amount},
-    // exclude multiplacation to ZERO (o) due to issue with many possible options, like 0x1=0, 0x2=0 etc.
-    {id: 3, logo: logo3, type: '2digit_arg', task: 'd,x,1-10,1-10,1,1', amount: task_amount},
-    {id: 4, logo: logo4, type: '2digits', task: ':,1-10,1-10,1,1', amount: task_amount},
-    {id: 5, logo: logo5, type: '2digits', task: ':,11-99,2-9,1,1', amount: task_amount},
-    {id: 6, logo: logo6, type: '3digits', task: 'x:,0-10,1', amount: task_amount},
-    {id: 7, logo: logo7, type: '2digits', task: 'x,11-20,11-20,1,1', amount: task_amount},
-    {id: 8, logo: logo8, type: '3digits', task: 'x,1-10,1', amount: task_amount},
-    {id: 9, logo: logo9, type: 'line_5numbers', task: '-x,5,0-10,1', amount: task_amount},
+    {id: 1, logo: logo1, type: '2digits', task: '+-,1-9,1-9,100,100', amount: task_amount},
+    {id: 2, logo: logo2, type: '2digits', task: '+-,1-9,1-9,10,100', amount: task_amount},
+    {id: 3, logo: logo3, type: '2digits', task: '+-,1-99,1-99,10,10', amount: task_amount},
+
+    {id: 4, logo: logo4, type: 'digit_2column', task: '+-,11-99,101-999,1,1', amount: task_amount},
+    {id: 5, logo: logo5, type: '', task: '', amount: task_amount},
+    {id: 6, logo: logo6, type: '', task: '', amount: task_amount},
+
+    {id: 7, logo: logo7, type: '', task: '', amount: task_amount},
+    {id: 8, logo: logo8, type: '', task: '', amount: task_amount},
+    {id: 9, logo: logo9, type: '', task: '', amount: task_amount},
 ];
 
 export default class Green extends React.Component {
@@ -78,7 +79,7 @@ export default class Green extends React.Component {
     }
 
     onGameOpen(type, task, amount) {
-        console.log('Green.onGameOpen ' + type + ', task: ' + task + ', amount: ' + amount);
+        // console.log('Green.onGameOpen ' + type + ', task: ' + task + ', amount: ' + amount);
         this.setState({gameOpen: true, gameType: type, gameTerm: task, gameAmnt: amount});
     }
 

@@ -77,7 +77,7 @@ export default class White extends React.Component {
     }
 
     onGameOpen(type, task, amount) {
-        console.log('White.onGameOpen ' + type + ', task: ' + task + ', amount: ' + amount);
+        // console.log('White.onGameOpen ' + type + ', task: ' + task + ', amount: ' + amount);
         this.setState({gameOpen: true, gameType: type, gameTerm: task, gameAmnt: amount});
     }
 

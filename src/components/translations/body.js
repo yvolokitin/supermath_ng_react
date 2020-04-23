@@ -8,6 +8,7 @@ export const body = {
         'orange': 'Orange',
         'green': 'Green',
         'navy': 'Navy',
+        'brown': 'Brown',
         'black': 'Black',
     },
     // Russian
@@ -18,6 +19,7 @@ export const body = {
         'orange': 'Оранжевый',
         'green': 'Зеленый',
         'navy': 'Синий',
+        'brown': 'Бурый',
         'black': 'Черный',
     },
     // Dutch
@@ -28,6 +30,7 @@ export const body = {
         'orange': 'Oranje',
         'green': 'Groen',
         'navy': 'Marine',
+        'brown': 'Bruin',
         'black': 'Zwart',
     },
     // French
@@ -38,6 +41,7 @@ export const body = {
         'orange': 'Orange',
         'green': 'Vert',
         'navy': 'Marin',
+        'brown': 'Marron',
         'black': 'Noir',
     },
     // German
@@ -48,6 +52,7 @@ export const body = {
         'orange': 'Orange',
         'green': 'Grun',
         'navy': 'Marine',
+        'brown': 'Braun',
         'black': 'Schwarz',
     },
     // Spanish
@@ -58,6 +63,7 @@ export const body = {
         'orange': 'Naranja',
         'green': 'Verde',
         'navy': 'Azul',
+        'brown': 'Marron',
         'black': 'Negro',
     },
     // Italian
@@ -68,6 +74,7 @@ export const body = {
         'orange': 'Arancio',
         'green': 'Verde',
         'navy': 'Blu',
+        'brown': 'Marrone',
         'black': 'Nero',
     },
 };

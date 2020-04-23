@@ -9,6 +9,7 @@ import White from "./white";
 import Orange from "./orange";
 import Green from "./green";
 import Navi from "./navi";
+import Brown from "./brown";
 import Black from "./black";
 
 import {body} from './../translations/body';
@@ -96,7 +97,8 @@ export default function Body(props) {
                         <Tab style={{color:'orange',fontSize:'0.95rem',fontWeight:'bold'}} label={body[props.lang]['orange']} {...a11yProps(1)} />
                         <Tab style={{color:'green',fontSize:'0.95rem',fontWeight:'bold'}} label={body[props.lang]['green']} {...a11yProps(2)} />
                         <Tab style={{color:'#3f51b5',fontSize:'0.95rem',fontWeight:'bold'}} label={body[props.lang]['navy']} {...a11yProps(3)} />
-                        <Tab style={{color:'black',fontSize:'0.95rem',fontWeight:'bold'}} label={body[props.lang]['black']} {...a11yProps(4)} />
+                        <Tab style={{color:'brown',fontSize:'0.95rem',fontWeight:'bold'}} label={body[props.lang]['brown']} {...a11yProps(4)} />
+                        <Tab style={{color:'black',fontSize:'0.95rem',fontWeight:'bold'}} label={body[props.lang]['black']} {...a11yProps(5)} />
                     </Tabs>
                 </AppBar>
 
@@ -116,7 +118,11 @@ export default function Body(props) {
                     <Navi onUpdate={(status, passed, failed) => onUpdate(status, passed, failed)}
                           play={body[props.lang]['play']} info={body[props.lang]['info']} lang={props.lang}/>
                 </TabPanel>
-                <TabPanel style={{backgroundColor:'black'}} value={value} index={4}>
+                <TabPanel style={{backgroundColor:'brown'}} value={value} index={4}>
+                    <Brown onUpdate={(status, passed, failed) => onUpdate(status, passed, failed)}
+                           play={body[props.lang]['play']} info={body[props.lang]['info']} lang={props.lang}/>
+                </TabPanel>
+                <TabPanel style={{backgroundColor:'black'}} value={value} index={5}>
                     <Black onUpdate={(status, passed, failed) => onUpdate(status, passed, failed)}
                            play={body[props.lang]['play']} info={body[props.lang]['info']} lang={props.lang}/>
                 </TabPanel>

@@ -15,9 +15,6 @@ import logo6 from './../../images/tasks/orange_6.jpg';
 import logo7 from './../../images/tasks/orange_7.jpg';
 import logo8 from './../../images/tasks/orange_8.jpg';
 import logo9 from './../../images/tasks/orange_9.jpg';
-import logo10 from './../../images/tasks/orange_10.jpg';
-import logo11 from './../../images/tasks/orange_11.jpg';
-import logo12 from './../../images/tasks/orange_12.jpg';
 
 import classes from './../../index.css';
 
@@ -32,17 +29,13 @@ const games = [
     {id: 1, logo: logo1, type: 'linedigits', task: '13-97', amount: task_amount},
     {id: 2, logo: logo2, type: 'comp_nums', task: '<>=,11-99,1', amount: task_amount},
     {id: 3, logo: logo3, type: '2digits', task: '+-,1-9,10-20,1,1', amount: task_amount},
-    {id: 4, logo: logo4, type: '2digits', task: '+-,1-10,1-10,10,10', amount: task_amount},
+    {id: 4, logo: logo4, type: '2digits', task: '+-,1-9,1-9,10,10', amount: task_amount},
     {id: 5, logo: logo5, type: '2digits', task: '+-,1-10,1-9,10,1', amount: task_amount},
     {id: 6, logo: logo6, type: '2digits', task: '+-,1-9,11-99,1,1', amount: task_amount},
 
     {id: 7, logo: logo7, type: '2digits', task: '+-,1-9,11-99,10,1', amount: task_amount},
     {id: 8, logo: logo8, type: '2digits', task: '+-,11-99,11-99,1,1', amount: task_amount},
-    {id: 9, logo: logo9, type: '2digits', task: '+-,1-9,1-9,100,100', amount: task_amount},
-
-    {id: 10, logo: logo10, type: '2digits', task: '+-,1-9,1-9,10,100', amount: task_amount},
-    {id: 11, logo: logo11, type: '2digits', task: '+-,1-99,1-99,10,10', amount: task_amount},
-    {id: 12, logo: logo12, type: 'digit_2column', task: '+-,11-99,101-999,1,1', amount: task_amount},
+    {id: 9, logo: logo9, type: '2digits', task: '+-,11-99,1-1,1,100', amount: task_amount},
 ];
 
 export default class Orange extends React.Component {
@@ -84,7 +77,7 @@ export default class Orange extends React.Component {
     }
 
     onGameOpen(type, task, amount) {
-        console.log('Orange.onGameOpen ' + type + ', task: ' + task + ', amount: ' + amount);
+        // console.log('Orange.onGameOpen ' + type + ', task: ' + task + ', amount: ' + amount);
         this.setState({gameOpen: true, gameType: type, gameTerm: task, gameAmnt: amount});
     }
 
