@@ -25,7 +25,7 @@ import DigitGame from './../games/digitgame';
 
 import {brown_titles, brown_descriptions} from './../translations/brown';
 
-const task_amount = 2; // 30;
+const task_amount = 30;
 const games = [
     {id: 1, logo: logo1, type: '2digits_fr', task: '+,1-99,1-10,0,1', amount: task_amount},
     {id: 2, logo: logo2, type: '2digits_fr', task: '+-,1-99,1-99,1,1', amount: task_amount},
