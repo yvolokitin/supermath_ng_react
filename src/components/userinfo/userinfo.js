@@ -28,12 +28,26 @@ import ava10 from './../../images/avatars/clown-icon.png';
 import ava11 from './../../images/avatars/grandma-icon.png';
 import ava12 from './../../images/avatars/lumberjack-icon.png';
 
-import ava13 from './../../images/avatars/martin-berube.ico';
+import ava13 from './../../images/avatars/martin-berube.png';
 import ava14 from './../../images/avatars/pirate-icon.png';
 import ava15 from './../../images/avatars/policeman-icon.png';
 import ava16 from './../../images/avatars/princess-icon.png';
 import ava17 from './../../images/avatars/prisoner-icon.png';
 import ava18 from './../../images/avatars/queen-icon.png';
+
+import ava19 from './../../images/avatars/dentist-icon.png';
+import ava20 from './../../images/avatars/baby-icon.png';
+import ava21 from './../../images/avatars/soldier-icon.png';
+import ava22 from './../../images/avatars/prince-icon.png';
+import ava23 from './../../images/avatars/lady-icon.png';
+import ava24 from './../../images/avatars/mom-icon.png';
+
+import ava25 from './../../images/avatars/Indian-icon.png';
+import ava26 from './../../images/avatars/Irish-icon.png';
+import ava27 from './../../images/avatars/king-icon.png';
+import ava28 from './../../images/avatars/waiter-icon.png';
+import ava29 from './../../images/avatars/woman-icon.png';
+import ava30 from './../../images/avatars/firefighter-icon.png';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -58,7 +72,11 @@ function a11yProps(index) {
     };
 }
 
-var avatars = [ava1,ava2,ava3,ava4,ava5,ava6,ava7,ava8,ava9,ava10,ava11,ava12,ava13,ava14,ava15,ava16,ava17,ava18];
+var avatars = [ava1,ava2,ava3,ava4,ava5,ava6,
+               ava7,ava8,ava9,ava10,ava11,ava12,
+               ava13,ava14,ava15,ava16,ava17,ava18,
+               ava19,ava20,ava21,ava22,ava23,ava24,
+               ava25,ava26,ava27,ava28,ava29,ava30];
 
 export default class UserInformation extends React.Component {
     constructor(props) {
