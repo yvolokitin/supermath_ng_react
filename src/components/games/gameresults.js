@@ -44,15 +44,14 @@ export default class GameResults extends React.Component {
             seconds = Math.floor((duration / 1000) % 60);
         }
 
-        var rate = gameresults[this.props.lang]['really_bad'];
+        var rate = 'really_bad';
         var passed = 100 * this.props.passed / this.props.amount;
-
-        if (passed > 99) { rate = gameresults[this.props.lang]['excellent'];
-        } else if (passed > 95) { rate = gameresults[this.props.lang]['quite_good'];
-        } else if (passed > 90) { rate = gameresults[this.props.lang]['good'];
-        } else if (passed > 80) { rate = gameresults[this.props.lang]['well'];
-        } else if (passed > 60) { rate = gameresults[this.props.lang]['not_well'];
-        } else if (passed > 40) { rate = gameresults[this.props.lang]['quite_bad'];}
+        if (passed > 99) { rate = 'excellent';
+        } else if (passed > 95) { rate = 'quite_good';
+        } else if (passed > 90) { rate = 'good';
+        } else if (passed > 80) { rate = 'well';
+        } else if (passed > 60) { rate = 'not_well';
+        } else if (passed > 40) { rate = 'quite_bad';}
 
         return {'percent': passed, 'rate': rate, 'hours': hours, 'minutes': minutes, 'seconds': seconds}
     }
@@ -144,7 +143,7 @@ export default class GameResults extends React.Component {
 
                     <div className='result_board_body'>
                         {gameresults[this.props.lang]['reach']} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#9757;</span> &nbsp;
-                        <font style={{color:'orange'}}>{this.state.result.rate}</font> {gameresults[this.props.lang]['score']}
+                        <font style={{color:'orange'}}> {gameresults[this.props.lang][this.state.result.rate]} </font> {gameresults[this.props.lang]['score']}
                         &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128202;</span>
                     </div>
 
