@@ -32,7 +32,10 @@ export default class Header extends React.Component {
         this.onUserInfo = this.onUserInfo.bind(this);
         this.onLanguage = this.onLanguage.bind(this);
 
-        this.state = {aboutOpen: false,
+        this.updateSize = this.updateSize.bind(this);
+
+        this.state = {width: window.innerWidth,
+                      aboutOpen: false,
                       helpOpen: false,
                       loginOpen: false,
                       logoutOpen: false,
@@ -53,6 +56,13 @@ export default class Header extends React.Component {
                       email: localStorage.getItem('email') ? localStorage.getItem('email') : '',
                       age: localStorage.getItem('age') ? localStorage.getItem('age') : '',
                      };
+
+        window.addEventListener('resize', this.updateSize);
+    }
+
+    updateSize() {
+        console.log('window.innerWidth ' + window.innerWidth);
+        this.setState({width: window.innerWidth});
     }
 
     componentDidUpdate(prevProps) {
@@ -320,7 +330,105 @@ export default class Header extends React.Component {
         this.setState({forgetOpen: true});
     }
 
+    /*
+        100% header_div:
+          left (36):
+            13% header_div_supermath
+            13% header_div_about (+7)
+            10% header_div_help
+
+          right (45 or 28):
+            10% header_div_login
+
+            30% header_div_userinfo
+            or
+            13% header_div_register
+
+            5% header_div_lang
+    */
     render() {
+        return (
+            <div className='header_div'>
+                { (this.state.width > 750) ? (
+                    <div onClick={this.onRefresh} className='header_div_supermath'> SuperMath </div>
+                   ) : (
+                    <div onClick={this.onRefresh} className='header_div_supermath'> SM </div>
+                )}
+
+                <div className='header_div_about' onClick={() => this.setState({aboutOpen: true})}>
+                    {header[this.state.lang]['about']}
+                </div>
+                <div className='header_div_help' onClick={() => this.setState({helpOpen: true})}>
+                    {header[this.state.lang]['help']}
+                </div>
+
+                <div onClick={() => this.setState({langSelector:true})} className='header_div_lang'>
+                    {header[this.state.lang]['lang']}
+                </div>
+
+                { (this.state.id > 0) ? (
+                    <>
+                      <div onClick={() => this.setState({logoutOpen:true})} className='header_div_login'>
+                        {header[this.state.lang]['logout']}
+                      </div>
+                      <div onClick={() => this.setState({userInfoOpen: true})} className='header_div_userinfo'>
+                            {this.state.name} :
+                            <font style={{color:'green'}}> {this.state.pass} </font> &#128515;
+                            <font style={{color:'red'}}> {this.state.fail} </font> &#128169;
+                      </div>
+                    </>
+                   ) : (
+                    <>
+                      <div onClick={() => this.setState({loginOpen: true})} className='header_div_login'>
+                        {header[this.state.lang]['login']}
+                      </div>
+                      <div onClick={() => this.props.onUpdate('register')} className='header_div_register'>
+                        {header[this.state.lang]['register']}
+                      </div>
+                    </>
+                   )
+                }
+
+
+                <SMHelp open={this.state.helpOpen} onClick={() => this.setState({helpOpen: false})} lang={this.state.lang}/>
+                <SMAbout open={this.state.aboutOpen} onClick={() => this.setState({aboutOpen: false})} lang={this.state.lang}/>
+
+                <Login open={this.state.loginOpen} onClose={this.onResult} lang={this.state.lang}/>
+                <Forget open={this.state.forgetOpen} onClose={this.onResult} lang={this.state.lang}/>
+
+                <UserInformation open={this.state.userInfoOpen} onUpdate={this.onUserInfo}
+                                 id={this.state.id} email={this.state.email}
+                                 name={this.state.name} surname={this.state.surname}
+                                 age={this.state.age} avatar={this.state.avatar}
+                                 pass={this.state.pass} fail={this.state.fail}
+                                 lang={this.state.lang}/>
+
+                <Registration open={this.state.registerOpen}
+                              onClose={this.onResult}
+                              lang={this.state.lang}
+                              passed={this.props.passed}
+                              failed={this.props.failed}/>
+
+                <Language open={this.state.langSelector} onClose={this.onLanguage} lang={this.state.lang}/>
+
+                <Welcome open={this.state.welcomeOpen}
+                         lang={this.state.lang}
+                         name={this.state.name}
+                         surname={this.state.surname}
+                         passed={this.state.pass}
+                         failed={this.state.fail}
+                         onClose={this.onWelcome}/>
+
+                <AlertDialog open={this.state.logoutOpen}
+                             title={header[this.state.lang]['logout_title']}
+                             yes={header[this.state.lang]['logout_yes']}
+                             no={header[this.state.lang]['logout_no']}
+                             name={this.state.name}
+                             onClose={this.onResult}/>
+            </div>
+        )
+
+/*
         return (
             <AppBar position="static">
                 <Toolbar style={{cursor:'pointer',fontVariant:'small-caps',textShadow:'1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue',}}>
@@ -329,7 +437,7 @@ export default class Header extends React.Component {
                         {header[this.state.lang]['about']}
                     </Typography>
                     <Typography onClick={() => this.setState({helpOpen: true})} style={{marginLeft:'1%',fontFamily:'Grinched',fontSize:'2.00rem',color:'green'}}>
-                        {header[this.state.lang]['help']}
+                        
                     </Typography>
 
                     <Typography variant="h5" style={{flexGrow:1}}></Typography>
@@ -404,5 +512,7 @@ export default class Header extends React.Component {
                              name={this.state.name}
                              onClose={this.onResult}/>
             </AppBar>
-    )};
+        )
+*/
+    };
 }
