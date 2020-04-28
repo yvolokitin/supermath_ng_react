@@ -19,9 +19,9 @@ import image from './../../images/help/belts.jpg';
     
 
 */
-export default function SMHelp(props) {
+export default function Help(props) {
     return (
-        <AutoRotatingCarousel autoplay={false} open={props.open}  onClose={() => props.onClick()} onStart={() => props.onClick()} style={{position: 'absolute'}}>
+        <AutoRotatingCarousel mobile={props.fullScreen} autoplay={false} open={props.open} onClose={() => props.onClick()} onStart={() => props.onClick()} style={{position: 'absolute'}}>
             <Slide id='common'
                 media={
                     <div className='help_image_wrapper'>

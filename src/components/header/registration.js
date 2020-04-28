@@ -151,7 +151,7 @@ export default class Registration extends React.Component {
     */
     render() {
         return (
-            <Dialog transitionDuration={600} fullWidth={true} maxWidth='md' scroll='body' open={this.props.open}>
+            <Dialog transitionDuration={600} fullScreen={this.props.fullScreen} fullWidth={true} maxWidth='md' scroll='body' open={this.props.open}>
                 <SMTitle title='' onClick={() => this.onClose()}/>
 
                 <div className='registration_desk' style={{backgroundColor: this.state.color}}>

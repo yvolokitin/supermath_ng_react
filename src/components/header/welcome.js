@@ -10,7 +10,7 @@ import image from './../../images/welcome/avatars.jpg';
 
 export default function Welcome(props) {
     return (
-        <Dialog onClose={() => props.onClose('close')} transitionDuration={500} open={props.open} scroll='body'>
+        <Dialog onClose={() => props.onClose('close')} fullScreen={props.fullScreen} transitionDuration={500} open={props.open} scroll='body'>
             <SMTitle title='' onClick={() => props.onClose()}/>
 
             <div style={{height:'100%',width:'100%',}}>

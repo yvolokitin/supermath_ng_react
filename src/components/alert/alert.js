@@ -1,9 +1,10 @@
 ﻿import React from 'react';
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
+import ColorLine from "./../line/line";
 
 export default function AlertDialog(props) {
     return (
-        <Dialog onClose={() => props.onClose('close')} open={props.open}>
+        <Dialog onClose={() => props.onClose('close')} fullScreen={props.fullScreen} open={props.open}>
             <DialogTitle id="alert-dialog-title">{props.title}</DialogTitle>
             <DialogContent>
                 {'text' in props ? (
@@ -19,6 +20,7 @@ export default function AlertDialog(props) {
                 )}
             </DialogContent>
 
+            <ColorLine/>
             <DialogActions>
                 <Button onClick={() => props.onClose('logout')} color="primary" autoFocus>{props.yes}</Button>
                 <Button onClick={() => props.onClose('close')} color="primary">

@@ -19,7 +19,7 @@ export default function Language(props) {
     }
 
     return (
-        <Dialog onClose={() => props.onClose()} transitionDuration={500} open={props.open} scroll='body'>
+        <Dialog onClose={() => props.onClose()} fullScreen={props.fullScreen} transitionDuration={500} open={props.open} scroll='body'>
             <SMTitle title='Select your language' className='language_title' onClick={() => props.onClose()}/>
 
             <Card style={{marginLeft:'5%',marginRight:'5%',display:'flex',flexDirection:'column'}}>

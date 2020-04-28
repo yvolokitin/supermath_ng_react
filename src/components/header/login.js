@@ -12,6 +12,7 @@ import {validate} from 'validate.js';
 import constraints from './constraints';
 
 import SMTitle from './../dialog/title';
+import ColorLine from "./../line/line";
 
 import {login} from './../translations/login';
 
@@ -135,10 +136,11 @@ export default class Login extends React.Component {
     */
     render() {
         return (
-            <Dialog fullWidth={true} open={this.props.open}>
+            <Dialog fullWidth={true} fullScreen={this.props.fullScreen} open={this.props.open}>
                 <SMTitle title='' onClick={() => this.onClose()}/>
+                <ColorLine/>
 
-                <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
+                <div style={{marginTop:'15px',display:'flex',flexDirection:'column',alignItems:'center'}}>
                     <div style={{position:'relative',}}>
                         <Fab style={{color:'white',backgroundColor:this.state.color}}>
                             {this.state.success ? <CheckIcon/> : <LockOutlinedIcon/>}

@@ -14,7 +14,7 @@ export const header = {
     },
     // Russian
     'ru': {
-        'about': 'о программе',
+        'about': 'о нас',
         'help': 'помощь',
         'login': 'войти',
         'logout': 'выйти',

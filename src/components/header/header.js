@@ -1,10 +1,8 @@
 import React from 'react';
-import {AppBar, Toolbar, Typography} from '@material-ui/core';
-
 import axios from 'axios';
 
-import SMHelp from './help';
-import SMAbout from './about';
+import Help from './help';
+import About from './about';
 
 import Login from './login';
 import Forget from './forget';
@@ -51,6 +49,8 @@ export default class Header extends React.Component {
                       fail: props.failed,
                       id: localStorage.getItem('user_id') ? parseInt(localStorage.getItem('user_id')) : 0,
                       name: localStorage.getItem('name') ? localStorage.getItem('name') : '',
+                      // subname is used when name.length > 10 characters
+                      subname: localStorage.getItem('name') ? localStorage.getItem('name').slice(0, 9) : '',
                       surname: localStorage.getItem('surname') ? localStorage.getItem('surname') : '',
                       avatar: localStorage.getItem('avatar') ? localStorage.getItem('avatar') : 'martin-berube',
                       email: localStorage.getItem('email') ? localStorage.getItem('email') : '',
@@ -61,7 +61,7 @@ export default class Header extends React.Component {
     }
 
     updateSize() {
-        console.log('window.innerWidth ' + window.innerWidth);
+        // console.log('window.innerWidth ' + window.innerWidth);
         this.setState({width: window.innerWidth});
     }
 
@@ -97,8 +97,9 @@ export default class Header extends React.Component {
                 .then(this.onApiUpdate)
                 .catch(this.onApiUpdateError);
 
-        } else { // else user is logouted and should be login
-            this.setState({loginOpen:true});
+        } else { // else user is logouted -> page reload
+            window.location.reload();
+            // this.setState({loginOpen:true});
         }
     }
 
@@ -145,7 +146,7 @@ export default class Header extends React.Component {
                              'operation': property,
                              'pswdhash': pswdhash};
             if (property === 'name') {
-                this.setState({name: value});
+                this.setState({name: value, subname: value.slice(0, 9)});
                 post_data['name'] = value;
             } else if (property === 'surname') {
                 this.setState({surname: value});
@@ -213,6 +214,7 @@ export default class Header extends React.Component {
 
             this.setState({'id': parseInt(user_id),
                            'name': name,
+                           'subname': name.slice(0, 9),
                            'lang': language,
                            'email': email,
                            'surname': surname,
@@ -330,71 +332,110 @@ export default class Header extends React.Component {
         this.setState({forgetOpen: true});
     }
 
-    /*
-        100% header_div:
-          left (36):
-            13% header_div_supermath
-            13% header_div_about (+7)
-            10% header_div_help
-
-          right (45 or 28):
-            10% header_div_login
-
-            30% header_div_userinfo
-            or
-            13% header_div_register
-
-            5% header_div_lang
-    */
     render() {
         return (
             <div className='header_div'>
-                { (this.state.width > 750) ? (
-                    <div onClick={this.onRefresh} className='header_div_supermath'> SuperMath </div>
-                   ) : (
-                    <div onClick={this.onRefresh} className='header_div_supermath'> SM </div>
-                )}
+                { (this.state.width > 580) ? (
+                  <>
+                    <div className='header_div_left'>
+                        { (this.state.width > 860) ? (
+                            <font onClick={this.onRefresh} className='font_supermath'> SuperMath </font>
+                          ) : (
+                            <font onClick={this.onRefresh} className='font_supermath'> SM </font>
+                        )}
+                        <font onClick={() => this.setState({aboutOpen: true})} className='font_about'> {header[this.state.lang]['about']} </font>
+                        <font onClick={() => this.setState({helpOpen: true})} className='font_help'> {header[this.state.lang]['help']} </font>
+                    </div>
 
-                <div className='header_div_about' onClick={() => this.setState({aboutOpen: true})}>
-                    {header[this.state.lang]['about']}
-                </div>
-                <div className='header_div_help' onClick={() => this.setState({helpOpen: true})}>
-                    {header[this.state.lang]['help']}
-                </div>
+                    <div className='header_div_right'>
+                        { (this.state.id > 0) ? (
+                            <>
+                              { (this.state.name.length < 10) ? (
+                                    <font onClick={() => this.setState({userInfoOpen: true})} className='font_userinfo'>
+                                        {this.state.name} :
+                                    </font>
+                                ) : (
+                                    <font onClick={() => this.setState({userInfoOpen: true})} className='font_userinfo'>
+                                        {this.state.subname} :
+                                    </font>
+                              ) }
+                              <font onClick={() => this.setState({userInfoOpen: true})} className='font_userinfo' style={{color:'green'}}>
+                                {this.state.pass} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
+                              </font> 
+                              <font onClick={() => this.setState({userInfoOpen: true})} className='font_userinfo_last' style={{color:'red'}}>
+                                {this.state.fail} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
+                              </font> 
+                              <font onClick={() => this.setState({logoutOpen:true})} className='font_login'>{header[this.state.lang]['logout']}</font>
+                            </>
+                           ) : (
+                            <>
+                              <font onClick={() => this.props.onUpdate('register')} className='font_register'> {header[this.state.lang]['register']} </font>
+                              <font onClick={() => this.setState({loginOpen: true})} className='font_login'> {header[this.state.lang]['login']} </font>
+                            </>
+                           )
+                        }
 
-                <div onClick={() => this.setState({langSelector:true})} className='header_div_lang'>
-                    {header[this.state.lang]['lang']}
-                </div>
+                        <font onClick={() => this.setState({langSelector:true})} className='font_lang'> {header[this.state.lang]['lang']} </font>
 
-                { (this.state.id > 0) ? (
-                    <>
-                      <div onClick={() => this.setState({logoutOpen:true})} className='header_div_login'>
-                        {header[this.state.lang]['logout']}
-                      </div>
-                      <div onClick={() => this.setState({userInfoOpen: true})} className='header_div_userinfo'>
-                            {this.state.name} :
-                            <font style={{color:'green'}}> {this.state.pass} </font> &#128515;
-                            <font style={{color:'red'}}> {this.state.fail} </font> &#128169;
-                      </div>
-                    </>
-                   ) : (
-                    <>
-                      <div onClick={() => this.setState({loginOpen: true})} className='header_div_login'>
-                        {header[this.state.lang]['login']}
-                      </div>
-                      <div onClick={() => this.props.onUpdate('register')} className='header_div_register'>
-                        {header[this.state.lang]['register']}
-                      </div>
-                    </>
-                   )
+                    </div>
+                  </>
+                  ) : ( null )
                 }
 
+                { (this.state.width < 581) ? (
+                  <>
+                    <div className='header_div_left'>
+                        { (this.state.width > 500) ? (
+                            <font onClick={this.onRefresh} className='font_supermath'> SuperMath </font>
+                          ) : (
+                            <font onClick={this.onRefresh} className='font_supermath'> sm </font>
+                        )}
+                        <font onClick={() => this.setState({aboutOpen: true})} className='font_about'> {header[this.state.lang]['about']} </font>
+                        <font onClick={() => this.setState({helpOpen: true})} className='font_help'> {header[this.state.lang]['help']} </font>
+                        { (this.state.id > 0) ? (
+                              <font onClick={() => this.setState({logoutOpen:true})} className='font_login'>{header[this.state.lang]['logout']}</font>
+                          ) : (
+                              <font onClick={() => this.setState({loginOpen: true})} className='font_login'> {header[this.state.lang]['login']} </font>
+                        )}
 
-                <SMHelp open={this.state.helpOpen} onClick={() => this.setState({helpOpen: false})} lang={this.state.lang}/>
-                <SMAbout open={this.state.aboutOpen} onClick={() => this.setState({aboutOpen: false})} lang={this.state.lang}/>
+                        <font onClick={() => this.setState({langSelector:true})} className='font_lang'> {header[this.state.lang]['lang']} </font>
+                    </div>
 
-                <Login open={this.state.loginOpen} onClose={this.onResult} lang={this.state.lang}/>
-                <Forget open={this.state.forgetOpen} onClose={this.onResult} lang={this.state.lang}/>
+                    <div className='header_div_right'>
+                        { (this.state.id > 0) ? (
+                            <>
+                              { (this.state.name.length < 10) ? (
+                                    <font onClick={() => this.setState({userInfoOpen: true})} className='font_userinfo'>
+                                        {this.state.name} :
+                                    </font>
+                                ) : (
+                                    <font onClick={() => this.setState({userInfoOpen: true})} className='font_userinfo'>
+                                        {this.state.subname} :
+                                    </font>
+                              ) }
+                              <font onClick={() => this.setState({userInfoOpen: true})} className='font_userinfo' style={{color:'green'}}>
+                                {this.state.pass} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
+                              </font> 
+                              <font onClick={() => this.setState({userInfoOpen: true})} className='font_userinfo_last' style={{color:'red'}}>
+                                {this.state.fail} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
+                              </font> 
+                            </>
+                           ) : (
+                              <font onClick={() => this.props.onUpdate('register')} className='font_register' style={{color:'orange'}}>
+                                {header[this.state.lang]['register']}
+                              </font>
+                           )
+                        }
+                    </div>
+                  </>
+                  ) : ( null )
+                }
+
+                <Help open={this.state.helpOpen} fullScreen={this.state.width<581} onClick={() => this.setState({helpOpen: false})} lang={this.state.lang}/>
+                <About open={this.state.aboutOpen} fullScreen={this.state.width<581} onClick={() => this.setState({aboutOpen: false})} lang={this.state.lang}/>
+
+                <Login open={this.state.loginOpen} fullScreen={this.state.width<581} onClose={this.onResult} lang={this.state.lang}/>
+                <Forget open={this.state.forgetOpen} fullScreen={this.state.width<581} onClose={this.onResult} lang={this.state.lang}/>
 
                 <UserInformation open={this.state.userInfoOpen} onUpdate={this.onUserInfo}
                                  id={this.state.id} email={this.state.email}
@@ -404,14 +445,19 @@ export default class Header extends React.Component {
                                  lang={this.state.lang}/>
 
                 <Registration open={this.state.registerOpen}
+                              fullScreen={this.state.width<581}
                               onClose={this.onResult}
                               lang={this.state.lang}
                               passed={this.props.passed}
                               failed={this.props.failed}/>
 
-                <Language open={this.state.langSelector} onClose={this.onLanguage} lang={this.state.lang}/>
+                <Language open={this.state.langSelector}
+                          fullScreen={this.state.width<581} 
+                          onClose={this.onLanguage}
+                          lang={this.state.lang}/>
 
                 <Welcome open={this.state.welcomeOpen}
+                         fullScreen={this.state.width<581} 
                          lang={this.state.lang}
                          name={this.state.name}
                          surname={this.state.surname}
@@ -420,6 +466,7 @@ export default class Header extends React.Component {
                          onClose={this.onWelcome}/>
 
                 <AlertDialog open={this.state.logoutOpen}
+                             fullScreen={this.state.width<581} 
                              title={header[this.state.lang]['logout_title']}
                              yes={header[this.state.lang]['logout_yes']}
                              no={header[this.state.lang]['logout_no']}
@@ -427,92 +474,5 @@ export default class Header extends React.Component {
                              onClose={this.onResult}/>
             </div>
         )
-
-/*
-        return (
-            <AppBar position="static">
-                <Toolbar style={{cursor:'pointer',fontVariant:'small-caps',textShadow:'1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue',}}>
-                    <Typography onClick={this.onRefresh} style={{fontFamily:'Grinched',fontSize:'2.00rem',fontVariant:'small-caps',color:'orange'}}>SuperMath</Typography>
-                    <Typography onClick={() => this.setState({aboutOpen: true})} style={{marginLeft:'1%',fontFamily:'Grinched',fontSize:'2.00rem',color:'green'}}>
-                        {header[this.state.lang]['about']}
-                    </Typography>
-                    <Typography onClick={() => this.setState({helpOpen: true})} style={{marginLeft:'1%',fontFamily:'Grinched',fontSize:'2.00rem',color:'green'}}>
-                        
-                    </Typography>
-
-                    <Typography variant="h5" style={{flexGrow:1}}></Typography>
-                    { (this.state.id > 0) ?
-                        (
-                         <Typography onClick={() => this.setState({userInfoOpen: true})} style={{fontSize:'2.00rem',fontFamily:'Grinched',color:'orange'}}>
-                            {this.state.name} :
-                            <font style={{color:'green'}}> {this.state.pass} </font> &#128515;
-                            <font style={{color:'red'}}> {this.state.fail} </font> &#128169;
-                         </Typography>
-                        )
-                        :
-                        (
-                         <Typography onClick={() => this.props.onUpdate('register')} style={{fontSize:'2.00rem',fontFamily:'Grinched',color:'green'}}>
-                            {header[this.state.lang]['register']}
-                         </Typography>
-                        )
-                    }
-
-                    { (this.state.id > 0) ?
-                        (
-                         <Typography onClick={() => this.setState({logoutOpen:true})} style={{marginLeft:'2%',color:'green',fontSize:'2.00rem',fontFamily:'Grinched'}}>
-                            {header[this.state.lang]['logout']}
-                         </Typography>
-                        )
-                        :
-                        (
-                         <Typography onClick={() => this.setState({loginOpen: true})} style={{marginLeft:'2%',color:'orange',fontSize:'2.00rem',fontFamily:'Grinched'}}>
-                            {header[this.state.lang]['login']}
-                         </Typography>
-                        )
-                    }
-
-                    <Typography onClick={() => this.setState({langSelector:true})} style={{marginLeft:'1%',fontSize:'2.00rem',fontFamily:'Grinched',color:'green'}}>
-                        {header[this.state.lang]['lang']}
-                    </Typography>
-                </Toolbar>
-
-                <SMHelp open={this.state.helpOpen} onClick={() => this.setState({helpOpen: false})} lang={this.state.lang}/>
-                <SMAbout open={this.state.aboutOpen} onClick={() => this.setState({aboutOpen: false})} lang={this.state.lang}/>
-
-                <Login open={this.state.loginOpen} onClose={this.onResult} lang={this.state.lang}/>
-                <Forget open={this.state.forgetOpen} onClose={this.onResult} lang={this.state.lang}/>
-
-                <UserInformation open={this.state.userInfoOpen} onUpdate={this.onUserInfo}
-                                 id={this.state.id} email={this.state.email}
-                                 name={this.state.name} surname={this.state.surname}
-                                 age={this.state.age} avatar={this.state.avatar}
-                                 pass={this.state.pass} fail={this.state.fail}
-                                 lang={this.state.lang}/>
-
-                <Registration open={this.state.registerOpen}
-                              onClose={this.onResult}
-                              lang={this.state.lang}
-                              passed={this.props.passed}
-                              failed={this.props.failed}/>
-
-                <Language open={this.state.langSelector} onClose={this.onLanguage} lang={this.state.lang}/>
-
-                <Welcome open={this.state.welcomeOpen}
-                         lang={this.state.lang}
-                         name={this.state.name}
-                         surname={this.state.surname}
-                         passed={this.state.pass}
-                         failed={this.state.fail}
-                         onClose={this.onWelcome}/>
-
-                <AlertDialog open={this.state.logoutOpen}
-                             title={header[this.state.lang]['logout_title']}
-                             yes={header[this.state.lang]['logout_yes']}
-                             no={header[this.state.lang]['logout_no']}
-                             name={this.state.name}
-                             onClose={this.onResult}/>
-            </AppBar>
-        )
-*/
     };
 }
