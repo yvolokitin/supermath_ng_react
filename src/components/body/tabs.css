@@ -15,11 +15,18 @@
     height: 48px;
     width: 160px;
     cursor: pointer;
-    background-color: #fbfbf8;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: clip; 
 }
 .tabs_div {
     height: 45px;
     width: 160px;
+    margin-bottom: 3px;
 
     overflow: hidden;
     white-space: nowrap; 
