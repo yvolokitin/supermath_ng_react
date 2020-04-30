@@ -1,5 +1,5 @@
-﻿// navi beld titles
-export const navi_titles = {
+﻿// navy beld titles
+export const navy_titles = {
     // English
     'en': {
         '1': 'Multiplication two one-digit number from 0 to 5',
@@ -86,8 +86,8 @@ export const navi_titles = {
     },
 };
 
-// navi beld descriptions
-export const navi_descriptions = {
+// navy beld descriptions
+export const navy_descriptions = {
     // English
     'en': {
         '1': 'Tasks for multiplication of one-digit numbers from 0 to 5. Multiplication often denoted by the cross symbol x or by an asterisk * or dot. For example: 3 x 1 = 3, 3 x 3 = 9 or 5 x 3 = 15.',

@@ -1,0 +1,12 @@
+﻿.tasks_wrapper {
+    padding: 10px;
+    position: static;
+    width: 100%;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    transition: background-color 2s;
+}

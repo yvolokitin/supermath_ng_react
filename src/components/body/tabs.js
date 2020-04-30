@@ -1,11 +1,13 @@
 ﻿import React from 'react';
 
+import Tasks from './tasks';
+
 import {body} from './../translations/body';
 
 import './tabs.css';
 
 export default function Tabs(props) {
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = React.useState('white');
 
     const [white, setWhite] = React.useState(0);
     const [orange, setOrange] = React.useState(0);
@@ -30,6 +32,7 @@ export default function Tabs(props) {
         }
 
         setValue(color);
+        
     }
 
     function onClick(color) {
@@ -53,6 +56,7 @@ export default function Tabs(props) {
     };
 
     return (
+      <>
         <div className='tabs_wrapper'>
             <div className='tabs_div_wrapper' style={{backgroundColor: white}}>
                 <div className='tabs_div' onClick={() => onClick('white')}>
@@ -90,5 +94,8 @@ export default function Tabs(props) {
                 </div>
             </div>
         </div>
+
+        <Tasks color={value} lang={props.lang}/>
+      </>
     );
 }

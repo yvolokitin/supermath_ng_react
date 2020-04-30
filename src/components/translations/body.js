@@ -4,12 +4,12 @@ export const body = {
     'en': {
         'play': 'Play',
         'info': 'View Details',
-        'white': 'White',
-        'orange': 'Orange',
-        'green': 'Green',
-        'navy': 'Navy',
-        'brown': 'Brown',
-        'black': 'Black',
+        'white': 'white',
+        'orange': 'orange',
+        'green': 'green',
+        'navy': 'navy',
+        'brown': 'brown',
+        'black': 'black',
     },
     // Russian
     'ru': {
@@ -26,12 +26,12 @@ export const body = {
     'nl' : {
         'play': 'Speel',
         'info': 'Details bekijken',
-        'white': 'Wit',
-        'orange': 'Oranje',
-        'green': 'Groen',
-        'navy': 'Marine',
-        'brown': 'Bruin',
-        'black': 'Zwart',
+        'white': 'wit',
+        'orange': 'oranje',
+        'green': 'groen',
+        'navy': 'marine',
+        'brown': 'bruin',
+        'black': 'zwart',
     },
     // French
     'fr' : {

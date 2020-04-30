@@ -3,7 +3,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Header from "./components/header/header";
 import Tabs from "./components/body/tabs";
-import Body from "./components/body/body";
+// import Body from "./components/body/body";
 import SMFooter from "./components/footer/footer";
 
 /*
@@ -91,6 +91,12 @@ export default class SuperMathPage extends React.Component {
         }
     }
 
+    /*
+                <Body onUpdate={this.onUpdate}
+                      belt = {this.state.belt}
+                      lang={this.state.language}/>
+
+    */
     render() {
         return (
             <React.Fragment>
@@ -104,10 +110,6 @@ export default class SuperMathPage extends React.Component {
                         register={this.state.register}/>
 
                 <Tabs onUpdate={this.onUpdate}
-                      belt = {this.state.belt}
-                      lang={this.state.language}/>
-
-                <Body onUpdate={this.onUpdate}
                       belt = {this.state.belt}
                       lang={this.state.language}/>
 

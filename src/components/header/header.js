@@ -66,7 +66,7 @@ export default class Header extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log('Header.componentDidUpdate, this.props.register ' + this.props.register + ', prevProps.register: ' + prevProps.register);
+        // console.log('Header.componentDidUpdate, this.props.register ' + this.props.register + ', prevProps.register: ' + prevProps.register);
         if (this.props.register !== prevProps.register) {
             console.log('Header.componentDidUpdate ' + this.props.register + ', passed: ' + this.props.passed + ',failed: ' + this.props.failed);
             if ((parseInt(this.props.passed) > 0) || (parseInt(this.props.failed) > 0)) {
@@ -82,7 +82,7 @@ export default class Header extends React.Component {
                 this.setState({pass: this.props.passed, fail: this.props.failed});
             }
         } else {
-            console.log('Header.componentDidUpdate, no updates');
+            // console.log('Header.componentDidUpdate, no updates');
         }
     }
 
