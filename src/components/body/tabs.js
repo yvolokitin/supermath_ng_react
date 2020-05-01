@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+﻿import React, { useState, } from 'react';
 
 import Card from './card';
 import './tabs.css';
@@ -10,20 +10,25 @@ export default function Tabs(props) {
     const [value, setValue] = useState('white');
     const [tasks, setTasks] = useState(white_games);
 
-    const [white, setWhite] = React.useState(0);
-    const [orange, setOrange] = React.useState(0);
-    const [green, setGreen] = React.useState(0);
-    const [navy, setNavy] = React.useState(0);
-    const [brown, setBrown] = React.useState(0);
-    const [black, setBlack] = React.useState(0);
+    const [white, setWhite] = React.useState('#3f51b5');
+    const [orange, setOrange] = React.useState('#fbfbf8');
+    const [green, setGreen] = React.useState('#fbfbf8');
+    const [navy, setNavy] = React.useState('#fbfbf8');
+    const [brown, setBrown] = React.useState('#fbfbf8');
+    const [black, setBlack] = React.useState('#fbfbf8');
 
     function unset(color) {
+        console.log('Tabs.unset ' + color);
+
         if (value === 'white') {
             setWhite('#fbfbf8');
         } else if (value === 'orange') {
             setOrange('#fbfbf8');
         } else if (value === 'green') {
             setGreen('#fbfbf8');
+        // #3f51b5 navi color as well
+        } else if (value === '#3f51b5') {
+            setNavy('#fbfbf8');
         } else if (value === 'navy') {
             setNavy('#fbfbf8');
         } else if (value === 'brown') {
@@ -31,8 +36,6 @@ export default function Tabs(props) {
         } else if (value === 'black') {
             setBlack('#fbfbf8');
         }
-
-        setValue(color);
     }
 
     function onTabPress(color) {
@@ -57,7 +60,16 @@ export default function Tabs(props) {
                 setBlack('#3f51b5');
                 setTasks(black_games);
             }
+
+            // unset previous tab
             unset(color);
+
+            // set body background color
+            if (color !== 'navy') {
+                setValue(color);
+            } else {
+                setValue('#3f51b5');
+            }
         }
     };
 
@@ -81,7 +93,7 @@ export default function Tabs(props) {
                 </div>
                 <div className='tabs_div_wrapper' style={{backgroundColor: navy}}>
                     <div className='tabs_div' onClick={() => onTabPress('navy')}>
-                        <font style={{color: 'navy'}}> {tabs[props.lang]['navy']} </font>
+                        <font style={{color: '#3f51b5'}}> {tabs[props.lang]['navy']} </font>
                     </div>
                 </div>
                 <div className='tabs_div_wrapper' style={{backgroundColor: brown}}>
@@ -100,7 +112,7 @@ export default function Tabs(props) {
                 {tasks.map(
                     (task) =>
                         <div key={task.id}>
-                            <Card id={task.id} color={value} src={task.logo} lang={props.lang}/>
+                            <Card task={task} color={value} lang={props.lang}/>
                         </div>
                     )
                 }

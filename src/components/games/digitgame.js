@@ -159,7 +159,7 @@ export default class DigitGame extends React.Component {
             GameFooter: height: 10%  width: 100%
         */
         return (
-            <Dialog fullScreen={true} transitionDuration={500} open={this.props.open}>
+            <Dialog fullScreen={true} transitionDuration={700} open={this.props.open}>
                 { this.state.showResults ? (null) : (<GameHeader onClick={this.onGameClose} lang={this.props.lang} total={this.state.total} passed={this.state.passed} failed={this.state.failed} results={this.state.results}/>) }
 
                 <div className='digitgamebody'>

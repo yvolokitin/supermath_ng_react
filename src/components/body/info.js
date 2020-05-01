@@ -1,68 +1,47 @@
 ﻿import React from 'react';
-import {Dialog, DialogContent, DialogActions, Typography, Card, CardMedia, Button} from '@material-ui/core';
+import {Dialog, Button} from '@material-ui/core';
+
 import CancelIcon from '@material-ui/icons/Cancel';
+import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
+
+import ColorLine from "./../line/line";
 
 import SMTitle from './../dialog/title';
 import {info} from './../translations/info';
 
-import './../header/about.css';
+import './card.css';
 
 export default function Info(props) {
     return (
-        <Dialog onClose={() => props.onClick('close')} aria-labelledby='customized-dialog-title' transitionDuration={500} open={props.open} scroll='body'>
-            <SMTitle title='' onClick={() => props.onClick()}/>
+        <Dialog open={props.open} aria-labelledby='customized-dialog-title' transitionDuration={700} scroll='body'>
+            <SMTitle title='' onClick={() => props.onClose('info', false)}/>
+            <ColorLine/>
 
-            <div className='about_header_line'>
-                <div className='about_lightblue_line'></div>
-                <div className='about_blue_line'></div>
-                <div className='about_darkgreen_line'></div>
-                <div className='about_green_line'></div>
-                <div className='about_lightgreen_line'></div>
-                <div className='about_yellow_line'></div>
-                <div className='about_orange_line'></div>
-                <div className='about_lightred_line'></div>
-                <div className='about_red_line'></div>
-                <div className='about_violend_line'></div>
+            <div className='card_info_title'>
+                {props.title}
             </div>
 
-            <DialogContent>
-                <Typography style={{margin:'3%',color:'orange',fontFamily:'Grinched',fontSize:'2.5rem',textShadow:'1px 1px 2px black',lineHeight:'1.0'}}>
-                    {props.title}
-                </Typography>
-
-                <Typography style={{margin:'3%',textAlign:'justify',fontWeight:'bold'}}>
-                    {props.text}
-                </Typography>
-
-                <Card style={{margin:'3%',display:'flex',flexDirection:'column'}}>
-                    <CardMedia component='img' alt='Media Card task' height='100%' image={props.imgUrl}/>
-                </Card>
-
-                <Typography style={{margin:'3%',textAlign:'justify',fontWeight:'bold'}}>
-                    {info[props.lang]['extra']}
-                </Typography>
-
-            </DialogContent>
-
-            <div className='about_header_line'>
-                <div className='about_lightblue_line'></div>
-                <div className='about_blue_line'></div>
-                <div className='about_darkgreen_line'></div>
-                <div className='about_green_line'></div>
-                <div className='about_lightgreen_line'></div>
-                <div className='about_yellow_line'></div>
-                <div className='about_orange_line'></div>
-                <div className='about_lightred_line'></div>
-                <div className='about_red_line'></div>
-                <div className='about_violend_line'></div>
+            <div className='card_info_text'>
+                {props.text}
             </div>
 
-            <DialogActions style={{margin:'3%',}}>
-                <Button size='small' color='primary' startIcon={<CancelIcon />} onClick={() => props.onClick('close')}>
-                    {info[props.lang]['close']}
-                </Button>
-            </DialogActions>
+            <div className='card_info_text' onContextMenu={(e) => e.preventDefault()}>
+                <img src={props.source} alt={props.source}/>
+            </div>
 
+            <div className='card_info_text'>
+                {info[props.lang]['extra']}
+            </div>
+
+            <ColorLine/>
+
+            <div className='card_wrapper_btn' style={{height: '60px'}}>
+                <Button size='small' color='primary' startIcon={<CancelIcon/>}
+                        onClick={() => props.onClose('info', false)}> {info[props.lang]['close']} </Button>
+
+                <Button size='small' color='primary' startIcon={<PlayCircleFilledWhiteIcon/>}
+                        onClick={() => props.onClose('info', false)}> {info[props.lang]['play']} </Button>
+            </div>
         </Dialog>
     );
 }

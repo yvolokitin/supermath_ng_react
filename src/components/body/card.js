@@ -11,45 +11,77 @@ import {navy_titles, navy_descriptions} from './../translations/navy';
 import {brown_titles, brown_descriptions} from './../translations/brown';
 import {black_titles, black_descriptions} from './../translations/black';
 
+import Info from "./info";
+import DigitGame from "./../games/digitgame";
+
 import {body} from './../translations/body';
 import './card.css';
 
 export default function Card(props) {
-    const [source, setSource] = useState([]);
     const [title, setTitle] = useState([]);
     const [desc, setDesc] = useState([]);
     const [animation, setAnimation] = useState(['none']);
 
+    const [info, openInfo] = useState(false);
+    const [game, openGame] = useState(false);
+
     useEffect(() => {
         // console.log('props.src ' + props.src);
-        setSource(props.src);
         if (props.color === 'white') {
-            setTitle(white_titles[props.lang][props.id]);
+            setTitle(white_titles[props.lang][props.task.id]);
+            setDesc(white_descriptions[props.lang][props.task.id]);
         } else if (props.color === 'orange') {
-            setTitle(orange_titles[props.lang][props.id]);
+            setTitle(orange_titles[props.lang][props.task.id]);
+            setDesc(orange_descriptions[props.lang][props.task.id]);
         } else if (props.color === 'green') {
-            setTitle(green_titles[props.lang][props.id]);
-        } else if (props.color === 'white') {
-            setTitle(white_titles[props.lang][props.id]);
+            setTitle(green_titles[props.lang][props.task.id]);
+            setDesc(green_descriptions[props.lang][props.task.id]);
         } else if (props.color === 'navy') {
-            setTitle(navy_titles[props.lang][props.id]);
+            setTitle(navy_titles[props.lang][props.task.id]);
+            setDesc(navy_descriptions[props.lang][props.task.id]);
         } else if (props.color === 'brown') {
-            setTitle(brown_titles[props.lang][props.id]);
+            setTitle(brown_titles[props.lang][props.task.id]);
+            setDesc(brown_descriptions[props.lang][props.task.id]);
         } else if (props.color === 'black') {
-            setTitle(black_titles[props.lang][props.id]);
+            setTitle(black_titles[props.lang][props.task.id]);
+            setDesc(black_descriptions[props.lang][props.task.id]);
         }
 
-    }, [props.id, props.color, props.src, props.lang]);
+    }, [props.task, props.color, props.lang]);
 
-    function onClick() {
-        console.log('Card.onClick');
-        setAnimation('flashEffect 1.2s');
+    function onOpen(property, value) {
+        console.log('Card.onClick ' + property + ', ' + value);
+        setAnimation('stretch .9s');
+
+        setTimeout(() => {
+            if (property === 'info') { 
+                openInfo(true);
+            } else if (property === 'game') {
+                openGame(value);
+            }
+        }, 500);
+    }
+
+    function onClose(property, value) {
+        console.log('Card.onClose ' + property + ': ' + value);
+        setAnimation('none');
+
+        if (property === 'info') {
+            openInfo(value);
+
+        } else if (property === 'game') {
+            openGame(value);
+
+        } else if (property === 'close') {
+            openGame(false);
+
+        }
     }
 
     return (
         <div className='card_wrapper' style={{'animation': animation}}>
-            <div onClick={() => onClick()} className='card_wrapper_img'>
-                <img src={source} alt={source}/>
+            <div onClick={() => onOpen('game', true)} className='card_wrapper_img'>
+                <img src={props.task.logo} alt={props.task.logo} onContextMenu={(e) => e.preventDefault()}/>
             </div>
 
             <div className='card_wrapper_text'>
@@ -57,14 +89,27 @@ export default function Card(props) {
             </div>
 
             <div className='card_wrapper_btn'>
-                <Button size='small' color='primary' startIcon={<VisibilityIcon/>}>
-                    {body[props.lang]['info']}
-                </Button>
-                <Button size='small' color='primary' startIcon={<PlayCircleFilledWhiteIcon/>}>
-                    {body[props.lang]['play']}
-                </Button>
+                <Button size='small' color='primary' onClick={() => onOpen('info', true)}
+                        startIcon={<VisibilityIcon/>}> {body[props.lang]['info']} </Button>
+                <Button size='small' color='primary' onClick={() => onOpen('game', true)}
+                        startIcon={<PlayCircleFilledWhiteIcon/>}> {body[props.lang]['play']} </Button>
             </div>
 
+            <Info open={info}
+                  title={title}
+                  text={desc}
+                  source={props.task.logo}
+                  task={props.task.type}
+                  lang={props.lang}
+                  onClose={onClose}/>
+
+            <DigitGame open={game}
+                       type={props.task.type}
+                       task={props.task.task}
+                       amount={props.task.amount}
+                       lang={props.lang}
+                       belt='white'
+                       onClose={onClose}/>
         </div>
     );
 }
