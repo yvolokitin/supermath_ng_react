@@ -18,13 +18,8 @@ export default function Card(props) {
     const [source, setSource] = useState([]);
     const [title, setTitle] = useState([]);
     const [desc, setDesc] = useState([]);
+    const [animation, setAnimation] = useState(['none']);
 
-    /*
-        width='275px' height={image.height}
-            <span> {image.caption} </span>
-            <LazyLoadImage src={source} alt={source} width='275px' effect='blur'/>
-
-    */
     useEffect(() => {
         // console.log('props.src ' + props.src);
         setSource(props.src);
@@ -46,9 +41,14 @@ export default function Card(props) {
 
     }, [props.id, props.color, props.src, props.lang]);
 
+    function onClick() {
+        console.log('Card.onClick');
+        setAnimation('flashEffect 1.2s');
+    }
+
     return (
-        <div className='card_wrapper'>
-            <div className='card_wrapper_img'>
+        <div className='card_wrapper' style={{'animation': animation}}>
+            <div onClick={() => onClick()} className='card_wrapper_img'>
                 <img src={source} alt={source}/>
             </div>
 

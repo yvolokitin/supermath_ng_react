@@ -1,8 +1,21 @@
-﻿.tabs_wrapper {
+﻿.body_wrapper {
+    position: static;
+    width: 100%;
+    transition: background-color 2s;
+}
+.tasks_wrapper {
+    margin: 10px;
+    position: static;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+.tabs_wrapper {
     position: static;
     height: 48px;
     width: 100%;
-
     display: flex;
     justify-content: center;
 
@@ -41,19 +54,4 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-.ripple {
-    background-color: #3f51b5;
-    width: 1rem;
-    height: 1rem;
-    position: absolute;
-    border-radius: 10%;
-    transform: translateX(-100%) translateY(-100%);
-    mix-blend-mode: screen;
-    animation: ripple 1000ms ease-out forwards;
-}
-@keyframes ripple {
-    0%   { transform: translate(-100%, -100%); }
-    80%  { transform: translate(-100%, -100%) scale(50); }
-    100% { transform: translate(-100%, -100%) scale(50); opacity: 0; }
 }

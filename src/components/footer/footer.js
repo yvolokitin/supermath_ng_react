@@ -7,7 +7,7 @@ import AlertDialog from './../alert/alert';
 
 import {footer} from './../translations/footer';
 
-export default function SMFooter(props) {
+export default function Footer(props) {
     const [value, setValue] = React.useState(false);
 
     return (

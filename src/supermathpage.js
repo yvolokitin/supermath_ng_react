@@ -4,7 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Header from "./components/header/header";
 import Tabs from "./components/body/tabs";
 // import Body from "./components/body/body";
-import SMFooter from "./components/footer/footer";
+import Footer from "./components/footer/footer";
 
 /*
     SuperMath Page Layout Elements
@@ -113,8 +113,8 @@ export default class SuperMathPage extends React.Component {
                       belt = {this.state.belt}
                       lang={this.state.language}/>
 
-                <SMFooter text={"SuperMath"}
-                          lang={this.state.language}/>
+                <Footer text={"SuperMath"}
+                        lang={this.state.language}/>
 
             </React.Fragment>
         );
