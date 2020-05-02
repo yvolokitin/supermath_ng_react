@@ -18,8 +18,7 @@ export default function Tabs(props) {
     const [black, setBlack] = React.useState('#fbfbf8');
 
     function unset(color) {
-        console.log('Tabs.unset ' + color);
-
+        // console.log('Tabs.unset ' + color);
         if (value === 'white') {
             setWhite('#fbfbf8');
         } else if (value === 'orange') {
@@ -39,7 +38,7 @@ export default function Tabs(props) {
     }
 
     function onTabPress(color) {
-        console.log('Tabs.onTabPress ' + color);
+        // console.log('Tabs.onTabPress ' + color);
         if (color !== value) {
             if (color === 'white') {
                 setWhite('#3f51b5');
@@ -72,6 +71,11 @@ export default function Tabs(props) {
             }
         }
     };
+
+    function onHeaderUpdate(property, passed, failed) {
+        console.log('Tabs.onHeaderUpdate ' + property + ': ' + passed + ', ' + failed);
+
+    }
 
     return (
         <div className='body_wrapper' style={{backgroundColor: value}}>
@@ -112,7 +116,7 @@ export default function Tabs(props) {
                 {tasks.map(
                     (task) =>
                         <div key={task.id}>
-                            <Card task={task} color={value} lang={props.lang}/>
+                            <Card task={task} color={value} lang={props.lang} onUpdate={onHeaderUpdate}/>
                         </div>
                     )
                 }

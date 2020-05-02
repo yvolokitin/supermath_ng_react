@@ -50,9 +50,9 @@ export default function Card(props) {
     }, [props.task, props.color, props.lang]);
 
     function onOpen(property, value) {
-        console.log('Card.onClick ' + property + ', ' + value);
-        setAnimation('stretch .9s');
-
+        // console.log('Card.onClick ' + property + ', ' + value);
+        setAnimation('rotate .9s');
+        // call in .5sec to show picture rotate animation
         setTimeout(() => {
             if (property === 'info') { 
                 openInfo(true);
@@ -62,19 +62,30 @@ export default function Card(props) {
         }, 500);
     }
 
-    function onClose(property, value) {
-        console.log('Card.onClose ' + property + ': ' + value);
+    /*
+        } else if ((status === 'close') ||
+                   (status === 'replay') ||
+                   (status === 'register')) {
+    */
+    function onClose(property, value, option) {
         setAnimation('none');
 
-        if (property === 'info') {
-            openInfo(value);
-
-        } else if (property === 'game') {
-            openGame(value);
-
-        } else if (property === 'close') {
+        // this.props.onClose(status, pass, fail);
+        if ((property === 'close') || (property === 'interrapted') || (property === 'register')) {
+            console.log('Card.onClose ' + property + ': ' + value + ' - ' + option);
+            props.onUpdate(property, value, option);
             openGame(false);
 
+        } else if (property === 'replay') {
+            console.log('Card.onClose ' + property + ': ' + value + ' - ' + option);
+            props.onUpdate(property, value, option);
+
+        } else if (property === 'info') {
+            openInfo(value);
+
+        } else {
+            console.log('ERROR: Unknown onClose property called ' + property);
+            alert('ERROR: Unknown onClose property called ' + property);
         }
     }
 

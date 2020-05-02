@@ -150,8 +150,8 @@ export default class DigitGame extends React.Component {
         this.setState({circle: color});
     }
 
-/*
-*/
+    /*
+    */
     render() {
         /*
             GameHeader: height: 10%  width: 100%
