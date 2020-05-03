@@ -37,10 +37,10 @@ export default function Info(props) {
 
             <div className='card_wrapper_btn' style={{height: '60px'}}>
                 <Button size='small' color='primary' startIcon={<CancelIcon/>}
-                        onClick={() => props.onClose('info', false)}> {info[props.lang]['close']} </Button>
+                        onClick={() => props.onClose('info')}> {info[props.lang]['close']} </Button>
 
                 <Button size='small' color='primary' startIcon={<PlayCircleFilledWhiteIcon/>}
-                        onClick={() => props.onClose('info', false)}> {info[props.lang]['play']} </Button>
+                        onClick={() => props.onClose('play')}> {info[props.lang]['play']} </Button>
             </div>
         </Dialog>
     );

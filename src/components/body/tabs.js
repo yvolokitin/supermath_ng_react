@@ -1,5 +1,6 @@
 ﻿import React, { useState, } from 'react';
 
+import DigitGame from "./../games/digitgame";
 import Card from './card';
 import './tabs.css';
 
@@ -9,6 +10,9 @@ import {tabs} from './../translations/tabs';
 export default function Tabs(props) {
     const [value, setValue] = useState('white');
     const [tasks, setTasks] = useState(white_games);
+
+    const [gameOpen, setGameOpen] = useState(false);
+    const [game, setGame] = useState(false);
 
     const [white, setWhite] = React.useState('#3f51b5');
     const [orange, setOrange] = React.useState('#fbfbf8');
@@ -72,9 +76,39 @@ export default function Tabs(props) {
         }
     };
 
-    function onHeaderUpdate(property, passed, failed) {
-        console.log('Tabs.onHeaderUpdate ' + property + ': ' + passed + ', ' + failed);
+    function onGameOpen(task) {
+        setGame(task);
+        setGameOpen(true);
+    }
 
+    function onGameClose(status, passed, failed) {
+        console.log('Tabs.onGameClose ' + status + ': ' + passed + ', ' + failed);
+
+        // this.props.onClose(status, pass, fail);
+        if (status === 'close') {
+            setGameOpen(false);
+            if ((failed > 0) || (passed > 0)) {
+                props.onUpdate('counter', passed, failed);
+            }
+
+        } else if (status === 'register') {
+            setGameOpen(false);
+            props.onUpdate('register', passed, failed);
+
+        } else if (status === 'replay') {
+            props.onUpdate('counter', passed, failed);
+
+        } else if (status === 'interrapted') {
+            var fail = failed + parseInt(localStorage.getItem('fail'));
+            var pass = parseInt(localStorage.getItem('pass'));
+            props.onUpdate('counter', pass, fail);
+            setGameOpen(false);
+
+        } else {
+            console.log('ERROR: Unknown onClose property called ' + status);
+            alert('ERROR: Unknown onClose property called ' + status);
+            setGameOpen(false);
+        }
     }
 
     return (
@@ -116,11 +150,19 @@ export default function Tabs(props) {
                 {tasks.map(
                     (task) =>
                         <div key={task.id}>
-                            <Card task={task} color={value} lang={props.lang} onUpdate={onHeaderUpdate}/>
+                            <Card task={task} color={value} lang={props.lang} onUpdate={onGameOpen}/>
                         </div>
                     )
                 }
             </div>
+
+            <DigitGame open={gameOpen}
+                       type={game.type}
+                       task={game.task}
+                       amount={game.amount}
+                       lang={props.lang}
+                       belt={value}
+                       onClose={onGameClose}/>
 
         </div>
     );

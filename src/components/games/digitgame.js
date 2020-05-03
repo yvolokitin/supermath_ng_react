@@ -74,6 +74,7 @@ export default class DigitGame extends React.Component {
                            passed: 0,
                            failed: 0});
             this.results = [];
+            this.timer = new Date().getTime();
 
         // game was properly finished, when all tasks are solved
         } else if (status === 'interrapted') {

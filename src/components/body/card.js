@@ -12,8 +12,6 @@ import {brown_titles, brown_descriptions} from './../translations/brown';
 import {black_titles, black_descriptions} from './../translations/black';
 
 import Info from "./info";
-import DigitGame from "./../games/digitgame";
-
 import {body} from './../translations/body';
 import './card.css';
 
@@ -23,7 +21,6 @@ export default function Card(props) {
     const [animation, setAnimation] = useState(['none']);
 
     const [info, openInfo] = useState(false);
-    const [game, openGame] = useState(false);
 
     useEffect(() => {
         // console.log('props.src ' + props.src);
@@ -49,49 +46,33 @@ export default function Card(props) {
 
     }, [props.task, props.color, props.lang]);
 
-    function onOpen(property, value) {
+    function onOpen(property) {
         // console.log('Card.onClick ' + property + ', ' + value);
         setAnimation('rotate .9s');
         // call in .5sec to show picture rotate animation
         setTimeout(() => {
-            if (property === 'info') { 
+            if (property === 'info') {
                 openInfo(true);
             } else if (property === 'game') {
-                openGame(value);
+                props.onUpdate(props.task);
             }
         }, 500);
+
+        setTimeout(() => {
+            setAnimation('none');
+        }, 1000);
     }
 
-    /*
-        } else if ((status === 'close') ||
-                   (status === 'replay') ||
-                   (status === 'register')) {
-    */
-    function onClose(property, value, option) {
-        setAnimation('none');
-
-        // this.props.onClose(status, pass, fail);
-        if ((property === 'close') || (property === 'interrapted') || (property === 'register')) {
-            console.log('Card.onClose ' + property + ': ' + value + ' - ' + option);
-            props.onUpdate(property, value, option);
-            openGame(false);
-
-        } else if (property === 'replay') {
-            console.log('Card.onClose ' + property + ': ' + value + ' - ' + option);
-            props.onUpdate(property, value, option);
-
-        } else if (property === 'info') {
-            openInfo(value);
-
-        } else {
-            console.log('ERROR: Unknown onClose property called ' + property);
-            alert('ERROR: Unknown onClose property called ' + property);
+    function onClose(property) {
+        openInfo(false);
+        if (property === 'play') { 
+            props.onUpdate(props.task);
         }
     }
 
     return (
         <div className='card_wrapper' style={{'animation': animation}}>
-            <div onClick={() => onOpen('game', true)} className='card_wrapper_img'>
+            <div onClick={() => onOpen('game')} className='card_wrapper_img'>
                 <img src={props.task.logo} alt={props.task.logo} onContextMenu={(e) => e.preventDefault()}/>
             </div>
 
@@ -102,7 +83,7 @@ export default function Card(props) {
             <div className='card_wrapper_btn'>
                 <Button size='small' color='primary' onClick={() => onOpen('info', true)}
                         startIcon={<VisibilityIcon/>}> {body[props.lang]['info']} </Button>
-                <Button size='small' color='primary' onClick={() => onOpen('game', true)}
+                <Button size='small' color='primary' onClick={() => onOpen('game')}
                         startIcon={<PlayCircleFilledWhiteIcon/>}> {body[props.lang]['play']} </Button>
             </div>
 
@@ -113,14 +94,6 @@ export default function Card(props) {
                   task={props.task.type}
                   lang={props.lang}
                   onClose={onClose}/>
-
-            <DigitGame open={game}
-                       type={props.task.type}
-                       task={props.task.task}
-                       amount={props.task.amount}
-                       lang={props.lang}
-                       belt='white'
-                       onClose={onClose}/>
         </div>
     );
 }
