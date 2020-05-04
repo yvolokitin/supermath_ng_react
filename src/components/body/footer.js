@@ -6,7 +6,7 @@ import {footer} from './../translations/footer';
 import './footer.css';
 
 export default function Footer(props) {
-    const [value, setValue] = useState(true); // useState(false);
+    const [value, setValue] = useState(false);
     const [fontColor, setFontColor] = useState('white');
 
     useEffect(() => {
