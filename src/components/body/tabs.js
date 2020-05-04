@@ -1,6 +1,7 @@
 ﻿import React, { useState, } from 'react';
 
 import DigitGame from './../games/digitgame';
+import Footer from "./footer";
 import Card from './card';
 import Wave from './wave';
 import './tabs.css';
@@ -14,6 +15,9 @@ export default function Tabs(props) {
 
     const [gameOpen, setGameOpen] = useState(false);
     const [game, setGame] = useState(false);
+
+    // footer background color
+    const [footer, setFooter] = useState('#3f51b5');
 
     const [white, setWhite] = React.useState('#3f51b5');
     const [orange, setOrange] = React.useState('#fbfbf8');
@@ -43,26 +47,32 @@ export default function Tabs(props) {
     }
 
     function onTabPress(color) {
-        // console.log('Tabs.onTabPress ' + color);
+        console.log('Tabs.onTabPress ' + color);
         if (color !== value) {
             if (color === 'white') {
                 setWhite('#3f51b5');
                 setTasks(white_games);
+                setFooter('#3f51b5');
             } else if (color === 'orange') {
                 setOrange('#3f51b5');
                 setTasks(orange_games);
+                setFooter('green');
             } else if (color === 'green') {
                 setGreen('#3f51b5');
                 setTasks(green_games);
+                setFooter('orange');
             } else if (color === 'navy') {
                 setNavy('#3f51b5');
                 setTasks(navy_games);
+                setFooter('white');
             } else if (color === 'brown') {
                 setBrown('#3f51b5');
                 setTasks(brown_games);
+                setFooter('yellow');
             } else if (color === 'black') {
                 setBlack('#3f51b5');
                 setTasks(black_games);
+                setFooter('white');
             }
 
             // unset previous tab
@@ -112,6 +122,9 @@ export default function Tabs(props) {
         }
     }
 
+    /*
+        fill='#3f51b5'
+    */
     return (
         <div className='body_wrapper' style={{backgroundColor: value}}>
             <div className='tabs_wrapper'>
@@ -157,8 +170,8 @@ export default function Tabs(props) {
                 }
             </div>
 
-            <div className='tasks_footer'>
-                <Wave mask='url(#mask)' fill='#3f51b5'>
+            <div className='tasks_waver'>
+                <Wave mask='url(#mask)' fill={footer}>
                     <defs>
                         <linearGradient id='gradient' gradientTransform='rotate(90)'>
                             <stop offset='0' stopColor='white' />
@@ -170,6 +183,8 @@ export default function Tabs(props) {
                     </defs>
                 </Wave>
             </div>
+
+            <Footer color={footer} lang={props.lang}/>
 
             <DigitGame open={gameOpen}
                        type={game.type}

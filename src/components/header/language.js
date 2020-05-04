@@ -28,12 +28,12 @@ export default function Language(props) {
 
             <RadioGroup value={value} onChange={handleChange} className='language_selector' style={{border:'1px solid grey'}}>
                 <FormControlLabel value='en' control={<Radio />} label='English (GB and US)'/>
+                <FormControlLabel value='nl' control={<Radio />} label='Nederlands / Dutch'/>
+                <FormControlLabel value='ru' control={<Radio />} label='Russian / Русский'/>
                 <FormControlLabel value='de' control={<Radio />} label='German / Deutsch'/>
                 <FormControlLabel value='fr' control={<Radio />} label='French / Français'/>
                 <FormControlLabel value='es' control={<Radio />} label='Spanish / Espanol'/>
                 <FormControlLabel value='it' control={<Radio />} label='Italian / Italiano'/>
-                <FormControlLabel value='nl' control={<Radio />} label='Nederlands / Dutch'/>
-                <FormControlLabel value='ru' control={<Radio />} label='Russian / Русский'/>
             </RadioGroup>
 
             <Card style={{margin:'5%',display:'flex',flexDirection:'column'}}>

@@ -3,8 +3,8 @@ import {DialogContent, DialogActions, Typography, Dialog, Card, CardMedia, Butto
 
 import CancelIcon from '@material-ui/icons/Cancel';
 
-import SMTitle from "./../dialog/title";
-import ColorLine from "./../line/line";
+import SMTitle from './../dialog/title';
+import ColorLine from './../line/line';
 import vitamins from './../../images/vitamins.jpg';
 import {about} from './../translations/about';
 
@@ -12,7 +12,7 @@ import './about.css';
 
 export default function About(props) {
     return (
-        <Dialog onClose={() => props.onClick()} fullScreen={props.fullScreen} aria-labelledby="customized-dialog-title" transitionDuration={500} open={props.open} scroll="body">
+        <Dialog onClose={() => props.onClick()} fullScreen={props.fullScreen} aria-labelledby='customized-dialog-title' transitionDuration={500} open={props.open} scroll='body'>
             <SMTitle title='' onClick={() => props.onClick()}/>
             <ColorLine/>
 
@@ -36,7 +36,7 @@ export default function About(props) {
             <ColorLine/>
 
             <DialogActions>
-                <Button size="small" color="primary" startIcon={<CancelIcon />}
+                <Button size='small' color='primary' startIcon={<CancelIcon />}
                         onClick={() => props.onClick()}> {about[props.lang]['close']} </Button>
             </DialogActions>
         </Dialog>
