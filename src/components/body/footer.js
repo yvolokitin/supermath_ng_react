@@ -42,8 +42,7 @@ export default function Footer(props) {
             </div>
 
             <Contact open={value}
-                     title={footer[props.lang]['title']}
-                     text={footer[props.lang]['questions']}
+                     lang={props.lang}
                      onClose={() => setValue(false)}/>
         </div>
     );
