@@ -1,4 +1,4 @@
-﻿import React from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import {Dialog, TextField, Button} from '@material-ui/core';
 
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -21,11 +21,36 @@ import SMTitle from './../dialog/title';
 import './contact.css';
 
 export default function Contact(props) {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [message, setMessage] = useState('');
+
+    useEffect(() => {
+        setName(''); setEmail(''); setMessage('');
+
+    }, [props.task, props.color, props.lang]);
 
     function sendMessage(event) {
+        console.log('name ' + name + ', email ' + email + ', message ' + message);
         event.preventDefault();
 
-
+        if (name.length < 2) {
+            alert('Name is too short');
+        } else {
+            var result = validate({'email': email}, constraints);
+            if ('email' in result) {
+                alert('Email is incorrect ' + result.email);
+            } else {
+                if (message.length < 2) {
+                    alert('Message is too short');
+                } else {
+                    props.onClose();
+                    setName('');
+                    setEmail('');
+                    setMessage('');
+                }
+            }
+        }
     }
 
     return (
@@ -50,19 +75,26 @@ export default function Contact(props) {
                     <div className='contact_info_title'> {props.title} </div>
 
                     <div className='contact_textfield'>
-                        <TextField autoFocus required fullWidth variant='outlined' label={contact[props.lang]['name']}/>
+                        <TextField autoFocus required fullWidth variant='outlined'
+                                   onChange={(event) => {setName(event.target.value)}}
+                                   label={contact[props.lang]['name']}/>
                     </div>
 
                     <div className='contact_textfield'>
-                        <TextField required fullWidth variant='outlined' label={contact[props.lang]['email']}/>
+                        <TextField required fullWidth variant='outlined'
+                                   onChange={(event) => {setEmail(event.target.value)}}
+                                   label={contact[props.lang]['email']}/>
                     </div>
 
                     <div className='contact_textfield'>
-                        <TextField required multiline fullWidth rows={4} variant='outlined' label={contact[props.lang]['message']}/>
+                        <TextField required multiline fullWidth rows={4} variant='outlined'
+                                   onChange={(event) => {setMessage(event.target.value)}}
+                                   label={contact[props.lang]['message']}/>
                     </div>
 
-                    <Button size='large' color='primary' startIcon={<SendIcon/>} onClick={() => props.onClose()}>
-                        {contact[props.lang]['send']}
+                    <Button size='large' color='primary' startIcon={<SendIcon/>}
+                            onClick={(event) => sendMessage(event)}>
+                                {contact[props.lang]['send']}
                     </Button>
                 </div>
             </div>

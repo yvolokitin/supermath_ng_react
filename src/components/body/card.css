@@ -7,7 +7,7 @@
     background-color: white;
 
     border-radius: 5px;
-    box-shadow: 1px 1px 3px 0px grey;  
+    box-shadow: 1px 1px 3px 0px grey;
 }
 @keyframes rotate {
     100% { transform: rotate(360deg); }
