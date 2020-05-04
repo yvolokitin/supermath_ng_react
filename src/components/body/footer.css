@@ -1,0 +1,31 @@
+﻿.footer_wrapper {
+    width: 100%;
+    height: 25px;
+    padding-bottom: 5px;
+
+    cursor: pointer;
+
+    user-select: none;
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.footer_copyright {
+    width: 30%;
+    height: 100%;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: clip; 
+}
+.footer_contacts {
+    width: 113px;
+    height: 100%;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: clip;
+}
