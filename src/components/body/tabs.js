@@ -1,7 +1,8 @@
 ﻿import React, { useState, } from 'react';
 
-import DigitGame from "./../games/digitgame";
+import DigitGame from './../games/digitgame';
 import Card from './card';
+import Wave from './wave';
 import './tabs.css';
 
 import {white_games, orange_games, green_games, navy_games, brown_games, black_games} from './../halpers/programms';
@@ -154,6 +155,20 @@ export default function Tabs(props) {
                         </div>
                     )
                 }
+            </div>
+
+            <div className='tasks_footer'>
+                <Wave mask='url(#mask)' fill='#3f51b5'>
+                    <defs>
+                        <linearGradient id='gradient' gradientTransform='rotate(90)'>
+                            <stop offset='0' stopColor='white' />
+                            <stop offset='0.5' stopColor='black' />
+                        </linearGradient>
+                        <mask id='mask'>
+                            <rect x='0' y='0' width='2000' height='200' fill='url(#gradient)'/>
+                        </mask>
+                    </defs>
+                </Wave>
             </div>
 
             <DigitGame open={gameOpen}
