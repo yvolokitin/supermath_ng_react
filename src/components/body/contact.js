@@ -26,7 +26,9 @@ export default function Contact(props) {
     const [message, setMessage] = useState('');
 
     useEffect(() => {
-        setName(''); setEmail(''); setMessage('');
+        setName(localStorage.getItem('name') ? localStorage.getItem('name') : '');
+        setEmail(localStorage.getItem('email') ? localStorage.getItem('email') : '');
+        setMessage('');
 
     }, [props.task, props.color, props.lang]);
 
@@ -75,13 +77,13 @@ export default function Contact(props) {
                     <div className='contact_info_title'> {props.title} </div>
 
                     <div className='contact_textfield'>
-                        <TextField autoFocus required fullWidth variant='outlined'
+                        <TextField required fullWidth variant='outlined' value={name}
                                    onChange={(event) => {setName(event.target.value)}}
                                    label={contact[props.lang]['name']}/>
                     </div>
 
                     <div className='contact_textfield'>
-                        <TextField required fullWidth variant='outlined'
+                        <TextField required fullWidth variant='outlined' value={email}
                                    onChange={(event) => {setEmail(event.target.value)}}
                                    label={contact[props.lang]['email']}/>
                     </div>
