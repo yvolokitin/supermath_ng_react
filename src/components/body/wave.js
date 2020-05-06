@@ -5,7 +5,7 @@ export default class Wave extends Component {
         super(props);
         this.container = React.createRef();
         this.state = { path: '' };
-        this.defaults = { height: 20, amplitude: 20, speed: 0.15, points: 3, };
+        this.defaults = { height: 10, amplitude: 10, speed: 0.35, points: 3, };
         this.options = { ...props.options, ...this.defaults };
         this.lastUpdate = 0;
         this.elapsed = 0;
@@ -106,7 +106,7 @@ export default class Wave extends Component {
 
     render () {
         return (
-            <div style={{ width: '100%', height: '50px', display: 'inline-block', }} ref={this.container}>
+            <div style={{width:'100%',height:'40px',display:'inline-block',}} ref={this.container}>
                 <svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">
                     <path d={this.state.path} fill={this.props.fill}/>
                 </svg>

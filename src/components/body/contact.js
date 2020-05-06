@@ -8,6 +8,8 @@ import SendIcon from '@material-ui/icons/Send';
 import {validate} from 'validate.js';
 import constraints from './../header/constraints';
 
+import {send_email} from './../halpers/communicator';
+
 import image from './../../images/contact/mail_icon.png';
 import twitter from './../../images/contact/twitter.webp';
 import youtube from './../../images/contact/youtube.webp';
@@ -46,10 +48,13 @@ export default function Contact(props) {
                 if (message.length < 2) {
                     alert('Message is too short');
                 } else {
+                    send_email({'name': name, 'email': email, 'lang': props.lang, 'message': message});
                     props.onClose();
-                    setName('');
-                    setEmail('');
-                    setMessage('');
+                    if (localStorage.getItem('name') !== null) {
+                        setMessage('');
+                    } else {
+                        setName(''); setEmail(''); setMessage('');
+                    }
                 }
             }
         }

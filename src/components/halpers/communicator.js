@@ -1,9 +1,10 @@
 ﻿import axios from 'axios';
 
 export function send_email(data) {
+    console.log('Communicator.send_email ' + data.email);
     axios.post('http://supermath.xyz:3000/api/email', data)
-        .then(onApiUpdate)
-        .catch(onApiUpdateError);
+        .then(onApiCall)
+        .catch(onApiCallError);
 }
 
 function onApiCall(response) {
@@ -17,9 +18,10 @@ function onApiCall(response) {
             console.log('Communicator.onApiCall successed, id ' + response.data.id);
 
         } else {
-            console.log('Communicator.onApiCall received no data in response from server');
+            console.log('WARN: Communicator.onApiCall received no data in response from server');
         }
     }
+}
 
 function onApiCallError(error) {
     console.log('Communicator.onApiCallError -> error ' + error);

@@ -47,7 +47,7 @@ export default function Tabs(props) {
     }
 
     function onTabPress(color) {
-        console.log('Tabs.onTabPress ' + color);
+        // console.log('Tabs.onTabPress ' + color);
         if (color !== value) {
             if (color === 'white') {
                 setWhite('#3f51b5');
