@@ -10,12 +10,12 @@ import constraints from './../header/constraints';
 
 import {send_email} from './../halpers/communicator';
 
-import image from './../../images/contact/mail_icon.png';
-import twitter from './../../images/contact/twitter.webp';
-import youtube from './../../images/contact/youtube.webp';
-import facebook from './../../images/contact/facebook.png';
-import vkontakte from './../../images/contact/vkontakte.webp';
-import instagram from './../../images/contact/instagram.png';
+import image from './../../images/contact/mail_icon.jpg';
+import twitter from './../../images/contact/twitter.jpg';
+import youtube from './../../images/contact/youtube.jpg';
+import facebook from './../../images/contact/facebook.jpg';
+import vkontakte from './../../images/contact/vkontakte.jpg';
+import instagram from './../../images/contact/instagram.jpg';
 
 import {contact} from './../translations/contact';
 import ColorLine from './../line/line';
