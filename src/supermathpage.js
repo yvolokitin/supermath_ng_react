@@ -53,7 +53,8 @@ export default class SuperMathPage extends React.Component {
                       'register': false,
                       'passed': localStorage.getItem('pass') ? localStorage.getItem('pass') : '0',
                       'failed': localStorage.getItem('fail') ? localStorage.getItem('fail') : '0',
-                      'belt': localStorage.getItem('belt') ? localStorage.getItem('belt') : 'white',};
+                      'belt': localStorage.getItem('belt') ? localStorage.getItem('belt') : 'white',
+                      };
 
         // console.log('SuperMathPage.constructor language ' + language + ', belt ' + localStorage.getItem('belt'));
     }

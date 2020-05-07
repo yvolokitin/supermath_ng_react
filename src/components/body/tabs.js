@@ -1,4 +1,5 @@
-﻿import React, { useState, } from 'react';
+﻿//import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, } from 'react';
 
 import DigitGame from './../games/digitgame';
 import Footer from "./footer";
@@ -26,28 +27,9 @@ export default function Tabs(props) {
     const [brown, setBrown] = React.useState('#fbfbf8');
     const [black, setBlack] = React.useState('#fbfbf8');
 
-    function unset(color) {
-        // console.log('Tabs.unset ' + color);
-        if (value === 'white') {
-            setWhite('#fbfbf8');
-        } else if (value === 'orange') {
-            setOrange('#fbfbf8');
-        } else if (value === 'green') {
-            setGreen('#fbfbf8');
-        // #3f51b5 navi color as well
-        } else if (value === '#3f51b5') {
-            setNavy('#fbfbf8');
-        } else if (value === 'navy') {
-            setNavy('#fbfbf8');
-        } else if (value === 'brown') {
-            setBrown('#fbfbf8');
-        } else if (value === 'black') {
-            setBlack('#fbfbf8');
-        }
-    }
-
     function onTabPress(color) {
-        // console.log('Tabs.onTabPress ' + color);
+        console.log('Tabs.onTabPress ' + color + ', LS ' + localStorage.getItem('belt'));
+        localStorage.setItem('belt', color);
         if (color !== value) {
             if (color === 'white') {
                 setWhite('#3f51b5');
@@ -86,6 +68,26 @@ export default function Tabs(props) {
             }
         }
     };
+
+    function unset(color) {
+        // console.log('Tabs.unset ' + color);
+        if (value === 'white') {
+            setWhite('#fbfbf8');
+        } else if (value === 'orange') {
+            setOrange('#fbfbf8');
+        } else if (value === 'green') {
+            setGreen('#fbfbf8');
+        // #3f51b5 navi color as well
+        } else if (value === '#3f51b5') {
+            setNavy('#fbfbf8');
+        } else if (value === 'navy') {
+            setNavy('#fbfbf8');
+        } else if (value === 'brown') {
+            setBrown('#fbfbf8');
+        } else if (value === 'black') {
+            setBlack('#fbfbf8');
+        }
+    }
 
     function onGameOpen(task) {
         setGame(task);
