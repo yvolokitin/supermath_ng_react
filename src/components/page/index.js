@@ -332,7 +332,7 @@ export default class SuperMathPage extends React.Component {
                     <div className='header_div_left'>
                         <div className='div_supermath_long' onClick={this.onRefresh}> SuperMath </div>
                         <div className='div_supermath_short' onClick={this.onRefresh} > sm </div>
-                        <div onClick={() => this.setState({aboutOpen: true})} className='font_about'> {header[this.state.lang]['about']} </div>
+                        <div className='div_about' onClick={() => this.setState({aboutOpen: true})}> {header[this.state.lang]['about']} </div>
                         <div onClick={() => this.setState({helpOpen: true})} className='font_help'> {header[this.state.lang]['help']} </div>
 
                         { (this.state.id > 0) ? (

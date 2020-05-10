@@ -42,19 +42,35 @@
 .div_supermath_long {
     margin-left: 5%;
     color: orange;
+    transition: transform .5s;
+}
+.div_supermath_long:hover {
+    transform: scale(1.1);
 }
 .div_supermath_short {
     display: none;
     margin-left: 5%;
     color: orange;
+    transition: transform .5s;
 }
-.font_about {
+.div_supermath_short:hover {
+    transform: scale(1.1);
+}
+.div_about {
+    transition: transform .5s;
     margin-left: 5%;
     color: green;
+}
+.div_about:hover {
+    transform: scale(1.1);
 }
 .font_help {
+    transition: transform .5s;
     margin-left: 5%;
     color: green;
+}
+.font_help:hover {
+    transform: scale(1.1);
 }
 .font_lang {
     margin-right: 5%;
