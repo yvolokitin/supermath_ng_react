@@ -13,7 +13,7 @@ import './card.css';
 
 export default function Info(props) {
     return (
-        <Dialog open={props.open} aria-labelledby='customized-dialog-title' transitionDuration={700} scroll='body'>
+        <Dialog open={props.open} aria-labelledby='customized-dialog-title' fullScreen={props.fullScreen} transitionDuration={700} scroll='body'>
             <SMTitle title='' onClick={() => props.onClose('info', false)}/>
             <ColorLine/>
 

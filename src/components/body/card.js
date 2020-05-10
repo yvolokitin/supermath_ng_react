@@ -92,6 +92,7 @@ export default function Card(props) {
                   text={desc}
                   source={props.task.logo}
                   task={props.task.type}
+                  fullScreen={props.fullScreen}
                   lang={props.lang}
                   onClose={onClose}/>
         </div>

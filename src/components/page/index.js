@@ -366,7 +366,7 @@ export default class SuperMathPage extends React.Component {
                     </div>
                 </div>
 
-                <Tabs onUpdate={this.onUpdate} lang={this.state.lang}/>
+                <Tabs onUpdate={this.onUpdate} fullScreen={this.state.width<581} lang={this.state.lang}/>
 
                 <Help open={this.state.helpOpen} fullScreen={this.state.width<581} onClick={() => this.setState({helpOpen: false})} lang={this.state.lang}/>
                 <About open={this.state.aboutOpen} fullScreen={this.state.width<581} onClick={() => this.setState({aboutOpen: false})} lang={this.state.lang}/>

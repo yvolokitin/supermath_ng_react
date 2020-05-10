@@ -1,5 +1,4 @@
-﻿//import React, { useState, useEffect, useCallback } from 'react';
-import React, { useState, } from 'react';
+﻿import React, { useState, } from 'react';
 
 import DigitGame from './../games/digitgame';
 import Footer from "./footer";
@@ -166,7 +165,7 @@ export default function Tabs(props) {
                 {tasks.map(
                     (task) =>
                         <div key={task.id}>
-                            <Card task={task} color={value} lang={props.lang} onUpdate={onGameOpen}/>
+                            <Card task={task} color={value} lang={props.lang} fullScreen={props.fullScreen} onUpdate={onGameOpen}/>
                         </div>
                     )
                 }
