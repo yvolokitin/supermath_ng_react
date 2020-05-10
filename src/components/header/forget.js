@@ -16,8 +16,7 @@ import {forget} from './../translations/forget';
 
 import axios from 'axios';
 
-import './header.css';
-
+//import './header.css';
 export default class Forget extends React.Component {
     constructor(props) {
         super(props);

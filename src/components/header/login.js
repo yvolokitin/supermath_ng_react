@@ -18,8 +18,7 @@ import {login} from './../translations/login';
 
 import axios from 'axios';
 
-import './header.css';
-
+//import './header.css';
 export default class Login extends React.Component {
     constructor(props) {
         super(props);
