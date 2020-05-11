@@ -3,6 +3,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import axios from 'axios';
 
+import {update_counter, update_passfail, update_language, } from './../halpers/communicator';
+
 import Help from './../header/help';
 import About from './../header/about';
 import Login from './../header/login';
@@ -41,7 +43,6 @@ export default class SuperMathPage extends React.Component {
         this.onApiUpdate = this.onApiUpdate.bind(this);
         this.onApiUpdateError = this.onApiUpdateError.bind(this);
 
-        this.onForget = this.onForget.bind(this);
         this.onResult = this.onResult.bind(this);
         this.onRefresh = this.onRefresh.bind(this);
         this.onWelcome = this.onWelcome.bind(this);
@@ -117,36 +118,30 @@ export default class SuperMathPage extends React.Component {
     }
 
     onUserInfo(property, value, asset='na') {
+        console.log('Header.onUserInfo ' + value.toString() + ', ' + asset.toString());
         var pswdhash = localStorage.getItem('pswdhash');
 
         if (property === 'close') {
             this.setState({userInfoOpen: false});
 
-        } else if (property === 'passfail') {
-            console.log('Header.onUserInfo ' + value + ', ' + asset + ', ' + localStorage.getItem('belt'));
-            this.setState({pass: value, fail: asset});
-            localStorage.setItem('pass', value);
-            localStorage.setItem('fail', asset);
-
+        // counter: user game results from task
+        } else if (property === 'counter') {
             if ((this.state.id > 0) && (pswdhash !== null)) {
-                var passkey = parseInt(this.state.id) * value;
-                var passbin = (passkey >>> 0).toString(2); // xor
-                var failkey = parseInt(this.state.id) * asset;
-                var failbin = (failkey >>> 0).toString(2);
-                console.log('Binary ' + passkey + ': ' + passbin + ', ' + failkey + ': ' + failbin);
-                var post = {'user_id': this.state.id,
-                            'pswdhash': pswdhash,
-                            'passed': passbin,
-                            'failed': failbin,
-                            'belt': localStorage.getItem('belt')};
-                // update user failed counter in header and send to server
-                axios.post('http://supermath.xyz:3000/api/counter', post)
-                    .then(this.onApiUpdate)
-                    .catch(this.onApiUpdateError);
+                this.setState({pass: (parseInt(this.state.pass) + parseInt(value.passed)),
+                               fail: (parseInt(this.state.fail) + parseInt(value.failed))});
+                // updateCounter(id, pswdhash, data)
+                update_counter(this.state.id, pswdhash, value);
+            }
+
+        // passfail: user exchange poops vs smiles
+        } else if (property === 'passfail') {
+            this.setState({pass: value, fail: asset});
+            if ((this.state.id > 0) && (pswdhash !== null)) {
+                // updatePassFail(id, pswdhash, belt, passed, failed)
+                update_passfail(this.state.id, pswdhash, this.state.belt, value, asset);
             }
 
         } else {
-            // console.log('SMHeader.onUserInfo ' + property + ': ' + value);
             var post_data = {'user_id': this.state.id,
                              'operation': property,
                              'pswdhash': pswdhash};
@@ -182,33 +177,19 @@ export default class SuperMathPage extends React.Component {
     }
 
     onLanguage(language) {
-        if (language !== undefined) {
-            console.log('Header.onLanguage: ' + language);
-            localStorage.setItem('land', language);
-            this.setState({langSelector: false, lang: language});
-
-            if (this.state.id > 0) {
-                // send user language update to server
-                var post_data = {'user_id': this.state.id,
-                                 'pswdhash': localStorage.getItem('pswdhash'),
-                                 'operation': 'lang',
-                                 'lang': language};
-                axios.post('http://supermath.xyz:3000/api/update', post_data)
-                    .then(this.onApiUpdate)
-                    .catch(this.onApiUpdateError);
-            } else {
-                console.log('Language.onSave: do not sent language change to ' + language);
-            }
-
-        } else {
-            this.setState({langSelector: false});
+        this.setState({langSelector: false, lang: language});
+        localStorage.setItem('lang', language);
+        if (this.state.id > 0) {
+            // update_language(id, language)
+            update_language(this.state.id, language);
         }
     }
 
     onResult(result, user_id, name, language, email, age, surname, avatar, passed, failed, belt) {
         // console.log('Header.onResult ' + result + ', ' + user_id + ', ' + name +  ', ' + language + ', ' + email + ', ' + surname);
-        console.log('Header.onResult ' + passed + ', ' + failed + ', age: ' + age + ', avatar: '  + avatar + ', belt: ' + belt);
         if (result === 'successed') {
+            console.log('Header.onResult ' + passed + ', ' + failed + ', age: ' + age + ', avatar: '  + avatar + ', belt: ' + belt);
+
             var welcomeScreen = false;
             if (this.state.registerOpen === true) {
                 welcomeScreen = true;
@@ -240,18 +221,31 @@ export default class SuperMathPage extends React.Component {
             localStorage.setItem('fail', failed);
 
         } else if (result === 'register') {
-            this.setState({loginOpen: false});
+            this.setState({
+                registerOpen: true,
+                loginOpen: false,
+            });
 
         } else if (result === 'login') {
-            this.setState({loginOpen: true, forgetOpen: false});
+            this.setState({
+                loginOpen: true,
+                registerOpen: false,
+                forgetOpen: false
+            });
 
         } else if (result === 'forget') {
             // console.log('Not implemented yet, just close');
-            this.setState({loginOpen: false, forgetOpen: true});
+            this.setState({
+                forgetOpen: true,
+                loginOpen: false
+            });
 
         } else if (result === 'logout') {
             console.log("onLogout");
-            this.setState({id: 0, logoutOpen:false});
+            this.setState({
+                logoutOpen: false,
+                id: 0,
+            });
 
             // remove all info from local storage
             localStorage.removeItem('user_id');
@@ -269,13 +263,14 @@ export default class SuperMathPage extends React.Component {
             // localStorage.removeItem('lang');
             // localStorage.removeItem('belt');
 
-        } else if (result === 'close') {
-            this.setState({logoutOpen: false});
-
         } else {
-            if (!this.state.registerOpen) {
-                this.setState({loginOpen: false, forgetOpen: false, welcomeOpen: false});
-            }
+            this.setState({
+                loginOpen: false,
+                forgetOpen: false,
+                welcomeOpen: false,
+                logoutOpen: false,
+                registerOpen: false,
+            });
         }
     }
 
@@ -319,10 +314,6 @@ export default class SuperMathPage extends React.Component {
         window.location.reload();
     }
 
-    onForget() {
-        this.setState({forgetOpen: true});
-    }
-
     render() {
         return (
             <React.Fragment>
@@ -333,15 +324,21 @@ export default class SuperMathPage extends React.Component {
                         <div className='div_supermath_long' onClick={this.onRefresh}> SuperMath </div>
                         <div className='div_supermath_short' onClick={this.onRefresh} > sm </div>
                         <div className='div_about' onClick={() => this.setState({aboutOpen: true})}> {header[this.state.lang]['about']} </div>
-                        <div onClick={() => this.setState({helpOpen: true})} className='font_help'> {header[this.state.lang]['help']} </div>
+                        <div className='div_help' onClick={() => this.setState({helpOpen: true})}> {header[this.state.lang]['help']} </div>
 
                         { (this.state.id > 0) ? (
-                            <div className='div_supermath_short' style={{color:'green'}} onClick={() => this.setState({logoutOpen:true})}>{header[this.state.lang]['logout']}</div>
+                            <div className='div_supermath_short' style={{color:'green'}} onClick={() => this.setState({logoutOpen:true})}>
+                                {header[this.state.lang]['logout']}
+                            </div>
                         ) : (
-                            <div className='div_supermath_short' style={{color:'green'}} onClick={() => this.setState({loginOpen: true})}> {header[this.state.lang]['login']} </div>
+                            <div className='div_supermath_short' style={{color:'green'}} onClick={() => this.setState({loginOpen: true})}>
+                                {header[this.state.lang]['login']}
+                            </div>
                         )}
 
-                        <div className='div_supermath_short' style={{color:'green'}} onClick={() => this.setState({langSelector:true})}> {header[this.state.lang]['lang']} </div>
+                        <div className='div_supermath_short' style={{color:'green'}} onClick={() => this.setState({langSelector:true})}>
+                            {header[this.state.lang]['lang']}
+                        </div>
                     </div>
                     <div className='header_div_right'>
                         { (this.state.id > 0) ? (
@@ -353,26 +350,34 @@ export default class SuperMathPage extends React.Component {
                                 <font onClick={() => this.setState({userInfoOpen: true})} className='font_userinfo_last' style={{color:'red'}}>
                                     {this.state.fail} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                                 </font> 
-                                <font onClick={() => this.setState({logoutOpen:true})} className='font_login'>{header[this.state.lang]['logout']}</font>
+                                <font onClick={() => this.setState({logoutOpen:true})} className='div_login'>{header[this.state.lang]['logout']}</font>
                             </>
                         ) : (
                             <>
-                                <div className='font_register' onClick={() => this.props.onUpdate('register')}> {header[this.state.lang]['register']} </div>
-                                <div className='font_login' onClick={() => this.setState({loginOpen: true})}> {header[this.state.lang]['login']} </div>
+                                <div className='div_register' onClick={() => this.setState({registerOpen: true})}>
+                                    {header[this.state.lang]['register']}
+                                </div>
+                                <div className='div_login' onClick={() => this.setState({loginOpen: true})}>
+                                    {header[this.state.lang]['login']}
+                                </div>
                             </>
                         )}
 
-                        <font onClick={() => this.setState({langSelector:true})} className='font_lang'> {header[this.state.lang]['lang']} </font>
+                        <div className='div_lang' onClick={() => this.setState({langSelector:true})}> {header[this.state.lang]['lang']} </div>
                     </div>
                 </div>
 
-                <Tabs onUpdate={this.onUpdate} fullScreen={this.state.width<581} lang={this.state.lang}/>
+                <Tabs onUpdate={this.onUserInfo} id={this.state.id} fullScreen={this.state.width<581} lang={this.state.lang}/>
 
-                <Help open={this.state.helpOpen} fullScreen={this.state.width<581} onClick={() => this.setState({helpOpen: false})} lang={this.state.lang}/>
-                <About open={this.state.aboutOpen} fullScreen={this.state.width<581} onClick={() => this.setState({aboutOpen: false})} lang={this.state.lang}/>
+                <Help open={this.state.helpOpen} onClick={() => this.setState({helpOpen: false})}
+                      fullScreen={this.state.width<581} lang={this.state.lang}/>
+                <About open={this.state.aboutOpen} onClick={() => this.setState({aboutOpen: false})}
+                       fullScreen={this.state.width<581} lang={this.state.lang}/>
 
-                <Login open={this.state.loginOpen} fullScreen={this.state.width<581} onClose={this.onResult} lang={this.state.lang}/>
-                <Forget open={this.state.forgetOpen} fullScreen={this.state.width<581} onClose={this.onResult} lang={this.state.lang}/>
+                <Login open={this.state.loginOpen} onClose={this.onResult}
+                       fullScreen={this.state.width<581} lang={this.state.lang}/>
+                <Forget open={this.state.forgetOpen} onClose={() => this.setState({forgetOpen: false})}
+                        fullScreen={this.state.width<581} lang={this.state.lang}/>
 
                 <UserInformation open={this.state.userInfoOpen} onUpdate={this.onUserInfo}
                                  id={this.state.id} email={this.state.email}
@@ -382,8 +387,8 @@ export default class SuperMathPage extends React.Component {
                                  lang={this.state.lang}/>
 
                 <Registration open={this.state.registerOpen}
-                              fullScreen={this.state.width<581}
                               onClose={this.onResult}
+                              fullScreen={this.state.width<800}
                               lang={this.state.lang}
                               passed={this.props.passed}
                               failed={this.props.failed}/>

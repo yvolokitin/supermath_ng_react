@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 
 import SMRadialChart from "./../charts/smradialchart";
 import GameProgress from "./digitgameprogress";
@@ -63,43 +63,19 @@ export default class GameResults extends React.Component {
 
     onClose(status) {
         console.log('GameResults.onClose: ' + this.props.belt);
-
-        var passed = this.props.passed;
-        if (localStorage.getItem('pass') !== null) {
-            passed = this.props.passed + parseInt(localStorage.getItem('pass'));
-        }
-
-        var failed = this.props.failed;
-        if (localStorage.getItem('fail') !== null) {
-            failed = this.props.failed + parseInt(localStorage.getItem('fail'));
-        }
-
-        // send post update if user login and close window
-        if (localStorage.getItem('user_id') !== null) {
-            // update user passed / failed counter in header and send to server
-            localStorage.setItem('pass', passed);
-            localStorage.setItem('fail', failed);
-
-            var post_data = {'user_id': localStorage.getItem('user_id'),
-                             'pswdhash': localStorage.getItem('pswdhash'),
-                             'operation': 'results',
-                             'passed': this.props.passed,
-                             'failed': this.props.failed,
-                             'duration': this.props.duration,
-                             'percent': this.state.result.percent,
-                             'rate': this.state.result.rate,
-                             'belt': this.props.belt,
-                             'task': this.props.type,
-                            };
-            axios.post('http://supermath.xyz:3000/api/update', post_data)
-                .then(this.onUpdateResults)
-                .catch(this.onUpdateResultsError);
-        } else {
-            console.log('GameResults.onClose: do not sent results');
-        }
+        var data = {
+            'operation': 'results',
+            'passed': this.props.passed,
+            'failed': this.props.failed,
+            'duration': this.props.duration,
+            'percent': this.state.result.percent,
+            'rate': this.state.result.rate,
+            'belt': this.props.belt,
+            'task': this.props.type,
+        };
 
         // on close and on replay -> updated passed/failed counters
-        this.props.onClose(status, passed, failed);
+        this.props.onClose(status, data);
     }
 
     onUpdateResults(response) {

@@ -119,12 +119,12 @@ export default class Login extends React.Component {
     }
 
     onLoginError(error) {
-        console.log("axios.post error " + error);
+        console.log('axios.post error ' + error);
         this.setState({success: false, loading: false, color:'red', error: true, message: error.toString()});
     }
 
     onClose(status) {
-        // console.log("login.onClose " + status);
+        console.log('login.onClose ' + this.state.loading + ', ' + status);
         // ignore close request if login is in progress
         if (!this.state.loading) {
             this.props.onClose(status);

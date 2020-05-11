@@ -1,6 +1,4 @@
 ﻿import React from 'react';
-import axios from 'axios';
-
 import {Dialog} from '@material-ui/core';
 
 import GameHeader from "./digitgameheader";
@@ -54,8 +52,9 @@ export default class DigitGame extends React.Component {
     }
 
     // closed, pass, fail passed only when game is closed
-    onGameClose(status, pass, fail) {
-        // console.log('DigitGame.onGameClose ' + status);
+    onGameClose(status, data) {
+        console.log('DigitGame.onGameClose ' + status + ': ' + (status in ['close', 'replay', 'register']));
+
         // game was unexpecdetly closed by user during play
         if (status === 'finished') {
             this.setState({showResults: true, results: this.results,
@@ -66,7 +65,32 @@ export default class DigitGame extends React.Component {
         } else if ((status === 'close') ||
                    (status === 'replay') ||
                    (status === 'register')) {
-            this.props.onClose(status, pass, fail);
+
+            this.setState({showResults: false,
+                           results: [],
+                           circle: 'white',
+                           total: 0,
+                           passed: 0,
+                           failed: 0});
+            this.results = [];
+            this.timer = new Date().getTime();
+            this.props.onClose(status, data);
+
+        // game was properly finished, when all tasks are solved
+        } else if (status === 'interrapted') {
+            console.log('Game interraption with ' + this.state.failed + ' fails');
+
+            var user_data = {
+                'operation': 'results',
+                'passed': 0,
+                'failed': this.state.failed,
+                'duration': (new Date().getTime() - this.timer),
+                'percent': 0,
+                'rate': 'really_bad',
+                'belt': this.props.belt,
+                'task': this.state.type,
+            };
+
             this.setState({showResults: false,
                            results: [],
                            circle: 'white',
@@ -76,35 +100,7 @@ export default class DigitGame extends React.Component {
             this.results = [];
             this.timer = new Date().getTime();
 
-        // game was properly finished, when all tasks are solved
-        } else if (status === 'interrapted') {
-            console.log('Game interraption with ' + this.state.failed + ' fails');
-
-            // if task is interrapted, we would like to keep results as punishment
-            if ((localStorage.getItem('user_id') !== null) && (this.state.failed > 0)) {
-                // even if user had passed, we make it zero as punishment
-                this.props.onClose(status, 0, this.state.failed);
-
-                // update user failed counter in header and send to server
-                var fails = parseInt(localStorage.getItem('fail')) + parseInt(this.state.failed);
-                localStorage.setItem('fail', fails);
-                var post_data = {'user_id': localStorage.getItem('user_id'),
-                                 'pswdhash': localStorage.getItem('pswdhash'),
-                                 'operation': 'results',
-                                 'passed': 0,
-                                 'failed': this.state.failed,
-                                 'duration': (new Date().getTime() - this.timer),
-                                 'percent': 0,
-                                 'rate': 'Quite Bad',
-                                 'belt': this.props.belt,
-                                 'task': this.state.type};
-                axios.post('http://supermath.xyz:3000/api/update', post_data);
-            } else {
-                this.props.onClose('close', 0, 0);
-            }
-
-            this.setState({results: [], circle: 'white', total: 0, passed: 0, failed: 0});
-            this.results = [];
+            this.props.onClose('close', user_data);
 
         } else {
             console.log("onGameClose: Wrong status received: " + status);

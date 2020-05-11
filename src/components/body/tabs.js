@@ -93,33 +93,16 @@ export default function Tabs(props) {
         setGameOpen(true);
     }
 
-    function onGameClose(status, passed, failed) {
-        console.log('Tabs.onGameClose ' + status + ': ' + passed + ', ' + failed);
-
-        // this.props.onClose(status, pass, fail);
+    function onGameClose(status, data) {
+        // console.log('Tabs.onGameClose ' + status + ': ' + data.passed + ', ' + data.failed);
         if (status === 'close') {
             setGameOpen(false);
-            if ((failed > 0) || (passed > 0)) {
-                props.onUpdate('counter', passed, failed);
+        }
+
+        if (data !== undefined) {
+            if ((data.failed > 0) || (data.passed > 0)) {
+                props.onUpdate('counter', data);
             }
-
-        } else if (status === 'register') {
-            setGameOpen(false);
-            props.onUpdate('register', passed, failed);
-
-        } else if (status === 'replay') {
-            props.onUpdate('counter', passed, failed);
-
-        } else if (status === 'interrapted') {
-            var fail = failed + parseInt(localStorage.getItem('fail'));
-            var pass = parseInt(localStorage.getItem('pass'));
-            props.onUpdate('counter', pass, fail);
-            setGameOpen(false);
-
-        } else {
-            console.log('ERROR: Unknown onClose property called ' + status);
-            alert('ERROR: Unknown onClose property called ' + status);
-            setGameOpen(false);
         }
     }
 
@@ -188,6 +171,7 @@ export default function Tabs(props) {
             <Footer color={footer} lang={props.lang}/>
 
             <DigitGame open={gameOpen}
+                       id={props.id}
                        type={game.type}
                        task={game.task}
                        amount={game.amount}

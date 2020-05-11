@@ -13,14 +13,9 @@ export default function Language(props) {
         setValue(event.target.value);
     };
 
-    const onSave = () => {
-        console.log('Language.onClose ' + value);
-        props.onClose(value);
-    }
-
     return (
-        <Dialog onClose={() => props.onClose()} fullScreen={props.fullScreen} transitionDuration={500} open={props.open} scroll='body'>
-            <SMTitle title='Select your language' className='language_title' onClick={() => props.onClose()}/>
+        <Dialog onClose={() => props.onClose(value)} fullScreen={props.fullScreen} transitionDuration={500} open={props.open} scroll='body'>
+            <SMTitle title='Select your language' className='language_title' onClick={() => props.onClose(value)}/>
 
             <Card style={{marginLeft:'5%',marginRight:'5%',display:'flex',flexDirection:'column'}}>
                 <CardMedia component='img' alt='World map' height='140' src={world}/>
@@ -37,7 +32,7 @@ export default function Language(props) {
             </RadioGroup>
 
             <Card style={{margin:'5%',display:'flex',flexDirection:'column'}}>
-                <Button variant='contained' onClick={onSave}>Save</Button>
+                <Button variant='contained' onClick={() => props.onClose(value)}>Save</Button>
             </Card>
         </Dialog>
     );

@@ -40,47 +40,59 @@
     justify-content: flex-end;
 }
 .div_supermath_long {
+    transition: transform 1.0s;
     margin-left: 5%;
     color: orange;
-    transition: transform .5s;
 }
 .div_supermath_long:hover {
     transform: scale(1.1);
 }
 .div_supermath_short {
+    transition: transform 1.0s;
     display: none;
     margin-left: 5%;
     color: orange;
-    transition: transform .5s;
 }
 .div_supermath_short:hover {
     transform: scale(1.1);
 }
 .div_about {
-    transition: transform .5s;
+    transition: transform 1.0s;
     margin-left: 5%;
     color: green;
 }
 .div_about:hover {
+    color: brown;
     transform: scale(1.1);
 }
-.font_help {
-    transition: transform .5s;
+.div_help {
+    transition: transform 1.0s;
     margin-left: 5%;
     color: green;
 }
-.font_help:hover {
+.div_help:hover {
+    color: brown;
     transform: scale(1.1);
 }
-.font_lang {
+.div_lang {
+    transition: transform 1.0s;
     margin-right: 5%;
     float: right;
     color: green;
 }
-.font_login {
+.div_lang:hover {
+    color: orange;
+    transform: scale(1.1);
+}
+.div_login {
+    transition: transform 1.0s;
     margin-right: 4%;
     float: right;
     color: green;
+}
+.div_login:hover {
+    color: orange;
+    transform: scale(1.1);
 }
 .font_userinfo {
     margin-right: 1%;
@@ -94,10 +106,15 @@
     float: right;
     color: orange;
 }
-.font_register {
+.div_register {
+    transition: transform 1.0s;
     margin-right: 5%;
     float: right;
     color: green;
+}
+.div_register:hover {
+    color: red;
+    transform: scale(1.1);
 }
 @keyframes fade {
   from {opacity: .1} 
@@ -145,14 +162,14 @@
         align-items: center;
         justify-content: center;
     }
-    .font_register {
+    .div_register {
         margin: auto;
         color: orange;
     }
-    .font_lang {
+    .div_lang {
         display: none;
     }
-    .font_login {
+    .div_login {
         display: none;
     }
 }

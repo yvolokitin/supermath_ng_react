@@ -7,6 +7,64 @@ export function send_email(data) {
         .catch(onApiCallError);
 }
 
+export function update_language(id, language) {
+    console.log('Communicator.update_language ' + id);
+    var pswdhash = localStorage.getItem('pswdhash');
+    if (pswdhash != null) {
+        var post_data = {'user_id': id,
+                         'pswdhash': pswdhash,
+                         'operation': 'lang',
+                         'lang': language};
+        axios.post('http://supermath.xyz:3000/api/update', post_data)
+             .then(onApiCall)
+             .catch(onApiCallError);
+    }
+}
+
+export function update_counter(id, pswdhash, data) {
+    console.log('Communicator.update_counter ' + id);
+
+    var passed = parseInt(data.passed), failed = parseInt(data.failed);
+    if ((passed>0) || (failed>0)) {
+        if (localStorage.getItem('pass') !== null) {
+            passed = passed + parseInt(localStorage.getItem('pass'));
+        }
+        localStorage.setItem('pass', passed);
+
+        if (localStorage.getItem('fail') !== null) {
+            failed = failed + parseInt(localStorage.getItem('fail'));
+        }
+        localStorage.setItem('fail', failed);
+
+        data.user_id = id; data.pswdhash = pswdhash;
+        axios.post('http://supermath.xyz:3000/api/update', data)
+             .then(onApiCall)
+             .catch(onApiCallError);
+    }
+}
+
+export function update_passfail(id, pswdhash, belt, passed, failed) {
+    console.log('Communicator.update_passfail ' + id);
+
+    localStorage.setItem('pass', passed);
+    localStorage.setItem('fail', failed);
+
+    var passkey = parseInt(id) * passed;
+    var passbin = (passkey >>> 0).toString(2); // xor
+    var failkey = parseInt(id) * failed;
+    var failbin = (failkey >>> 0).toString(2);
+    console.log('Binary ' + passkey + ': ' + passbin + ', ' + failkey + ': ' + failbin);
+    var post = {'user_id': this.state.id,
+                'pswdhash': pswdhash,
+                'passed': passbin,
+                'failed': failbin,
+                'belt': belt};
+
+    axios.post('http://supermath.xyz:3000/api/counter', post)
+         .then(onApiCall)
+         .catch(onApiCallError);
+}
+
 function onApiCall(response) {
     console.log('Communicator.onApiCall ' + response.toString());
 

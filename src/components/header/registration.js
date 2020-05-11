@@ -140,7 +140,7 @@ export default class Registration extends React.Component {
     }
 
     onClose(status) {
-        console.log('registration.onClose ' + status);
+        console.log('registration.onClose ' + status + ', ' + this.state.loading);
         // ignore close request if registration is in progress
         if (!this.state.loading) {
             this.props.onClose(status);
@@ -152,7 +152,7 @@ export default class Registration extends React.Component {
     render() {
         return (
             <Dialog transitionDuration={600} fullScreen={this.props.fullScreen} fullWidth={true} maxWidth='md' scroll='body' open={this.props.open}>
-                <SMTitle title='' onClick={() => this.onClose()}/>
+                <SMTitle title='' onClick={() => this.onClose('close')}/>
 
                 <div className='registration_desk' style={{backgroundColor: this.state.color}}>
                     {this.state.loading ? <CircularProgress size={68} className='circular_progress'/> : null}

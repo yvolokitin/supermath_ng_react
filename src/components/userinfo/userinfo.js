@@ -49,6 +49,17 @@ import ava28 from './../../images/avatars/waiter-icon.png';
 import ava29 from './../../images/avatars/woman-icon.png';
 import ava30 from './../../images/avatars/firefighter-icon.png';
 
+var avatars = [[ava1, 'astronaut'], [ava2, 'confederate'], [ava3, 'worker'],
+               [ava4, 'doctor'], [ava5, 'cowboy'], [ava6, 'chef'],
+               [ava7, 'artist'], [ava8, 'boy'], [ava9, 'chief'],
+               [ava10, 'clown'], [ava11, 'grandma'], [ava12, 'lumberjack'],
+               [ava13, 'martin'], [ava14, 'pirate'], [ava15, 'policeman'],
+               [ava16, 'princess'], [ava17, 'prisoner'], [ava18, 'queen'],
+               [ava19, 'dentist'], [ava20, 'baby'], [ava21, 'solder'],
+               [ava22, 'prince'], [ava23, 'lady'], [ava24, 'mom'],
+               [ava25, 'Indian'], [ava26, 'Irish'], [ava27, 'king'],
+               [ava28, 'waiter'], [ava29, 'woman'], [ava30, 'firefighter']];
+
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
     return (
@@ -72,16 +83,11 @@ function a11yProps(index) {
     };
 }
 
-var avatars = [ava1,ava2,ava3,ava4,ava5,ava6,
-               ava7,ava8,ava9,ava10,ava11,ava12,
-               ava13,ava14,ava15,ava16,ava17,ava18,
-               ava19,ava20,ava21,ava22,ava23,ava24,
-               ava25,ava26,ava27,ava28,ava29,ava30];
-
 export default class UserInformation extends React.Component {
     constructor(props) {
         super(props);
 
+        this.onClose = this.onClose.bind(this);
         this.onAvatar = this.onAvatar.bind(this);
         this.onSettings = this.onSettings.bind(this);
         this.onExchange = this.onExchange.bind(this);
@@ -89,15 +95,14 @@ export default class UserInformation extends React.Component {
 
         var index = 13;
         for (var i=0; i<avatars.length; i++) {
-            if (avatars[i].includes(this.props.avatar)) {
-                index = i;
-                break;
+            if (avatars[i][1] === props.avatar) {
+                index = i; break;
             }
         }
 
         this.state = {'tab': 0,
                       'index': index,
-                      'avatars': avatars,
+                      'avatar': avatars[index][1],
                       'name': props.name,
                       'surname': props.surname,
                       'email': props.email,
@@ -122,11 +127,6 @@ export default class UserInformation extends React.Component {
         }
     }
 
-    onAvatar(avatar, index) {
-        this.setState({index: index});
-        this.props.onUpdate('avatar', avatar);
-    }
-
     onSettings(property, value) {
         // console.log('UserInformation.onSettings: ' + property + ', value ' + value);
         if (property === 'name') {this.setState({name: value});}
@@ -146,10 +146,20 @@ export default class UserInformation extends React.Component {
         this.setState({tab: value});
     }
 
+    onClose() {
+        console.log('UserInformation.onClose ' + this.state.avatar);
+        var data = [];
+        if (this.state.avatar !== this.props.avatar) {
+            data.push('avatar': this.state.avatar);
+        }
+
+        this.props.onUpdate('avatar', this.state.avatar);
+    }
+
     render() {
         return (
             <Dialog open={this.props.open} fullScreen={true} transitionDuration={600}>
-                <SMTitle title='' onClick={() => this.props.onUpdate('close')} style={{display:'flex',backgroundColor:'white'}}/>
+                <SMTitle title='' onClick={() => this.onClose()} style={{display:'flex',backgroundColor:'white'}}/>
 
                 <div className='userinfoboard'>
                     <div className='userinfoboard_name_age'>
@@ -162,7 +172,7 @@ export default class UserInformation extends React.Component {
                         </div>
                     </div>
                     <div className='userinfoboard_avatar_div'>
-                        <Avatar style={{width:'180px',height:'180px',}} src={this.state.avatars[this.state.index]} alt='avatar'/>
+                        <Avatar style={{width:'180px',height:'180px',}} src={avatars[this.state.index][0]} alt='avatar'/>
                     </div>
                 </div>
 
@@ -177,7 +187,7 @@ export default class UserInformation extends React.Component {
                 </AppBar>
 
                 <TabPanel value={this.state.tab} index={0}>
-                    <Avatars avatars={this.state.avatars} index={this.state.index} onAvatar={this.onAvatar}/>
+                    <Avatars avatars={avatars} avatar={this.state.avatar} onAvatar={() => this.setState({'index':index,'avatar':avatars[index][1]})}/>
                 </TabPanel>
 
                 <TabPanel value={this.state.tab} index={1}>
