@@ -5,6 +5,7 @@
     height: 65px;
     width: 100%;
 
+    user-select: none;
     font-family: 'Grinched';
     font-variant: small-caps;
     font-size: 2.0rem;

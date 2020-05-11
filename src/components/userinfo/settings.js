@@ -12,16 +12,17 @@ export default class Settings extends React.Component {
 
         this.onSave = this.onSave.bind(this);
 
-        this.state = {name: props.user, editname: true,
-                      surname: props.surname, editsurname: true,
-                      email: props.email, editemail: true,
-                      pswd: '', editpswd: true,
-                      birth: '', editbirth: true,
-                      };
+        this.state = {
+            name: props.user, editname: true,
+            surname: props.surname, editsurname: true,
+            email: props.email, editemail: true,
+            pswd: '', editpswd: true,
+            birth: '', editbirth: true,
+        };
     }
 
     onSave(property, edit) {
-        console.log('Settings:: ' + property + ': ' + this.state[property]);
+        console.log('Settings.onSave ' + property + ', ' + this.state[property]);
         this.props.onSettings(property, this.state[property]);
         this.setState(edit);
     }

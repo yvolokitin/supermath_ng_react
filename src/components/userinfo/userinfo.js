@@ -60,6 +60,15 @@ var avatars = [[ava1, 'astronaut'], [ava2, 'confederate'], [ava3, 'worker'],
                [ava25, 'Indian'], [ava26, 'Irish'], [ava27, 'king'],
                [ava28, 'waiter'], [ava29, 'woman'], [ava30, 'firefighter']];
 
+function getIndex(name) {
+    for (var i = 0; i < avatars.length; i++) {
+        if (avatars[i][1] === name) {
+            return i;
+        }
+    }
+    return 13;
+}
+
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
     return (
@@ -88,42 +97,35 @@ export default class UserInformation extends React.Component {
         super(props);
 
         this.onClose = this.onClose.bind(this);
-        this.onAvatar = this.onAvatar.bind(this);
         this.onSettings = this.onSettings.bind(this);
         this.onExchange = this.onExchange.bind(this);
         this.onTabChange = this.onTabChange.bind(this);
 
-        var index = 13;
-        for (var i=0; i<avatars.length; i++) {
-            if (avatars[i][1] === props.avatar) {
-                index = i; break;
-            }
-        }
-
-        this.state = {'tab': 0,
-                      'index': index,
-                      'avatar': avatars[index][1],
-                      'name': props.name,
-                      'surname': props.surname,
-                      'email': props.email,
-                      'pswd': props.pswd,};
+        this.index = getIndex(props.avatar);
+        this.state = {
+            'tab': 0,
+            'index': this.index,
+            'avatar': avatars[this.index][1],
+            'name': props.name,
+            'surname': props.surname,
+            'email': props.email,
+            'pswd': props.pswd,
+        };
     }
 
     componentDidUpdate(prevProps) {
         // if ids do not match -> user changed
         if (this.props.id !== prevProps.id) {
-            var index = 13;
-            for (var i=0; i<avatars.length; i++) {
-                if (avatars[i].includes(this.props.avatar)) {
-                    index = i; break;
-                }
-            }
-
-            this.setState({'index': index,
-                           'name': this.props.name,
-                           'surname': this.props.surname,
-                           'email': this.props.email,
-                           'pswd': this.props.pswd,});
+            this.index = getIndex(this.props.avatar);
+            this.setState({
+                'tab': 0,
+                'index': this.index,
+                'avatar': avatars[this.index][1],
+                'name': this.props.name,
+                'surname': this.props.surname,
+                'email': this.props.email,
+                'pswd': this.props.pswd,
+            });
         }
     }
 
@@ -148,12 +150,11 @@ export default class UserInformation extends React.Component {
 
     onClose() {
         console.log('UserInformation.onClose ' + this.state.avatar);
-        var data = [];
         if (this.state.avatar !== this.props.avatar) {
-            data.push('avatar': this.state.avatar);
+            this.props.onUpdate('avatar', this.state.avatar);
+        } else {
+            this.props.onUpdate('close');
         }
-
-        this.props.onUpdate('avatar', this.state.avatar);
     }
 
     render() {
@@ -187,7 +188,7 @@ export default class UserInformation extends React.Component {
                 </AppBar>
 
                 <TabPanel value={this.state.tab} index={0}>
-                    <Avatars avatars={avatars} avatar={this.state.avatar} onAvatar={() => this.setState({'index':index,'avatar':avatars[index][1]})}/>
+                    <Avatars avatars={avatars} avatar={this.state.avatar} onAvatar={(index) => this.setState({'index': index, 'avatar': avatars[index][1]})}/>
                 </TabPanel>
 
                 <TabPanel value={this.state.tab} index={1}>

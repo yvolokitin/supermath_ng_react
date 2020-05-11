@@ -3,7 +3,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import axios from 'axios';
 
-import {update_counter, update_passfail, update_language, } from './../halpers/communicator';
+import {update_counter, update_passfail, update_language,
+        update_avatar, update_usersettings, } from './../halpers/communicator';
 
 import Help from './../header/help';
 import About from './../header/about';
@@ -100,8 +101,8 @@ export default class SuperMathPage extends React.Component {
         if ((this.state.id > 0) && (pswdhash !== null)) {
             var post_data = {'user_id': this.state.id, 'pswdhash': pswdhash};
             axios.post('http://supermath.xyz:3000/api/refresh', post_data)
-                .then(this.onApiUpdate)
-                .catch(this.onApiUpdateError);
+                 .then(this.onApiUpdate)
+                 .catch(this.onApiUpdateError);
 
         } else { // else user is logouted -> page reload
             window.location.reload();
@@ -118,7 +119,7 @@ export default class SuperMathPage extends React.Component {
     }
 
     onUserInfo(property, value, asset='na') {
-        console.log('Header.onUserInfo ' + value.toString() + ', ' + asset.toString());
+        console.log('Header.onUserInfo ' + property + ': ' + value + ', ' + asset);
         var pswdhash = localStorage.getItem('pswdhash');
 
         if (property === 'close') {
@@ -141,37 +142,28 @@ export default class SuperMathPage extends React.Component {
                 update_passfail(this.state.id, pswdhash, this.state.belt, value, asset);
             }
 
+        } else if (property === 'avatar') {
+            this.setState({avatar: value, userInfoOpen: false});
+            if ((this.state.id > 0) && (pswdhash !== null)) {
+                update_avatar(this.state.id, pswdhash, value);
+            }
+
         } else {
-            var post_data = {'user_id': this.state.id,
-                             'operation': property,
-                             'pswdhash': pswdhash};
             if (property === 'name') {
-                this.setState({name: value});
-                post_data['name'] = value;
+                this.setState({'name': value});
             } else if (property === 'surname') {
-                this.setState({surname: value});
-                post_data['surname'] = value;
+                this.setState({'surname': value});
             } else if (property === 'email') {
-                this.setState({email: value});
-                post_data['email'] = value;
+                this.setState({'email': value});
             } else if (property === 'pswd') {
                 // for new pswd we have to generate new hash
                 // pswd = request.json.get('pswd')
                 // newhash = request.json.get('newhash')
-                this.setState({pswd: value});
-                post_data['pswd'] = value;
-            } else if (property === 'avatar') {
-                this.setState({avatar: value});
-                post_data['avatar'] = value;
+                this.setState({'pswd': value});
             }
 
-            // this.setState({userInfoOpen: false, avatar: localStorage.getItem('avatar')});
-            // need to update use avatar and other changed values
             if ((this.state.id > 0) && (pswdhash !== null)) {
-                // update user failed counter in header and send to server
-                axios.post('http://supermath.xyz:3000/api/update', post_data)
-                    .then(this.onApiUpdate)
-                    .catch(this.onApiUpdateError);
+                update_usersettings(this.state.id, pswdhash, property, value);
             }
         }
     }
@@ -195,20 +187,22 @@ export default class SuperMathPage extends React.Component {
                 welcomeScreen = true;
             }
 
-            this.setState({'id': parseInt(user_id),
-                           'name': name,
-                           'lang': language,
-                           'email': email,
-                           'surname': surname,
-                           'age': age,
-                           'avatar': avatar,
-                           'belt': belt,
-                           'pass': passed,
-                           'fail': failed,
-                            // close login window
-                            loginOpen: false,
-                            // close registration window
-                            welcomeOpen: welcomeScreen});
+            this.setState({
+                'id': parseInt(user_id),
+                'name': name,
+                'lang': language,
+                'email': email,
+                'surname': surname,
+                'age': age,
+                'avatar': avatar,
+                'belt': belt,
+                'pass': passed,
+                'fail': failed,
+                 // close login window
+                 loginOpen: false,
+                 // close registration window
+                 welcomeOpen: welcomeScreen
+            });
 
             // use HTML5 Local Storage if browser supports it
             localStorage.setItem('user_id', user_id);
