@@ -347,6 +347,10 @@ export default class SuperMathPage extends React.Component {
                         </div>
                     </div>
                     <div className='header_div_right'>
+                        <div className='div_trophy' onClick={this.onRefresh}>
+                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127942;</span>
+                        </div>
+
                         { (this.state.id > 0) ? (
                             <>
                                 <font onClick={() => this.setState({userInfoOpen: true})} className='font_userinfo'> {this.state.name} : </font>
