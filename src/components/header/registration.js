@@ -109,16 +109,8 @@ export default class Registration extends React.Component {
         }
 
         if ((response.data.error === undefined) && (response.data.id !== undefined)) {
-            // age calculation based on server response value
-            // 'age': 'Tue, 28 Jan 2014 06:13:13 GMT' -> need to convert in years
-            var birthday = new Date(response.data.age);
-            var ageDifMs = Date.now() - birthday.getTime();
-            var ageDate = new Date(ageDifMs);
-            var age = Math.abs(ageDate.getUTCFullYear() - 1970);
-
             setTimeout(() => {
-                this.props.onClose('successed', response.data.id, response.data.name, response.data.lang, response.data.email, age,
-                                    response.data.surname, response.data.ava, response.data.pass, response.data.fail, response.data.belt);
+                this.props.onClose('successed', response.data);
                 this.setState({loading: false, color: 'orange'});
             }, timeout);
 

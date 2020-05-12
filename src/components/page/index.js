@@ -67,7 +67,7 @@ export default class SuperMathPage extends React.Component {
                       belt: localStorage.getItem('belt') ? localStorage.getItem('belt') : 'white',
                       pass: localStorage.getItem('pass') ? localStorage.getItem('pass') : '0',
                       fail: localStorage.getItem('fail') ? localStorage.getItem('fail') : '0',
-                      id: localStorage.getItem('user_id') ? parseInt(localStorage.getItem('user_id')) : 0,
+                      id: (localStorage.getItem('user_id') !== null) ? parseInt(localStorage.getItem('user_id')) : 0,
                       name: localStorage.getItem('name') ? localStorage.getItem('name') : '',
                       surname: localStorage.getItem('surname') ? localStorage.getItem('surname') : '',
                       avatar: localStorage.getItem('avatar') ? localStorage.getItem('avatar') : 'martin-berube',
@@ -177,42 +177,60 @@ export default class SuperMathPage extends React.Component {
         }
     }
 
-    onResult(result, user_id, name, language, email, age, surname, avatar, passed, failed, belt) {
+    /**
+     * onResult shown autorization status
+     * 
+     * @param {String} result successed or switch to other screens
+     * @param {Object} data user data (id, name, email etc.)
+     */
+    onResult(result, data) {
         // console.log('Header.onResult ' + result + ', ' + user_id + ', ' + name +  ', ' + language + ', ' + email + ', ' + surname);
         if (result === 'successed') {
-            console.log('Header.onResult ' + passed + ', ' + failed + ', age: ' + age + ', avatar: '  + avatar + ', belt: ' + belt);
+            console.log('Header.onResult ' + data.pass + ', ' + data.fail + ', age: ' + data.age + ', avatar: '  + data.avatar + ', belt: ' + data.belt);
 
             var welcomeScreen = false;
             if (this.state.registerOpen === true) {
                 welcomeScreen = true;
             }
 
+            // age calculation based on server response value
+            // "age":"Tue, 28 Jan 2014 06:13:13 GMT" -> need to convert in years
+            var birthday = new Date(data.age);
+            var ageDifMs = Date.now() - birthday.getTime();
+            var ageDate = new Date(ageDifMs);
+            var age = Math.abs(ageDate.getUTCFullYear() - 1970);
+
             this.setState({
-                'id': parseInt(user_id),
-                'name': name,
-                'lang': language,
-                'email': email,
-                'surname': surname,
+                'id': parseInt(data.id),
+                'name': data.name,
+                'lang': data.lang,
+                'email': data.email,
+                'surname': data.surname,
                 'age': age,
-                'avatar': avatar,
-                'belt': belt,
-                'pass': passed,
-                'fail': failed,
+                'birthday': data.age,
+                'avatar': data.avatar,
+                'belt': data.belt,
+                'pass': data.pass,
+                'fail': data.fail,
                  // close login window
                  loginOpen: false,
                  // close registration window
-                 welcomeOpen: welcomeScreen
+                 registerOpen: false,
+                 welcomeOpen: welcomeScreen,
             });
 
             // use HTML5 Local Storage if browser supports it
-            localStorage.setItem('user_id', user_id);
-            localStorage.setItem('name', name);
-            localStorage.setItem('email', email);
-            localStorage.setItem('surname', surname);
+            localStorage.setItem('user_id', data.id);
+            localStorage.setItem('name', data.name);
+            localStorage.setItem('email', data.email);
+            localStorage.setItem('surname', data.surname);
             localStorage.setItem('age', age);
-            localStorage.setItem('avatar', avatar);
-            localStorage.setItem('pass', passed);
-            localStorage.setItem('fail', failed);
+            localStorage.setItem('birthday', data.birthday);
+            localStorage.setItem('avatar', data.avatar);
+            localStorage.setItem('pass', data.pass);
+            localStorage.setItem('fail', data.fail);
+            localStorage.setItem('lang', data.lang);
+            localStorage.setItem('belt', data.belt);
 
         } else if (result === 'register') {
             this.setState({
@@ -273,27 +291,21 @@ export default class SuperMathPage extends React.Component {
             if ('error' in response.data) {
                 console.log('ERROR Header.onApiUpdate received ' + response.data.error);
 
-            } else if ('id' in response.data) {
-                console.log('Header.onApiUpdate: successed, ' + response.data.id);
-                if (('name' in response.data) && ('lang' in response.data) &&
-                    ('age' in response.data) && ('surname' in response.data) &&
-                    ('email' in response.data) && ('creation' in response.data) &&
-                    ('pass' in response.data) && ('fail' in response.data) &&
-                    ('avatar' in response.data) && ('belt' in response.data)) {
-                        var birthday = new Date(response.data.age);
-                        var ageDifMs = Date.now() - birthday.getTime();
-                        var ageDate = new Date(ageDifMs);
-                        var age = Math.abs(ageDate.getUTCFullYear() - 1970);
+            } else if (('id' in response.data) && ('name' in response.data) &&
+                ('lang' in response.data) && ('age' in response.data) &&
+                ('surname' in response.data) && ('email' in response.data) &&
+                ('pass' in response.data) && ('fail' in response.data) &&
+                ('avatar' in response.data) && ('belt' in response.data)) {
 
-                        this.onResult('successed', response.data.id, response.data.name, response.data.lang, response.data.email, age,
-                                       response.data.surname, response.data.avatar, response.data.pass, response.data.fail, response.data.belt);
-                }
+                    console.log('Header.onApiUpdate: successed, ' + response.data.id);
+                    this.onResult('successed', response.data);
 
-                // refreshing page if received from server (usually, it forced by user)
-                if ('refresh' in response.data) {
-                    console.log('!!!! window.location.reload()');
-                    window.location.reload();
-                }
+                    // refreshing page if received from server (usually, it forced by user)
+                    if ('refresh' in response.data) {
+                        console.log('Refresh called: window.location.reload()');
+                        window.location.reload();
+                    }
+
             } else {
                 console.log('ERROR: Header.onApiUpdate no error and id in data message from server');
             }

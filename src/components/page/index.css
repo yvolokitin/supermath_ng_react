@@ -20,6 +20,10 @@
     float: left;
     cursor: pointer;
 
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: clip; 
+
     display: flex;
     align-items: center;
 }
@@ -123,10 +127,10 @@
 }
 @media only screen and (max-width: 860px) {
     .header_div_left {
-        width: 33%;
+        width: 39%;
     }
     .header_div_right {
-        width: 67%;
+        width: 60%;
     }
 }
 @media only screen and (max-width: 760px) {

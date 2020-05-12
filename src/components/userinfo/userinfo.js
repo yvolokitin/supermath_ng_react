@@ -114,8 +114,12 @@ export default class UserInformation extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        // if ids do not match -> user changed
-        if (this.props.id !== prevProps.id) {
+        // if ID, EMAIL, NAME do not match -> user changed
+        // use three params id localdata corrapted
+        if ((this.props.id !== prevProps.id) &&
+            (this.props.email !== prevProps.email) &&
+            (this.props.name !== prevProps.name)) {
+
             this.index = getIndex(this.props.avatar);
             this.setState({
                 'tab': 0,
