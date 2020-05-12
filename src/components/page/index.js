@@ -67,7 +67,7 @@ export default class SuperMathPage extends React.Component {
                       belt: localStorage.getItem('belt') ? localStorage.getItem('belt') : 'white',
                       pass: localStorage.getItem('pass') ? localStorage.getItem('pass') : '0',
                       fail: localStorage.getItem('fail') ? localStorage.getItem('fail') : '0',
-                      id: (localStorage.getItem('user_id') !== null) ? parseInt(localStorage.getItem('user_id')) : 0,
+                      id: localStorage.getItem('user_id') ? parseInt(localStorage.getItem('user_id')) : 0,
                       name: localStorage.getItem('name') ? localStorage.getItem('name') : '',
                       surname: localStorage.getItem('surname') ? localStorage.getItem('surname') : '',
                       avatar: localStorage.getItem('avatar') ? localStorage.getItem('avatar') : 'martin-berube',
