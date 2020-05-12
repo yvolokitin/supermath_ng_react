@@ -67,20 +67,27 @@ export default class SuperMathPage extends React.Component {
 
         this.onWidthChange = this.onWidthChange.bind(this);
 
-        this.state = {width: window.innerWidth,
-                      screen: STATUS.NONE,
-                      // current user information
-                      lang: language,
-                      belt: localStorage.getItem('belt') ? localStorage.getItem('belt') : 'white',
-                      pass: localStorage.getItem('pass') ? localStorage.getItem('pass') : '0',
-                      fail: localStorage.getItem('fail') ? localStorage.getItem('fail') : '0',
-                      id: localStorage.getItem('user_id') ? parseInt(localStorage.getItem('user_id')) : 0,
-                      name: localStorage.getItem('name') ? localStorage.getItem('name') : '',
-                      surname: localStorage.getItem('surname') ? localStorage.getItem('surname') : '',
-                      avatar: localStorage.getItem('avatar') ? localStorage.getItem('avatar') : 'martin-berube',
-                      email: localStorage.getItem('email') ? localStorage.getItem('email') : '',
-                      age: localStorage.getItem('age') ? localStorage.getItem('age') : '',
-                     };
+        this.state = {
+            width: window.innerWidth,
+            screen: STATUS.NONE,
+            // current user information
+            lang: language,
+            belt: localStorage.getItem('belt') ? localStorage.getItem('belt') : 'white',
+            pass: localStorage.getItem('pass') ? localStorage.getItem('pass') : '0',
+            fail: localStorage.getItem('fail') ? localStorage.getItem('fail') : '0',
+            id: localStorage.getItem('user_id') ? parseInt(localStorage.getItem('user_id')) : 0,
+            name: localStorage.getItem('name') ? localStorage.getItem('name') : '',
+            surname: localStorage.getItem('surname') ? localStorage.getItem('surname') : '',
+            avatar: localStorage.getItem('avatar') ? localStorage.getItem('avatar') : 'martin-berube',
+            email: localStorage.getItem('email') ? localStorage.getItem('email') : '',
+            age: localStorage.getItem('age') ? localStorage.getItem('age') : '',
+        };
+
+        /*
+        axios.post('http://supermath.xyz:3000/api/toppassed', {'amount': 10})
+             .then(this.onApiUpdate)
+             .catch(this.onApiUpdateError);
+        */
     }
 
     componentDidMount() {
@@ -262,6 +269,7 @@ export default class SuperMathPage extends React.Component {
     }
 
     onApiUpdate(response) {
+        // console.log('Header.onApiUpdate ' + response.data[1].name);
         if ('data' in response) {
             if ('error' in response.data) {
                 console.log('ERROR Header.onApiUpdate received ' + response.data.error);
