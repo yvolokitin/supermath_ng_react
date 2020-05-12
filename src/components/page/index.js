@@ -13,6 +13,7 @@ import Forget from './../header/forget';
 import Registration from './../header/registration';
 import Language from './../header/language';
 import Welcome from './../header/welcome';
+import Trophy from './../header/trophy';
 
 import UserInformation from './../userinfo/userinfo';
 import AlertDialog from './../alert/alert';
@@ -22,6 +23,20 @@ import Tabs from "./../body/tabs";
 import './index.css';
 
 import {header} from './../translations/header';
+
+const STATUS = {
+    NONE: 0,
+    TROPHY: 1,
+    ABOUT: 2,
+    HELP: 3,
+    LOGIN: 4,
+    LOGOUT: 5,
+    REGISTER: 6,
+    WELCOME: 7,
+    USERINFO: 8,
+    FORGET: 9,
+    LANG: 10,
+}
 
 export default class SuperMathPage extends React.Component {
     constructor(props) {
@@ -53,15 +68,7 @@ export default class SuperMathPage extends React.Component {
         this.onWidthChange = this.onWidthChange.bind(this);
 
         this.state = {width: window.innerWidth,
-                      aboutOpen: false,
-                      helpOpen: false,
-                      loginOpen: false,
-                      logoutOpen: false,
-                      forgetOpen: false,
-                      userInfoOpen: false,
-                      langSelector: false,
-                      welcomeOpen: false,
-                      registerOpen: false,
+                      screen: STATUS.NONE,
                       // current user information
                       lang: language,
                       belt: localStorage.getItem('belt') ? localStorage.getItem('belt') : 'white',
@@ -106,15 +113,14 @@ export default class SuperMathPage extends React.Component {
 
         } else { // else user is logouted -> page reload
             window.location.reload();
-            // this.setState({loginOpen:true});
         }
     }
 
     onWelcome(property) {
         if (property === 'userinfo') {
-            this.setState({userInfoOpen: true, welcomeOpen: false});
+            this.setState({screen: STATUS.USERINFO});
         } else {
-            this.setState({welcomeOpen: false});
+            this.setState({screen: STATUS.NONE});
         }
     }
 
@@ -123,7 +129,7 @@ export default class SuperMathPage extends React.Component {
         var pswdhash = localStorage.getItem('pswdhash');
 
         if (property === 'close') {
-            this.setState({userInfoOpen: false});
+            this.setState({screen: STATUS.NONE});
 
         // counter: user game results from task
         } else if (property === 'counter') {
@@ -143,7 +149,7 @@ export default class SuperMathPage extends React.Component {
             }
 
         } else if (property === 'avatar') {
-            this.setState({avatar: value, userInfoOpen: false});
+            this.setState({avatar: value, screen: STATUS.NONE});
             if ((this.state.id > 0) && (pswdhash !== null)) {
                 update_avatar(this.state.id, pswdhash, value);
             }
@@ -169,7 +175,7 @@ export default class SuperMathPage extends React.Component {
     }
 
     onLanguage(language) {
-        this.setState({langSelector: false, lang: language});
+        this.setState({screen: STATUS.NONE, lang: language});
         localStorage.setItem('lang', language);
         if (this.state.id > 0) {
             // update_language(id, language)
@@ -184,14 +190,8 @@ export default class SuperMathPage extends React.Component {
      * @param {Object} data user data (id, name, email etc.)
      */
     onResult(result, data) {
-        // console.log('Header.onResult ' + result + ', ' + user_id + ', ' + name +  ', ' + language + ', ' + email + ', ' + surname);
         if (result === 'successed') {
             console.log('Header.onResult ' + data.pass + ', ' + data.fail + ', age: ' + data.age + ', avatar: '  + data.avatar + ', belt: ' + data.belt);
-
-            var welcomeScreen = false;
-            if (this.state.registerOpen === true) {
-                welcomeScreen = true;
-            }
 
             // age calculation based on server response value
             // "age":"Tue, 28 Jan 2014 06:13:13 GMT" -> need to convert in years
@@ -201,6 +201,7 @@ export default class SuperMathPage extends React.Component {
             var age = Math.abs(ageDate.getUTCFullYear() - 1970);
 
             this.setState({
+                'screen': (this.state.screen === STATUS.REGISTER) ? STATUS.WELCOME : STATUS.NONE,
                 'id': parseInt(data.id),
                 'name': data.name,
                 'lang': data.lang,
@@ -212,11 +213,6 @@ export default class SuperMathPage extends React.Component {
                 'belt': data.belt,
                 'pass': data.pass,
                 'fail': data.fail,
-                 // close login window
-                 loginOpen: false,
-                 // close registration window
-                 registerOpen: false,
-                 welcomeOpen: welcomeScreen,
             });
 
             // use HTML5 Local Storage if browser supports it
@@ -233,31 +229,16 @@ export default class SuperMathPage extends React.Component {
             localStorage.setItem('belt', data.belt);
 
         } else if (result === 'register') {
-            this.setState({
-                registerOpen: true,
-                loginOpen: false,
-            });
+            this.setState({screen: STATUS.REGISTER});
 
         } else if (result === 'login') {
-            this.setState({
-                loginOpen: true,
-                registerOpen: false,
-                forgetOpen: false
-            });
+            this.setState({screen: STATUS.LOGIN});
 
         } else if (result === 'forget') {
-            // console.log('Not implemented yet, just close');
-            this.setState({
-                forgetOpen: true,
-                loginOpen: false
-            });
+            this.setState({screen: STATUS.FORGET});
 
         } else if (result === 'logout') {
-            console.log("onLogout");
-            this.setState({
-                logoutOpen: false,
-                id: 0,
-            });
+            this.setState({screen: STATUS.NONE, id: 0});
 
             // remove all info from local storage
             localStorage.removeItem('user_id');
@@ -276,13 +257,7 @@ export default class SuperMathPage extends React.Component {
             // localStorage.removeItem('belt');
 
         } else {
-            this.setState({
-                loginOpen: false,
-                forgetOpen: false,
-                welcomeOpen: false,
-                logoutOpen: false,
-                registerOpen: false,
-            });
+            this.setState({screen: STATUS.NONE});
         }
     }
 
@@ -329,101 +304,116 @@ export default class SuperMathPage extends React.Component {
                     <div className='header_div_left'>
                         <div className='div_supermath_long' onClick={this.onRefresh}> SuperMath </div>
                         <div className='div_supermath_short' onClick={this.onRefresh} > sm </div>
-                        <div className='div_about' onClick={() => this.setState({aboutOpen: true})}> {header[this.state.lang]['about']} </div>
-                        <div className='div_help' onClick={() => this.setState({helpOpen: true})}> {header[this.state.lang]['help']} </div>
+                        <div className='div_about' onClick={() => this.setState({screen: STATUS.ABOUT})}>
+                            {header[this.state.lang]['about']}
+                        </div>
+                        <div className='div_help' onClick={() => this.setState({screen: STATUS.HELP})}>
+                            {header[this.state.lang]['help']}
+                        </div>
 
                         { (this.state.id > 0) ? (
-                            <div className='div_supermath_short' style={{color:'green'}} onClick={() => this.setState({logoutOpen:true})}>
-                                {header[this.state.lang]['logout']}
+                            <div className='div_supermath_short' style={{color:'green'}}
+                                onClick={() => this.setState({screen: STATUS.LOGOUT})}>
+                                    {header[this.state.lang]['logout']}
                             </div>
                         ) : (
-                            <div className='div_supermath_short' style={{color:'green'}} onClick={() => this.setState({loginOpen: true})}>
-                                {header[this.state.lang]['login']}
+                            <div className='div_supermath_short' style={{color:'green'}}
+                                onClick={() => this.setState({screen: STATUS.LOGIN})}>
+                                    {header[this.state.lang]['login']}
                             </div>
                         )}
 
-                        <div className='div_supermath_short' style={{color:'green'}} onClick={() => this.setState({langSelector:true})}>
-                            {header[this.state.lang]['lang']}
+                        <div className='div_supermath_short' style={{color:'green'}}
+                            onClick={() => this.setState({screen: STATUS.LANG})}>
+                                {header[this.state.lang]['lang']}
                         </div>
-                    </div>
-                    <div className='header_div_right'>
-                        <div className='div_trophy' onClick={this.onRefresh}>
+
+                        <div className='div_trophy' onClick={() => this.setState({screen: STATUS.TROPHY})}>
                             <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127942;</span>
                         </div>
 
+                    </div>
+
+                    <div className='header_div_right'>
                         { (this.state.id > 0) ? (
                             <>
-                                <font onClick={() => this.setState({userInfoOpen: true})} className='font_userinfo'> {this.state.name} : </font>
-                                <font onClick={() => this.setState({userInfoOpen: true})} className='font_userinfo' style={{color:'green'}}>
+                                <font onClick={() => this.setState({screen: STATUS.USERINFO})} className='font_userinfo'> {this.state.name} : </font>
+                                <font onClick={() => this.setState({screen: STATUS.USERINFO})} className='font_userinfo' style={{color:'green'}}>
                                     {this.state.pass} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
                                 </font> 
-                                <font onClick={() => this.setState({userInfoOpen: true})} className='font_userinfo_last' style={{color:'red'}}>
+                                <font onClick={() => this.setState({screen: STATUS.USERINFO})} className='font_userinfo_last' style={{color:'red'}}>
                                     {this.state.fail} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                                 </font> 
-                                <font onClick={() => this.setState({logoutOpen:true})} className='div_login'>{header[this.state.lang]['logout']}</font>
+                                <font onClick={() => this.setState({screen: STATUS.LOGOUT})} className='div_login'>{header[this.state.lang]['logout']}</font>
                             </>
                         ) : (
                             <>
-                                <div className='div_register' onClick={() => this.setState({registerOpen: true})}>
+                                <div className='div_register' onClick={() => this.setState({screen: STATUS.REGISTER})}>
                                     {header[this.state.lang]['register']}
                                 </div>
-                                <div className='div_login' onClick={() => this.setState({loginOpen: true})}>
+                                <div className='div_login' onClick={() => this.setState({screen: STATUS.LOGIN})}>
                                     {header[this.state.lang]['login']}
                                 </div>
                             </>
                         )}
 
-                        <div className='div_lang' onClick={() => this.setState({langSelector:true})}> {header[this.state.lang]['lang']} </div>
+                        <div className='div_lang' onClick={() => this.setState({screen: STATUS.LANG})}> {header[this.state.lang]['lang']} </div>
                     </div>
                 </div>
 
                 <Tabs onUpdate={this.onUserInfo} id={this.state.id} fullScreen={this.state.width<581} lang={this.state.lang}/>
 
-                <Help open={this.state.helpOpen} onClick={() => this.setState({helpOpen: false})}
-                      fullScreen={this.state.width<581} lang={this.state.lang}/>
-                <About open={this.state.aboutOpen} onClick={() => this.setState({aboutOpen: false})}
-                       fullScreen={this.state.width<581} lang={this.state.lang}/>
+                <Trophy open={this.state.screen === STATUS.TROPHY} onClose={() => this.setState({screen: STATUS.NONE})}
+                    fullScreen={this.state.width<581} lang={this.state.lang}/>
 
-                <Login open={this.state.loginOpen} onClose={this.onResult}
-                       fullScreen={this.state.width<581} lang={this.state.lang}/>
-                <Forget open={this.state.forgetOpen} onClose={() => this.setState({forgetOpen: false})}
-                        fullScreen={this.state.width<581} lang={this.state.lang}/>
+                <Help open={this.state.screen === STATUS.HELP} onClose={() => this.setState({screen: STATUS.NONE})}
+                    fullScreen={this.state.width<581} lang={this.state.lang}/>
 
-                <UserInformation open={this.state.userInfoOpen} onUpdate={this.onUserInfo}
-                                 id={this.state.id} email={this.state.email}
-                                 name={this.state.name} surname={this.state.surname}
-                                 age={this.state.age} avatar={this.state.avatar}
-                                 pass={this.state.pass} fail={this.state.fail}
-                                 lang={this.state.lang}/>
+                <About open={this.state.screen === STATUS.ABOUT} onClose={() => this.setState({screen: STATUS.NONE})}
+                    fullScreen={this.state.width<581} lang={this.state.lang}/>
 
-                <Registration open={this.state.registerOpen}
-                              onClose={this.onResult}
-                              fullScreen={this.state.width<800}
-                              lang={this.state.lang}
-                              passed={this.props.passed}
-                              failed={this.props.failed}/>
+                <Login open={this.state.screen === STATUS.LOGIN} onClose={this.onResult}
+                    fullScreen={this.state.width<581} lang={this.state.lang}/>
 
-                <Language open={this.state.langSelector}
-                          fullScreen={this.state.width<581} 
-                          onClose={this.onLanguage}
-                          lang={this.state.lang}/>
+                <Forget open={this.state.screen === STATUS.FORGET} onClose={() => this.setState({screen: STATUS.NONE})}
+                    fullScreen={this.state.width<581} lang={this.state.lang}/>
 
-                <Welcome open={this.state.welcomeOpen}
-                         fullScreen={this.state.width<581} 
-                         lang={this.state.lang}
-                         name={this.state.name}
-                         surname={this.state.surname}
-                         passed={this.state.pass}
-                         failed={this.state.fail}
-                         onClose={this.onWelcome}/>
+                <UserInformation open={this.state.screen === STATUS.USERINFO}
+                    onUpdate={this.onUserInfo}
+                    id={this.state.id} email={this.state.email}
+                    name={this.state.name} surname={this.state.surname}
+                    age={this.state.age} avatar={this.state.avatar}
+                    pass={this.state.pass} fail={this.state.fail}
+                    lang={this.state.lang}/>
 
-                <AlertDialog open={this.state.logoutOpen}
-                             fullScreen={this.state.width<581} 
-                             title={header[this.state.lang]['logout_title']}
-                             yes={header[this.state.lang]['logout_yes']}
-                             no={header[this.state.lang]['logout_no']}
-                             name={this.state.name}
-                             onClose={this.onResult}/>
+                <Registration open={this.state.screen === STATUS.REGISTER}
+                    onClose={this.onResult}
+                    fullScreen={this.state.width<800}
+                    lang={this.state.lang}
+                    passed={this.props.passed}
+                    failed={this.props.failed}/>
+
+                <Language open={this.state.screen === STATUS.LANG}
+                    fullScreen={this.state.width<581} 
+                    onClose={this.onLanguage}
+                    lang={this.state.lang}/>
+
+                <Welcome open={this.state.screen === STATUS.WELCOME}
+                    fullScreen={this.state.width<581} 
+                    lang={this.state.lang}
+                    name={this.state.name}
+                    surname={this.state.surname}
+                    passed={this.state.pass}
+                    failed={this.state.fail}
+                    onClose={this.onWelcome}/>
+
+                <AlertDialog open={this.state.screen === STATUS.LOGOUT}
+                    fullScreen={this.state.width<581} 
+                    title={header[this.state.lang]['logout_title']}
+                    yes={header[this.state.lang]['logout_yes']}
+                    no={header[this.state.lang]['logout_no']}
+                    name={this.state.name}
+                    onClose={this.onResult}/>
 
             </React.Fragment>
         )

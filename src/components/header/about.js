@@ -12,8 +12,8 @@ import './about.css';
 
 export default function About(props) {
     return (
-        <Dialog onClose={() => props.onClick()} fullScreen={props.fullScreen} aria-labelledby='customized-dialog-title' transitionDuration={500} open={props.open} scroll='body'>
-            <SMTitle title='' onClick={() => props.onClick()}/>
+        <Dialog onClose={() => props.onClose()} fullScreen={props.fullScreen} aria-labelledby='customized-dialog-title' transitionDuration={500} open={props.open} scroll='body'>
+            <SMTitle title='' onClick={() => props.onClose()}/>
             <ColorLine/>
 
             <div className='about_title'>
@@ -37,7 +37,7 @@ export default function About(props) {
 
             <DialogActions>
                 <Button size='small' color='primary' startIcon={<CancelIcon />}
-                        onClick={() => props.onClick()}> {about[props.lang]['close']} </Button>
+                        onClick={() => props.onClose()}> {about[props.lang]['close']} </Button>
             </DialogActions>
         </Dialog>
     );
