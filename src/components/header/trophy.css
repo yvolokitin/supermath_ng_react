@@ -9,3 +9,40 @@
     text-shadow: 1px 1px 2px black;
     line-height: 0.9;
 }
+.trophy_wrapper {
+    margin-left: 5px;
+    margin-right: 5px;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+.trophy_table_wrapper {
+    min-width: 413px;
+    max-width: 413px;
+    min-height: 500px;
+    margin: 13px;
+
+    cursor: pointer;
+    background-color: #bbff99;
+
+    display: flex;
+    justify-content: center;
+
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px 0px grey;
+}
+.trophy_table_wrapper img {
+    margin-top: 27px;
+    height: 70px;
+    width: auto;
+    -webkit-animation: numbers360rotation 4s linear infinite;
+    -moz-animation: numbers360rotation 4s linear infinite;
+    animation: numbers360rotation 4s linear infinite;
+}
+@-moz-keyframes numbers360rotation { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes numbers360rotation { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes numbers360rotation { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+

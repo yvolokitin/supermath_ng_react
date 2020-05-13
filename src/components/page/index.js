@@ -82,12 +82,6 @@ export default class SuperMathPage extends React.Component {
             email: localStorage.getItem('email') ? localStorage.getItem('email') : '',
             age: localStorage.getItem('age') ? localStorage.getItem('age') : '',
         };
-
-        /*
-        axios.post('http://supermath.xyz:3000/api/toppassed', {'amount': 10})
-             .then(this.onApiUpdate)
-             .catch(this.onApiUpdateError);
-        */
     }
 
     componentDidMount() {
