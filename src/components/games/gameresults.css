@@ -58,11 +58,11 @@
     border: 1px solid #aaa;
 }
 .result_board_button:active {
-  background-color: rgba(0, 0, 0, 0.8);
-  outline: none;
+    background-color: rgba(0, 0, 0, 0.8);
+    outline: none;
 }
 .result_board_button:focus {
-  outline: none;
+    outline: none;
 }
 @media only screen and (max-width: 760px) {
     .result_board {

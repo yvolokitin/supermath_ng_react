@@ -34,8 +34,8 @@
     align-items: center;
 
     overflow: hidden;
-    white-space: nowrap; 
-    text-overflow: clip; 
+    white-space: nowrap;
+    text-overflow: clip;
 }
 .tabs_div {
     height: 45px;
