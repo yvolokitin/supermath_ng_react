@@ -2,12 +2,6 @@
 import {Dialog, DialogActions, Button} from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-
 import axios from 'axios';
 
 import SMTitle from './../dialog/title';
@@ -69,48 +63,17 @@ export default function Trophy(props) {
         if (props.open === true) {
             setPassing(true);
             setFailing(true);
-            getPassed();
-            getFailed();
+            setTimeout(() => {
+                getPassed();
+                getFailed();
+            }, 1200);
         }
 
     }, [props.open, props.lang, getPassed, getFailed]);
 
     /*
-                <div className='trophy_table_wrapper' style={{backgroundColor:'brown',color:'white',}}>
-                    { (failing === true) ? (
-                        <img src={image} alt='progress'/>
-                      ) : (
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell align='center' style={{fontSize:'1.2rem',lineHeight:'0.9',fontWeight: 'bold'}}>
-                                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127942;</span>
-                                    </TableCell>
-                                    <TableCell align='left' style={{fontSize:'1.2rem',lineHeight:'0.9',fontWeight: 'bold'}}>
-                                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128102;</span>
-                                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127947;</span>
-                                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128105;</span>
-                                    </TableCell>
-                                    <TableCell align='center' style={{fontSize:'1.2rem',lineHeight:'0.9',fontWeight: 'bold'}}>
-                                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127774;</span>
-                                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127919;</span>
-                                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128142;</span>
-                                    </TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {failed.map((user, index) => (
-                                    <TableRow key={index}>
-                                        <TableCell align='center' component='th' scope='row' style={{fontSize:'1.2rem',lineHeight:'0.9',fontWeight: 'bold',color:'white',}}> {index+1} </TableCell>
-                                        <TableCell align='left' style={{fontSize:'1.2rem',lineHeight:'0.9',fontWeight: 'bold',color:'white',}}> {user.name} {user.surname} </TableCell>
-                                        <TableCell align='center' style={{fontSize:'1.2rem',lineHeight:'0.9',fontWeight: 'bold',color:'white',}}> {user.fail} </TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                      )
-                    }
-                </div>
+            <div className='trophy_title'>
+            </div>
     */
     return (
         <Dialog open={props.open} onClose={() => props.onClose()}
@@ -120,15 +83,14 @@ export default function Trophy(props) {
             <SMTitle title='' onClick={() => props.onClose()}/>
             <ColorLine/>
 
-            <div className='trophy_title'>
-
-            </div>
-
             <div className='trophy_wrapper'>
-                { (passing === true) ? (
-                    <img src={image} alt='progress'/>
-                ) : (
-                    <div className='trophy_table_wrapper'>
+                <div className='trophy_table_wrapper'>
+                    { (passing === true) ? (
+                        <div className='trophy_table_row'>
+                            <img src={image} alt='progress'/>
+                        </div>
+                    ) : (
+                      <>
                         <div className='trophy_table_row'>
                             <div className='trophy_table_cell_num'>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127942;</span>
@@ -155,44 +117,46 @@ export default function Trophy(props) {
                                 </div>
                             </div>
                         ))}
-
-                    </div>
-                )}
+                      </>
+                    )}
+                </div>
 
                 <div className='trophy_table_wrapper'>
-                    { (passing === true) ? (
-                        <img src={image} alt='progress'/>
-                      ) : (
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell align='center' style={{fontSize:'1.4rem',lineHeight:'0.9',fontWeight: 'bold'}}>
-                                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127942;</span>
-                                    </TableCell>
-                                    <TableCell align='left' style={{fontSize:'1.4rem',lineHeight:'0.9',fontWeight: 'bold'}}>
-                                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128102;</span>
-                                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127947;</span>
-                                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128105;</span>
-                                    </TableCell>
-                                    <TableCell align='center' style={{fontSize:'1.4rem',lineHeight:'0.9',fontWeight: 'bold'}}>
-                                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127774;</span>
-                                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127919;</span>
-                                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128142;</span>
-                                    </TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {passed.map((user, index) => (
-                                    <TableRow key={index}>
-                                        <TableCell align='center' component='th' scope='row' style={{fontSize:'1.2rem',lineHeight:'0.9',fontWeight: 'bold'}}> {index+1} </TableCell>
-                                        <TableCell align='left' style={{fontSize:'1.2rem',lineHeight:'0.9',fontWeight: 'bold',overflow:'hidden',textOverflow:'clip'}}> {user.name} {user.surname} </TableCell>
-                                        <TableCell align='center' style={{fontSize:'1.2rem',lineHeight:'0.9',fontWeight: 'bold'}}> {user.pass} </TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                      )
-                    }
+                    { (failing === true) ? (
+                        <div className='trophy_table_row'>
+                            <img src={image} alt='progress'/>
+                        </div>
+                    ) : (
+                      <>
+                        <div className='trophy_table_row'>
+                            <div className='trophy_table_cell_num' style={{backgroundColor:'#cc9900'}}>
+                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
+                            </div>
+                            <div className='trophy_table_cell_name' style={{backgroundColor:'brown'}}>
+                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128561;</span>
+                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128055;</span>
+                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128100;</span>
+                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128078;</span>
+                            </div>
+                            <div className='trophy_table_cell_res' style={{backgroundColor:'#cc9900'}}>
+                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128701;</span>
+                            </div>
+                        </div>
+                        {failed.map((user, index) => (
+                            <div className='trophy_table_row' key={index}>
+                                <div className='trophy_table_cell_num' style={{backgroundColor:'#cc9900'}}>
+                                    {index+1}
+                                </div>
+                                <div className='trophy_table_cell_name' style={{backgroundColor:'brown'}}>
+                                    {user.name} {user.surname}
+                                </div>
+                                <div className='trophy_table_cell_res' style={{backgroundColor:'#cc9900'}}>
+                                    {user.fail}
+                                </div>
+                            </div>
+                        ))}
+                      </>
+                    )}
                 </div>
             </div>
 
