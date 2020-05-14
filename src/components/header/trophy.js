@@ -66,7 +66,7 @@ export default function Trophy(props) {
             setTimeout(() => {
                 getPassed();
                 getFailed();
-            }, 1200);
+            }, 950);
         }
 
     }, [props.open, props.lang, getPassed, getFailed]);
