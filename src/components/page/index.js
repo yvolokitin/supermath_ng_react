@@ -366,7 +366,7 @@ export default class SuperMathPage extends React.Component {
                 <Tabs onUpdate={this.onUserInfo} id={this.state.id} fullScreen={this.state.width<581} lang={this.state.lang}/>
 
                 <Trophy open={this.state.screen === STATUS.TROPHY} onClose={() => this.setState({screen: STATUS.NONE})}
-                    fullScreen={this.state.width<581} lang={this.state.lang}/>
+                    fullScreen={this.state.width<581} lang={this.state.lang} id={this.state.id}/>
 
                 <Help open={this.state.screen === STATUS.HELP} onClose={() => this.setState({screen: STATUS.NONE})}
                     fullScreen={this.state.width<581} lang={this.state.lang}/>

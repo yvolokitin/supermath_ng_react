@@ -19,7 +19,7 @@ export default function Trophy(props) {
     const [failed, setFailed] = useState([]);
     
     const onPassed = useCallback((response) => {
-        console.log('Header.onPassed received ' + response.data[1].name);
+        // console.log('Header.onPassed received ' + response.data[1].name);
         var array = [];
         for (var i = 1; i < 11; i++) {
             // console.log('response.data[i] ' + response.data[i].name + ': ' + response.data[i].pass);
@@ -69,7 +69,7 @@ export default function Trophy(props) {
             }, 950);
         }
 
-    }, [props.open, props.lang, getPassed, getFailed]);
+    }, [props.open, props.lang, props.id, getPassed, getFailed]);
 
     /*
             <div className='trophy_title'>
@@ -106,17 +106,19 @@ export default function Trophy(props) {
                             </div>
                         </div>
                         {passed.map((user, index) => (
-                            <div className='trophy_table_row' key={index}>
-                                <div className='trophy_table_cell_num'>
-                                    {index+1}
+                            (props.id === user.id) ? (
+                                <div className='trophy_table_row' key={index}>
+                                    <div className='trophy_table_cell_num' style={{backgroundColor:'green',color:'orange'}}> {index+1} </div>
+                                    <div className='trophy_table_cell_name' style={{backgroundColor:'green',color:'orange'}}> {user.name} {user.surname} </div>
+                                    <div className='trophy_table_cell_res' style={{backgroundColor:'green',color:'orange'}}> {user.pass} </div>
                                 </div>
-                                <div className='trophy_table_cell_name'>
-                                    {user.name} {user.surname}
+                            ) : (
+                                <div className='trophy_table_row' key={index}>
+                                    <div className='trophy_table_cell_num'> {index+1} </div>
+                                    <div className='trophy_table_cell_name'> {user.name} {user.surname} </div>
+                                    <div className='trophy_table_cell_res'> {user.pass} </div>
                                 </div>
-                                <div className='trophy_table_cell_res'>
-                                    {user.pass}
-                                </div>
-                            </div>
+                            )
                         ))}
                       </>
                     )}
@@ -133,7 +135,7 @@ export default function Trophy(props) {
                             <div className='trophy_table_cell_num' style={{backgroundColor:'#cc9900'}}>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                             </div>
-                            <div className='trophy_table_cell_name' style={{backgroundColor:'brown'}}>
+                            <div className='trophy_table_cell_name' style={{backgroundColor:'#996600'}}>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128561;</span>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128055;</span>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128100;</span>
@@ -144,17 +146,19 @@ export default function Trophy(props) {
                             </div>
                         </div>
                         {failed.map((user, index) => (
-                            <div className='trophy_table_row' key={index}>
-                                <div className='trophy_table_cell_num' style={{backgroundColor:'#cc9900'}}>
-                                    {index+1}
+                            (props.id === user.id) ? (
+                                <div className='trophy_table_row' key={index}>
+                                    <div className='trophy_table_cell_num' style={{backgroundColor:'#663300',color:'white'}}> {index+1} </div>
+                                    <div className='trophy_table_cell_name' style={{backgroundColor:'#663300',color:'white'}}> {user.name} {user.surname} </div>
+                                    <div className='trophy_table_cell_res' style={{backgroundColor:'#663300',color:'white'}}> {user.pass} </div>
                                 </div>
-                                <div className='trophy_table_cell_name' style={{backgroundColor:'brown'}}>
-                                    {user.name} {user.surname}
+                            ) : (
+                                <div className='trophy_table_row' key={index}>
+                                    <div className='trophy_table_cell_num' style={{backgroundColor:'#cc9900'}}> {index+1} </div>
+                                    <div className='trophy_table_cell_name' style={{backgroundColor:'#996600'}}> {user.name} {user.surname} </div>
+                                    <div className='trophy_table_cell_res' style={{backgroundColor:'#cc9900'}}> {user.fail} </div>
                                 </div>
-                                <div className='trophy_table_cell_res' style={{backgroundColor:'#cc9900'}}>
-                                    {user.fail}
-                                </div>
-                            </div>
+                            )
                         ))}
                       </>
                     )}
