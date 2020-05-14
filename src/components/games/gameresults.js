@@ -127,7 +127,7 @@ export default class GameResults extends React.Component {
                       (
                         <>
                           <div className='result_board_body'>
-                            {gameresults[this.props.lang]['brain']}
+                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#129504;</span> {gameresults[this.props.lang]['brain']}
                           </div>
                           <div className='result_board_body'>
                             <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128138;</span> {gameresults[this.props.lang]['pill']}
@@ -153,13 +153,12 @@ export default class GameResults extends React.Component {
                         </>
                       )
                     }
-
                 </div>
 
                 <div onClick={(e) => this.setState({userResults:true})} className='result_board_button' style={{float:'left',marginLeft: '5%'}}>
                     {gameresults[this.props.lang]['show']}
                 </div>
-                <div onClick={() => this.onClose('replay')} className='result_board_button' style={{float:'right',marginRight:'4%'}}>
+                <div onClick={() => this.onClose('replay')} className='result_board_button' style={{float:'right',marginRight:'5%'}}>
                     {gameresults[this.props.lang]['play']} &nbsp; &#8635;
                 </div>
                 <div onClick={() => this.onClose('close')} className='result_board_button' style={{float:'right',marginRight:'1%'}}>

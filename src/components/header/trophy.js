@@ -99,6 +99,7 @@ export default function Trophy(props) {
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128102;</span>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127947;</span>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128105;</span>
+                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128170;</span>
                             </div>
                             <div className='trophy_table_cell_res'>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127919;</span>
