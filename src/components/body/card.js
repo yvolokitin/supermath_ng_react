@@ -81,16 +81,19 @@ export default function Card(props) {
             </div>
 
             <div className='card_wrapper_btn'>
-                <Button size='small' color='primary' onClick={() => onOpen('info', true)}
-                        startIcon={<VisibilityIcon/>}> {body[props.lang]['info']} </Button>
+                <Button size='small' color='primary' onClick={() => onOpen('info')}
+                        startIcon={<VisibilityIcon/>}> {body[props.lang]['info']}
+                </Button>
                 <Button size='small' color='primary' onClick={() => onOpen('game')}
-                        startIcon={<PlayCircleFilledWhiteIcon/>}> {body[props.lang]['play']} </Button>
+                        startIcon={<PlayCircleFilledWhiteIcon/>}> {body[props.lang]['play']}
+                </Button>
             </div>
 
             <Info open={info}
                   title={title}
                   text={desc}
                   source={props.task.logo}
+                  task_id={props.task_id}
                   task={props.task.type}
                   fullScreen={props.fullScreen}
                   lang={props.lang}

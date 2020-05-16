@@ -89,6 +89,7 @@ export default function Tabs(props) {
     }
 
     function onGameOpen(task) {
+        // console.log('Tabs.onGameOpen ' + task.id);
         setGame(task);
         setGameOpen(true);
     }
@@ -148,7 +149,8 @@ export default function Tabs(props) {
                 {tasks.map(
                     (task) =>
                         <div key={task.id}>
-                            <Card task={task} color={value} lang={props.lang} fullScreen={props.fullScreen} onUpdate={onGameOpen}/>
+                            <Card task={task} color={value} lang={props.lang}
+                                fullScreen={props.fullScreen} onUpdate={onGameOpen}/>
                         </div>
                     )
                 }
@@ -178,7 +180,6 @@ export default function Tabs(props) {
                        lang={props.lang}
                        belt={value}
                        onClose={onGameClose}/>
-
         </div>
     );
 }
