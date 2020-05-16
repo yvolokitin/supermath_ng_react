@@ -150,7 +150,7 @@ export default function Trophy(props) {
                                 <div className='trophy_table_row' key={index}>
                                     <div className='trophy_table_cell_num' style={{backgroundColor:'#663300',color:'white'}}> {index+1} </div>
                                     <div className='trophy_table_cell_name' style={{backgroundColor:'#663300',color:'white'}}> {user.name} {user.surname} </div>
-                                    <div className='trophy_table_cell_res' style={{backgroundColor:'#663300',color:'white'}}> {user.pass} </div>
+                                    <div className='trophy_table_cell_res' style={{backgroundColor:'#663300',color:'white'}}> {user.fail} </div>
                                 </div>
                             ) : (
                                 <div className='trophy_table_row' key={index}>
