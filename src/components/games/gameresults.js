@@ -72,6 +72,7 @@ export default class GameResults extends React.Component {
             'rate': this.state.result.rate,
             'belt': this.props.belt,
             'task': this.props.type,
+            'game_id': this.props.game_id,
         };
 
         // on close and on replay -> updated passed/failed counters

@@ -53,7 +53,7 @@ export default class DigitGame extends React.Component {
 
     // closed, pass, fail passed only when game is closed
     onGameClose(status, data) {
-        console.log('DigitGame.onGameClose ' + status + ': ' + (status in ['close', 'replay', 'register']));
+        console.log('DigitGame.onGameClose ' + status);
 
         // game was unexpecdetly closed by user during play
         if (status === 'finished') {
@@ -89,6 +89,7 @@ export default class DigitGame extends React.Component {
                 'rate': 'really_bad',
                 'belt': this.props.belt,
                 'task': this.state.type,
+                'game_id': this.props.game_id,
             };
 
             this.setState({showResults: false,
@@ -162,8 +163,8 @@ export default class DigitGame extends React.Component {
                 <div className='digitgamebody'>
                     { this.state.showResults ? (
                             <GameResults open={this.state.showResults} passed={this.state.passed} failed={this.state.failed}
-                                         results={this.state.results} amount={this.state.amount} duration={this.state.duration}
-                                         belt={this.props.belt} lang={this.props.lang} type={this.state.type} onClose={this.onGameClose}/>
+                                results={this.state.results} amount={this.state.amount} duration={this.state.duration} game_id={this.props.game_id}
+                                belt={this.props.belt} lang={this.props.lang} type={this.state.type} onClose={this.onGameClose}/>
                         ) : (
                             <GameBoard onClose={this.onGameClose} onCounter={this.onCounterUpdate} onColor={this.onColorUpdate}
                                        type={this.state.type} task={this.state.task} amount={this.state.amount} lang={this.props.lang}/>

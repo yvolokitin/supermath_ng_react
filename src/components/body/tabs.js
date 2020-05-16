@@ -174,6 +174,7 @@ export default function Tabs(props) {
 
             <DigitGame open={gameOpen}
                        id={props.id}
+                       game_id={game.id}
                        type={game.type}
                        task={game.task}
                        amount={game.amount}
