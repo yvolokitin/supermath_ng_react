@@ -15,6 +15,7 @@ import axios from 'axios';
 // import image from './../../images/monsters/Avengers-Iron-Man-icon.png';
 import image from './../../images/help/sign-up.png';
 import SMTitle from './../dialog/title';
+import ColorLine from './../line/line';
 
 import './registration.css';
 
@@ -87,17 +88,16 @@ export default class Registration extends React.Component {
         this.setState({loading: true, color: '#ffd9b3'});
         var post_data = {'name': this.state.name,
                          'lang': this.state.lang,
-                         'age': this.state.birth,
+                         'birthday': this.state.birth,
                          'lastname': this.state.surname,
                          'email': this.state.email,
                          'subcsr': this.state.subcsr,
-                         'pswd': this.state.pswd,
                          'pswdhash': pswdhash,
                          'passed': this.props.passed,
                          'failed': this.props.failed};
         axios.post('http://supermath.xyz:3000/api/reg', post_data)
-            .then(this.onRegistrationResponse)
-            .catch(this.onRegistrationError);
+             .then(this.onRegistrationResponse)
+             .catch(this.onRegistrationError);
 
         this.time = new Date().getTime();
     };
@@ -145,6 +145,7 @@ export default class Registration extends React.Component {
         return (
             <Dialog transitionDuration={600} fullScreen={this.props.fullScreen} fullWidth={true} maxWidth='md' scroll='body' open={this.props.open}>
                 <SMTitle title='' onClick={() => this.onClose('close')}/>
+                <ColorLine/>
 
                 <div className='registration_desk' style={{backgroundColor: this.state.color}}>
                     {this.state.loading ? <CircularProgress size={68} className='circular_progress'/> : null}

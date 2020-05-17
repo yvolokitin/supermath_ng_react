@@ -86,6 +86,7 @@ export default class Login extends React.Component {
         }
 
         if ('data' in response) {
+            // user id is mandatory attribute
             if ('id' in response.data) {
                 setTimeout(() => {
                     this.props.onClose('successed', response.data);

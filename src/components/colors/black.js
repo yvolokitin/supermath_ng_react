@@ -82,8 +82,8 @@ export default class Black extends React.Component {
         this.setState({gameOpen: true, gameType: type, gameTerm: task, gameAmnt: amount});
     }
 
-    onGameClose(status, pass=0, fail=0) {
-        console.log('Black.onGameClose: ' + status + ', ' + pass + ', ' + fail);
+    onGameClose(status, passed=0, failed=0) {
+        console.log('Black.onGameClose: ' + status + ', ' + passed + ', ' + failed);
 
         // on replay -> game should continue
         if (status !== 'replay') {
@@ -93,8 +93,8 @@ export default class Black extends React.Component {
             console.log('Black.onGameClose, Game must go on -> ' + this.state.gameOpen);
         }
 
-        if ((pass !== 0) || (fail !== 0)) {
-            this.props.onUpdate(status, pass, fail);
+        if ((passed !== 0) || (failed !== 0)) {
+            this.props.onUpdate(status, passed, failed);
         } else {
             this.props.onUpdate(status);
         }

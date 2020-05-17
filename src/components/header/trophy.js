@@ -19,10 +19,10 @@ export default function Trophy(props) {
     const [failed, setFailed] = useState([]);
     
     const onPassed = useCallback((response) => {
-        // console.log('Header.onPassed received ' + response.data[1].name);
+        console.log('Header.onPassed received ' + response.data);
         var array = [];
-        for (var i = 1; i < 11; i++) {
-            // console.log('response.data[i] ' + response.data[i].name + ': ' + response.data[i].pass);
+        for (var i in response.data) {
+            // console.log(i + ' response.data hasOwnProperty ' + hasOwnProperty(response.data[i]));
             array.push(response.data[i]);
         }
         setPassed(array);
@@ -30,10 +30,10 @@ export default function Trophy(props) {
     }, [ ])
 
     const onFailed = useCallback((response) => {
-        // console.log('Header.onFailed received ' + response.data[1].name);
+        console.log('Header.onFailed received ' + response.data);
         var array = [];
-        for (var i = 1; i < 11; i++) {
-            // console.log('response.data[i] ' + response.data[i].name + ': ' + response.data[i].pass);
+        for (var i in response.data) {
+            // console.log(i + ' response.data hasOwnProperty ' + hasOwnProperty(response.data[i]));
             array.push(response.data[i]);
         }
         setFailed(array);
@@ -110,13 +110,13 @@ export default function Trophy(props) {
                                 <div className='trophy_table_row' key={index}>
                                     <div className='trophy_table_cell_num' style={{backgroundColor:'green',color:'orange'}}> {index+1} </div>
                                     <div className='trophy_table_cell_name' style={{backgroundColor:'green',color:'orange'}}> {user.name} {user.surname} </div>
-                                    <div className='trophy_table_cell_res' style={{backgroundColor:'green',color:'orange'}}> {user.pass} </div>
+                                    <div className='trophy_table_cell_res' style={{backgroundColor:'green',color:'orange'}}> {user.passed} </div>
                                 </div>
                             ) : (
                                 <div className='trophy_table_row' key={index}>
                                     <div className='trophy_table_cell_num'> {index+1} </div>
                                     <div className='trophy_table_cell_name'> {user.name} {user.surname} </div>
-                                    <div className='trophy_table_cell_res'> {user.pass} </div>
+                                    <div className='trophy_table_cell_res'> {user.passed} </div>
                                 </div>
                             )
                         ))}
@@ -150,13 +150,13 @@ export default function Trophy(props) {
                                 <div className='trophy_table_row' key={index}>
                                     <div className='trophy_table_cell_num' style={{backgroundColor:'#663300',color:'white'}}> {index+1} </div>
                                     <div className='trophy_table_cell_name' style={{backgroundColor:'#663300',color:'white'}}> {user.name} {user.surname} </div>
-                                    <div className='trophy_table_cell_res' style={{backgroundColor:'#663300',color:'white'}}> {user.fail} </div>
+                                    <div className='trophy_table_cell_res' style={{backgroundColor:'#663300',color:'white'}}> {user.failed} </div>
                                 </div>
                             ) : (
                                 <div className='trophy_table_row' key={index}>
                                     <div className='trophy_table_cell_num' style={{backgroundColor:'#cc9900'}}> {index+1} </div>
                                     <div className='trophy_table_cell_name' style={{backgroundColor:'#996600'}}> {user.name} {user.surname} </div>
-                                    <div className='trophy_table_cell_res' style={{backgroundColor:'#cc9900'}}> {user.fail} </div>
+                                    <div className='trophy_table_cell_res' style={{backgroundColor:'#cc9900'}}> {user.failed} </div>
                                 </div>
                             )
                         ))}

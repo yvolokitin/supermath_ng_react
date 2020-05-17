@@ -55,15 +55,15 @@ export function update_counter(id, pswdhash, data) {
 
     var passed = parseInt(data.passed), failed = parseInt(data.failed);
     if ((passed > 0) || (failed > 0)) {
-        if (localStorage.getItem('pass') !== null) {
-            passed = passed + parseInt(localStorage.getItem('pass'));
+        if (localStorage.getItem('passed') !== null) {
+            passed = passed + parseInt(localStorage.getItem('passed'));
         }
-        localStorage.setItem('pass', passed);
+        localStorage.setItem('passed', passed);
 
-        if (localStorage.getItem('fail') !== null) {
-            failed = failed + parseInt(localStorage.getItem('fail'));
+        if (localStorage.getItem('failed') !== null) {
+            failed = failed + parseInt(localStorage.getItem('failed'));
         }
-        localStorage.setItem('fail', failed);
+        localStorage.setItem('failed', failed);
 
         data.user_id = id; data.pswdhash = pswdhash;
         axios.post('http://supermath.xyz:3000/api/update', data)
@@ -75,8 +75,8 @@ export function update_counter(id, pswdhash, data) {
 export function update_passfail(id, pswdhash, belt, passed, failed) {
     console.log('Communicator.update_passfail ' + id);
 
-    localStorage.setItem('pass', passed);
-    localStorage.setItem('fail', failed);
+    localStorage.setItem('passed', passed);
+    localStorage.setItem('failed', failed);
 
     var passkey = parseInt(id) * passed;
     var passbin = (passkey >>> 0).toString(2); // xor

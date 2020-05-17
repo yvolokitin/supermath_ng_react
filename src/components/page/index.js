@@ -72,14 +72,15 @@ export default class SuperMathPage extends React.Component {
             screen: STATUS.NONE,
             // current user information
             lang: language,
-            belt: localStorage.getItem('belt') ? localStorage.getItem('belt') : 'white',
-            pass: localStorage.getItem('pass') ? localStorage.getItem('pass') : '0',
-            fail: localStorage.getItem('fail') ? localStorage.getItem('fail') : '0',
             id: localStorage.getItem('user_id') ? parseInt(localStorage.getItem('user_id')) : 0,
+            email: localStorage.getItem('email') ? localStorage.getItem('email') : '',
             name: localStorage.getItem('name') ? localStorage.getItem('name') : '',
             surname: localStorage.getItem('surname') ? localStorage.getItem('surname') : '',
+            passed: localStorage.getItem('passed') ? localStorage.getItem('passed') : '0',
+            failed: localStorage.getItem('failed') ? localStorage.getItem('failed') : '0',
+            belt: localStorage.getItem('belt') ? localStorage.getItem('belt') : 'white',
             avatar: localStorage.getItem('avatar') ? localStorage.getItem('avatar') : 'martin-berube',
-            email: localStorage.getItem('email') ? localStorage.getItem('email') : '',
+            birthday: localStorage.getItem('birthday') ? localStorage.getItem('birthday') : '',
             age: localStorage.getItem('age') ? localStorage.getItem('age') : '',
         };
     }
@@ -192,11 +193,11 @@ export default class SuperMathPage extends React.Component {
      */
     onResult(result, data) {
         if (result === 'successed') {
-            console.log('Header.onResult ' + data.pass + ', ' + data.fail + ', age: ' + data.age + ', avatar: '  + data.avatar + ', belt: ' + data.belt);
+            console.log('Header.onResult ' + data.passed + ', ' + data.failed + ', birthday: ' + data.birthday + ', avatar: '  + data.avatar + ', belt: ' + data.belt);
 
             // age calculation based on server response value
-            // "age":"Tue, 28 Jan 2014 06:13:13 GMT" -> need to convert in years
-            var birthday = new Date(data.age);
+            // 'birthday': 'Tue, 28 Jan 2014 06:13:13 GMT' -> need to convert in years
+            var birthday = new Date(data.birthday);
             var ageDifMs = Date.now() - birthday.getTime();
             var ageDate = new Date(ageDifMs);
             var age = Math.abs(ageDate.getUTCFullYear() - 1970);
@@ -208,12 +209,12 @@ export default class SuperMathPage extends React.Component {
                 'lang': data.lang,
                 'email': data.email,
                 'surname': data.surname,
-                'age': age,
-                'birthday': data.age,
+                'birthday': data.birthday,
                 'avatar': data.avatar,
+                'passed': data.passed,
+                'failed': data.failed,
                 'belt': data.belt,
-                'pass': data.pass,
-                'fail': data.fail,
+                'age': age,
             });
 
             // use HTML5 Local Storage if browser supports it
@@ -221,13 +222,13 @@ export default class SuperMathPage extends React.Component {
             localStorage.setItem('name', data.name);
             localStorage.setItem('email', data.email);
             localStorage.setItem('surname', data.surname);
-            localStorage.setItem('age', age);
             localStorage.setItem('birthday', data.birthday);
             localStorage.setItem('avatar', data.avatar);
-            localStorage.setItem('pass', data.pass);
-            localStorage.setItem('fail', data.fail);
+            localStorage.setItem('passed', data.passed);
+            localStorage.setItem('failed', data.failed);
             localStorage.setItem('lang', data.lang);
             localStorage.setItem('belt', data.belt);
+            localStorage.setItem('age', age);
 
         } else if (result === 'register') {
             this.setState({screen: STATUS.REGISTER});
@@ -244,14 +245,14 @@ export default class SuperMathPage extends React.Component {
             // remove all info from local storage
             localStorage.removeItem('user_id');
             localStorage.removeItem('name');
-            localStorage.removeItem('pswd');
             localStorage.removeItem('pswdhash');
             localStorage.removeItem('email');
             localStorage.removeItem('surname');
-            localStorage.removeItem('age');
+            localStorage.removeItem('birthday');
             localStorage.removeItem('avatar');
-            localStorage.removeItem('pass');
-            localStorage.removeItem('fail');
+            localStorage.removeItem('passed');
+            localStorage.removeItem('failed');
+            localStorage.removeItem('age');
 
             // keep language and belt properties
             // localStorage.removeItem('lang');
@@ -341,10 +342,10 @@ export default class SuperMathPage extends React.Component {
                             <>
                                 <font onClick={() => this.setState({screen: STATUS.USERINFO})} className='font_userinfo'> {this.state.name} : </font>
                                 <font onClick={() => this.setState({screen: STATUS.USERINFO})} className='font_userinfo' style={{color:'green'}}>
-                                    {this.state.pass} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
+                                    {this.state.passed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
                                 </font> 
                                 <font onClick={() => this.setState({screen: STATUS.USERINFO})} className='font_userinfo_last' style={{color:'red'}}>
-                                    {this.state.fail} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
+                                    {this.state.failed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                                 </font> 
                                 <font onClick={() => this.setState({screen: STATUS.LOGOUT})} className='div_login'>{header[this.state.lang]['logout']}</font>
                             </>
