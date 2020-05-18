@@ -270,9 +270,9 @@ export default class SuperMathPage extends React.Component {
                 console.log('ERROR Header.onApiUpdate received ' + response.data.error);
 
             } else if (('id' in response.data) && ('name' in response.data) &&
-                ('lang' in response.data) && ('age' in response.data) &&
+                ('lang' in response.data) && ('birthday' in response.data) &&
                 ('surname' in response.data) && ('email' in response.data) &&
-                ('pass' in response.data) && ('fail' in response.data) &&
+                ('passed' in response.data) && ('failed' in response.data) &&
                 ('avatar' in response.data) && ('belt' in response.data)) {
 
                     console.log('Header.onApiUpdate: successed, ' + response.data.id);
@@ -288,7 +288,7 @@ export default class SuperMathPage extends React.Component {
                 console.log('ERROR: Header.onApiUpdate no error and id in data message from server');
             }
         } else {
-            console.log('ERROR: Header.onApiUpdate received no data in response from server');
+            console.log('ERROR: Header.onApiUpdate some data is missed in server response');
         }
     }
 
@@ -386,8 +386,8 @@ export default class SuperMathPage extends React.Component {
                     id={this.state.id} email={this.state.email}
                     name={this.state.name} surname={this.state.surname}
                     age={this.state.age} avatar={this.state.avatar}
-                    pass={this.state.pass} fail={this.state.fail}
-                    lang={this.state.lang}/>
+                    passed={this.state.passed} failed={this.state.failed}
+                    birthday={this.state.birthday} lang={this.state.lang}/>
 
                 <Registration open={this.state.screen === STATUS.REGISTER}
                     onClose={this.onResult}

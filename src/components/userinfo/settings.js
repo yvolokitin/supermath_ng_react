@@ -4,7 +4,6 @@ import {Typography, Grid, TextField, Button} from '@material-ui/core';
 import {settings} from './../translations/settings';
 
 /*
-    <Settings id={this.props.id} email={this.props.email} user={this.props.user} surname={this.props.surname} age={this.props.age} lang={this.props.lang}/>
 */
 export default class Settings extends React.Component {
     constructor(props) {
@@ -13,11 +12,16 @@ export default class Settings extends React.Component {
         this.onSave = this.onSave.bind(this);
 
         this.state = {
-            name: props.user, editname: true,
-            surname: props.surname, editsurname: true,
-            email: props.email, editemail: true,
-            pswd: '', editpswd: true,
-            birth: '', editbirth: true,
+            name: props.name,
+            editname: true,
+            surname: props.surname,
+            editsurname: true,
+            email: props.email,
+            editemail: true,
+            pswd: '*******',
+            editpswd: true,
+            birthday: props.birthday,
+            editbirth: true,
         };
     }
 
@@ -44,9 +48,13 @@ export default class Settings extends React.Component {
                         <Button disabled={this.state.editname} size='small' color='primary' onClick={() => {this.onSave('name', {editname: true})}}>
                             {settings[this.props.lang]['save']}
                         </Button>
+                        <Button disabled={this.state.editname} size='small' color='primary'
+                            onClick={() => {this.setState({editname: true, name: this.props.name})}}>
+                            {settings[this.props.lang]['abort']}
+                        </Button>
                     </Grid>
 
-                    <Grid item xs={12} sm={6}style={{padding:'1%'}}>
+                    <Grid item xs={12} sm={6} style={{padding:'1%'}}>
                         <TextField disabled={this.state.editsurname} onChange={(event) => {this.setState({surname: event.target.value})}} required
                                    fullWidth variant='outlined' value={this.state.surname} label={settings[this.props.lang]['surname']}/>
                         <Button disabled={!this.state.editsurname} size='small' color='primary' onClick={(event) => {this.setState({editsurname: false})}}>
@@ -55,9 +63,13 @@ export default class Settings extends React.Component {
                         <Button disabled={this.state.editsurname} size='small' color='primary' onClick={() => {this.onSave('surname', {editsurname: true})}}>
                             {settings[this.props.lang]['save']}
                         </Button>
+                        <Button disabled={this.state.editsurname} size='small' color='primary'
+                            onClick={() => {this.setState({editsurname: true, surname: this.props.surname})}}>
+                            {settings[this.props.lang]['abort']}
+                        </Button>
                     </Grid>
 
-                    <Grid item xs={12} sm={6}style={{padding:'1%'}}>
+                    <Grid item xs={12} sm={6} style={{padding:'1%'}}>
                         <TextField disabled={this.state.editemail} onChange={(event) => {this.setState({email: event.target.value})}} required
                                    fullWidth variant='outlined' value={this.state.email} label={settings[this.props.lang]['email']}/>
                         <Button disabled={!this.state.editemail} size='small' color='primary' onClick={(event) => {this.setState({editemail: false})}}>
@@ -66,15 +78,37 @@ export default class Settings extends React.Component {
                         <Button disabled={this.state.editemail} size='small' color='primary' onClick={() => {this.onSave('email', {editemail: true})}}>
                             {settings[this.props.lang]['save']}
                         </Button>
+                        <Button disabled={this.state.editemail} size='small' color='primary'
+                            onClick={() => {this.setState({editemail: true, email: this.props.email})}}>
+                            {settings[this.props.lang]['abort']}
+                        </Button>
                     </Grid>
 
-                    <Grid item xs={12} sm={6}style={{padding:'1%'}}>
+                    <Grid item xs={12} sm={6} style={{padding:'1%'}}>
                         <TextField disabled={this.state.editpswd} onChange={(event) => {this.setState({name: event.target.value})}} required
                                    fullWidth variant='outlined' value={this.state.pswd} label={settings[this.props.lang]['pswd']}/>
                         <Button disabled={!this.state.editpswd} size='small' color='primary' onClick={(event) => {this.setState({editpswd: false})}}>
                             {settings[this.props.lang]['edit']}
                         </Button>
                         <Button disabled={this.state.editpswd} size='small' color='primary' onClick={() => {this.onSave('pswd', {editpswd: true})}}>
+                            {settings[this.props.lang]['save']}
+                        </Button>
+                        <Button disabled={this.state.editpswd} size='small' color='primary'
+                            onClick={() => {this.setState({editpswd: true, pswd: '*******'})}}>
+                            {settings[this.props.lang]['abort']}
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12} sm={6} style={{padding:'1%'}}>
+                        <TextField disabled={this.state.editbirth}
+                            onChange={(event) => {this.setState({name: event.target.value})}}
+                            required fullWidth  variant='outlined' type='date'
+                            label={settings[this.props.lang]['birthday']}
+                            value={this.state.birthday}/>
+                        <Button disabled={!this.state.editbirth} size='small' color='primary' onClick={(event) => {this.setState({editbirth: false})}}>
+                            {settings[this.props.lang]['edit']}
+                        </Button>
+                        <Button disabled={this.state.editpswd} size='small' color='primary' onClick={() => {this.onSave('pswd', {editbirth: true})}}>
                             {settings[this.props.lang]['save']}
                         </Button>
                     </Grid>

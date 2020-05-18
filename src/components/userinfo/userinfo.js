@@ -109,7 +109,7 @@ export default class UserInformation extends React.Component {
             'name': props.name,
             'surname': props.surname,
             'email': props.email,
-            'pswd': props.pswd,
+            'birthday': props.birthday,
         };
     }
 
@@ -128,7 +128,7 @@ export default class UserInformation extends React.Component {
                 'name': this.props.name,
                 'surname': this.props.surname,
                 'email': this.props.email,
-                'pswd': this.props.pswd,
+                'birthday': this.props.birthday,
             });
         }
     }
@@ -172,8 +172,8 @@ export default class UserInformation extends React.Component {
                             {this.state.name} {this.state.surname}, {this.props.age} {userinfo[this.props.lang]['years']}
                         </div>
                         <div className='userinfoboard_name_age_na'>
-                            &nbsp; <font style={{color:'green'}}> {this.props.pass} </font> &#128515;
-                            &nbsp; <font style={{color:'red'}}> {this.props.fail} </font> &#128169;
+                            &nbsp; <font style={{color:'green'}}> {this.props.passed} </font> &#128515;
+                            &nbsp; <font style={{color:'red'}}> {this.props.failed} </font> &#128169;
                         </div>
                     </div>
                     <div className='userinfoboard_avatar_div'>
@@ -196,12 +196,14 @@ export default class UserInformation extends React.Component {
                 </TabPanel>
 
                 <TabPanel value={this.state.tab} index={1}>
-                    <Settings user={this.props.name} email={this.props.email} surname={this.props.surname} age={this.props.age}
-                              id={this.props.id} lang={this.props.lang} onSettings={this.onSettings}/>
+                    <Settings id={this.props.id} name={this.props.name} surname={this.props.surname}
+                        email={this.props.email} age={this.props.age} birthday={this.props.birthday}
+                        lang={this.props.lang} onSettings={this.onSettings}/>
                 </TabPanel>
 
                 <TabPanel value={this.state.tab} index={2}>
-                    <Exchange lang={this.props.lang} passed={this.props.pass} failed={this.props.fail} onExchange={this.onExchange}/>
+                    <Exchange lang={this.props.lang} passed={this.props.passed}
+                        failed={this.props.failed} onExchange={this.onExchange}/>
                 </TabPanel>
 
                 <TabPanel value={this.state.tab} index={3}>
