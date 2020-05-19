@@ -158,16 +158,40 @@ export default class DigitGame extends React.Component {
         */
         return (
             <Dialog fullScreen={true} transitionDuration={700} open={this.props.open}>
-                { this.state.showResults ? (null) : (<GameHeader onClick={this.onGameClose} lang={this.props.lang} total={this.state.total} passed={this.state.passed} failed={this.state.failed} results={this.state.results}/>) }
+                { this.state.showResults ? (
+                        null
+                    ) : (
+                        <GameHeader onClick={this.onGameClose}
+                            fullScreen={this.props.fullScreen}
+                            lang={this.props.lang}
+                            total={this.state.total}
+                            passed={this.state.passed}
+                            failed={this.state.failed}
+                            results={this.state.results}/>
+                    )
+                }
 
                 <div className='digitgamebody'>
                     { this.state.showResults ? (
-                            <GameResults open={this.state.showResults} passed={this.state.passed} failed={this.state.failed}
-                                results={this.state.results} amount={this.state.amount} duration={this.state.duration} game_id={this.props.game_id}
-                                belt={this.props.belt} lang={this.props.lang} type={this.state.type} onClose={this.onGameClose}/>
+                            <GameResults open={this.state.showResults}
+                                passed={this.state.passed}
+                                failed={this.state.failed}
+                                results={this.state.results}
+                                amount={this.state.amount}
+                                duration={this.state.duration}
+                                game_id={this.props.game_id}
+                                belt={this.props.belt}
+                                lang={this.props.lang}
+                                type={this.state.type}
+                                onClose={this.onGameClose}/>
                         ) : (
-                            <GameBoard onClose={this.onGameClose} onCounter={this.onCounterUpdate} onColor={this.onColorUpdate}
-                                       type={this.state.type} task={this.state.task} amount={this.state.amount} lang={this.props.lang}/>
+                            <GameBoard onClose={this.onGameClose}
+                                onCounter={this.onCounterUpdate}
+                                onColor={this.onColorUpdate}
+                                type={this.state.type}
+                                task={this.state.task}
+                                amount={this.state.amount}
+                                lang={this.props.lang}/>
                         )
                     }
                 </div>

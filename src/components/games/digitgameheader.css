@@ -47,6 +47,15 @@
         width: 50%;
     }
 }
+@media only screen and (max-width: 600px) {
+    .games_header_div_left {
+        width: 35%;
+    }
+    .games_header_div_right {
+        width: 64%;
+    }
+}
+
 @media only screen and (max-height: 770px) {
     .games_header_div {
         height: 5%;

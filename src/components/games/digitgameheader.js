@@ -33,18 +33,19 @@ export default function GameHeader(props) {
             </div>
 
             <AlertDialog open={value}
-                         title={gameheader[props.lang]['title']}
-                         text={gameheader[props.lang]['text']}
-                         yes={gameheader[props.lang]['yes']}
-                         no={gameheader[props.lang]['no']}
-                         onClose={onAlertDialog}/>
+                fullScreen={props.fullScreen}
+                title={gameheader[props.lang]['title']}
+                text={gameheader[props.lang]['text']}
+                yes={gameheader[props.lang]['yes']}
+                no={gameheader[props.lang]['no']}
+                onClose={onAlertDialog}/>
 
             <GameProgress open={progress}
-                          total={props.total}
-                          passed={props.passed}
-                          failed={props.failed}
-                          results={props.results}
-                          onClose={onGameProgress}/>
+                total={props.total}
+                passed={props.passed}
+                failed={props.failed}
+                results={props.results}
+                onClose={onGameProgress}/>
         </div>
     );
 }
