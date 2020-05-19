@@ -136,15 +136,15 @@ export default class SuperMathPage extends React.Component {
         // counter: user game results from task
         } else if (property === 'counter') {
             if ((this.state.id > 0) && (pswdhash !== null)) {
-                this.setState({pass: (parseInt(this.state.pass) + parseInt(value.passed)),
-                               fail: (parseInt(this.state.fail) + parseInt(value.failed))});
+                this.setState({passed: (parseInt(this.state.passed) + parseInt(value.passed)),
+                               failed: (parseInt(this.state.failed) + parseInt(value.failed))});
                 // updateCounter(id, pswdhash, data)
                 update_counter(this.state.id, pswdhash, value);
             }
 
         // passfail: user exchange poops vs smiles
         } else if (property === 'passfail') {
-            this.setState({pass: value, fail: asset});
+            this.setState({passed: value, failed: asset});
             if ((this.state.id > 0) && (pswdhash !== null)) {
                 // updatePassFail(id, pswdhash, belt, passed, failed)
                 update_passfail(this.state.id, pswdhash, this.state.belt, value, asset);
@@ -406,8 +406,8 @@ export default class SuperMathPage extends React.Component {
                     lang={this.state.lang}
                     name={this.state.name}
                     surname={this.state.surname}
-                    passed={this.state.pass}
-                    failed={this.state.fail}
+                    passed={this.state.passed}
+                    failed={this.state.failed}
                     onClose={this.onWelcome}/>
 
                 <AlertDialog open={this.state.screen === STATUS.LOGOUT}

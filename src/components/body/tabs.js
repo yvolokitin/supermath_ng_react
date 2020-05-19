@@ -95,7 +95,7 @@ export default function Tabs(props) {
     }
 
     function onGameClose(status, data) {
-        // console.log('Tabs.onGameClose ' + status + ': ' + data.passed + ', ' + data.failed);
+        console.log('Tabs.onGameClose ' + status + ': ' + data.passed + ', ' + data.failed);
         if (status === 'close') {
             setGameOpen(false);
         }
