@@ -82,6 +82,7 @@ export default class SuperMathPage extends React.Component {
             avatar: localStorage.getItem('avatar') ? localStorage.getItem('avatar') : 'martin-berube',
             birthday: localStorage.getItem('birthday') ? localStorage.getItem('birthday') : '',
             age: localStorage.getItem('age') ? localStorage.getItem('age') : '',
+            solved: localStorage.getItem('solved') ? localStorage.getItem('solved') : '',
         };
     }
 
@@ -193,7 +194,7 @@ export default class SuperMathPage extends React.Component {
      */
     onResult(result, data) {
         if (result === 'successed') {
-            console.log('Header.onResult ' + data.passed + ', ' + data.failed + ', birthday: ' + data.birthday + ', avatar: '  + data.avatar + ', belt: ' + data.belt);
+            console.log('Header.onResult ' + data.passed + ', ' + data.failed + ', solved: ' + data.solved);
 
             // age calculation based on server response value
             // 'birthday': 'Tue, 28 Jan 2014 06:13:13 GMT' -> need to convert in years
@@ -214,6 +215,7 @@ export default class SuperMathPage extends React.Component {
                 'passed': data.passed,
                 'failed': data.failed,
                 'belt': data.belt,
+                'solved': data.solved,
                 'age': age,
             });
 
@@ -228,6 +230,7 @@ export default class SuperMathPage extends React.Component {
             localStorage.setItem('failed', data.failed);
             localStorage.setItem('lang', data.lang);
             localStorage.setItem('belt', data.belt);
+            localStorage.setItem('solved', data.solved);
             localStorage.setItem('age', age);
 
         } else if (result === 'register') {
@@ -252,6 +255,7 @@ export default class SuperMathPage extends React.Component {
             localStorage.removeItem('avatar');
             localStorage.removeItem('passed');
             localStorage.removeItem('failed');
+            localStorage.removeItem('solved');
             localStorage.removeItem('age');
 
             // keep language and belt properties

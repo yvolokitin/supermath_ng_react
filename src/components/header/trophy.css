@@ -20,8 +20,8 @@
     justify-content: center;
 }
 .trophy_table_wrapper {
-    min-width: 413px;
-    max-width: 413px;
+    min-width: 513px;
+    max-width: 513px;
     min-height: 470px;
     margin: 13px;
 }
@@ -62,7 +62,7 @@
 }
 .trophy_table_cell_num {
     height: 100%;
-    width: 13%;
+    width: 10%;
     float: left;
 
     display: flex;
@@ -76,7 +76,7 @@
 }
 .trophy_table_cell_name {
     height: 100%;
-    width: 65%;
+    width: 50%;
 
     float: left;
 
@@ -99,8 +99,11 @@
 }
 .trophy_table_cell_res {
     height: 100%;
-    width: 20%;
+    width: 13%;
     float: right;
+
+    margin-left: 3px;
+    margin-right: 3px;
 
     display: flex;
     align-items: center;
