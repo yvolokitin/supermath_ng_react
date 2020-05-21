@@ -148,7 +148,7 @@ export default function Tabs(props) {
             <div className='tasks_wrapper'>
                 {tasks.map(
                     (task) =>
-                        <div key={task.id}>
+                        <div key={task.uid}>
                             <Card task={task} color={value} lang={props.lang}
                                 fullScreen={props.fullScreen} onUpdate={onGameOpen}/>
                         </div>

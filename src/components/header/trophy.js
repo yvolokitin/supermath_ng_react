@@ -82,12 +82,12 @@ export default function Trophy(props) {
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127919;</span>
                             </div>
 
-                            <div className='trophy_table_cell_res'>
-                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127919;</span>
+                            <div className='trophy_table_cell_res' style={{backgroundColor:'#bbff99'}}>
+                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
                             </div>
 
-                            <div className='trophy_table_cell_res'>
-                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127919;</span>
+                            <div className='trophy_table_cell_res' style={{backgroundColor:'#cc9900'}}>
+                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                             </div>
                         </div>
                         {scores.map((user, index) => (
@@ -95,7 +95,13 @@ export default function Trophy(props) {
                                 <div className='trophy_table_row' key={index}>
                                     <div className='trophy_table_cell_num' style={{backgroundColor:'green',color:'orange'}}> {index+1} </div>
                                     <div className='trophy_table_cell_name' style={{backgroundColor:'green',color:'orange'}}> {user.name} {user.surname} </div>
-                                    <div className='trophy_table_cell_res' style={{backgroundColor:'green',color:'orange'}}> {user.passed} </div>
+                                    {
+                                        (user.score.toString().includes('-')) ? (
+                                            <div className='trophy_table_cell_res' style={{backgroundColor:'green',color:'orange'}}> {user.score} </div>
+                                        ):(
+                                            <div className='trophy_table_cell_res' style={{backgroundColor:'green',color:'orange'}}> +{user.score} </div>
+                                        )
+                                    }
                                     <div className='trophy_table_cell_res' style={{backgroundColor:'green',color:'orange'}}> {user.passed} </div>
                                     <div className='trophy_table_cell_res' style={{backgroundColor:'green',color:'orange'}}> {user.failed} </div>
                                 </div>
@@ -103,9 +109,15 @@ export default function Trophy(props) {
                                 <div className='trophy_table_row' key={index}>
                                     <div className='trophy_table_cell_num'> {index+1} </div>
                                     <div className='trophy_table_cell_name'> {user.name} {user.surname} </div>
-                                    <div className='trophy_table_cell_res'> {user.score} </div>
-                                    <div className='trophy_table_cell_res'> {user.passed} </div>
-                                    <div className='trophy_table_cell_res'> {user.failed} </div>
+                                    {
+                                        (user.score.toString().includes('-')) ? (
+                                            <div className='trophy_table_cell_res'> {user.score} </div>
+                                        ):(
+                                            <div className='trophy_table_cell_res'> +{user.score} </div>
+                                        )
+                                    }
+                                    <div className='trophy_table_cell_res' style={{backgroundColor:'#bbff99'}}> {user.passed} </div>
+                                    <div className='trophy_table_cell_res' style={{backgroundColor:'#cc9900'}}> {user.failed} </div>
                                 </div>
                             )
                         ))}
