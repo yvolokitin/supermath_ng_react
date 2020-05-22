@@ -27,6 +27,17 @@
 .card_wrapper_img:hover img {
     transform: scale(1.05);
 }
+.card_wrapper_img_disabled {
+    height: 161px;
+    width: auto;
+    overflow: hidden;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.card_wrapper_img_disabled img {
+    height: 161px;
+    width: auto;
+}
 .card_wrapper_text {
     height: 52px;
     min-width: 285px;

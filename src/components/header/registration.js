@@ -4,6 +4,9 @@ import {Snackbar, CircularProgress} from '@material-ui/core';
 
 import Alert from '@material-ui/lab/Alert';
 
+// name validator
+import {validate_name} from './../halpers/validator.js';
+
 // email validator
 import {validate} from 'validate.js';
 import constraints from './constraints';
@@ -49,7 +52,15 @@ export default class Registration extends React.Component {
 
     onRegistration(event) {
         event.preventDefault();
-        var result = validate({name: this.state.name}, constraints);
+        var result = validate_name(this.state.name, this.props.lang);
+        if (result !== 'ok') {
+            this.setState({error: true,
+                           duration: 5000,
+                           message: 'QQQQQQQQQ ' + result});
+            return;
+        }
+
+        result = validate({name: this.state.name}, constraints);
         if ('name' in result) {
             this.setState({error: true,
                            duration: 5000,

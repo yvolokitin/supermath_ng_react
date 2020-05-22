@@ -149,8 +149,22 @@ export default function Tabs(props) {
                 {tasks.map(
                     (task) =>
                         <div key={task.uid}>
-                            <Card task={task} color={value} lang={props.lang}
-                                fullScreen={props.fullScreen} onUpdate={onGameOpen}/>
+                            { (props.solved.toString().includes(task.uid)) ? (
+                                    <Card task={task}
+                                        color={value}
+                                        lang={props.lang}
+                                        locked={true}
+                                        fullScreen={props.fullScreen}
+                                        onUpdate={onGameOpen}/>
+                                ) : (
+                                    <Card task={task}
+                                        color={value}
+                                        lang={props.lang}
+                                        locked={false}
+                                        fullScreen={props.fullScreen}
+                                        onUpdate={onGameOpen}/>
+                                )
+                            }
                         </div>
                     )
                 }

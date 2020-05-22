@@ -7,7 +7,7 @@ var OPERATION_MUL = 'x';
 /** @const {string} */
 var OPERATION_DIV = ':';
 
-/*
+/**
  * Task generation from type and settings
  */
 export function generate_task(type, settings) {

@@ -23,7 +23,7 @@ export default function Card(props) {
     const [info, openInfo] = useState(false);
 
     useEffect(() => {
-        // console.log('props.src ' + props.src);
+        // console.log('props.locked ' + props.locked);
         if (props.color === 'white') {
             setTitle(white_titles[props.lang][props.task.id]);
             setDesc(white_descriptions[props.lang][props.task.id]);
@@ -44,10 +44,10 @@ export default function Card(props) {
             setDesc(black_descriptions[props.lang][props.task.id]);
         }
 
-    }, [props.task, props.color, props.lang]);
+    }, [props.task, props.color, props.lang, props.locked]);
 
     function onOpen(property) {
-        // console.log('Card.onClick ' + property + ', ' + value);
+        console.log('Card.onClick, props.locked: ' + props.locked);
         setAnimation('rotate .9s');
         // call in .5sec to show picture rotate animation
         setTimeout(() => {
@@ -71,33 +71,52 @@ export default function Card(props) {
     }
 
     return (
-        <div className='card_wrapper' style={{'animation': animation}}>
-            <div onClick={() => onOpen('game')} className='card_wrapper_img'>
-                <img src={props.task.logo} alt={props.task.logo} onContextMenu={(e) => e.preventDefault()}/>
-            </div>
+        <>
+        {(props.locked === false) ? (
+            <div className='card_wrapper' style={{'animation': animation}}>
+                <div onClick={() => onOpen('game')} className='card_wrapper_img'>
+                    <img src={props.task.logo} alt={props.task.logo} onContextMenu={(e) => e.preventDefault()}/>
+                </div>
 
-            <div className='card_wrapper_text'>
-                {title}
-            </div>
+                <div className='card_wrapper_text'> {title} </div>
 
-            <div className='card_wrapper_btn'>
-                <Button size='small' color='primary' onClick={() => onOpen('info')}
-                        startIcon={<VisibilityIcon/>}> {body[props.lang]['info']}
-                </Button>
-                <Button size='small' color='primary' onClick={() => onOpen('game')}
+                <div className='card_wrapper_btn'>
+                    <Button size='small' color='primary' onClick={() => onOpen('info')}
+                            startIcon={<VisibilityIcon/>}> {body[props.lang]['info']}
+                    </Button>
+                    <Button size='small' color='primary' onClick={() => onOpen('game')}
                         startIcon={<PlayCircleFilledWhiteIcon/>}> {body[props.lang]['play']}
-                </Button>
-            </div>
+                    </Button>
+                </div>
 
-            <Info open={info}
-                  title={title}
-                  text={desc}
-                  source={props.task.logo}
-                  task_id={props.task_id}
-                  task={props.task.type}
-                  fullScreen={props.fullScreen}
-                  lang={props.lang}
-                  onClose={onClose}/>
-        </div>
+                <Info open={info}
+                      title={title}
+                      text={desc}
+                      source={props.task.logo}
+                      task_id={props.task_id}
+                      task={props.task.type}
+                      fullScreen={props.fullScreen}
+                      lang={props.lang}
+                      onClose={onClose}/>
+            </div>
+        ) : (
+            <div className='card_wrapper' style={{opacity: '0.5'}}>
+                <div className='card_wrapper_img_disabled'>
+                    <img src={props.task.logo} alt={props.task.logo} onContextMenu={(e) => e.preventDefault()}/>
+                </div>
+
+                <div className='card_wrapper_text'> {title} </div>
+
+                <div className='card_wrapper_btn'>
+                    <Button size='small' color='primary' disabled
+                            startIcon={<VisibilityIcon/>}> {body[props.lang]['info']}
+                    </Button>
+                    <Button size='small' color='primary' disabled
+                        startIcon={<PlayCircleFilledWhiteIcon/>}> {body[props.lang]['play']}
+                    </Button>
+                </div>
+            </div>
+        )}
+        </>
     );
 }
