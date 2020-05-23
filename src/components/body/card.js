@@ -23,7 +23,7 @@ export default function Card(props) {
     const [info, openInfo] = useState(false);
 
     useEffect(() => {
-        // console.log('props.locked ' + props.locked);
+        console.log('Card.useEffect -> ' + props.task.uid + ', props.locked ' + props.locked);
         if (props.color === 'white') {
             setTitle(white_titles[props.lang][props.task.id]);
             setDesc(white_descriptions[props.lang][props.task.id]);

@@ -90,6 +90,7 @@ export default class DigitGame extends React.Component {
                 'belt': this.props.belt,
                 'task': this.state.type,
                 'game_id': this.props.game_id,
+                'game_uid': this.props.game_uid,
             };
 
             this.setState({showResults: false,
@@ -180,6 +181,7 @@ export default class DigitGame extends React.Component {
                                 amount={this.state.amount}
                                 duration={this.state.duration}
                                 game_id={this.props.game_id}
+                                game_uid={this.props.game_uid}
                                 belt={this.props.belt}
                                 lang={this.props.lang}
                                 type={this.state.type}

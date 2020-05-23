@@ -76,8 +76,9 @@ export default class SuperMathPage extends React.Component {
             email: localStorage.getItem('email') ? localStorage.getItem('email') : '',
             name: localStorage.getItem('name') ? localStorage.getItem('name') : '',
             surname: localStorage.getItem('surname') ? localStorage.getItem('surname') : '',
-            passed: localStorage.getItem('passed') ? localStorage.getItem('passed') : '0',
-            failed: localStorage.getItem('failed') ? localStorage.getItem('failed') : '0',
+            cards: localStorage.getItem('cards') ? localStorage.getItem('cards') : 0,
+            passed: localStorage.getItem('passed') ? localStorage.getItem('passed') : 0,
+            failed: localStorage.getItem('failed') ? localStorage.getItem('failed') : 0,
             belt: localStorage.getItem('belt') ? localStorage.getItem('belt') : 'white',
             avatar: localStorage.getItem('avatar') ? localStorage.getItem('avatar') : 'martin-berube',
             birthday: localStorage.getItem('birthday') ? localStorage.getItem('birthday') : '',
@@ -137,8 +138,14 @@ export default class SuperMathPage extends React.Component {
         // counter: user game results from task
         } else if (property === 'counter') {
             if ((this.state.id > 0) && (pswdhash !== null)) {
-                this.setState({passed: (parseInt(this.state.passed) + parseInt(value.passed)),
-                               failed: (parseInt(this.state.failed) + parseInt(value.failed))});
+                var new_passed = parseInt(this.state.passed) + parseInt(value.passed);
+                var new_failed = parseInt(this.state.failed) + parseInt(value.failed);
+                if ((parseInt(value.failed) === 0) && (parseInt(value.passed) > 0)) {
+                    var new_solved = this.state.solved + value.game_uid + ',';
+                    this.setState({passed: new_passed, failed: new_failed, solved: new_solved});
+                } else {
+                    this.setState({passed: new_passed, failed: new_failed});
+                }
                 // updateCounter(id, pswdhash, data)
                 update_counter(this.state.id, pswdhash, value);
             }
@@ -212,6 +219,7 @@ export default class SuperMathPage extends React.Component {
                 'surname': data.surname,
                 'birthday': data.birthday,
                 'avatar': data.avatar,
+                // 'cards': data.cards,
                 'passed': data.passed,
                 'failed': data.failed,
                 'belt': data.belt,
@@ -243,7 +251,7 @@ export default class SuperMathPage extends React.Component {
             this.setState({screen: STATUS.FORGET});
 
         } else if (result === 'logout') {
-            this.setState({screen: STATUS.NONE, id: 0});
+            this.setState({screen: STATUS.NONE, id: 0, solved: ''});
 
             // remove all info from local storage
             localStorage.removeItem('user_id');
