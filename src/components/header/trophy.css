@@ -114,3 +114,18 @@
     border-radius: 5px;
     box-shadow: 1px 1px 3px 0px grey;
 }
+@media only screen and (max-width: 520px) {
+    .trophy_table_wrapper {
+        min-width: 100%;
+        max-width: 100%;
+        min-height: 100%;
+        margin: 3px;
+    }
+    .trophy_table_row {
+        height: 37px;
+        width: 100%;
+        margin-top: 3px;
+        font-size: 1.0rem;
+        font-weight: bold;
+    }
+}

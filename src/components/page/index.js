@@ -210,6 +210,7 @@ export default class SuperMathPage extends React.Component {
             var ageDate = new Date(ageDifMs);
             var age = Math.abs(ageDate.getUTCFullYear() - 1970);
 
+            var cards_counter = (data.solved.length > 0) ? data.solved.toString().split(',').length-1 : 0;
             this.setState({
                 'screen': (this.state.screen === STATUS.REGISTER) ? STATUS.WELCOME : STATUS.NONE,
                 'id': parseInt(data.id),
@@ -219,7 +220,7 @@ export default class SuperMathPage extends React.Component {
                 'surname': data.surname,
                 'birthday': data.birthday,
                 'avatar': data.avatar,
-                // 'cards': data.cards,
+                'cards': cards_counter,
                 'passed': data.passed,
                 'failed': data.failed,
                 'belt': data.belt,
@@ -236,6 +237,7 @@ export default class SuperMathPage extends React.Component {
             localStorage.setItem('avatar', data.avatar);
             localStorage.setItem('passed', data.passed);
             localStorage.setItem('failed', data.failed);
+            localStorage.setItem('cards', cards_counter);
             localStorage.setItem('lang', data.lang);
             localStorage.setItem('belt', data.belt);
             localStorage.setItem('solved', data.solved);
@@ -359,6 +361,10 @@ export default class SuperMathPage extends React.Component {
                                 <font onClick={() => this.setState({screen: STATUS.USERINFO})} className='font_userinfo_last' style={{color:'red'}}>
                                     {this.state.failed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                                 </font> 
+                                <font onClick={() => this.setState({screen: STATUS.USERINFO})} className='font_userinfo_last' style={{color:'green'}}>
+                                    {this.state.cards} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127183;</span>
+                                </font> 
+
                                 <font onClick={() => this.setState({screen: STATUS.LOGOUT})} className='div_login'>{header[this.state.lang]['logout']}</font>
                             </>
                         ) : (
