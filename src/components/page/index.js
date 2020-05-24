@@ -390,16 +390,16 @@ export default class SuperMathPage extends React.Component {
                     id={this.state.id}
                     lang={this.state.lang}
                     solved={this.state.solved}
-                    fullScreen={this.state.width<581}/>
+                    fullScreen={this.state.width<740}/>
 
                 <Trophy open={this.state.screen === STATUS.TROPHY} onClose={() => this.setState({screen: STATUS.NONE})}
-                    fullScreen={this.state.width<581} lang={this.state.lang} id={this.state.id}/>
+                    fullScreen={this.state.width<740} lang={this.state.lang} id={this.state.id}/>
 
                 <Help open={this.state.screen === STATUS.HELP} onClose={() => this.setState({screen: STATUS.NONE})}
                     fullScreen={this.state.width<581} lang={this.state.lang}/>
 
                 <About open={this.state.screen === STATUS.ABOUT} onClose={() => this.setState({screen: STATUS.NONE})}
-                    fullScreen={this.state.width<581} lang={this.state.lang}/>
+                    fullScreen={this.state.width<740} lang={this.state.lang}/>
 
                 <Login open={this.state.screen === STATUS.LOGIN} onClose={this.onResult}
                     fullScreen={this.state.width<581} lang={this.state.lang}/>

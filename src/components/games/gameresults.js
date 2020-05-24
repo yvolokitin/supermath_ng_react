@@ -80,11 +80,11 @@ export default function GameResults(props) {
 
                 <div className='result_board_chart' onClick={() => setResults(true)}>
                     <font style={{color:'#248f24',}}>
-                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span> &nbsp; {props.passed} &nbsp;
+                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span> &nbsp; {props.passed}9 &nbsp;
                     </font>
                     &nbsp; <RadialChart progress={scores.percent}/> &nbsp;
                     <font style={{color:'red',}}>
-                        &nbsp; {props.failed} &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
+                        &nbsp; {props.failed}9 &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                     </font>
                 </div>
                 <div className='result_board_body'>
@@ -119,19 +119,24 @@ export default function GameResults(props) {
             </div>
 
             <div className='result_board_button_wrapper'>
-                <div className='result_board_button' onClick={() => setResults(true)}>
-                    {gameresults[props.lang]['show']}
-                </div>
-                { (props.id === 0) ? (
-                    <div className='result_board_button' onClick={() => props.onClose('register', data)}>
-                        {gameresults[props.lang]['registration']}
+                <div className='result_board_button_left'>
+                    <div className='result_board_button' onClick={() => setResults(true)}>
+                        {gameresults[props.lang]['show']}
                     </div>
-                ) : ( null )}
-                <div className='result_board_button' onClick={() => props.onClose('replay', data)}>
-                    {gameresults[props.lang]['play']}
+                    { (props.id === 0) ? (
+                        <div className='result_board_button' onClick={() => props.onClose('register', data)}>
+                            {gameresults[props.lang]['registration']}
+                        </div>
+                    ) : ( null )}
                 </div>
-                <div className='result_board_button' onClick={() => props.onClose('close', data)}>
-                    {gameresults[props.lang]['close']}
+
+                <div className='result_board_button_right'>
+                    <div className='result_board_button' onClick={() => props.onClose('replay', data)}>
+                        {gameresults[props.lang]['play']}
+                        </div>
+                    <div className='result_board_button' onClick={() => props.onClose('close', data)}>
+                        {gameresults[props.lang]['close']}
+                    </div>
                 </div>
             </div>
 
