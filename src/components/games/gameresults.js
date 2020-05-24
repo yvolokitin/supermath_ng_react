@@ -1,51 +1,40 @@
-﻿import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import SMRadialChart from "./../charts/smradialchart";
+import RadialChart from "./../charts/radialchart";
 import GameProgress from "./digitgameprogress";
+
+import SMTitle from './../dialog/title';
+import ColorLine from './../line/line';
 
 import './gameresults.css';
 import {gameresults} from './../translations/gameresults';
 
 export default function GameResults(props) {
-    const [results, setResults] = useState({});
+    const [results, setResults] = useState(false);
+    const [scores, setScores] = useState({});
     const [data, setData] = useState({});
 
-    /*
-                        <GameResults open={this.state.showResults}
-                            passed={this.state.passed}
-                            failed={this.state.failed}
-                            results={this.state.results}
-                            amount={this.state.amount}
-                            duration={this.state.duration}
-                            game_id={this.props.game_id}
-                            game_uid={this.props.game_uid}
-                            belt={this.props.belt}
-                            lang={this.props.lang}
-                            type={this.state.type}
-                            onClose={this.onGameClose}/>
-    */
     useEffect(() => {
         var current_rates = calculate_rates(props.duration, props.passed, props.amount);
-        setResults(current_rates);
+        setScores(current_rates);
 
         var game_data = {
             'operation': 'results',
-            'passed': this.props.passed,
-            'failed': this.props.failed,
-            'duration': this.props.duration,
-            'percent': this.state.result.percent,
-            'rate': this.state.result.rate,
-            'belt': this.props.belt,
-            'task': this.props.type,
-            'game_id': this.props.game_id,
-            'game_uid': this.props.game_uid,
+            'passed': props.passed,
+            'failed': props.failed,
+            'duration': props.duration,
+            'percent': current_rates.scores,
+            'rate': current_rates.scores,
+            'belt': props.belt,
+            'task': props.type,
+            'game_uid': props.game_uid,
         };
         setData(game_data);
 
-    }, [props.passed, props.failed, props.results, props.amount, props.duration, props.lang, props.id, props.uid]);
+    }, [props.id, props.game_uid, props.passed, props.failed, props.results, props.type,
+        props.amount, props.duration, props.belt, props.lang, props.id, props.uid]);
 
-    calculate_rates(duration, passed, amount) {
-        var duration = this.props.duration;
+    function calculate_rates(duration, passed, amount) {
         var hours = 0, minutes = 0, seconds = 0;
         if (duration > (1000 * 60 * 60)) {
             hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
@@ -60,7 +49,7 @@ export default function GameResults(props) {
         }
 
         var rate = 'really_bad';
-        var percent = 100 * this.props.passed / this.props.amount;
+        var percent = 100 * passed / amount;
         if (percent > 99) { rate = 'excellent';
         } else if (passed > 95) { rate = 'quite_good';
         } else if (passed > 90) { rate = 'good';
@@ -68,98 +57,90 @@ export default function GameResults(props) {
         } else if (passed > 60) { rate = 'not_well';
         } else if (passed > 40) { rate = 'quite_bad';}
 
-        return {'percent': passed, 'rate': rate, 'hours': hours, 'minutes': minutes, 'seconds': seconds}
-    }
-
-    constructor(props) {
-        this.state = {id: localStorage.getItem('user_id') ? parseInt(localStorage.getItem('user_id')) : 0,
-                      result: this.calculate(),
-                      userResults: false};
-    }
-
-    onClose(status) {
-        console.log('GameResults.onClose: ' + this.props.belt);
-
-        // on close and on replay -> updated passed/failed counters
-        this.props.onClose(status, data);
+        return {'percent': percent, 'rate': rate, 'hours': hours, 'minutes': minutes, 'seconds': seconds}
     }
 
     return (
-        <SMTitle title='' onClick={() => props.onClose()}/>
-        <ColorLine/>
+        <div className='result_board_wrapper'>
+            <SMTitle title='' onClick={() => props.onClose('close', data)}/>
+            <ColorLine/>
 
-        <div style={{height:'100%',width:'100%',}}>
-                <div className='result_board'>
-                    <div className='result_board_title'>
-                        {gameresults[this.props.lang]['time']} {this.state.result.hours} {gameresults[this.props.lang]['hours']},
-                        &nbsp; {this.state.result.minutes} {gameresults[this.props.lang]['minutes']},
-                        &nbsp; {this.state.result.seconds} {gameresults[this.props.lang]['seconds']}
+            <div className='result_board'>
+                <div className='result_board_title_wrapper'>
+                    <div className='result_board_title_left'>
+                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#9201;</span>
+                        &nbsp; {gameresults[props.lang]['time']} 
                     </div>
-
-                    <div className='result_board_chart' onClick={(e) => this.setState({userResults:true})}>
-                        <font style={{color:'#00cc00',}}>
-                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span> &nbsp; {this.props.passed} &nbsp;
-                        </font>
-                        &nbsp; <SMRadialChart progress={this.state.result.percent}/> &nbsp;
-                        <font style={{color:'red',}}>
-                            &nbsp; {this.props.failed} &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
-                        </font>
+                    <div className='result_board_title_right'>
+                        {scores.hours} {gameresults[props.lang]['hours']},&nbsp;
+                        {scores.minutes} {gameresults[props.lang]['minutes']},&nbsp;
+                        {scores.seconds} {gameresults[props.lang]['seconds']}
                     </div>
+                </div>
 
-                    <div className='result_board_body'>
-                        {gameresults[this.props.lang]['reach']} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#9757;</span> &nbsp;
-                        <font style={{color:'orange'}}> {gameresults[this.props.lang][this.state.result.rate]} </font> {gameresults[this.props.lang]['score']}
+                <div className='result_board_chart' onClick={() => setResults(true)}>
+                    <font style={{color:'#248f24',}}>
+                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span> &nbsp; {props.passed} &nbsp;
+                    </font>
+                    &nbsp; <RadialChart progress={scores.percent}/> &nbsp;
+                    <font style={{color:'red',}}>
+                        &nbsp; {props.failed} &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
+                    </font>
+                </div>
+                <div className='result_board_body'>
+                        {gameresults[props.lang]['reach']} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#9757;</span> &nbsp;
+                        <font style={{color:'orange'}}> {gameresults[props.lang][scores.rate]} </font> {gameresults[props.lang]['score']}
                         &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128202;</span>
+                </div>
+
+                { (props.id > 0) ? (
+                    <>
+                        <div className='result_board_body'>
+                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#129504;</span> {gameresults[props.lang]['brain']}
+                        </div>
+                        <div className='result_board_body'>
+                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128138;</span> {gameresults[props.lang]['pill']}
+                        </div>
+                        <div className='result_board_body'>
+                            {gameresults[props.lang]['smart']} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128170;</span>
+                            {gameresults[props.lang]['health']} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128540;</span>
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <div className='result_board_body' onClick={() => props.onClose('register', data)} style={{cursor:'pointer'}}>
+                            <font style={{color:'red'}}> {gameresults[props.lang]['register']} </font>
+                        </div>
+                        <div className='result_board_body' onClick={() => props.onClose('register', data)} style={{cursor:'pointer'}}>
+                            <font style={{color:'orange'}}> {gameresults[props.lang]['save_results']} </font>
+                        </div>
+                    </>
+                )}
+            </div>
+
+            <div className='result_board_button_wrapper'>
+                <div className='result_board_button' onClick={() => setResults(true)}>
+                    {gameresults[props.lang]['show']}
+                </div>
+                { (props.id === 0) ? (
+                    <div className='result_board_button' onClick={() => props.onClose('register', data)}>
+                        {gameresults[props.lang]['registration']}
                     </div>
-
-                    { (this.state.id > 0) ?
-                      (
-                        <>
-                          <div className='result_board_body'>
-                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#129504;</span> {gameresults[this.props.lang]['brain']}
-                          </div>
-                          <div className='result_board_body'>
-                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128138;</span> {gameresults[this.props.lang]['pill']}
-                          </div>
-                          <div className='result_board_body'>
-                            {gameresults[this.props.lang]['smart']} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128170;</span>
-                            {gameresults[this.props.lang]['health']} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128540;</span>
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          <div className='result_board_body' onClick={() => this.onClose('register')} style={{cursor:'pointer'}}>
-                            <font style={{color:'red'}}>
-                              {gameresults[this.props.lang]['register']}
-                            </font>
-                          </div>
-
-                          <div className='result_board_body' onClick={() => this.onClose('register')} style={{cursor:'pointer'}}>
-                            <font style={{color:'yellow'}}>
-                              {gameresults[this.props.lang]['save_results']}
-                            </font>
-                          </div>
-                        </>
-                      )
-                    }
+                ) : ( null )}
+                <div className='result_board_button' onClick={() => props.onClose('replay', data)}>
+                    {gameresults[props.lang]['play']}
                 </div>
+                <div className='result_board_button' onClick={() => props.onClose('close', data)}>
+                    {gameresults[props.lang]['close']}
+                </div>
+            </div>
 
-                <div onClick={(e) => this.setState({userResults:true})} className='result_board_button' style={{float:'left',marginLeft: '5%'}}>
-                    {gameresults[this.props.lang]['show']}
-                </div>
-                <div onClick={() => this.onClose('replay')} className='result_board_button' style={{float:'right',marginRight:'5%'}}>
-                    {gameresults[this.props.lang]['play']} &nbsp; &#8635;
-                </div>
-                <div onClick={() => this.onClose('close')} className='result_board_button' style={{float:'right',marginRight:'1%'}}>
-                    {gameresults[this.props.lang]['close']} &nbsp; &#10006;
-                </div>
-
-                <GameProgress open={this.state.userResults}
-                              total={this.props.total}
-                              passed={this.props.passed}
-                              failed={this.props.failed}
-                              results={this.props.results}
-                              onClose={(e) => this.setState({userResults:false})}/>
+            <GameProgress open={results}
+                total={props.total}
+                passed={props.passed}
+                failed={props.failed}
+                results={props.results}
+                onClose={() => setResults(false)}/>
         </div>
     );
 }

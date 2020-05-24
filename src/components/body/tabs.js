@@ -187,16 +187,15 @@ export default function Tabs(props) {
             <Footer color={footer} lang={props.lang}/>
 
             <DigitGame open={gameOpen}
-                       id={props.id}
-                       game_id={game.id}
-                       game_uid={game.uid}
-                       type={game.type}
-                       task={game.task}
-                       amount={game.amount}
-                       lang={props.lang}
-                       belt={value}
-                       fullScreen={props.fullScreen}
-                       onClose={onGameClose}/>
+                id={props.id}
+                game_uid={game.uid}
+                type={game.type}
+                task={game.task}
+                amount={game.amount}
+                lang={props.lang}
+                belt={value}
+                fullScreen={props.fullScreen}
+                onClose={onGameClose}/>
         </div>
     );
 }
