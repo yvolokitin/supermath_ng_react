@@ -1,5 +1,4 @@
-﻿import React from 'react';
-// import axios from 'axios';
+﻿import React, { useEffect, useState, useCallback } from 'react';
 
 import SMRadialChart from "./../charts/smradialchart";
 import GameProgress from "./digitgameprogress";
@@ -7,29 +6,45 @@ import GameProgress from "./digitgameprogress";
 import './gameresults.css';
 import {gameresults} from './../translations/gameresults';
 
-export default class GameResults extends React.Component {
-    constructor(props) {
-        super(props);
+export default function GameResults(props) {
+    const [results, setResults] = useState({});
+    const [data, setData] = useState({});
 
-        this.onClose = this.onClose.bind(this);
-        this.onUpdateResults = this.onUpdateResults.bind(this);
-        this.onUpdateResultsError = this.onUpdateResultsError.bind(this);
+    /*
+                        <GameResults open={this.state.showResults}
+                            passed={this.state.passed}
+                            failed={this.state.failed}
+                            results={this.state.results}
+                            amount={this.state.amount}
+                            duration={this.state.duration}
+                            game_id={this.props.game_id}
+                            game_uid={this.props.game_uid}
+                            belt={this.props.belt}
+                            lang={this.props.lang}
+                            type={this.state.type}
+                            onClose={this.onGameClose}/>
+    */
+    useEffect(() => {
+        var current_rates = calculate_rates(props.duration, props.passed, props.amount);
+        setResults(current_rates);
 
-        
-        this.state = {id: localStorage.getItem('user_id') ? parseInt(localStorage.getItem('user_id')) : 0,
-                      result: this.calculate(),
-                      userResults: false};
-    }
+        var game_data = {
+            'operation': 'results',
+            'passed': this.props.passed,
+            'failed': this.props.failed,
+            'duration': this.props.duration,
+            'percent': this.state.result.percent,
+            'rate': this.state.result.rate,
+            'belt': this.props.belt,
+            'task': this.props.type,
+            'game_id': this.props.game_id,
+            'game_uid': this.props.game_uid,
+        };
+        setData(game_data);
 
-    componentDidUpdate(prevProps) {
-        // Typical usage (don't forget to compare props), otherwise you get infinitive loop
-        console.log('GameResults.componentDidUpdate ' + this.props.amount + ' / ' + this.props.passed + ' / ' + this.props.failed  + '. duration ' + this.props.duration + '. length ' + this.props.results.length);
-        if (this.props.results !== prevProps.results) {
-            this.set_results();
-        }
-    }
+    }, [props.passed, props.failed, props.results, props.amount, props.duration, props.lang, props.id, props.uid]);
 
-    calculate() {
+    calculate_rates(duration, passed, amount) {
         var duration = this.props.duration;
         var hours = 0, minutes = 0, seconds = 0;
         if (duration > (1000 * 60 * 60)) {
@@ -45,8 +60,8 @@ export default class GameResults extends React.Component {
         }
 
         var rate = 'really_bad';
-        var passed = 100 * this.props.passed / this.props.amount;
-        if (passed > 99) { rate = 'excellent';
+        var percent = 100 * this.props.passed / this.props.amount;
+        if (percent > 99) { rate = 'excellent';
         } else if (passed > 95) { rate = 'quite_good';
         } else if (passed > 90) { rate = 'good';
         } else if (passed > 80) { rate = 'well';
@@ -56,52 +71,24 @@ export default class GameResults extends React.Component {
         return {'percent': passed, 'rate': rate, 'hours': hours, 'minutes': minutes, 'seconds': seconds}
     }
 
-    set_results() {
-        this.setState({id: localStorage.getItem('user_id') ? parseInt(localStorage.getItem('user_id')) : 0,
-                       result: this.calculate()});
+    constructor(props) {
+        this.state = {id: localStorage.getItem('user_id') ? parseInt(localStorage.getItem('user_id')) : 0,
+                      result: this.calculate(),
+                      userResults: false};
     }
 
     onClose(status) {
         console.log('GameResults.onClose: ' + this.props.belt);
-        var data = {
-            'operation': 'results',
-            'passed': this.props.passed,
-            'failed': this.props.failed,
-            'duration': this.props.duration,
-            'percent': this.state.result.percent,
-            'rate': this.state.result.rate,
-            'belt': this.props.belt,
-            'task': this.props.type,
-            'game_id': this.props.game_id,
-            'game_uid': this.props.game_uid,
-        };
 
         // on close and on replay -> updated passed/failed counters
         this.props.onClose(status, data);
     }
 
-    onUpdateResults(response) {
-        console.log('onUpdateResults: ' + response.data.error + ', id ' + response.data.id);
-        if ('data' in response) {
-            if ('error' in response.data) {
-                console.log('onUpdateResults: received error from server ' + response.data.error);
-            } else if ('id' in response.data) {
-                console.log('onUpdateResults: results synced for ' + response.data.id);
-            } else {
-                console.log('onUpdateResults: no error and id in data message from server');
-            }
-        } else {
-            console.log('onUpdateResults: received no data in response from server');
-        }
-    }
+    return (
+        <SMTitle title='' onClick={() => props.onClose()}/>
+        <ColorLine/>
 
-    onUpdateResultsError(error) {
-        console.log('onUserResultsError:: error ' + error);
-    }
-
-    render() {
-        return (
-            <div style={{height:'100%',width:'100%',}}>
+        <div style={{height:'100%',width:'100%',}}>
                 <div className='result_board'>
                     <div className='result_board_title'>
                         {gameresults[this.props.lang]['time']} {this.state.result.hours} {gameresults[this.props.lang]['hours']},
@@ -173,7 +160,6 @@ export default class GameResults extends React.Component {
                               failed={this.props.failed}
                               results={this.props.results}
                               onClose={(e) => this.setState({userResults:false})}/>
-            </div>
-        );
-    }
+        </div>
+    );
 }
