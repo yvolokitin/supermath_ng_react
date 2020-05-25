@@ -121,14 +121,11 @@ export default class Forget extends React.Component {
     }
 
     /*
-        <Grid item>
-            <Link onClick={() => this.onClose('register')} style={{cursor:'pointer'}} variant='body2'>{forget[this.props.lang]['signup']}</Link>
-        </Grid>
     */
     render() {
         return (
-            <Dialog fullWidth={true} fullScreen={this.props.fullScreen} open={this.props.open}>
-                <SMTitle title='' onClick={() => this.onClose()}/>
+            <Dialog open={this.props.open} fullWidth={true} fullScreen={this.props.fullScreen} transitionDuration={600}>
+                <SMTitle title='' onClick={() => this.onClose('close')}/>
                 <ColorLine/>
 
                 <div style={{marginTop:'15px',display:'flex',flexDirection:'column',alignItems:'center'}}>

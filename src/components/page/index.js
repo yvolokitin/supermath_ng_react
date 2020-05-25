@@ -59,6 +59,7 @@ export default class SuperMathPage extends React.Component {
         this.onApiUpdate = this.onApiUpdate.bind(this);
         this.onApiUpdateError = this.onApiUpdateError.bind(this);
 
+        this.onForget = this.onForget.bind(this);
         this.onResult = this.onResult.bind(this);
         this.onRefresh = this.onRefresh.bind(this);
         this.onWelcome = this.onWelcome.bind(this);
@@ -123,6 +124,14 @@ export default class SuperMathPage extends React.Component {
     onWelcome(property) {
         if (property === 'userinfo') {
             this.setState({screen: STATUS.USERINFO});
+        } else {
+            this.setState({screen: STATUS.NONE});
+        }
+    }
+
+    onForget(property) {
+        if (property === 'login') {
+            this.setState({screen: STATUS.LOGIN});
         } else {
             this.setState({screen: STATUS.NONE});
         }
@@ -418,7 +427,7 @@ export default class SuperMathPage extends React.Component {
                     lang={this.state.lang}/>
 
                 <Forget open={this.state.screen === STATUS.FORGET}
-                    onClose={() => this.setState({screen: STATUS.NONE})}
+                    onClose={this.onForget}
                     fullScreen={this.state.width<740}
                     lang={this.state.lang}/>
 
