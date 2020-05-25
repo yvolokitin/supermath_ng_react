@@ -5,7 +5,7 @@ import {Snackbar, CircularProgress} from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 
 // name validator
-import {validate_name} from './../halpers/validator.js';
+// import {validate_name} from './../halpers/validator.js';
 
 // email validator
 import {validate} from 'validate.js';

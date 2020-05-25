@@ -17,22 +17,20 @@ export default function GameResults(props) {
     useEffect(() => {
         var current_rates = calculate_rates(props.duration, props.passed, props.amount);
         setScores(current_rates);
-
-        var game_data = {
+        setData({
             'operation': 'results',
             'passed': props.passed,
             'failed': props.failed,
             'duration': props.duration,
-            'percent': current_rates.scores,
-            'rate': current_rates.scores,
+            'percent': current_rates.percent,
+            'rate': current_rates.rate,
             'belt': props.belt,
             'task': props.type,
             'game_uid': props.game_uid,
-        };
-        setData(game_data);
+        });
 
     }, [props.id, props.game_uid, props.passed, props.failed, props.results, props.type,
-        props.amount, props.duration, props.belt, props.lang, props.id, props.uid]);
+        props.amount, props.duration, props.belt, props.lang]);
 
     function calculate_rates(duration, passed, amount) {
         var hours = 0, minutes = 0, seconds = 0;

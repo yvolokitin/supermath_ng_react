@@ -164,6 +164,7 @@ export default class SuperMathPage extends React.Component {
                 update_avatar(this.state.id, pswdhash, value);
             }
 
+        // if unregistered user pressed register button from game results
         } else if (property === 'register') {
             this.setState({screen: STATUS.REGISTER});
 
