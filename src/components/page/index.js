@@ -164,6 +164,9 @@ export default class SuperMathPage extends React.Component {
                 update_avatar(this.state.id, pswdhash, value);
             }
 
+        } else if (property === 'register') {
+            this.setState({screen: STATUS.REGISTER});
+
         } else {
             if (property === 'name') {
                 this.setState({'name': value});
@@ -392,20 +395,31 @@ export default class SuperMathPage extends React.Component {
                     solved={this.state.solved}
                     fullScreen={this.state.width<740}/>
 
-                <Trophy open={this.state.screen === STATUS.TROPHY} onClose={() => this.setState({screen: STATUS.NONE})}
-                    fullScreen={this.state.width<740} lang={this.state.lang} id={this.state.id}/>
+                <Trophy open={this.state.screen === STATUS.TROPHY}
+                    onClose={() => this.setState({screen: STATUS.NONE})}
+                    fullScreen={this.state.width<740}
+                    lang={this.state.lang}
+                    id={this.state.id}/>
 
-                <Help open={this.state.screen === STATUS.HELP} onClose={() => this.setState({screen: STATUS.NONE})}
-                    fullScreen={this.state.width<581} lang={this.state.lang}/>
+                <Help open={this.state.screen === STATUS.HELP}
+                    onClose={() => this.setState({screen: STATUS.NONE})}
+                    fullScreen={this.state.width<581}
+                    lang={this.state.lang}/>
 
-                <About open={this.state.screen === STATUS.ABOUT} onClose={() => this.setState({screen: STATUS.NONE})}
-                    fullScreen={this.state.width<740} lang={this.state.lang}/>
+                <About open={this.state.screen === STATUS.ABOUT}
+                    onClose={() => this.setState({screen: STATUS.NONE})}
+                    fullScreen={this.state.width<740}
+                    lang={this.state.lang}/>
 
-                <Login open={this.state.screen === STATUS.LOGIN} onClose={this.onResult}
-                    fullScreen={this.state.width<581} lang={this.state.lang}/>
+                <Login open={this.state.screen === STATUS.LOGIN}
+                    fullScreen={this.state.width<740}
+                    onClose={this.onResult}
+                    lang={this.state.lang}/>
 
-                <Forget open={this.state.screen === STATUS.FORGET} onClose={() => this.setState({screen: STATUS.NONE})}
-                    fullScreen={this.state.width<581} lang={this.state.lang}/>
+                <Forget open={this.state.screen === STATUS.FORGET}
+                    onClose={() => this.setState({screen: STATUS.NONE})}
+                    fullScreen={this.state.width<740}
+                    lang={this.state.lang}/>
 
                 <UserInformation open={this.state.screen === STATUS.USERINFO}
                     onUpdate={this.onUserInfo}
@@ -423,7 +437,7 @@ export default class SuperMathPage extends React.Component {
                     failed={this.props.failed}/>
 
                 <Language open={this.state.screen === STATUS.LANG}
-                    fullScreen={this.state.width<581} 
+                    fullScreen={this.state.width<740} 
                     onClose={this.onLanguage}
                     lang={this.state.lang}/>
 

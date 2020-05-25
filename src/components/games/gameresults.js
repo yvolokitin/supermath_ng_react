@@ -80,11 +80,11 @@ export default function GameResults(props) {
 
                 <div className='result_board_chart' onClick={() => setResults(true)}>
                     <font style={{color:'#248f24',}}>
-                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span> &nbsp; {props.passed}9 &nbsp;
+                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span> &nbsp; {props.passed} &nbsp;
                     </font>
                     &nbsp; <RadialChart progress={scores.percent}/> &nbsp;
                     <font style={{color:'red',}}>
-                        &nbsp; {props.failed}9 &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
+                        &nbsp; {props.failed} &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                     </font>
                 </div>
                 <div className='result_board_body'>
