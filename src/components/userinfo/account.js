@@ -12,21 +12,24 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function AccountTab(props) {
-    const [selected, setSelected] = useState(false);
-
+/*
     useEffect(() => {
         console.log('AccountTab.useEffect ' + props.id + ': ' + props.selected);
 
     }, [props.id, props.name, props.selected]);
-
+*/
     return (
-        <div className='account_tab' onClick={() => props.onClick(props.id)}>
-            {(props.selected) ? (
-                <font style={{color: 'black', transform: 'scale(1.1)'}}> {props.name} </font>
-            ) : (
-                <font style={{color: 'green'}}> {props.name} </font>
-            )}
-        </div>
+      <>
+        {(props.selected) ? (
+            <div className='account_tab' onClick={() => props.onClick(props.id)} style={{boxShadow: '0 11px 1px -1px black'}}>
+                <font style={{color: '#334d00', transform: 'scale(1.1)'}}> {props.name} </font>
+            </div>
+        ) : (
+            <div className='account_tab' onClick={() => props.onClick(props.id)} style={{boxShadow: 'none'}}>
+                <font style={{color: 'green', transform: 'scale(1.0)'}}> {props.name} </font>
+            </div>
+        )}
+      </>
     );
 }
 
@@ -45,9 +48,8 @@ export default function Account(props) {
     }, [props.open, props.lang, props.id]);
 
     function onTabChange(id) {
-        console.log('Account.onTabChange ' + id);
-
-
+        // console.log('Account.onTabChange ' + id);
+        setCurrent(id);
     }
 
     return (
@@ -71,7 +73,6 @@ export default function Account(props) {
                     }
                 </div>
             </div>
-
         </Dialog>
     );
 }

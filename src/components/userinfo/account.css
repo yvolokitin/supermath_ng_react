@@ -51,6 +51,3 @@
 
     transition: transform 1.0s;
 }
-.account_tab:hover {
-    transform: scale(1.1);
-}
