@@ -15,6 +15,8 @@ import Language from './../header/language';
 import Welcome from './../header/welcome';
 import Trophy from './../header/trophy';
 
+import Account from './../userinfo/account';
+
 import UserInformation from './../userinfo/userinfo';
 import AlertDialog from './../alert/alert';
 
@@ -36,6 +38,7 @@ const STATUS = {
     USERINFO: 8,
     FORGET: 9,
     LANG: 10,
+    ACCOUNT: 11,
 }
 
 export default class SuperMathPage extends React.Component {
@@ -375,7 +378,7 @@ export default class SuperMathPage extends React.Component {
                                     {this.state.failed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                                 </font> 
                                 { (this.state.cards> 0 ) ? (
-                                        <font onClick={() => this.setState({screen: STATUS.USERINFO})} className='font_userinfo_last' style={{color:'green'}}>
+                                        <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo_last' style={{color:'green'}}>
                                             {this.state.cards} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127183;</span>
                                         </font> 
                                     ) : (
@@ -430,6 +433,14 @@ export default class SuperMathPage extends React.Component {
                     onClose={this.onForget}
                     fullScreen={this.state.width<740}
                     lang={this.state.lang}/>
+
+                <Account open={this.state.screen === STATUS.ACCOUNT}
+                    onUpdate={this.onUserInfo}
+                    id={this.state.id} email={this.state.email}
+                    name={this.state.name} surname={this.state.surname}
+                    age={this.state.age} avatar={this.state.avatar}
+                    passed={this.state.passed} failed={this.state.failed}
+                    birthday={this.state.birthday} lang={this.state.lang}/>
 
                 <UserInformation open={this.state.screen === STATUS.USERINFO}
                     onUpdate={this.onUserInfo}
