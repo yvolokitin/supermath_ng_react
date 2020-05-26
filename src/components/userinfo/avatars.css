@@ -1,23 +1,62 @@
-﻿.avatarsboard {
+﻿.avatars_board_wrapper {
     height: 100%;
     width: 100%;
-    display: inline;
-}
-.avatargrid {
-    padding: 1%;
+    margin-top: 10px;
+
     display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    background-color: white;
+}
+.avatars_board {
+    width: 90%;
+    height: 500px;
+
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
 }
-.avatarimage {
+.avatar_box {
     width: 140px;
     height: 140px;
+    margin: 5px;
+
     cursor: pointer;
-    transition: transform 1.0s;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: clip;
+
     border: 1px solid grey;
+    border-radius: 50%;
 }
-.avatarimage:hover {
-    transform: scale(1.1);
+.avatar_box:hover {
     border: 1px solid black;
+}
+.avatar_box img {
+    width: 100%;
+    height: auto;
+    transition: transform 1.0s;
+}
+.avatar_box img:hover {
+    transform: scale(1.1);
     box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.avatar_box_selected {
+    width: 140px;
+    height: 140px;
+    margin: 5px;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: clip;
+
+    border: 3px solid black;
+    border-radius: 50%;
+}
+.avatar_box_selected img {
+    width: 100%;
+    height: auto;
 }

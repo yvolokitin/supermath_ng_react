@@ -1,34 +1,56 @@
-﻿import React, { useEffect } from 'react';
-import {Grid, Avatar} from '@material-ui/core';
+﻿import React, { useEffect, useState } from 'react';
+import {Typography} from '@material-ui/core';
 
 import './avatars.css';
 
+function Avatar(props) {
+    return (
+        <>
+            {(props.selected) ? (
+                <div className='avatar_box_selected' onClick={() => props.onClick(props.id)}>
+                    <img src={props.src} alt={props.name}/>
+                </div>
+            ) : (
+                <div className='avatar_box'>
+                    <img src={props.src} alt={props.name} onClick={() => props.onClick(props.id)}/>
+                </div>
+            )}
+        </>
+    );
+}
+
 export default function Avatars(props) {
-    // const [avatar, setAvatar] = useState([]);
+    const [current, setCurrent] = useState(1);
+    const [hidden, setHidden] = useState(true);
+
     useEffect(() => {
-        console.log('Avatars.props.avatar ' + props.avatar);
-        // console.log('keys ' + props.avatars[1][1]);
+        // console.log('Avatars.props.open' + props.open + ', props.avatar ' + props.avatar);
+        if (props.open) { setHidden(false);
+        } else { setHidden(true); }
 
-    }, [props.avatars, props.avatar]);
+    }, [props.open, props.avatars, props.avatar]);
 
-    function onAvatarChange(id, avatar) {
-        console.log('Avatars.onAvatarChange ' + id + ', ' + avatar);
+    function onAvatarChange(id) {
+        console.log('Avatars.onAvatarChange ' + id);
         props.onAvatar(id);    
-        // setAvatar(id);
+        setCurrent(id);
     }
 
     return (
-        <div className='avatarsboard'>
-            <Grid container spacing={0}>
-                {
-                    props.avatars.map((avatar, id) => (
-                        <Grid item key={id} xs={2} className='avatargrid'>
-                            <Avatar src={avatar[0]} alt='avatar' onClick={(e) => onAvatarChange(id)}
-                                    className='avatarimage' style={{width:'140px',height:'140px'}}/>
-                        </Grid>
-                    ))
-                }
-            </Grid>
-        </div>
+        <Typography hidden={hidden} component='div'>
+            <div className='avatars_board_wrapper'>
+                <div className='avatars_board'>
+                    {props.avatars.map(
+                        (avatar) => <Avatar key={avatar.name}
+                                        id={avatar.id}
+                                        src={avatar.src}
+                                        name={avatar.name}
+                                        selected={current === avatar.id}
+                                        onClick={onAvatarChange}/>
+                        )
+                    }
+                </div>
+            </div>
+        </Typography>
     );
 }

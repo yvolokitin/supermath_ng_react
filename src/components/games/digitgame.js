@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import {Dialog} from '@material-ui/core';
+import {Dialog, Slide} from '@material-ui/core';
 
 import GameHeader from "./digitgameheader";
 import GameFooter from "./digitgamefooter";
@@ -8,6 +8,10 @@ import GameBoard from "./gameboard";
 import GameResults from "./gameresults";
 
 import './digitgame.css';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction='down' ref={ref} {...props} />;
+});
 
 export default class DigitGame extends React.Component {
     constructor(props) {
@@ -157,7 +161,7 @@ export default class DigitGame extends React.Component {
             GameFooter: height: 10%  width: 100%
         */
         return (
-            <Dialog fullScreen={true} transitionDuration={700} open={this.props.open}>
+            <Dialog open={this.props.open} fullScreen={true} TransitionComponent={Transition} transitionDuration={700}>
                 { this.state.showResults ? (
                         null
                     ) : (
