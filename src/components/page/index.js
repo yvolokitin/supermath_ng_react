@@ -70,20 +70,7 @@ export default class SuperMathPage extends React.Component {
         this.onLanguage = this.onLanguage.bind(this);
 
         this.onWidthChange = this.onWidthChange.bind(this);
-
-        window.fbAsyncInit = function() {
-        FB.init({appId:'245721866654291',cookie:true,xfbml:true,version:'v7.0'});
-        FB.AppEvents.logPageView();};
-        (function(d, s, id) {
-             var js, fjs = d.getElementsByTagName(s)[0];
-             if (d.getElementById(id)) {return;}
-             js = d.createElement(s); js.id = id;
-             js.src = "https://connect.facebook.net/en_US/sdk.js";
-             fjs.parentNode.insertBefore(js, fjs);
-        } (document, 'script', 'facebook-jssdk'));
-        FB.getLoginStatus(function(response) {
-            statusChangeCallback(response);
-        });
+        this.loadFbLoginApi = this.loadFbLoginApi.bind(this);
 
         this.state = {
             width: window.innerWidth,
@@ -105,8 +92,42 @@ export default class SuperMathPage extends React.Component {
         };
     }
 
+    /**
+     *  The method FB.getLoginStatus can no longer be called from http pages. https://developers.facebook.com/blog/post/2018/06/08/enforce-https-facebook-login/
+     */
+    loadFbLoginApi() {
+        // facebook api
+        window.fbAsyncInit = function() {
+            window.FB.init({appId: '245721866654291',
+                cookie: true,
+                xfbml: true,
+                version:'v7.0'
+            });
+            window.FB.AppEvents.logPageView();
+
+            window.FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+                    console.log('FB.getLoginStatus ' + response.authResponse.accessToken);
+                } else {
+                    console.log('FB.getLoginStatus ' + response);
+                    console.log('FB.getLoginStatus ' + response.status);
+                }
+            });
+        };
+
+        // Load the required FB SDK asynchronously
+        (function(d, s, id) {
+             var js, fjs = d.getElementsByTagName(s)[0];
+             if (d.getElementById(id)) {return;}
+             js = d.createElement(s); js.id = id;
+             js.src = "https://connect.facebook.net/en_US/sdk.js";
+             fjs.parentNode.insertBefore(js, fjs);
+        } (document, 'script', 'facebook-jssdk'));
+    }
+
     componentDidMount() {
         window.addEventListener('resize', this.onWidthChange);
+        this.loadFbLoginApi();
     }
 
     componentWillUnmount() {
