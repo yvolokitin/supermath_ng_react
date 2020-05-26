@@ -27,7 +27,7 @@ export default function Tabs(props) {
     const [black, setBlack] = React.useState('#fbfbf8');
 
     function onTabPress(color) {
-        console.log('Tabs.onTabPress ' + color + ', LS ' + localStorage.getItem('belt'));
+        console.log('Tabs.onTabPress ' + color);
         localStorage.setItem('belt', color);
         if (color !== value) {
             if (color === 'white') {

@@ -127,7 +127,7 @@ export default class SuperMathPage extends React.Component {
 
     componentDidMount() {
         window.addEventListener('resize', this.onWidthChange);
-        this.loadFbLoginApi();
+        // this.loadFbLoginApi();
     }
 
     componentWillUnmount() {
