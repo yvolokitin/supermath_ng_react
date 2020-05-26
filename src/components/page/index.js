@@ -15,6 +15,8 @@ import Language from './../header/language';
 import Welcome from './../header/welcome';
 import Trophy from './../header/trophy';
 
+import Account from './../userinfo/account';
+
 import UserInformation from './../userinfo/userinfo';
 import AlertDialog from './../alert/alert';
 
@@ -36,6 +38,7 @@ const STATUS = {
     USERINFO: 8,
     FORGET: 9,
     LANG: 10,
+    ACCOUNT: 11,
 }
 
 export default class SuperMathPage extends React.Component {
@@ -59,6 +62,7 @@ export default class SuperMathPage extends React.Component {
         this.onApiUpdate = this.onApiUpdate.bind(this);
         this.onApiUpdateError = this.onApiUpdateError.bind(this);
 
+        this.onForget = this.onForget.bind(this);
         this.onResult = this.onResult.bind(this);
         this.onRefresh = this.onRefresh.bind(this);
         this.onWelcome = this.onWelcome.bind(this);
@@ -142,6 +146,14 @@ export default class SuperMathPage extends React.Component {
         }
     }
 
+    onForget(property) {
+        if (property === 'login') {
+            this.setState({screen: STATUS.LOGIN});
+        } else {
+            this.setState({screen: STATUS.NONE});
+        }
+    }
+
     onUserInfo(property, value, asset='na') {
         console.log('Header.onUserInfo ' + property + ': ' + value + ', ' + asset);
         var pswdhash = localStorage.getItem('pswdhash');
@@ -177,6 +189,10 @@ export default class SuperMathPage extends React.Component {
             if ((this.state.id > 0) && (pswdhash !== null)) {
                 update_avatar(this.state.id, pswdhash, value);
             }
+
+        // if unregistered user pressed register button from game results
+        } else if (property === 'register') {
+            this.setState({screen: STATUS.REGISTER});
 
         } else {
             if (property === 'name') {
@@ -376,7 +392,7 @@ export default class SuperMathPage extends React.Component {
                                     {this.state.failed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                                 </font> 
                                 { (this.state.cards> 0 ) ? (
-                                        <font onClick={() => this.setState({screen: STATUS.USERINFO})} className='font_userinfo_last' style={{color:'green'}}>
+                                        <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo_last' style={{color:'green'}}>
                                             {this.state.cards} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127183;</span>
                                         </font> 
                                     ) : (
@@ -406,20 +422,39 @@ export default class SuperMathPage extends React.Component {
                     solved={this.state.solved}
                     fullScreen={this.state.width<740}/>
 
-                <Trophy open={this.state.screen === STATUS.TROPHY} onClose={() => this.setState({screen: STATUS.NONE})}
-                    fullScreen={this.state.width<740} lang={this.state.lang} id={this.state.id}/>
+                <Trophy open={this.state.screen === STATUS.TROPHY}
+                    onClose={() => this.setState({screen: STATUS.NONE})}
+                    fullScreen={this.state.width<740}
+                    lang={this.state.lang}
+                    id={this.state.id}/>
 
-                <Help open={this.state.screen === STATUS.HELP} onClose={() => this.setState({screen: STATUS.NONE})}
-                    fullScreen={this.state.width<581} lang={this.state.lang}/>
+                <Help open={this.state.screen === STATUS.HELP}
+                    onClose={() => this.setState({screen: STATUS.NONE})}
+                    fullScreen={this.state.width<581}
+                    lang={this.state.lang}/>
 
-                <About open={this.state.screen === STATUS.ABOUT} onClose={() => this.setState({screen: STATUS.NONE})}
-                    fullScreen={this.state.width<740} lang={this.state.lang}/>
+                <About open={this.state.screen === STATUS.ABOUT}
+                    onClose={() => this.setState({screen: STATUS.NONE})}
+                    fullScreen={this.state.width<740}
+                    lang={this.state.lang}/>
 
-                <Login open={this.state.screen === STATUS.LOGIN} onClose={this.onResult}
-                    fullScreen={this.state.width<581} lang={this.state.lang}/>
+                <Login open={this.state.screen === STATUS.LOGIN}
+                    fullScreen={this.state.width<740}
+                    onClose={this.onResult}
+                    lang={this.state.lang}/>
 
-                <Forget open={this.state.screen === STATUS.FORGET} onClose={() => this.setState({screen: STATUS.NONE})}
-                    fullScreen={this.state.width<581} lang={this.state.lang}/>
+                <Forget open={this.state.screen === STATUS.FORGET}
+                    onClose={this.onForget}
+                    fullScreen={this.state.width<740}
+                    lang={this.state.lang}/>
+
+                <Account open={this.state.screen === STATUS.ACCOUNT}
+                    onUpdate={this.onUserInfo}
+                    id={this.state.id} email={this.state.email}
+                    name={this.state.name} surname={this.state.surname}
+                    age={this.state.age} avatar={this.state.avatar}
+                    passed={this.state.passed} failed={this.state.failed}
+                    birthday={this.state.birthday} lang={this.state.lang}/>
 
                 <UserInformation open={this.state.screen === STATUS.USERINFO}
                     onUpdate={this.onUserInfo}
@@ -437,7 +472,7 @@ export default class SuperMathPage extends React.Component {
                     failed={this.props.failed}/>
 
                 <Language open={this.state.screen === STATUS.LANG}
-                    fullScreen={this.state.width<581} 
+                    fullScreen={this.state.width<740} 
                     onClose={this.onLanguage}
                     lang={this.state.lang}/>
 

@@ -1,0 +1,18 @@
+﻿.account_wrapper {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    z-index: 100;
+    border: 3px solid black;
+}
+.account_board {
+    height: 100px;
+    width: 100px;
+
+    border: 3px solid red;
+}

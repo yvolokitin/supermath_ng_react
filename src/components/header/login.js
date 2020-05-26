@@ -128,7 +128,7 @@ export default class Login extends React.Component {
     */
     render() {
         return (
-            <Dialog fullWidth={true} fullScreen={this.props.fullScreen} open={this.props.open}>
+            <Dialog open={this.props.open} fullWidth={true} fullScreen={this.props.fullScreen} transitionDuration={600}>
                 <SMTitle title='' onClick={() => this.onClose()}/>
                 <ColorLine/>
 

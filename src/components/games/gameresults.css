@@ -1,4 +1,5 @@
 ﻿.result_board_wrapper {
+
 }
 .result_board {
     width: 100%;
@@ -63,10 +64,10 @@
 
     transition: transform .8s;
 }
-.result_board_chart:hover {
+/*.result_board_chart:hover {
     border: 3px solid orange;
     transform: scale(1.03);
-}
+}*/
 .result_board_body {
     width: 100%;
     height: 10%;
