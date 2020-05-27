@@ -5,6 +5,7 @@ import SMTitle from './../dialog/title';
 import ColorLine from './../line/line';
 
 import Avatars from './avatars';
+import Logout from './logout';
 
 import {userinfo} from './../translations/userinfo';
 import './account.css';
@@ -114,6 +115,10 @@ function AccountTab(props) {
 
 export default function Account(props) {
     const [current, setCurrent] = useState(1);
+    const [avatar, setAvatar] = useState('');
+    const [avatar_name, setAvatarName] = useState('');
+    const [logout, setLogout] = useState(false);
+
     const tabs = [
         {id: 1, name: userinfo[props.lang]['avatar']},
         {id: 2, name: userinfo[props.lang]['exchange']},
@@ -123,8 +128,18 @@ export default function Account(props) {
     ];
 
     useEffect(() => {
+        // console.log('Account.useEffect ' + props.avatar);
+        if (props.open) {
+            avatars.forEach(
+                function (element) {
+                    if (element.name === props.avatar) {
+                        setAvatarName(element.name)
+                        setAvatar(element.src);
+                    }
+            });
+        }
 
-    }, [props.open, props.lang, props.id]);
+    }, [props.id, props.open, props.lang, props.avatar]);
 
     function onTabChange(id) {
         // console.log('Account.onTabChange ' + id);
@@ -132,17 +147,53 @@ export default function Account(props) {
     }
 
     function onAvatarChange(id) {
-        console.log('Account.onAvatarChange ' + id);
+        console.log('Account.onAvatarChange ' + id + '->' + avatars[id-1].name);
+        setAvatar(avatars[id-1].src);
+        setAvatarName(avatars[id-1].name)
+    }
+
+    function onClose() {
+        // console.log('Account.onClose ' +  + ', ' + avatar_name);
+        if (avatar_name !== props.avatar) {
+            props.onUpdate('avatar', avatar_name);
+        } else {
+            props.onUpdate('close');
+        }
+    }
+
+    function onLogout(status) {
+        setLogout(false);
+        if (status === 'logout') {
+            props.onUpdate('close');
+        }
     }
 
     return (
         <Dialog open={props.open} fullScreen={true} TransitionComponent={Transition} transitionDuration={800}>
-            <SMTitle title='' onClick={() => props.onUpdate('close')}/>
+            <SMTitle title='' onClick={onClose}/>
 
             <ColorLine/>
 
             <div className='account_board_wrapper'>
                 <div className='account_board'>
+                    <div className='account_board_user_info'>
+                        <div className='account_board_user_info_line'>
+                            {props.name} {props.surname}, {props.age} {userinfo[props.lang]['years']}
+                        </div>
+
+                        <div className='account_board_user_info_line'>
+                            <font style={{color:'green'}}> {props.passed} </font>
+                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
+                            <font style={{color:'red'}}> {props.failed} </font>
+                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
+                            <font style={{color:'green'}}> {props.cards} </font>
+                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127183;</span>
+                        </div>
+
+                    </div>
+                    <div className='account_board_avatar'>
+                        <img src={avatar} alt={avatar_name} onClick={() => setLogout(true)}/>
+                    </div>
                 </div>
 
                 <div className='account_tabs'>
@@ -152,8 +203,7 @@ export default function Account(props) {
                                     name={tab.name}
                                     selected={current === tab.id}
                                     onClick={onTabChange}/>
-                        )
-                    }
+                    )}
                 </div>
             </div>
 
@@ -161,6 +211,11 @@ export default function Account(props) {
                 avatars={avatars}
                 avatar={props.avatar}
                 onAvatar={onAvatarChange}/>
+
+            <Logout open={logout}
+                name={props.name}
+                lang={props.lang}
+                onLogout={onLogout}/>
 
         </Dialog>
     );

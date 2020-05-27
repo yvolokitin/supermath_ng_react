@@ -11,6 +11,7 @@ export const userinfo = {
         'settings': 'settings',
         'progress': 'progress',
         'friends': 'friends',
+        'logout': 'logout',
     },
     // Russian
     'ru': {
@@ -23,6 +24,7 @@ export const userinfo = {
         'settings': 'настройки',
         'progress': 'прогресс',
         'friends': 'друзья',
+        'logout': 'выход',
     },
     // Dutch
     'nl' : {
@@ -35,6 +37,7 @@ export const userinfo = {
         'settings': 'settings',
         'progress': 'progress',
         'friends': 'friends',
+        'logout': 'logout',
     },
     // French
     'fr' : {
@@ -47,6 +50,7 @@ export const userinfo = {
         'settings': 'settings',
         'progress': 'progress',
         'friends': 'friends',
+        'logout': 'logout',
     },
     // German
     'de' : {
@@ -59,6 +63,7 @@ export const userinfo = {
         'settings': 'settings',
         'progress': 'progress',
         'friends': 'friends',
+        'logout': 'logout',
     },
     // Spanish
     'es' : {
@@ -71,6 +76,7 @@ export const userinfo = {
         'settings': 'settings',
         'progress': 'progress',
         'friends': 'friends',
+        'logout': 'logout',
     },
     // Italian
     'it' : {
@@ -83,5 +89,6 @@ export const userinfo = {
         'settings': 'settings',
         'progress': 'progress',
         'friends': 'friends',
+        'logout': 'logout',
     },
 };

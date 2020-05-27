@@ -17,6 +17,50 @@
     border: 1px solid grey;
     box-shadow: 10px 10px grey;
 }
+.account_board_user_info {
+    width: 74%;
+    height: 100%;
+    float: left;
+    display: block;
+}
+.account_board_user_info_line {
+    padding-left: 3%;
+    width: 100%;
+    height: 49%;
+
+    display: flex;
+    align-items: center;
+
+    text-align: left;
+    font-size: 2.5rem;
+    font-family: 'Grinched';
+    font-variant: small-caps;
+    color: orange;
+    text-shadow: 2px 2px 2px black;
+}
+.account_board_user_info_line span {
+    margin-right: 3%;
+}
+.account_board_avatar {
+    width: 25%;
+    height: 100%;
+    float: right;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.account_board_avatar img {
+    height: 85%;
+    width: auto;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 1.0s;
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.account_board_avatar img:hover {
+    transform: scale(1.05);
+}
 .account_tabs {
     height: 20%;
     width: 90%;
@@ -50,4 +94,20 @@
     font-weight: bold;
 
     transition: transform 1.0s;
+}
+@media only screen and (max-width: 860px) {
+    .account_board_wrapper {
+        height: 200px;
+        margin-top: 5px;
+    }
+    .account_board {
+        width: 99%;
+        box-shadow: 7px 7px grey;
+    }
+    .account_tabs {
+        width: 99%;
+    }
+    .account_board_user_info_line {
+        font-size: 2.0rem;
+    }
 }

@@ -25,13 +25,23 @@ export default function Avatars(props) {
 
     useEffect(() => {
         // console.log('Avatars.props.open' + props.open + ', props.avatar ' + props.avatar);
-        if (props.open) { setHidden(false);
-        } else { setHidden(true); }
+        if (props.open) {
+            setHidden(false);
+            props.avatars.forEach(
+                function (element) {
+                    if (element.name === props.avatar) {
+                        setCurrent(element.id)
+                    }
+            });
+
+        } else {
+            setHidden(true);
+        }
 
     }, [props.open, props.avatars, props.avatar]);
 
     function onAvatarChange(id) {
-        console.log('Avatars.onAvatarChange ' + id);
+        // console.log('Avatars.onAvatarChange ' + id);
         props.onAvatar(id);    
         setCurrent(id);
     }

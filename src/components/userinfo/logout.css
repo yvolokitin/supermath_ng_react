@@ -1,0 +1,30 @@
+﻿.logout_wrapper {
+    height: 450px;
+    width: 350px;
+
+    position: absolute;
+    z-index: 10;
+    top: 15%;
+    right: 80px;
+
+    border: 2px solid black;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px 0px grey;
+}
+.logout_wrapper_img {
+    height: 60%;
+    width: 100%;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+.logout_wrapper_img img {
+    height: 200px;
+    width: auto;
+}
+.logout_wrapper_btns {
+
+}

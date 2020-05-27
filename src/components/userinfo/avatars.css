@@ -12,7 +12,6 @@
 }
 .avatars_board {
     width: 90%;
-    height: 500px;
 
     display: flex;
     flex-wrap: wrap;
@@ -59,4 +58,20 @@
 .avatar_box_selected img {
     width: 100%;
     height: auto;
+}
+@media only screen and (max-width: 860px) {
+    .avatars_board_wrapper {
+        margin-top: 5px;
+    }
+    .avatars_board {
+        width: 99%;
+    }
+    .avatar_box {
+        width: 120px;
+        height: 120px;
+    }
+    .avatar_box_selected {
+        width: 120px;
+        height: 120px;
+    }
 }

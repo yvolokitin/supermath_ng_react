@@ -8,9 +8,6 @@ export const header = {
         'logout': 'logout',
         'register': 'registration',
         'lang': 'en',
-        'logout_title': 'Do you really want to Logout?',
-        'logout_yes': 'Yes, Please Do it',
-        'logout_no': 'No, I Wanna Stay as',
     },
     // Russian
     'ru': {

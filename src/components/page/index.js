@@ -17,8 +17,8 @@ import Trophy from './../header/trophy';
 
 import Account from './../userinfo/account';
 
-import UserInformation from './../userinfo/userinfo';
-import AlertDialog from './../alert/alert';
+// import UserInformation from './../userinfo/userinfo';
+// import AlertDialog from './../alert/alert';
 
 import Tabs from "./../body/tabs";
 
@@ -316,6 +316,7 @@ export default class SuperMathPage extends React.Component {
             localStorage.removeItem('avatar');
             localStorage.removeItem('passed');
             localStorage.removeItem('failed');
+            localStorage.removeItem('cards');
             localStorage.removeItem('solved');
             localStorage.removeItem('age');
 
@@ -363,6 +364,17 @@ export default class SuperMathPage extends React.Component {
         window.location.reload();
     }
 
+    /*
+                <UserInformation open={this.state.screen === STATUS.USERINFO}
+                    onUpdate={this.onUserInfo}
+                    id={this.state.id} email={this.state.email}
+                    name={this.state.name} surname={this.state.surname}
+                    age={this.state.age} avatar={this.state.avatar}
+                    passed={this.state.passed} failed={this.state.failed}
+                    birthday={this.state.birthday} lang={this.state.lang}/>
+
+                  <font onClick={() => this.setState({screen: STATUS.LOGOUT})} className='div_login'>{header[this.state.lang]['logout']}</font>
+    */
     render() {
         return (
             <React.Fragment>
@@ -379,18 +391,6 @@ export default class SuperMathPage extends React.Component {
                             {header[this.state.lang]['help']}
                         </div>
 
-                        { (this.state.id > 0) ? (
-                            <div className='div_supermath_short' style={{color:'green'}}
-                                onClick={() => this.setState({screen: STATUS.LOGOUT})}>
-                                    {header[this.state.lang]['logout']}
-                            </div>
-                        ) : (
-                            <div className='div_supermath_short' style={{color:'green'}}
-                                onClick={() => this.setState({screen: STATUS.LOGIN})}>
-                                    {header[this.state.lang]['login']}
-                            </div>
-                        )}
-
                         <div className='div_supermath_short' style={{color:'green'}}
                             onClick={() => this.setState({screen: STATUS.LANG})}>
                                 {header[this.state.lang]['lang']}
@@ -405,22 +405,18 @@ export default class SuperMathPage extends React.Component {
                     <div className='header_div_right'>
                         { (this.state.id > 0) ? (
                             <>
-                                <font onClick={() => this.setState({screen: STATUS.USERINFO})} className='font_userinfo'> {this.state.name} : </font>
-                                <font onClick={() => this.setState({screen: STATUS.USERINFO})} className='font_userinfo' style={{color:'green'}}>
+                                <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo'> {this.state.name}: </font>
+                                <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo' style={{color:'green'}}>
                                     {this.state.passed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
                                 </font> 
-                                <font onClick={() => this.setState({screen: STATUS.USERINFO})} className='font_userinfo_last' style={{color:'red'}}>
+                                <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo' style={{color:'red'}}>
                                     {this.state.failed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                                 </font> 
                                 { (this.state.cards> 0 ) ? (
-                                        <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo_last' style={{color:'green'}}>
-                                            {this.state.cards} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127183;</span>
-                                        </font> 
-                                    ) : (
-                                        null
-                                )}
-
-                                <font onClick={() => this.setState({screen: STATUS.LOGOUT})} className='div_login'>{header[this.state.lang]['logout']}</font>
+                                    <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo' style={{color:'green'}}>
+                                        {this.state.cards} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127183;</span>
+                                    </font> 
+                                ) : ( null )}
                             </>
                         ) : (
                             <>
@@ -433,7 +429,7 @@ export default class SuperMathPage extends React.Component {
                             </>
                         )}
 
-                        <div className='div_lang' onClick={() => this.setState({screen: STATUS.LANG})}> {header[this.state.lang]['lang']} </div>
+                        <div onClick={() => this.setState({screen: STATUS.LANG})} className='div_lang'> {header[this.state.lang]['lang']} </div>
                     </div>
                 </div>
 
@@ -473,17 +469,10 @@ export default class SuperMathPage extends React.Component {
                     onUpdate={this.onUserInfo}
                     id={this.state.id} email={this.state.email}
                     name={this.state.name} surname={this.state.surname}
-                    age={this.state.age} avatar={this.state.avatar}
+                    age={this.state.age} birthday={this.state.birthday} 
+                    avatar={this.state.avatar} cards={this.state.cards}
                     passed={this.state.passed} failed={this.state.failed}
-                    birthday={this.state.birthday} lang={this.state.lang}/>
-
-                <UserInformation open={this.state.screen === STATUS.USERINFO}
-                    onUpdate={this.onUserInfo}
-                    id={this.state.id} email={this.state.email}
-                    name={this.state.name} surname={this.state.surname}
-                    age={this.state.age} avatar={this.state.avatar}
-                    passed={this.state.passed} failed={this.state.failed}
-                    birthday={this.state.birthday} lang={this.state.lang}/>
+                    lang={this.state.lang}/>
 
                 <Registration open={this.state.screen === STATUS.REGISTER}
                     onClose={this.onResult}
@@ -505,14 +494,6 @@ export default class SuperMathPage extends React.Component {
                     passed={this.state.passed}
                     failed={this.state.failed}
                     onClose={this.onWelcome}/>
-
-                <AlertDialog open={this.state.screen === STATUS.LOGOUT}
-                    fullScreen={this.state.width<581} 
-                    title={header[this.state.lang]['logout_title']}
-                    yes={header[this.state.lang]['logout_yes']}
-                    no={header[this.state.lang]['logout_no']}
-                    name={this.state.name}
-                    onClose={this.onResult}/>
 
             </React.Fragment>
         )
