@@ -8,11 +8,14 @@ function Avatar(props) {
         <>
             {(props.selected) ? (
                 <div className='avatar_box_selected' onClick={() => props.onClick(props.id)}>
-                    <img src={props.src} alt={props.name}/>
+                    <img src={props.src} alt={props.name}
+                        onContextMenu={(e) => e.preventDefault()}/>
                 </div>
             ) : (
                 <div className='avatar_box'>
-                    <img src={props.src} alt={props.name} onClick={() => props.onClick(props.id)}/>
+                    <img src={props.src} alt={props.name}
+                        onClick={() => props.onClick(props.id)}
+                        onContextMenu={(e) => e.preventDefault()}/>
                 </div>
             )}
         </>

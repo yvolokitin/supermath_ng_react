@@ -236,11 +236,15 @@ export default class SuperMathPage extends React.Component {
     }
 
     onLanguage(language) {
-        this.setState({screen: STATUS.NONE, lang: language});
-        localStorage.setItem('lang', language);
-        if (this.state.id > 0) {
-            // update_language(id, language)
-            update_language(this.state.id, language);
+        if (this.state.lang !== language) {
+            this.setState({screen: STATUS.NONE, lang: language});
+            localStorage.setItem('lang', language);
+            if (this.state.id > 0) {
+                // update_language(id, language)
+                update_language(this.state.id, language);
+            }
+        } else {
+            this.setState({screen: STATUS.NONE});
         }
     }
 

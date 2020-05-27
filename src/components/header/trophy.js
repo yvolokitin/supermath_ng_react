@@ -1,5 +1,5 @@
 ﻿import React, { useEffect, useState, useCallback } from 'react';
-import {Dialog, DialogActions, Button} from '@material-ui/core';
+import {Dialog, Slide, DialogActions, Button} from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 import axios from 'axios';
@@ -10,6 +10,10 @@ import {trophy} from './../translations/trophy';
 import './trophy.css';
 
 import image from './../../images/trophy/numbers.png';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction='down' ref={ref} {...props} />;
+});
 
 export default function Trophy(props) {
     const [loading, setLoading] = useState(true);
@@ -53,9 +57,12 @@ export default function Trophy(props) {
             </div>
     */
     return (
-        <Dialog open={props.open} onClose={() => props.onClose()}
-            fullScreen={props.fullScreen} fullWidth={true}
-            maxWidth='md' transitionDuration={700} scroll='body'>
+        <Dialog open={props.open}
+            onClose={() => props.onClose()}
+            maxWidth='md' fullWidth={true}
+            fullScreen={props.fullScreen}
+            TransitionComponent={Transition} 
+            transitionDuration={800}>
 
             <SMTitle title='' onClick={() => props.onClose()}/>
             <ColorLine/>

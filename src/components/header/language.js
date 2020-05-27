@@ -1,10 +1,14 @@
 ﻿import React, {useState} from 'react';
-import {Dialog, Card, CardMedia, Button} from '@material-ui/core';
+import {Dialog, Slide, Card, CardMedia, Button} from '@material-ui/core';
 import {Radio, RadioGroup, FormControlLabel} from '@material-ui/core';
 
 import SMTitle from "./../dialog/title";
 import world from './../../images/world.jpg';
 import './language.css';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction='left' ref={ref} {...props} />;
+});
 
 export default function Language(props) {
     const [value, setValue] = useState(props.lang);
@@ -14,7 +18,12 @@ export default function Language(props) {
     };
 
     return (
-        <Dialog onClose={() => props.onClose(value)} fullScreen={props.fullScreen} transitionDuration={500} open={props.open} scroll='body'>
+        <Dialog open={props.open}
+            onClose={() => props.onClose(value)}
+            TransitionComponent={Transition}
+            transitionDuration={800}
+            fullScreen={props.fullScreen}>
+
             <SMTitle title='Select your language' className='language_title' onClick={() => props.onClose(value)}/>
 
             <Card style={{marginLeft:'5%',marginRight:'5%',display:'flex',flexDirection:'column'}}>

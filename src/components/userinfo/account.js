@@ -5,9 +5,10 @@ import SMTitle from './../dialog/title';
 import ColorLine from './../line/line';
 
 import Avatars from './avatars';
+import Friends from './friends';
 import Logout from './logout';
 
-import {userinfo} from './../translations/userinfo';
+import {account} from './../translations/account';
 import './account.css';
 
 import ava1 from './../../images/avatars/astronaut-icon.png';
@@ -44,6 +45,8 @@ import ava27 from './../../images/avatars/king-icon.png';
 import ava28 from './../../images/avatars/waiter-icon.png';
 import ava29 from './../../images/avatars/woman-icon.png';
 import ava30 from './../../images/avatars/firefighter-icon.png';
+
+import background from './../../images/background.png';
 
 var avatars = [
     {id: 1, src: ava1, name: 'astronaut'},
@@ -120,11 +123,11 @@ export default function Account(props) {
     const [logout, setLogout] = useState(false);
 
     const tabs = [
-        {id: 1, name: userinfo[props.lang]['avatar']},
-        {id: 2, name: userinfo[props.lang]['exchange']},
-        {id: 3, name: userinfo[props.lang]['settings']},
-        {id: 4, name: userinfo[props.lang]['progress']},
-        {id: 5, name: userinfo[props.lang]['friends']},
+        {id: 1, name: account[props.lang]['avatar']},
+        {id: 2, name: account[props.lang]['exchange']},
+        {id: 3, name: account[props.lang]['settings']},
+        {id: 4, name: account[props.lang]['progress']},
+        {id: 5, name: account[props.lang]['friends']},
     ];
 
     useEffect(() => {
@@ -175,10 +178,10 @@ export default function Account(props) {
             <ColorLine/>
 
             <div className='account_board_wrapper'>
-                <div className='account_board'>
+                <div className='account_board' style={{'backgroundImage': background}}>
                     <div className='account_board_user_info'>
                         <div className='account_board_user_info_line'>
-                            {props.name} {props.surname}, {props.age} {userinfo[props.lang]['years']}
+                            {props.name} {props.surname}, {props.age} {account[props.lang]['years']}
                         </div>
 
                         <div className='account_board_user_info_line'>
@@ -189,10 +192,11 @@ export default function Account(props) {
                             <font style={{color:'green'}}> {props.cards} </font>
                             <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127183;</span>
                         </div>
-
                     </div>
                     <div className='account_board_avatar'>
-                        <img src={avatar} alt={avatar_name} onClick={() => setLogout(true)}/>
+                        <img src={avatar} alt={avatar_name}
+                            onClick={() => setLogout(true)}
+                            onContextMenu={(e) => e.preventDefault()}/>
                     </div>
                 </div>
 
@@ -211,6 +215,10 @@ export default function Account(props) {
                 avatars={avatars}
                 avatar={props.avatar}
                 onAvatar={onAvatarChange}/>
+
+            <Friends open={current === SCREEN.FRIENDS}
+                name={props.name}
+                lang={props.lang}/>
 
             <Logout open={logout}
                 name={props.name}

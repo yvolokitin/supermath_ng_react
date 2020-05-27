@@ -1,7 +1,16 @@
-﻿.friendsboard {
+﻿.friends_board {
     height: 100%;
     width: 100%;
-    display: inline;
+    margin-top: 10px;
 
-    border: 1px solid red;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    background-color: white;
+}
+.friends_board img {
+    width: 90%;
+    height: auto;
 }

@@ -26,13 +26,25 @@ export default function Logout(props) {
                     <img src={image} alt={image}/>
                 </div>
 
+                <div className='logout_wrapper_title'>
+                    {logout[props.lang]['logout']}
+                </div>
+
+                <div className='logout_wrapper_question'>
+                    {logout[props.lang]['question']}
+                </div>
+
                 <div className='logout_wrapper_btns'>
-                    <Button onClick={() => props.onLogout('close')} color="primary">
-                        {logout[props.lang]['no']}
-                    </Button>
-                    <Button onClick={() => props.onLogout('logout')} color="primary" autoFocus>
-                        {logout[props.lang]['yes']}
-                    </Button>
+                    <div className='logout_wrapper_btns_left'>
+                        <Button onClick={() => props.onLogout('close')} color="primary">
+                            {logout[props.lang]['no']} {props.name}
+                        </Button>
+                    </div>
+                    <div className='logout_wrapper_btns_right'>
+                        <Button onClick={() => props.onLogout('logout')} color="primary" autoFocus>
+                            {logout[props.lang]['yes']}
+                        </Button>
+                    </div>
                 </div>
             </div>
         </Typography>

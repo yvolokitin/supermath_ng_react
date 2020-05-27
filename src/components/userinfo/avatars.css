@@ -75,3 +75,23 @@
         height: 120px;
     }
 }
+@media only screen and (max-width: 660px) {
+    .avatar_box {
+        width: 100px;
+        height: 100px;
+    }
+    .avatar_box_selected {
+        width: 100px;
+        height: 100px;
+    }
+}
+@media only screen and (max-width: 460px) {
+    .avatar_box {
+        width: 80px;
+        height: 80px;
+    }
+    .avatar_box_selected {
+        width: 80px;
+        height: 80px;
+    }
+}

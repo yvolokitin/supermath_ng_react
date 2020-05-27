@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import {DialogContent, DialogActions, Typography, Dialog, Card, CardMedia, Button} from '@material-ui/core';
+import {Slide, DialogContent, DialogActions, Typography, Dialog, Card, CardMedia, Button} from '@material-ui/core';
 
 import CancelIcon from '@material-ui/icons/Cancel';
 
@@ -10,9 +10,18 @@ import {about} from './../translations/about';
 
 import './about.css';
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction='right' ref={ref} {...props} />;
+});
+
 export default function About(props) {
     return (
-        <Dialog onClose={() => props.onClose()} fullScreen={props.fullScreen} aria-labelledby='customized-dialog-title' transitionDuration={500} open={props.open} scroll='body'>
+        <Dialog open={props.open}
+            onClose={() => props.onClose()}
+            fullScreen={props.fullScreen}
+            TransitionComponent={Transition}
+            transitionDuration={800}>
+
             <SMTitle title='' onClick={() => props.onClose()}/>
             <ColorLine/>
 

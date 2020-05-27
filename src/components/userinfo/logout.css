@@ -13,7 +13,7 @@
     box-shadow: 1px 1px 3px 0px grey;
 }
 .logout_wrapper_img {
-    height: 60%;
+    height: 50%;
     width: 100%;
 
     display: flex;
@@ -22,9 +22,50 @@
     justify-content: center;
 }
 .logout_wrapper_img img {
-    height: 200px;
+    height: 95%;
     width: auto;
 }
-.logout_wrapper_btns {
+.logout_wrapper_title {
+    height: 10%;
+    width: 100%;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: left;
+    font-size: 3.0rem;
+    font-family: 'Grinched';
+    font-variant: small-caps;
+    color: orange;
+    text-shadow: 2px 2px 2px black;
+}
+.logout_wrapper_question {
+    height: 20%;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logout_wrapper_btns {
+    height: 20%;
+    width: 100%;
+    border: 1px solid black;
+}
+.logout_wrapper_btns_left {
+    height: 100%;
+    width: 50%;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logout_wrapper_btns_right {
+    height: 100%;
+    width: 49%;
+    float: right;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

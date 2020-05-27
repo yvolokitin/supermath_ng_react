@@ -1,24 +1,17 @@
 ﻿// userinfo translations
-export const userinfo = {
+export const account = {
     // English
     'en': {
-        'name': 'Name: ',
-        'age': 'Age: ',
         'years': 'years old',
-        'points': 'Your math points:',
         'avatar': 'avatar',
         'exchange': 'exchange',
         'settings': 'settings',
         'progress': 'progress',
         'friends': 'friends',
-        'logout': 'logout',
     },
     // Russian
     'ru': {
-        'name': 'Имя: ',
-        'age': 'Возраст: ',
         'years': 'лет',
-        'points': 'Твои очки:',
         'avatar': 'аватар',
         'exchange': 'обмен',
         'settings': 'настройки',
@@ -28,67 +21,47 @@ export const userinfo = {
     },
     // Dutch
     'nl' : {
-        'name': 'Name:',
-        'age': 'Age:',
         'years': 'years old',
-        'points': 'Your math points:',
         'avatar': 'avatar',
         'exchange': 'exchange',
         'settings': 'settings',
         'progress': 'progress',
         'friends': 'friends',
-        'logout': 'logout',
     },
     // French
     'fr' : {
-        'name': 'Name:',
-        'age': 'Age:',
         'years': 'years old',
-        'points': 'Your math points:',
         'avatar': 'avatar',
         'exchange': 'exchange',
         'settings': 'settings',
         'progress': 'progress',
         'friends': 'friends',
-        'logout': 'logout',
     },
     // German
     'de' : {
-        'name': 'Name:',
-        'age': 'Age:',
         'years': 'years old',
-        'points': 'Your math points:',
         'avatar': 'avatar',
         'exchange': 'exchange',
         'settings': 'settings',
         'progress': 'progress',
         'friends': 'friends',
-        'logout': 'logout',
     },
     // Spanish
     'es' : {
-        'name': 'Name:',
-        'age': 'Age:',
         'years': 'years old',
-        'points': 'Your math points:',
         'avatar': 'avatar',
         'exchange': 'exchange',
         'settings': 'settings',
         'progress': 'progress',
         'friends': 'friends',
-        'logout': 'logout',
     },
     // Italian
     'it' : {
-        'name': 'Name:',
-        'age': 'Age:',
         'years': 'years old',
-        'points': 'Your math points:',
         'avatar': 'avatar',
         'exchange': 'exchange',
         'settings': 'settings',
         'progress': 'progress',
         'friends': 'friends',
-        'logout': 'logout',
     },
 };

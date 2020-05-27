@@ -1,27 +1,28 @@
-﻿import React from 'react';
-import {Card, CardMedia} from '@material-ui/core';
+﻿import React, { useEffect, useState } from 'react';
+import {Typography} from '@material-ui/core';
+
+import './friends.css';
 
 import image from './../../images/under_development.gif';
 
-export default class Friends extends React.Component {
-    constructor(props) {
-        super(props);
+export default function Friends(props) {
+    const [hidden, setHidden] = useState(true);
 
-        this.state = {name: props.user};
-    }
+    useEffect(() => {
+        console.log('Friends.props.open' + props.open);
+        if (props.open) {
+            setHidden(false);
+        } else {
+            setHidden(true);
+        }
 
-    /*
-                <Grid container spacing={0}>
-                    <Grid item xs={12} sm={6} style={{padding:'3%'}}> </Grid>
-                </Grid>
-    */
-    render() {
-        return (
-            <div className='friendsboard'>
-                <Card style={{display:'flex',flexDirection:'column'}}>
-                    <CardMedia component='img' style={{boder:'3px solid black'}} alt='Vitamins!' height='540' src={image}/>
-                </Card>
+    }, [props.open, props.name]);
+
+    return (
+        <Typography hidden={hidden} component='div'>
+            <div className='friends_board'>
+                <img src={image} alt={props.name} onContextMenu={(e) => e.preventDefault()}/>
             </div>
-        );
-    }
+        </Typography>
+    );
 }
