@@ -4,9 +4,10 @@ import { Dialog, Slide } from '@material-ui/core';
 import SMTitle from './../dialog/title';
 import ColorLine from './../line/line';
 
+import Logout from './logout';
 import Avatars from './avatars';
 import Friends from './friends';
-import Logout from './logout';
+import Progress from './progress';
 
 import {account} from './../translations/account';
 import './account.css';
@@ -162,12 +163,17 @@ export default function Account(props) {
         } else {
             props.onUpdate('close');
         }
+
+        if (logout) {
+            setLogout(false);
+        }
     }
 
     function onLogout(status) {
         setLogout(false);
+
         if (status === 'logout') {
-            props.onUpdate('close');
+            props.onUpdate(status);
         }
     }
 
@@ -217,6 +223,10 @@ export default function Account(props) {
                 onAvatar={onAvatarChange}/>
 
             <Friends open={current === SCREEN.FRIENDS}
+                name={props.name}
+                lang={props.lang}/>
+
+            <Progress open={current === SCREEN.PROGRESS}
                 name={props.name}
                 lang={props.lang}/>
 

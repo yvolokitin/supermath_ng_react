@@ -23,7 +23,7 @@ export default function Card(props) {
     const [info, openInfo] = useState(false);
 
     useEffect(() => {
-        // console.log('Card.useEffect -> ' + props.task.uid + ', props.locked ' + props.locked);
+        console.log('Card.useEffect -> ' + props.task.uid + ', props.locked ' + props.locked);
         if (props.color === 'white') {
             setTitle(white_titles[props.lang][props.task.id]);
             setDesc(white_descriptions[props.lang][props.task.id]);
@@ -47,8 +47,8 @@ export default function Card(props) {
     }, [props.task, props.color, props.lang, props.locked]);
 
     function onOpen(property) {
-        console.log('Card.onClick, props.locked: ' + props.locked);
-        setAnimation('rotate .9s');
+        // console.log('Card.onClick, props.locked: ' + props.locked);
+        setAnimation('rotate .8s');
         // call in .5sec to show picture rotate animation
         setTimeout(() => {
             if (property === 'info') {
@@ -56,7 +56,7 @@ export default function Card(props) {
             } else if (property === 'game') {
                 props.onUpdate(props.task);
             }
-        }, 500);
+        }, 700);
 
         setTimeout(() => {
             setAnimation('none');

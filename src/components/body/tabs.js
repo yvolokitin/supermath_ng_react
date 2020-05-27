@@ -162,9 +162,9 @@ export default function Tabs(props) {
                                         onUpdate={onGameOpen}/>
                                 ) : (
                                     <Card task={task}
+                                        locked={false}
                                         color={value}
                                         lang={props.lang}
-                                        locked={false}
                                         fullScreen={props.fullScreen}
                                         onUpdate={onGameOpen}/>
                                 )

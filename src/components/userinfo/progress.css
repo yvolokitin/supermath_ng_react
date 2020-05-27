@@ -1,0 +1,16 @@
+﻿.progress_board {
+    height: 100%;
+    width: 100%;
+    margin-top: 10px;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    background-color: white;
+}
+.progress_board img {
+    width: 90%;
+    height: auto;
+}

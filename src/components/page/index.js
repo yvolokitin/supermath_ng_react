@@ -182,6 +182,26 @@ export default class SuperMathPage extends React.Component {
         if (property === 'close') {
             this.setState({screen: STATUS.NONE});
 
+        } else if (property === 'logout') {
+            this.setState({screen: STATUS.NONE, id: 0, solved: ''});
+
+            // remove all info from local storage
+            localStorage.removeItem('user_id');
+            localStorage.removeItem('name');
+            localStorage.removeItem('pswdhash');
+            localStorage.removeItem('email');
+            localStorage.removeItem('surname');
+            localStorage.removeItem('birthday');
+            localStorage.removeItem('avatar');
+            localStorage.removeItem('passed');
+            localStorage.removeItem('failed');
+            localStorage.removeItem('cards');
+            localStorage.removeItem('solved');
+            localStorage.removeItem('age');
+            // keep language and belt properties
+            // localStorage.removeItem('lang');
+            // localStorage.removeItem('belt');
+
         // counter: user game results from task
         } else if (property === 'counter') {
             if ((this.state.id > 0) && (pswdhash !== null)) {
@@ -306,27 +326,6 @@ export default class SuperMathPage extends React.Component {
 
         } else if (result === 'forget') {
             this.setState({screen: STATUS.FORGET});
-
-        } else if (result === 'logout') {
-            this.setState({screen: STATUS.NONE, id: 0, solved: ''});
-
-            // remove all info from local storage
-            localStorage.removeItem('user_id');
-            localStorage.removeItem('name');
-            localStorage.removeItem('pswdhash');
-            localStorage.removeItem('email');
-            localStorage.removeItem('surname');
-            localStorage.removeItem('birthday');
-            localStorage.removeItem('avatar');
-            localStorage.removeItem('passed');
-            localStorage.removeItem('failed');
-            localStorage.removeItem('cards');
-            localStorage.removeItem('solved');
-            localStorage.removeItem('age');
-
-            // keep language and belt properties
-            // localStorage.removeItem('lang');
-            // localStorage.removeItem('belt');
 
         } else {
             this.setState({screen: STATUS.NONE});

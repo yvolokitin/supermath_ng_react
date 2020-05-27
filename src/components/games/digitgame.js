@@ -161,7 +161,7 @@ export default class DigitGame extends React.Component {
             GameFooter: height: 10%  width: 100%
         */
         return (
-            <Dialog open={this.props.open} fullScreen={true} TransitionComponent={Transition} transitionDuration={700}>
+            <Dialog open={this.props.open} fullScreen={true} TransitionComponent={Transition} transitionDuration={900}>
                 { this.state.showResults ? (
                         null
                     ) : (
