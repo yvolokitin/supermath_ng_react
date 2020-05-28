@@ -1,5 +1,6 @@
 ﻿import React, { useEffect, useState } from 'react';
-import {Typography, Button} from '@material-ui/core';
+import {Typography, Button, IconButton} from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 
 import './logout.css';
 import {logout} from './../translations/logout';
@@ -22,6 +23,12 @@ export default function Logout(props) {
     return (
         <Typography hidden={hidden} component='div'>
             <div className='logout_wrapper'>
+                <IconButton aria-label='close'
+                    onClick={() => props.onLogout('close')}
+                    style={{position:'absolute',right:'1%',top:'1%',color:'grey'}}>
+                        <CloseIcon/>
+                </IconButton>
+
                 <div className='logout_wrapper_img'>
                     <img src={image} alt={image}/>
                 </div>
@@ -36,12 +43,12 @@ export default function Logout(props) {
 
                 <div className='logout_wrapper_btns'>
                     <div className='logout_wrapper_btns_left'>
-                        <Button onClick={() => props.onLogout('close')} color="primary">
-                            {logout[props.lang]['no']} {props.name}
+                        <Button onClick={() => props.onLogout('close')} color='primary'>
+                            {logout[props.lang]['no']}
                         </Button>
                     </div>
                     <div className='logout_wrapper_btns_right'>
-                        <Button onClick={() => props.onLogout('logout')} color="primary" autoFocus>
+                        <Button onClick={() => props.onLogout('logout')} color='primary' autoFocus>
                             {logout[props.lang]['yes']}
                         </Button>
                     </div>

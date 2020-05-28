@@ -1,5 +1,4 @@
 ﻿import React from 'react';
-
 import './line.css';
 
 export default function ColorLine(props) {

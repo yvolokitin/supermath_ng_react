@@ -1,6 +1,6 @@
 ﻿.avatars_board_wrapper {
     height: 100%;
-    width: 100%;
+    width: auto;
     margin-top: 10px;
 
     display: flex;
