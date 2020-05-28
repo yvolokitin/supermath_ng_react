@@ -1,7 +1,7 @@
 ﻿.progress_board {
     height: 100%;
     width: 100%;
-    margin-top: 10px;
+    margin-top: 20px;
 
     display: flex;
     flex-wrap: wrap;

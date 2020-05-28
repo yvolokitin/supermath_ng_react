@@ -1,5 +1,5 @@
 ﻿import React, { useEffect, useState } from 'react';
-import { Dialog, Slide } from '@material-ui/core';
+import { Dialog, Slide, Typography } from '@material-ui/core';
 
 import SMTitle from './../dialog/title';
 import ColorLine from './../line/line';
@@ -179,6 +179,7 @@ export default function Account(props) {
 
     return (
         <Dialog open={props.open} fullScreen={true} TransitionComponent={Transition} transitionDuration={800}>
+            <Typography component='div'>
             <SMTitle title='' onClick={onClose}/>
 
             <ColorLine/>
@@ -235,6 +236,7 @@ export default function Account(props) {
                 lang={props.lang}
                 onLogout={onLogout}/>
 
+        </Typography>
         </Dialog>
     );
 }

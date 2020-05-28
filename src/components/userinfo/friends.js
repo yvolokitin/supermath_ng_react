@@ -19,7 +19,7 @@ export default function Friends(props) {
     }, [props.open, props.name]);
 
     return (
-        <Typography hidden={hidden} component='div' style={{height: '100%', width: 'auto'}}>
+        <Typography hidden={hidden} component='div'>
             <div className='friends_board'>
                 <img src={image} alt={props.name} onContextMenu={(e) => e.preventDefault()}/>
             </div>
