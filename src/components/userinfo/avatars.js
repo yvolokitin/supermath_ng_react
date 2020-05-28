@@ -50,7 +50,7 @@ export default function Avatars(props) {
     }
 
     return (
-        <Typography hidden={hidden} component='div' style={{height: 'auto', width: 'auto'}}>
+        <Typography hidden={hidden} component='div' style={{position: 'static', height: '70%'}}>
             <div className='avatars_board_wrapper'>
                 <div className='avatars_board'>
                     {props.avatars.map(
