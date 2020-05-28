@@ -9,7 +9,7 @@ export default function Progress(props) {
     const [hidden, setHidden] = useState(true);
 
     useEffect(() => {
-        console.log('Progress.props.open' + props.open);
+        // console.log('Progress.props.open ' + props.open);
         if (props.open) {
             setHidden(false);
         } else {

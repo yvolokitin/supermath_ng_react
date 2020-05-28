@@ -7,6 +7,7 @@ import ColorLine from './../line/line';
 import Logout from './logout';
 import Avatars from './avatars';
 import Friends from './friends';
+import Settings from './settings';
 import Progress from './progress';
 
 import {account} from './../translations/account';
@@ -125,8 +126,8 @@ export default function Account(props) {
 
     const tabs = [
         {id: 1, name: account[props.lang]['avatar']},
-        {id: 2, name: account[props.lang]['exchange']},
-        {id: 3, name: account[props.lang]['settings']},
+        {id: 2, name: account[props.lang]['settings']},
+        {id: 3, name: account[props.lang]['exchange']},
         {id: 4, name: account[props.lang]['progress']},
         {id: 5, name: account[props.lang]['friends']},
     ];
@@ -156,6 +157,22 @@ export default function Account(props) {
         setAvatarName(avatars[id-1].name)
     }
 
+    function onSettings(property, value) {
+        console.log('Account.onSettings: ' + property + ', value ' + value);
+/*
+        if (property === 'name') {
+            this.setState({name: value});
+        } else if (property === 'surname') {
+            this.setState({surname: value});
+        } else if (property === 'email') {
+            this.setState({email: value});
+        } else if (property === 'pswd') {
+            this.setState({pswd: value});
+        }
+*/
+        // props.onUpdate(property, value);
+    }
+
     function onClose() {
         // console.log('Account.onClose ' +  + ', ' + avatar_name);
         if (avatar_name !== props.avatar) {
@@ -177,6 +194,10 @@ export default function Account(props) {
         }
     }
 
+    /**
+     * We have to use Typography inside of Dialog as wrapper, othervise iOs and iPod devices
+     * display page incorrectly and tab content overwrite tab staff
+     */
     return (
         <Dialog open={props.open} fullScreen={true} TransitionComponent={Transition} transitionDuration={800}>
             <Typography component='div'>
@@ -222,6 +243,16 @@ export default function Account(props) {
                 avatars={avatars}
                 avatar={props.avatar}
                 onAvatar={onAvatarChange}/>
+
+            <Settings open={current === SCREEN.SETTINGS}
+                id={props.id}
+                name={props.name}
+                surname={props.surname}
+                email={props.email}
+                age={props.age}
+                birthday={props.birthday}
+                lang={props.lang}
+                onSettings={onSettings}/>
 
             <Friends open={current === SCREEN.FRIENDS}
                 name={props.name}

@@ -9,7 +9,7 @@ export default function Friends(props) {
     const [hidden, setHidden] = useState(true);
 
     useEffect(() => {
-        console.log('Friends.props.open' + props.open);
+        // console.log('Friends.props.open ' + props.open);
         if (props.open) {
             setHidden(false);
         } else {

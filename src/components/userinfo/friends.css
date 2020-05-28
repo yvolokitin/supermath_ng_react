@@ -14,3 +14,12 @@
     width: 90%;
     height: auto;
 }
+@media only screen and (max-width: 860px) {
+    .friends_board {
+        width: 99%;
+    }
+    .friends_board img {
+        width: 95%;
+        height: auto;
+    }
+}
