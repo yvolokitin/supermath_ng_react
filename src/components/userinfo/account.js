@@ -157,20 +157,12 @@ export default function Account(props) {
         setAvatarName(avatars[id-1].name)
     }
 
+    /**
+     * Lifting property from Settgins Tab up to page.index.js level
+     */
     function onSettings(property, value) {
         console.log('Account.onSettings: ' + property + ', value ' + value);
-/*
-        if (property === 'name') {
-            this.setState({name: value});
-        } else if (property === 'surname') {
-            this.setState({surname: value});
-        } else if (property === 'email') {
-            this.setState({email: value});
-        } else if (property === 'pswd') {
-            this.setState({pswd: value});
-        }
-*/
-        // props.onUpdate(property, value);
+        props.onUpdate(property, value);
     }
 
     function onClose() {
@@ -188,7 +180,6 @@ export default function Account(props) {
 
     function onLogout(status) {
         setLogout(false);
-
         if (status === 'logout') {
             props.onUpdate(status);
         }
