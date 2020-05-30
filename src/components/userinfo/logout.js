@@ -11,7 +11,7 @@ export default function Logout(props) {
     const [hidden, setHidden] = useState(true);
 
     useEffect(() => {
-        console.log('Logout.props.open' + props.open);
+        // console.log('Logout.props.open ' + props.open);
         if (props.open) {
             setHidden(false);
         } else {

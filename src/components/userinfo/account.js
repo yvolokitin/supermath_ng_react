@@ -158,7 +158,7 @@ export default function Account(props) {
     }
 
     /**
-     * Lifting property from Settgins Tab up to page.index.js level
+     * Lifting property from Settings Tab up to page/index.js level
      */
     function onSettings(property, value) {
         console.log('Account.onSettings: ' + property + ', value ' + value);

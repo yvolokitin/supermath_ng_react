@@ -4,7 +4,7 @@
         presence: true,
         // And it must be between 3 and 20 characters long
         length: {
-            minimum: 3,
+            minimum: 2,
             maximum: 20
         },
         format: {

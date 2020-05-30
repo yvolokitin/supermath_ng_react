@@ -4,7 +4,7 @@ import {Typography, Grid, TextField, Button} from '@material-ui/core';
 import './settings.css';
 import {settings} from './../translations/settings';
 
-import {validate_name, validate_email} from './../halpers/validator.js';
+import {validate_name, validate_email, validate_pswd} from './../halpers/validator.js';
 
 export default function Settings(props) {
     const [hidden, setHidden] = useState(true);
@@ -21,14 +21,11 @@ export default function Settings(props) {
     const [pswdhash, setPswdhash] = useState('*******');
     const [editpswdhash, setEditPswdhash] = useState(true);
 
-/*
-    const [birthday, setBirthday] = useState(props.birthday);
+    const [birthday, setBirthday] = useState(new Date(props.birthday).toLocaleString('en-GB', {timeZone:'UTC'}));
     const [editbirthday, setEditBirthday] = useState(true);
 
-*/
-
     useEffect(() => {
-        // console.log('Progress.props.open ' + props.open);
+        console.log('Settings -> props.birthday ' + new Date(props.birthday).toLocaleString('en-GB', {timeZone:'UTC'}));
         if (props.open) {
             setHidden(false);
         } else {
@@ -43,34 +40,63 @@ export default function Settings(props) {
     function saveValue(property, value) {
         console.log('Settings.saveValue -> property ' + property + ', value ' + value);
 
-        var result = 'ok';
+        var result = 'not ok';
         if (property === 'name') {
-            result = validate_name(value, props.lang);
-            if (result === 'ok') {
+            if (props.name !== value) {
+                result = validate_name(value, props.lang);
+                if (result === 'ok') {
+                    setEditName(true);
+                } else {
+                    alert(result);
+                }
+            } else {
                 setEditName(true);
-            } else {
-                alert(result);
             }
+
         } else if (property === 'surname') {
-            result = validate_name(value, props.lang);
-            if (result === 'ok') {
-                setEditSurname(true);
+            if (props.surname !== value) {
+                result = validate_name(value, props.lang);
+                if (result === 'ok') {
+                    setEditSurname(true);
+                } else {
+                    alert(result);
+                }
             } else {
-                alert(result);
+                setEditSurname(true);
             }
+
         } else if (property === 'email') {
-            result = validate_email(value, props.lang);
-            if (result === 'ok') {
+            if (props.email !== value) {
+                result = validate_email(value, props.lang);
+                if (result === 'ok') {
+                    setEditEmail(true);
+                } else {
+                    alert(result);
+                }
+            } else {
                 setEditEmail(true);
+            }
+
+        } else if (property === 'pswdhash') {
+            result = validate_pswd(value, props.lang);
+            if (result === 'ok') {
+                setEditPswdhash(true);
+
+                var crypto = require('crypto');
+                var mykey = crypto.createCipher('aes-128-cbc', value);
+                var hash = mykey.update('abc', 'utf8', 'hex');
+                hash += mykey.final('hex');
+                value = hash;
+                // localStorage.setItem('pswdhash', hash);
+
             } else {
                 alert(result);
             }
         }
-/*
+
         if (result === 'ok') {
             props.onSettings(property, value);
         }
-*/
     }
 
     return (
@@ -80,7 +106,7 @@ export default function Settings(props) {
                     <Grid container spacing={0}>
                         <Grid item xs={12} sm={6} style={{padding:'1%'}}>
                             <TextField disabled={editname} onChange={(event) => setName(event.target.value)} required
-                                       fullWidth variant='outlined' value={name} label={settings[props.lang]['name']}/>
+                                fullWidth variant='outlined' value={name} label={settings[props.lang]['name']}/>
                             <Button disabled={!editname} size='small' color='primary'
                                 onClick={() => setEditName(false)}>
                                     {settings[props.lang]['edit']}
@@ -97,7 +123,7 @@ export default function Settings(props) {
 
                         <Grid item xs={12} sm={6} style={{padding:'1%'}}>
                             <TextField disabled={editsurname} onChange={(event) => setSurname(event.target.value)} required
-                                       fullWidth variant='outlined' value={surname} label={settings[props.lang]['name']}/>
+                                fullWidth variant='outlined' value={surname} label={settings[props.lang]['name']}/>
                             <Button disabled={!editsurname} size='small' color='primary'
                                 onClick={() => setEditSurname(false)}>
                                     {settings[props.lang]['edit']}
@@ -114,7 +140,7 @@ export default function Settings(props) {
 
                         <Grid item xs={12} sm={6} style={{padding:'1%'}}>
                             <TextField disabled={editemail} onChange={(event) => setEmail(event.target.value)} required
-                                       fullWidth variant='outlined' value={email} label={settings[props.lang]['name']}/>
+                                fullWidth variant='outlined' value={email} label={settings[props.lang]['name']}/>
                             <Button disabled={!editemail} size='small' color='primary'
                                 onClick={() => setEditEmail(false)}>
                                     {settings[props.lang]['edit']}
@@ -131,13 +157,13 @@ export default function Settings(props) {
 
                         <Grid item xs={12} sm={6} style={{padding:'1%'}}>
                             <TextField disabled={editpswdhash} onChange={(event) => setPswdhash(event.target.value)} required
-                                       fullWidth variant='outlined' value={pswdhash} label={settings[props.lang]['pswd']}/>
+                                fullWidth variant='outlined' value={pswdhash} label={settings[props.lang]['pswd']}/>
                             <Button disabled={!editpswdhash} size='small' color='primary'
                                 onClick={() => {setPswdhash(''); setEditPswdhash(false)}}>
                                     {settings[props.lang]['edit']}
                             </Button>
                             <Button disabled={editpswdhash} size='small' color='primary'
-                                onClick={() => setEditPswdhash(true)}>
+                                onClick={() => saveValue('pswdhash', pswdhash)}>
                                     {settings[props.lang]['save']}
                             </Button>
                             <Button disabled={editpswdhash} size='small' color='primary'
@@ -145,6 +171,25 @@ export default function Settings(props) {
                                     {settings[props.lang]['abort']}
                             </Button>
                         </Grid>
+
+                        <Grid item xs={12} sm={6} style={{padding:'1%'}}>
+                            <TextField disabled={editbirthday} onChange={(event) => setBirthday(event.target.value)}
+                                fullWidth variant='outlined' type='date' value={birthday} placeholder='Birthday'/>
+
+                            <Button disabled={!editbirthday} size='small' color='primary'
+                                onClick={() => setEditBirthday(false)}>
+                                    {settings[props.lang]['edit']}
+                            </Button>
+                            <Button disabled={editbirthday} size='small' color='primary'
+                                onClick={() => saveValue('birthday', birthday)}>
+                                    {settings[props.lang]['save']}
+                            </Button>
+                            <Button disabled={editbirthday} size='small' color='primary'
+                                onClick={() => {setBirthday(props.birthday); setEditBirthday(true);}}>
+                                    {settings[props.lang]['abort']}
+                            </Button>
+                        </Grid>
+
                     </Grid>
                 </div>
             </div>

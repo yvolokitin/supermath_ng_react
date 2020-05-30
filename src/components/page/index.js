@@ -175,83 +175,105 @@ export default class SuperMathPage extends React.Component {
         }
     }
 
-    onUserInfo(property, value, asset='na') {
+    /**
+     * Update on User Property
+     */
+    onUserInfo(property, value, asset='n/a') {
         console.log('Header.onUserInfo ' + property + ': ' + value + ', ' + asset);
         var pswdhash = localStorage.getItem('pswdhash');
 
-        if (property === 'close') {
-            this.setState({screen: STATUS.NONE});
+        switch (property) {
+            case 'close':
+                this.setState({screen: STATUS.NONE});
+                break;
 
-        } else if (property === 'logout') {
-            this.setState({screen: STATUS.NONE, id: 0, solved: ''});
+            case 'logout':
+                this.setState({screen: STATUS.NONE, id: 0, solved: ''});
+                // remove all info from local storage
+                localStorage.removeItem('user_id');
+                localStorage.removeItem('name');
+                localStorage.removeItem('pswdhash');
+                localStorage.removeItem('email');
+                localStorage.removeItem('surname');
+                localStorage.removeItem('birthday');
+                localStorage.removeItem('avatar');
+                localStorage.removeItem('passed');
+                localStorage.removeItem('failed');
+                localStorage.removeItem('cards');
+                localStorage.removeItem('solved');
+                localStorage.removeItem('age');
+                // keep language and belt properties
+                // localStorage.removeItem('lang');
+                // localStorage.removeItem('belt');
+                break;
 
-            // remove all info from local storage
-            localStorage.removeItem('user_id');
-            localStorage.removeItem('name');
-            localStorage.removeItem('pswdhash');
-            localStorage.removeItem('email');
-            localStorage.removeItem('surname');
-            localStorage.removeItem('birthday');
-            localStorage.removeItem('avatar');
-            localStorage.removeItem('passed');
-            localStorage.removeItem('failed');
-            localStorage.removeItem('cards');
-            localStorage.removeItem('solved');
-            localStorage.removeItem('age');
-            // keep language and belt properties
-            // localStorage.removeItem('lang');
-            // localStorage.removeItem('belt');
-
-        // counter: user game results from task
-        } else if (property === 'counter') {
-            if ((this.state.id > 0) && (pswdhash !== null)) {
-                var new_passed = parseInt(this.state.passed) + parseInt(value.passed);
-                var new_failed = parseInt(this.state.failed) + parseInt(value.failed);
-                if ((parseInt(value.failed) === 0) && (parseInt(value.passed) > 0)) {
-                    var new_solved = this.state.solved + value.game_uid + ',';
-                    this.setState({passed: new_passed, failed: new_failed, solved: new_solved});
-                } else {
-                    this.setState({passed: new_passed, failed: new_failed});
+            // counter: user game results from task
+            case 'counter':
+                if ((this.state.id > 0) && (pswdhash !== null)) {
+                    var new_passed = parseInt(this.state.passed) + parseInt(value.passed);
+                    var new_failed = parseInt(this.state.failed) + parseInt(value.failed);
+                    if ((parseInt(value.failed) === 0) && (parseInt(value.passed) > 0)) {
+                        var new_solved = this.state.solved + value.game_uid + ',';
+                        this.setState({passed: new_passed, failed: new_failed, solved: new_solved});
+                    } else {
+                        this.setState({passed: new_passed, failed: new_failed});
+                    }
+                    // updateCounter(id, pswdhash, data)
+                    update_counter(this.state.id, pswdhash, value);
                 }
-                // updateCounter(id, pswdhash, data)
-                update_counter(this.state.id, pswdhash, value);
-            }
+                break;
 
-        // passfail: user exchange poops vs smiles
-        } else if (property === 'passfail') {
-            this.setState({passed: value, failed: asset});
-            if ((this.state.id > 0) && (pswdhash !== null)) {
-                // updatePassFail(id, pswdhash, belt, passed, failed)
-                update_passfail(this.state.id, pswdhash, this.state.belt, value, asset);
-            }
+            // passfail: user exchange poops vs smiles
+            case 'passfail':
+                this.setState({passed: value, failed: asset});
+                if ((this.state.id > 0) && (pswdhash !== null)) {
+                    // updatePassFail(id, pswdhash, belt, passed, failed)
+                    update_passfail(this.state.id, pswdhash, this.state.belt, value, asset);
+                }
+                break;
 
-        } else if (property === 'avatar') {
-            this.setState({avatar: value, screen: STATUS.NONE});
-            if ((this.state.id > 0) && (pswdhash !== null)) {
-                update_avatar(this.state.id, pswdhash, value);
-            }
+            // from Account - Avatar Tab
+            case 'avatar':
+                this.setState({avatar: value, screen: STATUS.NONE});
+                if ((this.state.id > 0) && (pswdhash !== null)) {
+                    update_avatar(this.state.id, pswdhash, value);
+                }
+                break;
 
-        // if unregistered user pressed register button from game results
-        } else if (property === 'register') {
-            this.setState({screen: STATUS.REGISTER});
+            // if unregistered user pressed register button from game results
+            case 'register':
+                this.setState({screen: STATUS.REGISTER});
+                break;
 
-        } else {
-            if (property === 'name') {
+            // update from Account - Settgins Tab
+            case 'name':
                 this.setState({'name': value});
-            } else if (property === 'surname') {
-                this.setState({'surname': value});
-            } else if (property === 'email') {
-                this.setState({'email': value});
-            } else if (property === 'pswd') {
-                // for new pswd we have to generate new hash
-                // pswd = request.json.get('pswd')
-                // newhash = request.json.get('newhash')
-                this.setState({'pswd': value});
-            }
+                if ((this.state.id > 0) && (pswdhash !== null)) {
+                    update_usersettings(this.state.id, pswdhash, property, value);
+                }
+                break;
 
-            if ((this.state.id > 0) && (pswdhash !== null)) {
-                update_usersettings(this.state.id, pswdhash, property, value);
-            }
+            case 'surname':
+                this.setState({'surname': value});
+                if ((this.state.id > 0) && (pswdhash !== null)) {
+                    update_usersettings(this.state.id, pswdhash, property, value);
+                }
+                break;
+
+            case 'email':
+                this.setState({'email': value});
+                if ((this.state.id > 0) && (pswdhash !== null)) {
+                    update_usersettings(this.state.id, pswdhash, property, value);
+                }
+                break;
+
+            case 'pswdhash':
+                console.log('TBD: Excaping pswdhash');
+                break;
+
+            default:
+                console.log('WARNING: Header.onUserInfo received unknown property \'' + property + '\'');
+                break;
         }
     }
 

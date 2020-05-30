@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import {Dialog, TextField, FormControlLabel, Checkbox, Link} from '@material-ui/core';
 import {Snackbar, CircularProgress} from '@material-ui/core';
 
