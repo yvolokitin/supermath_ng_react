@@ -55,37 +55,35 @@ export default function Exchange(props) {
         }*/
     }
 
-    return (
-        <Typography hidden={hidden} component='div'>
-            <div className='exchange_board'>
-                <Grid container spacing={3} justify='center' alignItems='center' style={{textAlign:'center',fontFamily:'Grinched',fontSize:'3rem',lineHeight:'1.1'}}>
-                    <Grid item xs={3} className='exchangegriditem' style={{margin:'10px'}}>
+    /*
+                <Grid container spacing={3} justify='center' alignItems='center' className='exchange_board_grid_container'>
+                    <Grid item xs={3} className='exchange_board_grid'>
                         <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
                     </Grid>
-                    <Grid item xs={3} className='exchangegriditem' style={{margin:'10px'}}>
+                    <Grid item xs={3} className='exchange_board_grid'>
                         <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                     </Grid>
                 </Grid>
 
-                <Grid container spacing={3} justify='center' alignItems='center' style={{textAlign:'center',fontFamily:'Grinched',fontSize:'3rem',lineHeight:'1.1'}}>
-                    <Grid item xs={3} className='exchangegriditem' style={{margin:'10px'}}>
+                <Grid container spacing={3} justify='center' alignItems='center' className='exchange_board_grid_container'>
+                    <Grid item xs={3} className='exchange_board_grid'>
                         <font className='exchangegriditemgreen'>{passed}</font>
                     </Grid>
-                    <Grid item xs={3} className='exchangegriditem' style={{margin:'10px'}}>
+                    <Grid item xs={3} className='exchange_board_grid'>
                         <font className='exchangegriditemred'>{failed}</font>
                     </Grid>
                 </Grid>
 
-                <Grid container spacing={3} justify='center' alignItems='center' style={{textAlign:'center',fontFamily:'Grinched',fontSize:'3rem',lineHeight:'1.1'}}>
-                    <Grid item xs={3} className='exchangegriditem' style={{margin:'10px'}}>
+                <Grid container spacing={3} justify='center' alignItems='center' className='exchange_board_grid_container'>
+                    <Grid item xs={3} className='exchange_board_grid'>
                         <font className='exchangegriditemgreen'>{sailed}</font>
                     </Grid>
-                    <Grid item xs={3} className='exchangegriditem' style={{margin:'10px'}}>
+                    <Grid item xs={3} className='exchange_board_grid'>
                         <font className='exchangegriditemred'>{counter}</font>
                     </Grid>
                 </Grid>
 
-                <Grid container spacing={3} justify='center' alignItems='center' style={{textAlign:'center',fontFamily:'Grinched',fontSize:'3rem',lineHeight:'1.1'}}>
+                <Grid container spacing={3} justify='center' alignItems='center' className='exchange_board_grid_container'>
                     <Grid item xs={3}>
                     </Grid>
                     <Grid item xs={3}>
@@ -97,7 +95,40 @@ export default function Exchange(props) {
                         <font className='exchangebutton' style={{float:'right'}} onClick={() => onCounterChanged(-1)}>-</font>
                     </Grid>
                 </Grid>
+    */
+    return (
+        <Typography hidden={hidden} component='div'>
+            <div className='exchange_board_wrapper'>
+                <div className='exchange_board'>
 
+                    <div className='exchange_board_line'>
+                        <div className='exchange_board_line_col'>
+                            {passed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
+                        </div>
+
+                        <div className='exchange_board_line_col'>
+                            {cards} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127183;</span>
+                        </div>
+
+                        <div className='exchange_board_line_col'>
+                            {failed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
+                        </div>
+                    </div>
+
+                    <div className='exchange_board_line'>
+                        <div className='exchange_board_line_col'>
+                            + -
+                        </div>
+
+                        <div className='exchange_board_line_col'>
+                            + -
+                        </div>
+
+                    </div>
+
+                    <div className='exchange_board_line'>
+                    </div>
+                </div>
             </div>
         </Typography>
     );

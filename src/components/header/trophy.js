@@ -9,6 +9,7 @@ import ColorLine from './../line/line';
 import {trophy} from './../translations/trophy';
 import './trophy.css';
 
+import {get_avatar_by_name} from './../halpers/avatars';
 import image from './../../images/trophy/numbers.png';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -23,7 +24,7 @@ export default function Trophy(props) {
         // console.log('Header.onScoresUpdate received ' + response.data);
         var array = [];
         for (var i in response.data) {
-            // console.log(i + ' response.data  ' + response.data[i].name + ' ' + response.data[i].score);
+            // console.log('avatar ' + response.data[i].avatar + ' -> ' + get_avatar_by_name(response.data[i].avatar));
             array.push(response.data[i]);
         }
         setScores(array);
@@ -79,8 +80,10 @@ export default function Trophy(props) {
                             <div className='trophy_table_cell_num'>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127942;</span>
                             </div>
-                            <div className='trophy_table_cell_name'>
+                            <div className='trophy_table_cell_ava'>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128102;</span>
+                            </div>
+                            <div className='trophy_table_cell_name'>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127947;</span>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128105;</span>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128170;</span>
@@ -101,6 +104,9 @@ export default function Trophy(props) {
                             (props.id === user.id) ? (
                                 <div className='trophy_table_row' key={index}>
                                     <div className='trophy_table_cell_num' style={{backgroundColor:'green',color:'orange'}}> {index+1} </div>
+                                    <div className='trophy_table_cell_ava' style={{backgroundColor:'green',color:'orange'}}>
+                                        <img src={get_avatar_by_name(user.avatar)} alt={user.avatar} onContextMenu={(e) => e.preventDefault()}/>
+                                    </div>
                                     <div className='trophy_table_cell_name' style={{backgroundColor:'green',color:'orange'}}> {user.name} {user.surname} </div>
                                     {
                                         (user.score.toString().includes('-')) ? (
@@ -115,6 +121,9 @@ export default function Trophy(props) {
                             ) : (
                                 <div className='trophy_table_row' key={index}>
                                     <div className='trophy_table_cell_num'> {index+1} </div>
+                                    <div className='trophy_table_cell_ava'>
+                                        <img src={get_avatar_by_name(user.avatar)} alt={user.avatar} onContextMenu={(e) => e.preventDefault()}/>
+                                    </div>
                                     <div className='trophy_table_cell_name'> {user.name} {user.surname} </div>
                                     {
                                         (user.score.toString().includes('-')) ? (

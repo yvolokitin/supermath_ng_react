@@ -1,38 +1,49 @@
-﻿.exchangeboard {
-    height: 100%;
+﻿.exchange_board_wrapper {
     width: 100%;
-    padding-top: 1%;
-    padding-bottom: 1%;
+    margin-top: 25px;
 
-    line-height: 0.9;
-    text-shadow: 1px 1px 2px black;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    user-select: none;
+    background-color: white;
 }
-.exchangegriditem {
-    line-height: 0.9;
-    border: 1px solid grey;
-    border-radius: 5px;
-}
-.exchangegriditemgreen {
-    color: green;
-}
-.exchangegriditemred {
-    color: red;
-}
-.exchangebutton {
-    padding-left: 4%;
-    padding-right: 4%;
+.exchange_board {
+    width: 90%;
+    height: auto;
+
+    font-size: 2.5rem;
+    font-family: 'Grinched';
+    font-variant: small-caps;
     color: orange;
-    cursor: pointer;
-    line-height: 0.9;
-    border: 3px solid orange;
-    border-radius: 5px;
+    text-shadow: 2px 2px 2px black;
 }
-.exchangebuttongreen {
-    padding-left: 2%;
-    padding-right: 2%;
-    color: green;
-    cursor: pointer;
-    line-height: 0.9;
-    border: 3px solid green;
-    border-radius: 5px;
+.exchange_board_line {
+    height: 60px;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.exchange_board_line_col {
+    height: 100%;
+    width: 30%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid red;
+}
+
+
+
+
+@media only screen and (max-width: 860px) {
+    .exchange_board {
+        width: 99%;
+    }
 }

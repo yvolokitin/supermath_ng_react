@@ -20,8 +20,8 @@
     justify-content: center;
 }
 .trophy_table_wrapper {
-    min-width: 513px;
-    max-width: 513px;
+    min-width: 663px;
+    max-width: 663px;
     min-height: 470px;
     margin: 13px;
 }
@@ -65,6 +65,10 @@
     width: 10%;
     float: left;
 
+    margin-left: 3px;
+    margin-right: 3px;
+    padding: 3px;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -73,6 +77,32 @@
 
     border-radius: 5px;
     box-shadow: 1px 1px 3px 0px grey;
+}
+.trophy_table_cell_ava {
+    height: 100%;
+    width: 8%;
+    float: left;
+
+    margin-left: 3px;
+    margin-right: 3px;
+    padding: 3px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: yellow;
+
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px 0px grey;
+}
+.trophy_table_cell_ava img {
+    height: 100%;
+    width: auto;
+    margin-top: 0px;
+    -webkit-animation: none;
+    -moz-animation: none;
+    animation: none;
 }
 .trophy_table_cell_name {
     height: 100%;

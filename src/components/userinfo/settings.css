@@ -18,3 +18,8 @@
     align-items: center;
     justify-content: center;
 }
+@media only screen and (max-width: 860px) {
+    .settings_board {
+        width: 99%;
+    }
+}

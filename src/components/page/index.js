@@ -17,7 +17,7 @@ import Trophy from './../header/trophy';
 
 import Account from './../userinfo/account';
 
-import {avatars} from './../halpers/constants';
+import {avatars} from './../halpers/avatars';
 import Tabs from "./../body/tabs";
 
 import './index.css';

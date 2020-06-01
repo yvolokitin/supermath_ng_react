@@ -12,7 +12,7 @@ import Exchange from './exchange';
 import Progress from './progress';
 
 import {account} from './../translations/account';
-import {avatars} from './../halpers/constants';
+import {avatars} from './../halpers/avatars';
 import './account.css';
 
 const SCREEN = {
@@ -51,7 +51,8 @@ function AccountTab(props) {
 }
 
 export default function Account(props) {
-    const [current, setCurrent] = useState(1);
+    // const [current, setCurrent] = useState(SCREEN.AVATARS);
+    const [current, setCurrent] = useState(SCREEN.EXCHANGE);
     const [avatar, setAvatar] = useState('');
     const [avatar_name, setAvatarName] = useState('');
     const [logout, setLogout] = useState(false);
