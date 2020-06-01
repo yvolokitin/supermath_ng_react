@@ -21,13 +21,16 @@ export default function Settings(props) {
     const [pswdhash, setPswdhash] = useState('*******');
     const [editpswdhash, setEditPswdhash] = useState(true);
 
-    const [birthday, setBirthday] = useState(new Date(props.birthday).toLocaleString('en-GB', {timeZone:'UTC'}));
+    const [birthday, setBirthday] = useState('');
     const [editbirthday, setEditBirthday] = useState(true);
 
     useEffect(() => {
-        console.log('Settings -> props.birthday ' + new Date(props.birthday).toLocaleString('en-GB', {timeZone:'UTC'}));
         if (props.open) {
             setHidden(false);
+            var birth = new Date(props.birthday).toLocaleString('en-GB', {timeZone:'UTC'});
+            var replaced = birth.substring(0, 10).replace(/\//g, '-');
+            setBirthday(replaced);
+            console.log('Settings -> birth ' + replaced);
         } else {
             setHidden(true);
         }
@@ -90,8 +93,12 @@ export default function Settings(props) {
                 // localStorage.setItem('pswdhash', hash);
 
             } else {
+                setEditPswdhash(true);
                 alert(result);
             }
+
+        } else if (property === 'birthday') {
+            setEditBirthday(true);
         }
 
         if (result === 'ok') {

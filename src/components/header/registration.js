@@ -52,15 +52,7 @@ export default class Registration extends React.Component {
 
     onRegistration(event) {
         event.preventDefault();
-        // var result = validate_name(this.state.name, this.props.lang);
-        /*
-        if (result !== 'ok') {
-            this.setState({error: true,
-                           duration: 5000,
-                           message: 'QQQQQQQQQ ' + result});
-            return;
-        }
-        */
+        console.log('birth: this.state.birth ' + this.state.birth);
         var result = validate({name: this.state.name}, constraints);
         if ('name' in result) {
             this.setState({error: true,
