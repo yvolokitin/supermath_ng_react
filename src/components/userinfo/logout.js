@@ -30,10 +30,10 @@ export default function Logout(props) {
                 </IconButton>
 
                 <div className='logout_wrapper_img'>
-                    <img src={image} alt={image}/>
+                    <img src={image} alt={image} onClick={() => props.onLogout('logout')}/>
                 </div>
 
-                <div className='logout_wrapper_title'>
+                <div className='logout_wrapper_title' onClick={() => props.onLogout('logout')}>
                     {logout[props.lang]['logout']}
                 </div>
 

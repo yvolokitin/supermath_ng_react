@@ -21,16 +21,13 @@ export default function Settings(props) {
     const [pswdhash, setPswdhash] = useState('*******');
     const [editpswdhash, setEditPswdhash] = useState(true);
 
-    const [birthday, setBirthday] = useState('');
+    const [birthday, setBirthday] = useState(props.birthday);
     const [editbirthday, setEditBirthday] = useState(true);
 
     useEffect(() => {
         if (props.open) {
             setHidden(false);
-            var birth = new Date(props.birthday).toLocaleString('en-GB', {timeZone:'UTC'});
-            var replaced = birth.substring(0, 10).replace(/\//g, '-');
-            setBirthday(replaced);
-            console.log('Settings -> birth ' + replaced);
+            console.log('Settings -> props.birthday ' + props.birthday);
         } else {
             setHidden(true);
         }

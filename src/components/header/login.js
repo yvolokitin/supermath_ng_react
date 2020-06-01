@@ -77,6 +77,9 @@ export default class Login extends React.Component {
         this.time = new Date().getTime();
     }
 
+    /**
+     * Login server response
+     */
     onLoginResponse(response) {
         console.log('onLoginResponse:: error ' + response.data.error + ', id ' + response.data.id);
 
@@ -86,8 +89,18 @@ export default class Login extends React.Component {
         }
 
         if ('data' in response) {
-            // user id is mandatory attribute
-            if ('id' in response.data) {
+            // id & etc. are mandatory user attributes
+            if (('id' in response.data) &&
+                ('name' in response.data) &&
+                ('lang' in response.data) &&
+                ('surname' in response.data) &&
+                ('email' in response.data) &&
+                ('passed' in response.data) &&
+                ('failed' in response.data) &&
+                ('solved' in response.data) &&
+                ('cards' in response.data) &&
+                ('avatar' in response.data) &&
+                ('belt' in response.data)) {
                 setTimeout(() => {
                     this.props.onClose('successed', response.data);
                     this.setState({success: true, loading: false, color:'green'});

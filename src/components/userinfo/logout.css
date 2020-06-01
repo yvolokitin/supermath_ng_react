@@ -25,6 +25,7 @@
 .logout_wrapper_img img {
     height: 80%;
     width: auto;
+    cursor: pointer;
 }
 .logout_wrapper_title {
     height: 10%;
@@ -34,6 +35,7 @@
     align-items: center;
     justify-content: center;
 
+    cursor: pointer;
     text-align: left;
     font-size: 3.0rem;
     font-family: 'Grinched';

@@ -17,9 +17,7 @@ import Trophy from './../header/trophy';
 
 import Account from './../userinfo/account';
 
-// import UserInformation from './../userinfo/userinfo';
-// import AlertDialog from './../alert/alert';
-
+import {avatars} from './../halpers/constants';
 import Tabs from "./../body/tabs";
 
 import './index.css';
@@ -89,6 +87,7 @@ export default class SuperMathPage extends React.Component {
             birthday: localStorage.getItem('birthday') ? localStorage.getItem('birthday') : '',
             age: localStorage.getItem('age') ? localStorage.getItem('age') : '',
             solved: localStorage.getItem('solved') ? localStorage.getItem('solved') : '',
+            pswdhash: localStorage.getItem('pswdhash') ? localStorage.getItem('pswdhash') : '',
         };
     }
 
@@ -214,7 +213,12 @@ export default class SuperMathPage extends React.Component {
                     var new_failed = parseInt(this.state.failed) + parseInt(value.failed);
                     if ((parseInt(value.failed) === 0) && (parseInt(value.passed) > 0)) {
                         var new_solved = this.state.solved + value.game_uid + ',';
-                        this.setState({passed: new_passed, failed: new_failed, solved: new_solved});
+                        var new_cards = parseInt(this.state.cards) + 1;
+                        this.setState({
+                            passed: new_passed,
+                            failed: new_failed,
+                            cards: new_cards,
+                            solved: new_solved,});
                     } else {
                         this.setState({passed: new_passed, failed: new_failed});
                     }
@@ -300,6 +304,8 @@ export default class SuperMathPage extends React.Component {
         if (result === 'successed') {
             console.log('Header.onResult ' + data.passed + ', ' + data.failed + ', solved: ' + data.solved);
 
+            for (var pname in data) { console.log(pname, data[pname]); }
+
             // age calculation based on server response value
             // 'birthday': 'Tue, 28 Jan 2014 06:13:13 GMT' -> need to convert in years
             var birthday = new Date(data.birthday);
@@ -307,17 +313,17 @@ export default class SuperMathPage extends React.Component {
             var ageDate = new Date(ageDifMs);
             var age = Math.abs(ageDate.getUTCFullYear() - 1970);
 
-            var cards_counter = (data.solved.length > 0) ? data.solved.toString().split(',').length-1 : 0;
+            // var cards_counter = (data.solved.length > 0) ? data.solved.toString().split(',').length-1 : 0;
             this.setState({
                 'screen': (this.state.screen === STATUS.REGISTER) ? STATUS.WELCOME : STATUS.NONE,
+                'avatar': (data.avatar.length === 0) ? data.avatar : avatars[12]['name'],
                 'id': parseInt(data.id),
                 'name': data.name,
                 'lang': data.lang,
                 'email': data.email,
                 'surname': data.surname,
                 'birthday': data.birthday,
-                'avatar': data.avatar,
-                'cards': cards_counter,
+                'cards': data.cards,
                 'passed': data.passed,
                 'failed': data.failed,
                 'belt': data.belt,
@@ -334,7 +340,7 @@ export default class SuperMathPage extends React.Component {
             localStorage.setItem('avatar', data.avatar);
             localStorage.setItem('passed', data.passed);
             localStorage.setItem('failed', data.failed);
-            localStorage.setItem('cards', cards_counter);
+            localStorage.setItem('cards', data.cards);
             localStorage.setItem('lang', data.lang);
             localStorage.setItem('belt', data.belt);
             localStorage.setItem('solved', data.solved);
