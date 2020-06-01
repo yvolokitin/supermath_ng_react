@@ -8,6 +8,7 @@ import Logout from './logout';
 import Avatars from './avatars';
 import Friends from './friends';
 import Settings from './settings';
+import Exchange from './exchange';
 import Progress from './progress';
 
 import {account} from './../translations/account';
@@ -96,6 +97,14 @@ export default function Account(props) {
         props.onUpdate(property, value);
     }
 
+    /**
+     * Lifting property from Exchange Tab up to page/index.js level
+     */
+    function onExchange(passed, failed) {
+        console.log('Account.onExchange: ' + passed + ',  ' + failed);
+        props.onUpdate('passfail', passed, failed);
+    }
+
     function onClose() {
         // console.log('Account.onClose ' +  + ', ' + avatar_name);
         // props.onUpdate('logout');
@@ -176,6 +185,13 @@ export default function Account(props) {
                 birthday={props.birthday}
                 lang={props.lang}
                 onSettings={onSettings}/>
+
+            <Exchange open={current === SCREEN.EXCHANGE}
+                passed={props.passed}
+                failed={props.failed}
+                cards={props.cards}
+                lang={props.lang} 
+                onExchange={onExchange}/>
 
             <Friends open={current === SCREEN.FRIENDS}
                 name={props.name}
