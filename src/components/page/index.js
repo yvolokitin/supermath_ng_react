@@ -179,8 +179,8 @@ export default class SuperMathPage extends React.Component {
      */
     onUserInfo(property, value, asset='n/a') {
         console.log('Header.onUserInfo ' + property + ': ' + value + ', ' + asset);
-        var pswdhash = localStorage.getItem('pswdhash');
 
+        var pswdhash = localStorage.getItem('pswdhash');
         switch (property) {
             case 'close':
                 this.setState({screen: STATUS.NONE});
@@ -266,6 +266,18 @@ export default class SuperMathPage extends React.Component {
 
             case 'email':
                 this.setState({'email': value});
+                if ((this.state.id > 0) && (pswdhash !== null)) {
+                    update_usersettings(this.state.id, pswdhash, property, value);
+                }
+                break;
+
+            case 'birthday':
+                // age calculation based on server response value
+                // 'birthday': 'Tue, 28 Jan 2014 06:13:13 GMT' -> need to convert in years
+                var ageDifMs = Date.now() - new Date(value).getTime();
+                var ageDate = new Date(ageDifMs);
+                var age = Math.abs(ageDate.getUTCFullYear() - 1970);
+                this.setState({'birthday': value, 'age': age});
                 if ((this.state.id > 0) && (pswdhash !== null)) {
                     update_usersettings(this.state.id, pswdhash, property, value);
                 }

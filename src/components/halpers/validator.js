@@ -74,11 +74,28 @@ export function validate_pswd(pswd, lang) {
         return validator[lang]['pswd_length'];
     }
 
-    /*
-    if (pswdPattern.test(pswd) !== true) {
+    /*if (pswdPattern.test(pswd) !== true) {
         return validator[lang]['pswd_match'];
+    }*/
+
+    return 'ok';
+}
+
+/**
+ * Birthday validation
+ * @param birthday in format YYYY-MM-DD, for example 2014-01-28
+ */
+export function validate_birth(birthday, lang) {
+    console.log('validate_birth ' + birthday);
+    if (birthday.length !== 10) {
+        return validator[lang]['birthday_length'];
     }
-    */
+
+    // birth[0] is year
+    var birth = birthday.split('-');
+    if ((birth[0].length < 4) || (parseInt(birth[0]) < 1939)) {
+        return validator[lang]['birthday_year'];
+    }
 
     return 'ok';
 }

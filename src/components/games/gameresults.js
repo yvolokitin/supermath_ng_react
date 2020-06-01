@@ -49,11 +49,11 @@ export default function GameResults(props) {
         var rate = 'really_bad';
         var percent = 100 * passed / amount;
         if (percent > 99) { rate = 'excellent';
-        } else if (passed > 95) { rate = 'quite_good';
-        } else if (passed > 90) { rate = 'good';
-        } else if (passed > 80) { rate = 'well';
-        } else if (passed > 60) { rate = 'not_well';
-        } else if (passed > 40) { rate = 'quite_bad';}
+        } else if (percent > 95) { rate = 'quite_good';
+        } else if (percent > 90) { rate = 'good';
+        } else if (percent > 80) { rate = 'well';
+        } else if (percent > 60) { rate = 'not_well';
+        } else if (percent > 40) { rate = 'quite_bad';}
 
         return {'percent': percent, 'rate': rate, 'hours': hours, 'minutes': minutes, 'seconds': seconds}
     }

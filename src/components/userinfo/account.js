@@ -64,7 +64,7 @@ export default function Account(props) {
     ];
 
     useEffect(() => {
-        console.log('Account.useEffect ' + props.avatar);
+        // console.log('Account.useEffect ' + props.avatar);
         if (props.open) {
             avatars.forEach(
                 function (element) {

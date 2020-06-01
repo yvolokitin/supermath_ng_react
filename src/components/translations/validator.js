@@ -8,6 +8,8 @@ export const validator = {
         'email_format': 'Email address should be in format username@domain.nnn. Username should be 4–30 characters long and can be any combination of letters (a-z,A-Z), numbers (0-9), or periods (.). Examples: example@site.com, jsmith@example.com, John.Smith@example.com, this_is_example@example.xyz',
         'pswd_length': 'Password should be at least 5 characters and could not be longer then 30 symbols',
         'pswd_match': 'Password contains enexpected symbols',
+        'birthday_length': 'Birthday length does not match expected format DD/MM/YYYY',
+        'birthday_year': 'We are sorry, but your birthday is too old',
     },
     // Russian
     'ru': {
@@ -17,6 +19,8 @@ export const validator = {
         'email_format': 'Email address should be in format username@domain.nnn. Username should be 4–30 characters long and can be any combination of letters (a-z,A-Z), numbers (0-9), or periods (.). Examples: example@site.com, jsmith@example.com, John.Smith@example.com, this_is_example@example.xyz',
         'pswd_length': 'Password should be at least 5 characters and could not be longer then 30 symbols',
         'pswd_match': 'Password contains enexpected symbols',
+        'birthday_length': 'Birthday length does not match expected format DD/MM/YYYY',
+        'birthday_year': 'We are sorry, but your birthday is too old',
     },
     // Dutch
     'nl' : {
@@ -26,6 +30,8 @@ export const validator = {
         'email_format': 'Email address should be in format username@domain.nnn. Username should be 4–30 characters long and can be any combination of letters (a-z,A-Z), numbers (0-9), or periods (.). Examples: example@site.com, jsmith@example.com, John.Smith@example.com, this_is_example@example.xyz',
         'pswd_length': 'Password should be at least 5 characters and could not be longer then 30 symbols',
         'pswd_match': 'Password contains enexpected symbols',
+        'birthday_length': 'Birthday length does not match expected format DD/MM/YYYY',
+        'birthday_year': 'We are sorry, but your birthday is too old',
     },
     // French
     'fr' : {
@@ -35,6 +41,8 @@ export const validator = {
         'email_format': 'Email address should be in format username@domain.nnn. Username should be 4–30 characters long and can be any combination of letters (a-z,A-Z), numbers (0-9), or periods (.). Examples: example@site.com, jsmith@example.com, John.Smith@example.com, this_is_example@example.xyz',
         'pswd_length': 'Password should be at least 5 characters and could not be longer then 30 symbols',
         'pswd_match': 'Password contains enexpected symbols',
+        'birthday_length': 'Birthday length does not match expected format DD/MM/YYYY',
+        'birthday_year': 'We are sorry, but your birthday is too old',
     },
     // German
     'de' : {
@@ -44,6 +52,8 @@ export const validator = {
         'email_format': 'Email address should be in format username@domain.nnn. Username should be 4–30 characters long and can be any combination of letters (a-z,A-Z), numbers (0-9), or periods (.). Examples: example@site.com, jsmith@example.com, John.Smith@example.com, this_is_example@example.xyz',
         'pswd_length': 'Password should be at least 5 characters and could not be longer then 30 symbols',
         'pswd_match': 'Password contains enexpected symbols',
+        'birthday_length': 'Birthday length does not match expected format DD/MM/YYYY',
+        'birthday_year': 'We are sorry, but your birthday is too old',
     },
     // Spanish
     'es' : {
@@ -53,6 +63,8 @@ export const validator = {
         'email_format': 'Email address should be in format username@domain.nnn. Username should be 4–30 characters long and can be any combination of letters (a-z,A-Z), numbers (0-9), or periods (.). Examples: example@site.com, jsmith@example.com, John.Smith@example.com, this_is_example@example.xyz',
         'pswd_length': 'Password should be at least 5 characters and could not be longer then 30 symbols',
         'pswd_match': 'Password contains enexpected symbols',
+        'birthday_length': 'Birthday length does not match expected format DD/MM/YYYY',
+        'birthday_year': 'We are sorry, but your birthday is too old',
     },
     // Italian
     'it' : {
@@ -62,5 +74,7 @@ export const validator = {
         'email_format': 'Email address should be in format username@domain.nnn. Username should be 4–30 characters long and can be any combination of letters (a-z,A-Z), numbers (0-9), or periods (.). Examples: example@site.com, jsmith@example.com, John.Smith@example.com, this_is_example@example.xyz',
         'pswd_length': 'Password should be at least 5 characters and could not be longer then 30 symbols',
         'pswd_match': 'Password contains enexpected symbols',
+        'birthday_length': 'Birthday length does not match expected format DD/MM/YYYY',
+        'birthday_year': 'We are sorry, but your birthday is too old',
     },
 };

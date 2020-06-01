@@ -4,7 +4,7 @@ import {Typography, Grid, TextField, Button} from '@material-ui/core';
 import './settings.css';
 import {settings} from './../translations/settings';
 
-import {validate_name, validate_email, validate_pswd} from './../halpers/validator.js';
+import {validate_name, validate_email, validate_pswd, validate_birth} from './../halpers/validator.js';
 
 export default function Settings(props) {
     const [hidden, setHidden] = useState(true);
@@ -25,9 +25,9 @@ export default function Settings(props) {
     const [editbirthday, setEditBirthday] = useState(true);
 
     useEffect(() => {
+        // console.log('Settings -> props.birthday ' + props.birthday);
         if (props.open) {
             setHidden(false);
-            console.log('Settings -> props.birthday ' + props.birthday);
         } else {
             setHidden(true);
         }
@@ -39,7 +39,6 @@ export default function Settings(props) {
      */
     function saveValue(property, value) {
         console.log('Settings.saveValue -> property ' + property + ', value ' + value);
-
         var result = 'not ok';
         if (property === 'name') {
             if (props.name !== value) {
@@ -95,7 +94,16 @@ export default function Settings(props) {
             }
 
         } else if (property === 'birthday') {
-            setEditBirthday(true);
+            if (props.birthday !== value) {
+                result = validate_birth(value, props.lang);
+                if (result === 'ok') {
+                    setEditBirthday(true);
+                } else {
+                    alert(result);
+                }
+            } else {
+                setEditBirthday(true);
+            }
         }
 
         if (result === 'ok') {
