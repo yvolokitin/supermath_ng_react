@@ -287,6 +287,17 @@ export default class SuperMathPage extends React.Component {
                 console.log('TBD: Excaping pswdhash');
                 break;
 
+            case 'exchange':
+                console.log('TBD: Excaping EXCHANGE ' + value.passed + ', ' + value.failed + ', ' + value.cards);
+                if ((this.state.id > 0) && (pswdhash !== null)) {
+                    this.setState({
+                        'passed': value.passed,
+                        'failed': value.failed,
+                        'cards': value.cards,
+                    });
+                }
+                break;
+
             default:
                 console.log('WARNING: Header.onUserInfo received unknown property \'' + property + '\'');
                 break;

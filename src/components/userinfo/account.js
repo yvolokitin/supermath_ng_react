@@ -91,19 +91,11 @@ export default function Account(props) {
     }
 
     /**
-     * Lifting property from Settings Tab up to page/index.js level
+     * Lifting property changes from Settings and Exchange Tabs up to page/index.js level
      */
     function onSettings(property, value) {
         console.log('Account.onSettings: ' + property + ', value ' + value);
         props.onUpdate(property, value);
-    }
-
-    /**
-     * Lifting property from Exchange Tab up to page/index.js level
-     */
-    function onExchange(passed, failed) {
-        console.log('Account.onExchange: ' + passed + ',  ' + failed);
-        props.onUpdate('passfail', passed, failed);
     }
 
     function onClose() {
@@ -192,7 +184,7 @@ export default function Account(props) {
                 failed={props.failed}
                 cards={props.cards}
                 lang={props.lang} 
-                onExchange={onExchange}/>
+                onExchange={onSettings}/>
 
             <Friends open={current === SCREEN.FRIENDS}
                 name={props.name}
