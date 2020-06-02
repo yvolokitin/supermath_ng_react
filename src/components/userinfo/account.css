@@ -116,3 +116,8 @@
         font-size: 2.0rem;
     }
 }
+@media only screen and (max-width: 740px) {
+    .account_board_wrapper {
+        height: 120px;
+    }
+}

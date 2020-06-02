@@ -72,23 +72,33 @@ export function update_counter(id, pswdhash, data) {
     }
 }
 
-export function update_passfail(id, pswdhash, belt, passed, failed) {
+/**
+ * Update user passed, failed and cards counters
+ * 
+ * update_user_scores(this.state.id, pswdhash, this.state.belt, value);
+ */
+export function update_user_scores(id, pswdhash, belt, value) {
     console.log('Communicator.update_passfail ' + id);
 
-    localStorage.setItem('passed', passed);
-    localStorage.setItem('failed', failed);
+    localStorage.setItem('passed', value.passed);
+    localStorage.setItem('failed', value.failed);
+    localStorage.setItem('cards', value.cards);
 
-    var passkey = parseInt(id) * passed;
+    var passkey = parseInt(id) * value.passed;
     var passbin = (passkey >>> 0).toString(2); // xor
-    var failkey = parseInt(id) * failed;
+    var failkey = parseInt(id) * value.failed;
     var failbin = (failkey >>> 0).toString(2);
+    var cardkey = parseInt(id) * value.cards;
+    var cardbin = (cardkey >>> 0).toString(2);
+
     // console.log('Binary ' + passkey + ': ' + passbin + ', ' + failkey + ': ' + failbin);
     var post = {
         'user_id': id,
         'pswdhash': pswdhash,
+        'belt': belt,
         'passed': passbin,
         'failed': failbin,
-        'belt': belt
+        'cards': cardbin,
     };
     axios.post('http://supermath.xyz:3000/api/counter', post)
          .then(onApiCall)
@@ -102,7 +112,12 @@ function onApiCall(response) {
             console.log('Communicator.onApiCall -> error ' + response.data.error);
 
         } else if ('id' in response.data) {
-            console.log('Communicator.onApiCall successed, id ' + response.data.id);
+            if ('operation' in response.data) {
+                console.log('Communicator.onApiCall on ' + response.data.operation + ' operation successed, id ' + response.data.id);
+
+            } else {
+                console.log('Communicator.onApiCall successed, id ' + response.data.id);
+            }
 
         } else {
             console.log('Communicator.onApiCall -> warning: received no data in response from server');

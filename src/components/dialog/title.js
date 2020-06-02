@@ -13,7 +13,6 @@ export default class SMTitle extends React.Component {
     }
 
     onClose() {
-        // console.log('SMTitle:: onClose');
         this.props.onClick();
     }
 

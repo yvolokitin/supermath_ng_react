@@ -3,7 +3,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import axios from 'axios';
 
-import {update_counter, update_passfail, update_language,
+import {update_counter, update_user_scores, update_language,
         update_avatar, update_usersettings, } from './../halpers/communicator';
 
 import Help from './../header/help';
@@ -227,15 +227,6 @@ export default class SuperMathPage extends React.Component {
                 }
                 break;
 
-            // passfail: user exchange poops vs smiles
-            case 'passfail':
-                this.setState({passed: value, failed: asset});
-                if ((this.state.id > 0) && (pswdhash !== null)) {
-                    // updatePassFail(id, pswdhash, belt, passed, failed)
-                    update_passfail(this.state.id, pswdhash, this.state.belt, value, asset);
-                }
-                break;
-
             // from Account - Avatar Tab
             case 'avatar':
                 this.setState({avatar: value, screen: STATUS.NONE});
@@ -287,6 +278,7 @@ export default class SuperMathPage extends React.Component {
                 console.log('TBD: Excaping pswdhash');
                 break;
 
+            // passfail: user exchange poops vs smiles
             case 'exchange':
                 console.log('TBD: Excaping EXCHANGE ' + value.passed + ', ' + value.failed + ', ' + value.cards);
                 if ((this.state.id > 0) && (pswdhash !== null)) {
@@ -295,6 +287,9 @@ export default class SuperMathPage extends React.Component {
                         'failed': value.failed,
                         'cards': value.cards,
                     });
+
+                    // updatePassFail(id, pswdhash, belt, passed, failed)
+                    update_user_scores(this.state.id, pswdhash, this.state.belt, value);
                 }
                 break;
 
