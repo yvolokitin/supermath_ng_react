@@ -21,7 +21,7 @@ export default function Trophy(props) {
     const [scores, setScores] = useState([]);
     
     const onScoresUpdate = useCallback((response) => {
-        // console.log('Header.onScoresUpdate received ' + response.data);
+        // console.log('Trophy.onScoresUpdate received ' + response.data);
         var array = [];
         for (var i in response.data) {
             // console.log('avatar ' + response.data[i].avatar + ' -> ' + get_avatar_by_name(response.data[i].avatar));

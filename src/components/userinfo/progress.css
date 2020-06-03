@@ -1,7 +1,7 @@
-﻿.progress_board {
+﻿.progress_board_wrapper {
     height: 100%;
-    width: 100%;
-    margin-top: 20px;
+    width: auto;
+    margin-top: 25px;
 
     display: flex;
     flex-wrap: wrap;
@@ -10,16 +10,16 @@
 
     background-color: white;
 }
-.progress_board img {
+.progress_board {
     width: 90%;
-    height: auto;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
 @media only screen and (max-width: 860px) {
     .progress_board {
         width: 99%;
-    }
-    .progress_board img {
-        width: 95%;
-        height: auto;
     }
 }
