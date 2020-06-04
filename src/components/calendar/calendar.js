@@ -6,27 +6,67 @@ import './calendar.css';
 
 const monthes = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 
+var getDaysInMonth = function(month, year) {
+    var num = new Date(year, month, 0).getDate();
+    // console.log('' + year + '.' + month + ' -> ' + num);
+    return num;
+};
+
 export default function Calendar(props) {
     // const [loading, setLoading] = useState(true);
-    const [month, setCurMonth] = useState();
-    const [year, setCurYear] = useState();
+    const [current, setCurrent] = useState(0);
+    const [year, setCurYear] = useState(0);
+    const [days, setDays] = useState(0);
 
     useEffect(() => {
-        setCurMonth(monthes[(new Date()).getMonth()]);
+        var current_year = (new Date()).getFullYear();
+        var current_month = (new Date()).getMonth();
+        var get_days = getDaysInMonth(current_month+1, current_year)
+
+        setDays(get_days);
+        setCurrent((new Date()).getMonth());
         setCurYear((new Date()).getFullYear());
+
+        console.log('current_year ' + current_year + ', current_month ' + current_month + ' -> ' + get_days);
 
     }, [props.lang, props.id]);
 
+    function onMonthChange(navigation) {
+        if (navigation > 0) { // next month
+            if (current > (monthes.length-2)) {
+                setDays(getDaysInMonth(0, year + 1));
+                setCurYear(year + 1);
+                setCurrent(0);
+
+            } else {
+                setDays(getDaysInMonth(current + 1, year));
+                setCurrent(current + 1);
+            }
+        } else { // previous month
+            if (current > 0) {
+                setDays(getDaysInMonth(current - 1, year));
+                setCurrent(current - 1);
+            } else {
+                setDays(getDaysInMonth(11, year - 1));
+                setCurrent(11);
+                setCurYear(year - 1);
+            }
+        }
+    }
+
     /*
-                    
+    {scores.map((user, index)
     */
     return (
         <>
-            <div className='calendar_month'>
-                <div className='calendar_prev'>&#10094;</div>
-                <div className='calendar_month_month'> {calendar[props.lang][month]} </div>
-                <div className='calendar_month_year'> {year} </div>
-                <div className='calendar_next'>&#10095;</div>
+            <div className='calendar_wrapper'>
+                <div className='calendar_prev_next' style={{float: 'left'}} onClick={() => onMonthChange(-1)}>&#10094;</div>
+
+                <div className='calendar_month' style={{float: 'left'}}>
+                    {calendar[props.lang][monthes[current]]} <br/> {year}
+                </div>
+                
+                <div className='calendar_prev_next' style={{float: 'right'}} onClick={() => onMonthChange(1)}>&#10095;</div>
             </div>
 
             <div className='calendar_weekdays'>
@@ -37,6 +77,10 @@ export default function Calendar(props) {
                 <li> {calendar[props.lang]['FR']} </li>
                 <li> {calendar[props.lang]['SA']} </li>
                 <li> {calendar[props.lang]['SU']} </li>
+            </div>
+
+            <div className='calendar_days'>
+                {days}
             </div>
         </>
     );

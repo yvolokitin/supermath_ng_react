@@ -1,5 +1,5 @@
-﻿.calendar_month {
-    padding: 30px;
+﻿.calendar_wrapper {
+    height: 120px;
     width: 100%;
     background: orange;
     text-align: center;
@@ -7,26 +7,34 @@
     font-variant: small-caps;
     font-weight: bold;
     color: white;
+
+    display: flex;
 }
-.calendar_prev {
+.calendar_prev_next {
     height: 100%;
-    width: 10%;
-    float: left;
+    width: 7%;
     font-size: 2.0rem;
-    border: 1px solid black;
+
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: all 1.0s;
 }
-.calendar_next {
+.calendar_prev_next:hover {
+    background: #ffd9b3;
+    font-size: 2.5rem;
+}
+.calendar_month {
     height: 100%;
-    width: 10%;
-    float: right;
+    width: 85%;
+
     font-size: 2.0rem;
-    border: 1px solid black;
-}
-.calendar_month_month {
-    font-size: 2.0rem;
-}
-.calendar_month_year {
-    font-size: 1.35rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .calendar_weekdays {
     width: 100%;
@@ -45,9 +53,10 @@
     text-align: center;
 }
 .calendar_days {
+    width: 100%;
     padding: 10px 0;
-    background: #eee;
     margin: 0;
+    background: #eee;
 }
 .calendar_days li {
     list-style-type: none;
