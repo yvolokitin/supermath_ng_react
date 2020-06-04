@@ -6,28 +6,35 @@ import './calendar.css';
 
 const monthes = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 
-var getDaysInMonth = function(month, year) {
-    var num = new Date(year, month, 0).getDate();
-    // console.log('' + year + '.' + month + ' -> ' + num);
-    return num;
+/**
+ * Get number of days per exact month-year
+ * have to increment month due to Date().getMonth() returns month in range 0-11
+ *
+ */
+function getDaysInMonth(month, year) {
+    var num = new Date(year, month + 1, 0).getDate();
+    var days_num = new Array(num);
+    for (var i = 0; i < days_num.length; i++) {
+        days_num[i] = (i+1);
+    }
+
+    return days_num;
 };
 
 export default function Calendar(props) {
     // const [loading, setLoading] = useState(true);
     const [current, setCurrent] = useState(0);
     const [year, setCurYear] = useState(0);
-    const [days, setDays] = useState(0);
+    const [days, setDays] = useState([]);
 
     useEffect(() => {
         var current_year = (new Date()).getFullYear();
         var current_month = (new Date()).getMonth();
-        var get_days = getDaysInMonth(current_month+1, current_year)
+        var get_days = getDaysInMonth(current_month, current_year)
 
         setDays(get_days);
-        setCurrent((new Date()).getMonth());
-        setCurYear((new Date()).getFullYear());
-
-        console.log('current_year ' + current_year + ', current_month ' + current_month + ' -> ' + get_days);
+        setCurrent(current_month);
+        setCurYear(current_year);
 
     }, [props.lang, props.id]);
 
@@ -55,7 +62,7 @@ export default function Calendar(props) {
     }
 
     /*
-    {scores.map((user, index)
+
     */
     return (
         <>
@@ -80,7 +87,11 @@ export default function Calendar(props) {
             </div>
 
             <div className='calendar_days'>
-                {days}
+                {
+                    days.map((day, index) => (
+                        <li key={index}> {day} </li>
+                    ))
+                }
             </div>
         </>
     );
