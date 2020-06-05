@@ -52,7 +52,7 @@ export default function Calendar(props) {
                 'day': (i+1),
                 'name': name,
             };
-            console.log('day_num ' + i + ', name ' + name);
+            // console.log('day_num ' + i + ', name ' + name);
         }
 
         setDays(days_num);
@@ -113,7 +113,7 @@ export default function Calendar(props) {
             <div className='calendar_days'>
                 {
                     days.map((day, index) => (
-                        <li key={day.id}> {day.day}, {day.name} </li>
+                        <li key={day.id}> {day.day} </li>
                     ))
                 }
             </div>

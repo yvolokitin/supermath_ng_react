@@ -73,3 +73,16 @@
     color: #777;
     user-select: none;
 }
+@media only screen and (max-width: 740px) {
+    .calendar_wrapper {
+        height: 60px;
+    }
+    .calendar_month {
+        font-size: 1.2rem;
+    }
+    .calendar_weekdays {
+        padding: 3px 0;
+        font-size: 0.75rem;
+    }
+
+}
