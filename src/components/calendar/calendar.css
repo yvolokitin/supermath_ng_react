@@ -8,6 +8,7 @@
     font-weight: bold;
     color: white;
 
+    user-select: none;
     display: flex;
 }
 .calendar_prev_next {
@@ -31,6 +32,7 @@
     width: 85%;
 
     font-size: 2.0rem;
+    user-select: none;
 
     display: flex;
     align-items: center;
@@ -40,23 +42,26 @@
     width: 100%;
     margin: 0;
     padding: 10px 0;
-    background-color: #ddd;
 
     font-family: 'Roboto', Helvetica, Arial, sans-serif;
     font-size: 0.95rem;
     font-weight: bold;
+    user-select: none;
+    background-color: #ddd;
 }
 .calendar_weekdays li {
     display: inline-block;
     width: 13.6%;
     color: #666;
     text-align: center;
+    user-select: none;
 }
 .calendar_days {
     width: 100%;
     padding: 10px 0;
     margin: 0;
     background: #eee;
+    user-select: none;
 }
 .calendar_days li {
     list-style-type: none;
@@ -66,4 +71,5 @@
     margin-bottom: 5px;
     font-size:12px;
     color: #777;
+    user-select: none;
 }

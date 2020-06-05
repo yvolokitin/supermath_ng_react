@@ -1,62 +1,86 @@
-﻿import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState, useCallback } from 'react';
 //import axios from 'axios';
 
 import {calendar} from './../translations/calendar';
 import './calendar.css';
 
 const monthes = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
-
-/**
- * Get number of days per exact month-year
- * have to increment month due to Date().getMonth() returns month in range 0-11
- *
- */
-function getDaysInMonth(month, year) {
-    var num = new Date(year, month + 1, 0).getDate();
-    var days_num = new Array(num);
-    for (var i = 0; i < days_num.length; i++) {
-        days_num[i] = (i+1);
-    }
-
-    return days_num;
-};
+const weekdays = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
 
 export default function Calendar(props) {
     // const [loading, setLoading] = useState(true);
-    const [current, setCurrent] = useState(0);
-    const [year, setCurYear] = useState(0);
+    const [current, setCurrentMonth] = useState(0);
+    const [year, set_year] = useState(0);
     const [days, setDays] = useState([]);
+
+    /**
+     * Set number of days per exact month-year
+     * have to increment month due to Date().getMonth() returns month in range 0-11
+     */
+    const set_month_days = useCallback((month, year) => {
+        // console.log('set_month_days, month ' + month + ', year ' + year);
+        var days_num = [], number = new Date(year, month + 1, 0).getDate();
+
+        // filling array with empty 
+        var counter = 0;        
+        while (counter < (weekdays.length - 1)) {
+            var first = (new Date(year, month, 1)).getDay();
+            if (weekdays[first] !== weekdays[counter + 1]) {
+                days_num[counter] = {
+                    'id': 'fake_day_' + (counter+1),
+                    'date': '',
+                    'day': '',
+                    'name': '',
+                };
+                counter++;
+            } else {
+                break;
+            }
+        }
+
+        for (var i = 0; i < number; i++) {
+            var date = new Date(year, month, i+1);
+            // getDay() is an integer corresponding to the day of the week:
+            // 0 for Sunday, 1 for Monday, 2 for Tuesday, and so on.
+            var day_name = weekdays[date.getDay()];
+            var name = calendar[props.lang][day_name];
+            var day_id = date.toString() + ', ' + i;
+
+            days_num[(i+counter)] = {
+                'id': day_id,
+                'date': date,
+                'day': (i+1),
+                'name': name,
+            };
+            console.log('day_num ' + i + ', name ' + name);
+        }
+
+        setDays(days_num);
+        setCurrentMonth(month);
+    }, [props.lang] )
 
     useEffect(() => {
         var current_year = (new Date()).getFullYear();
         var current_month = (new Date()).getMonth();
-        var get_days = getDaysInMonth(current_month, current_year)
+        set_month_days(current_month, current_year)
+        set_year(current_year);
 
-        setDays(get_days);
-        setCurrent(current_month);
-        setCurYear(current_year);
-
-    }, [props.lang, props.id]);
+    }, [props.lang, props.id, set_month_days]);
 
     function onMonthChange(navigation) {
         if (navigation > 0) { // next month
             if (current > (monthes.length-2)) {
-                setDays(getDaysInMonth(0, year + 1));
-                setCurYear(year + 1);
-                setCurrent(0);
-
+                set_month_days(0, year + 1);
+                set_year(year + 1);
             } else {
-                setDays(getDaysInMonth(current + 1, year));
-                setCurrent(current + 1);
+                set_month_days(current + 1, year);
             }
         } else { // previous month
             if (current > 0) {
-                setDays(getDaysInMonth(current - 1, year));
-                setCurrent(current - 1);
+                set_month_days(current - 1, year);
             } else {
-                setDays(getDaysInMonth(11, year - 1));
-                setCurrent(11);
-                setCurYear(year - 1);
+                set_month_days(11, year - 1);
+                set_year(year - 1);
             }
         }
     }
@@ -89,7 +113,7 @@ export default function Calendar(props) {
             <div className='calendar_days'>
                 {
                     days.map((day, index) => (
-                        <li key={index}> {day} </li>
+                        <li key={day.id}> {day.day}, {day.name} </li>
                     ))
                 }
             </div>
