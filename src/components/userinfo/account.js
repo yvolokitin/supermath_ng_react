@@ -133,10 +133,15 @@ export default function Account(props) {
             <div className='account_board_wrapper'>
                 <div className='account_board'>
                     <div className='account_board_user_info'>
-                        <div className='account_board_user_info_line'>
-                            {props.name} {props.surname}, {props.age} {account[props.lang]['years']}
-                        </div>
-
+                        { (props.width > 440) ? (
+                            <div className='account_board_user_info_line'>
+                                {props.name} {props.surname}, {props.age} {account[props.lang]['years']}
+                            </div>
+                        ) : (
+                            <div className='account_board_user_info_line'>
+                                {props.name} {props.surname}, {props.age}
+                            </div>
+                        )}
                         <div className='account_board_user_info_line'>
                             <font style={{color:'green'}}> {props.passed} </font>
                             <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>

@@ -515,7 +515,7 @@ export default class SuperMathPage extends React.Component {
                     lang={this.state.lang}/>
 
                 <Account open={this.state.screen === STATUS.ACCOUNT}
-                    onUpdate={this.onUserInfo}
+                    onUpdate={this.onUserInfo} width={this.state.width}
                     id={this.state.id} email={this.state.email}
                     name={this.state.name} surname={this.state.surname}
                     age={this.state.age} birthday={this.state.birthday} 

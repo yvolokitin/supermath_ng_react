@@ -27,6 +27,10 @@
     height: 100%;
     float: left;
     display: block;
+
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: clip; 
 }
 .account_board_user_info_line {
     padding-left: 3%;
@@ -118,6 +122,13 @@
 }
 @media only screen and (max-width: 740px) {
     .account_board_wrapper {
-        height: 120px;
+        height: 160px;
+    }
+}
+@media only screen and (max-width: 440px) {
+    .account_board_wrapper {
+        height: 160px;
+    }
+    .account_board_user_info {
     }
 }

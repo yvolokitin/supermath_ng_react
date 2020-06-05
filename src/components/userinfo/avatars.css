@@ -61,7 +61,7 @@
 }
 @media only screen and (max-width: 860px) {
     .avatars_board_wrapper {
-        margin-top: 5px;
+        margin-top: 10px;
     }
     .avatars_board {
         width: 99%;
