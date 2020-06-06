@@ -196,8 +196,10 @@ export default function Account(props) {
                 lang={props.lang}/>
 
             <Progress open={current === SCREEN.PROGRESS}
+                id={props.id}
                 name={props.name}
-                lang={props.lang}/>
+                lang={props.lang}
+                pswdhash={props.pswdhash}/>
 
             <Logout open={logout}
                 name={props.name}

@@ -1,5 +1,5 @@
 ﻿import React, { useEffect, useState, useCallback } from 'react';
-//import axios from 'axios';
+import axios from 'axios';
 
 import {calendar} from './../translations/calendar';
 import './calendar.css';
@@ -8,7 +8,7 @@ const monthes = ['january', 'february', 'march', 'april', 'may', 'june', 'july',
 const weekdays = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
 
 export default function Calendar(props) {
-    // const [loading, setLoading] = useState(true);
+    const [results, setResults] = useState([]);
     const [current, setCurrentMonth] = useState(0);
     const [year, set_year] = useState(0);
     const [days, setDays] = useState([]);
@@ -59,13 +59,67 @@ export default function Calendar(props) {
         setCurrentMonth(month);
     }, [props.lang] )
 
+    const onResultsUpdate = useCallback((response) => {
+        var array = [];
+        for (var name in response.data) {
+            var date = new Date(response.data[name]['date']);
+            console.log('Calendar.onResultsUpdate received ' + date.getDate() + ': ' + response.data[name]['percent']);
+
+            var data = {
+                'date': date,
+                'day': date.getDate(),
+                'passed': response.data[name]['passed'],
+                'failed': response.data[name]['failed'],
+                'percent': response.data[name]['percent'],
+                'duration': response.data[name]['duration'],
+                'rate': response.data[name]['rate'],
+                'belt': response.data[name]['belt'],
+                'task': response.data[name]['task'],
+            };
+            array.push(data);
+        }
+
+        setResults(array);
+    }, [ ])
+
+    const onResultsError = useCallback((error) => {
+        console.log('Header.onScoresError ' + error);
+    }, [ ])
+
+    /*
+         = request.json.get('user_id')
+        pswdhash = request.json.get('pswdhash')
+        month = request.json.get('month')
+    */
+    const get_results = useCallback(() => {
+        var post_data = {
+            'user_id': props.id,
+            'pswdhash': props.pswdhash,
+            'month': current,
+        };
+        axios.post('http://supermath.xyz:3000/api/results', post_data)
+             .then(onResultsUpdate)
+             .catch(onResultsError);
+
+    }, [current, props.id, props.pswdhash, onResultsUpdate, onResultsError])
+
+    /**
+     * useEffect is Effect Hook for componentDidMount and componentDidUpdate
+     */
     useEffect(() => {
         var current_year = (new Date()).getFullYear();
         var current_month = (new Date()).getMonth();
-        set_month_days(current_month, current_year)
+
+        set_month_days(current_month, current_year);
         set_year(current_year);
 
-    }, [props.lang, props.id, set_month_days]);
+        setResults([]);
+
+        if (props.id > 0) {
+            get_results();
+        }
+
+    }, [props.lang, props.id, set_month_days, get_results]);
 
     function onMonthChange(navigation) {
         if (navigation > 0) { // next month
@@ -86,7 +140,7 @@ export default function Calendar(props) {
     }
 
     /*
-
+results.length > 0
     */
     return (
         <>
@@ -113,7 +167,13 @@ export default function Calendar(props) {
             <div className='calendar_days'>
                 {
                     days.map((day, index) => (
-                        <li key={day.id}> {day.day} </li>
+                        <li key={day.id}>
+                            {(results.some(result => result.day === day.day)) ? (
+                                <font style={{color:'green'}}>{day.day}</font>
+                            ) : (
+                                <font style={{color:'red'}}>{day.day}</font>
+                            )}
+                        </li>
                     ))
                 }
             </div>

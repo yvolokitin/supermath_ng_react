@@ -21,7 +21,11 @@ export default function Progress(props) {
         <Typography hidden={hidden} component='div'>
             <div className='progress_board_wrapper'>
                 <div className='progress_board'>
-                    <Calendar lang={props.lang}/>
+
+                    <Calendar id={props.id}
+                        pswdhash={props.pswdhash} 
+                        name={props.name}
+                        lang={props.lang}/>
 
                 </div>
             </div>

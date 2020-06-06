@@ -322,7 +322,8 @@ export default class SuperMathPage extends React.Component {
         if (result === 'successed') {
             console.log('Header.onResult ' + data.passed + ', ' + data.failed + ', solved: ' + data.solved);
 
-            for (var pname in data) { console.log(pname, data[pname]); }
+            // to show all received user data
+            // for (var pname in data) { console.log(pname, data[pname]); }
 
             // age calculation based on server response value
             // 'birthday': 'Tue, 28 Jan 2014 06:13:13 GMT' -> need to convert in years
@@ -414,15 +415,7 @@ export default class SuperMathPage extends React.Component {
     }
 
     /*
-                <UserInformation open={this.state.screen === STATUS.USERINFO}
-                    onUpdate={this.onUserInfo}
-                    id={this.state.id} email={this.state.email}
-                    name={this.state.name} surname={this.state.surname}
-                    age={this.state.age} avatar={this.state.avatar}
-                    passed={this.state.passed} failed={this.state.failed}
-                    birthday={this.state.birthday} lang={this.state.lang}/>
-
-                  <font onClick={() => this.setState({screen: STATUS.LOGOUT})} className='div_login'>{header[this.state.lang]['logout']}</font>
+        <font onClick={() => this.setState({screen: STATUS.LOGOUT})} className='div_login'>{header[this.state.lang]['logout']}</font>
     */
     render() {
         return (
@@ -448,7 +441,6 @@ export default class SuperMathPage extends React.Component {
                         <div className='div_trophy' onClick={() => this.setState({screen: STATUS.TROPHY})}>
                             <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127942;</span>
                         </div>
-
                     </div>
 
                     <div className='header_div_right'>
@@ -521,7 +513,7 @@ export default class SuperMathPage extends React.Component {
                     age={this.state.age} birthday={this.state.birthday} 
                     avatar={this.state.avatar} cards={this.state.cards}
                     passed={this.state.passed} failed={this.state.failed}
-                    lang={this.state.lang}/>
+                    pswdhash={this.state.pswdhash} lang={this.state.lang}/>
 
                 <Registration open={this.state.screen === STATUS.REGISTER}
                     onClose={this.onResult}
