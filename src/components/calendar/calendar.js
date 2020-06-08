@@ -9,8 +9,8 @@ const weekdays = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
 
 export default function Calendar(props) {
     const [results, set_results] = useState([]);
-    const [month, set_month] = useState(0);
-    const [year, set_year] = useState(0);
+    const [month, set_month] = useState((new Date()).getMonth());
+    const [year, set_year] = useState((new Date()).getFullYear());
     const [days, set_days] = useState([]);
 
     const onResultsUpdate = useCallback((response) => {
@@ -41,87 +41,81 @@ export default function Calendar(props) {
     }, [ ])
 
     const get_results = useCallback((new_month, new_year) => {
-        if (new_month !== month) {
-            console.log('!!!!!!!!!! get_results');
-            var post_data = {
-                'user_id': props.id,
-                'pswdhash': props.pswdhash,
-                'month': new_month,
-                'year': new_year,
-            };
-            axios.post('http://supermath.xyz:3000/api/results', post_data)
-                 .then(onResultsUpdate)
-                 .catch(onResultsError);
-        }
+        // console.log('get_results');
+        var post_data = {
+            'user_id': props.id,
+            'pswdhash': props.pswdhash,
+            // due to getMonth returns value in range 0..11
+            'month': new_month+1,
+            'year': new_year,
+        };
+        axios.post('http://supermath.xyz:3000/api/results', post_data)
+            .then(onResultsUpdate)
+            .catch(onResultsError);
 
-    }, [props.id, props.pswdhash, month, onResultsUpdate, onResultsError])
+    }, [props.id, props.pswdhash, onResultsUpdate, onResultsError])
 
     /**
      * Set number of days per exact month-year
      * have to increment month due to Date().getMonth() returns month in range 0-11
      */
     const set_month_days = useCallback((new_month, new_year) => {
-        console.log('set_month_days, new_month ' + new_month + ', old_month ' + month + ', new_year ' + new_year);
-        if (new_month !== month) {
-            var days_num = [], number = new Date(new_year, new_month+1, 0).getDate();
+        // console.log('set_month_days, new_month ' + new_month + ', old_month ' + month + ', new_year ' + new_year);
+        var days_num = [], number = new Date(new_year, new_month+1, 0).getDate();
 
-            // filling array with empty 
-            var counter = 0;        
-            while (counter < (weekdays.length - 1)) {
-                var first = (new Date(new_year, new_month, 1)).getDay();
-                if (weekdays[first] !== weekdays[counter + 1]) {
-                    days_num[counter] = {
-                        'id': 'fake_day_' + (counter+1),
-                        'date': '',
-                        'day': '',
-                        'name': '',
-                    };
-                    counter++;
-                } else {
-                    break;
-                }
-            }
-
-            for (var i = 0; i < number; i++) {
-                var date = new Date(new_year, new_month, i+1);
-                // getDay() is an integer corresponding to the day of the week:
-                // 0 for Sunday, 1 for Monday, 2 for Tuesday, and so on.
-                var day_name = weekdays[date.getDay()];
-                var name = calendar[props.lang][day_name];
-                var day_id = date.toString() + ', ' + i;
-                days_num[(i+counter)] = {
-                    'id': day_id,
-                    'date': date,
-                    'day': (i+1),
-                    'name': name,
+        // filling array with empty 
+        var counter = 0;        
+        while (counter < (weekdays.length - 1)) {
+            var first = (new Date(new_year, new_month, 1)).getDay();
+            if (weekdays[first] !== weekdays[counter + 1]) {
+                days_num[counter] = {
+                    'id': 'fake_day_' + (counter+1),
+                    'date': '',
+                    'day': '',
+                    'name': '',
                 };
+                counter++;
+            } else {
+                break;
             }
-
-            set_days(days_num);
         }
 
-    }, [props.lang, month] )
+        for (var i = 0; i < number; i++) {
+            var date = new Date(new_year, new_month, i+1);
+            // getDay() is an integer corresponding to the day of the week:
+            // 0 for Sunday, 1 for Monday, 2 for Tuesday, and so on.
+            var day_name = weekdays[date.getDay()];
+            var name = calendar[props.lang][day_name];
+            var day_id = date.toString() + ', ' + i;
+            days_num[(i+counter)] = {
+                'id': day_id,
+                'date': date,
+                'day': (i+1),
+                'name': name,
+            };
+        }
+
+        set_days(days_num);
+
+    }, [props.lang])
 
     /**
      * useEffect is Effect Hook for componentDidMount and componentDidUpdate
      */
     useEffect(() => {
-        var current_month = (new Date()).getMonth();
-        var current_year = (new Date()).getFullYear();
+        console.log('useEffect -> month ' + month + ', year ' + year);
 
-        console.log('!!!!!!!!!! useEffect -> month ' + current_month + ', year ' + current_year);
-
-        set_month(current_month);
-        set_year(current_year);
-        set_month_days(current_month, current_year);
+        set_month(month);
+        set_year(year);
+        set_month_days(month, year);
 
         if (props.id > 0) {
-            get_results(current_month, current_year);
+            get_results(month, year);
         } else {
             set_results([]);
         }
 
-    }, [props.lang, props.id, set_month_days, get_results]);
+    }, [props.lang, props.id, month, year, set_month_days, get_results]);
 
     function on_month(navigation) {
         if (navigation > 0) { // next month
@@ -143,6 +137,7 @@ export default function Calendar(props) {
     }
 
     /*
+                                    {(calendar_days_cell_box) ? () : ()}
     */
     return (
         <>
