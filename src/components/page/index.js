@@ -226,7 +226,12 @@ export default class SuperMathPage extends React.Component {
                 if ((this.state.id > 0) && (pswdhash !== null)) {
                     var new_passed = parseInt(this.state.passed) + parseInt(value.passed);
                     var new_failed = parseInt(this.state.failed) + parseInt(value.failed);
-                    if ((parseInt(value.failed) === 0) && (parseInt(value.passed) > 0)) {
+
+                    // black belt is excluded form solved
+                    if ((parseInt(value.failed) === 0) &&
+                        (parseInt(value.passed) > 0) &&
+                        (value.game_uid.includes('black') === false)) {
+
                         var new_solved = this.state.solved + value.game_uid + ',';
                         var new_cards = parseInt(this.state.cards) + 1;
                         this.setState({
