@@ -19,8 +19,8 @@ const SCREEN = {
     NONE: 0,
     AVATARS: 1,
     SETTINGS: 2,
-    EXCHANGE: 3,
-    PROGRESS: 4,
+    PROGRESS: 3,
+    EXCHANGE: 4,
     FRIENDS: 5,
 }
 
@@ -51,7 +51,6 @@ function AccountTab(props) {
 }
 
 export default function Account(props) {
-    // const [current, setCurrent] = useState(SCREEN.AVATARS);
     const [current, setCurrent] = useState(SCREEN.PROGRESS);
     const [avatar, setAvatar] = useState('');
     const [avatar_name, setAvatarName] = useState('');
@@ -60,8 +59,8 @@ export default function Account(props) {
     const tabs = [
         {id: 1, name: account[props.lang]['avatar']},
         {id: 2, name: account[props.lang]['settings']},
-        {id: 3, name: account[props.lang]['exchange']},
-        {id: 4, name: account[props.lang]['progress']},
+        {id: 3, name: account[props.lang]['progress']},
+        {id: 4, name: account[props.lang]['exchange']},
         {id: 5, name: account[props.lang]['friends']},
     ];
 

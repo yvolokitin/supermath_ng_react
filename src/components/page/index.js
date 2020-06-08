@@ -125,6 +125,17 @@ export default class SuperMathPage extends React.Component {
     }
 
     componentDidMount() {
+        if ((this.state.id > 0) && (this.state.pswdhash.length > 0)) {
+            // console.log('refreshing ' + this.state.id + ', pswdhash: ' + this.state.pswdhash);
+            var post_data = {
+                'user_id': this.state.id,
+                'pswdhash': this.state.pswdhash,
+                'refresh': false};
+            axios.post('http://supermath.xyz:3000/api/refresh', post_data)
+                 .then(this.onApiUpdate)
+                 .catch(this.onApiUpdateError);
+        }
+
         window.addEventListener('resize', this.onWidthChange);
         // this.loadFbLoginApi();
     }
@@ -148,7 +159,11 @@ export default class SuperMathPage extends React.Component {
         var pswdhash = localStorage.getItem('pswdhash');
         console.log('Header.onRefresh ' + this.state.id + ', pswdhash: ' + pswdhash);
         if ((this.state.id > 0) && (pswdhash !== null)) {
-            var post_data = {'user_id': this.state.id, 'pswdhash': pswdhash};
+            var post_data = {
+                'user_id': this.state.id,
+                'pswdhash': pswdhash,
+                'refresh': true,
+            };
             axios.post('http://supermath.xyz:3000/api/refresh', post_data)
                  .then(this.onApiUpdate)
                  .catch(this.onApiUpdateError);
