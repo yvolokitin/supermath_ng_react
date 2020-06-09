@@ -20,6 +20,8 @@ import Account from './../userinfo/account';
 import {avatars} from './../halpers/avatars';
 import Tabs from "./../body/tabs";
 
+import {get_lang, set_item, get_item} from './../halpers/localstorage';
+
 import './index.css';
 
 import {header} from './../translations/header';
@@ -42,21 +44,6 @@ const STATUS = {
 export default class SuperMathPage extends React.Component {
     constructor(props) {
         super(props);
-
-        // language detector
-        const getNavigatorLanguage = () => (navigator.languages && navigator.languages.length) ? navigator.languages[0] : navigator.userLanguage || navigator.language || navigator.browserLanguage || 'en';
-        var language = localStorage.getItem('lang');
-        if (language === null) {
-            language = getNavigatorLanguage();
-            if (language.includes('ru')) { language = 'ru'; }
-            else if (language.includes('nl')) { language = 'nl'; }
-            else if (language.includes('de')) { language = 'de'; }
-            else if (language.includes('es')) { language = 'es'; }
-            else if (language.includes('it')) { language = 'it'; }
-            else if (language.includes('fr')) { language = 'fr'; }
-            else { language = 'en'; }
-        }
-
         this.onApiUpdate = this.onApiUpdate.bind(this);
         this.onApiUpdateError = this.onApiUpdateError.bind(this);
 
@@ -70,29 +57,34 @@ export default class SuperMathPage extends React.Component {
         this.onWidthChange = this.onWidthChange.bind(this);
         this.loadFbLoginApi = this.loadFbLoginApi.bind(this);
 
+        var active_user = get_active_user();
         this.state = {
             width: window.innerWidth,
             screen: STATUS.NONE,
+
+            // get active user id and language
+            id: active_user,
+            lang: get_lang(active_user),
+
             // current user information
-            lang: language,
-            id: localStorage.getItem('user_id') ? parseInt(localStorage.getItem('user_id')) : 0,
-            email: localStorage.getItem('email') ? localStorage.getItem('email') : '',
-            name: localStorage.getItem('name') ? localStorage.getItem('name') : '',
-            surname: localStorage.getItem('surname') ? localStorage.getItem('surname') : '',
-            cards: localStorage.getItem('cards') ? localStorage.getItem('cards') : 0,
-            passed: localStorage.getItem('passed') ? localStorage.getItem('passed') : 0,
-            failed: localStorage.getItem('failed') ? localStorage.getItem('failed') : 0,
-            belt: localStorage.getItem('belt') ? localStorage.getItem('belt') : 'white',
-            avatar: localStorage.getItem('avatar') ? localStorage.getItem('avatar') : 'martin-berube',
-            birthday: localStorage.getItem('birthday') ? localStorage.getItem('birthday') : '',
-            age: localStorage.getItem('age') ? localStorage.getItem('age') : '',
-            solved: localStorage.getItem('solved') ? localStorage.getItem('solved') : '',
-            pswdhash: localStorage.getItem('pswdhash') ? localStorage.getItem('pswdhash') : '',
+            email: get_item(active_user, 'email'),
+            name: get_item(active_user, 'name'),
+            surname: get_item(active_user, 'surname'),
+            cards: get_item(active_user, 'cards'),
+            passed: get_item(active_user, 'passed'),
+            failed: get_item(active_user, 'failed'),
+            belt: get_item(active_user, 'belt'),
+            avatar: get_item(active_user, 'avatar'),
+            birthday: get_item(active_user, 'birthday'),
+            age: get_item(active_user, 'age'),
+            solved: get_item(active_user, 'solved'),
+            pswdhash: get_item(active_user, 'pswdhash'),
         };
     }
 
     /**
-     *  The method FB.getLoginStatus can no longer be called from http pages. https://developers.facebook.com/blog/post/2018/06/08/enforce-https-facebook-login/
+     * The method FB.getLoginStatus can no longer be called from http pages.
+     * https://developers.facebook.com/blog/post/2018/06/08/enforce-https-facebook-login/
      */
     loadFbLoginApi() {
         // facebook api
@@ -156,9 +148,8 @@ export default class SuperMathPage extends React.Component {
     onRefresh(event) {
         event.preventDefault();
 
-        var pswdhash = localStorage.getItem('pswdhash');
-        console.log('Header.onRefresh ' + this.state.id + ', pswdhash: ' + pswdhash);
-        if ((this.state.id > 0) && (pswdhash !== null)) {
+        console.log('Header.onRefresh ' + this.state.id + ', pswdhash: ' + this.state.pswdhash);
+        if ((this.state.id > 0) && (this.state.pswdhash !== '')) {
             var post_data = {
                 'user_id': this.state.id,
                 'pswdhash': pswdhash,
@@ -195,7 +186,6 @@ export default class SuperMathPage extends React.Component {
     onUserInfo(property, value, asset='n/a') {
         console.log('Header.onUserInfo ' + property + ': ' + value + ', ' + asset);
 
-        var pswdhash = localStorage.getItem('pswdhash');
         switch (property) {
             case 'close':
                 this.setState({screen: STATUS.NONE});
@@ -203,22 +193,6 @@ export default class SuperMathPage extends React.Component {
 
             case 'logout':
                 this.setState({screen: STATUS.NONE, id: 0, solved: ''});
-                // remove all info from local storage
-                localStorage.removeItem('user_id');
-                localStorage.removeItem('name');
-                localStorage.removeItem('pswdhash');
-                localStorage.removeItem('email');
-                localStorage.removeItem('surname');
-                localStorage.removeItem('birthday');
-                localStorage.removeItem('avatar');
-                localStorage.removeItem('passed');
-                localStorage.removeItem('failed');
-                localStorage.removeItem('cards');
-                localStorage.removeItem('solved');
-                localStorage.removeItem('age');
-                // keep language and belt properties
-                // localStorage.removeItem('lang');
-                // localStorage.removeItem('belt');
                 break;
 
             // counter: user game results from task
@@ -322,7 +296,7 @@ export default class SuperMathPage extends React.Component {
     onLanguage(language) {
         if (this.state.lang !== language) {
             this.setState({screen: STATUS.NONE, lang: language});
-            localStorage.setItem('lang', language);
+            set_lang(this.state.id, language);
             if (this.state.id > 0) {
                 // update_language(id, language)
                 update_language(this.state.id, language);
@@ -370,20 +344,22 @@ export default class SuperMathPage extends React.Component {
                 'age': age,
             });
 
+            set_active_user(parseInt(data.id));
+
             // use HTML5 Local Storage if browser supports it
-            localStorage.setItem('user_id', data.id);
-            localStorage.setItem('name', data.name);
-            localStorage.setItem('email', data.email);
-            localStorage.setItem('surname', data.surname);
-            localStorage.setItem('birthday', data.birthday);
-            localStorage.setItem('avatar', data.avatar);
-            localStorage.setItem('passed', data.passed);
-            localStorage.setItem('failed', data.failed);
-            localStorage.setItem('cards', data.cards);
-            localStorage.setItem('lang', data.lang);
-            localStorage.setItem('belt', data.belt);
-            localStorage.setItem('solved', data.solved);
-            localStorage.setItem('age', age);
+            localStorage.setItem(prefix + 'user_id', data.id);
+            localStorage.setItem(prefix + 'name', data.name);
+            localStorage.setItem(prefix + 'email', data.email);
+            localStorage.setItem(prefix + 'surname', data.surname);
+            localStorage.setItem(prefix + 'birthday', data.birthday);
+            localStorage.setItem(prefix + 'avatar', data.avatar);
+            localStorage.setItem(prefix + 'passed', data.passed);
+            localStorage.setItem(prefix + 'failed', data.failed);
+            localStorage.setItem(prefix + 'cards', data.cards);
+            localStorage.setItem(prefix + 'lang', data.lang);
+            localStorage.setItem(prefix + 'belt', data.belt);
+            localStorage.setItem(prefix + 'solved', data.solved);
+            localStorage.setItem(prefix + 'age', age);
 
         } else if (result === 'register') {
             this.setState({screen: STATUS.REGISTER});
@@ -481,6 +457,18 @@ export default class SuperMathPage extends React.Component {
                             </>
                         ) : (
                             <>
+                                { (this.state.passed > 0 && false) ? (
+                                    <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo' style={{color:'green'}}>
+                                        {this.state.passed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
+                                    </font>
+                                ) : (<> </>)}
+
+                                { (this.state.failed > 0 && false) ? (
+                                    <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo' style={{color:'red'}}>
+                                        {this.state.failed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
+                                    </font> 
+                                ) : (<> </>)}
+
                                 <div className='div_register' onClick={() => this.setState({screen: STATUS.REGISTER})}>
                                     {header[this.state.lang]['register']}
                                 </div>

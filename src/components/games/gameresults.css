@@ -31,12 +31,19 @@
     width: 49%;
     height: 100%;
     float: left;
+
     text-align: left;
+    display: flex;
+    align-items: center;
 }
 .result_board_title_right {
     width: 50%;
+    height: 100%;
     float: right;
+
     text-align: right;
+    display: flex;
+    align-items: center;
 }
 .result_board_chart {
     width: 90%;

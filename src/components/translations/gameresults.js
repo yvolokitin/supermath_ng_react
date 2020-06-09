@@ -2,7 +2,7 @@
 export const gameresults = {
     // English
     'en': {
-        'time': 'you time:',
+        'time': 'Execution time:',
         'hours': 'hours',
         'minutes': 'minutes',
         'seconds': 'seconds',
@@ -10,6 +10,7 @@ export const gameresults = {
         'score': 'score',
         'register': 'proceed with registration and',
         'registration': 'registration',
+        'progress': 'progress',
         'save_results': 'you will keep results and point!',
         'brain': 'and your brain take extra',
         'pill': 'pill to became more',
@@ -36,6 +37,7 @@ export const gameresults = {
         'score': 'результат',
         'register': 'зарегистрируйся на SuperMath и ',
         'registration': 'регистрация',
+        'progress': 'прогресс',
         'save_results': 'сохраняй результаты выполнения задач и очки!',
         'brain': 'твой мозг ролучил ещё одну',
         'pill': 'витаминку, чтобы стать более',
@@ -54,7 +56,7 @@ export const gameresults = {
     },
     // Dutch
     'nl' : {
-        'time': 'you time:',
+        'time': 'Execution time:',
         'hours': 'hours',
         'minutes': 'minutes',
         'seconds': 'seconds',
@@ -62,6 +64,7 @@ export const gameresults = {
         'score': 'score',
         'register': 'you can keep results if you proceed with registration',
         'registration': 'registration',
+        'progress': 'progress',
         'brain': 'and your brain take extra',
         'pill': 'pill to became more',
         'smart': 'smart, strong',
@@ -79,7 +82,7 @@ export const gameresults = {
     },
     // French
     'fr' : {
-        'time': 'You time:',
+        'time': 'Execution time:',
         'hours': 'hours',
         'minutes': 'minutes',
         'seconds': 'seconds',
@@ -87,6 +90,7 @@ export const gameresults = {
         'score': 'score',
         'register': 'you can keep results if you proceed with registration',
         'registration': 'registration',
+        'progress': 'progress',
         'brain': 'and your brain take extra',
         'pill': 'pill to became more',
         'smart': 'smart, strong',
@@ -104,7 +108,7 @@ export const gameresults = {
     },
     // German
     'de' : {
-        'time': 'You time:',
+        'time': 'Execution time:',
         'hours': 'hours',
         'minutes': 'minutes',
         'seconds': 'seconds',
@@ -112,6 +116,7 @@ export const gameresults = {
         'score': 'score',
         'register': 'you can keep results if you proceed with registration',
         'registration': 'registration',
+        'progress': 'progress',
         'brain': 'and your brain take extra',
         'pill': 'pill to became more',
         'smart': 'smart, strong',
@@ -129,7 +134,7 @@ export const gameresults = {
     },
     // Spanish
     'es' : {
-        'time': 'You time:',
+        'time': 'Execution time:',
         'hours': 'hours',
         'minutes': 'minutes',
         'seconds': 'seconds',
@@ -137,6 +142,7 @@ export const gameresults = {
         'score': 'score',
         'register': 'you can keep results if you proceed with registration',
         'registration': 'registration',
+        'progress': 'progress',
         'brain': 'and your brain take extra',
         'pill': 'pill to became more',
         'smart': 'smart, strong',
@@ -154,7 +160,7 @@ export const gameresults = {
     },
     // Italian
     'it' : {
-        'time': 'You time:',
+        'time': 'Execution time:',
         'hours': 'hours',
         'minutes': 'minutes',
         'seconds': 'seconds',
@@ -162,6 +168,7 @@ export const gameresults = {
         'score': 'score',
         'register': 'you can keep results if you proceed with registration',
         'registration': 'registration',
+        'progress': 'progress',
         'brain': 'and your brain take extra',
         'pill': 'pill to became more',
         'smart': 'smart, strong',

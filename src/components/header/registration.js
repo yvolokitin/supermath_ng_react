@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dialog, TextField, FormControlLabel, Checkbox, Link} from '@material-ui/core';
+import {Dialog, Slide, TextField, FormControlLabel, Checkbox, Link} from '@material-ui/core';
 import {Snackbar, CircularProgress} from '@material-ui/core';
 
 import Alert from '@material-ui/lab/Alert';
@@ -15,12 +15,16 @@ import {registration} from './../translations/registration';
 
 import axios from 'axios';
 
-// import image from './../../images/monsters/Avengers-Iron-Man-icon.png';
+//import image from './../../images/help/sign-up.png';
 import image from './../../images/help/sign-up.png';
 import SMTitle from './../dialog/title';
 import ColorLine from './../line/line';
 
 import './registration.css';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction='down' ref={ref} {...props} />;
+});
 
 /*
 
@@ -146,7 +150,10 @@ export default class Registration extends React.Component {
     */
     render() {
         return (
-            <Dialog transitionDuration={600} fullScreen={this.props.fullScreen} fullWidth={true} maxWidth='md' scroll='body' open={this.props.open}>
+            <Dialog open={this.props.open} fullScreen={this.props.fullScreen}
+                fullWidth={true} maxWidth='md' scroll='body'
+                TransitionComponent={Transition} transitionDuration={600}>
+
                 <SMTitle title='' onClick={() => this.onClose('close')}/>
                 <ColorLine/>
 

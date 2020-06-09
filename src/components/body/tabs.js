@@ -95,17 +95,17 @@ export default function Tabs(props) {
     }
 
     function onGameClose(status, data) {
-        console.log('Tabs.onGameClose ' + status + ': ' + data.passed + ', ' + data.failed);
         if ((status === 'close') || (status === 'register')) {
             setGameOpen(false);
         }
 
         if (props.id > 0) {
-            if (data !== undefined) {
+            if (('failed' in data) && ('passed' in data)) {
                 if ((data.failed > 0) || (data.passed > 0)) {
                     props.onUpdate('counter', data);
                 }
             }
+
         } else if (status === 'register') {
             props.onUpdate(status, data);
         }

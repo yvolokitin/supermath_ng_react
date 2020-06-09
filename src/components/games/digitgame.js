@@ -7,11 +7,22 @@ import GameFooter from "./digitgamefooter";
 import GameBoard from "./gameboard";
 import GameResults from "./gameresults";
 
+import SMTitle from './../dialog/title';
+import ColorLine from './../line/line';
+import Calendar from './../calendar/calendar';
+
 import './digitgame.css';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='down' ref={ref} {...props} />;
 });
+
+const DG_STATUS = {
+    NONE: 0,
+    GAME: 1,
+    RESULTS: 2,
+    PROGRESS: 3,
+}
 
 export default class DigitGame extends React.Component {
     constructor(props) {
@@ -21,16 +32,19 @@ export default class DigitGame extends React.Component {
         this.onColorUpdate = this.onColorUpdate.bind(this);
         this.onCounterUpdate = this.onCounterUpdate.bind(this);
 
-        this.state = {type: props.type,
-                      task: props.task,
-                      amount: props.amount,
-                      showResults: false,
-                      results: [],
-                      circle: 'white',
-                      total: 0,
-                      passed: 0,
-                      failed: 0,
-                      duration: 0};
+        this.state = {
+            status: DG_STATUS.GAME,
+            type: props.type,
+            task: props.task,
+            amount: props.amount,
+            showResults: false,
+            results: [],
+            circle: 'white',
+            total: 0,
+            passed: 0,
+            failed: 0,
+            duration: 0,
+        };
 
         // all user task results
         this.results = [];
@@ -44,14 +58,16 @@ export default class DigitGame extends React.Component {
         // Typical usage (don't forget to compare props), otherwise you get infinitive loop
         if (this.props.task !== prevProps.task) {
             this.timer = new Date().getTime();
-            this.setState({type: this.props.type,
-                           task: this.props.task,
-                           amount: this.props.amount,
-                           showResults: false,
-                           circle: 'white',
-                           total: 0,
-                           passed: 0,
-                           failed: 0});
+            this.setState({
+                'status': DG_STATUS.GAME,
+                'type': this.props.type,
+                'task': this.props.task,
+                'amount': this.props.amount,
+                'circle': 'white',
+                'total': 0,
+                'passed': 0,
+                'failed': 0,
+            });
         }
     }
 
@@ -60,55 +76,68 @@ export default class DigitGame extends React.Component {
         console.log('DigitGame.onGameClose ' + status);
 
         // game was unexpecdetly closed by user during play
-        if (status === 'finished') {
-            this.setState({showResults: true, results: this.results,
-                           duration: (new Date().getTime() - this.timer)});
+        switch (status) {
+            case 'finished':
+                this.setState({
+                    'status': DG_STATUS.RESULTS,
+                    'results': this.results,
+                    'duration': (new Date().getTime() - this.timer)});
+                break;
 
-        // game was properly closed after showing results
-        // and user decided to exit/replay/register
-        } else if ((status === 'close') ||
-                   (status === 'replay') ||
-                   (status === 'register')) {
+            case 'progress':
+                this.setState({'status': DG_STATUS.PROGRESS});
+                this.props.onClose(status, data);
+                break;
 
-            this.setState({showResults: false,
-                           results: [],
-                           circle: 'white',
-                           total: 0,
-                           passed: 0,
-                           failed: 0});
-            this.results = [];
-            this.timer = new Date().getTime();
-            this.props.onClose(status, data);
+            case 'register':
+            case 'replay':
+            case 'close':
+                // game was properly closed after showing results
+                // and user decided to exit/replay/register
+                this.setState({
+                    'status': DG_STATUS.GAME,
+                    'results': [],
+                    'circle': 'white',
+                    'total': 0,
+                    'passed': 0,
+                    'failed': 0,
+                });
+                this.results = [];
+                this.timer = new Date().getTime();
+                this.props.onClose(status, data);
+                break;
 
-        // game was properly finished, when all tasks are solved
-        } else if (status === 'interrapted') {
-            console.log('Game interraption with ' + this.state.failed + ' fails');
+            case 'interrapted':
+                console.log('Game interraption with ' + this.state.failed + ' fails');
+                var user_data = {
+                    'operation': 'results',
+                    'game_uid': this.props.game_uid,
+                    'passed': 0,
+                    'failed': this.state.failed,
+                    'duration': (new Date().getTime() - this.timer),
+                    'percent': 0,
+                    'rate': 'really_bad',
+                    'belt': this.props.belt,
+                    'task': this.state.type,
+                };
 
-            var user_data = {
-                'operation': 'results',
-                'game_uid': this.props.game_uid,
-                'passed': 0,
-                'failed': this.state.failed,
-                'duration': (new Date().getTime() - this.timer),
-                'percent': 0,
-                'rate': 'really_bad',
-                'belt': this.props.belt,
-                'task': this.state.type,
-            };
+                this.setState({
+                    'status': DG_STATUS.GAME,
+                    results: [],
+                    circle: 'white',
+                    total: 0,
+                    passed: 0,
+                    failed: 0
+                });
 
-            this.setState({showResults: false,
-                           results: [],
-                           circle: 'white',
-                           total: 0,
-                           passed: 0,
-                           failed: 0});
-            this.results = [];
-            this.timer = new Date().getTime();
+                this.results = [];
+                this.timer = new Date().getTime();
+                this.props.onClose('close', user_data);
+                break;
 
-            this.props.onClose('close', user_data);
-
-        } else {
-            console.log("onGameClose: Wrong status received: " + status);
+            default:
+                console.log("onGameClose: Wrong status received: " + status);
+                break;
         }
     }
 
@@ -162,9 +191,8 @@ export default class DigitGame extends React.Component {
         */
         return (
             <Dialog open={this.props.open} fullScreen={true} TransitionComponent={Transition} transitionDuration={900}>
-                { this.state.showResults ? (
-                        null
-                    ) : (
+                { (this.state.status === DG_STATUS.GAME) ? (
+                    <>
                         <GameHeader onClick={this.onGameClose}
                             fullScreen={this.props.fullScreen}
                             lang={this.props.lang}
@@ -172,11 +200,22 @@ export default class DigitGame extends React.Component {
                             passed={this.state.passed}
                             failed={this.state.failed}
                             results={this.state.results}/>
-                    )
-                }
 
-                <div className='digitgamebody'>
-                    { this.state.showResults ? (
+                        <GameBoard onClose={this.onGameClose}
+                            onCounter={this.onCounterUpdate}
+                            onColor={this.onColorUpdate}
+                            type={this.state.type}
+                            task={this.state.task}
+                            amount={this.state.amount}
+                            lang={this.props.lang}/>
+
+                        <GameFooter color={this.state.circle}
+                            lang={this.props.lang}/>
+                    </>
+                ) : (<> </>) }
+
+
+                { (this.state.status === DG_STATUS.RESULTS) ? (
                         <GameResults open={this.state.showResults}
                             id={this.props.id}
                             passed={this.state.passed}
@@ -189,18 +228,29 @@ export default class DigitGame extends React.Component {
                             lang={this.props.lang}
                             type={this.state.type}
                             onClose={this.onGameClose}/>
-                    ) : (
-                        <GameBoard onClose={this.onGameClose}
-                            onCounter={this.onCounterUpdate}
-                            onColor={this.onColorUpdate}
-                            type={this.state.type}
-                            task={this.state.task}
-                            amount={this.state.amount}
-                            lang={this.props.lang}/>
-                    )}
-                </div>
 
-                { this.state.showResults ? (null) : (<GameFooter color={this.state.circle} lang={this.props.lang}/>) }
+                ) : ( <> </> )}
+
+                { (this.state.status === DG_STATUS.PROGRESS) ? (
+                    <div className='digitgamebody'>
+                        <SMTitle title='' onClick={() => this.onGameClose('close', {})}/>
+                        <ColorLine/>
+
+                        <GameHeader onClick={this.onGameClose}
+                            fullScreen={this.props.fullScreen}
+                            lang={this.props.lang}
+                            total={this.state.total}
+                            passed={this.state.passed}
+                            failed={this.state.failed}
+                            results={this.state.results}/>
+
+                        <Calendar id={this.props.id}
+                            pswdhash='' name=''
+                            lang={this.props.lang}/>
+                    </div>
+
+                ) : ( <> </> )}
+
             </Dialog>
         );
     }
