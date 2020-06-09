@@ -4,10 +4,10 @@
  * Language detector
  */
 export function get_lang(user_id) {
-    var language = '';
+    var language = 'en';
     if (user_id === undefined || user_id === 0) {
         language = localStorage.getItem('lang');
-        if (language === null) {
+        if (language === null || language.length === 0) {
             language = getNavigatorLanguage();
             if (language.includes('ru')) { language = 'ru'; }
             else if (language.includes('nl')) { language = 'nl'; }
@@ -15,12 +15,11 @@ export function get_lang(user_id) {
             else if (language.includes('es')) { language = 'es'; }
             else if (language.includes('it')) { language = 'it'; }
             else if (language.includes('fr')) { language = 'fr'; }
-            else { language = 'en'; }
         }
 
     } else {
         language = get_item(user_id, 'lang');
-        if (language === null) {
+        if (language === null || language.length === 0) {
             language = getNavigatorLanguage();
             if (language.includes('ru')) { language = 'ru'; }
             else if (language.includes('nl')) { language = 'nl'; }
@@ -28,8 +27,11 @@ export function get_lang(user_id) {
             else if (language.includes('es')) { language = 'es'; }
             else if (language.includes('it')) { language = 'it'; }
             else if (language.includes('fr')) { language = 'fr'; }
-            else { language = 'en'; }
         }
+    }
+
+    if (language.includes('en-GB')) {
+        language = 'en';
     }
 
     return language;
@@ -50,6 +52,7 @@ export function set_lang(user_id, lang) {
  * Get active user
  */
 export function get_active_user() {
+    // localStorage.removeItem('user_id');
     var user = 0;
     if (typeof(Storage) !== 'undefined') {
         var active = localStorage.getItem('user_id');
@@ -65,14 +68,44 @@ export function get_active_user() {
  * Set active user
  */
 export function set_active_user(user_id) {
-    var users = localStorage.getItem('users');
-    if (users !== undefined) {
-        var sub_user = user_id.toString() + ',';
-        if (users.toString().includes(sub_user) === false) {
-            localStorage.setItem('users', users + sub_user);
+    if (user_id > 0) {
+        var users = localStorage.getItem('users');
+        if (users !== null && users !== undefined) {
+            var sub_user = user_id.toString() + ',';
+            if (users.toString().includes(sub_user) === false) {
+                localStorage.setItem('users', users + sub_user);
+            }
+        } else {
+            localStorage.setItem('users', sub_user);
         }
-    } else {
-        localStorage.setItem('users', sub_user);
+    }
+
+    localStorage.setItem('user_id', user_id);
+}
+
+/**
+ * Get All IDs of users who ever been logged and saved in localstorage
+ */
+export function get_local_users() {
+    var users = [];
+
+    if (typeof(Storage) !== 'undefined') {
+        var locals = localStorage.getItem('users');
+        if (locals !== null && locals !== undefined) {
+            users = locals.split(',');
+            console.log('locals ' + locals + ', users ' + users);
+        }
+    }
+
+    return users;
+}
+
+/**
+ * Remove item
+ */
+export function remove_item(key) {
+    if (typeof(Storage) !== 'undefined') {
+        localStorage.removeItem(key);
     }
 }
 
@@ -101,17 +134,32 @@ export function set_item(id, key, value) {
  *
  */
 export function get_item(id, key) {
+    var property = '';
     if ((id !== undefined) && (key !== undefined)) {
         if (typeof(Storage) !== 'undefined') {
             // Code for localStorage
             var prefix = id.toString() + '_';
-            return localStorage.getItem(prefix + key);
+            property = localStorage.getItem(prefix + key);
 
         } else {
             // No web storage Support
             // TBD, cookies
         }
     }
-}
 
+    // if property is still undefined -> return default value
+    if (property === undefined || property === null) {
+        switch (key) {
+            case 'belt':
+                property = 'white';
+                break;
+
+            default:
+                property = '';
+                break;
+        }
+    }
+
+    return property;
+}
 

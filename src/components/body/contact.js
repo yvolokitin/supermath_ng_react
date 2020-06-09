@@ -1,5 +1,5 @@
-﻿import React, { useState, useEffect } from 'react';
-import {Dialog, TextField, Button} from '@material-ui/core';
+﻿import React, { useState } from 'react';
+import {Dialog, Slide, TextField, Button} from '@material-ui/core';
 
 import CancelIcon from '@material-ui/icons/Cancel';
 import SendIcon from '@material-ui/icons/Send';
@@ -22,17 +22,14 @@ import ColorLine from './../line/line';
 import SMTitle from './../dialog/title';
 import './contact.css';
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction='up' ref={ref} {...props} />;
+});
+
 export default function Contact(props) {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
+    const [name, setName] = useState(props.name);
+    const [email, setEmail] = useState(props.email);
     const [message, setMessage] = useState('');
-
-    useEffect(() => {
-        setName(localStorage.getItem('name') ? localStorage.getItem('name') : '');
-        setEmail(localStorage.getItem('email') ? localStorage.getItem('email') : '');
-        setMessage('');
-
-    }, [props.task, props.color, props.lang]);
 
     function sendMessage(event) {
         console.log('name ' + name + ', email ' + email + ', message ' + message);
@@ -50,7 +47,8 @@ export default function Contact(props) {
                 } else {
                     send_email({'name': name, 'email': email, 'lang': props.lang, 'message': message});
                     props.onClose();
-                    if (localStorage.getItem('name') !== null) {
+
+                    if (props.name.length > 0) {
                         setMessage('');
                     } else {
                         setName(''); setEmail(''); setMessage('');
@@ -61,7 +59,10 @@ export default function Contact(props) {
     }
 
     return (
-        <Dialog open={props.open} onClose={() => props.onClose()} transitionDuration={700} fullScreen={props.fullScreen} fullWidth={true} maxWidth='md' scroll='body'>
+        <Dialog open={props.open} onClose={() => props.onClose()}
+            fullScreen={props.fullScreen} fullWidth={true} maxWidth='md' scroll='body'
+            TransitionComponent={Transition} transitionDuration={900}>
+
             <SMTitle title='' onClick={() => props.onClose()}/>
             <ColorLine/>
 

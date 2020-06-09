@@ -15,21 +15,24 @@ import SMTitle from './../dialog/title';
 import ColorLine from "./../line/line";
 
 import {login} from './../translations/login';
+import {get_local_users} from './../halpers/localstorage';
 
 import axios from 'axios';
 
-//import './header.css';
 export default class Login extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {email: localStorage.getItem('email') ? localStorage.getItem('email') : '',
-                      pswd: localStorage.getItem('pswd') ? localStorage.getItem('pswd') : '',
-                      success: false,
-                      loading: false,
-                      color: 'red',
-                      error: false,
-                      message: '',
-                      duration: 15000};
+        this.state = {
+            email: localStorage.getItem('email') ? localStorage.getItem('email') : '',
+            pswd: localStorage.getItem('pswd') ? localStorage.getItem('pswd') : '',
+            users: get_local_users(),
+            success: false,
+            loading: false,
+            color: 'red',
+            error: false,
+            message: '',
+            duration: 15000,
+        };
 
         this.onClose = this.onClose.bind(this);
 
@@ -140,6 +143,8 @@ export default class Login extends React.Component {
     /*
     */
     render() {
+        console.log('Login -> this.state.users ' + this.state.users);
+
         return (
             <Dialog open={this.props.open} fullWidth={true} fullScreen={this.props.fullScreen} transitionDuration={600}>
                 <SMTitle title='' onClick={() => this.onClose()}/>

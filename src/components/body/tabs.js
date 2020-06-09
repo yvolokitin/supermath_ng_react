@@ -1,4 +1,4 @@
-﻿import React, { useState, } from 'react';
+﻿import React, { useEffect, useState, } from 'react';
 
 import DigitGame from './../games/digitgame';
 import Footer from "./footer";
@@ -7,10 +7,11 @@ import Wave from './wave';
 import './tabs.css';
 
 import {white_games, orange_games, green_games, navy_games, brown_games, black_games} from './../halpers/programms';
+import {set_item, get_item} from './../halpers/localstorage';
 import {tabs} from './../translations/tabs';
 
 export default function Tabs(props) {
-    const [value, setValue] = useState('white');
+    const [value, setValue] = useState(props.belt);
     const [tasks, setTasks] = useState(white_games);
 
     const [gameOpen, setGameOpen] = useState(false);
@@ -26,10 +27,31 @@ export default function Tabs(props) {
     const [brown, setBrown] = React.useState('#fbfbf8');
     const [black, setBlack] = React.useState('#fbfbf8');
 
+    useEffect(() => {
+        console.log('Tabs.useEffect -> value ' + value);
+
+    }, [value, ]);
+
+/*    function setInitialTasks(color) {
+        if (color === 'orange') {
+            setTasks(orange_games);
+        } else if (color === 'green') {
+            setTasks(orange_games);
+        } else if (color === 'navy') {
+            setTasks(navy_games);
+        } else if (color === 'brown') {
+            setTasks(brown_games);
+        } else if (color === 'black') {
+            setTasks(black_games);
+        } else {
+            setTasks(white_games);
+        }
+    }*/
+
     function onTabPress(color) {
         console.log('Tabs.onTabPress ' + color);
-        localStorage.setItem('belt', color);
-        if (color !== value) {
+        set_item(props.id, 'belt', color);
+
             if (color === 'white') {
                 setWhite('#3f51b5');
                 setTasks(white_games);
@@ -56,16 +78,18 @@ export default function Tabs(props) {
                 setFooter('white');
             }
 
-            // unset previous tab
-            unset(color);
-
             // set body background color
             if (color !== 'navy') {
                 setValue(color);
             } else {
                 setValue('#3f51b5');
             }
+
+            // unset previous tab
+        if (color !== value) {
+            unset(color);
         }
+
     };
 
     function unset(color) {
@@ -188,7 +212,11 @@ export default function Tabs(props) {
                 </Wave>
             </div>
 
-            <Footer color={footer} lang={props.lang}/>
+            <Footer id={props.id}
+                name={props.name}
+                email={props.email}
+                lang={props.lang}
+                color={footer}/>
 
             <DigitGame open={gameOpen}
                 id={props.id}

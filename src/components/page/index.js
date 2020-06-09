@@ -20,7 +20,9 @@ import Account from './../userinfo/account';
 import {avatars} from './../halpers/avatars';
 import Tabs from "./../body/tabs";
 
-import {get_lang, set_item, get_item} from './../halpers/localstorage';
+import {get_lang, set_lang} from './../halpers/localstorage';
+import {set_item, get_item, remove_item} from './../halpers/localstorage';
+import {get_active_user, set_active_user} from './../halpers/localstorage';
 
 import './index.css';
 
@@ -58,6 +60,7 @@ export default class SuperMathPage extends React.Component {
         this.loadFbLoginApi = this.loadFbLoginApi.bind(this);
 
         var active_user = get_active_user();
+        // console.log('active_user ' + active_user);
         this.state = {
             width: window.innerWidth,
             screen: STATUS.NONE,
@@ -152,7 +155,7 @@ export default class SuperMathPage extends React.Component {
         if ((this.state.id > 0) && (this.state.pswdhash !== '')) {
             var post_data = {
                 'user_id': this.state.id,
-                'pswdhash': pswdhash,
+                'pswdhash': this.state.pswdhash,
                 'refresh': true,
             };
             axios.post('http://supermath.xyz:3000/api/refresh', post_data)
@@ -193,11 +196,12 @@ export default class SuperMathPage extends React.Component {
 
             case 'logout':
                 this.setState({screen: STATUS.NONE, id: 0, solved: ''});
+                remove_item('user_id');
                 break;
 
             // counter: user game results from task
             case 'counter':
-                if ((this.state.id > 0) && (pswdhash !== null)) {
+                if ((this.state.id > 0) && (this.state.pswdhash !== null)) {
                     var new_passed = parseInt(this.state.passed) + parseInt(value.passed);
                     var new_failed = parseInt(this.state.failed) + parseInt(value.failed);
 
@@ -217,15 +221,15 @@ export default class SuperMathPage extends React.Component {
                         this.setState({passed: new_passed, failed: new_failed});
                     }
                     // updateCounter(id, pswdhash, data)
-                    update_counter(this.state.id, pswdhash, value);
+                    update_counter(this.state.id, this.state.pswdhash, value);
                 }
                 break;
 
             // from Account - Avatar Tab
             case 'avatar':
                 this.setState({avatar: value, screen: STATUS.NONE});
-                if ((this.state.id > 0) && (pswdhash !== null)) {
-                    update_avatar(this.state.id, pswdhash, value);
+                if ((this.state.id > 0) && (this.state.pswdhash !== null)) {
+                    update_avatar(this.state.id, this.state.pswdhash, value);
                 }
                 break;
 
@@ -237,22 +241,22 @@ export default class SuperMathPage extends React.Component {
             // update from Account - Settgins Tab
             case 'name':
                 this.setState({'name': value});
-                if ((this.state.id > 0) && (pswdhash !== null)) {
-                    update_usersettings(this.state.id, pswdhash, property, value);
+                if ((this.state.id > 0) && (this.state.pswdhash !== null)) {
+                    update_usersettings(this.state.id, this.state.pswdhash, property, value);
                 }
                 break;
 
             case 'surname':
                 this.setState({'surname': value});
-                if ((this.state.id > 0) && (pswdhash !== null)) {
-                    update_usersettings(this.state.id, pswdhash, property, value);
+                if ((this.state.id > 0) && (this.state.pswdhash !== null)) {
+                    update_usersettings(this.state.id, this.state.pswdhash, property, value);
                 }
                 break;
 
             case 'email':
                 this.setState({'email': value});
-                if ((this.state.id > 0) && (pswdhash !== null)) {
-                    update_usersettings(this.state.id, pswdhash, property, value);
+                if ((this.state.id > 0) && (this.state.pswdhash !== null)) {
+                    update_usersettings(this.state.id, this.state.pswdhash, property, value);
                 }
                 break;
 
@@ -263,8 +267,8 @@ export default class SuperMathPage extends React.Component {
                 var ageDate = new Date(ageDifMs);
                 var age = Math.abs(ageDate.getUTCFullYear() - 1970);
                 this.setState({'birthday': value, 'age': age});
-                if ((this.state.id > 0) && (pswdhash !== null)) {
-                    update_usersettings(this.state.id, pswdhash, property, value);
+                if ((this.state.id > 0) && (this.state.pswdhash !== null)) {
+                    update_usersettings(this.state.id, this.state.pswdhash, property, value);
                 }
                 break;
 
@@ -275,15 +279,14 @@ export default class SuperMathPage extends React.Component {
             // passfail: user exchange poops vs smiles
             case 'exchange':
                 console.log('TBD: Excaping EXCHANGE ' + value.passed + ', ' + value.failed + ', ' + value.cards);
-                if ((this.state.id > 0) && (pswdhash !== null)) {
+                if ((this.state.id > 0) && (this.state.pswdhash !== null)) {
                     this.setState({
                         'passed': value.passed,
                         'failed': value.failed,
                         'cards': value.cards,
                     });
 
-                    // updatePassFail(id, pswdhash, belt, passed, failed)
-                    update_user_scores(this.state.id, pswdhash, this.state.belt, value);
+                    update_user_scores(this.state.id, this.state.pswdhash, this.state.belt, value);
                 }
                 break;
 
@@ -344,22 +347,22 @@ export default class SuperMathPage extends React.Component {
                 'age': age,
             });
 
-            set_active_user(parseInt(data.id));
+            set_active_user(data.id);
 
             // use HTML5 Local Storage if browser supports it
-            localStorage.setItem(prefix + 'user_id', data.id);
-            localStorage.setItem(prefix + 'name', data.name);
-            localStorage.setItem(prefix + 'email', data.email);
-            localStorage.setItem(prefix + 'surname', data.surname);
-            localStorage.setItem(prefix + 'birthday', data.birthday);
-            localStorage.setItem(prefix + 'avatar', data.avatar);
-            localStorage.setItem(prefix + 'passed', data.passed);
-            localStorage.setItem(prefix + 'failed', data.failed);
-            localStorage.setItem(prefix + 'cards', data.cards);
-            localStorage.setItem(prefix + 'lang', data.lang);
-            localStorage.setItem(prefix + 'belt', data.belt);
-            localStorage.setItem(prefix + 'solved', data.solved);
-            localStorage.setItem(prefix + 'age', age);
+            set_item(data.id, 'user_id', data.id);
+            set_item(data.id, 'name', data.name);
+            set_item(data.id, 'email', data.email);
+            set_item(data.id, 'surname', data.surname);
+            set_item(data.id, 'birthday', data.birthday);
+            set_item(data.id, 'avatar', data.avatar);
+            set_item(data.id, 'passed', data.passed);
+            set_item(data.id, 'failed', data.failed);
+            set_item(data.id, 'cards', data.cards);
+            set_item(data.id, 'lang', data.lang);
+            set_item(data.id, 'belt', data.belt);
+            set_item(data.id, 'solved', data.solved);
+            set_item(data.id, 'age', age);
 
         } else if (result === 'register') {
             this.setState({screen: STATUS.REGISTER});
@@ -484,7 +487,10 @@ export default class SuperMathPage extends React.Component {
 
                 <Tabs onUpdate={this.onUserInfo}
                     id={this.state.id}
+                    belt={this.state.belt}
                     lang={this.state.lang}
+                    name={this.state.name}
+                    email={this.state.email}
                     solved={this.state.solved}
                     fullScreen={this.state.width<740}/>
 

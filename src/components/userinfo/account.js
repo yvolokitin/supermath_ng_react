@@ -29,12 +29,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function AccountTab(props) {
-/*
-    useEffect(() => {
-        console.log('AccountTab.useEffect ' + props.id + ': ' + props.selected);
-
-    }, [props.id, props.name, props.selected]);
-*/
     return (
       <>
         {(props.selected) ? (
@@ -84,7 +78,7 @@ export default function Account(props) {
     }
 
     function onAvatarChange(id) {
-        console.log('Account.onAvatarChange ' + id + '->' + avatars[id-1].name);
+        // console.log('Account.onAvatarChange ' + id + '->' + avatars[id-1].name);
         setAvatar(avatars[id-1].src);
         setAvatarName(avatars[id-1].name)
     }
@@ -93,13 +87,12 @@ export default function Account(props) {
      * Lifting property changes from Settings and Exchange Tabs up to page/index.js level
      */
     function onSettings(property, value) {
-        console.log('Account.onSettings: ' + property + ', value ' + value);
+        // console.log('Account.onSettings: ' + property + ', value ' + value);
         props.onUpdate(property, value);
     }
 
     function onClose() {
         // console.log('Account.onClose ' +  + ', ' + avatar_name);
-        // props.onUpdate('logout');
         if (avatar_name !== props.avatar) {
             props.onUpdate('avatar', avatar_name);
         } else {
