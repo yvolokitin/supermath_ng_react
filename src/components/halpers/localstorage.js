@@ -70,8 +70,8 @@ export function get_active_user() {
 export function set_active_user(user_id) {
     if (user_id > 0) {
         var users = localStorage.getItem('users');
+        var sub_user = user_id.toString() + ',';
         if (users !== null && users !== undefined) {
-            var sub_user = user_id.toString() + ',';
             if (users.toString().includes(sub_user) === false) {
                 localStorage.setItem('users', users + sub_user);
             }

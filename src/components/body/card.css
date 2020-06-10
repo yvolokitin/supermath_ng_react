@@ -3,9 +3,7 @@
     min-height: 250px;
     margin: 13px;
 
-    cursor: pointer;
     background-color: white;
-
     border-radius: 5px;
     box-shadow: 1px 1px 3px 0px grey;
 }
@@ -15,7 +13,10 @@
 .card_wrapper_img {
     height: 161px;
     width: auto;
+
+    cursor: pointer;
     overflow: hidden;
+
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
@@ -30,6 +31,8 @@
 .card_wrapper_img_disabled {
     height: 161px;
     width: auto;
+    z-index: -1;
+    cursor: no-drop;
     overflow: hidden;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;

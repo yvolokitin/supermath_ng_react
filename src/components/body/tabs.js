@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState, } from 'react';
+﻿import React, { useState, } from 'react';
 
 import DigitGame from './../games/digitgame';
 import Footer from "./footer";
@@ -7,110 +7,63 @@ import Wave from './wave';
 import './tabs.css';
 
 import {white_games, orange_games, green_games, navy_games, brown_games, black_games} from './../halpers/programms';
-import {set_item, get_item} from './../halpers/localstorage';
+import {set_item} from './../halpers/localstorage';
 import {tabs} from './../translations/tabs';
 
+const mapping = {
+    'white': white_games,
+    'orange': orange_games,
+    'green': green_games,
+    'navy': navy_games,
+    'brown': brown_games,
+    'black': black_games,
+};
+
+function MenuTab(props) {
+    return (
+      <>
+        {(props.selected) ? (
+            <div className='tabs_div_wrapper' style={{backgroundColor: '#3f51b5'}}>
+                <div className='tabs_div' onClick={() => props.onClick(props.id)}>
+                    <font style={{color: props.font}}> {props.name} </font>
+                </div>
+            </div>
+        ) : (
+            <div className='tabs_div_wrapper' style={{backgroundColor: '#fbfbf8'}}>
+                <div className='tabs_div' onClick={() => props.onClick(props.id)}>
+                    <font style={{color: props.font}}> {props.name} </font>
+                </div>
+            </div>
+        )}
+      </>
+    );
+}
+
 export default function Tabs(props) {
-    const [value, setValue] = useState(props.belt);
-    const [tasks, setTasks] = useState(white_games);
+    const [color, setColor] = useState(props.belt);
+    const [tasks, setTasks] = useState(mapping[props.belt]);
+    const [background, setBackground] = useState(props.belt);
 
     const [gameOpen, setGameOpen] = useState(false);
     const [game, setGame] = useState(false);
 
-    // footer background color
-    const [footer, setFooter] = useState('#3f51b5');
+    const colors = [
+        {id: 'white', font: 'black',},
+        {id: 'orange', font: 'orange',},
+        {id: 'green', font: 'green',},
+        {id: 'navy', font: 'navy',},
+        {id: 'brown', font: 'brown',},
+        {id: 'black', font: 'black',},
+    ];
 
-    const [white, setWhite] = React.useState('#3f51b5');
-    const [orange, setOrange] = React.useState('#fbfbf8');
-    const [green, setGreen] = React.useState('#fbfbf8');
-    const [navy, setNavy] = React.useState('#fbfbf8');
-    const [brown, setBrown] = React.useState('#fbfbf8');
-    const [black, setBlack] = React.useState('#fbfbf8');
-
-    useEffect(() => {
-        console.log('Tabs.useEffect -> value ' + value);
-
-    }, [value, ]);
-
-/*    function setInitialTasks(color) {
-        if (color === 'orange') {
-            setTasks(orange_games);
-        } else if (color === 'green') {
-            setTasks(orange_games);
-        } else if (color === 'navy') {
-            setTasks(navy_games);
-        } else if (color === 'brown') {
-            setTasks(brown_games);
-        } else if (color === 'black') {
-            setTasks(black_games);
-        } else {
-            setTasks(white_games);
-        }
-    }*/
-
-    function onTabPress(color) {
+    function onTabChange(color) {
         console.log('Tabs.onTabPress ' + color);
         set_item(props.id, 'belt', color);
 
-            if (color === 'white') {
-                setWhite('#3f51b5');
-                setTasks(white_games);
-                setFooter('#3f51b5');
-            } else if (color === 'orange') {
-                setOrange('#3f51b5');
-                setTasks(orange_games);
-                setFooter('green');
-            } else if (color === 'green') {
-                setGreen('#3f51b5');
-                setTasks(green_games);
-                setFooter('orange');
-            } else if (color === 'navy') {
-                setNavy('#3f51b5');
-                setTasks(navy_games);
-                setFooter('white');
-            } else if (color === 'brown') {
-                setBrown('#3f51b5');
-                setTasks(brown_games);
-                setFooter('yellow');
-            } else if (color === 'black') {
-                setBlack('#3f51b5');
-                setTasks(black_games);
-                setFooter('white');
-            }
-
-            // set body background color
-            if (color !== 'navy') {
-                setValue(color);
-            } else {
-                setValue('#3f51b5');
-            }
-
-            // unset previous tab
-        if (color !== value) {
-            unset(color);
-        }
-
+        setColor(color);
+        setBackground(color);
+        setTasks(mapping[color]);
     };
-
-    function unset(color) {
-        // console.log('Tabs.unset ' + color);
-        if (value === 'white') {
-            setWhite('#fbfbf8');
-        } else if (value === 'orange') {
-            setOrange('#fbfbf8');
-        } else if (value === 'green') {
-            setGreen('#fbfbf8');
-        // #3f51b5 navi color as well
-        } else if (value === '#3f51b5') {
-            setNavy('#fbfbf8');
-        } else if (value === 'navy') {
-            setNavy('#fbfbf8');
-        } else if (value === 'brown') {
-            setBrown('#fbfbf8');
-        } else if (value === 'black') {
-            setBlack('#fbfbf8');
-        }
-    }
 
     function onGameOpen(task) {
         // console.log('Tabs.onGameOpen ' + task.id);
@@ -135,71 +88,33 @@ export default function Tabs(props) {
         }
     }
 
-    /*
-        fill='#3f51b5'
-    */
     return (
-        <div className='body_wrapper' style={{backgroundColor: value}}>
+        <div className='body_wrapper' style={{backgroundColor: background}}>
             <div className='tabs_wrapper'>
-                <div className='tabs_div_wrapper' style={{backgroundColor: white}}>
-                    <div className='tabs_div' onClick={() => onTabPress('white')}>
-                        <font style={{color: 'black'}}> {tabs[props.lang]['white']} </font>
-                    </div>
-                </div>
-                <div className='tabs_div_wrapper' style={{backgroundColor: orange}}>
-                    <div className='tabs_div' onClick={() => onTabPress('orange')}>
-                        <font style={{color: 'orange'}}> {tabs[props.lang]['orange']} </font>
-                    </div>
-                </div>
-                <div className='tabs_div_wrapper' style={{backgroundColor: green}}>
-                    <div className='tabs_div' onClick={() => onTabPress('green')}>
-                        <font style={{color: 'green'}}> {tabs[props.lang]['green']} </font>
-                    </div>
-                </div>
-                <div className='tabs_div_wrapper' style={{backgroundColor: navy}}>
-                    <div className='tabs_div' onClick={() => onTabPress('navy')}>
-                        <font style={{color: '#3f51b5'}}> {tabs[props.lang]['navy']} </font>
-                    </div>
-                </div>
-                <div className='tabs_div_wrapper' style={{backgroundColor: brown}}>
-                    <div className='tabs_div' onClick={() => onTabPress('brown')}>
-                        <font style={{color: 'brown'}}> {tabs[props.lang]['brown']} </font>
-                    </div>
-                </div>
-                <div className='tabs_div_wrapper' style={{backgroundColor: black}}>
-                    <div className='tabs_div' onClick={() => onTabPress('black')}>
-                        <font style={{color: 'black'}}> {tabs[props.lang]['black']} </font>
-                    </div>
-                </div>
+                {colors.map(
+                    (tab) => <MenuTab key={tab.id}
+                                id={tab.id}
+                                font={tab.font}
+                                name={tabs[props.lang][tab.id]}
+                                selected={color === tab.id}
+                                onClick={onTabChange}/>
+                    )}
             </div>
 
             <div className='tasks_wrapper'>
                 {tasks.map(
-                    (task) =>
-                        <div key={task.uid}>
-                            { (props.solved.toString().includes(task.uid)) ? (
-                                    <Card task={task}
-                                        color={value}
-                                        lang={props.lang}
-                                        locked={true}
-                                        fullScreen={props.fullScreen}
-                                        onUpdate={onGameOpen}/>
-                                ) : (
-                                    <Card task={task}
-                                        locked={false}
-                                        color={value}
-                                        lang={props.lang}
-                                        fullScreen={props.fullScreen}
-                                        onUpdate={onGameOpen}/>
-                                )
-                            }
-                        </div>
-                    )
-                }
+                    (task) => <Card key={task.uid}
+                                task={task}
+                                color={color}
+                                lang={props.lang}
+                                onUpdate={onGameOpen}
+                                fullScreen={props.fullScreen}
+                                locked={props.solved.toString().includes(task.uid)}/>
+                )}
             </div>
 
             <div className='tasks_waver'>
-                <Wave mask='url(#mask)' fill={footer}>
+                <Wave mask='url(#mask)' fill={'#3f51b5'}>
                     <defs>
                         <linearGradient id='gradient' gradientTransform='rotate(90)'>
                             <stop offset='0' stopColor='white' />
@@ -215,8 +130,7 @@ export default function Tabs(props) {
             <Footer id={props.id}
                 name={props.name}
                 email={props.email}
-                lang={props.lang}
-                color={footer}/>
+                lang={props.lang}/>
 
             <DigitGame open={gameOpen}
                 id={props.id}
@@ -225,7 +139,7 @@ export default function Tabs(props) {
                 task={game.task}
                 amount={game.amount}
                 lang={props.lang}
-                belt={value}
+                belt={color}
                 fullScreen={props.fullScreen}
                 onClose={onGameClose}/>
         </div>

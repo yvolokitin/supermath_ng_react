@@ -1,92 +1,101 @@
-﻿import React from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import {Fab, CircularProgress, Snackbar} from '@material-ui/core';
-import {Dialog, DialogContent, TextField, Grid, Link, Button, Checkbox, FormControlLabel} from '@material-ui/core';
+import {Slide, Dialog, TextField, Link, Button,} from '@material-ui/core';
 
 import Alert from '@material-ui/lab/Alert';
 
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import CheckIcon from '@material-ui/icons/Check';
 
-// email validator
-import {validate} from 'validate.js';
-import constraints from './constraints';
-
 import SMTitle from './../dialog/title';
 import ColorLine from "./../line/line";
 
 import {login} from './../translations/login';
-import {get_local_users} from './../halpers/localstorage';
+import {get_avatar_by_name} from './../halpers/avatars';
+import {get_local_users, get_item} from './../halpers/localstorage';
+import {validate_email, validate_pswd} from './../halpers/validator.js';
 
 import axios from 'axios';
+import './login.css';
 
-export default class Login extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: localStorage.getItem('email') ? localStorage.getItem('email') : '',
-            pswd: localStorage.getItem('pswd') ? localStorage.getItem('pswd') : '',
-            users: get_local_users(),
-            success: false,
-            loading: false,
-            color: 'red',
-            error: false,
-            message: '',
-            duration: 15000,
-        };
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction='down' ref={ref} {...props} />;
+});
 
-        this.onClose = this.onClose.bind(this);
+export default function Login(props) {
+    // login credentials: email and password
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-        this.onLogin = this.onLogin.bind(this);
-        this.onLoginError = this.onLoginError.bind(this);
-        this.onLoginResponse = this.onLoginResponse.bind(this);
+    const [success, setSuccess] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [color, setColor] = useState('red');
 
-        this.time = new Date().getTime();
-    }
+    const [users, setUsers] = useState([]);
+    const [time, setLastTime] = useState('');
 
-    onLogin(event) {
-        event.preventDefault();
+    useEffect(() => {
+        console.log('Login.useEffect -> error ' + error);
+        if (props.open) {
+            var local_users = [], locals = get_local_users();
+            for (var local in locals) {
+                if (get_item(local, 'name') !== '') {
+                    var data = {
+                        'id': local,
+                        'name': get_item(local, 'name'),
+                        'email': get_item(local, 'email'),
+                        'surname': get_item(local, 'surname'),
+                        'avatar': get_item(local, 'avatar'),
+                    };
+                    local_users.push(data);
+                }
+            }
 
-        var result = validate({email: this.state.email}, constraints);
-        if ('email' in result) {
-            this.setState({success: false,
-                           error: true,
-                           duration: 5000,
-                           message: result.email});
-            return;
-        }
-        result = validate({pswd: this.state.pswd}, constraints);
-        if ('pswd' in result) {
-            this.setState({success: false,
-                           error: true,
-                           duration: 5000,
-                           message: result.pswd});
-            return;
+            if (local_users.length > 0) {
+                setUsers(local_users);
+            }
+
+            setLastTime(new Date().getTime());
         }
 
-        this.setState({success: false, loading: true});
+    }, [props.open, ]);
 
-        var crypto = require('crypto');
-        var mykey = crypto.createCipher('aes-128-cbc', this.state.pswd);
-        var pswdhash = mykey.update('abc', 'utf8', 'hex');
-        pswdhash += mykey.final('hex');
-        localStorage.setItem('pswdhash', pswdhash);
-        // console.log('onLogin -> crypto pswdhash: ' + pswdhash);
 
-        var post_data = {'email': this.state.email, 'pswdhash': pswdhash};
-        axios.post('http://supermath.xyz:3000/api/login', post_data)
-            .then(this.onLoginResponse)
-            .catch(this.onLoginError);
+    function onLogin() {
+        console.log('Login.onLogin -> email ' + email + ', password ' + password);
 
-        this.time = new Date().getTime();
+        if (validate_email(email, props.lang) === 'ok') {
+            if (validate_pswd(password, props.lang) === 'ok') {
+                var crypto = require('crypto');
+                var mykey = crypto.createCipher('aes-128-cbc', password);
+                var pswdhash = mykey.update('abc', 'utf8', 'hex');
+                pswdhash += mykey.final('hex');
+                localStorage.setItem('pswdhash', pswdhash);
+
+                setLoading(true);
+                // console.log('onLogin -> crypto pswdhash: ' + pswdhash);
+                var post_data = {'email': this.state.email, 'pswdhash': pswdhash};
+                axios.post('http://supermath.xyz:3000/api/login', post_data)
+                    .then(this.onLoginResponse)
+                    .catch(this.onLoginError);
+                setLastTime(new Date().getTime());
+
+            } else {
+                setError(validate_pswd(password, props.lang));
+            }
+        } else {
+            setError(validate_email(email, props.lang));
+        }
     }
 
     /**
      * Login server response
      */
-    onLoginResponse(response) {
+    function onLoginResponse(response) {
         console.log('onLoginResponse:: error ' + response.data.error + ', id ' + response.data.id);
 
-        var timeout = new Date().getTime() - this.time;
+        var timeout = new Date().getTime() - time;
         if (timeout < 2000) {
             timeout = 2000;
         }
@@ -105,94 +114,115 @@ export default class Login extends React.Component {
                 ('avatar' in response.data) &&
                 ('belt' in response.data)) {
                 setTimeout(() => {
-                    this.props.onClose('successed', response.data);
-                    this.setState({success: true, loading: false, color:'green'});
+                    props.onClose('successed', response.data);
+                    setSuccess(true); setLoading(false); setColor('green');
                 }, timeout);
 
             } else if ('error' in response.data) {
                 setTimeout(() => {
-                    this.setState({success: false, loading: false, color:'red', error: true,
-                                   message: response.data.error.toString()});}, timeout);
+                    setSuccess(false); setLoading(false);
+                    setColor('red'); setError(response.data.error);
+                }, timeout);
             } else {
-                var message = login[this.props.lang]['error_no_error'];
                 setTimeout(() => {
-                    this.setState({'success': false, 'loading': false, 'color':'red', 'error': true, 'message': message});
+                    setSuccess(false); setLoading(false);
+                    setColor('red'); setError(login[props.lang]['error_no_error']);
                 }, timeout);
             }
         } else {
             setTimeout(() => {
-                var message = login[this.props.lang]['error_no_data'];
-                this.setState({'success': false, 'loading': false, 'color': 'red', 'error': true, 'message': message});
+                setSuccess(false); setLoading(false);
+                setColor('red'); setError(login[props.lang]['error_no_data']);
             }, timeout);
         } 
     }
 
-    onLoginError(error) {
+    function onLoginError(error) {
         console.log('axios.post error ' + error);
         this.setState({success: false, loading: false, color:'red', error: true, message: error.toString()});
     }
 
-    onClose(status) {
+    function onClose(status) {
         console.log('login.onClose ' + this.state.loading + ', ' + status);
         // ignore close request if login is in progress
         if (!this.state.loading) {
-            this.props.onClose(status);
+            props.onClose(status);
         }
     }
 
-    /*
-    */
-    render() {
-        console.log('Login -> this.state.users ' + this.state.users);
+    return (
+        <Dialog open={props.open} fullWidth={true} fullScreen={props.fullScreen}
+            TransitionComponent={Transition} transitionDuration={600}>
 
-        return (
-            <Dialog open={this.props.open} fullWidth={true} fullScreen={this.props.fullScreen} transitionDuration={600}>
-                <SMTitle title='' onClick={() => this.onClose()}/>
-                <ColorLine/>
+            <SMTitle title='' onClick={() => props.onClose()}/>
+            <ColorLine/>
 
-                <div style={{marginTop:'15px',display:'flex',flexDirection:'column',alignItems:'center'}}>
-                    <div style={{position:'relative',}}>
-                        <Fab style={{color:'white',backgroundColor:this.state.color}}>
-                            {this.state.success ? <CheckIcon/> : <LockOutlinedIcon/>}
-                        </Fab>
-                        {this.state.loading && <CircularProgress size={68} style={{color:'green',position:'absolute',top:-6,left:-6,zIndex:1,}}/>}
-                    </div>
+            <div className='login_wrapper'>
+                <div className='login_forms'>
+                    <Fab style={{color:'white', backgroundColor: color}}>
+                        {(success) ? (
+                            <CheckIcon/>
+                        ) : (
+                            <LockOutlinedIcon/>
+                        )}
+                    </Fab>
 
-                    <DialogContent>
-                        <form noValidate>
-                            <TextField disabled={this.state.loading} onChange={(event) => {this.setState({email: event.target.value})}}
-                                       required fullWidth autoFocus variant='outlined' margin='normal' autoComplete='email' label={login[this.props.lang]['email']}/>
-
-                            <TextField disabled={this.state.loading} onChange={(event) => {this.setState({pswd: event.target.value})}}
-                                       required fullWidth variant='outlined' margin='normal' label={login[this.props.lang]['password']}
-                                       type='password' autoComplete='current-password'/>
-
-                            <FormControlLabel control={<Checkbox value='remember' defaultChecked={true} color='primary'/>} label={login[this.props.lang]['remember']}/>
-
-                            <Button disabled={this.state.loading} onClick={this.onLogin} fullWidth type='submit' variant='contained' color='primary'>
-                                {login[this.props.lang]['login']}
-                            </Button>
-
-                            <Grid container>
-                                <Grid item xs>
-                                    <Link onClick={() => this.onClose('forget')} style={{cursor:'pointer'}} variant='body2'>{login[this.props.lang]['forgot']}</Link>
-                                </Grid>
-                                <Grid item>
-                                    <Link onClick={() => this.onClose('register')} style={{cursor:'pointer'}} variant='body2'>{login[this.props.lang]['signup']}</Link>
-                                </Grid>
-                            </Grid>
-                        </form>
-                    </DialogContent>
+                    {(loading) ? (
+                        <CircularProgress size={68} style={{color:'green',position:'absolute',top:-6,left:-6,zIndex:1,}}/>
+                    ) : (<> </>)}
                 </div>
 
-                <Snackbar anchorOrigin={{vertical:'top',horizontal:'center'}} onClose={(e) => this.setState({error:false})} autoHideDuration={this.state.duration} open={this.state.error}>
-                    <Alert onClose={(e) => this.setState({error:false})} severity='error'>
-                        {login[this.props.lang]['error']}: {this.state.message}
-                    </Alert>
-                </Snackbar>
+                <div className='login_forms'>
+                    <TextField disabled={loading} onChange={(event) => setEmail(event.target.value)}
+                        required fullWidth autoFocus variant='outlined' margin='normal' autoComplete='email' label={login[props.lang]['email']}/>
+                </div>
 
-            </Dialog>
-        );
-    }
+                <div className='login_forms'>
+                    <TextField disabled={loading} onChange={(event) => setPassword(event.target.value)} autoComplete='current-password'
+                        required fullWidth variant='outlined' margin='normal' type='password' label={login[props.lang]['password']}/>
+                </div>
+
+                <div className='login_forms'>
+                    <Button disabled={loading} onClick={() => onLogin()} fullWidth type='submit' variant='contained' color='primary'>
+                        {login[props.lang]['login']}
+                    </Button>
+                </div>
+
+                <Link onClick={() => this.onClose('forget')} style={{cursor:'pointer'}} variant='body2'>{login[props.lang]['forgot']}</Link>
+                <Link onClick={() => this.onClose('register')} style={{cursor:'pointer'}} variant='body2'>{login[props.lang]['signup']}</Link>
+            </div>
+
+            <ColorLine/>
+
+            <div className='login_wrapper'>
+                {users.map((user) =>
+                    <div key={user.id} className='login_account'>
+                        <div className='login_account_avatar'>
+                            <img src={get_avatar_by_name(user.avatar)} alt={user.avatar} onContextMenu={(e) => e.preventDefault()}/>
+                        </div>
+                        <div className='login_account_name'>
+                            <div className='login_account_name_signout'>
+                                sign out
+                            </div>
+                            <div className='login_account_name_surname'>
+                                {user.name} {user.surname}
+                            </div>
+                            <div className='login_account_name_email'>
+                                {user.email}
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            <ColorLine/>
+
+            <Snackbar open={(error.length === 0)} onClose={() => setError('')} autoHideDuration={15000} anchorOrigin={{vertical:'top', horizontal:'center'}}>
+                <Alert onClose={() => setError('')} severity='error'>
+                    {login[props.lang]['error']}: {error}
+                </Alert>
+            </Snackbar>
+
+        </Dialog>
+    );
 }
-

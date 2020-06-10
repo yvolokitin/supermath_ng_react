@@ -54,8 +54,6 @@ export default function Trophy(props) {
     }, [props.open, props.lang, props.id, getScores]);
 
     /*
-            <div className='trophy_title'>
-            </div>
     */
     return (
         <Dialog open={props.open}

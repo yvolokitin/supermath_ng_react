@@ -58,8 +58,8 @@
 .contact_connect_wrapper img {
     height: 80px;
     width: auto;
+    transition: all .7s;
 }
 .contact_connect_wrapper:hover img {
-    height: 82px;
-    /*box-shadow: 1px 1px 3px 0px grey;*/
+    transform: scale(1.05);
 }
