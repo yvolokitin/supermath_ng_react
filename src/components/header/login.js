@@ -32,7 +32,7 @@ export default function Login(props) {
     const [error, setError] = useState('');
 
     const [users, setUsers] = useState([]);
-    const [time, setLastTime] = useState(new Date().getTime());
+    const [last_time, setLastTime] = useState(new Date().getTime());
 
     useEffect(() => {
         if (props.open) {
@@ -52,16 +52,18 @@ export default function Login(props) {
 
     const onLoginResponse = useCallback((response) => {
         console.log('onLoginResponse:: error ' + response.data.error + ', id ' + response.data.id);
-
+/*
         var curr = new Date().getTime();
-        var timeout = curr - time;
-        console.log('Login.onLoginResponse: ' + curr + ' - ' + time + ' = timeout ' + timeout);
+        var timeout = curr - last_time;
+        console.log('Login.onLoginResponse: ' + curr + ' - ' + last_time + ' = timeout ' + timeout);
 
         if (timeout < 1800) {
             timeout = 1800;
         } else {
             timeout = 0;
         }
+*/
+        var timeout = 1800;
 
         if ('data' in response) {
             // id & etc. are mandatory user attributes
@@ -105,7 +107,7 @@ export default function Login(props) {
             }, timeout);
         } 
 
-    }, [props.lang, password, time, onClose, ])
+    }, [props.lang, password, last_time, onClose, ])
 
     const onLoginError = useCallback((error) => {
         console.log('Login.onLoginError -> axios.post error ' + error);
@@ -119,13 +121,12 @@ export default function Login(props) {
         if (validate_email(email, props.lang) === 'ok') {
             if (validate_pswd(password, props.lang) === 'ok') {
                 var pswdhash = generate_pswdhash(password);
-                setLoading(true);
+                setLoading(true); setLastTime(new Date().getTime());
                 // console.log('onLogin -> crypto pswdhash: ' + pswdhash);
                 var post_data = {'email': email, 'pswdhash': pswdhash};
                 axios.post('http://supermath.xyz:3000/api/login', post_data)
                     .then(onLoginResponse)
                     .catch(onLoginError);
-                setLastTime(new Date().getTime());
 
             } else {
                 setError(validate_pswd(password, props.lang));
