@@ -3,7 +3,7 @@ import './line.css';
 
 export default function ColorLine(props) {
     return (
-        <div className='line_header'>
+        <div className='line_header' style={{marginTop: props.margin}}>
             <div className='line_lightblue'></div>
             <div className='line_blue'></div>
             <div className='line_darkgreen'></div>

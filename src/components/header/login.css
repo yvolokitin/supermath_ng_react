@@ -11,10 +11,23 @@
 }
 .login_forms {
     width: 90%;
-
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.login_forms_links {
+    width: 90%;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: space-between;
+}
+.login_forms_progress {
+    top: -6;
+    left: -6;
+    z-index: 1;
+    position: absolute;
+    color: green;
 }
 .login_account {
     width: 90%;
@@ -26,6 +39,7 @@
 
     border-radius: 5px;
     border: 1px solid white;
+    transition: all .5s;
 }
 .login_account:hover {
     border-radius: 5px;
@@ -33,7 +47,7 @@
     /*#3f51b5;*/
 }
 .login_account_avatar {
-    width: 19%;
+    width: 12%;
     height: 100%;
     float: left;
 
@@ -42,12 +56,13 @@
     justify-content: center;
 }
 .login_account_avatar img {
-    height: 90%;
+    height: 97%;
     width: auto;
 }
 .login_account_name {
-    width: 80%;
+    width: 85%;
     height: 100%;
+    margin-left: 3%;
     float: right;
 }
 .login_account_name_signout {
@@ -55,6 +70,14 @@
     height: 20%;
     font-size: 0.70rem;
     text-align: right;
+}
+.login_account_name_signout font {
+    transition: all .5s;
+}
+.login_account_name_signout font:hover {
+    transform: scale(1.05);
+    background-color: black;
+    color: white;
 }
 .login_account_name_surname {
     width: 100%;

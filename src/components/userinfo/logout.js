@@ -2,6 +2,7 @@
 import {Typography, Button, IconButton} from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
+import ColorLine from "./../line/line";
 import './logout.css';
 import {logout} from './../translations/logout';
 
@@ -23,8 +24,7 @@ export default function Logout(props) {
     return (
         <Typography hidden={hidden} component='div'>
             <div className='logout_wrapper'>
-                <IconButton aria-label='close'
-                    onClick={() => props.onLogout('close')}
+                <IconButton onClick={() => props.onLogout('close')}
                     style={{position:'absolute',right:'1%',top:'1%',color:'grey'}}>
                         <CloseIcon/>
                 </IconButton>
@@ -42,6 +42,7 @@ export default function Logout(props) {
                 </div>
 
                 <div className='logout_wrapper_btns'>
+                    <ColorLine margin={'5px'}/>
                     <div className='logout_wrapper_btns_left'>
                         <Button onClick={() => props.onLogout('close')} color='primary'>
                             {logout[props.lang]['no']}

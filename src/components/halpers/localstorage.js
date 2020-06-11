@@ -68,19 +68,21 @@ export function get_active_user() {
  * Set active user
  */
 export function set_active_user(user_id) {
+    get_local_users()
+
     if (user_id > 0) {
         var users = localStorage.getItem('users');
         var sub_user = user_id.toString() + ',';
         if (users !== null && users !== undefined) {
-            if (users.toString().includes(sub_user) === false) {
+            if (users.includes(sub_user) === false) {
                 localStorage.setItem('users', users + sub_user);
             }
         } else {
             localStorage.setItem('users', sub_user);
         }
-    }
 
-    localStorage.setItem('user_id', user_id);
+        localStorage.setItem('user_id', user_id);
+    }
 }
 
 /**
@@ -90,10 +92,30 @@ export function get_local_users() {
     var users = [];
 
     if (typeof(Storage) !== 'undefined') {
-        var locals = localStorage.getItem('users');
+        var local_users = [], locals = localStorage.getItem('users');
         if (locals !== null && locals !== undefined) {
-            users = locals.split(',');
-            console.log('locals ' + locals + ', users ' + users);
+            local_users = locals.split(',');
+        }
+
+        for (var i = 0; i < local_users.length; i++) {
+            if ((local_users[i] !== 0) &&
+                (get_item(local_users[i], 'name') !== '') &&
+                (get_item(local_users[i], 'email') !== '') &&
+                (get_item(local_users[i], 'surname') !== '') &&
+                (get_item(local_users[i], 'pswdhash') !== '')) {
+
+                var data = {
+                    'id': local_users[i],
+                    'name': get_item(local_users[i], 'name'),
+                    'email': get_item(local_users[i], 'email'),
+                    'surname': get_item(local_users[i], 'surname'),
+                    'avatar': get_item(local_users[i], 'avatar'),
+                    'pswdhash': get_item(local_users[i], 'pswdhash'),
+                };
+
+                console.log('id ' + local_users[i] + ', name ' + data.name + ', pswdhash \'' + data.pswdhash + '\'');
+                users.push(data);
+            }
         }
     }
 
@@ -163,3 +185,13 @@ export function get_item(id, key) {
     return property;
 }
 
+/**
+ * Generate password hash per password
+ */
+export function generate_pswdhash(password) {
+    var crypto = require('crypto');
+    var mykey = crypto.createCipher('aes-128-cbc', password);
+    var pswdhash = mykey.update('abc', 'utf8', 'hex');
+    pswdhash += mykey.final('hex');
+    return pswdhash;
+}

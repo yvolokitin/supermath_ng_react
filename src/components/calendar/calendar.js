@@ -103,8 +103,7 @@ export default function Calendar(props) {
      * useEffect is Effect Hook for componentDidMount and componentDidUpdate
      */
     useEffect(() => {
-        console.log('useEffect -> month ' + month + ', year ' + year);
-
+        // console.log('useEffect -> month ' + month + ', year ' + year);
         set_month(month);
         set_year(year);
         set_month_days(month, year);

@@ -22,7 +22,7 @@ import Tabs from "./../body/tabs";
 
 import {get_lang, set_lang} from './../halpers/localstorage';
 import {set_item, get_item, remove_item} from './../halpers/localstorage';
-import {get_active_user, set_active_user} from './../halpers/localstorage';
+import {get_local_users, get_active_user, set_active_user} from './../halpers/localstorage';
 
 import './index.css';
 
@@ -60,7 +60,6 @@ export default class SuperMathPage extends React.Component {
         this.loadFbLoginApi = this.loadFbLoginApi.bind(this);
 
         var active_user = get_active_user();
-        // console.log('active_user ' + active_user);
         this.state = {
             width: window.innerWidth,
             screen: STATUS.NONE,
@@ -333,6 +332,7 @@ export default class SuperMathPage extends React.Component {
             this.setState({
                 'screen': (this.state.screen === STATUS.REGISTER) ? STATUS.WELCOME : STATUS.NONE,
                 'avatar': (data.avatar.length === 0) ? data.avatar : avatars[12]['name'],
+                'pswdhash': get_item(data.id, 'pswdhash'),
                 'id': parseInt(data.id),
                 'name': data.name,
                 'lang': data.lang,
@@ -347,10 +347,12 @@ export default class SuperMathPage extends React.Component {
                 'age': age,
             });
 
+            console.log('Header.onResult -> id ' + data.id + ', pswdhash ' + get_item(data.id, 'pswdhash'));
+
             set_active_user(data.id);
 
             // use HTML5 Local Storage if browser supports it
-            set_item(data.id, 'user_id', data.id);
+            // set_item(data.id, 'user_id', data.id);
             set_item(data.id, 'name', data.name);
             set_item(data.id, 'email', data.email);
             set_item(data.id, 'surname', data.surname);
@@ -363,6 +365,8 @@ export default class SuperMathPage extends React.Component {
             set_item(data.id, 'belt', data.belt);
             set_item(data.id, 'solved', data.solved);
             set_item(data.id, 'age', age);
+
+            get_local_users();
 
         } else if (result === 'register') {
             this.setState({screen: STATUS.REGISTER});
