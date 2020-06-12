@@ -4,6 +4,7 @@ import {Typography, Grid, TextField, Button} from '@material-ui/core';
 import './settings.css';
 import {settings} from './../translations/settings';
 
+import {set_item, generate_pswdhash} from './../halpers/localstorage';
 import {validate_name, validate_email, validate_pswd, validate_birth} from './../halpers/validator.js';
 
 export default function Settings(props) {
@@ -80,13 +81,8 @@ export default function Settings(props) {
             result = validate_pswd(value, props.lang);
             if (result === 'ok') {
                 setEditPswdhash(true);
-
-                var crypto = require('crypto');
-                var mykey = crypto.createCipher('aes-128-cbc', value);
-                var hash = mykey.update('abc', 'utf8', 'hex');
-                hash += mykey.final('hex');
-                value = hash;
-                // localStorage.setItem('pswdhash', hash);
+                pswdhash = generate_pswdhash(value);
+                // set_item(id, 'pswdhash', pswdhash);
 
             } else {
                 setEditPswdhash(true);

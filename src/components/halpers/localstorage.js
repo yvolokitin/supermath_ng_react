@@ -87,8 +87,6 @@ export function set_active_user(user_id) {
  * Get All IDs of users who ever been logged and saved in localstorage
  */
 export function get_local_users() {
-    console.log('!!!!!!!!!!!! get_local_users');
-
     var users = [];
     if (typeof(Storage) !== 'undefined') {
         var local_users = [], locals = localStorage.getItem('users');

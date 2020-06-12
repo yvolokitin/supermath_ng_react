@@ -12,6 +12,7 @@ import {validate} from 'validate.js';
 import constraints from './constraints';
 
 import {registration} from './../translations/registration';
+import {set_item, generate_pswdhash} from './../halpers/localstorage';
 
 import axios from 'axios';
 
@@ -26,9 +27,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='down' ref={ref} {...props} />;
 });
 
-/*
-
-*/
 export default class Registration extends React.Component {
     constructor(props) {
         super(props);
@@ -85,13 +83,6 @@ export default class Registration extends React.Component {
             return;
         }
 
-        var crypto = require('crypto');
-        var mykey = crypto.createCipher('aes-128-cbc', this.state.pswd);
-        var pswdhash = mykey.update('abc', 'utf8', 'hex');
-        pswdhash += mykey.final('hex');
-        localStorage.setItem('pswdhash', pswdhash);
-        // console.log('onRegistration -> crypto pswdhash: ' + pswdhash);
-
         this.setState({loading: true, color: '#ffd9b3'});
         var post_data = {'name': this.state.name,
                          'lang': this.state.lang,
@@ -99,9 +90,10 @@ export default class Registration extends React.Component {
                          'lastname': this.state.surname,
                          'email': this.state.email,
                          'subcsr': this.state.subcsr,
-                         'pswdhash': pswdhash,
                          'passed': this.props.passed,
-                         'failed': this.props.failed};
+                         'failed': this.props.failed,
+                         'pswdhash': generate_pswdhash(this.state.pswd),
+        };
         axios.post('http://supermath.xyz:3000/api/reg', post_data)
              .then(this.onRegistrationResponse)
              .catch(this.onRegistrationError);
@@ -117,6 +109,7 @@ export default class Registration extends React.Component {
 
         if ((response.data.error === undefined) && (response.data.id !== undefined)) {
             setTimeout(() => {
+                set_item(response.data.id, 'pswdhash', generate_pswdhash(this.state.pswd));
                 this.props.onClose('successed', response.data);
                 this.setState({loading: false, color: 'orange'});
             }, timeout);
