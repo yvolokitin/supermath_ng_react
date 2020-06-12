@@ -7,25 +7,6 @@ const emailDomainPart = /^[a-zA-Z\-0-9.]+$/;
 //const pswdPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
 
 /**
- * Validate name for letters and numbers only
- */
-export function validate_name(name, lang) {
-    if (name.length < 1) {
-        return validator[lang]['name_min_length'];
-    }
-
-    if (name.length > 32) {
-        return validator[lang]['name_max_length'];
-    }
-
-    if (letterNumber.test(name) !== true) {
-        return validator[lang]['name_chars'];
-    }
-
-    return 'ok';
-}
-
-/**
   * Email address validation: local-part @ case-insensitive domain
   * 
   * 
@@ -53,9 +34,10 @@ export function validate_email(email, lang) {
     if (emailLocalPart.test(parts[0]) !== true) {
         return validator[lang]['email_format'];
     }
+    // firts symbol must be letter, last symbol must be letter or digit
     var first = parts[0].charAt(0), last = parts[0].slice(-1);
-    if ((charsPattern.test(first) !== true) || (charsPattern.test(last) !== true)) {
-        return validator[lang]['email_format'];
+    if ((charsPattern.test(first) !== true) || (letterNumber.test(last) !== true)) {
+        return validator[lang]['email_username_firstlast'];
     }
 
     // domain name part of email address validation
@@ -68,6 +50,25 @@ export function validate_email(email, lang) {
     first = parts[1].charAt(0); last = parts[1].slice(-1);
     if ((charsPattern.test(first) !== true) || (charsPattern.test(last) !== true)) {
         return validator[lang]['email_format'];
+    }
+
+    return 'ok';
+}
+
+/**
+ * Validate name for letters and numbers only
+ */
+export function validate_name(name, lang) {
+    if (name.length < 1) {
+        return validator[lang]['name_min_length'];
+    }
+
+    if (name.length > 32) {
+        return validator[lang]['name_max_length'];
+    }
+
+    if (letterNumber.test(name) !== true) {
+        return validator[lang]['name_chars'];
     }
 
     return 'ok';

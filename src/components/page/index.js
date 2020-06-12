@@ -198,9 +198,9 @@ export default class SuperMathPage extends React.Component {
                 remove_item('user_id');
                 break;
 
-            // counter: user game results from task
+            // counter: user game results from task completion
             case 'counter':
-                if ((this.state.id > 0) && (this.state.pswdhash !== null)) {
+                if ((this.state.id > 0) && (this.state.pswdhash.length > 0)) {
                     var new_passed = parseInt(this.state.passed) + parseInt(value.passed);
                     var new_failed = parseInt(this.state.failed) + parseInt(value.failed);
 
@@ -219,8 +219,8 @@ export default class SuperMathPage extends React.Component {
                     } else {
                         this.setState({passed: new_passed, failed: new_failed});
                     }
-                    // updateCounter(id, pswdhash, data)
-                    update_counter(this.state.id, this.state.pswdhash, value);
+
+                    update_counter(this.state.id, this.state.pswdhash, value, new_passed, new_failed);
                 }
                 break;
 
@@ -300,8 +300,7 @@ export default class SuperMathPage extends React.Component {
             this.setState({screen: STATUS.NONE, lang: language});
             set_lang(this.state.id, language);
             if (this.state.id > 0) {
-                // update_language(id, language)
-                update_language(this.state.id, language);
+                update_language(this.state.id, this.state.pswdhash, language);
             }
         } else {
             this.setState({screen: STATUS.NONE});

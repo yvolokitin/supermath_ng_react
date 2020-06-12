@@ -9,7 +9,8 @@ export const validator = {
         'email_mandatory': 'Email address must be entered, it could not be empty',
         'email_length': 'Email address should be at least 5 characters and max 64 characters in length',
         'email_at_error': 'Email address should consists from \'username\' symbol \'@\' and \'domain name\'',
-        'email_username_length': 'Username part of for Email address should be at least 4 characters and max 31 characters in length',
+        'email_username_length': 'Username part of Email address should be at least 4 characters and max 31 characters in length',
+        'email_username_firstlast': 'Username part of Email address must start from character (uppercase or lowercase) and last symbol should be character or numbers (a-z,A-Z,0-9)',
         'email_format': 'Email address should be in format username@domain.nnn. Username should be 4–30 characters long and can be any combination of letters (a-z,A-Z), numbers (0-9), or periods (.). Examples: example@site.com, jsmith@example.com, John.Smith@example.com, this_is_example@example.xyz',
 
         'pswd_length': 'Password should be at least 5 characters and could not be longer then 30 symbols',
@@ -27,6 +28,7 @@ export const validator = {
         'email_length': 'Email address should be at least 5 characters and max 64 characters in length',
         'email_at_error': 'Email address should consists from \'username\' symbol \'@\' and \'domain name\'',
         'email_username_length': 'Username part of for Email address should be at least 4 characters and max 31 characters in length',
+        'email_username_firstlast': 'Username part of Email address must start from character (uppercase or lowercase) and last symbol should be character or numbers (a-z,A-Z,0-9)',
         'email_format': 'Email address should be in format username@domain.nnn. Username should be 4–30 characters long and can be any combination of letters (a-z,A-Z), numbers (0-9), or periods (.). Examples: example@site.com, jsmith@example.com, John.Smith@example.com, this_is_example@example.xyz',
 
         'pswd_length': 'Password should be at least 5 characters and could not be longer then 30 symbols',
@@ -44,6 +46,7 @@ export const validator = {
         'email_length': 'Email address should be at least 5 characters and max 64 characters in length',
         'email_at_error': 'Email address should consists from \'username\' symbol \'@\' and \'domain name\'',
         'email_username_length': 'Username part of for Email address should be at least 4 characters and max 31 characters in length',
+        'email_username_firstlast': 'Username part of Email address must start from character (uppercase or lowercase) and last symbol should be character or numbers (a-z,A-Z,0-9)',
         'email_format': 'Email address should be in format username@domain.nnn. Username should be 4–30 characters long and can be any combination of letters (a-z,A-Z), numbers (0-9), or periods (.). Examples: example@site.com, jsmith@example.com, John.Smith@example.com, this_is_example@example.xyz',
 
         'pswd_length': 'Password should be at least 5 characters and could not be longer then 30 symbols',
@@ -61,6 +64,7 @@ export const validator = {
         'email_length': 'Email address should be at least 5 characters and max 64 characters in length',
         'email_at_error': 'Email address should consists from \'username\' symbol \'@\' and \'domain name\'',
         'email_username_length': 'Username part of for Email address should be at least 4 characters and max 31 characters in length',
+        'email_username_firstlast': 'Username part of Email address must start from character (uppercase or lowercase) and last symbol should be character or numbers (a-z,A-Z,0-9)',
         'email_format': 'Email address should be in format username@domain.nnn. Username should be 4–30 characters long and can be any combination of letters (a-z,A-Z), numbers (0-9), or periods (.). Examples: example@site.com, jsmith@example.com, John.Smith@example.com, this_is_example@example.xyz',
 
         'pswd_length': 'Password should be at least 5 characters and could not be longer then 30 symbols',
@@ -78,6 +82,7 @@ export const validator = {
         'email_length': 'Email address should be at least 5 characters and max 64 characters in length',
         'email_at_error': 'Email address should consists from \'username\' symbol \'@\' and \'domain name\'',
         'email_username_length': 'Username part of for Email address should be at least 4 characters and max 31 characters in length',
+        'email_username_firstlast': 'Username part of Email address must start from character (uppercase or lowercase) and last symbol should be character or numbers (a-z,A-Z,0-9)',
         'email_format': 'Email address should be in format username@domain.nnn. Username should be 4–30 characters long and can be any combination of letters (a-z,A-Z), numbers (0-9), or periods (.). Examples: example@site.com, jsmith@example.com, John.Smith@example.com, this_is_example@example.xyz',
 
         'pswd_length': 'Password should be at least 5 characters and could not be longer then 30 symbols',
@@ -95,6 +100,7 @@ export const validator = {
         'email_length': 'Email address should be at least 5 characters and max 64 characters in length',
         'email_at_error': 'Email address should consists from \'username\' symbol \'@\' and \'domain name\'',
         'email_username_length': 'Username part of for Email address should be at least 4 characters and max 31 characters in length',
+        'email_username_firstlast': 'Username part of Email address must start from character (uppercase or lowercase) and last symbol should be character or numbers (a-z,A-Z,0-9)',
         'email_format': 'Email address should be in format username@domain.nnn. Username should be 4–30 characters long and can be any combination of letters (a-z,A-Z), numbers (0-9), or periods (.). Examples: example@site.com, jsmith@example.com, John.Smith@example.com, this_is_example@example.xyz',
 
         'pswd_length': 'Password should be at least 5 characters and could not be longer then 30 symbols',
@@ -112,6 +118,7 @@ export const validator = {
         'email_length': 'Email address should be at least 5 characters and max 64 characters in length',
         'email_at_error': 'Email address should consists from \'username\' symbol \'@\' and \'domain name\'',
         'email_username_length': 'Username part of for Email address should be at least 4 characters and max 31 characters in length',
+        'email_username_firstlast': 'Username part of Email address must start from character (uppercase or lowercase) and last symbol should be character or numbers (a-z,A-Z,0-9)',
         'email_format': 'Email address should be in format username@domain.nnn. Username should be 4–30 characters long and can be any combination of letters (a-z,A-Z), numbers (0-9), or periods (.). Examples: example@site.com, jsmith@example.com, John.Smith@example.com, this_is_example@example.xyz',
 
         'pswd_length': 'Password should be at least 5 characters and could not be longer then 30 symbols',

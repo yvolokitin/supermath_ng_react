@@ -4,8 +4,8 @@ import {Typography, Grid, TextField, Button} from '@material-ui/core';
 import './settings.css';
 import {settings} from './../translations/settings';
 
-import {set_item, generate_pswdhash} from './../halpers/localstorage';
 import {validate_name, validate_email, validate_pswd, validate_birth} from './../halpers/validator.js';
+// import {set_time, generate_pswdhash} from './../halpers/localstorage';
 
 export default function Settings(props) {
     const [hidden, setHidden] = useState(true);
@@ -81,7 +81,7 @@ export default function Settings(props) {
             result = validate_pswd(value, props.lang);
             if (result === 'ok') {
                 setEditPswdhash(true);
-                pswdhash = generate_pswdhash(value);
+                // var pswd = generate_pswdhash(value);
                 // set_item(id, 'pswdhash', pswdhash);
 
             } else {

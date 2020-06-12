@@ -1,4 +1,5 @@
 ﻿import axios from 'axios';
+import {set_item} from './../halpers/localstorage';
 
 export function send_email(data) {
     console.log('Communicator.send_email ' + data.email);
@@ -9,7 +10,7 @@ export function send_email(data) {
 
 export function update_avatar(id, pswdhash, avatar) {
     console.log('Communicator.update_avatar ' + id);
-    localStorage.setItem('avatar', avatar);
+    set_item(id, 'avatar', avatar);
     var data = {
         'user_id': id,
         'pswdhash': pswdhash,
@@ -23,7 +24,6 @@ export function update_avatar(id, pswdhash, avatar) {
 
 export function update_usersettings(id, pswdhash, property, value) {
     console.log('Communicator.update_usersettings ' + id);
-    // localStorage.setItem('avatar', avatar);
     var data = {
         'user_id': id,
         'operation': property,
@@ -35,10 +35,10 @@ export function update_usersettings(id, pswdhash, property, value) {
          .catch(onApiCallError);
 }
 
-export function update_language(id, language) {
+// update_language(this.state.id, this.state.pswdhash, language);
+export function update_language(id, pswdhash, language) {
     console.log('Communicator.update_language ' + id);
-    var pswdhash = localStorage.getItem('pswdhash');
-    if (pswdhash != null) {
+    if ((id != null) && (pswdhash != null) && (language != null)) {
         var data = {
             'user_id': id,
             'pswdhash': pswdhash,
@@ -50,20 +50,19 @@ export function update_language(id, language) {
     }
 }
 
-export function update_counter(id, pswdhash, data) {
+// update_counter(this.state.id, this.state.pswdhash, value, new_passed, new_failed);
+/**
+ * Update user passed/failed counter after task completion
+ * id and pswdhash are know parameters for user
+ * data includes task related info: #passed/#failed per task, duration, rate etc
+ * passed/failed are total numbers after addition in page/index.js
+ */
+export function update_counter(id, pswdhash, data, passed, failed) {
     console.log('Communicator.update_counter ' + id);
-
-    var passed = parseInt(data.passed), failed = parseInt(data.failed);
-    if ((passed > 0) || (failed > 0)) {
-        if (localStorage.getItem('passed') !== null) {
-            passed = passed + parseInt(localStorage.getItem('passed'));
-        }
-        localStorage.setItem('passed', passed);
-
-        if (localStorage.getItem('failed') !== null) {
-            failed = failed + parseInt(localStorage.getItem('failed'));
-        }
-        localStorage.setItem('failed', failed);
+    // check that passed or failed  > 0 due to user might exit from game with no completion
+    if ((parseInt(data.passed) > 0) || (parseInt(data.failed) > 0)) {
+        set_item(data.user_id, 'passed', passed);
+        set_item(data.user_id, 'failed', failed);
 
         data.user_id = id; data.pswdhash = pswdhash;
         axios.post('http://supermath.xyz:3000/api/update', data)
