@@ -27,7 +27,7 @@ export default function Avatars(props) {
     const [hidden, setHidden] = useState(true);
 
     useEffect(() => {
-        // console.log('Avatars.props.open' + props.open + ', props.avatar ' + props.avatar);
+        // console.log('Avatars. props.avatar ' + props.avatar);
         if (props.open) {
             setHidden(false);
             props.avatars.forEach(

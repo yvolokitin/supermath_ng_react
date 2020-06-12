@@ -68,8 +68,6 @@ export function get_active_user() {
  * Set active user
  */
 export function set_active_user(user_id) {
-    get_local_users()
-
     if (user_id > 0) {
         var users = localStorage.getItem('users');
         var sub_user = user_id.toString() + ',';
@@ -89,8 +87,9 @@ export function set_active_user(user_id) {
  * Get All IDs of users who ever been logged and saved in localstorage
  */
 export function get_local_users() {
-    var users = [];
+    console.log('!!!!!!!!!!!! get_local_users');
 
+    var users = [];
     if (typeof(Storage) !== 'undefined') {
         var local_users = [], locals = localStorage.getItem('users');
         if (locals !== null && locals !== undefined) {
@@ -113,13 +112,48 @@ export function get_local_users() {
                     'pswdhash': get_item(local_users[i], 'pswdhash'),
                 };
 
-                console.log('id ' + local_users[i] + ', name ' + data.name + ', pswdhash \'' + data.pswdhash + '\'');
+                // console.log('id ' + local_users[i] + ', name ' + data.name + ', avatar ' + data.avatar);
                 users.push(data);
             }
         }
     }
 
     return users;
+}
+
+/**
+ * Remove all local user info from localstorage
+ */
+export function remove_local_user(user_id) {
+    const user_props = ['name', 'email', 'surname', 'birthday', 'avatar', 'pswdhash', 'passed', 'failed', 'cards', 'lang', 'belt', 'solved', 'age'];
+    var users = [];
+
+    if (typeof(Storage) !== 'undefined') {
+        var local_users = [], locals = localStorage.getItem('users');
+        if (locals !== null && locals !== undefined) {
+            local_users = locals.split(',');
+        }
+
+        for (var i = 0; i < local_users.length; i++) {
+            if ((local_users[i] !== 0) && (local_users[i] !== user_id)) {
+                users.push(local_users[i]);
+            }
+        }
+
+        var new_list = '';
+        if (users.length > 0) {
+            for (var j = 0; j < users.length; j++) {
+                new_list = new_list + users[j] + ',';
+            }
+        }
+
+        localStorage.setItem('users', new_list);
+
+        for (var k = 0; k < user_props.length; k++) {
+            var key = user_id + '_' + user_props[k];
+            localStorage.removeItem(key);
+        }
+    }
 }
 
 /**

@@ -22,7 +22,7 @@ import Tabs from "./../body/tabs";
 
 import {get_lang, set_lang} from './../halpers/localstorage';
 import {set_item, get_item, remove_item} from './../halpers/localstorage';
-import {get_local_users, get_active_user, set_active_user} from './../halpers/localstorage';
+import {get_active_user, set_active_user} from './../halpers/localstorage';
 
 import './index.css';
 
@@ -316,7 +316,7 @@ export default class SuperMathPage extends React.Component {
      */
     onResult(result, data) {
         if (result === 'successed') {
-            console.log('Header.onResult ' + data.passed + ', ' + data.failed + ', solved: ' + data.solved);
+            console.log('Header.onResult ' + data.passed + ', ' + data.failed + ', avatar: ' + data.avatar);
 
             // to show all received user data
             // for (var pname in data) { console.log(pname, data[pname]); }
@@ -331,7 +331,7 @@ export default class SuperMathPage extends React.Component {
             // var cards_counter = (data.solved.length > 0) ? data.solved.toString().split(',').length-1 : 0;
             this.setState({
                 'screen': (this.state.screen === STATUS.REGISTER) ? STATUS.WELCOME : STATUS.NONE,
-                'avatar': (data.avatar.length === 0) ? data.avatar : avatars[12]['name'],
+                'avatar': (data.avatar.length > 0) ? data.avatar : avatars[12]['name'],
                 'pswdhash': get_item(data.id, 'pswdhash'),
                 'id': parseInt(data.id),
                 'name': data.name,
@@ -347,12 +347,8 @@ export default class SuperMathPage extends React.Component {
                 'age': age,
             });
 
-            console.log('Header.onResult -> id ' + data.id + ', pswdhash ' + get_item(data.id, 'pswdhash'));
-
             set_active_user(data.id);
-
             // use HTML5 Local Storage if browser supports it
-            // set_item(data.id, 'user_id', data.id);
             set_item(data.id, 'name', data.name);
             set_item(data.id, 'email', data.email);
             set_item(data.id, 'surname', data.surname);
@@ -365,8 +361,6 @@ export default class SuperMathPage extends React.Component {
             set_item(data.id, 'belt', data.belt);
             set_item(data.id, 'solved', data.solved);
             set_item(data.id, 'age', age);
-
-            get_local_users();
 
         } else if (result === 'register') {
             this.setState({screen: STATUS.REGISTER});

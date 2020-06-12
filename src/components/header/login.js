@@ -12,8 +12,9 @@ import ColorLine from "./../line/line";
 
 import {login} from './../translations/login';
 import {get_avatar_by_name} from './../halpers/avatars';
-import {get_local_users, set_item, generate_pswdhash} from './../halpers/localstorage';
+import {set_item, generate_pswdhash} from './../halpers/localstorage';
 import {validate_email, validate_pswd} from './../halpers/validator.js';
+import {get_local_users, remove_local_user} from './../halpers/localstorage';
 
 import axios from 'axios';
 import './login.css';
@@ -32,10 +33,9 @@ export default function Login(props) {
     const [error, setError] = useState('');
 
     const [users, setUsers] = useState([]);
-    const [last_time, setLastTime] = useState(new Date().getTime());
 
     useEffect(() => {
-        if (props.open) {
+        if (props.open === true) {
             setUsers(get_local_users());
         }
 
@@ -49,20 +49,9 @@ export default function Login(props) {
 
     }, [loading, props, ])
 
-
     const onLoginResponse = useCallback((response) => {
         console.log('onLoginResponse:: error ' + response.data.error + ', id ' + response.data.id);
-/*
-        var curr = new Date().getTime();
-        var timeout = curr - last_time;
-        console.log('Login.onLoginResponse: ' + curr + ' - ' + last_time + ' = timeout ' + timeout);
 
-        if (timeout < 1800) {
-            timeout = 1800;
-        } else {
-            timeout = 0;
-        }
-*/
         var timeout = 1800;
 
         if ('data' in response) {
@@ -107,7 +96,7 @@ export default function Login(props) {
             }, timeout);
         } 
 
-    }, [props.lang, password, last_time, onClose, ])
+    }, [props.lang, password, onClose, ])
 
     const onLoginError = useCallback((error) => {
         console.log('Login.onLoginError -> axios.post error ' + error);
@@ -120,8 +109,7 @@ export default function Login(props) {
         // console.log('Login.onLogin -> email ' + email + ', password ' + password);
         if (validate_email(email, props.lang) === 'ok') {
             if (validate_pswd(password, props.lang) === 'ok') {
-                var pswdhash = generate_pswdhash(password);
-                setLoading(true); setLastTime(new Date().getTime());
+                setLoading(true); var pswdhash = generate_pswdhash(password);
                 // console.log('onLogin -> crypto pswdhash: ' + pswdhash);
                 var post_data = {'email': email, 'pswdhash': pswdhash};
                 axios.post('http://supermath.xyz:3000/api/login', post_data)
@@ -135,6 +123,22 @@ export default function Login(props) {
             setError(validate_email(email, props.lang));
         }
     }, [props.lang, email, password, onLoginResponse, onLoginError, ])
+
+    const onHashLogin = useCallback((user_email, user_pswd) => {
+        // console.log('Login.onLogin -> user_email ' + user_email + ', user_pswd ' + user_pswd);
+        setLoading(true); var post_data = {'email': user_email, 'pswdhash': user_pswd};
+        axios.post('http://supermath.xyz:3000/api/login', post_data)
+            .then(onLoginResponse)
+            .catch(onLoginError);
+
+    }, [onLoginResponse, onLoginError, ])
+
+    const onDelete = useCallback((user_id) => {
+        console.log('Login.onDelete ' + user_id);
+        remove_local_user(user_id);
+        setUsers(get_local_users());
+
+    }, [ ])
 
     return (
         <Dialog open={props.open} fullWidth={true} fullScreen={props.fullScreen}
@@ -188,17 +192,17 @@ export default function Login(props) {
                 <div className='login_wrapper'>
                     {users.map((user) =>
                         <div key={user.id} className='login_account'>
-                            <div className='login_account_avatar'>
+                            <div className='login_account_avatar' onClick={() => onHashLogin(user.email, user.pswdhash)}>
                                 <img src={get_avatar_by_name(user.avatar)} alt={user.avatar} onContextMenu={(e) => e.preventDefault()}/>
                             </div>
                             <div className='login_account_name'>
-                                <div className='login_account_name_signout'>
-                                    <font>sign out</font>
+                                <div className='login_account_name_signout' onClick={() => onDelete(user.id)}>
+                                    <font>{login[props.lang]['delete']}</font>
                                 </div>
-                                <div className='login_account_name_surname'>
+                                <div className='login_account_name_surname' onClick={() => onHashLogin(user.email, user.pswdhash)}>
                                     {user.name} {user.surname}
                                 </div>
-                                <div className='login_account_name_email'>
+                                <div className='login_account_name_email' onClick={() => onHashLogin(user.email, user.pswdhash)}>
                                     {user.email}
                                 </div>
                             </div>

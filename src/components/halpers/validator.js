@@ -2,7 +2,7 @@
 
 const charsPattern = /^[a-zA-Z]+$/;
 const letterNumber = /^[0-9a-zA-Z]+$/;
-const emailLocalPart = /^[0-9a-zA-Z.]+$/;
+const emailLocalPart = /^[0-9_a-z\-A-Z.]+$/;
 const emailDomainPart = /^[a-zA-Z\-0-9.]+$/;
 //const pswdPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
 
@@ -32,32 +32,40 @@ export function validate_name(name, lang) {
   * The maximum total length of the local-part of an email address is 64 octets
   */
 export function validate_email(email, lang) {
+    // general email address check for undefined and proper length
+    if ((email === undefined) || (email === null)) {
+        return validator[lang]['email_mandatory'];
+    }
+    if ((email.length < 5) || (email.length > 64)) {
+        return validator[lang]['email_length'];
+    }
+
     const parts = email.split('@');
     // local-part@domain -> [local-part] and [domain]
     if (parts.length !== 2) {
-        return validator[lang]['email_format'];
+        return validator[lang]['email_at_error'];
     }
 
-    var local = parts[0], domain = parts[1];
-    if ((local.length < 4) || (local.length > 31)) {
+    // user name part of email address validation
+    if ((parts[0].length < 4) || (parts[0].length > 31)) {
+        return validator[lang]['email_username_length'];
+    }
+    if (emailLocalPart.test(parts[0]) !== true) {
         return validator[lang]['email_format'];
     }
-    if (emailLocalPart.test(local) !== true) {
-        return validator[lang]['email_format'];
-    }
-    var first = local.charAt(0), last = local.slice(-1);
+    var first = parts[0].charAt(0), last = parts[0].slice(-1);
     if ((charsPattern.test(first) !== true) || (charsPattern.test(last) !== true)) {
         return validator[lang]['email_format'];
     }
 
-    console.log('local ' + local + ', domain ' + domain);
-    if ((domain.length < 5) || (domain.length > 60)) {
+    // domain name part of email address validation
+    if ((parts[1].length < 5) || (parts[1].length > 60)) {
         return validator[lang]['email_format'];
     }
-    if (emailDomainPart.test(domain) !== true) {
+    if (emailDomainPart.test(parts[1]) !== true) {
         return validator[lang]['email_format'];
     }
-    first = domain.charAt(0); last = domain.slice(-1);
+    first = parts[1].charAt(0); last = parts[1].slice(-1);
     if ((charsPattern.test(first) !== true) || (charsPattern.test(last) !== true)) {
         return validator[lang]['email_format'];
     }
