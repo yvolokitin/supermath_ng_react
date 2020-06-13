@@ -23,6 +23,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='down' ref={ref} {...props} />;
 });
 
+const DEFAULT_HIDDEN_PSWD = '*******';
+
 export default function Login(props) {
     // login credentials: email and password
     const [email, setEmail] = useState('');
@@ -36,7 +38,7 @@ export default function Login(props) {
 
     useEffect(() => {
         if (props.open === true) {
-            setUsers(get_local_users());
+            setUsers(get_local_users(0));
         }
 
     }, [props.open, ]);
@@ -68,8 +70,10 @@ export default function Login(props) {
                 ('avatar' in response.data) &&
                 ('belt' in response.data)) {
                 setTimeout(() => {
-                    var pswdhash = generate_pswdhash(password);
-                    set_item(response.data.id, 'pswdhash', pswdhash);
+                    if ((password.length > 0) && (password !== DEFAULT_HIDDEN_PSWD)) {
+                        var pswdhash = generate_pswdhash(password);
+                        set_item(response.data.id, 'pswdhash', pswdhash);
+                    }
 
                     setSuccess(true); setLoading(false);
                     onClose('successed', response.data);
@@ -125,7 +129,12 @@ export default function Login(props) {
     }, [props.lang, email, password, onLoginResponse, onLoginError, ])
 
     const onHashLogin = useCallback((user_email, user_pswd) => {
-        // console.log('Login.onLogin -> user_email ' + user_email + ', user_pswd ' + user_pswd);
+        console.log('Login.onHashLogin -> ' + user_email + ', ' + user_pswd);
+
+        // set email of user from localstorage and 7* password
+        setEmail(user_email); setPassword(DEFAULT_HIDDEN_PSWD);
+
+        // process with login request from localstorage data
         setLoading(true); var post_data = {'email': user_email, 'pswdhash': user_pswd};
         axios.post('http://supermath.xyz:3000/api/login', post_data)
             .then(onLoginResponse)
@@ -136,7 +145,7 @@ export default function Login(props) {
     const onDelete = useCallback((user_id) => {
         console.log('Login.onDelete ' + user_id);
         remove_local_user(user_id);
-        setUsers(get_local_users());
+        setUsers(get_local_users(0));
 
     }, [ ])
 
@@ -186,31 +195,32 @@ export default function Login(props) {
                 </div>
             </div>
 
-            <ColorLine margin={'10px'}/>
-
-            {(users.length > 0) ? (<>
-                <div className='login_wrapper'>
-                    {users.map((user) =>
-                        <div key={user.id} className='login_account'>
-                            <div className='login_account_avatar' onClick={() => onHashLogin(user.email, user.pswdhash)}>
-                                <img src={get_avatar_by_name(user.avatar)} alt={user.avatar} onContextMenu={(e) => e.preventDefault()}/>
+            {(users.length > 0) ? (
+                <>
+                    <ColorLine margin={'10px'}/>
+                    <div className='login_wrapper'>
+                        {users.map((user) =>
+                            <div key={user.id} className='login_account'>
+                                <div className='login_account_avatar' onClick={() => onHashLogin(user.email, user.pswdhash)}>
+                                    <img src={get_avatar_by_name(user.avatar)} alt={user.avatar} onContextMenu={(e) => e.preventDefault()}/>
+                                </div>
+                                <div className='login_account_name'>
+                                    <div className='login_account_name_signout' onClick={() => onDelete(user.id)}>
+                                        <font>{login[props.lang]['delete']}</font>
+                                    </div>
+                                    <div className='login_account_name_surname' onClick={() => onHashLogin(user.email, user.pswdhash)}>
+                                        {user.name} {user.surname}
+                                    </div>
+                                    <div className='login_account_name_email' onClick={() => onHashLogin(user.email, user.pswdhash)}>
+                                        {user.email}
+                                    </div>
+                                </div>
                             </div>
-                            <div className='login_account_name'>
-                                <div className='login_account_name_signout' onClick={() => onDelete(user.id)}>
-                                    <font>{login[props.lang]['delete']}</font>
-                                </div>
-                                <div className='login_account_name_surname' onClick={() => onHashLogin(user.email, user.pswdhash)}>
-                                    {user.name} {user.surname}
-                                </div>
-                                <div className='login_account_name_email' onClick={() => onHashLogin(user.email, user.pswdhash)}>
-                                    {user.email}
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
-                <ColorLine margin={'10px'}/>
-            </>) : (<></>)}
+                        )}
+                    </div>
+                    <ColorLine margin={'10px'}/>
+                </>
+            ) : (<></>)}
 
             <Snackbar open={error.length !== 0} onClose={() => setError('')} autoHideDuration={15000} anchorOrigin={{vertical:'top', horizontal:'center'}}>
                 <Alert onClose={() => setError('')} severity='error'>

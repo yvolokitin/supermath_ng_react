@@ -58,7 +58,7 @@ import black7 from './../../images/tasks/black_7.jpg';
 import black8 from './../../images/tasks/black_8.jpg';
 import black9 from './../../images/tasks/black_9.jpg';
 
-const task_amount = 2; // 30;
+const task_amount = 30;
 
 export const white_games = [
     {id: 1, uid: 'white1', logo: white1, type: 'linedigits', task: '0-7', amount: task_amount},
@@ -86,14 +86,14 @@ export const orange_games = [
 ];
 
 export const green_games = [
-    {id: 1, uid: 'green1', logo: green5, type: 'comp_expr', task: '<>=,+-,1-9,10', amount: task_amount},
-    {id: 2, uid: 'green2', logo: green6, type: 'comp_expr', task: '<>=,+-,11-99,1', amount: task_amount},
-    {id: 3, uid: 'green3', logo: green1, type: '2digits', task: '+-,1-9,1-9,100,100', amount: task_amount},
-    {id: 4, uid: 'green4', logo: green2, type: '2digits', task: '+-,1-9,1-9,10,100', amount: task_amount},
-    {id: 5, uid: 'green5', logo: green3, type: '2digits', task: '+-,1-99,1-99,10,10', amount: task_amount},
-    {id: 7, uid: 'green6', logo: green8, type: '2digits', task: '+-,1-9,101-999,1,1', amount: task_amount},
-    {id: 6, uid: 'green7', logo: green7, type: '2digits', task: '+-,1-9,101-999,1,1', amount: task_amount},
-    {id: 8, uid: 'green8', logo: green4, type: 'digit_2column', task: '+-,11-99,101-999,1,1', amount: task_amount},
+    {id: 1, uid: 'green1', logo: green1, type: 'comp_expr', task: '<>=,+-,1-9,10', amount: task_amount},
+    {id: 2, uid: 'green2', logo: green2, type: 'comp_expr', task: '<>=,+-,11-99,1', amount: task_amount},
+    {id: 3, uid: 'green3', logo: green3, type: '2digits', task: '+-,1-9,1-9,100,100', amount: task_amount},
+    {id: 4, uid: 'green4', logo: green4, type: '2digits', task: '+-,1-9,1-9,10,100', amount: task_amount},
+    {id: 5, uid: 'green5', logo: green5, type: '2digits', task: '+-,1-99,1-99,10,10', amount: task_amount},
+    {id: 6, uid: 'green6', logo: green6, type: '2digits', task: '+-,1-9,101-999,1,1', amount: task_amount},
+    {id: 7, uid: 'green7', logo: green7, type: '2digits', task: '+-,1-9,101-999,1,1', amount: task_amount},
+    {id: 8, uid: 'green8', logo: green8, type: 'digit_2column', task: '+-,11-99,101-999,1,1', amount: task_amount},
     {id: 9, uid: 'green9', logo: green9, type: 'digit_2column', task: '+-,1001-9999,1001-9999,1,1', amount: task_amount},
 ];
 

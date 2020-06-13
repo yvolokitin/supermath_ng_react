@@ -24,6 +24,7 @@ export function update_avatar(id, pswdhash, avatar) {
 
 export function update_usersettings(id, pswdhash, property, value) {
     console.log('Communicator.update_usersettings ' + id);
+    set_item(id, property, value);
     var data = {
         'user_id': id,
         'operation': property,

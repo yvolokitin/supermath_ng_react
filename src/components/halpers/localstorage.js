@@ -85,8 +85,11 @@ export function set_active_user(user_id) {
 
 /**
  * Get All IDs of users who ever been logged and saved in localstorage
+ * 
+ * user_is is user, which should be excluded from list
  */
-export function get_local_users() {
+export function get_local_users(user_id = 0) {
+    // console.log('get_local_users ' + user_id);
     var users = [];
     if (typeof(Storage) !== 'undefined') {
         var local_users = [], locals = localStorage.getItem('users');
@@ -95,7 +98,7 @@ export function get_local_users() {
         }
 
         for (var i = 0; i < local_users.length; i++) {
-            if ((local_users[i] !== 0) &&
+            if ((parseInt(local_users[i]) !== parseInt(user_id)) &&
                 (get_item(local_users[i], 'name') !== '') &&
                 (get_item(local_users[i], 'email') !== '') &&
                 (get_item(local_users[i], 'surname') !== '') &&
@@ -110,7 +113,7 @@ export function get_local_users() {
                     'pswdhash': get_item(local_users[i], 'pswdhash'),
                 };
 
-                // console.log('id ' + local_users[i] + ', name ' + data.name + ', avatar ' + data.avatar);
+                console.log('id ' + local_users[i] + ', name ' + data.name + ', avatar ' + data.avatar);
                 users.push(data);
             }
         }
@@ -202,7 +205,7 @@ export function get_item(id, key) {
     }
 
     // if property is still undefined -> return default value
-    if (property === undefined || property === null) {
+    if (property === undefined || property === null || property.length === 0) {
         switch (key) {
             case 'belt':
                 property = 'white';

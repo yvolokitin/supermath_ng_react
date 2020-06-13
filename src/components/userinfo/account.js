@@ -104,10 +104,16 @@ export default function Account(props) {
         }
     }
 
-    function onLogout(status) {
+    function onLogout(status, user_id) {
+        console.log('Account.onLogout -> status ' + status + ', user_id ' + user_id);
         setLogout(false);
+
         if (status === 'logout') {
             props.onUpdate(status);
+
+        // login with localstorage
+        } else {
+            props.onUpdate(status, user_id);
         }
     }
 
@@ -194,6 +200,7 @@ export default function Account(props) {
                 pswdhash={props.pswdhash}/>
 
             <Logout open={logout}
+                id={props.id}
                 name={props.name}
                 lang={props.lang}
                 onLogout={onLogout}/>

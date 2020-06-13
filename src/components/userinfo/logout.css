@@ -1,6 +1,6 @@
 ﻿.logout_wrapper {
-    height: 450px;
     width: 350px;
+    height: auto;
 
     position: absolute;
     z-index: 10;
@@ -14,7 +14,7 @@
     box-shadow: 1px 1px 3px 0px grey;
 }
 .logout_wrapper_img {
-    height: 50%;
+    height: 150px;
     width: 100%;
 
     display: flex;
@@ -28,7 +28,7 @@
     cursor: pointer;
 }
 .logout_wrapper_title {
-    height: 10%;
+    height: 35px;
     width: 100%;
 
     display: flex;
@@ -44,7 +44,7 @@
     text-shadow: 2px 2px 2px black;
 }
 .logout_wrapper_question {
-    height: 10%;
+    height: 35px;
     width: 100%;
 
     font-family: 'Roboto', Helvetica, Arial, sans-serif;
@@ -57,7 +57,7 @@
     justify-content: center;
 }
 .logout_wrapper_btns {
-    height: 20%;
+    height: 80px;
     width: 100%;
 }
 .logout_wrapper_btns_left {
@@ -76,6 +76,79 @@
     align-items: center;
     justify-content: center;
 }
+.logout_users_wrapper {
+    width: 100%;
+    user-select: none;
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.logout_users_account {
+    width: 98%;
+    height: 70px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    cursor: pointer;
+
+    font-size: 0.85rem;
+    font-weight: bold;
+
+    border-radius: 5px;
+    border: 1px solid white;
+    transition: all .5s;
+}
+.logout_users_account:hover {
+    border-radius: 5px;
+    border: 1px solid grey;
+}
+.logout_users_avatar {
+    width: 20%;
+    height: 100%;
+    float: left;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logout_users_avatar img {
+    height: 97%;
+    width: auto;
+}
+.logout_users_name {
+    width: 77%;
+    height: 100%;
+    margin-left: 3%;
+    float: right;
+}
+.logout_users_name_signout {
+    width: 100%;
+    height: 20%;
+    font-size: 0.70rem;
+    text-align: right;
+}
+.logout_users_name_signout font {
+    transition: all .5s;
+}
+.logout_users_name_signout font:hover {
+    transform: scale(1.05);
+    background-color: black;
+    color: white;
+}
+.logout_users_name_surname {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    align-items: center;
+}
+.logout_users_name_email {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    align-items: center;
+}
+
 @media only screen and (max-width: 740px) {
     .logout_wrapper {
         top: 10px;

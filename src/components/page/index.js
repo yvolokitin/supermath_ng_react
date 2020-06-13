@@ -119,6 +119,8 @@ export default class SuperMathPage extends React.Component {
     }
 
     componentDidMount() {
+        console.log('Page.Header -> this.state.belt ' + this.state.belt);
+
         if ((this.state.id > 0) && (this.state.pswdhash.length > 0)) {
             // console.log('refreshing ' + this.state.id + ', pswdhash: ' + this.state.pswdhash);
             var post_data = {
@@ -196,6 +198,37 @@ export default class SuperMathPage extends React.Component {
             case 'logout':
                 this.setState({screen: STATUS.NONE, id: 0, solved: ''});
                 remove_item('user_id');
+                break;
+
+            case 'hashlogin':
+                set_active_user(value);
+                // value is user.id
+                this.setState({
+                    screen: STATUS.NONE,
+                    id: value,
+                    email: get_item(value, 'email'),
+                    name: get_item(value, 'name'),
+                    surname: get_item(value, 'surname'),
+                    passed: get_item(value, 'passed'),
+                    failed: get_item(value, 'failed'),
+                    cards: get_item(value, 'cards'),
+                    belt: get_item(value, 'belt'),
+                    avatar: get_item(value, 'avatar'),
+                    birthday: get_item(value, 'birthday'),
+                    age: get_item(value, 'age'),
+                    solved: get_item(value, 'solved'),
+                    pswdhash: get_item(value, 'pswdhash'),
+                    lang: get_item(value, 'lang'),
+                });
+                var post = {
+                    'user_id': value,
+                    'pswdhash': get_item(value, 'pswdhash'),
+                    'refresh': false,
+                };
+                axios.post('http://supermath.xyz:3000/api/refresh', post)
+                     .then(this.onApiUpdate)
+                     .catch(this.onApiUpdateError);
+
                 break;
 
             // counter: user game results from task completion
