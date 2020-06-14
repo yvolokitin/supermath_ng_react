@@ -123,10 +123,11 @@ export const brown_games = [
 ];
 
 export const black_games = [
-    {id: 1, uid: 'black1', logo: black1, type: 'digit_2column', task: '+-,1000000-99999999,1000000-99999999,1,1', amount: task_amount},
-    {id: 2, uid: 'black2', logo: black2, type: 'digit_2column', task: 'x,1000-9999,1000-9999,1,1', amount: task_amount},
-    {id: 3, uid: 'black3', logo: black3, type: 'none', task: '', amount: task_amount},
-    {id: 4, uid: 'black4', logo: black4, type: 'none', task: '', amount: task_amount},
+    {id: 1, uid: 'black1', logo: black1, type: 'digit_2column', task: '+-,100000-999999,100000-999999,1,1', amount: task_amount},
+    {id: 2, uid: 'black2', logo: black2, type: 'digit_2column', task: '+-,1000000-99999999,1000000-99999999,1,1', amount: task_amount},
+    {id: 3, uid: 'black3', logo: black3, type: 'digit_2column', task: 'x,100-999,100-999,1,1', amount: task_amount},
+    {id: 4, uid: 'black4', logo: black4, type: 'digit_2column', task: 'x,1000-9999,1000-9999,1,1', amount: task_amount},
+
     {id: 5, uid: 'black5', logo: black5, type: 'none', task: '', amount: task_amount},
     {id: 6, uid: 'black6', logo: black6, type: 'none', task: '', amount: task_amount},
     {id: 7, uid: 'black7', logo: black7, type: 'none', task: '', amount: task_amount},
