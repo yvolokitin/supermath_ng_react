@@ -20,8 +20,6 @@ import Account from './../userinfo/account';
 import {avatars} from './../halpers/avatars';
 import Tabs from "./../body/tabs";
 
-import {get_avatar_by_name} from './../halpers/avatars';
-
 import {get_lang, set_lang} from './../halpers/localstorage';
 import {set_item, get_item, remove_item} from './../halpers/localstorage';
 import {get_active_user, set_active_user} from './../halpers/localstorage';
