@@ -211,6 +211,10 @@ export function get_item(id, key) {
                 property = 'white';
                 break;
 
+            case 'avatar':
+                property = 'martin';
+                break;
+
             default:
                 property = '';
                 break;
