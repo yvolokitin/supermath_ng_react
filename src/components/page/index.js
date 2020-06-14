@@ -477,12 +477,6 @@ export default class SuperMathPage extends React.Component {
                     <div className='header_div_right'>
                         { (this.state.id > 0) ? (
                             <>
-                                <div className='font_userinfo_avatar'>
-                                    <img onClick={() => this.setState({screen: STATUS.ACCOUNT})}
-                                        alt={get_avatar_by_name(this.state.avatar)}
-                                        src={get_avatar_by_name(this.state.avatar)}/>
-                                </div>
-
                                 <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo'> {this.state.name}: </font>
                                 <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo' style={{color:'green'}}>
                                     {this.state.passed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
