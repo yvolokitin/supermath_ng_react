@@ -57,8 +57,24 @@
   from {opacity: .1} 
   to {opacity: 1}
 }
-.trophy_table_row:hover {
-    box-shadow: 3px 3px 5px 0px grey;
+.trophy_table_cell_throw {
+    height: 100%;
+    width: 10%;
+    float: left;
+
+    margin-left: 3px;
+    margin-right: 3px;
+    padding: 3px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: white;
+    transition: all .5s;
+}
+.trophy_table_cell_throw:hover {
+    transform: scale(1.2);
 }
 .trophy_table_cell_num {
     height: 100%;
@@ -103,6 +119,10 @@
     -webkit-animation: none;
     -moz-animation: none;
     animation: none;
+    transition: all .5s;
+}
+.trophy_table_cell_ava img:hover {
+    transform: scale(1.2);
 }
 .trophy_table_cell_name {
     height: 100%;

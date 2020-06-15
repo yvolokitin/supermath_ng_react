@@ -1,5 +1,5 @@
 ﻿import React, { useEffect, useState, useCallback } from 'react';
-import {Dialog, Slide, DialogActions, Button} from '@material-ui/core';
+import {Modal, Dialog, Slide, DialogActions, Button} from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 import axios from 'axios';
@@ -54,9 +54,10 @@ export default function Trophy(props) {
     }, [props.open, props.lang, props.id, getScores]);
 
     /*
+        <Dialog open={props.open}
     */
     return (
-        <Dialog open={props.open}
+        <Modal open={props.open}
             onClose={() => props.onClose()}
             maxWidth='md' fullWidth={true}
             fullScreen={props.fullScreen}
@@ -75,6 +76,12 @@ export default function Trophy(props) {
                     ) : (
                       <>
                         <div className='trophy_table_row'>
+                            {(props.id > 0) ? (
+                                <div className='trophy_table_cell_throw'>  </div>
+                            ) : (
+                                <> </>
+                            )}
+
                             <div className='trophy_table_cell_num'>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127942;</span>
                             </div>
@@ -101,6 +108,14 @@ export default function Trophy(props) {
                         {scores.map((user, index) => (
                             (props.id === user.id) ? (
                                 <div className='trophy_table_row' key={index}>
+                                    {(props.id > 0) ? (
+                                        <div className='trophy_table_cell_throw'>
+                                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128168;</span>
+                                        </div>
+                                    ) : (
+                                        <> </>
+                                    )}
+
                                     <div className='trophy_table_cell_num' style={{backgroundColor:'green',color:'orange'}}> {index+1} </div>
                                     <div className='trophy_table_cell_ava' style={{backgroundColor:'green',color:'orange'}}>
                                         <img src={get_avatar_by_name(user.avatar)} alt={user.avatar} onContextMenu={(e) => e.preventDefault()}/>
@@ -118,6 +133,14 @@ export default function Trophy(props) {
                                 </div>
                             ) : (
                                 <div className='trophy_table_row' key={index}>
+                                    {(props.id > 0) ? (
+                                        <div className='trophy_table_cell_throw'>
+                                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128168;</span>
+                                        </div>
+                                    ) : (
+                                        <> </>
+                                    )}
+
                                     <div className='trophy_table_cell_num'> {index+1} </div>
                                     <div className='trophy_table_cell_ava'>
                                         <img src={get_avatar_by_name(user.avatar)} alt={user.avatar} onContextMenu={(e) => e.preventDefault()}/>
@@ -145,6 +168,6 @@ export default function Trophy(props) {
                 <Button size='small' color='primary' startIcon={<CancelIcon />}
                         onClick={() => props.onClose()}> {trophy[props.lang]['close']} </Button>
             </DialogActions>
-        </Dialog>
+        </Modal>
     );
 }
