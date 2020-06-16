@@ -527,6 +527,7 @@ export default class SuperMathPage extends React.Component {
                 <Trophy open={this.state.screen === STATUS.TROPHY}
                     onClose={() => this.setState({screen: STATUS.NONE})}
                     fullScreen={this.state.width<740}
+                    passed={this.state.passed}
                     lang={this.state.lang}
                     id={this.state.id}/>
 

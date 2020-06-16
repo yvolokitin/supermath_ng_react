@@ -4,7 +4,7 @@ import ColorLine from "./../line/line";
 
 export default function AlertDialog(props) {
     return (
-        <Dialog onClose={() => props.onClose('close')} fullScreen={props.fullScreen} open={props.open}>
+        <Dialog open={props.open} onClose={() => props.onClose('close')} fullScreen={props.fullScreen}>
             <DialogTitle id="alert-dialog-title">{props.title}</DialogTitle>
             <DialogContent>
                 {'text' in props ? (
