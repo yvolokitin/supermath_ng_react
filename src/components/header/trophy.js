@@ -7,7 +7,6 @@ import Alert from '@material-ui/lab/Alert';
 import axios from 'axios';
 
 import Throw from './throw';
-
 import SMTitle from './../dialog/title';
 import ColorLine from './../line/line';
 import {trophy} from './../translations/trophy';
@@ -24,11 +23,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function Trophy(props) {
     const [loading, setLoading] = useState(true);
+    const [progress, setProgress] = useState(false);
     const [scores, setScores] = useState([]);
     
-    const [question, setQuestion] = useState('');
+    const [name, setName] = useState('');
     const [error, setError] = useState('');
-    const [poops, setPoops] = useState(false);
 
     const onScoresUpdate = useCallback((response) => {
         // console.log('Trophy.onScoresUpdate received ' + response.data);
@@ -37,8 +36,10 @@ export default function Trophy(props) {
             // console.log('avatar ' + response.data[i].avatar + ' -> ' + get_avatar_by_name(response.data[i].avatar));
             array.push(response.data[i]);
         }
-        setScores(array);
+
         setLoading(false);
+        setScores(array);
+
     }, [ ])
 
     const onScoresError = useCallback((error) => {
@@ -53,35 +54,41 @@ export default function Trophy(props) {
     }, [onScoresUpdate, onScoresError])
 
     useEffect(() => {
-        // console.log('Trophy.props.open ' + props.open);
+        console.log('Trophy.props.open ' + props.open);
         if (props.open === true) {
             setLoading(true);
             setTimeout(() => {
                 getScores();
-            }, 950);
+            }, 800);
         }
 
     }, [props.open, props.lang, props.id, getScores]);
+
+    function onThrowConfirmation(status) {
+        console.log('Trophy.onThrowConfirmation ' + status);
+
+        if (status === 'throw') {
+            setLoading(true);
+        } else { // close
+            console.log('close is close');
+        }
+
+        setProgress(false);
+     }
 
     function onThrow(user_id, user_name) {
         console.log('Trophy.onThrow ' + user_id + ', ' + user_name);
         if (props.id > 0 && user_id > 0) {
             if (props.passed > POOP_COST) {
-                setQuestion(trophy[props.lang]['text'] + ' ' + user_name + '?');
-                setPoops(true);
+                setName(user_name);
+                setProgress(true);
             } else {
                 setError(trophy[props.lang]['error_smiles']);
             }
         }
     }
 
-    function onThrowConfirmation(status) {
-        console.log('Trophy.onThrowConfirmation ' + status);
-        setPoops(false);
-     }
-
     /*
-        <Dialog open={props.open}
     */
     return (
         <Dialog open={props.open}
@@ -97,7 +104,7 @@ export default function Trophy(props) {
             <div className='trophy_wrapper'>
                 <div className='trophy_table_wrapper'>
                     { (loading === true) ? (
-                        <div className='trophy_table_row'>
+                        <div className='trophy_throw_wrapper'>
                             <img src={image} alt='progress'/>
                         </div>
                     ) : (
@@ -182,7 +189,6 @@ export default function Trophy(props) {
                       </>
                     )}
                 </div>
-
             </div>
 
             <DialogActions>
@@ -190,13 +196,11 @@ export default function Trophy(props) {
                         onClick={() => props.onClose()}> {trophy[props.lang]['close']} </Button>
             </DialogActions>
 
-            <Throw open={poops}
-                text={question}
+            <Throw open={progress}
+                name={name}
+                lang={props.lang}
                 fullScreen={props.fullScreen}
-                title={trophy[props.lang]['title']}
-                yes={trophy[props.lang]['yes']}
-                no={trophy[props.lang]['no']}
-                onClose={onThrowConfirmation}/>
+                onThrow={onThrowConfirmation}/>
 
             <Snackbar open={error.length !== 0} onClose={() => setError('')} autoHideDuration={5000} anchorOrigin={{vertical:'top', horizontal:'center'}}>
                 <Alert onClose={() => setError('')} severity='error'> {error} </Alert>

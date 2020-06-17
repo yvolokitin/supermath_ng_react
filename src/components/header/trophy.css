@@ -1,14 +1,4 @@
-﻿.trophy_title {
-    margin-left: 3%;
-    margin-right: 3%;
-    color: orange;
-    font-family: 'Grinched';
-    font-size: 2.0rem;
-    text-align: center;
-    text-shadow: 1px 1px 2px black;
-    line-height: 0.9;
-}
-.trophy_wrapper {
+﻿.trophy_wrapper {
     margin-left: 5px;
     margin-right: 5px;
 
@@ -25,8 +15,15 @@
     min-height: 470px;
     margin: 13px;
 }
-.trophy_table_wrapper img {
-    margin-top: 140px;
+.trophy_throw_wrapper {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.trophy_throw_wrapper img {
     height: 140px;
     width: auto;
     -webkit-animation: numbers360rotation 4s linear infinite;
