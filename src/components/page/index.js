@@ -58,6 +58,7 @@ export default class SuperMathPage extends React.Component {
 
         this.onWidthChange = this.onWidthChange.bind(this);
         this.loadFbLoginApi = this.loadFbLoginApi.bind(this);
+        this.onTrophyUpdate = this.onTrophyUpdate.bind(this);
 
         var active_user = get_active_user();
         this.state = {
@@ -147,6 +148,19 @@ export default class SuperMathPage extends React.Component {
     onWidthChange() {
         // console.log('window.innerWidth ' + window.innerWidth);
         this.setState({width: window.innerWidth});
+    }
+
+    onTrophyUpdate(user_id, pswdhash) {
+        if ((this.state.id > 0) && (this.state.pswdhash.length > 0)) {
+            console.log('!!!! onTrophyUpdate. refreshing ' + this.state.id + ', pswdhash: ' + this.state.pswdhash);
+            var post_data = {
+                'user_id': this.state.id,
+                'pswdhash': this.state.pswdhash,
+                'refresh': false};
+            axios.post('http://supermath.xyz:3000/api/refresh', post_data)
+                 .then(this.onApiUpdate)
+                 .catch(this.onApiUpdateError);
+        }
     }
 
     onRefresh(event) {
@@ -360,9 +374,19 @@ export default class SuperMathPage extends React.Component {
             var ageDate = new Date(ageDifMs);
             var age = Math.abs(ageDate.getUTCFullYear() - 1970);
 
-            // var cards_counter = (data.solved.length > 0) ? data.solved.toString().split(',').length-1 : 0;
+            var current_screen = this.state.screen;
+            if (current_screen === STATUS.REGISTER) {
+                current_screen = STATUS.WELCOME;
+
+            } else if (current_screen === STATUS.TROPHY) {
+                current_screen = STATUS.TROPHY;
+
+            } else {
+                current_screen = STATUS.NONE;
+            }
+
             this.setState({
-                'screen': (this.state.screen === STATUS.REGISTER) ? STATUS.WELCOME : STATUS.NONE,
+                'screen': current_screen,
                 'avatar': (data.avatar.length > 0) ? data.avatar : avatars[12]['name'],
                 'pswdhash': get_item(data.id, 'pswdhash'),
                 'id': parseInt(data.id),
@@ -526,7 +550,9 @@ export default class SuperMathPage extends React.Component {
 
                 <Trophy open={this.state.screen === STATUS.TROPHY}
                     onClose={() => this.setState({screen: STATUS.NONE})}
+                    onTrophyUpdate={this.onTrophyUpdate}
                     fullScreen={this.state.width<740}
+                    pswdhash={this.state.pswdhash}
                     passed={this.state.passed}
                     lang={this.state.lang}
                     id={this.state.id}/>

@@ -27,24 +27,43 @@ export default function Trophy(props) {
     const [scores, setScores] = useState([]);
     
     const [name, setName] = useState('');
+    const [target, setTarget] = useState(0);
     const [error, setError] = useState('');
 
     const onScoresUpdate = useCallback((response) => {
         // console.log('Trophy.onScoresUpdate received ' + response.data);
         var array = [];
-        for (var i in response.data) {
-            // console.log('avatar ' + response.data[i].avatar + ' -> ' + get_avatar_by_name(response.data[i].avatar));
-            array.push(response.data[i]);
+        if ('data' in response) {
+            if ('error' in response.data) {
+                setError(trophy[props.lang]['error_known'] + response.data.error);
+
+            // response from poopthrow operation
+            } else if ('operation' in response.data) {
+                // console.log('You passed, responded ' + response.data.operation);
+                // setTimeout(() => {
+                // }, 800);
+                props.onTrophyUpdate();
+
+            } else {
+                for (var i in response.data) {
+                    // console.log('avatar ' + response.data[i].avatar + ' -> ' + get_avatar_by_name(response.data[i].avatar));
+                    array.push(response.data[i]);
+                }
+                setScores(array);
+            }
+        } else {
+            setError(trophy[props.lang]['error_unknown']);
         }
 
         setLoading(false);
-        setScores(array);
 
-    }, [ ])
+    }, [props, ])
 
     const onScoresError = useCallback((error) => {
         console.log('Header.onScoresError ' + error);
-    }, [ ])
+        setError(trophy[props.lang]['error_known'] + error);
+        setLoading(false);
+    }, [props.lang, ])
 
     const getScores = useCallback(() => {
         axios.post('http://supermath.xyz:3000/api/scores', {'amount': 10})
@@ -53,8 +72,20 @@ export default function Trophy(props) {
 
     }, [onScoresUpdate, onScoresError])
 
+    const throwPoop = useCallback(() => {
+        var post = {
+            'user_id': props.id,
+            'pswdhash': props.pswdhash,
+            'target_id': target,
+        };
+        axios.post('http://supermath.xyz:3000/api/poopthrow', post)
+            .then(onScoresUpdate)
+            .catch(onScoresError);
+
+    }, [props.id, props.pswdhash, target, onScoresUpdate, onScoresError])
+
     useEffect(() => {
-        console.log('Trophy.props.open ' + props.open);
+        // console.log('Trophy.props.open ' + props.open);
         if (props.open === true) {
             setLoading(true);
             setTimeout(() => {
@@ -69,6 +100,8 @@ export default function Trophy(props) {
 
         if (status === 'throw') {
             setLoading(true);
+            throwPoop();
+
         } else { // close
             console.log('close is close');
         }
@@ -80,6 +113,7 @@ export default function Trophy(props) {
         console.log('Trophy.onThrow ' + user_id + ', ' + user_name);
         if (props.id > 0 && user_id > 0) {
             if (props.passed > POOP_COST) {
+                setTarget(user_id);
                 setName(user_name);
                 setProgress(true);
             } else {
@@ -202,7 +236,7 @@ export default function Trophy(props) {
                 fullScreen={props.fullScreen}
                 onThrow={onThrowConfirmation}/>
 
-            <Snackbar open={error.length !== 0} onClose={() => setError('')} autoHideDuration={5000} anchorOrigin={{vertical:'top', horizontal:'center'}}>
+            <Snackbar open={error.length !== 0} onClose={() => setError('')} autoHideDuration={15000} anchorOrigin={{vertical:'top', horizontal:'center'}}>
                 <Alert onClose={() => setError('')} severity='error'> {error} </Alert>
             </Snackbar>
         </Dialog>

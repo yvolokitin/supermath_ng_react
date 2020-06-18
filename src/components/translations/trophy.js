@@ -8,6 +8,8 @@ export const trophy = {
         'yes': 'Yes, Throw it',
         'no': 'No',
         'error_smiles': 'Sorry, you have not enough Smiles to throw. Please, take one more task and try one more time!',
+        'error_known': 'Sorry, our server responded with following error ',
+        'error_unknown': 'Sorry, server did not respond in time. Please, try again later',
     },
     // Russian
     'ru': {
@@ -17,6 +19,8 @@ export const trophy = {
         'yes': 'Да, Бросаем!',
         'no': 'Нет',
         'error_smiles': 'Тебе не хватает Смайлов. Выполни еще одно задание и попробуйте снова!',
+        'error_known': 'Произошла ошибка, сервер вернул сообщение ',
+        'error_unknown': 'Sorry, server did not respond in time. Please, try again later',
     },
     // Dutch
     'nl' : {
@@ -26,6 +30,8 @@ export const trophy = {
         'yes': 'Yes, Throw it',
         'no': 'No',
         'error_smiles': 'Sorry, you have not enough Smiles to throw. Please, take one more task and try one more time!',
+        'error_known': 'Sorry, our server responded with following error ',
+        'error_unknown': 'Sorry, server did not respond in time. Please, try again later',
     },
     // French
     'fr' : {
@@ -35,6 +41,8 @@ export const trophy = {
         'yes': 'Yes, Throw it',
         'no': 'No',
         'error_smiles': 'Sorry, you have not enough Smiles to throw. Please, take one more task and try one more time!',
+        'error_known': 'Sorry, our server responded with following error ',
+        'error_unknown': 'Sorry, server did not respond in time. Please, try again later',
     },
     // German
     'de' : {
@@ -44,6 +52,8 @@ export const trophy = {
         'yes': 'Yes, Throw it',
         'no': 'No',
         'error_smiles': 'Sorry, you have not enough Smiles to throw. Please, take one more task and try one more time!',
+        'error_known': 'Sorry, our server responded with following error ',
+        'error_unknown': 'Sorry, server did not respond in time. Please, try again later',
     },
     // Spanish
     'es' : {
@@ -53,6 +63,8 @@ export const trophy = {
         'yes': 'Yes, Throw it',
         'no': 'No',
         'error_smiles': 'Sorry, you have not enough Smiles to throw. Please, take one more task and try one more time!',
+        'error_known': 'Sorry, our server responded with following error ',
+        'error_unknown': 'Sorry, server did not respond in time. Please, try again later',
     },
     // Italian
     'it' : {
@@ -62,5 +74,7 @@ export const trophy = {
         'yes': 'Yes, Throw it',
         'no': 'No',
         'error_smiles': 'Sorry, you have not enough Smiles to throw. Please, take one more task and try one more time!',
+        'error_known': 'Sorry, our server responded with following error ',
+        'error_unknown': 'Sorry, server did not respond in time. Please, try again later',
     },
 };

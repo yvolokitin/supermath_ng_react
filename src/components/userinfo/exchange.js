@@ -26,15 +26,15 @@ export default function Exchange(props) {
 
     function updateCounter(type, value) {
         if (type === 'passed') {
-            if (value < 0) { // -50
-                if ((passed > 50) && (failed > 0)) {
-                    setPassed(passed-50);
+            if (value < 0) { // -30
+                if ((passed > 30) && (failed > 0)) {
+                    setPassed(passed-30);
                     setFailed(failed-1);
                 }
 
-            } else { // +50
-                if (((failed+1) <= props.failed) && ((passed+50) <= props.passed)) {
-                    setPassed(passed+50);
+            } else { // +30
+                if (((failed+1) <= props.failed) && ((passed+30) <= props.passed)) {
+                    setPassed(passed+30);
                     setFailed(failed+1);
                 }
             }
@@ -91,7 +91,7 @@ export default function Exchange(props) {
 
                     <div className='exchange_board_line_operation'>
                         <div className='exchange_board_line_col' style={{border: 'none'}}>
-                            <font className='font_rate' style={{color: 'green'}}> 50 </font>
+                            <font className='font_rate' style={{color: 'green'}}> 30 </font>
                             <span className='font_rate' role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
                             <font className='font_rate' style={{color: 'orange'}}> = </font>
                             <font className='font_rate' style={{color: 'brown'}}> 1 </font>
@@ -112,8 +112,8 @@ export default function Exchange(props) {
 
                     <div className='exchange_board_line'>
                         <div className='exchange_board_line_col'>
-                            <font className='font_oper' onClick={() => updateCounter('passed', 50)}> + </font>
-                            <font className='font_oper' onClick={() => updateCounter('passed', -50)}> - </font>
+                            <font className='font_oper' onClick={() => updateCounter('passed', 30)}> + </font>
+                            <font className='font_oper' onClick={() => updateCounter('passed', -30)}> - </font>
                         </div>
                         <div className='exchange_board_line_col'>
                             <font className='font_oper' onClick={() => updateCounter('cards', 1)}> + </font>
