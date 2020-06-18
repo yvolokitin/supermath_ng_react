@@ -17,6 +17,7 @@ import orange6 from './../../images/tasks/orange_6.jpg';
 import orange7 from './../../images/tasks/orange_7.jpg';
 import orange8 from './../../images/tasks/orange_8.jpg';
 import orange9 from './../../images/tasks/orange_9.jpg';
+import orange10 from './../../images/tasks/orange_10.jpg';
 
 import green1 from './../../images/tasks/green_1.jpg';
 import green2 from './../../images/tasks/green_2.jpg';
@@ -82,7 +83,8 @@ export const orange_games = [
     {id: 6, uid: 'orange6', logo: orange6, type: '2digits', task: '+-,1-9,11-99,1,1', amount: task_amount},
     {id: 7, uid: 'orange7', logo: orange7, type: '2digits', task: '+-,1-9,11-99,10,1', amount: task_amount},
     {id: 8, uid: 'orange8', logo: orange8, type: '2digits', task: '+-,11-99,11-99,1,1', amount: task_amount},
-    {id: 9, uid: 'orange9', logo: orange9, type: '2digits', task: '+-,11-99,1-1,1,100', amount: task_amount},
+    {id: 9, uid: 'orange9', logo: orange9, type: '2digit_arg', task: 'd,+-,11-99,11-99,1,1', amount: task_amount},
+    {id: 10, uid: 'orange10', logo: orange10, type: '2digits', task: '+-,11-99,1-1,1,100', amount: task_amount},
 ];
 
 export const green_games = [
