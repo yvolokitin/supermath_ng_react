@@ -2,10 +2,10 @@
 export const black_titles = {
     // English
     'en': {
-        '1': 'Long Addition and Subtraction of big numbers',
-        '2': 'Long Multiplication of big numbers (from 1000 to 9999)',
-        '3': 'Task is under development and not defined yet',
-        '4': 'Task is under development and not defined yet',
+        '1': 'Long Addition and Subtraction of five- and six- digit numbers',
+        '2': 'Long Addition and Subtraction of six- and seven- digit numbers',
+        '3': 'Long Multiplication of three-digit numbers (100..999)',
+        '4': 'Long Multiplication of four-digit numbers (1000..9999)',
         '5': 'Task is under development and not defined yet',
         '6': 'Task is under development and not defined yet',
         '7': 'Task is under development and not defined yet',
@@ -16,7 +16,7 @@ export const black_titles = {
     'ru': {
         '1': 'Сложение и Вычитание в столбик пяти- и шести значных чисел',
         '2': 'Сложение и Вычитание в столбик шести- и семи- значных чисел',
-        '3': 'Умножение в столбик трехначных числе (100..999)',
+        '3': 'Умножение в столбик трехначных чисел (100..999)',
         '4': 'Умножение в столбик четырехзначных чисел (1000..9999)',
         '5': 'Задача в разработке или еще не до конца готова',
         '6': 'Задача в разработке или еще не до конца готова',
@@ -26,10 +26,10 @@ export const black_titles = {
     },
     // Dutch
     'nl' : {
-        '1': 'Long Addition and Subtraction of big numbers',
-        '2': 'Long Multiplication of big numbers (from 1000 to 9999)',
-        '3': 'Task is under development and not defined yet',
-        '4': 'Task is under development and not defined yet',
+        '1': 'Long Addition and Subtraction of five- and six- digit numbers',
+        '2': 'Long Addition and Subtraction of six- and seven- digit numbers',
+        '3': 'Long Multiplication of three-digit numbers (100..999)',
+        '4': 'Long Multiplication of four-digit numbers (1000..9999)',
         '5': 'Task is under development and not defined yet',
         '6': 'Task is under development and not defined yet',
         '7': 'Task is under development and not defined yet',
@@ -38,10 +38,10 @@ export const black_titles = {
     },
     // French
     'fr' : {
-        '1': 'Long Addition and Subtraction of big numbers',
-        '2': 'Long Multiplication of big numbers (from 1000 to 9999)',
-        '3': 'Task is under development and not defined yet',
-        '4': 'Task is under development and not defined yet',
+        '1': 'Long Addition and Subtraction of five- and six- digit numbers',
+        '2': 'Long Addition and Subtraction of six- and seven- digit numbers',
+        '3': 'Long Multiplication of three-digit numbers (100..999)',
+        '4': 'Long Multiplication of four-digit numbers (1000..9999)',
         '5': 'Task is under development and not defined yet',
         '6': 'Task is under development and not defined yet',
         '7': 'Task is under development and not defined yet',
@@ -50,10 +50,10 @@ export const black_titles = {
     },
     // German
     'de' : {
-        '1': 'Long Addition and Subtraction of big numbers',
-        '2': 'Long Multiplication of big numbers (from 1000 to 9999)',
-        '3': 'Task is under development and not defined yet',
-        '4': 'Task is under development and not defined yet',
+        '1': 'Long Addition and Subtraction of five- and six- digit numbers',
+        '2': 'Long Addition and Subtraction of six- and seven- digit numbers',
+        '3': 'Long Multiplication of three-digit numbers (100..999)',
+        '4': 'Long Multiplication of four-digit numbers (1000..9999)',
         '5': 'Task is under development and not defined yet',
         '6': 'Task is under development and not defined yet',
         '7': 'Task is under development and not defined yet',
@@ -62,10 +62,10 @@ export const black_titles = {
     },
     // Spanish
     'es' : {
-        '1': 'Long Addition and Subtraction of big numbers',
-        '2': 'Long Multiplication of big numbers (from 1000 to 9999)',
-        '3': 'Task is under development and not defined yet',
-        '4': 'Task is under development and not defined yet',
+        '1': 'Long Addition and Subtraction of five- and six- digit numbers',
+        '2': 'Long Addition and Subtraction of six- and seven- digit numbers',
+        '3': 'Long Multiplication of three-digit numbers (100..999)',
+        '4': 'Long Multiplication of four-digit numbers (1000..9999)',
         '5': 'Task is under development and not defined yet',
         '6': 'Task is under development and not defined yet',
         '7': 'Task is under development and not defined yet',
@@ -74,10 +74,10 @@ export const black_titles = {
     },
     // Italian
     'it' : {
-        '1': 'Long Addition and Subtraction of big numbers',
-        '2': 'Long Multiplication of big numbers (from 1000 to 9999)',
-        '3': 'Task is under development and not defined yet',
-        '4': 'Task is under development and not defined yet',
+        '1': 'Long Addition and Subtraction of five- and six- digit numbers',
+        '2': 'Long Addition and Subtraction of six- and seven- digit numbers',
+        '3': 'Long Multiplication of three-digit numbers (100..999)',
+        '4': 'Long Multiplication of four-digit numbers (1000..9999)',
         '5': 'Task is under development and not defined yet',
         '6': 'Task is under development and not defined yet',
         '7': 'Task is under development and not defined yet',
