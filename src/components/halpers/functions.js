@@ -29,7 +29,7 @@ export function generate_task(type, settings) {
         console.log(type + ' generate_task: ' + result.expr1 + '' + result.result);
 
     // 3 numbers task: 1 + 2 + 3 = 6
-    } else if (type === '3digits') {
+    } else if ((type === '3digits') || (type === 'line_3numbers')) {
         // operations, range_numbers, factor
         // if operations = +-
         if (array[0] === '+-') {
@@ -37,7 +37,8 @@ export function generate_task(type, settings) {
         } else if (array[0] === '*') {
             result = generate_3digit_mul_task();
         } else { // *:
-            result = generate_3digit_div_task();
+            // x:,101-999,1
+            result = generate_3digit_div_task(array[1]);
         }
         console.log(type + ' generate_task: ' + result.expr1 + result.result);
 
@@ -126,9 +127,16 @@ function generate_3digit_mul_task() {
     return {'expr1': expression + ' = ', 'result': result};
 }
 
-function generate_3digit_div_task() {
-    var num1 = parseInt(get_random_int('4-9'));
-    var num2 = parseInt(get_random_int('6-9'));
+function generate_3digit_div_task(range) {
+    var num1, num2;
+    if (range === '1-10') {
+        num1 = parseInt(get_random_int('4-9'));
+        num2 = parseInt(get_random_int('6-9'));
+    } else {
+        num1 = parseInt(get_random_int(range));
+        num2 = parseInt(get_random_int(range));
+    }
+
     var num12 = num1 * num2;
     var num3 = parseInt(get_random_int('3-9'));
     var expression = '', result = 0;
