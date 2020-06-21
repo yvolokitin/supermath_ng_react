@@ -23,6 +23,11 @@ export function generate_task(type, settings) {
         result = {'expr1': task.num1 + ' ' + task.operation + ' ' + task.num2 + ' = ', 'result': task.result};
         console.log(type + ' generate_task: ' + result.expr1 + '' + result.result);
 
+    } else if (type === '2digits_signed') {
+        task = generate_2digit_task_signed(array[0], array[1], array[2], array[3], array[4]);
+        result = {'expr1': task.num1 + ' ' + task.operation + ' ' + task.num2 + ' = ', 'result': task.result};
+        console.log(type + ' 2digits_signed: ' + result.expr1 + '' + result.result);
+
     } else if ((type === '2digits_fr') || (type === 'line_2numbers_fr')) {
         task = generate_2digit_fractional_task(array[0], array[1], array[2], array[3], array[4]);
         result = {'expr1': task.num1 + ' ' + task.operation + ' ' + task.num2 + ' = ', 'result': task.result};
@@ -493,6 +498,16 @@ function generate_3digit_task(operations, range_numbers, factor=1, type='line') 
     return task;
 }
 
+function generate_2digit_task_signed(operations, range_1, range_2, factor_1=1, factor_2=1) {
+    var operation = get_random_operation(operations);
+    var number_1 = parseInt(get_random_int(range_1) * factor_1);
+    var number_2 = parseInt(get_random_int(range_2) * factor_2);
+
+    var result = number_1 + number_2;
+
+    return {'num1': number_1, 'num2': number_2, 'operation': operation, 'result': result};
+}
+
 /*
     usage example:
         generate_2digit_task('+', '0,9', '0,9', 1, 1) - sum of one digit numbers
@@ -623,8 +638,9 @@ function get_random_int(range, rank=0) {
         var maxum = parseInt(numbers[1]);
         var operation = (Math.random() * (maxum - minum) + minum);
         var rnd = parseFloat(operation).toFixed(rank);
+        alert('range: ' + range + ', minum ' + minum + ', maxum ' + maxum + ', operation ' + operation + ', ' + rnd);
+
         return rnd;
-        // return Math.floor(Math.random() * (maxum - minum + 1)) + minum;
     }
 }
 

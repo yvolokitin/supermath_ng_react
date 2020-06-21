@@ -71,6 +71,23 @@ export default class DigitGame extends React.Component {
         }
     }
 
+    componentDidMount() {
+        // possible solution to block user, when calculator is used
+        /*
+        window.addEventListener('focus', function() {
+            console.log('focus ' +  document.hidden);
+        });
+
+        document.addEventListener('visibilitychange', function() {
+            console.log('visibilitychange ' +  document.hidden);
+        });
+        */
+    }
+
+    componentWillUnmount() {
+        document.addEventListener('visibilitychange');
+    }
+
     // closed, pass, fail passed only when game is closed
     onGameClose(status, data) {
         console.log('DigitGame.onGameClose ' + status);
