@@ -28,16 +28,16 @@ export const orange_titles = {
     },
     // Dutch
     'nl' : {
-        '1': 'Determination of two digit number from sequence',
-        '2': 'Comparision of two two-digit numbers (from 11 to 99)',
-        '3': 'Addition and Subtraction of two- (10..20) and one-digit numbers',
-        '4': 'Addition and Subtraction of tens (round numbers: 10..90)',
-        '5': 'Addition and Subtraction of tens and one-digit numbers (1..9)',
-        '6': 'Addition and Subtraction of one-digit and two-digit numbers',
-        '7': 'Addition and Subtraction of tens and two-digit numbers (11..99)',
-        '8': 'Addition and Subtraction of two-digit numbers (11..99)',
-        '9': 'Addition and Subtraction of two-digit numbers (11..99)',
-        '10': 'Addition and subtraction of one hundred and two-digit number',
+        '1': 'Bepaling van twee cijfers uit de reeks',
+        '2': 'Vergelijking van twee getallen van twee cijfers (van 11 tot 99)',
+        '3': 'Optellen en aftrekken van twee- (10..20) en getallen van één cijfer',
+        '4': 'Optellen en aftrekken van tientallen (ronde getallen: 10..90)',
+        '5': 'Optellen en aftrekken van tientallen en getallen van een cijfer (1..9)',
+        '6': 'Optellen en aftrekken van getallen van een en twee cijfers',
+        '7': 'Optellen en aftrekken van tientallen en getallen van twee cijfers (11..99)',
+        '8': 'Optellen en aftrekken van getallen van twee cijfers (11..99)',
+        '9': 'Optellen en aftrekken van getallen van twee cijfers (11..99)',
+        '10': 'Optellen en aftrekken van een getal van honderd en twee cijfers',
     },
     // French
     'fr' : {
@@ -54,16 +54,16 @@ export const orange_titles = {
     },
     // German
     'de' : {
-        '1': 'Determination of two digit number from sequence',
-        '2': 'Comparision of two two-digit numbers (from 11 to 99)',
-        '3': 'Addition and Subtraction of two- (10..20) and one-digit numbers',
-        '4': 'Addition and Subtraction of tens (round numbers: 10..90)',
-        '5': 'Addition and Subtraction of tens and one-digit numbers (1..9)',
-        '6': 'Addition and Subtraction of one-digit and two-digit numbers',
-        '7': 'Addition and Subtraction of tens and two-digit numbers (11..99)',
-        '8': 'Addition and Subtraction of two-digit numbers (11..99)',
-        '9': 'Addition and Subtraction of two-digit numbers (11..99)',
-        '10': 'Addition and subtraction of one hundred and two-digit number',
+        '1': 'Bestimmung der zweistelligen Nummer aus der Sequenz',
+        '2': 'Vergleich zweier zweistelliger Zahlen (von 11 bis 99)',
+        '3': 'Addition und Subtraktion von zwei- (10..20) und einstelligen Zahlen',
+        '4': 'Addition und Subtraktion von Zehner (runde Zahlen: 10..90)',
+        '5': 'Addition und Subtraktion von zehn- und einstelligen Zahlen (1..9)',
+        '6': 'Addition und Subtraktion von einstelligen und zweistelligen Zahlen',
+        '7': 'Addition und Subtraktion von zehn- und zweistelligen Zahlen (11..99)',
+        '8': 'Addition und Subtraktion zweistelliger Zahlen (11..99)',
+        '9': 'Addition und Subtraktion zweistelliger Zahlen (11..99)',
+        '10': 'Addition und Subtraktion von einhundert und zweistelliger Zahl',
     },
     // Spanish
     'es' : {

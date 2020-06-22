@@ -107,7 +107,7 @@ export default class GameBoard extends React.Component {
     }
 
     onKeyboard({ key }) {
-        // console.log('onKeyboard ' + key);
+        // console.log('onKeyboard ' + key + ', this.loading ' + this.loading);
         // skip any checks if in red already
         if (this.loading === false) {
             switch (key) {
@@ -141,6 +141,9 @@ export default class GameBoard extends React.Component {
                     // {id: 6, logo: logo6, type: '2digit_arg', task: 'o,+-,1-10,1-10,1,1', amount: task_amount},
                     if ((this.props.type === '2digit_arg') && (this.props.task.includes('o'))) {
                         this.check_response(key);
+
+                    } else if (this.props.type.includes('_signed') && key === '-') {
+                        this.check_response(key);
                     }
                     break;
 
@@ -172,7 +175,7 @@ export default class GameBoard extends React.Component {
                     break;
 
                 default:
-                    // console.log("nothing to check");
+                    // console.log('nothing to check for ' + key);
                     break;
             }
         }
@@ -422,7 +425,12 @@ export default class GameBoard extends React.Component {
                           { this.props.type.includes('line_comp') ? (
                               <OperatorBoard onOperator={this.onOperator} more={true} less={true} equals={true}/>
                             ):(
-                              <LineNumbersBoard onDigit={this.onDigit} onOperator={this.onOperator}/>
+                              <LineNumbersBoard
+                                onDigit={this.onDigit}
+                                onOperator={this.onOperator}
+                                floats={this.props.type.includes('_fr')}
+                                minus={this.props.type.includes('_signed')}
+                                />
                             )
                           }
                       </div>

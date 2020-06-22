@@ -23,10 +23,10 @@ export function generate_task(type, settings) {
         result = {'expr1': task.num1 + ' ' + task.operation + ' ' + task.num2 + ' = ', 'result': task.result};
         console.log(type + ' generate_task: ' + result.expr1 + '' + result.result);
 
-    } else if (type === '2digits_signed') {
+    } else if (type === 'line_2numbers_signed') {
         task = generate_2digit_task_signed(array[0], array[1], array[2], array[3], array[4]);
         result = {'expr1': task.num1 + ' ' + task.operation + ' ' + task.num2 + ' = ', 'result': task.result};
-        console.log(type + ' 2digits_signed: ' + result.expr1 + '' + result.result);
+        console.log(type + ' line_2numbers_signed: ' + result.expr1 + '' + result.result);
 
     } else if ((type === '2digits_fr') || (type === 'line_2numbers_fr')) {
         task = generate_2digit_fractional_task(array[0], array[1], array[2], array[3], array[4]);
@@ -36,12 +36,15 @@ export function generate_task(type, settings) {
     // 3 numbers task: 1 + 2 + 3 = 6
     } else if ((type === '3digits') || (type === 'line_3numbers')) {
         // operations, range_numbers, factor
-        // if operations = +-
-        if (array[0] === '+-') {
+        if (array[0] === '+-') { // plus and minus
             result = generate_3digit_task(array[0], array[1], array[2]);
-        } else if (array[0] === '*') {
+
+        // multiplications only: 3x2x9
+        } else if (array[0] === 'x') {
             result = generate_3digit_mul_task();
-        } else { // *:
+
+        // division and multiplication: x:
+        } else {
             // x:,101-999,1
             result = generate_3digit_div_task(array[1]);
         }
@@ -99,7 +102,7 @@ export function generate_task(type, settings) {
         console.log(type + ' generate_task: ' + result.expr1 + result.result);
 
     } else if (type === 'line_5numbers') {
-        // input string: '+-*,5,0-10,1' -> (0)operations: +-*, (1)#numbers: 5, (2)range: 0-10, (3)factor: 1
+        // input string: '+-x,5,0-10,1' -> (0)operations: +-x, (1)#numbers: 5, (2)range: 0-10, (3)factor: 1
         // operations, range_numbers, factor
         result = generate_5digit_task(array[0], array[2], array[3]);
         console.log(type + ' generate_task: ' + result.expr1 + result.result);
@@ -278,8 +281,7 @@ function generate_5digit_task(operations, range, factor=1) {
         number = parseInt(get_random_int('6-10'));
         expression = expression + ' x ' + number.toString();
         operation_2 = '*'; result = result * number;
-
-        console.log('000 YURA*:: expression ' + expression + ', result ' + result + ', number ' + number);
+        // console.log('000 YURA*:: expression ' + expression + ', result ' + result + ', number ' + number);
 
     } else {
         operation_2 = get_random_operation(operations);
@@ -291,7 +293,7 @@ function generate_5digit_task(operations, range, factor=1) {
             } else {
                 expression = expression + ' + ' + number.toString();
             }
-            console.log('111 YURA+:: expression ' + expression + ', result ' + result + ', number ' + number);
+            // console.log('111 YURA+:: expression ' + expression + ', result ' + result + ', number ' + number);
 
         } else if (operation_2 === '-') {
             number = parseInt(get_random_int('40-99'));
@@ -302,7 +304,7 @@ function generate_5digit_task(operations, range, factor=1) {
                 result = number - result;
                 expression = number + ' - ' + expression;
             }
-            console.log('222 YURA-:: expression ' + expression + ', result ' + result + ', number ' + number);
+            // console.log('222 YURA-:: expression ' + expression + ', result ' + result + ', number ' + number);
 
         } else if (operation_2 === '*') {
             number_3 = parseInt(get_random_int('2-10'));
@@ -329,7 +331,7 @@ function generate_5digit_task(operations, range, factor=1) {
                 }
             }
 
-            console.log('333 YURA*:: expression ' + expression + ', result ' + result + ', operation_3: ' + operation_3 + ', expr34 ' + expr34);
+            // console.log('333 YURA*:: expression ' + expression + ', result ' + result + ', operation_3: ' + operation_3 + ', expr34 ' + expr34);
         }
     }
 
@@ -503,9 +505,23 @@ function generate_2digit_task_signed(operations, range_1, range_2, factor_1=1, f
     var number_1 = parseInt(get_random_int(range_1) * factor_1);
     var number_2 = parseInt(get_random_int(range_2) * factor_2);
 
-    var result = number_1 + number_2;
+    var result;
+    if (operation === OPERATION_SUM) {
+        result = number_1 + number_2;
 
-    return {'num1': number_1, 'num2': number_2, 'operation': operation, 'result': result};
+    } else if (operation === OPERATION_SUB) {
+        result = number_1 - number_2;
+
+    } else if (operation === OPERATION_MUL) {
+        result = number_1 * number_2;
+    }
+
+    var number_2_str = number_2.toString();
+    if (parseInt(number_2_str) < 0) {
+        number_2_str = '(' + number_2_str + ')';
+    }
+
+    return {'num1': number_1, 'num2': number_2_str, 'operation': operation, 'result': result};
 }
 
 /*
@@ -629,18 +645,27 @@ function generate_2digit_fractional_task(operations, range_1, range_2, rank_1=1,
  * from 1-100: [1...100]
  */
 function get_random_int(range, rank=0) {
-    var numbers = range.split('-');
-    if (numbers.length < 2) {
-        alert('get_random_int error: wrong range format ' + range);
-        return 'error';
-    } else {
-        var minum = parseInt(numbers[0]);
-        var maxum = parseInt(numbers[1]);
-        var operation = (Math.random() * (maxum - minum) + minum);
-        var rnd = parseFloat(operation).toFixed(rank);
-        alert('range: ' + range + ', minum ' + minum + ', maxum ' + maxum + ', operation ' + operation + ', ' + rnd);
+    var range_numbers = [];
+    if (range.charAt(0) === '-') {
+        range_numbers[0] = range.substr(0, range.lastIndexOf('-'));
+        range_numbers[1] = range.substr(range.lastIndexOf('-')+1, range.length);
 
-        return rnd;
+    } else {
+        range_numbers = range.split('-');
+    }
+
+    if (range_numbers.length !== 2 ) {
+        console.log('get_random_int error: wrong range format \'' + range + '\', range.split returned length ' + range_numbers.length);
+        alert('get_random_int error: wrong range format \'' + range + '\', range.split returned length ' + range_numbers.length);
+        return 'error';
+
+    } else {
+        var minum = parseInt(range_numbers[0]);
+        var maxum = parseInt(range_numbers[1]);
+        var rnd = (Math.random() * (maxum - minum) + minum);
+        var number = parseFloat(rnd).toFixed(rank);
+        // console.log('minum ' + minum + ', maxum ' + maxum);
+        return number;
     }
 }
 
