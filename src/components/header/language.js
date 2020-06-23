@@ -13,11 +13,23 @@ function LanguageImage(props) {
         <>
             {(props.selected) ? (
                 <div className='language_selector_row_selected'>
-                    <img src={props.src} alt={props.name} onContextMenu={(e) => e.preventDefault()}/>
+                    <div className='language_selector_row_image'>
+                        <img src={props.src} alt={props.name} onContextMenu={(e) => e.preventDefault()}/>
+                    </div>
+
+                    <div className='language_selector_row_label'>
+                        {props.label}
+                    </div>
                 </div>
             ) : (
                 <div className='language_selector_row' onClick={() => props.onLangUpdate(props.name)}>
-                    <img src={props.src} alt={props.name}/>
+                    <div className='language_selector_row_image'>
+                        <img src={props.src} alt={props.name}/>
+                    </div>
+
+                    <div className='language_selector_row_label'>
+                        {props.label}
+                    </div>
                 </div>
             )}
         </>
@@ -57,6 +69,7 @@ export default function Language(props) {
                     <LanguageImage key={language.name}
                         name={language.name}
                         src={language.image}
+                        label={language.label}
                         selected={props.lang === language.name}
                         onClick={onLangChange}/>
                 )}
