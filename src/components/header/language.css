@@ -1,4 +1,16 @@
-﻿.language_title {
+﻿.language_selector_wrapper {
+    margin: 5%;
+    padding-left: 7%;
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    border: 1px solid black;
+    border-radius: 15px;
+}
+.language_selector_row {
+
+}
+.language_title {
     margin: 3%;
     color: green;
     font-family: 'Grinched';
