@@ -1,6 +1,39 @@
 ﻿.help_wrapper {
     height: 100%;
     width: 100%;
-    background-color: #ffeb99;
+    background-color: #ffffcc;
     border: 1px solid black;
+}
+.help_tabs_wrapper {
+    height: 5%;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #99ccff;
+}
+.help_tab_wrapper {
+    height: 100%;
+    width: 15%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: clip;
+
+    cursor: pointer;
+    color: #333300;
+    user-select: none;
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    font-variant: small-caps;
+    font-size: 1.35rem;
+    font-weight: bold;
+
+    transition: transform 1.0s;
+    transform: scale(1.0);
 }
