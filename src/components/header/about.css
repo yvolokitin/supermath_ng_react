@@ -9,3 +9,36 @@
     text-shadow: 1px 1px 2px black;
     line-height: 0.9;
 }
+.about_image {
+    height: 140px;
+    width: 94;
+
+    margin-top: 10px;
+    margin-left: 3%;
+    margin-right: 3%;
+
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px 0px grey;
+}
+.about_image img {
+    height: auto;
+    width: 100%;
+}
+.about_text {
+    margin-top: 1%;
+    margin-left: 3%;
+    margin-right: 3%;
+
+    user-select: none;
+    color: #333333;
+    text-align: justify;
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+}

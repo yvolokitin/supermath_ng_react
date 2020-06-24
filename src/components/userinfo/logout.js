@@ -77,8 +77,8 @@ export default function Logout(props) {
                                         <img src={get_avatar_by_name(user.avatar)} alt={user.avatar} onContextMenu={(e) => e.preventDefault()}/>
                                     </div>
                                     <div className='logout_users_name'>
-                                        <div className='logout_users_name_signout' onClick={() => onDelete(user.id)}>
-                                            <font>{logout[props.lang]['delete']}</font>
+                                        <div className='logout_users_name_signout'>
+                                            <font onClick={() => onDelete(user.id)}>{logout[props.lang]['delete']}</font>
                                         </div>
                                         <div className='logout_users_name_surname' onClick={() => props.onLogout('hashlogin', user.id)}>
                                             {user.name} {user.surname}

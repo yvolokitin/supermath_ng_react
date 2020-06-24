@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import {Slide, DialogContent, DialogActions, Typography, Dialog, Card, CardMedia, Button} from '@material-ui/core';
+import {Slide, Dialog, DialogActions, Button} from '@material-ui/core';
 
 import CancelIcon from '@material-ui/icons/Cancel';
 
@@ -17,6 +17,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function About(props) {
     return (
         <Dialog open={props.open}
+            fullWidth={true} maxWidth='md' 
             onClose={() => props.onClose()}
             fullScreen={props.fullScreen}
             TransitionComponent={Transition}
@@ -29,18 +30,25 @@ export default function About(props) {
                 {about[props.lang]['use']} <font style={{color:'green'}}>SuperMath</font> {about[props.lang]['vitamins']}
             </div>
 
-            <DialogContent>
-                <Typography style={{margin:'3%',textAlign:'justify',fontWeight:'bold'}}> {about[props.lang]['designed']} </Typography>
-                <Card style={{margin:'5%',display:'flex',flexDirection:'column'}}>
-                    <CardMedia component='img' style={{boder:'3px solid black'}} alt='Vitamins!' height='140' src={vitamins}/>
-                </Card>
+            <div className='about_image'>
+                <img src={vitamins} alt='Vitamins!'/>
+            </div>
 
-                <Typography style={{margin:'3%',textAlign:'justify',fontWeight:'bold'}}> {about[props.lang]['offer']} </Typography>
+            <div className='about_text'>
+                {about[props.lang]['designed']}
+            </div>
 
-                <Typography style={{margin:'3%',textAlign:'justify',fontWeight:'bold'}}> {about[props.lang]['nonprofit']} </Typography>
+            <div className='about_text'>
+                {about[props.lang]['offer']}
+            </div>
 
-                <Typography style={{margin:'3%',textAlign:'justify',fontWeight:'bold'}}> {about[props.lang]['colors']} </Typography>
-            </DialogContent>
+            <div className='about_text'>
+                {about[props.lang]['nonprofit']}
+            </div>
+
+            <div className='about_text'>
+                {about[props.lang]['colors']}
+            </div>
 
             <ColorLine/>
 
