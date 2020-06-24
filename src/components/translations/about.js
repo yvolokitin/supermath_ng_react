@@ -58,7 +58,7 @@ export const about = {
         'offer': 'Offer the child to regularly solve the examples in SuperMath only once a day, for 15 minutes, and you will notice how much faster and more accurately he will operate on the numbers. The speed and accuracy of the calculations - these are the bricks that lay the foundation of your childs mathematical education.',
         'nonprofit': 'SuperMath is a nonprofit organization dedicated to math achievement for all. Our goal is to develop effective, efficient, adaptive, and intrinsically rewarding supplemental math activities.',
         'colors': 'En este momento, seis grados de color o cinturones con varios niveles de dificultad están disponibles para los usuarios: blanco, naranja, verde, azul, marrón y negro.',
-        'close': 'close',
+        'close': 'cerca',
     },
     // Italian
     'it' : {

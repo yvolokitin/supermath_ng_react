@@ -1,37 +1,45 @@
 ﻿const getNavigatorLanguage = () => (navigator.languages && navigator.languages.length) ? navigator.languages[0] : navigator.userLanguage || navigator.language || navigator.browserLanguage || 'en';
 
+function language_detector() {
+    var language = 'en', navigator_lang = getNavigatorLanguage();
+
+    // en-US, en-GB are all English
+    if (navigator_lang.includes('en')) {
+        language = 'en';
+    } else if (navigator_lang.includes('ru') || navigator_lang.includes('be') || navigator_lang.includes('uk')) { 
+        language = 'ru';
+    } else if (navigator_lang.includes('nl')) {
+        language = 'nl';
+    } else if (navigator_lang.includes('de')) {
+        language = 'de';
+    } else if (navigator_lang.includes('es')) {
+        language = 'es';
+    } else if (navigator_lang.includes('it')) {
+        language = 'it';
+    } else if (navigator_lang.includes('fr')) {
+        language = 'fr'
+    }
+
+    return language;
+}
+
 /**
  * Language detector
  */
 export function get_lang(user_id) {
     var language = 'en';
+    // if user_id = 0 -> there is no local user
     if (user_id === undefined || user_id === 0) {
         language = localStorage.getItem('lang');
         if (language === null || language.length === 0) {
-            language = getNavigatorLanguage();
-            if (language.includes('ru')) { language = 'ru'; }
-            else if (language.includes('nl')) { language = 'nl'; }
-            else if (language.includes('de')) { language = 'de'; }
-            else if (language.includes('es')) { language = 'es'; }
-            else if (language.includes('it')) { language = 'it'; }
-            else if (language.includes('fr')) { language = 'fr'; }
+            language = language_detector();
         }
 
     } else {
         language = get_item(user_id, 'lang');
         if (language === null || language.length === 0) {
-            language = getNavigatorLanguage();
-            if (language.includes('ru')) { language = 'ru'; }
-            else if (language.includes('nl')) { language = 'nl'; }
-            else if (language.includes('de')) { language = 'de'; }
-            else if (language.includes('es')) { language = 'es'; }
-            else if (language.includes('it')) { language = 'it'; }
-            else if (language.includes('fr')) { language = 'fr'; }
+            language = language_detector();
         }
-    }
-
-    if (language.includes('en-GB')) {
-        language = 'en';
     }
 
     return language;

@@ -46,6 +46,7 @@ const STATUS = {
 export default class SuperMathPage extends React.Component {
     constructor(props) {
         super(props);
+
         this.onApiUpdate = this.onApiUpdate.bind(this);
         this.onApiUpdateError = this.onApiUpdateError.bind(this);
 
@@ -342,15 +343,17 @@ export default class SuperMathPage extends React.Component {
         }
     }
 
-    onLanguage(language) {
+    onLanguage(status, language) {
+        console.log('Header.onLanguage ' + status + ', language ' + language + ', this.state.lang ' + this.state.lang);
+        // status can be only: STATUS.NONE, STATUS.NONE
         if (this.state.lang !== language) {
-            this.setState({screen: STATUS.NONE, lang: language});
+            this.setState({screen: status, lang: language});
             set_lang(this.state.id, language);
             if (this.state.id > 0) {
                 update_language(this.state.id, this.state.pswdhash, language);
             }
         } else {
-            this.setState({screen: STATUS.NONE});
+            this.setState({screen: status});
         }
     }
 
@@ -595,7 +598,7 @@ export default class SuperMathPage extends React.Component {
 
                 <Language open={this.state.screen === STATUS.LANG}
                     fullScreen={this.state.width<740} 
-                    onClose={this.onLanguage}
+                    onUpdate={this.onLanguage}
                     lang={this.state.lang}/>
 
                 <Welcome open={this.state.screen === STATUS.WELCOME}
