@@ -4,10 +4,19 @@ import { Dialog, Slide, Typography } from '@material-ui/core';
 import SMTitle from './../dialog/title';
 import ColorLine from './../line/line';
 
+import Colors from './colors';
+
 import './help.css';
 import {help} from './../translations/help';
 
-import image from './../../images/help/belts.jpg';
+const SCREEN = {
+    NONE: 0,
+    COLORS: 1,
+    REGISTRATION: 2,
+    PROFILE: 3,
+    GLOSSARY: 4,
+    ISSUES: 5,
+}
 
 function HelpTab(props) {
     return (
@@ -26,20 +35,24 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function Help(props) {
+    const [screen, setScreen] = useState(SCREEN.COLORS);
+
     const tabs = [
         {id: 1, name: help[props.lang]['colors']},
         {id: 2, name: help[props.lang]['signin']},
         {id: 3, name: help[props.lang]['account']},
         {id: 4, name: help[props.lang]['glossary']},
+        {id: 5, name: help[props.lang]['issues']},
     ];
 
     useEffect(() => {
-        console.log('Help.useEffect ' + props.open + ', props.lang ' + props.lang);
+        console.log('Help.useEffect ' + props.open);
 
     }, [props.open]);
 
     function onHelpTabChange(tab_id) {
-
+        console.log('Help.onHelpTabChange ' + tab_id);
+        setScreen(tab_id);
     }
 
     // 
@@ -47,19 +60,24 @@ export default function Help(props) {
         <Dialog open={props.open} fullScreen={true} onClose={() => props.onClose()}
             TransitionComponent={Transition} transitionDuration={800}>
 
-            <div className='help_wrapper'>
-                <SMTitle title='' onClick={() => props.onClose()}/>
-                <ColorLine/>
+            <Typography component='div'>
+                <div className='help_wrapper'>
+                    <SMTitle title='' onClick={() => props.onClose()}/>
+                    <ColorLine/>
 
-                <div className='help_tabs_wrapper'>
-                    {tabs.map(
-                        (tab) => <HelpTab key={tab.name}
-                                    id={tab.id} name={tab.name}
-                                    onClick={onHelpTabChange}/>
-                    )}
+                    <div className='help_tabs_wrapper'>
+                        {tabs.map(
+                            (tab) => <HelpTab key={tab.id}
+                                        id={tab.id} name={tab.name}
+                                        onClick={onHelpTabChange}/>
+                        )}
+                    </div>
                 </div>
 
-            </div>
+                <Colors open={screen === SCREEN.COLORS}
+                    lang={props.lang}/>
+
+            </Typography>
 
         </Dialog>
     );

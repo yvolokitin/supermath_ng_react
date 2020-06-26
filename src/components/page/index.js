@@ -6,7 +6,6 @@ import axios from 'axios';
 import {update_counter, update_user_scores, update_language,
         update_avatar, update_usersettings, } from './../halpers/communicator';
 
-import Help from './../header/help';
 import About from './../header/about';
 import Login from './../header/login';
 import Forget from './../header/forget';
@@ -15,6 +14,7 @@ import Language from './../header/language';
 import Welcome from './../header/welcome';
 import Trophy from './../header/trophy';
 
+import Help from './../help/help';
 import Account from './../userinfo/account';
 
 import {avatars} from './../halpers/avatars';
