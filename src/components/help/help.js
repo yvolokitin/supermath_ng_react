@@ -74,11 +74,8 @@ export default function Help(props) {
                     </div>
                 </div>
 
-                <Colors open={screen === SCREEN.COLORS}
-                    lang={props.lang}/>
-
+                <Colors open={screen === SCREEN.COLORS} lang={props.lang}/>
             </Typography>
-
         </Dialog>
     );
 }

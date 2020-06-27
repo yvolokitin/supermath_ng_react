@@ -12,20 +12,22 @@ import {colors} from './../translations/colors';
 import './colors.css';
 
 const ExpansionPanel = withStyles({
-  root: {
-    border: '1px solid rgba(0, 0, 0, .125)',
-    boxShadow: 'none',
-    '&:not(:last-child)': {
-      borderBottom: 0,
+    root: {
+        // border: '1px solid rgba(0, 0, 0, .125)',
+        border: '1px solid black',
+        width: '90%',
+        boxShadow: 'none',
+        '&:not(:last-child)': {
+            borderBottom: 0,
+        },
+        '&:before': {
+            display: 'none',
+        },
+        '&$expanded': {
+            margin: 'auto',
+        },
     },
-    '&:before': {
-      display: 'none',
-    },
-    '&$expanded': {
-      margin: 'auto',
-    },
-  },
-  expanded: {},
+    expanded: {},
 })(MuiExpansionPanel);
 
 const ExpansionPanelSummary = withStyles({
@@ -47,9 +49,9 @@ const ExpansionPanelSummary = withStyles({
 })(MuiExpansionPanelSummary);
 
 const ExpansionPanelDetails = withStyles((theme) => ({
-  root: {
-    padding: theme.spacing(2),
-  },
+    root: {
+        padding: theme.spacing(2),
+    },
 }))(MuiExpansionPanelDetails);
 
 export default function Colors(props) {
@@ -59,6 +61,15 @@ export default function Colors(props) {
     const handleChange = (panel) => (event, newExpanded) => {
         setExpanded(newExpanded ? panel : false);
     };
+
+    const levels = [
+        {id: 'white', header: 'white_header', name: colors[props.lang]['white'], body: colors[props.lang]['white_text'], title: colors[props.lang]['white_body']},
+        {id: 'orange', header: 'orange_header', name: colors[props.lang]['orange'], body: colors[props.lang]['orange_text'], title: colors[props.lang]['orange_body']},
+        {id: 'green', header: 'green_header', name: colors[props.lang]['green'], body: colors[props.lang]['green_text'], title: colors[props.lang]['green_body']},
+        {id: 'navy', header: 'navy_header', name: colors[props.lang]['navy'], body: colors[props.lang]['navy_text'], title: colors[props.lang]['navy_body']},
+        {id: 'brown', header: 'brown_header', name: colors[props.lang]['brown'], body: colors[props.lang]['brown_text'], title: colors[props.lang]['brown_body']},
+        {id: 'black', header: 'black_header', name: colors[props.lang]['black'], body: colors[props.lang]['black_text'], title: colors[props.lang]['black_body']},
+    ];
 
     useEffect(() => {
         console.log('Colors.props.open ' + props.open);
@@ -70,31 +81,26 @@ export default function Colors(props) {
 
     }, [props.open]);
 
-    const colors = [
-        {id: 'white', name: colors[props.lang]['white'], body: colors[props.lang]['white_body'], title: colors[props.lang]['white_title']},
-        {id: 'orange', name: colors[props.lang]['orange'], body: colors[props.lang]['orange_body'], title: colors[props.lang]['orange_title']},
-        {id: 'green', name: colors[props.lang]['green'], body: colors[props.lang]['green_body'], title: colors[props.lang]['green_title']},
-        {id: 'navy', name: colors[props.lang]['navy'], body: colors[props.lang]['navy_body'], title: colors[props.lang]['navy_title']},
-        {id: 'brown', name: colors[props.lang]['brown'], body: colors[props.lang]['brown_body'], title: colors[props.lang]['brown_title']},
-        {id: 'black', name: colors[props.lang]['black'], body: colors[props.lang]['black_body'], title: colors[props.lang]['black_title']},
-    ];
-
     /*
-                    <ExpansionPanelSummary aria-controls="white-content" id="white-header">
+        <ExpansionPanelSummary aria-controls="white-content" id="white-header">
     */
     return (
-        <Typography hidden={hidden} component='div'>
-            {props.colors.map((color) =>
-                <ExpansionPanel square expanded={expanded === color.id} onChange={handleChange(color.id)}>
-                    <ExpansionPanelSummary aria-controls="white-content" id="white-header">
-                        <Typography> {color.name} </Typography>
+        <Typography hidden={hidden} component='div' className='typography_wrapper'>
+            <div className='colors_wrapper'>
+            {levels.map((level) =>
+                <ExpansionPanel square key={level.header} expanded={expanded === level.id} onChange={handleChange(level.id)}>
+                    <ExpansionPanelSummary id={level.header}>
+                        <Typography> {level.name} </Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                        <Typography> {color.body} </Typography>
-                        <Typography> {color.title} </Typography>
+                        <Typography> {level.body} </Typography>
+                    </ExpansionPanelDetails>
+                    <ExpansionPanelDetails>
+                        <Typography> {level.title} </Typography>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
             )}
+            </div>
         </Typography>
     );
 }

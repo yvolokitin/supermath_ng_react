@@ -6,6 +6,7 @@ export const help = {
         'signin': 'sign in',
         'account': 'account',
         'glossary': 'glossary',
+        'issues': 'issues',
     },
     // Russian
     'ru': {
@@ -13,6 +14,7 @@ export const help = {
         'signin': 'регистрация',
         'account': 'профиль',
         'glossary': 'термины',
+        'issues': 'issues',
     },
     // Dutch
     'nl' : {

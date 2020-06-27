@@ -2,10 +2,10 @@
     height: 100px;
     width: 100%;
     background-color: #ffffcc;
-    border: 1px solid black;
+    margin-bottom: 20px;
 }
 .help_tabs_wrapper {
-    height: 5%;
+    height: 50px;
     width: 100%;
 
     display: flex;
@@ -36,4 +36,6 @@
 
     transition: transform 1.0s;
     transform: scale(1.0);
+
+    border: 1px solid black;
 }
