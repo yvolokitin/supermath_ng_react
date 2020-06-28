@@ -1,8 +1,10 @@
 ﻿.help_wrapper {
     height: 100px;
     width: 100%;
+    margin-bottom: 40px;
+
+    /* light yellow background */
     background-color: #ffffcc;
-    margin-bottom: 20px;
 }
 .help_tabs_wrapper {
     height: 50px;
@@ -12,11 +14,12 @@
     align-items: center;
     justify-content: center;
 
+    /* light blue background */
     background-color: #99ccff;
 }
 .help_tab_wrapper {
     height: 100%;
-    width: 15%;
+    width: 13%;
 
     display: flex;
     align-items: center;
@@ -36,6 +39,4 @@
 
     transition: transform 1.0s;
     transform: scale(1.0);
-
-    border: 1px solid black;
 }

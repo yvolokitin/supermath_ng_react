@@ -20,13 +20,17 @@ const SCREEN = {
 
 function HelpTab(props) {
     return (
-        <div className='help_tab_wrapper' onClick={() => props.onClick(props.id)} style={{boxShadow: '0 11px 1px -1px black'}}>
+        <>
             {(props.selected) ? (
-                <font style={{color: 'green', transform: 'scale(1.1)'}}> {props.name} </font>
+                <div className='help_tab_wrapper' onClick={() => props.onClick(props.id)} style={{boxShadow: '0 3px 1px -1px grey'}}>
+                    <font style={{color: 'green', transform: 'scale(1.1)'}}> {props.name} </font>
+                </div>
             ) : (
-                <font> {props.name} </font>
+                <div className='help_tab_wrapper' onClick={() => props.onClick(props.id)}>
+                    <font> {props.name} </font>
+                </div>
             )}
-        </div>
+        </>
     );
 }
 
@@ -68,6 +72,7 @@ export default function Help(props) {
                     <div className='help_tabs_wrapper'>
                         {tabs.map(
                             (tab) => <HelpTab key={tab.id}
+                                        selected={screen === tab.id}
                                         id={tab.id} name={tab.name}
                                         onClick={onHelpTabChange}/>
                         )}
