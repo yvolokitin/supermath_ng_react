@@ -13,8 +13,8 @@ export const help = {
         'colors': 'цвета',
         'signin': 'регистрация',
         'account': 'профиль',
-        'glossary': 'термины',
-        'issues': 'issues',
+        'glossary': 'глоссарий',
+        'issues': 'проблемы',
     },
     // Dutch
     'nl' : {
@@ -22,6 +22,7 @@ export const help = {
         'signin': 'sign in',
         'account': 'account',
         'glossary': 'glossary',
+        'issues': 'issues',
     },
     // French
     'fr' : {
@@ -29,6 +30,7 @@ export const help = {
         'signin': 'sign in',
         'account': 'account',
         'glossary': 'glossary',
+        'issues': 'issues',
     },
     // German
     'de' : {
@@ -36,6 +38,7 @@ export const help = {
         'signin': 'sign in',
         'account': 'account',
         'glossary': 'glossary',
+        'issues': 'issues',
     },
     // Spanish
     'es' : {
@@ -43,6 +46,7 @@ export const help = {
         'signin': 'sign in',
         'account': 'account',
         'glossary': 'glossary',
+        'issues': 'issues',
     },
     // Italian
     'it' : {
@@ -50,5 +54,6 @@ export const help = {
         'signin': 'sign in',
         'account': 'account',
         'glossary': 'glossary',
+        'issues': 'issues',
     },
 };

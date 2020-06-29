@@ -2,18 +2,15 @@
     height: 100px;
     width: 100%;
     margin-bottom: 40px;
-
     /* light yellow background */
     background-color: #ffffcc;
 }
 .help_tabs_wrapper {
     height: 50px;
     width: 100%;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     /* light blue background */
     background-color: #99ccff;
 }
@@ -39,4 +36,13 @@
 
     transition: transform 1.0s;
     transform: scale(1.0);
+}
+.typography_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.typography_div_wrapper {
+    height: 100%;
+    width: 95%;
 }

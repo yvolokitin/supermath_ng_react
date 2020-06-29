@@ -6,7 +6,7 @@ import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 
-import {colors} from './../translations/colors';
+import {issues} from './../translations/issues';
 import './help.css';
 
 const ExpansionPanel = withStyles({
@@ -52,19 +52,16 @@ const ExpansionPanelDetails = withStyles((theme) => ({
     },
 })) (MuiExpansionPanelDetails);
 
-export default function Colors(props) {
-    const [expanded, setExpanded] = React.useState('white');
+export default function Issues(props) {
+    const [expanded, setExpanded] = React.useState('techreq');
     const handleChange = (panel) => (event, newExpanded) => {
         setExpanded(newExpanded ? panel : false);
     };
 
-    const levels = [
-        {id: 'white', content: 'white-content', header: 'white-header', text: 'white_text', body: 'white_body', color: '#f2f2f2'},
-        {id: 'orange', content: 'orange-content', header: 'orange-header', text: 'orange_text', body: 'orange_body', color: '#ffe0b3'},
-        {id: 'green', content: 'green-content', header: 'green-header', text: 'green_text', body: 'green_body', color: '#b3ffb3'},
-        {id: 'navy', content: 'navy-content', header: 'navy-header', text: 'navy_text', body: 'navy_body', color: '#b3b3ff'},
-        {id: 'brown', content: 'brown-content', header: 'brown-header', text: 'brown_text', body: 'brown_body', color: '#dfbf9f'},
-        {id: 'black', content: 'black-content', header: 'black-header', text: 'black_text', body: 'black_body', color: '#bfbfbf'},
+    const questions = [
+        {id: 'techreq', content: 'techreq-content', header: 'techreq-header', text: 'techreq_text', body: 'techreq_body', color: '#f2f2f2'},
+        {id: 'clear', content: 'clear-content', header: 'clear-header', text: 'clear_text', body: 'clear_body', color: '#f2f2f2'},
+
     ];
 
     /*
@@ -73,16 +70,16 @@ export default function Colors(props) {
         <Typography hidden={props.open === false} component='div'>
             <div className='typography_wrapper'>
                 <div className='typography_div_wrapper'>
-                    {levels.map((level) =>
-                        <ExpansionPanel square key={level.header} expanded={expanded === level.id} onChange={handleChange(level.id)}>
-                            <ExpansionPanelSummary aria-controls={level.content} id={level.header}>
-                                <Typography> {colors[props.lang][level.id]} </Typography>
+                    {questions.map((question) =>
+                        <ExpansionPanel square key={question.header} expanded={expanded === question.id} onChange={handleChange(question.id)}>
+                            <ExpansionPanelSummary aria-controls={question.content} id={question.header}>
+                                <Typography> {issues[props.lang][question.id]} </Typography>
                             </ExpansionPanelSummary>
-                            <ExpansionPanelDetails style={{backgroundColor: level.color}}>
-                                <Typography> {colors[props.lang][level.text]} </Typography>
+                            <ExpansionPanelDetails style={{backgroundColor: question.color}}>
+                                <Typography> {issues[props.lang][question.text]} </Typography>
                             </ExpansionPanelDetails>
-                            <ExpansionPanelDetails style={{backgroundColor: level.color}}>
-                                <Typography> {colors[props.lang][level.body]} </Typography>
+                            <ExpansionPanelDetails style={{backgroundColor: question.color}}>
+                                <Typography> {issues[props.lang][question.body]} </Typography>
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
                     )}

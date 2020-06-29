@@ -1,10 +1,11 @@
-﻿import React, { useEffect, useState } from 'react';
+﻿import React, { /*useEffect,*/ useState } from 'react';
 import { Dialog, Slide, Typography } from '@material-ui/core';
 
 import SMTitle from './../dialog/title';
 import ColorLine from './../line/line';
 
 import Colors from './colors';
+import Issues from './issues';
 
 import './help.css';
 import {help} from './../translations/help';
@@ -49,10 +50,10 @@ export default function Help(props) {
         {id: 5, name: help[props.lang]['issues']},
     ];
 
-    useEffect(() => {
+/*    useEffect(() => {
         console.log('Help.useEffect ' + props.open);
 
-    }, [props.open]);
+    }, [props.open]);*/
 
     function onHelpTabChange(tab_id) {
         console.log('Help.onHelpTabChange ' + tab_id);
@@ -80,6 +81,8 @@ export default function Help(props) {
                 </div>
 
                 <Colors open={screen === SCREEN.COLORS} lang={props.lang}/>
+                <Issues open={screen === SCREEN.ISSUES} lang={props.lang}/>
+
             </Typography>
         </Dialog>
     );
