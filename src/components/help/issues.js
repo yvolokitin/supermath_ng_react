@@ -22,6 +22,7 @@ const ExpansionPanel = withStyles({
         },
         '&$expanded': {
             margin: 'auto',
+            fontWeight: 'bold',
         },
     },
     expanded: {},
@@ -53,14 +54,16 @@ const ExpansionPanelDetails = withStyles((theme) => ({
 })) (MuiExpansionPanelDetails);
 
 export default function Issues(props) {
-    const [expanded, setExpanded] = React.useState('techreq');
+    const [expanded, setExpanded] = React.useState('issues');
     const handleChange = (panel) => (event, newExpanded) => {
         setExpanded(newExpanded ? panel : false);
     };
 
     const questions = [
-        {id: 'techreq', content: 'techreq-content', header: 'techreq-header', text: 'techreq_text', body: 'techreq_body', color: '#f2f2f2'},
-        {id: 'clear', content: 'clear-content', header: 'clear-header', text: 'clear_text', body: 'clear_body', color: '#f2f2f2'},
+        {id: 'issues', content: 'issues-content', header: 'issues-header', text: 'issues_text', color: '#f2f2f2'},
+        {id: 'techreq', content: 'techreq-content', header: 'techreq-header', text: 'techreq_text', color: '#f2f2f2'},
+        {id: 'clear', content: 'clear-content', header: 'clear-header', text: 'clear_text', color: '#f2f2f2'},
+        {id: 'address', content: 'address-content', header: 'address-header', text: 'address_text', color: '#f2f2f2'},
 
     ];
 
@@ -76,10 +79,7 @@ export default function Issues(props) {
                                 <Typography> {issues[props.lang][question.id]} </Typography>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails style={{backgroundColor: question.color}}>
-                                <Typography> {issues[props.lang][question.text]} </Typography>
-                            </ExpansionPanelDetails>
-                            <ExpansionPanelDetails style={{backgroundColor: question.color}}>
-                                <Typography> {issues[props.lang][question.body]} </Typography>
+                                <Typography style={{textAlign: 'justify'}}> {issues[props.lang][question.text]} </Typography>
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
                     )}

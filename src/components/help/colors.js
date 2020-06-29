@@ -79,10 +79,10 @@ export default function Colors(props) {
                                 <Typography> {colors[props.lang][level.id]} </Typography>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails style={{backgroundColor: level.color}}>
-                                <Typography> {colors[props.lang][level.text]} </Typography>
+                                <Typography style={{textAlign: 'justify'}}> {colors[props.lang][level.text]} </Typography>
                             </ExpansionPanelDetails>
                             <ExpansionPanelDetails style={{backgroundColor: level.color}}>
-                                <Typography> {colors[props.lang][level.body]} </Typography>
+                                <Typography style={{textAlign: 'justify'}}> {colors[props.lang][level.body]} </Typography>
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
                     )}

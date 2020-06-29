@@ -46,3 +46,15 @@
     height: 100%;
     width: 95%;
 }
+@media only screen and (max-width: 800px) {
+    .help_wrapper {
+        margin-bottom: 25px;
+    }
+    .help_tab_wrapper {
+        width: 20%;
+    }
+    .typography_div_wrapper {
+        height: 100%;
+        width: 98%;
+    }
+}
