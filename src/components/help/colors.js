@@ -65,6 +65,7 @@ export default function Colors(props) {
         {id: 'navy', content: 'navy-content', header: 'navy-header', text: 'navy_text', body: 'navy_body', color: '#b3b3ff'},
         {id: 'brown', content: 'brown-content', header: 'brown-header', text: 'brown_text', body: 'brown_body', color: '#dfbf9f'},
         {id: 'black', content: 'black-content', header: 'black-header', text: 'black_text', body: 'black_body', color: '#bfbfbf'},
+        {id: 'tasks', content: 'tasks-content', header: 'tasks-header', text: 'tasks_text', body: 'tasks_body', color: '#bfbfbf'},
     ];
 
     /*
@@ -73,6 +74,10 @@ export default function Colors(props) {
         <Typography hidden={props.open === false} component='div'>
             <div className='typography_wrapper'>
                 <div className='typography_div_wrapper'>
+                    <div className='typography_div_title'>
+                        {colors[props.lang]['title']}
+                    </div>
+
                     {levels.map((level) =>
                         <ExpansionPanel square key={level.header} expanded={expanded === level.id} onChange={handleChange(level.id)}>
                             <ExpansionPanelSummary aria-controls={level.content} id={level.header}>

@@ -1,7 +1,7 @@
 ﻿.help_wrapper {
     height: 100px;
     width: 100%;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     /* light yellow background */
     background-color: #ffffcc;
 }
@@ -38,9 +38,23 @@
     transform: scale(1.0);
 }
 .typography_wrapper {
+    height: 100%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.typography_div_title {
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 10px;
+
+    text-align: justify;
+    user-select: none;
+
+    background-color: #ffffcc;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px 0px grey;
 }
 .typography_div_wrapper {
     height: 100%;
