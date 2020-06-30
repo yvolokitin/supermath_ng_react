@@ -1,4 +1,4 @@
-﻿import React, { /*useEffect,*/ useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Dialog, Slide, Typography } from '@material-ui/core';
 
 import SMTitle from './../dialog/title';
@@ -50,11 +50,6 @@ export default function Help(props) {
         {id: 5, name: help[props.lang]['issues']},
     ];
 
-/*    useEffect(() => {
-        console.log('Help.useEffect ' + props.open);
-
-    }, [props.open]);*/
-
     function onHelpTabChange(tab_id) {
         console.log('Help.onHelpTabChange ' + tab_id);
         setScreen(tab_id);
@@ -65,11 +60,10 @@ export default function Help(props) {
         <Dialog open={props.open} fullScreen={true} onClose={() => props.onClose()}
             TransitionComponent={Transition} transitionDuration={800}>
 
-            <Typography component='div'>
+            <Typography component='div' style={{height: '100%', width: '100%', backgroundColor:'#ffffcc'}}>
+                <SMTitle title='' onClick={() => props.onClose()}/>
+                <ColorLine/>
                 <div className='help_wrapper'>
-                    <SMTitle title='' onClick={() => props.onClose()}/>
-                    <ColorLine/>
-
                     <div className='help_tabs_wrapper'>
                         {tabs.map(
                             (tab) => <HelpTab key={tab.id}
