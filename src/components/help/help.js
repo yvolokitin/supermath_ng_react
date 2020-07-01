@@ -5,6 +5,7 @@ import SMTitle from './../dialog/title';
 import ColorLine from './../line/line';
 
 import Colors from './colors';
+import SignIn from './signin';
 import Issues from './issues';
 
 import './help.css';
@@ -13,7 +14,7 @@ import {help} from './../translations/help';
 const SCREEN = {
     NONE: 0,
     COLORS: 1,
-    REGISTRATION: 2,
+    SIGNIN: 2,
     PROFILE: 3,
     GLOSSARY: 4,
     ISSUES: 5,
@@ -40,7 +41,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function Help(props) {
-    const [screen, setScreen] = useState(SCREEN.COLORS);
+    const [screen, setScreen] = useState(SCREEN.SIGNIN);
 
     const tabs = [
         {id: 1, name: help[props.lang]['colors']},
@@ -75,6 +76,7 @@ export default function Help(props) {
                 </div>
 
                 <Colors open={screen === SCREEN.COLORS} lang={props.lang}/>
+                <SignIn open={screen === SCREEN.SIGNIN} lang={props.lang}/>
                 <Issues open={screen === SCREEN.ISSUES} lang={props.lang}/>
 
             </Typography>

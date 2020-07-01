@@ -1,5 +1,7 @@
 ﻿const getNavigatorLanguage = () => (navigator.languages && navigator.languages.length) ? navigator.languages[0] : navigator.userLanguage || navigator.language || navigator.browserLanguage || 'en';
 
+const user_props = ['name', 'email', 'surname', 'birthday', 'avatar', 'pswdhash', 'passed', 'failed', 'cards', 'lang', 'belt', 'solved', 'age'];
+
 function language_detector() {
     var language = 'en', navigator_lang = getNavigatorLanguage();
 
@@ -78,17 +80,22 @@ export function get_active_user() {
 export function set_active_user(user_id) {
     if (user_id > 0) {
         var users = localStorage.getItem('users');
-        var sub_user = user_id.toString() + ',';
         if (users !== null && users !== undefined) {
-            if (users.includes(sub_user) === false) {
-                localStorage.setItem('users', users + sub_user);
+            var locals = users.split(',');
+            var sub_user = user_id.toString() + ',';
+            if (locals.length > 0) {
+                if (locals.includes(user_id.toString()) === false) {
+                    localStorage.setItem('users', users + sub_user);
+                }
+            } else {
+                localStorage.setItem('users', sub_user);
             }
         } else {
             localStorage.setItem('users', sub_user);
         }
-
-        localStorage.setItem('user_id', user_id);
     }
+
+    localStorage.setItem('user_id', user_id);
 }
 
 /**
@@ -97,7 +104,7 @@ export function set_active_user(user_id) {
  * user_is is user, which should be excluded from list
  */
 export function get_local_users(user_id = 0) {
-    // console.log('get_local_users ' + user_id);
+    // localStorage.setItem('users', '');
     var users = [];
     if (typeof(Storage) !== 'undefined') {
         var local_users = [], locals = localStorage.getItem('users');
@@ -105,6 +112,7 @@ export function get_local_users(user_id = 0) {
             local_users = locals.split(',');
         }
 
+        // console.log('get_local_users, user_id ' + user_id + ', locals: ' + locals);
         for (var i = 0; i < local_users.length; i++) {
             if ((parseInt(local_users[i]) !== parseInt(user_id)) &&
                 (get_item(local_users[i], 'name') !== '') &&
@@ -134,8 +142,7 @@ export function get_local_users(user_id = 0) {
  * Remove all local user info from localstorage
  */
 export function remove_local_user(user_id) {
-    const user_props = ['name', 'email', 'surname', 'birthday', 'avatar', 'pswdhash', 'passed', 'failed', 'cards', 'lang', 'belt', 'solved', 'age'];
-    var users = [];
+    console.log('remove_local_user ' + user_id);
 
     if (typeof(Storage) !== 'undefined') {
         var local_users = [], locals = localStorage.getItem('users');
@@ -143,24 +150,26 @@ export function remove_local_user(user_id) {
             local_users = locals.split(',');
         }
 
-        for (var i = 0; i < local_users.length; i++) {
-            if ((local_users[i] !== 0) && (local_users[i] !== user_id)) {
-                users.push(local_users[i]);
+        // if no local users available -> nothing to remove
+        if (local_users.length > 0) {
+            var new_user_list = '';
+            for (var i = 0; i < local_users.length; i++) {
+                if (local_users[i] !== 0 &&
+                    local_users[i] !== user_id &&
+                    local_users[i].length > 0) {
+                        new_user_list = new_user_list + local_users[i] + ',';
+
+                } else if (local_users[i] !== 0 &&
+                    local_users[i] === user_id) {
+                        // remove all related user data
+                        for (var k = 0; k < user_props.length; k++) {
+                            var key = user_id + '_' + user_props[k];
+                            localStorage.removeItem(key);
+                        }
+                }
             }
-        }
 
-        var new_list = '';
-        if (users.length > 0) {
-            for (var j = 0; j < users.length; j++) {
-                new_list = new_list + users[j] + ',';
-            }
-        }
-
-        localStorage.setItem('users', new_list);
-
-        for (var k = 0; k < user_props.length; k++) {
-            var key = user_id + '_' + user_props[k];
-            localStorage.removeItem(key);
+            localStorage.setItem('users', new_user_list);
         }
     }
 }

@@ -46,5 +46,6 @@ export const ExpansionPanelSummary = withStyles({
 export const ExpansionPanelDetails = withStyles((theme) => ({
     root: {
         padding: theme.spacing(2),
+        textAlign: 'justify',
     },
 })) (MuiExpansionPanelDetails);

@@ -21,7 +21,7 @@ import {avatars} from './../halpers/avatars';
 import Tabs from "./../body/tabs";
 
 import {get_lang, set_lang} from './../halpers/localstorage';
-import {set_item, get_item, remove_item} from './../halpers/localstorage';
+import {set_item, get_item/*, remove_item*/} from './../halpers/localstorage';
 import {get_active_user, set_active_user} from './../halpers/localstorage';
 
 import './index.css';
@@ -212,7 +212,8 @@ export default class SuperMathPage extends React.Component {
 
             case 'logout':
                 this.setState({screen: STATUS.NONE, id: 0, solved: ''});
-                remove_item('user_id');
+                // remove_item('user_id');
+                set_active_user(0);
                 break;
 
             case 'hashlogin':
@@ -563,7 +564,7 @@ export default class SuperMathPage extends React.Component {
                 <Help open={this.state.screen === STATUS.HELP}
                     onClose={() => this.setState({screen: STATUS.NONE})}
                     fullScreen={this.state.width<581}
-                    lang={this.state.lang}/>
+                    id={this.state.id} lang={this.state.lang}/>
 
                 <About open={this.state.screen === STATUS.ABOUT}
                     onClose={() => this.setState({screen: STATUS.NONE})}

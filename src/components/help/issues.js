@@ -31,7 +31,7 @@ export default function Issues(props) {
                                 <Typography> {issues[props.lang][question.id]} </Typography>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails style={{backgroundColor: question.color}}>
-                                <Typography style={{textAlign: 'justify'}}> {issues[props.lang][question.text]} </Typography>
+                                <Typography> {issues[props.lang][question.text]} </Typography>
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
                     )}
