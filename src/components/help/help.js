@@ -6,6 +6,7 @@ import ColorLine from './../line/line';
 
 import Colors from './colors';
 import SignIn from './signin';
+import Glossary from './glossary';
 import Issues from './issues';
 
 import './help.css';
@@ -77,6 +78,7 @@ export default function Help(props) {
 
                 <Colors open={screen === SCREEN.COLORS} lang={props.lang}/>
                 <SignIn open={screen === SCREEN.SIGNIN} lang={props.lang}/>
+                <Glossary open={screen === SCREEN.GLOSSARY} lang={props.lang}/>
                 <Issues open={screen === SCREEN.ISSUES} lang={props.lang}/>
 
             </Typography>
