@@ -8,7 +8,7 @@ export const glossary = {
         'instance': 'Instance relates to exact Task of particular Color Belt. The time for solution of one Instance may be time limited. In case of correctly solved Instance user earn Smile or Point, while mistakes increase the number of Poops.',
         'smile': 'Smile is a point, which user earns for correctly solved Instance of particular Task. All Smiles are saved under user profile. Smiles can be exchanged with Poops or used to throw Poops to another user.',
         'poop': 'Poop is a point, which user gets in case of incorrectly solved Instance of particular Task. It is possible to reduce a number of Poops via exchange with Smiles. There is also possibility to receive Poop from another user.',
-        'Joker': 'Joker is a special bonus card that allows owner to drop 10 Poops. Jokers can be earned after successful completion of tasks (all 30 Instances of particular Task should be solved without any mistakes).',
+        'joker': 'Joker is a special bonus card that allows owner to drop 10 Poops. Jokers can be earned after successful completion of tasks (all 30 Instances of particular Task should be solved without any mistakes).',
     },
     // Russian
     'ru': {
@@ -28,7 +28,7 @@ export const glossary = {
         'instance': 'De instantie heeft betrekking op de exacte taak van een bepaalde kleurenriem. De tijd voor het oplossen van één exemplaar kan in de tijd beperkt zijn. In het geval van een correct opgeloste instantie verdient de gebruiker Smile of Point, terwijl fouten het aantal poept verhogen.',
         'smile': 'Glimlach is een punt dat de gebruiker verdient voor een correct opgeloste instantie van een bepaalde taak. Alle glimlachen worden opgeslagen onder het gebruikersprofiel. Glimlachen kunnen worden uitgewisseld met kakjes of worden gebruikt om kakjes naar een andere gebruiker te gooien.',
         'poop': 'Kak is een punt dat de gebruiker krijgt in het geval van een onjuist opgeloste instantie van een bepaalde taak. Het is mogelijk om een aantal poeps te verminderen via uitwisseling met Smiles. Er is ook mogelijkheid om kak van een andere gebruiker te ontvangen.',
-        'Joker': 'Joker is een speciale bonuskaart waarmee de eigenaar 10 Poops kan laten vallen. Jokers kunnen worden verdiend na succesvolle voltooiing van taken (alle 30 instanties van een bepaalde taak moeten zonder fouten worden opgelost).',
+        'joker': 'Joker is een speciale bonuskaart waarmee de eigenaar 10 Poops kan laten vallen. Jokers kunnen worden verdiend na succesvolle voltooiing van taken (alle 30 instanties van een bepaalde taak moeten zonder fouten worden opgelost).',
     },
     // French
     'fr' : {
@@ -38,7 +38,7 @@ export const glossary = {
         'instance': 'L\'instance se rapporte à la tâche exacte d\'une ceinture de couleur particulière. Le temps de solution d\'une instance peut être limité dans le temps. En cas d\'instance correctement résolue, l\'utilisateur gagne un sourire ou un point, tandis que les erreurs augmentent le nombre de caca.',
         'smile': 'Le sourire est un point que l\'utilisateur gagne pour l\'instance correctement résolue d\'une tâche particulière. Tous les sourires sont enregistrés sous le profil utilisateur. Les sourires peuvent être échangés avec Poops ou utilisés pour envoyer des Poops à un autre utilisateur.',
         'poop': 'Merde est un point que l\'utilisateur obtient en cas de résolution incorrecte d\'une tâche particulière. Il est possible de réduire un certain nombre de caca via l\'échange avec Smiles. Il est également possible de recevoir Poop d\'un autre utilisateur.',
-        'Joker': 'Joker est une carte bonus spéciale qui permet au propriétaire de déposer 10 caca. Les jokers peuvent être gagnés après avoir réussi les tâches (les 30 instances d\'une tâche particulière doivent être résolues sans aucune erreur).',
+        'joker': 'Joker est une carte bonus spéciale qui permet au propriétaire de déposer 10 caca. Les jokers peuvent être gagnés après avoir réussi les tâches (les 30 instances d\'une tâche particulière doivent être résolues sans aucune erreur).',
     },
     // German
     'de' : {
@@ -48,7 +48,7 @@ export const glossary = {
         'instance': 'Die Instanz bezieht sich auf die genaue Aufgabe eines bestimmten Farbgürtels. Die Zeit für die Lösung einer Instanz kann zeitlich begrenzt sein. Bei korrekt gelösten Instanzen erhält der Benutzer ein Lächeln oder einen Punkt, während Fehler die Anzahl der Poops erhöhen.',
         'smile': 'Lächeln ist ein Punkt, den der Benutzer für die korrekt gelöste Instanz einer bestimmten Aufgabe verdient. Alle Lächeln werden unter Benutzerprofil gespeichert. Lächeln kann mit Poops ausgetauscht oder verwendet werden, um Poops an einen anderen Benutzer zu werfen.',
         'poop': 'Poop ist ein Punkt, den der Benutzer bei falsch gelöster Instanz einer bestimmten Aufgabe erhält. Es ist möglich, eine Anzahl von Poops durch Austausch mit Smiles zu reduzieren. Es besteht auch die Möglichkeit, Poop von einem anderen Benutzer zu empfangen.',
-        'Joker': 'Joker ist eine spezielle Bonuskarte, mit der der Besitzer 10 Poops fallen lassen kann. Joker können nach erfolgreichem Abschluss von Aufgaben verdient werden (alle 30 Instanzen einer bestimmten Aufgabe sollten fehlerfrei gelöst werden).',
+        'joker': 'Joker ist eine spezielle Bonuskarte, mit der der Besitzer 10 Poops fallen lassen kann. Joker können nach erfolgreichem Abschluss von Aufgaben verdient werden (alle 30 Instanzen einer bestimmten Aufgabe sollten fehlerfrei gelöst werden).',
     },
     // Spanish
     'es' : {
@@ -58,7 +58,7 @@ export const glossary = {
         'instance': 'Instance relates to exact Task of particular Color Belt. The time for solution of one Instance may be time limited. In case of correctly solved Instance user earn Smile or Point, while mistakes increase the number of Poops.',
         'smile': 'Smile is a point, which user earns for correctly solved Instance of particular Task. All Smiles are saved under user profile. Smiles can be exchanged with Poops or used to throw Poops to another user.',
         'poop': 'Poop is a point, which user gets in case of incorrectly solved Instance of particular Task. It is possible to reduce a number of Poops via exchange with Smiles. There is also possibility to receive Poop from another user.',
-        'Joker': 'Joker is a special bonus card that allows owner to drop 10 Poops. Jokers can be earned after successful completion of tasks (all 30 Instances of particular Task should be solved without any mistakes).',
+        'joker': 'Joker is a special bonus card that allows owner to drop 10 Poops. Jokers can be earned after successful completion of tasks (all 30 Instances of particular Task should be solved without any mistakes).',
     },
     // Italian
     'it' : {
@@ -68,6 +68,6 @@ export const glossary = {
         'instance': 'Instance relates to exact Task of particular Color Belt. The time for solution of one Instance may be time limited. In case of correctly solved Instance user earn Smile or Point, while mistakes increase the number of Poops.',
         'smile': 'Smile is a point, which user earns for correctly solved Instance of particular Task. All Smiles are saved under user profile. Smiles can be exchanged with Poops or used to throw Poops to another user.',
         'poop': 'Poop is a point, which user gets in case of incorrectly solved Instance of particular Task. It is possible to reduce a number of Poops via exchange with Smiles. There is also possibility to receive Poop from another user.',
-        'Joker': 'Joker is a special bonus card that allows owner to drop 10 Poops. Jokers can be earned after successful completion of tasks (all 30 Instances of particular Task should be solved without any mistakes).',
+        'joker': 'Joker is a special bonus card that allows owner to drop 10 Poops. Jokers can be earned after successful completion of tasks (all 30 Instances of particular Task should be solved without any mistakes).',
     },
 };
