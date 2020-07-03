@@ -15,9 +15,9 @@ import {help} from './../translations/help';
 const SCREEN = {
     NONE: 0,
     COLORS: 1,
-    SIGNIN: 2,
-    PROFILE: 3,
-    GLOSSARY: 4,
+    GLOSSARY: 2,
+    SIGNIN: 3,
+    PROFILE: 4,
     ISSUES: 5,
 }
 
@@ -26,7 +26,7 @@ function HelpTab(props) {
         <>
             {(props.selected) ? (
                 <div className='help_tab_wrapper' onClick={() => props.onClick(props.id)} style={{boxShadow: '0 3px 1px -1px grey'}}>
-                    <font style={{color: 'green', transform: 'scale(1.1)'}}> {props.name} </font>
+                    <font style={{color: 'green', transform: 'scale(1.07)'}}> {props.name} </font>
                 </div>
             ) : (
                 <div className='help_tab_wrapper' onClick={() => props.onClick(props.id)}>
@@ -42,13 +42,13 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function Help(props) {
-    const [screen, setScreen] = useState(SCREEN.SIGNIN);
+    const [screen, setScreen] = useState(SCREEN.GLOSSARY);
 
     const tabs = [
         {id: 1, name: help[props.lang]['colors']},
-        {id: 2, name: help[props.lang]['signin']},
-        {id: 3, name: help[props.lang]['account']},
-        {id: 4, name: help[props.lang]['glossary']},
+        {id: 2, name: help[props.lang]['glossary']},
+        {id: 3, name: help[props.lang]['signin']},
+        {id: 4, name: help[props.lang]['profile']},
         {id: 5, name: help[props.lang]['issues']},
     ];
 

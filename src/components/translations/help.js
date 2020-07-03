@@ -4,7 +4,7 @@ export const help = {
     'en': {
         'colors': 'colors',
         'signin': 'sign in',
-        'account': 'account',
+        'profile': 'profile',
         'glossary': 'glossary',
         'issues': 'issues',
     },
@@ -12,7 +12,7 @@ export const help = {
     'ru': {
         'colors': 'цвета',
         'signin': 'регистрация',
-        'account': 'профиль',
+        'profile': 'профиль',
         'glossary': 'глоссарий',
         'issues': 'проблемы',
     },
@@ -20,7 +20,7 @@ export const help = {
     'nl' : {
         'colors': 'kleuren',
         'signin': 'inloggen',
-        'account': 'account',
+        'profile': 'profile',
         'glossary': 'woordenlijst',
         'issues': 'problemen',
     },
@@ -28,7 +28,7 @@ export const help = {
     'fr' : {
         'colors': 'couleurs',
         'signin': 'se connecter',
-        'account': 'compte',
+        'profile': 'compte',
         'glossary': 'glossaire',
         'issues': 'problèmes',
     },
@@ -36,7 +36,7 @@ export const help = {
     'de' : {
         'colors': 'farben',
         'signin': 'einloggen',
-        'account': 'konto',
+        'profile': 'konto',
         'glossary': 'glossar',
         'issues': 'probleme',
     },
@@ -44,7 +44,7 @@ export const help = {
     'es' : {
         'colors': 'colores',
         'signin': 'registrarse',
-        'account': 'cuenta',
+        'profile': 'cuenta',
         'glossary': 'glosario',
         'issues': 'cuestiones',
     },
@@ -52,7 +52,7 @@ export const help = {
     'it' : {
         'colors': 'colori',
         'signin': 'registrati',
-        'account': 'account',
+        'profile': 'profile',
         'glossary': 'glossario',
         'issues': 'problemi',
     },

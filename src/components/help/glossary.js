@@ -14,15 +14,15 @@ export default function Glossary(props) {
                     </div>
 
                     <div className='typography_div_title'>
-                        {glossary[props.lang]['color']}
+                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#129355;</span> {glossary[props.lang]['color']}
                     </div>
 
                     <div className='typography_div_title'>
-                        {glossary[props.lang]['task']}
+                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128291;</span> {glossary[props.lang]['task']}
                     </div>
 
                     <div className='typography_div_title'>
-                        {glossary[props.lang]['instance']}
+                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128203;</span> {glossary[props.lang]['instance']}
                     </div>
 
                     <div className='typography_div_title'>
