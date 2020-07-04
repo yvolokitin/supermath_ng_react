@@ -11,6 +11,7 @@ export const white_titles = {
         '7': 'Addition and Subtraction of three one-digit numbers',
         '8': 'Comparison of two expressions for one digit numbers',
         '9': 'Addition and Subtraction of two one-digit numbers (from 0 to 10)',
+        '10': 'Take White Belt Test',
     },
     // Russian
     'ru': {
@@ -23,6 +24,7 @@ export const white_titles = {
         '7': 'Сложение и Вычитание трех однозначных чисел (от 0 до 10)',
         '8': 'Сравнение выражений двух однозначных чисел (от 0 до 10)',
         '9': 'Сложение и Вычитание двух однозначиных чисел (от 0 до 10)',
+        '10': 'Пройди тест на Белый пояс',
     },
     // Dutch
     'nl' : {
@@ -35,6 +37,7 @@ export const white_titles = {
         '7': 'Optellen en aftrekken van drie getallen van een cijfer',
         '8': 'Vergelijking van twee uitdrukkingen voor getallen van een cijfer',
         '9': 'Optellen en aftrekken van twee getallen van een cijfer (van 0 tot 10)',
+        '10': 'Doe de White Belt Test',
     },
     // French
     'fr' : {
@@ -47,6 +50,7 @@ export const white_titles = {
         '7': 'Addition and Subtraction of three one-digit numbers',
         '8': 'Comparison of two expressions for one digit numbers',
         '9': 'Addition and Subtraction of two one-digit numbers (from 0 to 10)',
+        '10': 'Faites le test de la ceinture blanche',
     },
     // German
     'de' : {
@@ -59,6 +63,7 @@ export const white_titles = {
         '7': 'Addition und Subtraktion von drei einstelligen Zahlen',
         '8': 'Vergleich zweier Ausdrücke für einstellige Zahlen',
         '9': 'Addition und Subtraktion von zwei einstelligen Zahlen (von 0 bis 10)',
+        '10': 'Machen Sie einen White Belt Test',
     },
     // Spanish
     'es' : {
@@ -71,6 +76,7 @@ export const white_titles = {
         '7': 'Addition and Subtraction of three one-digit numbers',
         '8': 'Comparison of two expressions for one digit numbers',
         '9': 'Addition and Subtraction of two one-digit numbers (from 0 to 10)',
+        '10': 'Tome la prueba del cinturón blanco',
     },
     // Italian
     'it' : {
@@ -83,6 +89,7 @@ export const white_titles = {
         '7': 'Addition and Subtraction of three one-digit numbers',
         '8': 'Comparison of two expressions for one digit numbers',
         '9': 'Addition and Subtraction of two one-digit numbers (from 0 to 10)',
+        '10': 'Fai il test della cintura bianca',
     },
 };
 
@@ -99,6 +106,7 @@ export const white_descriptions = {
         '7': 'Tasks for Addition and Subtraction of three one-digit numbers. The result of addition can be an one (example, 1+1+1=3) or two digit number (example, 7+8+9=24), the result of subtraction can be zero (example, 9-5-4=0) or a one-digit number (example, 8-1-1=6)',
         '8': 'Tasks for results Comparision of two arithmetic expressions each of one consists from two one-digit numbers (3+4 and 9-2) and one mathematical operation: plus or minus. Kids have to solve both expressions in mind and select one of the appropriate operation: more (>), less (<) and equal (=). The result of each expression can be zero, one or two digit number',
         '9': 'Tasks for Addition and Subtraction of two one-digit numbers, where kids know only one of the argument and result of math task. Based on mathematical operation they have to find another argument. For example, 6 + ? = 9 (results is 3) OR 7 - ? = 0 (result is 0)',
+        '10': 'Take White Belt Test',
     },
     // Russian
     'ru': {
@@ -111,6 +119,7 @@ export const white_descriptions = {
         '7': 'Задачи на Сложение и Вычитание трех однозначных чисел от 0 до 10 (10 - единственное двузначное число, используемое в данных задачах, как исключение). В одном примере могут быть: две операции Сложения, например 7+3+8=? (правильный ответ 18); две операции Вычитания, например 9-3-3= (правильный ответ 3); Сложение и Вычитание, например 9-7+4=? (правильный ответ 6) или 6+7-9=? (правильный ответ 4).',
         '8': 'Задачи на Сравнение результатов выражений однозначных чисел от 0 до 10 (10 - единственное двузначное число, используемое в данных задачах, как исключение). Каждое выражение использует одну из двух арифметических операций (+, сложения или вычитания, -). ',
         '9': 'Задачи на Сложение и Вычитание двух однозначных чисел от 0 до 10 (10 - единственное двузначное число, используемое в данных задачах, как исключение), когда известно одно из двух чисел и результат. Задачи данного типа сходны с решением простого уравнения. Например, 5 + ? = 9 (правильный ответ 4) или ? - 7 = 2 (правильный ответ 9).',
+        '10': 'Пройди тест на Белый пояс',
     },
     // Dutch
     'nl' : {
@@ -123,6 +132,7 @@ export const white_descriptions = {
         '7': 'Tasks for Addition and Subtraction of three one-digit numbers. The result of addition can be an one (example, 1+1+1=3) or two digit number (example, 7+8+9=24), the result of subtraction can be zero (example, 9-5-4=0) or a one-digit number (example, 8-1-1=6)',
         '8': 'Tasks for results Comparision of two arithmetic expressions each of one consists from two one-digit numbers (3+4 and 9-2) and one mathematical operation: plus or minus. Kids have to solve both expressions in mind and select one of the appropriate operation: more (>), less (<) and equal (=). The result of each expression can be zero, one or two digit number',
         '9': 'Tasks for Addition and Subtraction of two one-digit numbers, where kids know only one of the argument and result of math task. Based on mathematical operation they have to find another argument. For example, 6 + ? = 9 (results is 3) OR 7 - ? = 0 (result is 0)',
+        '10': 'Take White Belt Test',
     },
     // French
     'fr' : {
@@ -135,6 +145,7 @@ export const white_descriptions = {
         '7': 'Tasks for Addition and Subtraction of three one-digit numbers. The result of addition can be an one (example, 1+1+1=3) or two digit number (example, 7+8+9=24), the result of subtraction can be zero (example, 9-5-4=0) or a one-digit number (example, 8-1-1=6)',
         '8': 'Tasks for results Comparision of two arithmetic expressions each of one consists from two one-digit numbers (3+4 and 9-2) and one mathematical operation: plus or minus. Kids have to solve both expressions in mind and select one of the appropriate operation: more (>), less (<) and equal (=). The result of each expression can be zero, one or two digit number',
         '9': 'Tasks for Addition and Subtraction of two one-digit numbers, where kids know only one of the argument and result of math task. Based on mathematical operation they have to find another argument. For example, 6 + ? = 9 (results is 3) OR 7 - ? = 0 (result is 0)',
+        '10': 'Take White Belt Test',
     },
     // German
     'de' : {
@@ -147,6 +158,7 @@ export const white_descriptions = {
         '7': 'Tasks for Addition and Subtraction of three one-digit numbers. The result of addition can be an one (example, 1+1+1=3) or two digit number (example, 7+8+9=24), the result of subtraction can be zero (example, 9-5-4=0) or a one-digit number (example, 8-1-1=6)',
         '8': 'Tasks for results Comparision of two arithmetic expressions each of one consists from two one-digit numbers (3+4 and 9-2) and one mathematical operation: plus or minus. Kids have to solve both expressions in mind and select one of the appropriate operation: more (>), less (<) and equal (=). The result of each expression can be zero, one or two digit number',
         '9': 'Tasks for Addition and Subtraction of two one-digit numbers, where kids know only one of the argument and result of math task. Based on mathematical operation they have to find another argument. For example, 6 + ? = 9 (results is 3) OR 7 - ? = 0 (result is 0)',
+        '10': 'Take White Belt Test',
     },
     // Spanish
     'es' : {
@@ -159,6 +171,7 @@ export const white_descriptions = {
         '7': 'Tasks for Addition and Subtraction of three one-digit numbers. The result of addition can be an one (example, 1+1+1=3) or two digit number (example, 7+8+9=24), the result of subtraction can be zero (example, 9-5-4=0) or a one-digit number (example, 8-1-1=6)',
         '8': 'Tasks for results Comparision of two arithmetic expressions each of one consists from two one-digit numbers (3+4 and 9-2) and one mathematical operation: plus or minus. Kids have to solve both expressions in mind and select one of the appropriate operation: more (>), less (<) and equal (=). The result of each expression can be zero, one or two digit number',
         '9': 'Tasks for Addition and Subtraction of two one-digit numbers, where kids know only one of the argument and result of math task. Based on mathematical operation they have to find another argument. For example, 6 + ? = 9 (results is 3) OR 7 - ? = 0 (result is 0)',
+        '10': 'Take White Belt Test',
     },
     // Italian
     'it' : {
@@ -171,5 +184,6 @@ export const white_descriptions = {
         '7': 'Tasks for Addition and Subtraction of three one-digit numbers. The result of addition can be an one (example, 1+1+1=3) or two digit number (example, 7+8+9=24), the result of subtraction can be zero (example, 9-5-4=0) or a one-digit number (example, 8-1-1=6)',
         '8': 'Tasks for results Comparision of two arithmetic expressions each of one consists from two one-digit numbers (3+4 and 9-2) and one mathematical operation: plus or minus. Kids have to solve both expressions in mind and select one of the appropriate operation: more (>), less (<) and equal (=). The result of each expression can be zero, one or two digit number',
         '9': 'Tasks for Addition and Subtraction of two one-digit numbers, where kids know only one of the argument and result of math task. Based on mathematical operation they have to find another argument. For example, 6 + ? = 9 (results is 3) OR 7 - ? = 0 (result is 0)',
+        '10': 'Take White Belt Test',
     },
 };

@@ -28,6 +28,16 @@
 .card_wrapper_img:hover img {
     transform: scale(1.05);
 }
+.card_test_wrapper_img {
+    height: 161px;
+    width: auto;
+
+    cursor: pointer;
+    overflow: hidden;
+
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
 .card_wrapper_img_disabled {
     height: 161px;
     width: auto;

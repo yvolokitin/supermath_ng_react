@@ -7,6 +7,7 @@ import white6 from './../../images/tasks/white_6.jpg';
 import white7 from './../../images/tasks/white_7.jpg';
 import white8 from './../../images/tasks/white_8.jpg';
 import white9 from './../../images/tasks/white_9.jpg';
+import whiteT from './../../images/tasks/white_T.jpg';
 
 import orange1 from './../../images/tasks/orange_1.jpg';
 import orange2 from './../../images/tasks/orange_2.jpg';
@@ -71,6 +72,8 @@ export const white_games = [
     {id: 7, uid: 'white7', logo: white7, type: '3digits', task: '+-,1-10,1', amount: task_amount},
     {id: 8, uid: 'white8', logo: white8, type: 'comp_expr', task: '<>=,+-,0-10,1', amount: task_amount},
     {id: 9, uid: 'white9', logo: white9, type: '2digit_arg', task: 'd,+-,0-10,0-10,1,1', amount: task_amount},
+
+    {id: 10, uid: 'whiteT', logo: whiteT, type: '2digit_arg', task: 'd,+-,0-10,0-10,1,1', amount: task_amount},
 ];
 
 export const orange_games = [
