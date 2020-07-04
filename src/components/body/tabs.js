@@ -3,6 +3,7 @@
 import DigitGame from './../games/digitgame';
 import Footer from "./footer";
 import Card from './card';
+import CardTest from './cardtest';
 import Wave from './wave';
 import './tabs.css';
 
@@ -108,13 +109,23 @@ export default function Tabs(props) {
 
             <div className='tasks_wrapper'>
                 {tasks.map(
-                    (task) => <Card key={task.uid}
-                                task={task}
-                                color={color}
-                                lang={props.lang}
-                                onUpdate={onGameOpen}
-                                fullScreen={props.fullScreen}
-                                locked={props.solved.toString().includes(task.uid)}/>
+                    (task) => 
+                        <div key={task.uid}>
+                            {(task.uid.indexOf('T') === -1) ? (
+                                <Card task={task}
+                                    color={color}
+                                    lang={props.lang}
+                                    onUpdate={onGameOpen}
+                                    fullScreen={props.fullScreen}
+                                    locked={props.solved.toString().includes(task.uid)}/>
+                            ) : (
+                                <CardTest task={task}
+                                    color={color}
+                                    lang={props.lang}
+                                    onUpdate={onGameOpen}
+                                    fullScreen={props.fullScreen}/>
+                            )}
+                        </div>
                 )}
             </div>
 

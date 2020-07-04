@@ -37,7 +37,6 @@ export default class DigitGame extends React.Component {
             type: props.type,
             task: props.task,
             amount: props.amount,
-            showResults: false,
             results: [],
             circle: 'white',
             total: 0,
@@ -45,9 +44,6 @@ export default class DigitGame extends React.Component {
             failed: 0,
             duration: 0,
         };
-
-        // all user task results
-        this.results = [];
 
         // count general time to solve all tasks
         this.timer = new Date().getTime();
@@ -71,9 +67,9 @@ export default class DigitGame extends React.Component {
         }
     }
 
+    /*
+    // possible solution to block user, when calculator is used
     componentDidMount() {
-        // possible solution to block user, when calculator is used
-        /*
         window.addEventListener('focus', function() {
             console.log('focus ' +  document.hidden);
         });
@@ -81,12 +77,12 @@ export default class DigitGame extends React.Component {
         document.addEventListener('visibilitychange', function() {
             console.log('visibilitychange ' +  document.hidden);
         });
-        */
     }
 
     componentWillUnmount() {
         document.addEventListener('visibilitychange');
     }
+    */
 
     // closed, pass, fail passed only when game is closed
     onGameClose(status, data) {
@@ -97,7 +93,6 @@ export default class DigitGame extends React.Component {
             case 'finished':
                 this.setState({
                     'status': DG_STATUS.RESULTS,
-                    'results': this.results,
                     'duration': (new Date().getTime() - this.timer)});
                 break;
 
@@ -119,7 +114,6 @@ export default class DigitGame extends React.Component {
                     'passed': 0,
                     'failed': 0,
                 });
-                this.results = [];
                 this.timer = new Date().getTime();
                 this.props.onClose(status, data);
                 break;
@@ -147,7 +141,6 @@ export default class DigitGame extends React.Component {
                     failed: 0
                 });
 
-                this.results = [];
                 this.timer = new Date().getTime();
                 this.props.onClose('close', user_data);
                 break;
@@ -158,39 +151,76 @@ export default class DigitGame extends React.Component {
         }
     }
 
-    /*
+    /**
      * if counter === 0 -> user answered right from first time -> passed
      * if counter > 0 -> user could not properly answer from first time -> failed
      */
     onCounterUpdate(counter, user_task) {
         // console.log('onCounterUpdate ' + counter + ', task: ' + user_task);
         var format = '', color = counter ? 'red' : 'green';
-        if (this.state.type === '2digits') {format = user_task.expr1 + user_task.result;}
-        else if (this.state.type === '2digits_fr') {format = user_task.expr1 + user_task.result;}
-        else if (this.state.type === '3digits') {format = user_task.expr1 + user_task.result;}
-        else if (this.state.type === '2digit_arg') {
-            format = user_task.expr1 + user_task.result;
-            if (user_task.argument.includes('1')) {format = '?';} else {format = user_task.num1;}
-            if (user_task.argument.includes('o')) {format = format + ' ? ';} else {format = format + ' ' + user_task.operation + ' ';}
-            if (user_task.argument.includes('2')) {format = format + '? = ' + user_task.outcome;} else {format = format + user_task.num2 + ' = ' + user_task.outcome;}
+        switch (this.state.type) {
+            case '2digits':
+            case '3digits':
+            case '2digits_fr':
+            case 'linedigits':
+                format = user_task.expr1 + user_task.result;
+                break;
 
-        } else if (this.state.type === 'digit_2column') { format = user_task.num1 + user_task.operation + user_task.num2 + '=' + user_task.result }
-        else if (this.state.type === 'digit_3column') { format = user_task.num1 + ' ' + user_task.operation1 + ' ' + user_task.num2 + ' ' + user_task.operation2 + ' ' + user_task.num3 + ' = ' + user_task.result }
-        else if (this.state.type === 'linedigits') { format = user_task.expr1 + user_task.result; }
-        else if (this.state.type === 'comp_nums') { format = user_task.expr1 + user_task.result + user_task.expr2; }
-        else if (this.state.type === 'comp_expr') {format = user_task.expr1 + user_task.result + user_task.expr2; }
+            case '2digit_arg':
+                format = user_task.expr1 + user_task.result;
+                if (user_task.argument.includes('1')) {
+                    format = '?';
+                } else {
+                    format = user_task.num1;
+                }
 
-        console.log('format ' + format + ', user_task.expr1: ' + user_task.expr1);
-        this.results.push({'task': format, 'color': color});
+                if (user_task.argument.includes('o')) {
+                    format = format + ' ? ';
+                } else {
+                    format = format + ' ' + user_task.operation + ' ';
+                }
 
+                if (user_task.argument.includes('2')) {
+                    format = format + '? = ' + user_task.outcome;
+                } else {
+                    format = format + user_task.num2 + ' = ' + user_task.outcome;
+                }
+                break;
+
+            case 'digit_2column':
+                format = user_task.num1 + user_task.operation + user_task.num2 + '=' + user_task.result;
+                break;
+
+            case 'digit_3column':
+                format = user_task.num1 + ' ' + user_task.operation1 + ' ' + user_task.num2 + ' ' + user_task.operation2 + ' ' + user_task.num3 + ' = ' + user_task.result;
+                break;
+
+            case 'comp_nums':
+            case 'comp_expr':
+                format = user_task.expr1 + user_task.result + user_task.expr2;
+                break;
+
+            default:
+                console.log('unknown format of ' + this.state.type + ', use default representation');
+                format = user_task.expr1 + user_task.result;
+                break;
+        }
+
+        // console.log('format ' + format);
+        var value = {'task': format, 'color': color};
         if (counter === 0) {
-            this.setState({total: this.state.total + 1,
-                           passed: this.state.passed + 1,
-                           results: this.results});
+            this.setState(prevState => ({
+                total: prevState.total + 1,
+                passed: prevState.passed + 1,
+                results: [...prevState.results, value],
+            }))
+
         } else {
-            this.setState({total: this.state.total + 1,
-                           failed: this.state.failed + 1,
-                           results: this.results});
+            this.setState(prevState => ({
+                total: prevState.total + 1,
+                failed: prevState.failed + 1,
+                results: [...prevState.results, value],
+            }))
         }
     }
 
@@ -198,14 +228,12 @@ export default class DigitGame extends React.Component {
         this.setState({circle: color});
     }
 
-    /*
+    /**
+     * GameHeader: height: 10%  width: 100%
+     * Body <div>: height: 80%  width: 100%
+     * GameFooter: height: 10%  width: 100%
     */
     render() {
-        /*
-            GameHeader: height: 10%  width: 100%
-            Body <div>: height: 80%  width: 100%
-            GameFooter: height: 10%  width: 100%
-        */
         return (
             <Dialog open={this.props.open} fullScreen={true} TransitionComponent={Transition} transitionDuration={900}>
                 { (this.state.status === DG_STATUS.GAME) ? (
@@ -233,19 +261,17 @@ export default class DigitGame extends React.Component {
 
 
                 { (this.state.status === DG_STATUS.RESULTS) ? (
-                        <GameResults open={this.state.showResults}
-                            id={this.props.id}
-                            passed={this.state.passed}
-                            failed={this.state.failed}
-                            results={this.state.results}
-                            amount={this.state.amount}
-                            duration={this.state.duration}
-                            game_uid={this.props.game_uid}
-                            belt={this.props.belt}
-                            lang={this.props.lang}
-                            type={this.state.type}
-                            onClose={this.onGameClose}/>
-
+                    <GameResults id={this.props.id}
+                        passed={this.state.passed}
+                        failed={this.state.failed}
+                        results={this.state.results}
+                        amount={this.state.amount}
+                        duration={this.state.duration}
+                        game_uid={this.props.game_uid}
+                        belt={this.props.belt}
+                        lang={this.props.lang}
+                        type={this.state.type}
+                        onClose={this.onGameClose}/>
                 ) : ( <> </> )}
 
                 { (this.state.status === DG_STATUS.PROGRESS) ? (

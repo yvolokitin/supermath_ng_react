@@ -11,6 +11,7 @@ export const black_titles = {
         '7': 'Addition and Subtraction of two decimal fractions (11..999)',
         '8': 'Division and Multiplication of three-digit numbers (11..999)',
         '9': 'Addition and Subtraction of four and five-digit negative',
+        '10': 'Take Black Belt Test',
     },
     // Russian
     'ru': {
@@ -23,6 +24,7 @@ export const black_titles = {
         '7': 'Сложение и Вычитание трехначных и дробных (11..999)',
         '8': 'Деление и Умножение трех чисел (11..999)',
         '9': 'Сложение и Вычитание четырех и пятизначных отрицательных',
+        '10': 'Пройди тест на Чёрный пояс',
     },
     // Dutch
     'nl' : {
@@ -35,6 +37,7 @@ export const black_titles = {
         '7': 'Addition and Subtraction of two decimal fractions (11..999)',
         '8': 'Division and Multiplication of three-digit numbers (11..999)',
         '9': 'Addition and Subtraction of four and five-digit negative',
+        '10': 'Take Black Belt Test',
     },
     // French
     'fr' : {
@@ -47,6 +50,7 @@ export const black_titles = {
         '7': 'Addition and Subtraction of two decimal fractions (11..999)',
         '8': 'Division and Multiplication of three-digit numbers (11..999)',
         '9': 'Addition and Subtraction of four and five-digit negative',
+        '10': 'Take Black Belt Test',
     },
     // German
     'de' : {
@@ -59,6 +63,7 @@ export const black_titles = {
         '7': 'Addition and Subtraction of two decimal fractions (11..999)',
         '8': 'Division and Multiplication of three-digit numbers (11..999)',
         '9': 'Addition and Subtraction of four and five-digit negative',
+        '10': 'Take Black Belt Test',
     },
     // Spanish
     'es' : {
@@ -71,6 +76,7 @@ export const black_titles = {
         '7': 'Addition and Subtraction of two decimal fractions (11..999)',
         '8': 'Division and Multiplication of three-digit numbers (11..999)',
         '9': 'Addition and Subtraction of four and five-digit negative',
+        '10': 'Take Black Belt Test',
     },
     // Italian
     'it' : {
@@ -83,6 +89,7 @@ export const black_titles = {
         '7': 'Addition and Subtraction of two decimal fractions (11..999)',
         '8': 'Division and Multiplication of three-digit numbers (11..999)',
         '9': 'Addition and Subtraction of four and five-digit negative',
+        '10': 'Take Black Belt Test',
     },
 };
 
@@ -99,6 +106,7 @@ export const black_descriptions = {
         '7': 'Addition and Subtraction of two decimal fractions (11..999)',
         '8': 'Division and Multiplication of three-digit numbers (11..999)',
         '9': 'Addition and Subtraction of four and five-digit negative',
+        '10': 'Take Black Belt Test',
     },
     // Russian
     'ru': {
@@ -111,6 +119,7 @@ export const black_descriptions = {
         '7': 'Сложение и Вычитание трехначных и дробных (11..999)',
         '8': 'Деление и Умножение трех чисел (11..999)',
         '9': 'Сложение и Вычитание четырех и пятизначных отрицательных',
+        '10': 'Пройди тест на Чёрный пояс',
     },
     // Dutch
     'nl' : {
@@ -123,6 +132,7 @@ export const black_descriptions = {
         '7': 'Addition and Subtraction of two decimal fractions (11..999)',
         '8': 'Division and Multiplication of three-digit numbers (11..999)',
         '9': 'Addition and Subtraction of four and five-digit negative',
+        '10': 'Take Black Belt Test',
     },
     // French
     'fr' : {
@@ -135,6 +145,7 @@ export const black_descriptions = {
         '7': 'Addition and Subtraction of two decimal fractions (11..999)',
         '8': 'Division and Multiplication of three-digit numbers (11..999)',
         '9': 'Addition and Subtraction of four and five-digit negative',
+        '10': 'Take Black Belt Test',
     },
     // German
     'de' : {
@@ -147,6 +158,7 @@ export const black_descriptions = {
         '7': 'Addition and Subtraction of two decimal fractions (11..999)',
         '8': 'Division and Multiplication of three-digit numbers (11..999)',
         '9': 'Addition and Subtraction of four and five-digit negative',
+        '10': 'Take Black Belt Test',
     },
     // Spanish
     'es' : {
@@ -159,6 +171,7 @@ export const black_descriptions = {
         '7': 'Addition and Subtraction of two decimal fractions (11..999)',
         '8': 'Division and Multiplication of three-digit numbers (11..999)',
         '9': 'Addition and Subtraction of four and five-digit negative',
+        '10': 'Take Black Belt Test',
     },
     // Italian
     'it' : {
@@ -171,5 +184,6 @@ export const black_descriptions = {
         '7': 'Addition and Subtraction of two decimal fractions (11..999)',
         '8': 'Division and Multiplication of three-digit numbers (11..999)',
         '9': 'Addition and Subtraction of four and five-digit negative',
+        '10': 'Take Black Belt Test',
     },
 };

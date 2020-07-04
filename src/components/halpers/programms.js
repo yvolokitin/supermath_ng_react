@@ -7,7 +7,6 @@ import white6 from './../../images/tasks/white_6.jpg';
 import white7 from './../../images/tasks/white_7.jpg';
 import white8 from './../../images/tasks/white_8.jpg';
 import white9 from './../../images/tasks/white_9.jpg';
-import whiteT from './../../images/tasks/white_T.jpg';
 
 import orange1 from './../../images/tasks/orange_1.jpg';
 import orange2 from './../../images/tasks/orange_2.jpg';
@@ -60,7 +59,7 @@ import black7 from './../../images/tasks/black_7.jpg';
 import black8 from './../../images/tasks/black_8.jpg';
 import black9 from './../../images/tasks/black_9.jpg';
 
-const task_amount = 30;
+const task_amount = 2; // 30;
 
 export const white_games = [
     {id: 1, uid: 'white1', logo: white1, type: 'linedigits', task: '0-7', amount: task_amount},
@@ -72,8 +71,7 @@ export const white_games = [
     {id: 7, uid: 'white7', logo: white7, type: '3digits', task: '+-,1-10,1', amount: task_amount},
     {id: 8, uid: 'white8', logo: white8, type: 'comp_expr', task: '<>=,+-,0-10,1', amount: task_amount},
     {id: 9, uid: 'white9', logo: white9, type: '2digit_arg', task: 'd,+-,0-10,0-10,1,1', amount: task_amount},
-
-    {id: 10, uid: 'whiteT', logo: whiteT, type: '2digit_arg', task: 'd,+-,0-10,0-10,1,1', amount: task_amount},
+    {id: 10, uid: 'whiteT', logo: 'none', type: '2digit_arg', task: 'd,+-,0-10,0-10,1,1', amount: task_amount},
 ];
 
 export const orange_games = [
@@ -88,6 +86,7 @@ export const orange_games = [
     {id: 8, uid: 'orange8', logo: orange8, type: '2digits', task: '+-,11-99,11-99,1,1', amount: task_amount},
     {id: 9, uid: 'orange9', logo: orange9, type: '2digit_arg', task: 'd,+-,11-99,11-99,1,1', amount: task_amount},
     {id: 10, uid: 'orange10', logo: orange10, type: '2digits', task: '+-,11-99,1-1,1,100', amount: task_amount},
+    {id: 11, uid: 'orangeT', logo: 'none', type: 'test', task: 'orange1,orange2,orange3,orange4,', amount: task_amount},
 ];
 
 export const green_games = [
@@ -100,6 +99,7 @@ export const green_games = [
     {id: 7, uid: 'green7', logo: green7, type: '2digits', task: '+-,1-9,101-999,1,1', amount: task_amount},
     {id: 8, uid: 'green8', logo: green8, type: 'digit_2column', task: '+-,11-99,101-999,1,1', amount: task_amount},
     {id: 9, uid: 'green9', logo: green9, type: 'digit_2column', task: '+-,1001-9999,1001-9999,1,1', amount: task_amount},
+    {id: 10, uid: 'greenT', logo: 'none', type: '2digits', task: '+-,11-99,1-1,1,100', amount: task_amount},
 ];
 
 export const navy_games = [
@@ -113,6 +113,7 @@ export const navy_games = [
     {id: 7, uid: 'navy7', logo: navy7, type: '2digits', task: 'x,11-20,11-20,1,1', amount: task_amount},
     {id: 8, uid: 'navy8', logo: navy8, type: '3digits', task: 'x,1-10,1', amount: task_amount},
     {id: 9, uid: 'navy9', logo: navy9, type: 'line_5numbers', task: '+-x,5,0-10,1', amount: task_amount},
+    {id: 10, uid: 'navyT', logo: 'none', type: '2digits', task: '+-,11-99,1-1,1,100', amount: task_amount},
 ];
 
 export const brown_games = [
@@ -125,6 +126,7 @@ export const brown_games = [
     {id: 7, uid: 'brown7', logo: brown7, type: 'digit_3column', task: '+-,100-999,1', amount: task_amount},
     {id: 8, uid: 'brown8', logo: brown8, type: 'line_4numbers', task: '+-,1-999,1', amount: task_amount},
     {id: 9, uid: 'brown9', logo: brown9, type: 'digit_2column', task: 'x,10-999,10-999,1,1', amount: task_amount},
+    {id: 10, uid: 'brownT', logo: 'none', type: '2digits', task: '+-,11-99,1-1,1,100', amount: task_amount},
 ];
 
 export const black_games = [
@@ -137,4 +139,5 @@ export const black_games = [
     {id: 7, uid: 'black7', logo: black7, type: 'line_2numbers_fr', task: '+-,11-999,11-999,4,4', amount: task_amount},
     {id: 8, uid: 'black8', logo: black8, type: 'line_3numbers', task: 'x:,101-999,1', amount: task_amount},
     {id: 9, uid: 'black9', logo: black9, type: 'line_2numbers_signed', task: '+-,-99999-99999,-99999-99999,1,1', amount: task_amount},
+    {id: 10, uid: 'blackT', logo: 'none', type: '2digits', task: '+-,11-99,1-1,1,100', amount: task_amount},
 ];

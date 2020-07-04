@@ -7,7 +7,7 @@ import './digitgameprogress.css';
 
 export default function GameProgress(props) {
     return (
-        <Dialog onClose={() => props.onClose()} open={props.open}>
+        <Dialog open={props.open} onClose={() => props.onClose()}>
             <DialogTitle>
                 <font className='digitgameprogress_title' style={{color:'black'}}>
                     {props.results.length} &nbsp; &#128279; &nbsp;
@@ -20,6 +20,7 @@ export default function GameProgress(props) {
                 </font>
                 <font style={{color:'white'}}>&nbsp; &nbsp; 01234556789 &nbsp; &nbsp; </font>
             </DialogTitle>
+
             <DialogContent>
                 <TableContainer component={Paper}>
                     <Table>

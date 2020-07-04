@@ -12,6 +12,7 @@ export const orange_titles = {
         '8': 'Addition and Subtraction of two-digit numbers (11..99)',
         '9': 'Addition and Subtraction of two-digit numbers (11..99)',
         '10': 'Addition and subtraction of one hundred and two-digit number',
+        '11': 'Take Orange Belt Test',
     },
     // Russian
     'ru': {
@@ -25,6 +26,7 @@ export const orange_titles = {
         '8': 'Сложение и Вычитание двух двузначных чисел (11..99)',
         '9': 'Сложение и Вычитание двух двузначных чисел (11..99)',
         '10': 'Сложение и вычитание ста и двузначного числа (11..99)',
+        '11': 'Пройди тест на Оранжевый пояс',
     },
     // Dutch
     'nl' : {
@@ -38,6 +40,7 @@ export const orange_titles = {
         '8': 'Optellen en aftrekken van getallen van twee cijfers (11..99)',
         '9': 'Optellen en aftrekken van getallen van twee cijfers (11..99)',
         '10': 'Optellen en aftrekken van een getal van honderd en twee cijfers',
+        '11': 'Take Orange Belt Test',
     },
     // French
     'fr' : {
@@ -51,6 +54,7 @@ export const orange_titles = {
         '8': 'Addition and Subtraction of two-digit numbers (11..99)',
         '9': 'Addition and Subtraction of two-digit numbers (11..99)',
         '10': 'Addition and subtraction of one hundred and two-digit number',
+        '11': 'Take Orange Belt Test',
     },
     // German
     'de' : {
@@ -64,6 +68,7 @@ export const orange_titles = {
         '8': 'Addition und Subtraktion zweistelliger Zahlen (11..99)',
         '9': 'Addition und Subtraktion zweistelliger Zahlen (11..99)',
         '10': 'Addition und Subtraktion von einhundert und zweistelliger Zahl',
+        '11': 'Take Orange Belt Test',
     },
     // Spanish
     'es' : {
@@ -77,6 +82,7 @@ export const orange_titles = {
         '8': 'Addition and Subtraction of two-digit numbers (11..99)',
         '9': 'Addition and Subtraction of two-digit numbers (11..99)',
         '10': 'Addition and subtraction of one hundred and two-digit number',
+        '11': 'Take Orange Belt Test',
     },
     // Italian
     'it' : {
@@ -90,6 +96,7 @@ export const orange_titles = {
         '8': 'Addition and Subtraction of two-digit numbers (11..99)',
         '9': 'Addition and Subtraction of two-digit numbers (11..99)',
         '10': 'Addition and subtraction of one hundred and two-digit number',
+        '11': 'Take Orange Belt Test',
     },
 };
 
@@ -107,6 +114,7 @@ export const orange_descriptions = {
         '8': 'Tasks for Addition and Subtraction of two-digit numbers, where both numbers are in range from 11 to 99. The results pf operation can be Zero, one-, two- and three-digit number. For example, 85 - 51 = ? (result is 34) OR 88 + 24 = ? (result is 122).',
         '9': 'Tasks for Addition and Subtraction of two-digit numbers, where kids know only one of the argument and result of math task. Based on mathematical operation they have to find another argument. For example, 15 + ? = 29 (the answer is 14) or ? - 27 = 62 (the answer is 89)',
         '10': 'Tasks for Addition and Subtraction of one hugred and two-number (11..99). ',
+        '11': 'Take Orange Belt Test',
     },
     // Russian
     'ru': {
@@ -120,6 +128,7 @@ export const orange_descriptions = {
         '8': 'Задачи на Сложение и Вычитание двух двузначных чисел от 11 до 99. ',
         '9': 'Задачи на Сложение и Вычитание двух двузначных чисел от 11 до 99, когда известно одно из двух чисел и результат. Задачи данного типа сходны с решением простого уравнения. Например, 15 + ? = 29 (правильный ответ 14) или ? - 27 = 62 (правильный ответ 89).',
         '10': 'Задачи на Сложение и вычитание ста и двузначного числа от 11 до 99. ',
+        '11': 'Take Orange Belt Test',
     },
     // Dutch
     'nl' : {
@@ -133,6 +142,7 @@ export const orange_descriptions = {
         '8': 'Tasks for Addition and Subtraction of two-digit numbers, where both numbers are in range from 11 to 99. The results pf operation can be Zero, one-, two- and three-digit number. For example, 85 - 51 = ? (result is 34) OR 88 + 24 = ? (result is 122).',
         '9': 'Tasks for Addition and Subtraction of two-digit numbers, where kids know only one of the argument and result of math task. Based on mathematical operation they have to find another argument. For example, 15 + ? = 29 (the answer is 14) or ? - 27 = 62 (the answer is 89)',
         '10': 'Tasks for Addition and Subtraction of one hugred and two-number (11..99). ',
+        '11': 'Take Orange Belt Test',
     },
     // French
     'fr' : {
@@ -146,6 +156,7 @@ export const orange_descriptions = {
         '8': 'Tasks for Addition and Subtraction of two-digit numbers, where both numbers are in range from 11 to 99. The results pf operation can be Zero, one-, two- and three-digit number. For example, 85 - 51 = ? (result is 34) OR 88 + 24 = ? (result is 122).',
         '9': 'Tasks for Addition and Subtraction of two-digit numbers, where kids know only one of the argument and result of math task. Based on mathematical operation they have to find another argument. For example, 15 + ? = 29 (the answer is 14) or ? - 27 = 62 (the answer is 89)',
         '10': 'Tasks for Addition and Subtraction of one hugred and two-number (11..99). ',
+        '11': 'Take Orange Belt Test',
     },
     // German
     'de' : {
@@ -159,6 +170,7 @@ export const orange_descriptions = {
         '8': 'Tasks for Addition and Subtraction of two-digit numbers, where both numbers are in range from 11 to 99. The results pf operation can be Zero, one-, two- and three-digit number. For example, 85 - 51 = ? (result is 34) OR 88 + 24 = ? (result is 122).',
         '9': 'Tasks for Addition and Subtraction of two-digit numbers, where kids know only one of the argument and result of math task. Based on mathematical operation they have to find another argument. For example, 15 + ? = 29 (the answer is 14) or ? - 27 = 62 (the answer is 89)',
         '10': 'Tasks for Addition and Subtraction of one hugred and two-number (11..99). ',
+        '11': 'Take Orange Belt Test',
     },
     // Spanish
     'es' : {
@@ -172,6 +184,7 @@ export const orange_descriptions = {
         '8': 'Tasks for Addition and Subtraction of two-digit numbers, where both numbers are in range from 11 to 99. The results pf operation can be Zero, one-, two- and three-digit number. For example, 85 - 51 = ? (result is 34) OR 88 + 24 = ? (result is 122).',
         '9': 'Tasks for Addition and Subtraction of two-digit numbers, where kids know only one of the argument and result of math task. Based on mathematical operation they have to find another argument. For example, 15 + ? = 29 (the answer is 14) or ? - 27 = 62 (the answer is 89)',
         '10': 'Tasks for Addition and Subtraction of one hugred and two-number (11..99). ',
+        '11': 'Take Orange Belt Test',
     },
     // Italian
     'it' : {
@@ -185,5 +198,6 @@ export const orange_descriptions = {
         '8': 'Tasks for Addition and Subtraction of two-digit numbers, where both numbers are in range from 11 to 99. The results pf operation can be Zero, one-, two- and three-digit number. For example, 85 - 51 = ? (result is 34) OR 88 + 24 = ? (result is 122).',
         '9': 'Tasks for Addition and Subtraction of two-digit numbers, where kids know only one of the argument and result of math task. Based on mathematical operation they have to find another argument. For example, 15 + ? = 29 (the answer is 14) or ? - 27 = 62 (the answer is 89)',
         '10': 'Tasks for Addition and Subtraction of one hugred and two-number (11..99). ',
+        '11': 'Take Orange Belt Test',
     },
 };
