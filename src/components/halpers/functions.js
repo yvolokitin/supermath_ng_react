@@ -17,14 +17,8 @@ export function generate_task(type, settings) {
     // depends from type, result may have different properties
     var task, result = {};
 
-    // the exceptional case, where we check across shole list of possible task particular belt
-    if (type === 'test') {
-        // settings includes string of possible types
-        // for example: orange1,orange2,orange3,orange4, -> array
-        console.log('exceptional case');
-
     // 2 numbers task, like: 1 + 2 = 3
-    } else if (type === '2digits') {
+    if (type === '2digits') {
         task = generate_2digit_task(array[0], array[1], array[2], array[3], array[4]);
         result = {'expr1': task.num1 + ' ' + task.operation + ' ' + task.num2 + ' = ', 'result': task.result};
         console.log(type + ' generate_task: ' + result.expr1 + '' + result.result);
@@ -71,6 +65,7 @@ export function generate_task(type, settings) {
 
         result = {'num1': task.num1, 'num2': task.num2, 'operation': task.operation,
                   'outcome': task.result, 'result': expected, 'argument': argument};
+
         console.log(type + ' generate_task: ' + result.num1 + result.operation + result.num2 + '=' + result.result);
 
     // {'num1': number_1, 'num2': number_2, 'operation': operation, 'result': result};

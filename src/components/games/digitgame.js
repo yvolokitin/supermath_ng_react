@@ -1,16 +1,17 @@
 ﻿import React from 'react';
 import {Dialog, Slide} from '@material-ui/core';
 
-import GameHeader from "./digitgameheader";
-import GameFooter from "./digitgamefooter";
+import GameHeader from './digitgameheader';
+import GameFooter from './digitgamefooter';
 
-import GameBoard from "./gameboard";
-import GameResults from "./gameresults";
+import GameBoard from './gameboard';
+import GameResults from './gameresults';
 
 import SMTitle from './../dialog/title';
 import ColorLine from './../line/line';
 import Calendar from './../calendar/calendar';
 
+import {get_random_taks_for_test} from './../halpers/programms';
 import './digitgame.css';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -36,6 +37,7 @@ export default class DigitGame extends React.Component {
             status: DG_STATUS.GAME,
             type: props.type,
             task: props.task,
+            uid: props.uid,
             amount: props.amount,
             results: [],
             circle: 'white',
@@ -43,26 +45,47 @@ export default class DigitGame extends React.Component {
             passed: 0,
             failed: 0,
             duration: 0,
+            is_test: false,
         };
 
         // count general time to solve all tasks
         this.timer = new Date().getTime();
     }
 
+    // {id: 11, uid: 'orangeT', logo: 'none', type: 'test', task: 'orange1,orange2,orange3,orange4,', amount: task_amount},
+    // {id: 10, uid: 'orange10', logo: orange10, type: '2digits', task: '+-,11-99,1-1,1,100', amount: task_amount},
     componentDidUpdate(prevProps) {
-        // console.log("DigitGame.componentDidUpdate " + this.props.task + ", prevProps.task" + prevProps.task);
+        // console.log('DigitGame.componentDidUpdate ' + this.props.game_uid + ', prevProps.game_uid ' + prevProps.game_uid);
         // Typical usage (don't forget to compare props), otherwise you get infinitive loop
-        if (this.props.task !== prevProps.task) {
+        if (this.props.game_uid !== prevProps.game_uid &&
+            this.props.type !== prevProps.type &&
+            this.props.task !== prevProps.task) {
+
             this.timer = new Date().getTime();
-            this.setState({
-                'status': DG_STATUS.GAME,
+            var it_is_test = false;
+            var current = {
                 'type': this.props.type,
                 'task': this.props.task,
+                'uid': this.props.uid,
+            };
+
+            if (this.props.type === 'test')  {
+                current = get_random_taks_for_test(this.props.task);
+                it_is_test = true;
+            }
+
+            console.log('DigitGame.componentDidUpdate: type: ' + current.type + ', task ' + current.task + ', uid ' + current.uid);
+            this.setState({
+                'status': DG_STATUS.GAME,
+                'type': current.type,
+                'task': current.task,
+                'uid': current.uid,
                 'amount': this.props.amount,
                 'circle': 'white',
                 'total': 0,
                 'passed': 0,
                 'failed': 0,
+                'is_test': it_is_test,
             });
         }
     }
@@ -146,7 +169,7 @@ export default class DigitGame extends React.Component {
                 break;
 
             default:
-                console.log("onGameClose: Wrong status received: " + status);
+                console.log('onGameClose: Wrong status received: ' + status);
                 break;
         }
     }
@@ -206,10 +229,24 @@ export default class DigitGame extends React.Component {
                 break;
         }
 
+        var current = {
+            'type': this.props.type,
+            'task': this.props.task,
+            'uid': this.props.uid,
+        };
+
+        if (this.props.type === 'test')  {
+            current = get_random_taks_for_test(this.props.task);
+        }
+
+        console.log('onCounterUpdate: current ' + current + ', type: ' + current.type + ', task ' + current.task + ', uid ' + current.uid);
+
         // console.log('format ' + format);
         var value = {'task': format, 'color': color};
         if (counter === 0) {
             this.setState(prevState => ({
+                type: current.type,
+                task: current.task,
                 total: prevState.total + 1,
                 passed: prevState.passed + 1,
                 results: [...prevState.results, value],
@@ -217,6 +254,8 @@ export default class DigitGame extends React.Component {
 
         } else {
             this.setState(prevState => ({
+                type: current.type,
+                task: current.task,
                 total: prevState.total + 1,
                 failed: prevState.failed + 1,
                 results: [...prevState.results, value],
@@ -249,6 +288,7 @@ export default class DigitGame extends React.Component {
                         <GameBoard onClose={this.onGameClose}
                             onCounter={this.onCounterUpdate}
                             onColor={this.onColorUpdate}
+                            is_test={this.state.is_test}
                             type={this.state.type}
                             task={this.state.task}
                             amount={this.state.amount}

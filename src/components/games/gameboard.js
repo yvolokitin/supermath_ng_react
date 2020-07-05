@@ -13,7 +13,8 @@ export default class GameBoard extends React.Component {
         this.onOperator = this.onOperator.bind(this);
         this.onKeyboard = this.onKeyboard.bind(this);
 
-        this.state = {task: generate_task(props.type, props.task),
+        var tsk = generate_task(props.type, props.task);
+        this.state = {task: tsk,
                       result: '?',
                       color: 'grey',
                       board: 'yellow',
@@ -33,16 +34,16 @@ export default class GameBoard extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        // console.log('GameBoard.componentDidUpdate task ' + this.props.task + ', prevProps.task: ' + prevProps.task);
         // Typical usage (don't forget to compare props), otherwise you get infinitive loop
-        if (this.props.task !== prevProps.task) {
+        if (this.props.type !== prevProps.type && this.props.task !== prevProps.task) {
+            console.log('GameBoard.componentDidUpdate type ' + this.props.type + ', task: ' + this.props.task);
             this.timer = new Date().getTime();
             this.set_task();
         }
     }
 
     set_task() {
-        // console.log("GameBoard.set_task " + this.state.counter);
+        console.log('GameBoard.set_task ' + this.state.counter);
         this.setState({task: generate_task(this.props.type, this.props.task),
                        result: '?',
                        board: 'yellow',
@@ -54,12 +55,12 @@ export default class GameBoard extends React.Component {
     }
 
     proceed_with_next_task() {
-        // console.log("proceed_with_next_task:: counter: " + this.state.counter + ", amount: " + this.props.amount);
+        // console.log('proceed_with_next_task:: counter: ' + this.state.counter + ', amount: ' + this.props.amount);
         if (this.state.counter < this.props.amount) {
             this.set_task();
 
         } else {
-            console.log("Game is Finished");
+            console.log('Game is Finished');
             this.props.onClose('finished');
         }
     }
@@ -77,7 +78,7 @@ export default class GameBoard extends React.Component {
     }
 
     onOperator({ target }) {
-        // console.log("check operator response " + target.innerText);
+        // console.log('check operator response ' + target.innerText);
         if (this.loading === false) {
             if (this.props.type.includes('_fr')) {
                 this.check_response(target.innerText);
@@ -184,7 +185,7 @@ export default class GameBoard extends React.Component {
     check_response(digit) {
         this.loading = true;
         var expected_result = this.state.task.result.toString();
-        // console.log("check_response, digit: " + digit + ", expected_result: " + expected_result);
+        // console.log('check_response, digit: ' + digit + ', expected_result: ' + expected_result);
         if (expected_result.length === 1) {
             if (digit === expected_result) {
                 this.set_passed(digit);
@@ -208,7 +209,7 @@ export default class GameBoard extends React.Component {
                 } else {
                     var position = this.state.result.length;
                     var val = expected_result.charAt(position).toString();
-                    // console.log("val " + val + ", digit " + digit + ", position " + position);
+                    // console.log('val ' + val + ', digit ' + digit + ', position ' + position);
                     if (val === digit) {
                         this.set_interim(current);
                     } else {
@@ -255,7 +256,7 @@ export default class GameBoard extends React.Component {
     }
 
     set_passed(digit) {
-        // console.log("PASSED from " + this.state.attempt + " attempts");
+        // console.log('PASSED from ' + this.state.attempt + ' attempts');
         if (this.state.attempt === 0) {
             // notify parent to change circles color in game footer
             this.props.onColor('green');
@@ -271,7 +272,9 @@ export default class GameBoard extends React.Component {
         }
 
         // generate new task and update
-        setTimeout(() => {this.proceed_with_next_task()}, 800);
+        if (this.props.is_test === false) {
+            setTimeout(() => {this.proceed_with_next_task()}, 800);
+        }
     }
 
     set_interim(digit) {
@@ -280,15 +283,15 @@ export default class GameBoard extends React.Component {
     }
 
     /*
-            <div onKeyDown={this.onKeyboard} className="gameboard_wrapper">
+            <div onKeyDown={this.onKeyboard} className='gameboard_wrapper'>
     */
     render() {
         return (
             <div className='gameboard_wrapper'>
                 {this.props.type.includes('digit') ? (
                     <>
-                      <div className="line_body_div_left">
-                        <div className="line_gameboard" style={{backgroundColor: this.state.board, animation: this.state.animation}}>
+                      <div className='line_body_div_left'>
+                        <div className='line_gameboard' style={{backgroundColor: this.state.board, animation: this.state.animation}}>
                             {this.props.type.includes('2digit_arg') ? (
                               <>
                                 {this.state.task.argument.includes('1') ? (
@@ -356,7 +359,7 @@ export default class GameBoard extends React.Component {
                             ) : ( null )}
                         </div>
                       </div>
-                      <div className="line_body_div_right">
+                      <div className='line_body_div_right'>
                           {this.props.task.includes('o,') ? (
                             <OperatorBoard onOperator={this.onOperator} plus={true} minus={true}/>
                           ) : (

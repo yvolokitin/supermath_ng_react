@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, } from 'react';
+﻿import React, { useState, } from 'react';
 
 import DigitGame from './../games/digitgame';
 import Footer from "./footer";
@@ -57,10 +57,10 @@ export default function Tabs(props) {
         {id: 'black', font: 'black',},
     ];
 
-    useEffect(() => {
+    /*React.useEffect(() => {
         console.log('Tabs(props) -> ' + props.belt);
 
-    }, [props.belt, ]);
+    }, [props.belt, ]);*/
 
     function onTabChange(color) {
         console.log('Tabs.onTabPress ' + color);

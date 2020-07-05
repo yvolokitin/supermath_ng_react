@@ -59,7 +59,7 @@ import black7 from './../../images/tasks/black_7.jpg';
 import black8 from './../../images/tasks/black_8.jpg';
 import black9 from './../../images/tasks/black_9.jpg';
 
-const task_amount = 2; // 30;
+const task_amount = 5; // 30;
 
 export const white_games = [
     {id: 1, uid: 'white1', logo: white1, type: 'linedigits', task: '0-7', amount: task_amount},
@@ -71,7 +71,7 @@ export const white_games = [
     {id: 7, uid: 'white7', logo: white7, type: '3digits', task: '+-,1-10,1', amount: task_amount},
     {id: 8, uid: 'white8', logo: white8, type: 'comp_expr', task: '<>=,+-,0-10,1', amount: task_amount},
     {id: 9, uid: 'white9', logo: white9, type: '2digit_arg', task: 'd,+-,0-10,0-10,1,1', amount: task_amount},
-    {id: 10, uid: 'whiteT', logo: 'none', type: '2digit_arg', task: 'd,+-,0-10,0-10,1,1', amount: task_amount},
+    {id: 10, uid: 'whiteT', logo: 'none', type: 'test', task: 'white1,white2,white3,white4,white5,white6,white7,white8,white9', amount: task_amount},
 ];
 
 export const orange_games = [
@@ -86,7 +86,7 @@ export const orange_games = [
     {id: 8, uid: 'orange8', logo: orange8, type: '2digits', task: '+-,11-99,11-99,1,1', amount: task_amount},
     {id: 9, uid: 'orange9', logo: orange9, type: '2digit_arg', task: 'd,+-,11-99,11-99,1,1', amount: task_amount},
     {id: 10, uid: 'orange10', logo: orange10, type: '2digits', task: '+-,11-99,1-1,1,100', amount: task_amount},
-    {id: 11, uid: 'orangeT', logo: 'none', type: 'test', task: 'orange1,orange2,orange3,orange4,', amount: task_amount},
+    {id: 11, uid: 'orangeT', logo: 'none', type: 'test', task: 'orange1,orange2,orange3,orange4,orange5,orange6,orange7,orange8,orange9,orange10', amount: task_amount},
 ];
 
 export const green_games = [
@@ -141,3 +141,49 @@ export const black_games = [
     {id: 9, uid: 'black9', logo: black9, type: 'line_2numbers_signed', task: '+-,-99999-99999,-99999-99999,1,1', amount: task_amount},
     {id: 10, uid: 'blackT', logo: 'none', type: '2digits', task: '+-,11-99,1-1,1,100', amount: task_amount},
 ];
+
+/**
+ * {'type': type, 'task': task}
+ */
+export function get_random_taks_for_test(tasks) {
+    var i, array = tasks.split(',');
+    var rnd_task = array[Math.floor(Math.random() * (array.length))];
+
+    if (rnd_task.indexOf('white') !== -1) {
+        for (i = 0; i < white_games.length; i++) {
+            if (white_games[i].uid === rnd_task) {
+                return {'type': white_games[i].type, 'task': white_games[i].task, 'uid': rnd_task};
+            }
+        }
+    } else if (rnd_task.indexOf('orange') !== -1) {
+        for (i = 0; i < orange_games.length; i++) {
+            if (orange_games[i].uid === rnd_task) {
+                return {'type': orange_games[i].type, 'task': orange_games[i].task, 'uid': rnd_task};
+            }
+        }
+    } else if (rnd_task.indexOf('green') !== -1) {
+        for (i = 0; i < green_games.length; i++) {
+            if (green_games[i].uid === rnd_task) {
+                return {'type': green_games[i].type, 'task': green_games[i].task, 'uid': rnd_task};
+            }
+        }
+    } else if (rnd_task.indexOf('navy') !== -1) {
+        for (i = 0; i < navy_games.length; i++) {
+            if (navy_games[i].uid === rnd_task) {
+                return {'type': navy_games[i].type, 'task': navy_games[i].task, 'uid': rnd_task};
+            }
+        }
+    } else if (rnd_task.indexOf('brown') !== -1) {
+        for (i = 0; i < brown_games.length; i++) {
+            if (brown_games[i].uid === rnd_task) {
+                return {'type': brown_games[i].type, 'task': brown_games[i].task, 'uid': rnd_task};
+            }
+        }
+    } else if (rnd_task.indexOf('black') !== -1) {
+        for (i = 0; i < black_games.length; i++) {
+            if (black_games[i].uid === rnd_task) {
+                return {'type': black_games[i].type, 'task': black_games[i].task, 'uid': rnd_task};
+            }
+        }
+    }
+}
