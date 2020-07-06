@@ -34,7 +34,7 @@ export default class GameBoard extends React.Component {
 
     componentDidUpdate(prevProps) {
         // Typical usage (don't forget to compare props), otherwise you get infinitive loop
-        if (this.props.type !== prevProps.type && this.props.task !== prevProps.task) {
+        if (this.props.uid !== prevProps.uid) {
             console.log('GameBoard.componentDidUpdate type ' + this.props.type + ', task: ' + this.props.task);
             this.timer = new Date().getTime();
             this.set_task();
@@ -48,15 +48,20 @@ export default class GameBoard extends React.Component {
                        board: 'yellow',
                        animation: 'none',
                        color: 'grey',
-                       attempt: 0});
-        this.props.onColor('white');
-        this.loading = false;
+                       attempt: 0}, () => {
+                            this.props.onColor('white');
+                            this.loading = false;
+        });
     }
 
     proceed_with_next_task() {
         // console.log('proceed_with_next_task:: counter: ' + this.state.counter + ', amount: ' + this.props.amount);
         if (this.state.counter < this.props.amount) {
-            this.set_task();
+            if (this.props.is_test === false) {
+                this.set_task();
+            } else {
+                this.props.onTest();
+            }
 
         } else {
             console.log('Game is Finished');
@@ -248,9 +253,14 @@ export default class GameBoard extends React.Component {
 
         // clear result value in 1.5 seconds
         setTimeout(() => {
-            this.setState({color: 'grey', board: 'yellow', animation: '', result: '?'});
-            this.props.onColor('white');
-            this.loading = false;
+            this.setState({
+                color: 'grey',
+                board: 'yellow',
+                animation: '', result: '?'},
+                    () => {
+                        this.props.onColor('white');
+                        this.loading = false;
+            });
         }, 700);
     }
 
@@ -259,25 +269,31 @@ export default class GameBoard extends React.Component {
         if (this.state.attempt === 0) {
             // notify parent to change circles color in game footer
             this.props.onColor('green');
-            // notify parent to change circles color in game footer
+            // notify parent to update counters
             this.props.onCounter(this.state.attempt, this.state.task);
-            // 
-            // this.setState({board: 'green', color: 'yellow', result: digit, counter: this.state.counter + 1});
-            this.setState({animation: 'smooth_yellow_to_green 0.8s', color: 'yellow', result: digit, counter: this.state.counter + 1});
+            this.setState({
+                color: 'yellow',
+                result: digit,
+                counter: this.state.counter + 1,
+                animation: 'smooth_yellow_to_green 0.8s',
+            });
         } else {
             this.props.onColor('yellow');
-            // this.setState({board: 'green', color: 'yellow', result: digit});
-            this.setState({animation: 'smooth_yellow_to_green 0.8s', color: 'yellow', result: digit});
+            this.setState({
+                color: 'yellow',
+                result: digit,
+                animation: 'smooth_yellow_to_green 0.8s',
+            });
         }
 
-        // generate new task and update
-        if (this.props.is_test === false) {
-            setTimeout(() => {this.proceed_with_next_task()}, 800);
-        }
+        setTimeout(() => {this.proceed_with_next_task()}, 800);
     }
 
     set_interim(digit) {
-        this.setState({color: 'black', result: digit});
+        this.setState({
+            color: 'black',
+            result: digit
+        });
         this.loading = false;
     }
 
@@ -291,7 +307,7 @@ export default class GameBoard extends React.Component {
                     <>
                       <div className='line_body_div_left'>
                         <div className='line_gameboard' style={{backgroundColor: this.state.board, animation: this.state.animation}}>
-                            {this.props.type.includes('2digit_arg') ? (
+                            {((this.props.type.indexOf('2digit_arg') !== -1) && ('argument' in this.state.task)) ? (
                               <>
                                 {this.state.task.argument.includes('1') ? (
                                     <div className='line_result' style={{color: this.state.color}}>{this.state.result}</div>
@@ -315,25 +331,31 @@ export default class GameBoard extends React.Component {
                               </>
                             ) : ( null )}
 
-                            {this.props.type.includes('_2column') ? (
-                              <div style={{height:'90%',width:'90%'}}>
-                                <div style={{height:'25%',width:'80%'}}></div>
-                                <div className='column_number'>{this.state.task.num1}</div>
-                                <div className='column_number'>{this.state.task.operation}   {this.state.task.num2}</div>
-                                <div className='column_black_line'> </div>
-                                <div className='column_result' style={{color: this.state.color}}>{this.state.result}</div>
-                              </div>
+                            {((this.props.type.indexOf('_2column') !== -1) &&
+                                ('num1' in this.state.task) &&
+                                ('num2' in this.state.task) &&
+                                ('operation' in this.state.task)) ? (
+                                  <div style={{height:'90%',width:'90%'}}>
+                                    <div style={{height:'25%',width:'80%'}}></div>
+                                    <div className='column_number'>{this.state.task.num1}</div>
+                                    <div className='column_number'>{this.state.task.operation}   {this.state.task.num2}</div>
+                                    <div className='column_black_line'> </div>
+                                    <div className='column_result' style={{color: this.state.color}}>{this.state.result}</div>
+                                  </div>
                             ) : ( null )}
 
-                            {this.props.type.includes('_3column') ? (
-                              <div style={{height:'90%',width:'90%'}}>
-                                <div style={{height:'25%',width:'80%'}}></div>
-                                <div className='column_number'>{this.state.task.num1}</div>
-                                <div className='column_number'>{this.state.task.operation1}   {this.state.task.num2}</div>
-                                <div className='column_number'>{this.state.task.operation2}   {this.state.task.num3}</div>
-                                <div className='column_black_line'> </div>
-                                <div className='column_result' style={{color: this.state.color}}>{this.state.result}</div>
-                              </div>
+                            {((this.props.type.indexOf('_3column') !== -1) &&
+                                ('num1' in this.state.task) &&
+                                ('num2' in this.state.task) &&
+                                ('num3' in this.state.task)) ? (
+                                  <div style={{height:'90%',width:'90%'}}>
+                                    <div style={{height:'25%',width:'80%'}}></div>
+                                    <div className='column_number'>{this.state.task.num1}</div>
+                                    <div className='column_number'>{this.state.task.operation1}   {this.state.task.num2}</div>
+                                    <div className='column_number'>{this.state.task.operation2}   {this.state.task.num3}</div>
+                                    <div className='column_black_line'> </div>
+                                    <div className='column_result' style={{color: this.state.color}}>{this.state.result}</div>
+                                  </div>
                             ) : ( null )}
 
                             {this.props.type.includes('digits') ? (

@@ -30,6 +30,7 @@ export default class DigitGame extends React.Component {
         super(props);
 
         this.onGameClose = this.onGameClose.bind(this);
+        this.onTestUpdate = this.onTestUpdate.bind(this);
         this.onColorUpdate = this.onColorUpdate.bind(this);
         this.onCounterUpdate = this.onCounterUpdate.bind(this);
 
@@ -37,7 +38,7 @@ export default class DigitGame extends React.Component {
             status: DG_STATUS.GAME,
             type: props.type,
             task: props.task,
-            uid: props.uid,
+            uid: 'unknown',
             amount: props.amount,
             results: [],
             circle: 'white',
@@ -57,11 +58,9 @@ export default class DigitGame extends React.Component {
     componentDidUpdate(prevProps) {
         // console.log('DigitGame.componentDidUpdate ' + this.props.game_uid + ', prevProps.game_uid ' + prevProps.game_uid);
         // Typical usage (don't forget to compare props), otherwise you get infinitive loop
-        if (this.props.game_uid !== prevProps.game_uid &&
-            this.props.type !== prevProps.type &&
-            this.props.task !== prevProps.task) {
-
+        if (this.props.game_uid !== prevProps.game_uid) {
             this.timer = new Date().getTime();
+
             var it_is_test = false;
             var current = {
                 'type': this.props.type,
@@ -70,11 +69,11 @@ export default class DigitGame extends React.Component {
             };
 
             if (this.props.type === 'test')  {
-                current = get_random_taks_for_test(this.props.task, this.state.uid);
+                current = get_random_taks_for_test(this.props.task, this.props.uid);
                 it_is_test = true;
             }
 
-            // console.log('DigitGame.componentDidUpdate: type: ' + current.type + ', task ' + current.task + ', uid ' + current.uid);
+            console.log('DigitGame.componentDidUpdate: type: ' + current.type + ', task ' + current.task + ', uid ' + current.uid + ', old ' + this.state.uid);
             this.setState({
                 'status': DG_STATUS.GAME,
                 'type': current.type,
@@ -229,37 +228,31 @@ export default class DigitGame extends React.Component {
                 break;
         }
 
-        var current = {
-            'type': this.props.type,
-            'task': this.props.task,
-            'uid': this.props.uid,
-        };
-
-        if (this.props.type === 'test')  {
-            current = get_random_taks_for_test(this.props.task);
-        }
-
-        console.log('DigitGame.onCounterUpdate: type ' + current.type + ', task ' + current.task + ', uid ' + current.uid);
-
-        // console.log('format ' + format);
         var value = {'task': format, 'color': color};
         if (counter === 0) {
             this.setState(prevState => ({
-                type: current.type,
-                task: current.task,
                 total: prevState.total + 1,
                 passed: prevState.passed + 1,
                 results: [...prevState.results, value],
             }))
-
         } else {
             this.setState(prevState => ({
-                type: current.type,
-                task: current.task,
                 total: prevState.total + 1,
                 failed: prevState.failed + 1,
                 results: [...prevState.results, value],
             }))
+        }
+    }
+
+    onTestUpdate() {
+        if (this.props.type === 'test')  {
+            var current = get_random_taks_for_test(this.props.task, this.state.uid);
+            console.log('DigitGame.onTestUpdate: type ' + current.type + ', task ' + current.task + ', uid ' + current.uid + ', old uid ' + this.state.uid);
+            this.setState({
+                type: current.type,
+                task: current.task,
+                uid: current.uid,
+            });
         }
     }
 
@@ -288,7 +281,9 @@ export default class DigitGame extends React.Component {
                         <GameBoard onClose={this.onGameClose}
                             onCounter={this.onCounterUpdate}
                             onColor={this.onColorUpdate}
+                            onTest={this.onTestUpdate}
                             is_test={this.state.is_test}
+                            uid={this.state.uid}
                             type={this.state.type}
                             task={this.state.task}
                             amount={this.state.amount}

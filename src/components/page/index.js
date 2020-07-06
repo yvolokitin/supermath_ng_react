@@ -252,8 +252,15 @@ export default class SuperMathPage extends React.Component {
                     var new_passed = parseInt(this.state.passed) + parseInt(value.passed);
                     var new_failed = parseInt(this.state.failed) + parseInt(value.failed);
 
-                    // black belt is excluded form solved
+                    // test is exam for belt
                     if ((parseInt(value.failed) === 0) &&
+                        (parseInt(value.passed) > 0) &&
+                        (value.game_uid.indexOf('T') !== -1)) {
+
+                        console.log('YURA Exception case !!!!');
+
+                    // black belt is excluded form solved
+                    } else if ((parseInt(value.failed) === 0) &&
                         (parseInt(value.passed) > 0) &&
                         (value.game_uid.includes('black') === false)) {
 

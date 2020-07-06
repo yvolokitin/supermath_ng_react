@@ -99,7 +99,7 @@ export const green_games = [
     {id: 7, uid: 'green7', logo: green7, type: '2digits', task: '+-,1-9,101-999,1,1', amount: task_amount},
     {id: 8, uid: 'green8', logo: green8, type: 'digit_2column', task: '+-,11-99,101-999,1,1', amount: task_amount},
     {id: 9, uid: 'green9', logo: green9, type: 'digit_2column', task: '+-,1001-9999,1001-9999,1,1', amount: task_amount},
-    {id: 10, uid: 'greenT', logo: 'none', type: '2digits', task: '+-,11-99,1-1,1,100', amount: task_amount},
+    {id: 10, uid: 'greenT', logo: 'none', type: 'test', task: 'green2,green5,green6,green7,green8,green9', amount: task_amount},
 ];
 
 export const navy_games = [
