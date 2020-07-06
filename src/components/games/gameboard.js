@@ -13,8 +13,7 @@ export default class GameBoard extends React.Component {
         this.onOperator = this.onOperator.bind(this);
         this.onKeyboard = this.onKeyboard.bind(this);
 
-        var tsk = generate_task(props.type, props.task);
-        this.state = {task: tsk,
+        this.state = {task: generate_task(props.type, props.task),
                       result: '?',
                       color: 'grey',
                       board: 'yellow',

@@ -145,45 +145,31 @@ export const black_games = [
 /**
  * {'type': type, 'task': task}
  */
-export function get_random_taks_for_test(tasks) {
-    var i, array = tasks.split(',');
-    var rnd_task = array[Math.floor(Math.random() * (array.length))];
+export function get_random_taks_for_test(tasks, escaped_task) {
+    var rnd_task, array = tasks.split(',');
+    while (true) {
+        rnd_task = array[Math.floor(Math.random() * (array.length))];
+        if (rnd_task !== escaped_task) {
+            break;
+        }
+    }
 
-    if (rnd_task.indexOf('white') !== -1) {
-        for (i = 0; i < white_games.length; i++) {
-            if (white_games[i].uid === rnd_task) {
-                return {'type': white_games[i].type, 'task': white_games[i].task, 'uid': rnd_task};
-            }
-        }
-    } else if (rnd_task.indexOf('orange') !== -1) {
-        for (i = 0; i < orange_games.length; i++) {
-            if (orange_games[i].uid === rnd_task) {
-                return {'type': orange_games[i].type, 'task': orange_games[i].task, 'uid': rnd_task};
-            }
-        }
+    var games = white_games;
+    if (rnd_task.indexOf('orange') !== -1) {
+        games = orange_games;
     } else if (rnd_task.indexOf('green') !== -1) {
-        for (i = 0; i < green_games.length; i++) {
-            if (green_games[i].uid === rnd_task) {
-                return {'type': green_games[i].type, 'task': green_games[i].task, 'uid': rnd_task};
-            }
-        }
+        games = green_games;
     } else if (rnd_task.indexOf('navy') !== -1) {
-        for (i = 0; i < navy_games.length; i++) {
-            if (navy_games[i].uid === rnd_task) {
-                return {'type': navy_games[i].type, 'task': navy_games[i].task, 'uid': rnd_task};
-            }
-        }
+        games = navy_games;
     } else if (rnd_task.indexOf('brown') !== -1) {
-        for (i = 0; i < brown_games.length; i++) {
-            if (brown_games[i].uid === rnd_task) {
-                return {'type': brown_games[i].type, 'task': brown_games[i].task, 'uid': rnd_task};
-            }
-        }
+        games = brown_games;
     } else if (rnd_task.indexOf('black') !== -1) {
-        for (i = 0; i < black_games.length; i++) {
-            if (black_games[i].uid === rnd_task) {
-                return {'type': black_games[i].type, 'task': black_games[i].task, 'uid': rnd_task};
-            }
+        games = black_games;
+    }
+
+    for (var i = 0; i < games.length; i++) {
+        if (games[i].uid === rnd_task) {
+            return {'type': games[i].type, 'task': games[i].task, 'uid': rnd_task};
         }
     }
 }

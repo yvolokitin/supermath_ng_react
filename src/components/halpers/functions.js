@@ -477,7 +477,6 @@ function generate_3digit_task(operations, range_numbers, factor=1, type='line') 
         } else {
             result = result - number_3;
         }
-        console.log("result " + result + ", number_3 " + number_3);
 
     } else if (operation_2 === OPERATION_MUL) {
         result = result * number_3;

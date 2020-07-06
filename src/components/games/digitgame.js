@@ -70,11 +70,11 @@ export default class DigitGame extends React.Component {
             };
 
             if (this.props.type === 'test')  {
-                current = get_random_taks_for_test(this.props.task);
+                current = get_random_taks_for_test(this.props.task, this.state.uid);
                 it_is_test = true;
             }
 
-            console.log('DigitGame.componentDidUpdate: type: ' + current.type + ', task ' + current.task + ', uid ' + current.uid);
+            // console.log('DigitGame.componentDidUpdate: type: ' + current.type + ', task ' + current.task + ', uid ' + current.uid);
             this.setState({
                 'status': DG_STATUS.GAME,
                 'type': current.type,
@@ -239,7 +239,7 @@ export default class DigitGame extends React.Component {
             current = get_random_taks_for_test(this.props.task);
         }
 
-        console.log('onCounterUpdate: current ' + current + ', type: ' + current.type + ', task ' + current.task + ', uid ' + current.uid);
+        console.log('DigitGame.onCounterUpdate: type ' + current.type + ', task ' + current.task + ', uid ' + current.uid);
 
         // console.log('format ' + format);
         var value = {'task': format, 'color': color};
