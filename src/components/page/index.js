@@ -251,66 +251,85 @@ export default class SuperMathPage extends React.Component {
             // counter: user game results from task completion
             case 'counter':
                 if ((this.state.id > 0) && (this.state.pswdhash.length > 0)) {
-                    var new_passed = parseInt(this.state.passed) + parseInt(value.passed);
-                    var new_failed = parseInt(this.state.failed) + parseInt(value.failed);
+                    var new_passed = parseInt(this.state.passed);
+                    var new_failed = parseInt(this.state.failed);
+                    var new_cards = parseInt(this.state.cards);
 
                     // test is exam for belt
                     if ((parseInt(value.failed) === 0) &&
                         (parseInt(value.passed) > 0) &&
                         (value.game_uid.indexOf('T') !== -1)) {
 
+                        new_passed = new_passed + parseInt(value.passed);
                         // we have to unlock all locked programs
-                        var l = 0, new_solved = '', new_level='white', levels = this.state.solved.split(',');
-                        if (levels.length > 0) {
-                            if (value.game_uid === 'blackT') {
-                                // unlock all programms
-                                new_level = 'black';  new_solved = '';
+                        var l = 0, new_solved = '', new_level = this.state.level, levels = this.state.solved.split(',');
+                        if (value.game_uid === 'blackT') {
+                            new_level = 'black';  new_solved = '';
 
-                            } else if (value.game_uid === 'brownT') {
-                                // unlock all programms
+                        } else if (value.game_uid === 'brownT') {
+                            if (this.state.level !== 'black') {
                                 new_level = 'brown';  new_solved = '';
-
-                            } else if (value.game_uid === 'navyT') {
-                                new_level = 'navy';
-                                for (l = 0; l < levels.length; l++) {
-                                    if (levels[l].includes('brown')) {
-                                        new_solved = new_solved + levels[l] + ',';
-                                    }
-                                }
-                            } else if (value.game_uid === 'greenT') {
-                                new_level = 'green';
-                                for (l = 0; l < levels.length; l++) {
-                                    if (levels[l].includes('brown') ||
-                                        levels[l].includes('navy')) {
-                                        new_solved = new_solved + levels[l] + ',';
-                                    }
-                                }
-                            } else if (value.game_uid === 'orangeT') {
-                                new_level = 'orange';
-                                for (l = 0; l < levels.length; l++) {
-                                    if (levels[l].includes('brown') ||
-                                        levels[l].includes('navy') ||
-                                        levels[l].includes('green')) {
-                                            new_solved = new_solved + levels[l] + ',';
-                                    }
-                                }
-                            } else if (value.game_uid === 'whiteT') {
-                                new_level = 'white';
-                                for (l = 0; l < levels.length; l++) {
-                                    if (levels[l].includes('brown') ||
-                                        levels[l].includes('navy') ||
-                                        levels[l].includes('green') ||
-                                        levels[l].includes('orange')) {
-                                            new_solved = new_solved + levels[l] + ',';
-                                    }
-                                }
                             }
+
+                        } else if (value.game_uid === 'navyT') {
+                            if (this.state.level !== 'black' ||
+                                this.state.level !== 'brown') {
+                                    new_level = 'navy';
+                                    for (l = 0; l < levels.length; l++) {
+                                        if (levels[l].includes('brown')) {
+                                            new_solved = new_solved + levels[l] + ',';
+                                        }
+                                    }
+                            }
+
+                        } else if (value.game_uid === 'greenT') {
+                            if (this.state.level !== 'black' ||
+                                this.state.level !== 'brown' ||
+                                this.state.level !== 'navy') {
+                                    new_level = 'green';
+                                    for (l = 0; l < levels.length; l++) {
+                                        if (levels[l].includes('brown') ||
+                                            levels[l].includes('navy')) {
+                                                new_solved = new_solved + levels[l] + ',';
+                                        }
+                                    }
+                                }
+
+                        } else if (value.game_uid === 'orangeT') {
+                            if (this.state.level !== 'black' ||
+                                this.state.level !== 'brown' ||
+                                this.state.level !== 'navy' ||
+                                this.state.level !== 'green') {
+                                    new_level = 'orange';
+                                    for (l = 0; l < levels.length; l++) {
+                                        if (levels[l].includes('brown') ||
+                                            levels[l].includes('navy') ||
+                                            levels[l].includes('green')) {
+                                                new_solved = new_solved + levels[l] + ',';
+                                        }
+                                    }
+                                }
+                        } else if (value.game_uid === 'whiteT') {
+                            if (this.state.level !== 'black' ||
+                                this.state.level !== 'brown' ||
+                                this.state.level !== 'navy' ||
+                                this.state.level !== 'green' ||
+                                this.state.level !== 'orange') {
+                                    new_level = 'white';
+                                    for (l = 0; l < levels.length; l++) {
+                                        if (levels[l].includes('brown') ||
+                                            levels[l].includes('navy') ||
+                                            levels[l].includes('green') ||
+                                            levels[l].includes('orange')) {
+                                                new_solved = new_solved + levels[l] + ',';
+                                        }
+                                    }
+                                }
                         }
 
-                        var new_cards = parseInt(this.state.cards) + 1;
+                        new_cards = new_cards + 1;
                         this.setState({
                             passed: new_passed,
-                            failed: new_failed,
                             solved: new_solved,
                             level: new_level,
                             cards: new_cards,
@@ -319,31 +338,62 @@ export default class SuperMathPage extends React.Component {
                     // black belt is excluded form solved
                     } else if ((parseInt(value.failed) === 0) &&
                         (parseInt(value.passed) > 0) &&
-                        (value.game_uid.includes('black') === false)) {
+                        (value.game_uid.includes('black') === false) &&
+                        (this.state.level !== 'black') &&
+                        (this.state.level !== 'brown')) {
 
-                        var new_game_solved;
+                        var new_game_solved = this.state.solved;
                         switch (this.state.level) {
-                            case 'none':
-                                new_game_solved = this.state.solved + value.game_uid + ',';
+                            case 'navy':
+                                if (value.game_uid.includes('brown')) {
+                                    new_passed = new_passed + parseInt(value.passed);
+                                    new_game_solved = new_game_solved + value.game_uid + ',';
+                                    new_cards = new_cards + 1;
+                                }
                                 break;
+
+                            case 'green':
+                                if (value.game_uid.includes('brown') || value.game_uid.includes('navy')) {
+                                    new_passed = new_passed + parseInt(value.passed);
+                                    new_game_solved = new_game_solved + value.game_uid + ',';
+                                    new_cards = new_cards + 1;
+                                }
+                                break;
+
+                            case 'orange':
+                                if (value.game_uid.includes('brown') ||
+                                    value.game_uid.includes('navy') ||
+                                    value.game_uid.includes('green')) {
+                                        new_passed = new_passed + parseInt(value.passed);
+                                        new_game_solved = new_game_solved + value.game_uid + ',';
+                                        new_cards = new_cards + 1;
+                                }
+                                break;
+
                             case 'white':
-                                // tbd
+                                if (value.game_uid.includes('white') === false) {
+                                    new_passed = new_passed + parseInt(value.passed);
+                                    new_game_solved = new_game_solved + value.game_uid + ',';
+                                    new_cards = new_cards + 1;
+                                }
                                 break;
 
                             default:
-                                new_game_solved = this.state.solved + value.game_uid + ',';
+                                new_passed = parseInt(this.state.passed) + parseInt(value.passed);
+                                new_game_solved = new_game_solved + value.game_uid + ',';
+                                new_cards = new_cards + 1;
                                 break;
                         }
 
-                        var new_game_cards = parseInt(this.state.cards) + 1;
                         this.setState({
                             passed: new_passed,
-                            failed: new_failed,
+                            cards: new_cards,
                             solved: new_game_solved,
-                            cards: new_game_cards,
                         });
 
                     } else {
+                        new_passed = new_passed + parseInt(value.passed);
+                        new_failed = new_failed + parseInt(value.failed);
                         this.setState({
                             passed: new_passed,
                             failed: new_failed,
@@ -447,7 +497,7 @@ export default class SuperMathPage extends React.Component {
      */
     onResult(result, data) {
         if (result === 'successed') {
-            console.log('Header.onResult ' + data.passed + ', ' + data.failed + ', avatar: ' + data.avatar);
+            console.log('Header.onResult ' + data.passed + ', ' + data.failed + ', level: ' + data.level);
 
             // to show all received user data
             // for (var pname in data) { console.log(pname, data[pname]); }
@@ -483,6 +533,7 @@ export default class SuperMathPage extends React.Component {
                 'cards': data.cards,
                 'passed': data.passed,
                 'failed': data.failed,
+                'level': data.level,
                 'belt': data.belt,
                 'solved': data.solved,
                 'age': age,
@@ -497,6 +548,7 @@ export default class SuperMathPage extends React.Component {
             set_item(data.id, 'avatar', data.avatar);
             set_item(data.id, 'passed', data.passed);
             set_item(data.id, 'failed', data.failed);
+            set_item(data.id, 'level', data.level);
             set_item(data.id, 'cards', data.cards);
             set_item(data.id, 'lang', data.lang);
             set_item(data.id, 'belt', data.belt);
