@@ -77,6 +77,7 @@ export default class SuperMathPage extends React.Component {
             cards: get_item(active_user, 'cards'),
             passed: get_item(active_user, 'passed'),
             failed: get_item(active_user, 'failed'),
+            level: get_item(active_user, 'level'),
             belt: get_item(active_user, 'belt'),
             avatar: get_item(active_user, 'avatar'),
             birthday: get_item(active_user, 'birthday'),
@@ -226,6 +227,7 @@ export default class SuperMathPage extends React.Component {
                     surname: get_item(value, 'surname'),
                     passed: get_item(value, 'passed'),
                     failed: get_item(value, 'failed'),
+                    level: get_item(value, 'level'),
                     cards: get_item(value, 'cards'),
                     belt: get_item(value, 'belt'),
                     avatar: get_item(value, 'avatar'),
@@ -257,22 +259,95 @@ export default class SuperMathPage extends React.Component {
                         (parseInt(value.passed) > 0) &&
                         (value.game_uid.indexOf('T') !== -1)) {
 
-                        console.log('YURA Exception case !!!!');
+                        // we have to unlock all locked programs
+                        var l = 0, new_solved = '', new_level='white', levels = this.state.solved.split(',');
+                        if (levels.length > 0) {
+                            if (value.game_uid === 'blackT') {
+                                // unlock all programms
+                                new_level = 'black';  new_solved = '';
+
+                            } else if (value.game_uid === 'brownT') {
+                                // unlock all programms
+                                new_level = 'brown';  new_solved = '';
+
+                            } else if (value.game_uid === 'navyT') {
+                                new_level = 'navy';
+                                for (l = 0; l < levels.length; l++) {
+                                    if (levels[l].includes('brown')) {
+                                        new_solved = new_solved + levels[l] + ',';
+                                    }
+                                }
+                            } else if (value.game_uid === 'greenT') {
+                                new_level = 'green';
+                                for (l = 0; l < levels.length; l++) {
+                                    if (levels[l].includes('brown') ||
+                                        levels[l].includes('navy')) {
+                                        new_solved = new_solved + levels[l] + ',';
+                                    }
+                                }
+                            } else if (value.game_uid === 'orangeT') {
+                                new_level = 'orange';
+                                for (l = 0; l < levels.length; l++) {
+                                    if (levels[l].includes('brown') ||
+                                        levels[l].includes('navy') ||
+                                        levels[l].includes('green')) {
+                                            new_solved = new_solved + levels[l] + ',';
+                                    }
+                                }
+                            } else if (value.game_uid === 'whiteT') {
+                                new_level = 'white';
+                                for (l = 0; l < levels.length; l++) {
+                                    if (levels[l].includes('brown') ||
+                                        levels[l].includes('navy') ||
+                                        levels[l].includes('green') ||
+                                        levels[l].includes('orange')) {
+                                            new_solved = new_solved + levels[l] + ',';
+                                    }
+                                }
+                            }
+                        }
+
+                        var new_cards = parseInt(this.state.cards) + 1;
+                        this.setState({
+                            passed: new_passed,
+                            failed: new_failed,
+                            solved: new_solved,
+                            level: new_level,
+                            cards: new_cards,
+                        });
 
                     // black belt is excluded form solved
                     } else if ((parseInt(value.failed) === 0) &&
                         (parseInt(value.passed) > 0) &&
                         (value.game_uid.includes('black') === false)) {
 
-                        var new_solved = this.state.solved + value.game_uid + ',';
-                        var new_cards = parseInt(this.state.cards) + 1;
+                        var new_game_solved;
+                        switch (this.state.level) {
+                            case 'none':
+                                new_game_solved = this.state.solved + value.game_uid + ',';
+                                break;
+                            case 'white':
+                                // tbd
+                                break;
+
+                            default:
+                                new_game_solved = this.state.solved + value.game_uid + ',';
+                                break;
+                        }
+
+                        var new_game_cards = parseInt(this.state.cards) + 1;
                         this.setState({
                             passed: new_passed,
                             failed: new_failed,
-                            cards: new_cards,
-                            solved: new_solved,});
+                            solved: new_game_solved,
+                            cards: new_game_cards,
+                        });
+
                     } else {
-                        this.setState({passed: new_passed, failed: new_failed});
+                        this.setState({
+                            passed: new_passed,
+                            failed: new_failed,
+                        });
                     }
 
                     update_counter(this.state.id, this.state.pswdhash, value, new_passed, new_failed);
