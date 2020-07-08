@@ -260,74 +260,83 @@ export default class SuperMathPage extends React.Component {
                         (parseInt(value.passed) > 0) &&
                         (value.game_uid.indexOf('T') !== -1)) {
 
-                        new_passed = new_passed + parseInt(value.passed);
                         // we have to unlock all locked programs
-                        var l = 0, new_solved = '', new_level = this.state.level, levels = this.state.solved.split(',');
-                        if (value.game_uid === 'blackT') {
-                            new_level = 'black';  new_solved = '';
+                        var l = 0, new_solved = '', new_level = this.state.level;
+                        var levels = this.state.solved.split(',');
 
-                        } else if (value.game_uid === 'brownT') {
-                            if (this.state.level !== 'black') {
-                                new_level = 'brown';  new_solved = '';
-                            }
+                        switch (value.game_uid) {
+                            case 'blackT':
+                                new_passed = new_passed + parseInt(value.passed);
+                                new_cards = new_cards + 1;
+                                new_level = 'black';
+                                new_solved = '';
+                                break;
 
-                        } else if (value.game_uid === 'navyT') {
-                            if (this.state.level !== 'black' ||
-                                this.state.level !== 'brown') {
+                            case 'brownT':
+                                if (this.state.level !== 'black') {
+                                    new_passed = new_passed + parseInt(value.passed);
+                                    new_cards = new_cards + 1;
+                                    new_level = 'brown';
+                                    new_solved = '';
+                                }
+                                break;
+
+                            case 'navyT':
+                                if (this.state.level !== 'black' && this.state.level !== 'brown') {
+                                    new_passed = new_passed + parseInt(value.passed);
+                                    new_cards = new_cards + 1;
                                     new_level = 'navy';
                                     for (l = 0; l < levels.length; l++) {
                                         if (levels[l].includes('brown')) {
                                             new_solved = new_solved + levels[l] + ',';
                                         }
                                     }
-                            }
+                                }
+                                break;
 
-                        } else if (value.game_uid === 'greenT') {
-                            if (this.state.level !== 'black' ||
-                                this.state.level !== 'brown' ||
-                                this.state.level !== 'navy') {
+                            case 'greenT':
+                                if (this.state.level !== 'black' && this.state.level !== 'brown' && this.state.level !== 'navy') {
+                                    new_passed = new_passed + parseInt(value.passed);
+                                    new_cards = new_cards + 1;
                                     new_level = 'green';
                                     for (l = 0; l < levels.length; l++) {
-                                        if (levels[l].includes('brown') ||
-                                            levels[l].includes('navy')) {
-                                                new_solved = new_solved + levels[l] + ',';
+                                        if (levels[l].includes('brown') || levels[l].includes('navy')) {
+                                            new_solved = new_solved + levels[l] + ',';
                                         }
                                     }
                                 }
+                                break;
 
-                        } else if (value.game_uid === 'orangeT') {
-                            if (this.state.level !== 'black' ||
-                                this.state.level !== 'brown' ||
-                                this.state.level !== 'navy' ||
-                                this.state.level !== 'green') {
-                                    new_level = 'orange';
-                                    for (l = 0; l < levels.length; l++) {
-                                        if (levels[l].includes('brown') ||
-                                            levels[l].includes('navy') ||
-                                            levels[l].includes('green')) {
+                            case 'orangeT':
+                                if (this.state.level !== 'black' && this.state.level !== 'brown' &&
+                                    this.state.level !== 'navy' && this.state.level !== 'green') {
+                                        new_passed = new_passed + parseInt(value.passed);
+                                        new_cards = new_cards + 1; new_level = 'orange';
+                                        for (l = 0; l < levels.length; l++) {
+                                            if (levels[l].includes('brown') ||
+                                                levels[l].includes('navy') ||
+                                                levels[l].includes('green')) {
+                                                    new_solved = new_solved + levels[l] + ',';
+                                            }
+                                        }
+                                }
+                                break;
+
+                            default: // whiteT
+                                if (this.state.level !== 'black' && this.state.level !== 'brown' &&
+                                    this.state.level !== 'navy' && this.state.level !== 'green' &&
+                                    this.state.level !== 'orange') {
+                                        new_passed = new_passed + parseInt(value.passed);
+                                        new_cards = new_cards + 1; new_level = 'white';
+                                        for (l = 0; l < levels.length; l++) {
+                                            if (levels[l].includes('white') === false) {
                                                 new_solved = new_solved + levels[l] + ',';
+                                            }
                                         }
                                     }
-                                }
-                        } else if (value.game_uid === 'whiteT') {
-                            if (this.state.level !== 'black' ||
-                                this.state.level !== 'brown' ||
-                                this.state.level !== 'navy' ||
-                                this.state.level !== 'green' ||
-                                this.state.level !== 'orange') {
-                                    new_level = 'white';
-                                    for (l = 0; l < levels.length; l++) {
-                                        if (levels[l].includes('brown') ||
-                                            levels[l].includes('navy') ||
-                                            levels[l].includes('green') ||
-                                            levels[l].includes('orange')) {
-                                                new_solved = new_solved + levels[l] + ',';
-                                        }
-                                    }
-                                }
+                                break;
                         }
 
-                        new_cards = new_cards + 1;
                         this.setState({
                             passed: new_passed,
                             solved: new_solved,
@@ -378,8 +387,8 @@ export default class SuperMathPage extends React.Component {
                                 }
                                 break;
 
-                            default:
-                                new_passed = parseInt(this.state.passed) + parseInt(value.passed);
+                            default: // level is none
+                                new_passed = new_passed + parseInt(value.passed);
                                 new_game_solved = new_game_solved + value.game_uid + ',';
                                 new_cards = new_cards + 1;
                                 break;
