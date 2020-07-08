@@ -59,7 +59,7 @@ import black7 from './../../images/tasks/black_7.jpg';
 import black8 from './../../images/tasks/black_8.jpg';
 import black9 from './../../images/tasks/black_9.jpg';
 
-const task_amount = 1; // 30;
+const task_amount = 30;
 
 export const white_games = [
     {id: 1, uid: 'white1', logo: white1, type: 'linedigits', task: '0-7', amount: task_amount},
