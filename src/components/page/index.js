@@ -60,6 +60,7 @@ export default class SuperMathPage extends React.Component {
         this.onWidthChange = this.onWidthChange.bind(this);
         this.loadFbLoginApi = this.loadFbLoginApi.bind(this);
         this.onTrophyUpdate = this.onTrophyUpdate.bind(this);
+        this.getBeltColor = this.getBeltColor.bind(this);
 
         var active_user = get_active_user();
         this.state = {
@@ -78,6 +79,7 @@ export default class SuperMathPage extends React.Component {
             passed: get_item(active_user, 'passed'),
             failed: get_item(active_user, 'failed'),
             level: get_item(active_user, 'level'),
+            color: this.getBeltColor(get_item(active_user, 'level')),
             belt: get_item(active_user, 'belt'),
             avatar: get_item(active_user, 'avatar'),
             birthday: get_item(active_user, 'birthday'),
@@ -85,6 +87,24 @@ export default class SuperMathPage extends React.Component {
             solved: get_item(active_user, 'solved'),
             pswdhash: get_item(active_user, 'pswdhash'),
         };
+    }
+
+    getBeltColor(user_belt) {
+        var return_color = 'white';
+
+        if (user_belt === 'black') {
+            return_color = 'black';
+        } else if (user_belt === 'brown') {
+            return_color = 'brown';
+        } else if (user_belt === 'navy') {
+            return_color = '#99ccff';
+        } else if (user_belt === 'green') {
+            return_color = 'green';
+        } else if (user_belt === 'orange') {
+            return_color = 'orange';
+        }
+
+        return return_color;
     }
 
     /**
@@ -153,7 +173,7 @@ export default class SuperMathPage extends React.Component {
 
     onTrophyUpdate(user_id, pswdhash) {
         if ((this.state.id > 0) && (this.state.pswdhash.length > 0)) {
-            console.log('!!!! onTrophyUpdate. refreshing ' + this.state.id + ', pswdhash: ' + this.state.pswdhash);
+            // console.log('onTrophyUpdate. refreshing ' + this.state.id + ', pswdhash: ' + this.state.pswdhash);
             var post_data = {
                 'user_id': this.state.id,
                 'pswdhash': this.state.pswdhash,
@@ -228,6 +248,7 @@ export default class SuperMathPage extends React.Component {
                     passed: get_item(value, 'passed'),
                     failed: get_item(value, 'failed'),
                     level: get_item(value, 'level'),
+                    color: this.getBeltColor(get_item(value, 'level')),
                     cards: get_item(value, 'cards'),
                     belt: get_item(value, 'belt'),
                     avatar: get_item(value, 'avatar'),
@@ -338,6 +359,7 @@ export default class SuperMathPage extends React.Component {
                         }
 
                         this.setState({
+                            color: this.getBeltColor(new_level),
                             passed: new_passed,
                             solved: new_solved,
                             level: new_level,
@@ -533,6 +555,7 @@ export default class SuperMathPage extends React.Component {
                 'screen': current_screen,
                 'avatar': (data.avatar.length > 0) ? data.avatar : avatars[12]['name'],
                 'pswdhash': get_item(data.id, 'pswdhash'),
+                'color': this.getBeltColor(data.level),
                 'id': parseInt(data.id),
                 'name': data.name,
                 'lang': data.lang,
@@ -645,7 +668,12 @@ export default class SuperMathPage extends React.Component {
                     <div className='header_div_right'>
                         { (this.state.id > 0) ? (
                             <>
-                                <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo'> {this.state.name}: </font>
+                                <font onClick={() => this.setState({screen: STATUS.ACCOUNT})}
+                                    style={{color: this.state.color}}
+                                    className='font_userinfo'>
+                                        {this.state.name}:
+                                </font>
+
                                 <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo' style={{color:'green'}}>
                                     {this.state.passed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
                                 </font> 
