@@ -25,6 +25,7 @@ export default function Exchange(props) {
     }, [props.open, props.passed, props.failed, props.cards, props.lang]);
 
     function updateCounter(type, value) {
+        console.log('updateCounter -> type ' + type + ', value ' + value);
         if (type === 'passed') {
             if (value < 0) { // -30
                 if ((passed > 30) && (failed > 0)) {
@@ -38,17 +39,18 @@ export default function Exchange(props) {
                     setFailed(failed+1);
                 }
             }
+
         } else if (type === 'cards') {
             if (value < 0) { // -1
-                if ((cards > 0) && (failed > 10)) {
-                    setCards(cards-1);
-                    setFailed(failed-10);
-                }
-
-            } else { // +1
                 if (((failed+10) <= props.failed) && ((cards+1) <= props.cards)) {
                     setCards(cards+1);
                     setFailed(failed+10);
+                }
+
+            } else { // +1
+                if ((cards > 0) && (failed > 10)) {
+                    setCards(cards-1);
+                    setFailed(failed-10);
                 }
             }
         }
