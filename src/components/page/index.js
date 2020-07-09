@@ -95,7 +95,7 @@ export default class SuperMathPage extends React.Component {
         if (user_belt === 'black') {
             return_color = 'black';
         } else if (user_belt === 'brown') {
-            return_color = 'brown';
+            return_color = '#cc6600';
         } else if (user_belt === 'navy') {
             return_color = '#99ccff';
         } else if (user_belt === 'green') {
@@ -758,7 +758,8 @@ export default class SuperMathPage extends React.Component {
                     age={this.state.age} birthday={this.state.birthday} 
                     avatar={this.state.avatar} cards={this.state.cards}
                     passed={this.state.passed} failed={this.state.failed}
-                    pswdhash={this.state.pswdhash} lang={this.state.lang}/>
+                    pswdhash={this.state.pswdhash} lang={this.state.lang}
+                    belt_color={this.state.color} level={this.state.level}/>
 
                 <Registration open={this.state.screen === STATUS.REGISTER}
                     onClose={this.onResult}

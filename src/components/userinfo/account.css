@@ -33,9 +33,9 @@
     text-overflow: clip; 
 }
 .account_board_user_info_line {
-    padding-left: 3%;
+    padding-left: 5%;
     width: 100%;
-    height: 49%;
+    height: 39%;
 
     display: flex;
     align-items: center;

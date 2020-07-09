@@ -132,12 +132,12 @@ export default function Account(props) {
                 <div className='account_board'>
                     <div className='account_board_user_info'>
                         { (props.width > 440) ? (
-                            <div className='account_board_user_info_line'>
+                            <div className='account_board_user_info_line' style={{color: props.belt_color}}>
                                 {props.name} {props.surname}, {props.age} {account[props.lang]['years']}
                             </div>
                         ) : (
-                            <div className='account_board_user_info_line'>
-                                {props.name} {props.surname}, {props.age}
+                            <div className='account_board_user_info_line' style={{color: props.belt_color}}>
+                                {props.name}, {props.age}
                             </div>
                         )}
                         <div className='account_board_user_info_line'>
