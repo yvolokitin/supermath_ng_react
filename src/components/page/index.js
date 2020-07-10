@@ -3,8 +3,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import axios from 'axios';
 
-import {update_counter, update_user_scores, update_language,
-        update_avatar, update_usersettings, } from './../halpers/communicator';
+import {update_counter, update_user_scores, update_language} from './../halpers/communicator';
+import {update_avatar, update_usersettings } from './../halpers/communicator';
+import {get_belt_color} from './../halpers/functions';
 
 import About from './../header/about';
 import Login from './../header/login';
@@ -12,7 +13,8 @@ import Forget from './../header/forget';
 import Registration from './../header/registration';
 import Language from './../header/language';
 import Welcome from './../header/welcome';
-import Trophy from './../header/trophy';
+
+import Trophy from './../trophy/trophy';
 
 import Help from './../help/help';
 import Account from './../userinfo/account';
@@ -60,7 +62,6 @@ export default class SuperMathPage extends React.Component {
         this.onWidthChange = this.onWidthChange.bind(this);
         this.loadFbLoginApi = this.loadFbLoginApi.bind(this);
         this.onTrophyUpdate = this.onTrophyUpdate.bind(this);
-        this.getBeltColor = this.getBeltColor.bind(this);
 
         var active_user = get_active_user();
         this.state = {
@@ -79,7 +80,7 @@ export default class SuperMathPage extends React.Component {
             passed: get_item(active_user, 'passed'),
             failed: get_item(active_user, 'failed'),
             level: get_item(active_user, 'level'),
-            color: this.getBeltColor(get_item(active_user, 'level')),
+            color: get_belt_color(get_item(active_user, 'level')),
             belt: get_item(active_user, 'belt'),
             avatar: get_item(active_user, 'avatar'),
             birthday: get_item(active_user, 'birthday'),
@@ -87,24 +88,6 @@ export default class SuperMathPage extends React.Component {
             solved: get_item(active_user, 'solved'),
             pswdhash: get_item(active_user, 'pswdhash'),
         };
-    }
-
-    getBeltColor(user_belt) {
-        var return_color = 'white';
-
-        if (user_belt === 'black') {
-            return_color = 'black';
-        } else if (user_belt === 'brown') {
-            return_color = '#cc6600';
-        } else if (user_belt === 'navy') {
-            return_color = '#99ccff';
-        } else if (user_belt === 'green') {
-            return_color = 'green';
-        } else if (user_belt === 'orange') {
-            return_color = 'orange';
-        }
-
-        return return_color;
     }
 
     /**
@@ -248,7 +231,7 @@ export default class SuperMathPage extends React.Component {
                     passed: get_item(value, 'passed'),
                     failed: get_item(value, 'failed'),
                     level: get_item(value, 'level'),
-                    color: this.getBeltColor(get_item(value, 'level')),
+                    color: get_belt_color(get_item(value, 'level')),
                     cards: get_item(value, 'cards'),
                     belt: get_item(value, 'belt'),
                     avatar: get_item(value, 'avatar'),
@@ -359,7 +342,7 @@ export default class SuperMathPage extends React.Component {
                         }
 
                         this.setState({
-                            color: this.getBeltColor(new_level),
+                            color: get_belt_color(new_level),
                             passed: new_passed,
                             solved: new_solved,
                             level: new_level,
@@ -555,7 +538,7 @@ export default class SuperMathPage extends React.Component {
                 'screen': current_screen,
                 'avatar': (data.avatar.length > 0) ? data.avatar : avatars[12]['name'],
                 'pswdhash': get_item(data.id, 'pswdhash'),
-                'color': this.getBeltColor(data.level),
+                'color': get_belt_color(data.level),
                 'id': parseInt(data.id),
                 'name': data.name,
                 'lang': data.lang,
@@ -725,7 +708,7 @@ export default class SuperMathPage extends React.Component {
                 <Trophy open={this.state.screen === STATUS.TROPHY}
                     onClose={() => this.setState({screen: STATUS.NONE})}
                     onTrophyUpdate={this.onTrophyUpdate}
-                    fullScreen={this.state.width<740}
+                    fullScreen={this.state.width<840}
                     pswdhash={this.state.pswdhash}
                     passed={this.state.passed}
                     lang={this.state.lang}

@@ -109,6 +109,33 @@
     border-radius: 5px;
     box-shadow: 1px 1px 3px 0px grey;
 }
+.trophy_table_cell_blt {
+    height: 100%;
+    width: 8%;
+    float: left;
+
+    margin-left: 3px;
+    margin-right: 3px;
+    padding: 3px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: yellow;
+
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px 0px grey;
+}
+.trophy_table_cell_blt_level {
+    height: 69%;
+    width: 65%;
+
+    border-radius: 50%;
+
+    background-color: white;
+    border: 1px solid black;
+}
 .trophy_table_cell_ava img {
     height: 100%;
     width: auto;

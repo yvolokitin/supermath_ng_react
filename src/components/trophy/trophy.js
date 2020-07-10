@@ -13,6 +13,7 @@ import {trophy} from './../translations/trophy';
 import './trophy.css';
 
 import {get_avatar_by_name} from './../halpers/avatars';
+import {get_belt_color} from './../halpers/functions';
 import image from './../../images/trophy/numbers.png';
 
 const POOP_COST = 50;
@@ -46,7 +47,8 @@ export default function Trophy(props) {
 
             } else {
                 for (var i in response.data) {
-                    // console.log('avatar ' + response.data[i].avatar + ' -> ' + get_avatar_by_name(response.data[i].avatar));
+                    console.log('avatar ' + response.data[i].avatar + ' -> ' + response.data[i].level);
+                    response.data[i]['color'] = get_belt_color(response.data[i].level);
                     array.push(response.data[i]);
                 }
                 setScores(array);
@@ -156,6 +158,9 @@ export default function Trophy(props) {
                             <div className='trophy_table_cell_ava'>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128102;</span>
                             </div>
+                            <div className='trophy_table_cell_blt'>
+                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#129355;</span>
+                            </div>
                             <div className='trophy_table_cell_name'>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127947;</span>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128105;</span>
@@ -164,7 +169,6 @@ export default function Trophy(props) {
                             <div className='trophy_table_cell_res'>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127919;</span>
                             </div>
-
                             <div className='trophy_table_cell_res' style={{backgroundColor:'#bbff99'}}>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
                             </div>
@@ -181,6 +185,9 @@ export default function Trophy(props) {
                                     <div className='trophy_table_cell_num' style={{backgroundColor:'green',color:'orange'}}> {index+1} </div>
                                     <div className='trophy_table_cell_ava' style={{backgroundColor:'green',color:'orange'}}>
                                         <img src={get_avatar_by_name(user.avatar)} alt={user.avatar} onContextMenu={(e) => e.preventDefault()}/>
+                                    </div>
+                                    <div className='trophy_table_cell_blt'>
+                                        <div className='trophy_table_cell_blt_level' style={{backgroundColor: user.color}}></div>
                                     </div>
                                     <div className='trophy_table_cell_name' style={{backgroundColor:'green',color:'orange'}}> {user.name} {user.surname} </div>
                                     {
@@ -206,6 +213,9 @@ export default function Trophy(props) {
                                     <div className='trophy_table_cell_num'> {index+1} </div>
                                     <div className='trophy_table_cell_ava'>
                                         <img src={get_avatar_by_name(user.avatar)} alt={user.avatar} onContextMenu={(e) => e.preventDefault()}/>
+                                    </div>
+                                    <div className='trophy_table_cell_blt'>
+                                        <div className='trophy_table_cell_blt_level' style={{backgroundColor: user.color}}></div>
                                     </div>
                                     <div className='trophy_table_cell_name'> {user.name} {user.surname} </div>
                                     {

@@ -8,9 +8,6 @@ import ColorLine from "./../line/line";
 import {trophy} from './../translations/trophy';
 
 export default function Throw(props) {
-
-    /*
-    */
     return (
         <Dialog open={props.open} fullScreen={props.fullScreen} onClose={() => props.onThrow('close')}>
             <SMTitle title='' onClick={() => props.onThrow('close')}/>

@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import {generate_task} from './../halpers/functions';
+import {generate_task} from './../halpers/arithmetic';
 import SMKeyBoard from './../keyboard/keyboard';
 import OperatorBoard from './../keyboard/operatorboard';
 import LineNumbersBoard from './../keyboard/linenumbersboard';
