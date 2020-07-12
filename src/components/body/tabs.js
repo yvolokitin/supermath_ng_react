@@ -26,13 +26,21 @@ function MenuTab(props) {
         {(props.selected) ? (
             <div className='tabs_div_wrapper' style={{backgroundColor: '#3f51b5'}}>
                 <div className='tabs_div' onClick={() => props.onClick(props.id)}>
-                    <font style={{color: props.font}}> {props.name} </font>
+                    {(props.width<400) ? (
+                        <font style={{color: props.font}}> {props.short_name} </font>
+                    ) : (
+                        <font style={{color: props.font}}> {props.name} </font>
+                    )}
                 </div>
             </div>
         ) : (
             <div className='tabs_div_wrapper' style={{backgroundColor: '#fbfbf8'}}>
                 <div className='tabs_div' onClick={() => props.onClick(props.id)}>
-                    <font style={{color: props.font}}> {props.name} </font>
+                    {(props.width<400) ? (
+                        <font style={{color: props.font}}> {props.short_name} </font>
+                    ) : (
+                        <font style={{color: props.font}}> {props.name} </font>
+                    )}
                 </div>
             </div>
         )}
@@ -49,12 +57,12 @@ export default function Tabs(props) {
     const [game, setGame] = useState(false);
 
     const colors = [
-        {id: 'white', font: 'black',},
-        {id: 'orange', font: 'orange',},
-        {id: 'green', font: 'green',},
-        {id: 'navy', font: 'navy',},
-        {id: 'brown', font: 'brown',},
-        {id: 'black', font: 'black',},
+        {id: 'white', font: 'black', short_name: 'wht',},
+        {id: 'orange', font: 'orange', short_name: 'orn',},
+        {id: 'green', font: 'green', short_name: 'grn',},
+        {id: 'navy', font: 'navy', short_name: 'nav',},
+        {id: 'brown', font: 'brown', short_name: 'brn',},
+        {id: 'black', font: 'black', short_name: 'blk',},
     ];
 
     /*React.useEffect(() => {
@@ -101,7 +109,9 @@ export default function Tabs(props) {
                     (tab) => <MenuTab key={tab.id}
                                 id={tab.id}
                                 font={tab.font}
+                                width={props.width}
                                 name={tabs[props.lang][tab.id]}
+                                short_name={tabs[props.lang][tab.short_name]}
                                 selected={color === tab.id}
                                 onClick={onTabChange}/>
                     )}

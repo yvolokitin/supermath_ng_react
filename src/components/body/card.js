@@ -149,7 +149,7 @@ export default function Card(props) {
                 source={props.task.logo}
                 task_id={props.task_id}
                 task={props.task.type}
-                fullScreen={props.fullScreen}
+                fullScreen={props.width<820}
                 lang={props.lang}
                 onClose={onClose}/>
         </>

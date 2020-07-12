@@ -752,8 +752,8 @@ export default class SuperMathPage extends React.Component {
                     failed={this.props.failed}/>
 
                 <Language open={this.state.screen === STATUS.LANG}
-                    fullScreen={this.state.width<740} 
                     onUpdate={this.onLanguage}
+                    width={this.state.width} 
                     lang={this.state.lang}/>
 
                 <Welcome open={this.state.screen === STATUS.WELCOME}

@@ -8,6 +8,12 @@ export const tabs = {
         'navy': 'navy',
         'brown': 'brown',
         'black': 'black',
+        'wht': 'wht',
+        'orn': 'orn',
+        'grn': 'grn',
+        'nav': 'navy',
+        'brn': 'brn',
+        'blk': 'blk',
     },
     // Russian
     'ru': {
@@ -17,6 +23,12 @@ export const tabs = {
         'navy': 'синий',
         'brown': 'бурый',
         'black': 'черный',
+        'wht': 'бел',
+        'orn': 'орнж',
+        'grn': 'зел',
+        'nav': 'син',
+        'brn': 'бур',
+        'blk': 'чрн',
     },
     // Dutch
     'nl' : {
@@ -26,6 +38,12 @@ export const tabs = {
         'navy': 'marine',
         'brown': 'bruin',
         'black': 'zwart',
+        'wht': 'wit',
+        'orn': 'orn',
+        'grn': 'grn',
+        'nav': 'mrn',
+        'brn': 'brn',
+        'blk': 'zwt',
     },
     // French
     'fr' : {
@@ -35,6 +53,12 @@ export const tabs = {
         'navy': 'marin',
         'brown': 'marron',
         'black': 'noir',
+        'wht': 'blc',
+        'orn': 'orn',
+        'grn': 'vrt',
+        'nav': 'mrn',
+        'brn': 'mar',
+        'blk': 'noir',
     },
     // German
     'de' : {
@@ -44,6 +68,12 @@ export const tabs = {
         'navy': 'marine',
         'brown': 'braun',
         'black': 'schwarz',
+        'wht': 'weib',
+        'orn': 'orn',
+        'grn': 'grn',
+        'nav': 'mrn',
+        'brn': 'brn',
+        'blk': 'schz',
     },
     // Spanish
     'es' : {
@@ -53,6 +83,12 @@ export const tabs = {
         'navy': 'azul',
         'brown': 'marron',
         'black': 'negro',
+        'wht': 'blnc',
+        'orn': 'nrnj',
+        'grn': 'vrd',
+        'nav': 'azul',
+        'brn': 'mrn',
+        'blk': 'ngr',
     },
     // Italian
     'it' : {
@@ -62,5 +98,11 @@ export const tabs = {
         'navy': 'blu',
         'brown': 'marrone',
         'black': 'nero',
+        'wht': 'bnc',
+        'orn': 'arn',
+        'grn': 'vrd',
+        'nav': 'blu',
+        'brn': 'mar',
+        'blk': 'nero',
     },
 };

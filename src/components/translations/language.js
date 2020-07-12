@@ -7,7 +7,7 @@ export const language = {
     },
     // Russian
     'ru': {
-        'title': 'Выберети язык',
+        'title': 'Выберите язык',
         'close': 'закрыть',
     },
     // Dutch

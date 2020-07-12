@@ -105,7 +105,7 @@
     color: green;
     font-family: 'Grinched';
     font-size: 2.5rem;
-    text-align:'center';
+    text-align: center;
     text-shadow: '1px 1px 2px black';
     line-height: 0.9;
 }
@@ -116,4 +116,55 @@
     flex-direction: column;
     font-weight: bold;
     border-radius: 15px;
+}
+.language_selector_btn {
+    margin: 5%;
+    display: flex;
+    flex-direction: column;
+}
+@media only screen and (max-width: 800px) {
+    .language_selector_image_map {
+        width: 96%;
+        margin-left: 2%;
+        margin-right: 2%;
+        margin-bottom: 5px;
+    }
+    .language_selector_wrapper {
+        width: 96%;
+        margin-left: 2%;
+        margin-right: 2%;
+        font-size: 1.15rem;
+    }
+    .language_selector_row_label {
+        height: 50px;
+        width: 70%;
+        padding-left: 20px;
+        display: flex;
+        align-items: center;
+    }
+    .language_selector_btn {
+        margin: 2%;
+    }
+}
+@media only screen and (max-height: 400px) {
+    .language_selector_image_map {
+        display: none;
+    }
+    .language_selector_wrapper {
+        font-size: 0.95rem;
+    }
+    .language_selector_row {
+        height: 45px;
+        margin-top: 7px;
+    }
+    .language_selector_row_selected {
+        height: 45px;
+    }
+    .language_selector_row_image {
+        height: 40px;
+        width: 40px;
+    }
+    .language_selector_btn {
+        margin-top: 1%;
+    }
 }

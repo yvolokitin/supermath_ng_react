@@ -52,12 +52,9 @@ export default function Language(props) {
     }
 
     return (
-        <Dialog open={props.open}
-            onClose={() => props.onUpdate(STATUS.NONE, props.lang)}
-            TransitionComponent={Transition}
-            transitionDuration={800}
-            fullScreen={props.fullScreen}
-            fullWidth={true} maxWidth='sm' scroll='body'>
+        <Dialog open={props.open} onClose={() => props.onUpdate(STATUS.NONE, props.lang)}
+            TransitionComponent={Transition} transitionDuration={800}
+            fullScreen={props.width<820} fullWidth={true} maxWidth='sm' scroll='body'>
 
             <SMTitle title={language[props.lang]['title']} className='language_title'
                 onClick={() => props.onUpdate(STATUS.NONE, props.lang)}/>
@@ -78,7 +75,7 @@ export default function Language(props) {
 
             </div>
 
-            <Card style={{margin:'5%',display:'flex',flexDirection:'column'}}>
+            <Card className='language_selector_btn'>
                 <Button variant='contained' onClick={() => props.onUpdate(STATUS.NONE, props.lang)}>
                     {language[props.lang]['close']}
                 </Button>
