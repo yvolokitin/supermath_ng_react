@@ -3,7 +3,6 @@
 import DigitGame from './../games/digitgame';
 import Footer from "./footer";
 import Card from './card';
-// import CardTest from './cardtest';
 import Wave from './wave';
 import './tabs.css';
 
