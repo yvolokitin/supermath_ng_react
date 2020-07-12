@@ -65,9 +65,6 @@
 }
 .div_supermath_short {
     display: none;
-    margin-left: 5%;
-    color: orange;
-    transition: transform 1.0s;
 }
 .div_supermath_short:hover {
     transform: scale(1.1);
@@ -173,8 +170,10 @@
     }
     .div_supermath_short {
         display: block;
+        margin-left: 5%;
+        color: orange;
+        transition: transform 1.0s;
     }
-
     .header_div {
         height: 80px;
         font-size: 2.0rem;
@@ -199,10 +198,11 @@
         margin: auto;
         color: orange;
     }
-    .div_lang {
-        display: none;
-    }
     .div_login {
-        display: none;
+        margin: auto;
+        color: orange;
+    }
+    .div_lang {
+        margin: auto;
     }
 }

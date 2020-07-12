@@ -638,11 +638,6 @@ export default class SuperMathPage extends React.Component {
                             {header[this.state.lang]['help']}
                         </div>
 
-                        <div className='div_supermath_short' style={{color:'green'}}
-                            onClick={() => this.setState({screen: STATUS.LANG})}>
-                                {header[this.state.lang]['lang']}
-                        </div>
-
                         <div className='div_trophy' onClick={() => this.setState({screen: STATUS.TROPHY})}>
                             <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127942;</span>
                         </div>
@@ -663,26 +658,12 @@ export default class SuperMathPage extends React.Component {
                                 <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo' style={{color:'red'}}>
                                     {this.state.failed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                                 </font> 
-                                { (this.state.cards> 0 ) ? (
-                                    <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo' style={{color:'green'}}>
-                                        {this.state.cards} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127183;</span>
-                                    </font> 
-                                ) : ( null )}
+                                <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo' style={{color:'green'}}>
+                                    {this.state.cards} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127183;</span>
+                                </font> 
                             </>
                         ) : (
                             <>
-                                { (this.state.passed > 0 && false) ? (
-                                    <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo' style={{color:'green'}}>
-                                        {this.state.passed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
-                                    </font>
-                                ) : (<> </>)}
-
-                                { (this.state.failed > 0 && false) ? (
-                                    <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo' style={{color:'red'}}>
-                                        {this.state.failed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
-                                    </font> 
-                                ) : (<> </>)}
-
                                 <div className='div_register' onClick={() => this.setState({screen: STATUS.REGISTER})}>
                                     {header[this.state.lang]['register']}
                                 </div>

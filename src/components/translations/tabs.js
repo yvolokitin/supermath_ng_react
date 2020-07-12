@@ -14,6 +14,9 @@ export const tabs = {
         'nav': 'navy',
         'brn': 'brn',
         'blk': 'blk',
+
+        'tasks': 'tasks',
+        'tsk': 'tsk',
     },
     // Russian
     'ru': {
@@ -29,6 +32,9 @@ export const tabs = {
         'nav': 'син',
         'brn': 'бур',
         'blk': 'чрн',
+
+        'tasks': 'задачи',
+        'tsk': 'здч',
     },
     // Dutch
     'nl' : {
