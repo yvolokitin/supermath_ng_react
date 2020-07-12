@@ -127,12 +127,9 @@ export default function Trophy(props) {
     /*
     */
     return (
-        <Dialog open={props.open}
-            onClose={() => props.onClose()}
-            maxWidth='md' fullWidth={true}
-            fullScreen={props.fullScreen}
-            TransitionComponent={Transition} 
-            transitionDuration={800}>
+        <Dialog open={props.open} onClose={() => props.onClose()}
+            maxWidth='md' fullWidth={true} fullScreen={props.width<840}
+            TransitionComponent={Transition} transitionDuration={800}>
 
             <SMTitle title='' onClick={() => props.onClose()}/>
             <ColorLine/>
@@ -147,7 +144,7 @@ export default function Trophy(props) {
                       <>
                         <div className='trophy_table_row'>
                             {(props.id > 0) ? (
-                                <div className='trophy_table_cell_throw'>  </div>
+                                <div className='trophy_table_cell_throw' style={{border: 'none'}}>  </div>
                             ) : (
                                 <> </>
                             )}

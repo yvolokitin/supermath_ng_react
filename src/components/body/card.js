@@ -11,40 +11,60 @@ import {navy_titles, navy_descriptions} from './../translations/navy';
 import {brown_titles, brown_descriptions} from './../translations/brown';
 import {black_titles, black_descriptions} from './../translations/black';
 
-import Info from "./info";
+import Info from './info';
+import image from './../../images/tasks/numbers.png';
 import {body} from './../translations/body';
 import './card.css';
 
 export default function Card(props) {
-    const [title, setTitle] = useState([]);
-    const [desc, setDesc] = useState([]);
-    const [animation, setAnimation] = useState(['none']);
-
     const [info, openInfo] = useState(false);
 
+    const [desc, setDesc] = useState([]);
+    const [title, setTitle] = useState([]);
+    const [gradient, setGradient] = useState('');
+    const [animation, setAnimation] = useState(['none']);
+
     useEffect(() => {
-        // console.log('Card.useEffect -> ' + props.task.uid + ', props.locked ' + props.locked);
-        if (props.color === 'white') {
-            setTitle(white_titles[props.lang][props.task.id]);
-            setDesc(white_descriptions[props.lang][props.task.id]);
-        } else if (props.color === 'orange') {
-            setTitle(orange_titles[props.lang][props.task.id]);
-            setDesc(orange_descriptions[props.lang][props.task.id]);
-        } else if (props.color === 'green') {
-            setTitle(green_titles[props.lang][props.task.id]);
-            setDesc(green_descriptions[props.lang][props.task.id]);
-        } else if (props.color === 'navy') {
-            setTitle(navy_titles[props.lang][props.task.id]);
-            setDesc(navy_descriptions[props.lang][props.task.id]);
-        } else if (props.color === 'brown') {
-            setTitle(brown_titles[props.lang][props.task.id]);
-            setDesc(brown_descriptions[props.lang][props.task.id]);
-        } else if (props.color === 'black') {
-            setTitle(black_titles[props.lang][props.task.id]);
-            setDesc(black_descriptions[props.lang][props.task.id]);
+        console.log('Card.useEffect -> ' + props.task.uid + ', nonexam ' + props.nonexam + ', locked ' + props.locked);
+        switch (props.color) {
+            case 'black':
+                setGradient('linear-gradient(to bottom, white 50%, black 50%)');
+                setTitle(black_titles[props.lang][props.task.id]);
+                setDesc(black_descriptions[props.lang][props.task.id]);
+                break;
+
+            case 'brown':
+                setGradient('linear-gradient(to bottom, white 50%, brown 50%)');
+                setTitle(brown_titles[props.lang][props.task.id]);
+                setDesc(brown_descriptions[props.lang][props.task.id]);
+                break;
+
+            case 'navy':
+                setGradient('linear-gradient(to bottom, white 50%, navy 50%)');
+                setTitle(navy_titles[props.lang][props.task.id]);
+                setDesc(navy_descriptions[props.lang][props.task.id]);
+                break;
+
+            case 'green':
+                setGradient('linear-gradient(to bottom, white 50%, green 50%)');
+                setTitle(green_titles[props.lang][props.task.id]);
+                setDesc(green_descriptions[props.lang][props.task.id]);
+                break;
+
+            case 'orange':
+                setGradient('linear-gradient(to bottom, white 50%, orange 50%)');
+                setTitle(orange_titles[props.lang][props.task.id]);
+                setDesc(orange_descriptions[props.lang][props.task.id]);
+                break;
+
+            default: // 'white'
+                setGradient('linear-gradient(to bottom, white 50%, black 50%)');
+                setTitle(white_titles[props.lang][props.task.id]);
+                setDesc(white_descriptions[props.lang][props.task.id]);
+                break;
         }
 
-    }, [props.task, props.color, props.lang, props.locked]);
+    }, [props.task, props.color, props.lang, props.locked, props.nonexam]);
 
     function onOpen(property) {
         // console.log('Card.onClick, props.locked: ' + props.locked);
@@ -72,51 +92,66 @@ export default function Card(props) {
 
     return (
         <>
-        {(props.locked === false) ? (
-            <div className='card_wrapper' style={{'animation': animation}}>
-                <div onClick={() => onOpen('game')} className='card_wrapper_img'>
-                    <img src={props.task.logo} alt={props.task.logo} onContextMenu={(e) => e.preventDefault()}/>
+            {(props.nonexam === false) ? (
+                <div className='card_wrapper' style={{'animation': animation}}>
+                    <div className='card_test_wrapper_img' onClick={() => onOpen('game')} style={{backgroundImage: gradient}}>
+                        <img src={image} alt='numbers' onContextMenu={(e) => e.preventDefault()}/>
+                    </div>
+                    <div className='card_test_wrapper_text'> {title} </div>
+                    <div className='card_wrapper_btn'>
+                        <Button size='small' color='primary' onClick={() => onOpen('info')}
+                                startIcon={<VisibilityIcon/>}> {body[props.lang]['info']}
+                        </Button>
+                        <Button size='small' color='primary' onClick={() => onOpen('game')}
+                            startIcon={<PlayCircleFilledWhiteIcon/>}> {body[props.lang]['play']}
+                        </Button>
+                    </div>
                 </div>
+            ) : (
+              <>
+                {(props.locked === false) ? (
+                    <div className='card_wrapper' style={{'animation': animation}}>
+                        <div onClick={() => onOpen('game')} className='card_wrapper_img'>
+                            <img src={props.task.logo} alt={props.task.logo} onContextMenu={(e) => e.preventDefault()}/>
+                        </div>
+                        <div className='card_wrapper_text'> {title} </div>
+                        <div className='card_wrapper_btn'>
+                            <Button size='small' color='primary' onClick={() => onOpen('info')}
+                                    startIcon={<VisibilityIcon/>}> {body[props.lang]['info']}
+                            </Button>
+                            <Button size='small' color='primary' onClick={() => onOpen('game')}
+                                startIcon={<PlayCircleFilledWhiteIcon/>}> {body[props.lang]['play']}
+                            </Button>
+                        </div>
+                    </div>
+                ) : (
+                    <div className='card_wrapper' style={{opacity: '0.5'}}>
+                        <div className='card_wrapper_img_disabled'>
+                            <img src={props.task.logo} alt={props.task.logo} onContextMenu={(e) => e.preventDefault()}/>
+                        </div>
+                        <div className='card_wrapper_text'> {title} </div>
+                        <div className='card_wrapper_btn'>
+                            <Button size='small' color='primary' disabled
+                                    startIcon={<VisibilityIcon/>}> {body[props.lang]['info']}
+                            </Button>
+                            <Button size='small' color='primary' disabled
+                                startIcon={<PlayCircleFilledWhiteIcon/>}> {body[props.lang]['play']}
+                            </Button>
+                        </div>
+                    </div>
+                )}
+              </>
+            )}
 
-                <div className='card_wrapper_text'> {title} </div>
-
-                <div className='card_wrapper_btn'>
-                    <Button size='small' color='primary' onClick={() => onOpen('info')}
-                            startIcon={<VisibilityIcon/>}> {body[props.lang]['info']}
-                    </Button>
-                    <Button size='small' color='primary' onClick={() => onOpen('game')}
-                        startIcon={<PlayCircleFilledWhiteIcon/>}> {body[props.lang]['play']}
-                    </Button>
-                </div>
-
-                <Info open={info}
-                      title={title}
-                      text={desc}
-                      source={props.task.logo}
-                      task_id={props.task_id}
-                      task={props.task.type}
-                      fullScreen={props.fullScreen}
-                      lang={props.lang}
-                      onClose={onClose}/>
-            </div>
-        ) : (
-            <div className='card_wrapper' style={{opacity: '0.5'}}>
-                <div className='card_wrapper_img_disabled'>
-                    <img src={props.task.logo} alt={props.task.logo} onContextMenu={(e) => e.preventDefault()}/>
-                </div>
-
-                <div className='card_wrapper_text'> {title} </div>
-
-                <div className='card_wrapper_btn'>
-                    <Button size='small' color='primary' disabled
-                            startIcon={<VisibilityIcon/>}> {body[props.lang]['info']}
-                    </Button>
-                    <Button size='small' color='primary' disabled
-                        startIcon={<PlayCircleFilledWhiteIcon/>}> {body[props.lang]['play']}
-                    </Button>
-                </div>
-            </div>
-        )}
+            <Info open={info}
+                title={title}
+                text={desc}
+                source={props.task.logo}
+                task_id={props.task_id}
+                task={props.task.type}
+                fullScreen={props.fullScreen}
+                lang={props.lang}
+                onClose={onClose}/>
         </>
     );
 }

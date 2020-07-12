@@ -703,14 +703,14 @@ export default class SuperMathPage extends React.Component {
                     name={this.state.name}
                     email={this.state.email}
                     solved={this.state.solved}
-                    fullScreen={this.state.width<740}/>
+                    width={this.state.width}/>
 
                 <Trophy open={this.state.screen === STATUS.TROPHY}
                     onClose={() => this.setState({screen: STATUS.NONE})}
                     onTrophyUpdate={this.onTrophyUpdate}
-                    fullScreen={this.state.width<840}
                     pswdhash={this.state.pswdhash}
                     passed={this.state.passed}
+                    width={this.state.width}
                     lang={this.state.lang}
                     id={this.state.id}/>
 
