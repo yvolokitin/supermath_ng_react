@@ -25,7 +25,7 @@ export const tabs = {
         'black': 'черный',
         'wht': 'бел',
         'orn': 'орнж',
-        'grn': 'зел',
+        'grn': 'злн',
         'nav': 'син',
         'brn': 'бур',
         'blk': 'чрн',

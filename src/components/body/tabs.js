@@ -26,7 +26,7 @@ function MenuTab(props) {
         {(props.selected) ? (
             <div className='tabs_div_wrapper' style={{backgroundColor: '#3f51b5'}}>
                 <div className='tabs_div' onClick={() => props.onClick(props.id)}>
-                    {(props.width<400) ? (
+                    {(props.width<420) ? (
                         <font style={{color: props.font}}> {props.short_name} </font>
                     ) : (
                         <font style={{color: props.font}}> {props.name} </font>
@@ -36,7 +36,7 @@ function MenuTab(props) {
         ) : (
             <div className='tabs_div_wrapper' style={{backgroundColor: '#fbfbf8'}}>
                 <div className='tabs_div' onClick={() => props.onClick(props.id)}>
-                    {(props.width<400) ? (
+                    {(props.width<420) ? (
                         <font style={{color: props.font}}> {props.short_name} </font>
                     ) : (
                         <font style={{color: props.font}}> {props.name} </font>
