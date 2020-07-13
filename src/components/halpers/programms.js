@@ -173,3 +173,32 @@ export function get_random_taks_for_test(tasks, escaped_task) {
         }
     }
 }
+
+export const color_belts = [
+    {id: 'white', bckgrnd: '#e6e6e6', games: white_games, font: 'black', short_name: 'wht',},
+    {id: 'orange', bckgrnd: '#ffb84d', games: orange_games, font: 'orange', short_name: 'orn',},
+    {id: 'green', bckgrnd: '#8cff66', games: green_games, font: 'green', short_name: 'grn',},
+    {id: 'navy', bckgrnd: '#99ccff', games: navy_games, font: 'navy', short_name: 'nav',},
+    {id: 'brown', bckgrnd: '#cc6600', games: brown_games, font: 'brown', short_name: 'brn',},
+    {id: 'black', bckgrnd: '#404040', games: black_games, font: 'black', short_name: 'blk',},
+    {id: 'tasks', bckgrnd: '#6600cc', games: [], font: '#6600cc', short_name: 'tsk',},
+];
+
+export function get_games_by_color(color) {
+    var games = white_games;
+    if (color === 'orange') {
+        games = orange_games;
+    } else if (color === 'green') {
+        games = green_games;
+    } else if (color === 'navy') {
+        games = navy_games;
+    } else if (color === 'brown') {
+        games = brown_games;
+    } else if (color === 'black') {
+        games = black_games;
+    } else if (color === 'tasks') {
+        games = color_belts.games;
+    }
+    return games;
+}
+

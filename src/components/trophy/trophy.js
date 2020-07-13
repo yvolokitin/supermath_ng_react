@@ -177,7 +177,7 @@ export default function Trophy(props) {
                         {scores.map((user, index) => (
                             (props.id === user.id) ? (
                                 <div className='trophy_table_row' key={index}>
-                                    {(props.id > 0) ? ( <div className='trophy_table_cell_throw'>  </div> ) : ( <> </> )}
+                                    {(props.id > 0) ? (<div className='trophy_table_cell_throw' style={{border: 'none'}}></div>):(<></>)}
 
                                     <div className='trophy_table_cell_num' style={{backgroundColor:'green',color:'orange'}}> {index+1} </div>
                                     <div className='trophy_table_cell_ava' style={{backgroundColor:'green',color:'orange'}}>

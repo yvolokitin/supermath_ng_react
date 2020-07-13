@@ -6,33 +6,10 @@ import Card from './card';
 import Wave from './wave';
 import './tabs.css';
 
-import {white_games, orange_games, green_games} from './../halpers/programms';
-import {navy_games, brown_games, black_games} from './../halpers/programms';
+import {get_games_by_color, color_belts,} from './../halpers/programms';
 
 import {set_item} from './../halpers/localstorage';
 import {tabs} from './../translations/tabs';
-
-const mapping = {
-    'white': white_games,
-    'orange': orange_games,
-    'green': green_games,
-    'navy': navy_games,
-    'brown': brown_games,
-    'black': black_games,
-
-    'tasks': black_games,
-};
-
-const colors = [
-    {id: 'white', font: 'black', short_name: 'wht',},
-    {id: 'orange', font: 'orange', short_name: 'orn',},
-    {id: 'green', font: 'green', short_name: 'grn',},
-    {id: 'navy', font: 'navy', short_name: 'nav',},
-    {id: 'brown', font: 'brown', short_name: 'brn',},
-    {id: 'black', font: 'black', short_name: 'blk',},
-
-    {id: 'tasks', font: '#6600cc', short_name: 'tsk',},
-];
 
 function MenuTab(props) {
     return (
@@ -64,24 +41,23 @@ function MenuTab(props) {
 
 export default function Tabs(props) {
     const [color, setColor] = useState(props.belt);
-    const [tasks, setTasks] = useState(mapping[props.belt]);
+    const [tasks, setTasks] = useState(get_games_by_color(props.belt));
     const [background, setBackground] = useState(props.belt);
 
     const [gameOpen, setGameOpen] = useState(false);
     const [game, setGame] = useState(false);
 
-    /*React.useEffect(() => {
+    React.useEffect(() => {
         console.log('Tabs(props) -> ' + props.belt);
 
-    }, [props.belt, ]);*/
+    }, [props.belt, ]);
 
-    function onTabChange(color) {
-        console.log('Tabs.onTabPress ' + color);
-        set_item(props.id, 'belt', color);
-
-        setColor(color);
-        setBackground(color);
-        setTasks(mapping[color]);
+    function onTabChange(user_tab) {
+        console.log('Tabs.onTabPress ' + user_tab.font);
+        set_item(props.id, 'belt', user_tab.font);
+        setColor(user_tab.font);
+        setBackground(user_tab.bckgrnd);
+        setTasks(user_tab.games);
     };
 
     function onGameOpen(task) {
@@ -110,7 +86,7 @@ export default function Tabs(props) {
     return (
         <div className='body_wrapper' style={{backgroundColor: background}}>
             <div className='tabs_wrapper'>
-                {colors.map(
+                {color_belts.map(
                     (tab) => <MenuTab key={tab.id}
                                 id={tab.id}
                                 font={tab.font}
@@ -118,7 +94,7 @@ export default function Tabs(props) {
                                 name={tabs[props.lang][tab.id]}
                                 short_name={tabs[props.lang][tab.short_name]}
                                 selected={color === tab.id}
-                                onClick={onTabChange}/>
+                                onClick={() => onTabChange(tab)}/>
                     )}
             </div>
 
