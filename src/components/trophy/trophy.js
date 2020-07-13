@@ -16,7 +16,7 @@ import {get_avatar_by_name} from './../halpers/avatars';
 import {get_belt_color} from './../halpers/functions';
 import image from './../../images/trophy/numbers.png';
 
-const POOP_COST = 50;
+const POOP_COST = 30;
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='down' ref={ref} {...props} />;

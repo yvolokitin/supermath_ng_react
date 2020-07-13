@@ -1,9 +1,14 @@
 ﻿import React, { useState, } from 'react';
 
 import DigitGame from './../games/digitgame';
-import Footer from "./footer";
+import TaskGame from './../games/taskgame';
+
 import Card from './card';
+import CardTask from './cardtask';
+
+import Footer from "./footer";
 import Wave from './wave';
+
 import './tabs.css';
 
 import {get_games_by_color, color_belts,} from './../halpers/programms';
@@ -16,21 +21,21 @@ function MenuTab(props) {
       <>
         {(props.selected) ? (
             <div className='tabs_div_wrapper' style={{backgroundColor: '#3f51b5'}}>
-                <div className='tabs_div' onClick={() => props.onClick(props.id)}>
+                <div className='tabs_div' onClick={() => props.onClick(props.user_tab)}>
                     {(props.width<420) ? (
-                        <font style={{color: props.font}}> {props.short_name} </font>
+                        <font style={{color: props.user_tab.font}}> {props.short_name} </font>
                     ) : (
-                        <font style={{color: props.font}}> {props.name} </font>
+                        <font style={{color: props.user_tab.font}}> {props.name} </font>
                     )}
                 </div>
             </div>
         ) : (
             <div className='tabs_div_wrapper' style={{backgroundColor: '#fbfbf8'}}>
-                <div className='tabs_div' onClick={() => props.onClick(props.id)}>
+                <div className='tabs_div' onClick={() => props.onClick(props.user_tab)}>
                     {(props.width<420) ? (
-                        <font style={{color: props.font}}> {props.short_name} </font>
+                        <font style={{color: props.user_tab.font}}> {props.short_name} </font>
                     ) : (
-                        <font style={{color: props.font}}> {props.name} </font>
+                        <font style={{color: props.user_tab.font}}> {props.name} </font>
                     )}
                 </div>
             </div>
@@ -45,6 +50,8 @@ export default function Tabs(props) {
     const [background, setBackground] = useState(props.belt);
 
     const [gameOpen, setGameOpen] = useState(false);
+    const [taskOpen, setTaskOpen] = useState(false);
+
     const [game, setGame] = useState(false);
 
     React.useEffect(() => {
@@ -54,16 +61,22 @@ export default function Tabs(props) {
 
     function onTabChange(user_tab) {
         console.log('Tabs.onTabPress ' + user_tab.font);
-        set_item(props.id, 'belt', user_tab.font);
-        setColor(user_tab.font);
+        set_item(props.id, 'belt', user_tab.id);
+
+        setColor(user_tab.id);
         setBackground(user_tab.bckgrnd);
         setTasks(user_tab.games);
     };
 
     function onGameOpen(task) {
-        // console.log('Tabs.onGameOpen ' + task.id);
+        console.log('Tabs.onGameOpen ' + task.uid);
         setGame(task);
-        setGameOpen(true);
+
+        if (task.type === 'task') {
+            setTaskOpen(true);
+        } else {
+            setGameOpen(true);
+        }
     }
 
     function onGameClose(status, data) {
@@ -88,13 +101,12 @@ export default function Tabs(props) {
             <div className='tabs_wrapper'>
                 {color_belts.map(
                     (tab) => <MenuTab key={tab.id}
-                                id={tab.id}
-                                font={tab.font}
+                                user_tab={tab}
                                 width={props.width}
                                 name={tabs[props.lang][tab.id]}
                                 short_name={tabs[props.lang][tab.short_name]}
                                 selected={color === tab.id}
-                                onClick={() => onTabChange(tab)}/>
+                                onClick={onTabChange}/>
                     )}
             </div>
 
@@ -102,13 +114,21 @@ export default function Tabs(props) {
                 {tasks.map(
                     (task) => 
                         <div key={task.uid}>
-                            <Card task={task}
-                                color={color}
-                                lang={props.lang}
-                                width={props.width}
-                                onUpdate={onGameOpen}
-                                nonexam={task.uid.indexOf('T') === -1}
-                                locked={props.solved.toString().includes(task.uid)}/>
+                            {(task.type === 'task') ? (
+                                <CardTask task={task}
+                                    color={color}
+                                    lang={props.lang}
+                                    width={props.width}
+                                    onUpdate={onGameOpen}/>
+                            ) : (
+                                <Card task={task}
+                                    color={color}
+                                    lang={props.lang}
+                                    width={props.width}
+                                    onUpdate={onGameOpen}
+                                    nonexam={task.uid.indexOf('T') === -1}
+                                    locked={props.solved.toString().includes(task.uid)}/>
+                            )}
                         </div>
                 )}
             </div>
@@ -133,6 +153,17 @@ export default function Tabs(props) {
                 lang={props.lang}/>
 
             <DigitGame open={gameOpen}
+                id={props.id}
+                game_uid={game.uid}
+                type={game.type}
+                task={game.task}
+                amount={game.amount}
+                lang={props.lang}
+                belt={color}
+                fullScreen={props.width<820}
+                onClose={onGameClose}/>
+
+            <TaskGame open={taskOpen}
                 id={props.id}
                 game_uid={game.uid}
                 type={game.type}

@@ -3,7 +3,7 @@ export const trophy = {
     // English
     'en': {
         'title': 'Poops throwing',
-        'question': 'Throw costs 50 smiles. Would you like to throw poop',
+        'question': 'Throw costs 30 smiles. Would you like to throw poop',
         'close': 'close',
         'yes': 'Yes, Throw it',
         'no': 'No',
@@ -14,7 +14,7 @@ export const trophy = {
     // Russian
     'ru': {
         'title': 'Метание фикашек',
-        'question': 'Бросок стоит 50 очков, Ты бы хотел кинуть фикашку в',
+        'question': 'Бросок стоит 30 очков, Ты бы хотел кинуть фикашку в',
         'close': 'закрыть',
         'yes': 'Да, Бросаем!',
         'no': 'Нет',
@@ -25,7 +25,7 @@ export const trophy = {
     // Dutch
     'nl' : {
         'title': 'Poops throwing',
-        'question': 'Throw costs 50 smiles. Would you like to throw poop',
+        'question': 'Throw costs 30 smiles. Would you like to throw poop',
         'close': 'dichtbij',
         'yes': 'Yes, Throw it',
         'no': 'No',
@@ -36,7 +36,7 @@ export const trophy = {
     // French
     'fr' : {
         'title': 'Poops throwing',
-        'question': 'Throw costs 50 smiles. Would you like to throw poop',
+        'question': 'Throw costs 30 smiles. Would you like to throw poop',
         'close': 'proche',
         'yes': 'Yes, Throw it',
         'no': 'No',
@@ -47,7 +47,7 @@ export const trophy = {
     // German
     'de' : {
         'title': 'Poops throwing',
-        'question': 'Throw costs 50 smiles. Would you like to throw poop',
+        'question': 'Throw costs 30 smiles. Would you like to throw poop',
         'close': 'close',
         'yes': 'Yes, Throw it',
         'no': 'No',
@@ -58,7 +58,7 @@ export const trophy = {
     // Spanish
     'es' : {
         'title': 'Poops throwing',
-        'question': 'Throw costs 50 smiles. Would you like to throw poop',
+        'question': 'Throw costs 30 smiles. Would you like to throw poop',
         'close': 'close',
         'yes': 'Yes, Throw it',
         'no': 'No',
@@ -69,7 +69,7 @@ export const trophy = {
     // Italian
     'it' : {
         'title': 'Poops throwing',
-        'question': 'Throw costs 50 smiles. Would you like to throw poop',
+        'question': 'Throw costs 30 smiles. Would you like to throw poop',
         'close': 'close',
         'yes': 'Yes, Throw it',
         'no': 'No',

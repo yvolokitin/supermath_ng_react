@@ -25,7 +25,7 @@ export default function Card(props) {
     const [animation, setAnimation] = useState(['none']);
 
     useEffect(() => {
-        console.log('Card.useEffect -> ' + props.task.uid + ', nonexam ' + props.nonexam + ', locked ' + props.locked);
+        // console.log('Card.useEffect -> ' + props.task.uid + ', nonexam ' + props.nonexam + ', locked ' + props.locked);
         switch (props.color) {
             case 'black':
                 setGradient('linear-gradient(to bottom, white 50%, black 50%)');
