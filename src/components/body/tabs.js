@@ -11,7 +11,7 @@ import Wave from './wave';
 
 import './tabs.css';
 
-import {get_games_by_color, color_belts,} from './../halpers/programms';
+import {get_belt_by_color, color_belts,} from './../halpers/programms';
 
 import {set_item} from './../halpers/localstorage';
 import {tabs} from './../translations/tabs';
@@ -46,8 +46,8 @@ function MenuTab(props) {
 
 export default function Tabs(props) {
     const [color, setColor] = useState(props.belt);
-    const [tasks, setTasks] = useState(get_games_by_color(props.belt));
-    const [background, setBackground] = useState(props.belt);
+    const [tasks, setTasks] = useState(get_belt_by_color(props.belt)['games']);
+    const [background, setBackground] = useState(get_belt_by_color(props.belt)['bckgrnd']);
 
     const [gameOpen, setGameOpen] = useState(false);
     const [taskOpen, setTaskOpen] = useState(false);
@@ -55,7 +55,7 @@ export default function Tabs(props) {
     const [game, setGame] = useState(false);
 
     React.useEffect(() => {
-        console.log('Tabs(props) -> ' + props.belt);
+        console.log('Tabs(props) -> ' + props.belt + ' <-');
 
     }, [props.belt, ]);
 
@@ -116,6 +116,7 @@ export default function Tabs(props) {
                         <div key={task.uid}>
                             {(task.type === 'task') ? (
                                 <CardTask task={task}
+                                    value={task.id}
                                     color={color}
                                     lang={props.lang}
                                     width={props.width}

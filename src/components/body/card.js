@@ -111,7 +111,7 @@ export default function Card(props) {
               <>
                 {(props.locked === false) ? (
                     <div className='card_wrapper' style={{'animation': animation}}>
-                        <div onClick={() => onOpen('game')} className='card_wrapper_img'>
+                        <div className='card_wrapper_img' onClick={() => onOpen('game')}>
                             <img src={props.task.logo} alt={props.task.logo} onContextMenu={(e) => e.preventDefault()}/>
                         </div>
                         <div className='card_wrapper_text'> {title} </div>

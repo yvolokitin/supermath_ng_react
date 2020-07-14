@@ -193,8 +193,8 @@ export function set_item(id, key, value) {
     if ((id !== undefined) && (key !== undefined) && (value !== undefined)) {
         if (typeof(Storage) !== 'undefined') {
             // Code for localStorage
-            var prefix = id.toString() + '_';
-            localStorage.setItem(prefix + key, value);
+            var storage_key = id.toString() + '_' + key;
+            localStorage.setItem(storage_key, value);
 
         } else {
             // No web storage Support
@@ -212,8 +212,10 @@ export function get_item(id, key) {
     if ((id !== undefined) && (key !== undefined)) {
         if (typeof(Storage) !== 'undefined') {
             // Code for localStorage
-            var prefix = id.toString() + '_';
-            property = localStorage.getItem(prefix + key);
+            var storage_key = id.toString() + '_' + key;
+            property = localStorage.getItem(storage_key);
+            // console.log(storage_key + ': ' + property);
+            // localStorage.removeItem(storage_key);
 
         } else {
             // No web storage Support

@@ -59,7 +59,7 @@ import black7 from './../../images/tasks/black_7.jpg';
 import black8 from './../../images/tasks/black_8.jpg';
 import black9 from './../../images/tasks/black_9.jpg';
 
-const task_amount = 30;
+const task_amount = 1; // 30;
 
 export const white_games = [
     {id: 1, uid: 'white1', logo: white1, type: 'linedigits', task: '0-7', amount: task_amount},
@@ -196,21 +196,19 @@ export const color_belts = [
     {id: 'tasks', bckgrnd: '#8c1aff', games: task_games, font: '#6600cc', short_name: 'tsk',},
 ];
 
-export function get_games_by_color(color) {
-    var games = white_games;
+export function get_belt_by_color(color) {
     if (color === 'orange') {
-        games = orange_games;
+        return color_belts[1];
     } else if (color === 'green') {
-        games = green_games;
+        return color_belts[2];
     } else if (color === 'navy') {
-        games = navy_games;
+        return color_belts[3];
     } else if (color === 'brown') {
-        games = brown_games;
+        return color_belts[4];
     } else if (color === 'black') {
-        games = black_games;
+        return color_belts[5];
     } else if (color === 'tasks') {
-        games = task_games;
+        return color_belts[6];
     }
-    return games;
+    return color_belts[0];
 }
-

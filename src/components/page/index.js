@@ -125,9 +125,9 @@ export default class SuperMathPage extends React.Component {
     }
 
     componentDidMount() {
-        // console.log('Page.Header -> this.state.belt ' + this.state.belt);
+        // console.log('Page.Header -> this.state.belt ' + this.state.belt + ', get_item ' + get_item(0, 'belt'));
         if ((this.state.id > 0) && (this.state.pswdhash.length > 0)) {
-            // console.log('refreshing ' + this.state.id + ', pswdhash: ' + this.state.pswdhash);
+            console.log('Page.Header -> refreshing ' + this.state.belt);
             var post_data = {
                 'user_id': this.state.id,
                 'pswdhash': this.state.pswdhash,

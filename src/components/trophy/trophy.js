@@ -47,7 +47,7 @@ export default function Trophy(props) {
 
             } else {
                 for (var i in response.data) {
-                    console.log('avatar ' + response.data[i].avatar + ' -> ' + response.data[i].level);
+                    // console.log('avatar ' + response.data[i].avatar + ' -> ' + response.data[i].level);
                     response.data[i]['color'] = get_belt_color(response.data[i].level);
                     array.push(response.data[i]);
                 }

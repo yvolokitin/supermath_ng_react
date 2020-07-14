@@ -1,4 +1,7 @@
 ﻿import React, { useState, useEffect } from 'react';
+import Rating from '@material-ui/lab/Rating';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+
 import {Button} from '@material-ui/core';
 
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -7,9 +10,9 @@ import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite'
 // import {task_titles, task_descriptions} from './../translations/white';
 
 import Info from './info';
-import image from './../../images/tasks/numbers.png';
+// import image from './../../images/tasks/numbers.png';
 import {body} from './../translations/body';
-import './card.css';
+import './cardtask.css';
 
 export default function CardTask(props) {
     const [info, openInfo] = useState(false);
@@ -50,20 +53,22 @@ export default function CardTask(props) {
 
     return (
         <>
-            <div className='card_wrapper' style={{'animation': animation}}>
-                <div className='card_test_wrapper_img' onClick={() => onOpen('game')} style={{backgroundImage: gradient}}>
+            <div className='cardtask_wrapper' style={{'animation': animation}}>
+                <div className='cardtask_wrapper_title' onClick={() => onOpen('game')} style={{backgroundImage: gradient}}>
 
                 </div>
 
-                <div className='card_test_wrapper_text'> {title} </div>
-
-                <div className='card_wrapper_btn'>
+                <div className='cardtask_wrapper_btn'>
                     <Button size='small' color='primary' onClick={() => onOpen('info')}
                         startIcon={<VisibilityIcon/>}> {body[props.lang]['info']}
                     </Button>
                     <Button size='small' color='primary' onClick={() => onOpen('game')}
                         startIcon={<PlayCircleFilledWhiteIcon/>}> {body[props.lang]['play']}
                     </Button>
+                </div>
+
+                <div className='cardtask_wrapper_rate'>
+                    <Rating name="disabled" max={10} value={props.value} size='small' precision={0.5} emptyIcon={<StarBorderIcon fontSize="inherit"/>} disabled/>
                 </div>
             </div>
 
