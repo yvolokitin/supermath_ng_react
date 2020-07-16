@@ -59,7 +59,7 @@ import black7 from './../../images/tasks/black_7.jpg';
 import black8 from './../../images/tasks/black_8.jpg';
 import black9 from './../../images/tasks/black_9.jpg';
 
-const task_amount = 1; // 30;
+const task_amount = 30;
 
 export const white_games = [
     {id: 1, uid: 'white1', logo: white1, type: 'linedigits', task: '0-7', amount: task_amount},
@@ -143,15 +143,15 @@ export const black_games = [
 ];
 
 export const task_games = [
-    {id: 1, uid: 'task_1', time: 0, type: 'task', lock: false},
-    {id: 2, uid: 'task_2', time: 0, type: 'task', lock: true},
-    {id: 3, uid: 'task_3', time: 0, type: 'task', lock: true},
-    {id: 4, uid: 'task_4', time: 0, type: 'task', lock: true},
-    {id: 5, uid: 'task_5', time: 0, type: 'task', lock: true},
-    {id: 6, uid: 'task_6', time: 0, type: 'task', lock: true},
-    {id: 7, uid: 'task_7', time: 0, type: 'task', lock: true},
-    {id: 8, uid: 'task_8', time: 0, type: 'task', lock: true},
-    {id: 9, uid: 'task_9', time: 0, type: 'task', lock: true},
+    {id: 1, uid: 'task_1', time: 0, type: 'task', color: '#6600cc', level: 'beginner', locked: false},
+    {id: 2, uid: 'task_2', time: 0, type: 'task', color: '#0000cc', level: 'elementary', locked: true},
+    {id: 3, uid: 'task_3', time: 0, type: 'task', color: '#336699', level: 'intermediate', locked: true},
+    {id: 4, uid: 'task_4', time: 0, type: 'task', color: '#00b3b3', level: 'upper intermediate', locked: true},
+    {id: 5, uid: 'task_5', time: 0, type: 'task', color: '#006600', level: 'pre-advanced', locked: true},
+    {id: 6, uid: 'task_6', time: 0, type: 'task', color: '#808000', level: 'advanced', locked: true},
+    {id: 7, uid: 'task_7', time: 0, type: 'task', color: '#ff9933', level: 'proficient', locked: true},
+    {id: 8, uid: 'task_8', time: 0, type: 'task', color: '#ff9933', level: 'expert', locked: true},
+    {id: 9, uid: 'task_9', time: 0, type: 'task', color: '#ff0000', level: 'mastery', locked: true},
 ];
 
 /**

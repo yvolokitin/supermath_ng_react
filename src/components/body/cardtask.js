@@ -1,6 +1,8 @@
 ﻿import React, { useState, useEffect } from 'react';
 import Rating from '@material-ui/lab/Rating';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
+
+import StarsIcon from '@material-ui/icons/Stars';
+// import StarBorderIcon from '@material-ui/icons/StarBorder';
 
 import {Button} from '@material-ui/core';
 
@@ -16,6 +18,7 @@ import './cardtask.css';
 
 export default function CardTask(props) {
     const [info, openInfo] = useState(false);
+    const [stars, setStars] = useState(Array(props.value).fill(''));
 
     const [desc, setDesc] = useState([]);
     const [title, setTitle] = useState([]);
@@ -23,7 +26,7 @@ export default function CardTask(props) {
     const [animation, setAnimation] = useState(['none']);
 
     useEffect(() => {
-        console.log('CardTask.useEffect -> ' + props.task.uid);
+        console.log('CardTask.useEffect -> ' + props.task.uid + ', stars.length ' + stars.length);
 
     }, [props.task, props.color, props.lang, ]);
 
@@ -51,11 +54,16 @@ export default function CardTask(props) {
         }
     }
 
+    /*
+    <Rating name="disabled" max={10} value={props.value} size='small' precision={0.5} emptyIcon={<StarBorderIcon fontSize="inherit"/>} disabled/>
+    */
     return (
         <>
             <div className='cardtask_wrapper' style={{'animation': animation}}>
-                <div className='cardtask_wrapper_title' onClick={() => onOpen('game')} style={{backgroundImage: gradient}}>
-
+                <div className='cardtask_wrapper_title'
+                    onClick={() => onOpen('game')}
+                    style={{backgroundImage: gradient, color: props.task.color}}>
+                        {props.task.level}
                 </div>
 
                 <div className='cardtask_wrapper_btn'>
@@ -63,12 +71,13 @@ export default function CardTask(props) {
                         startIcon={<VisibilityIcon/>}> {body[props.lang]['info']}
                     </Button>
                     <Button size='small' color='primary' onClick={() => onOpen('game')}
+                        disabled={props.task.locked}
                         startIcon={<PlayCircleFilledWhiteIcon/>}> {body[props.lang]['play']}
                     </Button>
                 </div>
 
                 <div className='cardtask_wrapper_rate'>
-                    <Rating name="disabled" max={10} value={props.value} size='small' precision={0.5} emptyIcon={<StarBorderIcon fontSize="inherit"/>} disabled/>
+                    {stars.map((star, index) => <StarsIcon key={index} color='primary'/>)}
                 </div>
             </div>
 

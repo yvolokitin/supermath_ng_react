@@ -172,7 +172,7 @@ export default function Tabs(props) {
                 amount={game.amount}
                 lang={props.lang}
                 belt={color}
-                fullScreen={props.width<820}
+                width={props.width}
                 onClose={onGameClose}/>
         </div>
     );
