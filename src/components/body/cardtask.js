@@ -9,30 +9,25 @@ import {Button} from '@material-ui/core';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
 
-// import {task_titles, task_descriptions} from './../translations/white';
+import {tasks} from './../translations/tasks';
 
 import Info from './info';
-// import image from './../../images/tasks/numbers.png';
-import {body} from './../translations/body';
 import './cardtask.css';
 
 export default function CardTask(props) {
     const [info, openInfo] = useState(false);
+
+    const [title, setTitle] = useState(tasks[props.lang][props.task.level]);
+    const [description, setDescription] = useState(tasks[props.lang][props.task.level + '_desc']);
+
     const [stars, setStars] = useState(Array(props.value).fill(''));
 
-    const [desc, setDesc] = useState([]);
-    const [title, setTitle] = useState([]);
-    const [gradient, setGradient] = useState('');
-    const [animation, setAnimation] = useState(['none']);
-
-    useEffect(() => {
+    /*useEffect(() => {
         console.log('CardTask.useEffect -> ' + props.task.uid + ', stars.length ' + stars.length);
 
-    }, [props.task, props.color, props.lang, ]);
+    }, [props.task, props.color, props.lang, ]);*/
 
     function onOpen(property) {
-        // console.log('Card.onClick, props.locked: ' + props.locked);
-        setAnimation('rotate .8s');
         // call in .5sec to show picture rotate animation
         setTimeout(() => {
             if (property === 'info') {
@@ -41,10 +36,6 @@ export default function CardTask(props) {
                 props.onUpdate(props.task);
             }
         }, 700);
-
-        setTimeout(() => {
-            setAnimation('none');
-        }, 1000);
     }
 
     function onClose(property) {
@@ -55,24 +46,26 @@ export default function CardTask(props) {
     }
 
     /*
-    <Rating name="disabled" max={10} value={props.value} size='small' precision={0.5} emptyIcon={<StarBorderIcon fontSize="inherit"/>} disabled/>
     */
     return (
         <>
-            <div className='cardtask_wrapper' style={{'animation': animation}}>
-                <div className='cardtask_wrapper_title'
-                    onClick={() => onOpen('game')}
-                    style={{backgroundImage: gradient, color: props.task.color}}>
-                        {props.task.level}
+            <div className='cardtask_wrapper'>
+                <div className='cardtask_wrapper_title' onClick={() => onOpen('game')}
+                    style={{color: props.task.color}}>
+                        {title}
+                </div>
+
+                <div className='cardtask_wrapper_description'>
+                    {description}
                 </div>
 
                 <div className='cardtask_wrapper_btn'>
                     <Button size='small' color='primary' onClick={() => onOpen('info')}
-                        startIcon={<VisibilityIcon/>}> {body[props.lang]['info']}
+                        startIcon={<VisibilityIcon/>}> {tasks[props.lang]['info']}
                     </Button>
                     <Button size='small' color='primary' onClick={() => onOpen('game')}
                         disabled={props.task.locked}
-                        startIcon={<PlayCircleFilledWhiteIcon/>}> {body[props.lang]['play']}
+                        startIcon={<PlayCircleFilledWhiteIcon/>}> {tasks[props.lang]['play']}
                     </Button>
                 </div>
 
@@ -83,7 +76,7 @@ export default function CardTask(props) {
 
             <Info open={info}
                 title={title}
-                text={desc}
+                text={description}
                 source={props.task.logo}
                 task_id={props.task_id}
                 task={props.task.type}

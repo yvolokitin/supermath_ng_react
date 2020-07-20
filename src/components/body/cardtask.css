@@ -8,7 +8,7 @@
     box-shadow: 1px 1px 3px 0px grey;
 }
 .cardtask_wrapper_title {
-    height: 190px;
+    height: 70px;
     width: 100%;
 
     display: flex;
@@ -26,6 +26,19 @@
 
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+}
+.cardtask_wrapper_description {
+    height: 120px;
+    width: 285px;
+
+    padding: 10px;
+
+    text-align: justify;
+    user-select: none;
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+
+    border: 2px solid black;
 }
 .cardtask_wrapper_btn {
     height: 30px;
