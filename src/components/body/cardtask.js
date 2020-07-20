@@ -1,6 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
-import Rating from '@material-ui/lab/Rating';
-
+﻿import React, { useEffect, useState } from 'react';
 import StarsIcon from '@material-ui/icons/Stars';
 // import StarBorderIcon from '@material-ui/icons/StarBorder';
 
@@ -17,15 +15,18 @@ import './cardtask.css';
 export default function CardTask(props) {
     const [info, openInfo] = useState(false);
 
+    const [stars, setStars] = useState(Array(props.value).fill(''));
     const [title, setTitle] = useState(tasks[props.lang][props.task.level]);
     const [description, setDescription] = useState(tasks[props.lang][props.task.level + '_desc']);
 
-    const [stars, setStars] = useState(Array(props.value).fill(''));
+    useEffect(() => {
+        console.log('CardTask.useEffect -> ' + props.task.uid);
 
-    /*useEffect(() => {
-        console.log('CardTask.useEffect -> ' + props.task.uid + ', stars.length ' + stars.length);
+        setStars(Array(props.value).fill(''))
+        setTitle(tasks[props.lang][props.task.level]);
+        setDescription(tasks[props.lang][props.task.level + '_desc']);
 
-    }, [props.task, props.color, props.lang, ]);*/
+    }, [props.value, props.task, props.lang, ]);
 
     function onOpen(property) {
         // call in .5sec to show picture rotate animation
@@ -46,6 +47,7 @@ export default function CardTask(props) {
     }
 
     /*
+                        {description}
     */
     return (
         <>
@@ -56,7 +58,9 @@ export default function CardTask(props) {
                 </div>
 
                 <div className='cardtask_wrapper_description'>
-                    {description}
+                    <div className='cardtask_wrapper_image'>
+                        <img src={props.task.logo} alt='Vitamins!'/>
+                    </div>
                 </div>
 
                 <div className='cardtask_wrapper_btn'>

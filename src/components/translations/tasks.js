@@ -28,7 +28,8 @@ export const tasks = {
     'ru': {
         'play': 'Решать',
         'info': 'Детали Задач',
-        'beginner': 'ночичок',
+
+        'beginner': 'новичок',
         'elementary': 'базовый',
         'intermediate': 'промежуточный',
         'upper intermediate': 'средний',
@@ -39,8 +40,8 @@ export const tasks = {
         'mastery': 'мастер',
 
         'beginner_desc': 'Основы арифметики и математических действий, умение оперировать с числами до ста. Знание простейших геометрических фигур',
-        'elementary_desc': '',
-        'intermediate_desc': 'intermediate',
+        'elementary_desc': 'Задачи на последовательности чисел и работу с выражениями, основы умножения и деления. Единицы измерения',
+        'intermediate_desc': 'Основы геометрии, числовые выражения и порядок выполнения действий',
         'upper intermediate_desc': 'upper intermediate',
         'pre-advanced_desc': 'pre-advanced',
         'advanced_desc': 'advanced',

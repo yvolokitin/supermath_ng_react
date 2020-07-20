@@ -64,8 +64,8 @@ export default function Tabs(props) {
         set_item(props.id, 'belt', user_tab.id);
 
         setColor(user_tab.id);
-        setBackground(user_tab.bckgrnd);
         setTasks(user_tab.games);
+        setBackground(user_tab.bckgrnd);
     };
 
     function onGameOpen(task) {
