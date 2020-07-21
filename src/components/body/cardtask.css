@@ -54,8 +54,9 @@
     align-items: center;
     justify-content: center;
 
-    border-radius: 50%;
+    cursor: pointer;
     overflow: hidden;
+    border-radius: 50%;
     border: 2px solid grey;
 }
 .cardtask_wrapper_image img {

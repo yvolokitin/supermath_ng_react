@@ -81,6 +81,7 @@ export default function Tabs(props) {
 
     function onGameClose(status, data) {
         if ((status === 'close') || (status === 'register')) {
+            setTaskOpen(false);
             setGameOpen(false);
         }
 
@@ -166,12 +167,8 @@ export default function Tabs(props) {
 
             <TaskGame open={taskOpen}
                 id={props.id}
-                game_uid={game.uid}
-                type={game.type}
-                task={game.task}
-                amount={game.amount}
+                task={game}
                 lang={props.lang}
-                belt={color}
                 width={props.width}
                 onClose={onGameClose}/>
         </div>

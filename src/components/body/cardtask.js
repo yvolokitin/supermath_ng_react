@@ -20,8 +20,7 @@ export default function CardTask(props) {
     const [description, setDescription] = useState(tasks[props.lang][props.task.level + '_desc']);
 
     useEffect(() => {
-        console.log('CardTask.useEffect -> ' + props.task.uid);
-
+        // console.log('CardTask.useEffect -> ' + props.task.uid);
         setStars(Array(props.value).fill(''))
         setTitle(tasks[props.lang][props.task.level]);
         setDescription(tasks[props.lang][props.task.level + '_desc']);
@@ -29,14 +28,13 @@ export default function CardTask(props) {
     }, [props.value, props.task, props.lang, ]);
 
     function onOpen(property) {
-        // call in .5sec to show picture rotate animation
-        setTimeout(() => {
-            if (property === 'info') {
-                openInfo(true);
-            } else if (property === 'game') {
+        if (property === 'info') {
+            openInfo(true);
+        } else if (property === 'game') {
+            if (props.task.locked === false) {
                 props.onUpdate(props.task);
             }
-        }, 700);
+        }
     }
 
     function onClose(property) {
@@ -47,7 +45,6 @@ export default function CardTask(props) {
     }
 
     /*
-                        {description}
     */
     return (
         <>
@@ -57,19 +54,18 @@ export default function CardTask(props) {
                         {title}
                 </div>
 
-                <div className='cardtask_wrapper_description'>
+                <div className='cardtask_wrapper_description' onClick={() => onOpen('game')}>
                     <div className='cardtask_wrapper_image'>
-                        <img src={props.task.logo} alt='Vitamins!'/>
+                        <img src={props.task.logo} alt='level'/>
                     </div>
                 </div>
 
                 <div className='cardtask_wrapper_btn'>
-                    <Button size='small' color='primary' onClick={() => onOpen('info')}
-                        startIcon={<VisibilityIcon/>}> {tasks[props.lang]['info']}
+                    <Button size='small' color='primary' onClick={() => onOpen('info')} startIcon={<VisibilityIcon/>}>
+                        {tasks[props.lang]['info']}
                     </Button>
-                    <Button size='small' color='primary' onClick={() => onOpen('game')}
-                        disabled={props.task.locked}
-                        startIcon={<PlayCircleFilledWhiteIcon/>}> {tasks[props.lang]['play']}
+                    <Button size='small' color='primary' onClick={() => onOpen('game')} disabled={props.task.locked} startIcon={<PlayCircleFilledWhiteIcon/>}>
+                        {tasks[props.lang]['play']}
                     </Button>
                 </div>
 
