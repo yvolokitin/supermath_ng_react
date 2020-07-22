@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import {generate_task} from './../halpers/arithmetic';
-import SMKeyBoard from './../keyboard/keyboard';
+import KeyBoard from './../keyboard/keyboard';
 import OperatorBoard from './../keyboard/operatorboard';
 import LineNumbersBoard from './../keyboard/linenumbersboard';
 import './gameboard.css';
@@ -69,23 +69,19 @@ export default class GameBoard extends React.Component {
         }
     }
 
-    onDigit({ target }) {
-        if ('innerText' in target) {
-            // console.log('onDigit ' + target.innerText);
-            // skip any checks if in red already
-            if (this.loading === false) {
-                this.check_response((target.innerText).toString());
-            }
-        } else {
-            console.log('onDigit received wrong argument');
+    onDigit(digit_number) {
+        // console.log('onDigit ' + target.innerText);
+        // skip any checks if in red already
+        if (this.loading === false) {
+            this.check_response(digit_number);
         }
     }
 
-    onOperator({ target }) {
+    onOperator(symbol) {
         // console.log('check operator response ' + target.innerText);
         if (this.loading === false) {
             if (this.props.type.includes('_fr')) {
-                this.check_response(target.innerText);
+                this.check_response(symbol);
 
             } else if (this.props.type.includes('digit')) {
                 var expected_result = this.state.task.result.toString();
@@ -100,13 +96,13 @@ export default class GameBoard extends React.Component {
                 // white, level 6:
                 // {id: 6, logo: logo6, type: '2digit_arg', task: 'o,+-,1-10,1-10,1,1', amount: task_amount},
                 } else if ((this.props.type === '2digit_arg') && (this.props.task.includes('o'))) {
-                    this.check_response(target.innerText);
+                    this.check_response(symbol);
 
                 } else {
-                    console.log('Escaping backspace ' + target.innerText);
+                    console.log('Escaping backspace ' + symbol);
                 }
             } else {
-                this.check_response(target.innerText);
+                this.check_response(symbol);
             }
         }
     }
@@ -384,7 +380,7 @@ export default class GameBoard extends React.Component {
                           {this.props.task.includes('o,') ? (
                             <OperatorBoard onOperator={this.onOperator} plus={true} minus={true}/>
                           ) : (
-                            <SMKeyBoard onDigit={this.onDigit} onOperator={this.onOperator}/>
+                            <KeyBoard onDigit={this.onDigit} onOperator={this.onOperator}/>
                           )}
                       </div>
                     </>
