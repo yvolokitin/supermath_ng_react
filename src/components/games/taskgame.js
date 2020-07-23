@@ -97,7 +97,7 @@ export default function TaskGame(props) {
     }
 
     const onDigit = (number) => {
-        console.log('TaskGame.onDigit ' + number);
+        // console.log('TaskGame.onDigit ' + number);
         // if result is ? -> some error from server and we have no task
         if (result !== '?') {
             if (answer === '?') {
@@ -111,7 +111,7 @@ export default function TaskGame(props) {
     }
 
     const onOperator = (symbol) => {
-        console.log('TaskGame.onOperator ' + symbol);
+        // console.log('TaskGame.onOperator ' + symbol);
         if (symbol === 'clear' && answer !== '?' && result !== '?') {
             if (answer.length === 1) {
                 setFont('grey'); setAnswer('?');
