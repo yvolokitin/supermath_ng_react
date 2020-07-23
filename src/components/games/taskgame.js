@@ -43,12 +43,13 @@ export default function TaskGame(props) {
             if ('error' in response.data) {
                 console.log('onGetNewTaskUpdate error ' + response.data.error);
                 setTask('Error: ' + response.data.error);
-                setImage(url_prefix + 'error.jpg');
+                setImage(url_prefix + 'sm_error.jpg');
 
             } else if ('id' in response.data) {
-                console.log('onGetNewTaskUpdate ' + response.data.id + ', ' + response.data.level);
+                console.log('onGetNewTaskUpdate ' + response.data.id + ', ' + response.data.level + ', ' + response.data.image);
                 setTask(response.data.description);
                 setResult(response.data.result);
+                setImage(url_prefix + response.data.image);
 
                 // set answer to ? and blinking
                 setCounter(0); setFont('grey'); setAnswer('?');
@@ -57,11 +58,11 @@ export default function TaskGame(props) {
         }
 
         setLoading(false);
-
     }, [ ])
 
     const onGetNewTaskError = useCallback((error) => {
         console.log('Header.onScoresError ' + error);
+        setTask('Error: ' + error);
         setLoading(false);
     }, [ ])
 
@@ -76,15 +77,14 @@ export default function TaskGame(props) {
     useEffect(() => {
         console.log('TaskGame.useEffect -> ' + props.task.uid);
         if (props.open === true) {
-            setLoading(true);
-            getNewTask(url_prefix + 'sm_error.jpg');
+            setFloatDesk('left'); setFloatBoard('right');
+            setLoading(true); getNewTask();
         } else {
             setCounter(0); setTotal(0);
             setPassed(0); setFailed(0);
             setAnswer('?'); setResult('?');
             setFont('grey'); setAnimation('blinker 5s linear infinite');
         }
-
     }, [props.open, props.task, getNewTask]);
 
     const onAlertDialog = (status) => {
@@ -98,18 +98,21 @@ export default function TaskGame(props) {
 
     const onDigit = (number) => {
         console.log('TaskGame.onDigit ' + number);
-        if (answer === '?') {
-            setAnswer(number); setFont('black');
-            setAnimation('none');
-        } else {
-            var new_aswer = answer + number;
-            setAnswer(new_aswer);
+        // if result is ? -> some error from server and we have no task
+        if (result !== '?') {
+            if (answer === '?') {
+                setAnswer(number); setFont('black');
+                setAnimation('none');
+            } else {
+                var new_aswer = answer + number;
+                setAnswer(new_aswer);
+            }
         }
     }
 
     const onOperator = (symbol) => {
         console.log('TaskGame.onOperator ' + symbol);
-        if (symbol === 'clear' && answer !== '?') {
+        if (symbol === 'clear' && answer !== '?' && result !== '?') {
             if (answer.length === 1) {
                 setFont('grey'); setAnswer('?');
                 setAnimation('blinker 5s linear infinite');
@@ -128,9 +131,12 @@ export default function TaskGame(props) {
                     setPassed(passed + 1);
                 }
 
+                setFont('green');
+                setLoading(true);
+
                 setTimeout(() => {
                     getNewTask();
-                }, 700);
+                }, 1300);
 
             } else {
                 if (counter === 0) {
@@ -167,7 +173,7 @@ export default function TaskGame(props) {
                 <div className='taskgame_body_wrapper_left' style={{'float': float_desk}}>
                     <div className='taskgame_body_wrapper_up'>
                             <div className='taskgame_gameboard_image_wrapper'>
-                                <img src={image} alt='task image' onContextMenu={(e) => e.preventDefault()}/>
+                                <img src={image} alt='task' onContextMenu={(e) => e.preventDefault()}/>
                             </div>
                     </div>
                     <div className='taskgame_body_wrapper_down'>
@@ -188,10 +194,16 @@ export default function TaskGame(props) {
                     </div>
 
                     <div className='taskgame_body_wrapper_down' style={{alignItems: 'center'}}>
-                        <KeyBoard onDigit={onDigit} onOperator={onOperator}/>
+                        <KeyBoard onDigit={onDigit} onOperator={onOperator} plus={true} minus={true}/>
                     </div>
                 </div>
             </div>
+
+            {(props.lang !== 'ru') ? (
+                <div className='taskgame_footer_wrapper'>
+                    {taskgame[props.lang]['sorry']}
+                </div>
+            ) : (<></>)}
 
             <AlertDialog open={openAlert}
                 fullScreen={props.fullScreen}

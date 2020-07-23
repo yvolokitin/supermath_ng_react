@@ -19,6 +19,15 @@ export default function KeyBoard(props) {
             <button id='dot' onClick={() => props.onOperator('.')}>.</button>
             <button id='zero' onClick={() => props.onDigit('0')}>0</button>
             <button id='clear' onClick={() => props.onOperator('clear')}>&#60;</button>
+
+            {(props.plus) ? (
+                <button id='plus' onClick={() => props.onOperator('+')}>+</button>
+            ) : ( <></> )}
+
+            {(props.minus) ? (
+                <button id='minus' onClick={() => props.onOperator('-')}>-</button>
+            ) : ( <></> )}
+
         </div>
     );
 }

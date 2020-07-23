@@ -154,7 +154,7 @@ export const black_games = [
 
 export const task_games = [
     {id: 1, uid: 'task_1', time: 0, logo: task1, type: 'task', color: '#9900ff', level: 'beginner', locked: false},
-    {id: 2, uid: 'task_2', time: 0, logo: task2, type: 'task', color: '#0000cc', level: 'elementary', locked: true},
+    {id: 2, uid: 'task_2', time: 0, logo: task2, type: 'task', color: '#0000cc', level: 'elementary', locked: false},
     {id: 3, uid: 'task_3', time: 0, logo: task3, type: 'task', color: '#336699', level: 'intermediate', locked: true},
     {id: 4, uid: 'task_4', time: 0, logo: task4, type: 'task', color: '#00b3b3', level: 'upper intermediate', locked: true},
     {id: 5, uid: 'task_5', time: 0, logo: task5, type: 'task', color: '#808000', level: 'pre-advanced', locked: true},
