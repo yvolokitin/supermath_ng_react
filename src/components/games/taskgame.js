@@ -19,6 +19,7 @@ export default function TaskGame(props) {
     const [task, setTask] = useState('');
     const [loading, setLoading] = useState(true);
 
+    const [counter, setCounter] = useState(0);
     const [total, setTotal] = useState(0);
     const [passed, setPassed] = useState(0);
     const [failed, setFailed] = useState(0);
@@ -26,9 +27,10 @@ export default function TaskGame(props) {
     const [answer, setAnswer] = useState('?');
     const [result, setResult] = useState('?');
 
-    const [openAlert, setOpenAlert] = useState(false);
-    const [animation, setAnimation] = useState('blinker 3s linear infinite');
     const [font, setFont] = useState('grey');
+    const [animation, setAnimation] = useState('blinker 5s linear infinite');
+
+    const [openAlert, setOpenAlert] = useState(false);
 
     const onGetNewTaskUpdate = useCallback((response) => {
         if ('data' in response) {
@@ -42,9 +44,8 @@ export default function TaskGame(props) {
                 setResult(response.data.result);
 
                 // set answer to ? and blinking
-                setAnimation('blinker 3s linear infinite');
-                setFont('grey');
-                setAnswer('?');
+                setCounter(0); setFont('grey'); setAnswer('?');
+                setAnimation('blinker 5s linear infinite');
             }
         }
 
@@ -63,13 +64,18 @@ export default function TaskGame(props) {
              .then(onGetNewTaskUpdate)
              .catch(onGetNewTaskError);
 
-    }, [props.task, onGetNewTaskUpdate, onGetNewTaskError])
+    }, [props.lang, props.task, onGetNewTaskUpdate, onGetNewTaskError])
 
     useEffect(() => {
         console.log('TaskGame.useEffect -> ' + props.task.uid);
         if (props.open === true) {
             setLoading(true);
             getNewTask();
+        } else {
+            setCounter(0); setTotal(0);
+            setPassed(0); setFailed(0);
+            setAnswer('?'); setResult('?');
+            setFont('grey'); setAnimation('blinker 5s linear infinite');
         }
 
     }, [props.open, props.task, getNewTask]);
@@ -86,9 +92,8 @@ export default function TaskGame(props) {
     const onDigit = (number) => {
         console.log('TaskGame.onDigit ' + number);
         if (answer === '?') {
-            setAnswer(number);
+            setAnswer(number); setFont('black');
             setAnimation('none');
-            setFont('black');
         } else {
             var new_aswer = answer + number;
             setAnswer(new_aswer);
@@ -97,6 +102,37 @@ export default function TaskGame(props) {
 
     const onOperator = (symbol) => {
         console.log('TaskGame.onOperator ' + symbol);
+        if (symbol === 'clear' && answer !== '?') {
+            if (answer.length === 1) {
+                setFont('grey'); setAnswer('?');
+                setAnimation('blinker 5s linear infinite');
+            } else {
+                setAnswer(answer.slice(0, -1));
+            }
+        }
+    }
+
+    function checkAnswer() {
+        console.log('answer ' + answer + ', result ' + result);
+        if (answer !== '?') {
+            if (answer === result) {
+                setTotal(total + 1);
+                if (counter === 0) {
+                    setPassed(passed + 1);
+                }
+
+                setTimeout(() => {
+                    getNewTask();
+                }, 700);
+
+            } else {
+                if (counter === 0) {
+                    setFailed(failed + 1);
+                }
+
+                setCounter(counter + 1);
+            }
+        }
     }
 
     return (
@@ -106,9 +142,15 @@ export default function TaskGame(props) {
                     <font onClick={() => setOpenAlert(true)}>SUPERMATH</font>
                 </div>
                 <div className='taskgame_header_div_right'>
-                    <font style={{color: 'black'}}>{total}</font> &nbsp; &#128279; &nbsp;
-                    <font style={{color: 'green'}}>{passed}</font> &nbsp; &#128515; &nbsp;
-                    <font style={{color: 'red'}}>{failed}</font> &nbsp; &#128169;
+                    <font style={{color: 'black'}}>
+                        {total} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128279;</span>
+                    </font> &nbsp;
+                    <font style={{color: 'green'}}>
+                        {passed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
+                    </font> &nbsp;
+                    <font style={{color: 'red'}}>
+                        {failed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
+                    </font>
                 </div>
             </div>
 
@@ -125,9 +167,13 @@ export default function TaskGame(props) {
                     <div className='taskgame_body_div_right_wrapper'>
                         <div className='taskgame_body_div_right_up'>
                             <div className='taskgame_answer'>
-                                <font styles={{'color': font, 'animation': animation}}>
+                                <font style={{'color': font, 'animation': animation}}>
                                     {answer}
                                 </font>
+                            </div>
+
+                            <div className='taskgame_answer_btn' onClick={checkAnswer}>
+                                {gameheader[props.lang]['answer']}
                             </div>
                         </div>
 

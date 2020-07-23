@@ -135,7 +135,7 @@ export default function GameResults(props) {
                 <div className='result_board_button_right'>
                     <div className='result_board_button' onClick={() => props.onClose('replay', data)}>
                         {gameresults[props.lang]['play']}
-                        </div>
+                    </div>
                     <div className='result_board_button' onClick={() => props.onClose('close', data)}>
                         {gameresults[props.lang]['close']}
                     </div>

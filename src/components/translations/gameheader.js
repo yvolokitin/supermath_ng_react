@@ -6,6 +6,7 @@ export const gameheader = {
         'text': 'You will lose All your Passed scores data if you Exit (when Fails counter will be kept under your profile)! We are strongly recommend you to finish current Math tasks',
         'yes': 'Exit',
         'no': 'Let Me Stay and Continue',
+        'answer': 'answer',
     },
     // Russian
     'ru': {
@@ -13,6 +14,7 @@ export const gameheader = {
         'text': 'При выходе из игры, вы потеряете Все успешно набранные очки (при том, что неудачно набранные очки сохранятся для вас)! Мы настоятельно рекомендуем закончить текущую игру',
         'yes': 'Выход',
         'no': 'Позвольте мне Продолжить',
+        'answer': 'проверить',
     },
     // Dutch
     'nl' : {
@@ -20,6 +22,7 @@ export const gameheader = {
         'text': 'You will lose All your Passed scores data if you Exit (when Fails counter will be kept under your profile)! We are strongly recommend you to finish current Math tasks',
         'yes': 'Exit',
         'no': 'Let Me Stay and Continue',
+        'answer': 'answer',
     },
     // French
     'fr' : {
@@ -27,6 +30,7 @@ export const gameheader = {
         'text': 'You will lose All your Passed scores data if you Exit (when Fails counter will be kept under your profile)! We are strongly recommend you to finish current Math tasks',
         'yes': 'Exit',
         'no': 'Let Me Stay and Continue',
+        'answer': 'answer',
     },
     // German
     'de' : {
@@ -34,6 +38,7 @@ export const gameheader = {
         'text': 'You will lose All your Passed scores data if you Exit (when Fails counter will be kept under your profile)! We are strongly recommend you to finish current Math tasks',
         'yes': 'Exit',
         'no': 'Let Me Stay and Continue',
+        'answer': 'answer',
     },
     // Spanish
     'es' : {
@@ -41,6 +46,7 @@ export const gameheader = {
         'text': 'You will lose All your Passed scores data if you Exit (when Fails counter will be kept under your profile)! We are strongly recommend you to finish current Math tasks',
         'yes': 'Exit',
         'no': 'Let Me Stay and Continue',
+        'answer': 'answer',
     },
     // Italian
     'it' : {
@@ -48,5 +54,6 @@ export const gameheader = {
         'text': 'You will lose All your Passed scores data if you Exit (when Fails counter will be kept under your profile)! We are strongly recommend you to finish current Math tasks',
         'yes': 'Exit',
         'no': 'Let Me Stay and Continue',
+        'answer': 'answer',
     },
 };
