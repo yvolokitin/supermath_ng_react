@@ -5,11 +5,13 @@ import axios from 'axios';
 
 import ColorLine from './../line/line';
 import AlertDialog from './../alert/alert';
-import {gameheader} from './../translations/gameheader';
+import {taskgame} from './../translations/taskgame';
 
 import KeyBoard from './../keyboard/keyboard';
 
 import './taskgame.css';
+
+const url_prefix = 'http://supermath.xyz:3000/static/images/';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='up' ref={ref} {...props} />;
@@ -24,8 +26,12 @@ export default function TaskGame(props) {
     const [passed, setPassed] = useState(0);
     const [failed, setFailed] = useState(0);
 
+    const [image, setImage] = useState('');
     const [answer, setAnswer] = useState('?');
     const [result, setResult] = useState('?');
+
+    const [float_desk, setFloatDesk] = useState('left');
+    const [float_board, setFloatBoard] = useState('right');
 
     const [font, setFont] = useState('grey');
     const [animation, setAnimation] = useState('blinker 5s linear infinite');
@@ -35,8 +41,9 @@ export default function TaskGame(props) {
     const onGetNewTaskUpdate = useCallback((response) => {
         if ('data' in response) {
             if ('error' in response.data) {
-                console.log('onGetNewTaskUpdate ' + response.data.id + ', ' + response.data.level);
+                console.log('onGetNewTaskUpdate error ' + response.data.error);
                 setTask('Error: ' + response.data.error);
+                setImage(url_prefix + 'error.jpg');
 
             } else if ('id' in response.data) {
                 console.log('onGetNewTaskUpdate ' + response.data.id + ', ' + response.data.level);
@@ -70,7 +77,7 @@ export default function TaskGame(props) {
         console.log('TaskGame.useEffect -> ' + props.task.uid);
         if (props.open === true) {
             setLoading(true);
-            getNewTask();
+            getNewTask(url_prefix + 'sm_error.jpg');
         } else {
             setCounter(0); setTotal(0);
             setPassed(0); setFailed(0);
@@ -137,17 +144,17 @@ export default function TaskGame(props) {
 
     return (
         <Dialog open={props.open} fullScreen={true} TransitionComponent={Transition} transitionDuration={900}>
-            <div className='taskgame_header_div'>
-                <div className='taskgame_header_div_left'>
-                    <font onClick={() => setOpenAlert(true)}>SUPERMATH</font>
+            <div className='taskgame_header_wrapper'>
+                <div className='taskgame_header_wrapper_left' style={{'float': float_desk}}>
+                    <font style={{color: 'orange'}} onClick={() => setOpenAlert(true)}>SUPERMATH</font>
                 </div>
-                <div className='taskgame_header_div_right'>
+                <div className='taskgame_header_wrapper_right' style={{'float': float_board}}>
                     <font style={{color: 'black'}}>
                         {total} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128279;</span>
-                    </font> &nbsp;
+                    </font>
                     <font style={{color: 'green'}}>
                         {passed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
-                    </font> &nbsp;
+                    </font>
                     <font style={{color: 'red'}}>
                         {failed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                     </font>
@@ -156,40 +163,41 @@ export default function TaskGame(props) {
 
             <ColorLine margin={'0px'}/>
 
-            <div className='taskgame_board_wrapper'>
-                <div className='taskgame_body_div_left'>
-                    <div className='taskgame_line_gameboard'>
-                        {task}
+            <div className='taskgame_body_wrapper'>
+                <div className='taskgame_body_wrapper_left' style={{'float': float_desk}}>
+                    <div className='taskgame_body_wrapper_up'>
+                            <div className='taskgame_gameboard_image_wrapper'>
+                                <img src={image} alt='task image' onContextMenu={(e) => e.preventDefault()}/>
+                            </div>
+                    </div>
+                    <div className='taskgame_body_wrapper_down'>
+                        <div className='taskgame_line_gameboard'> {task} </div>
                     </div>
                 </div>
 
-                <div className='taskgame_body_div_right'>
-                    <div className='taskgame_body_div_right_wrapper'>
-                        <div className='taskgame_body_div_right_up'>
-                            <div className='taskgame_answer'>
-                                <font style={{'color': font, 'animation': animation}}>
-                                    {answer}
-                                </font>
-                            </div>
-
-                            <div className='taskgame_answer_btn' onClick={checkAnswer}>
-                                {gameheader[props.lang]['answer']}
-                            </div>
+                <div className='taskgame_body_wrapper_right' style={{'float': float_board}}>
+                    <div className='taskgame_body_wrapper_up'>
+                        <div className='taskgame_answer_text'>
+                            <font style={{'color': font, 'animation': animation}}>
+                                {answer}
+                            </font>
                         </div>
-
-                        <div className='taskgame_body_div_right_down'>
-                            <KeyBoard onDigit={onDigit} onOperator={onOperator}/>
+                        <div className='taskgame_answer_btn' onClick={checkAnswer}>
+                            {taskgame[props.lang]['answer']}
                         </div>
+                    </div>
+
+                    <div className='taskgame_body_wrapper_down' style={{alignItems: 'center'}}>
+                        <KeyBoard onDigit={onDigit} onOperator={onOperator}/>
                     </div>
                 </div>
             </div>
 
             <AlertDialog open={openAlert}
                 fullScreen={props.fullScreen}
-                title={gameheader[props.lang]['title']}
-                text={''}
-                yes={gameheader[props.lang]['yes']}
-                no={gameheader[props.lang]['no']}
+                title={taskgame[props.lang]['title']}
+                yes={taskgame[props.lang]['yes']}
+                no={taskgame[props.lang]['no']}
                 onClose={onAlertDialog}/>
         </Dialog>
     );

@@ -1,73 +1,109 @@
-.taskgame_header_div {
-    height: 10%;
+.taskgame_header_wrapper {
+    height: 9%;
     width: 100%;
+
     font-size: 2.00rem;
     font-family: 'Grinched';
     text-shadow: 2px 2px black;
 }
-.taskgame_header_div_left {
-    height: 100%;
-    width: 61%;
-    padding: 2%;
-    float: left;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    color: green;
-}
-.taskgame_header_div_right {
-    height: 100%;
-    width: 38%;
-    float: right;
-    cursor: pointer;
-    color: orange;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.taskgame_board_wrapper {
-    height: 100%;
-    width: 100%;
-}
-.taskgame_body_div_left {
+.taskgame_header_wrapper_left {
     height: 100%;
     width: 64%;
     float: left;
+    padding-left: 2%;
 
     display: flex;
     align-items: center;
-    justify-content: center;
+
+    color: orange;
+    cursor: pointer;
 }
-.taskgame_body_div_right {
+.taskgame_header_wrapper_right {
     height: 100%;
     width: 35%;
     float: right;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.taskgame_body_wrapper {
+    height: 100%;
+    width: 100%;
+}
+.taskgame_body_wrapper_left {
+    height: 100%;
+    width: 64%;
+    float: left;
+}
+.taskgame_body_wrapper_right {
+    height: 100%;
+    width: 35%;
+    float: right;
+}
+.taskgame_body_wrapper_up {
+    height: 34%;
+    width: 98%;
+
+    margin-top: 1%;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+.taskgame_body_wrapper_down {
+    height: 64%;
+    width: 98%;
+    margin-left: 1%;
+    margin-right: 1%;
+
+    display: flex;
+    justify-content: center;
+}
+.taskgame_gameboard_image_wrapper {
+    height: 90%;
+    width: 100%;
 
     display: flex;
     align-items: center;
     justify-content: center;
+
+    border-radius: 15px;
+    box-shadow: 1px 1px 3px 0px black;
 }
-.taskgame_body_div_right_wrapper {
-    height: 80%;
-    width: 100%;
+.taskgame_gameboard_image_wrapper img {
+    height: 95%;
+    width: auto;
 }
-.taskgame_body_div_right_up {
-    height: 30%;
+.taskgame_line_gameboard {
+    height: 90%;
     width: 100%;
-}
-.taskgame_body_div_right_down {
-    height: 70%;
-    width: 100%;
+
+    padding: 13px;
 
     display: flex;
     align-items: center;
-    justify-content: center;
+
+    user-select: none;
+    text-align: justify;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+
+    background-color: #006600;
+    color: white;
+
+    border: 3px solid black;
+    border-radius: 15px;
 }
-.taskgame_answer {
-    height: 70px;
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
+
+.taskgame_answer_text {
+    height: 35%;
+    width: 96%;
+
+    margin-top: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
     
     display: flex;
     align-items: center;
@@ -78,9 +114,9 @@
     font-size: 2.0rem;
 
     border-radius: 5px;
-    box-shadow: 1px 1px 3px 0px grey;
+    box-shadow: 1px 1px 3px 0px black;
 }
-.taskgame_answer font {
+.taskgame_answer_text font {
     animation: blinker 5s linear infinite; 
 }
 @keyframes blinker {
@@ -89,12 +125,12 @@
     }
 }
 .taskgame_answer_btn {
-    height: 40px;
-    width: 90%;
+    height: 25%;
+    width: 96%;
 
     margin-top: 5%;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 2%;
+    margin-right: 2%;
 
     display: flex;
     align-items: center;
@@ -120,56 +156,23 @@
 .taskgame_answer_btn:focus {
     outline: none;
 }
-.taskgame_line_gameboard {
-    height: 80%;
-    width: 95%;
-
-    padding: 13px;
-
-    display: flex;
-    align-items: center;
-
-    user-select: none;
-    text-align: justify;
-    font-size: 20px;
-    font-weight: bold;
-    font-family: 'Roboto', Helvetica, Arial, sans-serif;
-
-    background-color: #006600;
-    color: white;
-
-    border: 3px solid black;
-    border-radius: 15px 50px;
-    box-shadow: 7px 7px black;
-}
 @media only screen and (max-width: 760px) {
-    .taskgame_header_div {
+    .taskgame_header_wrapper {
         font-size: 1.5rem;
         text-shadow: 1px 1px black;
     }
-    .taskgame_header_div_left {
+    .taskgame_header_wrapper_left {
         width: 49%;
     }
-    .taskgame_header_div_right {
+    .taskgame_header_wrapper_right {
         width: 50%;
     }
 }
 @media only screen and (max-width: 600px) {
-    .taskgame_header_div_left {
+    .taskgame_header_wrapper_left {
         width: 35%;
     }
-    .taskgame_header_div_right {
+    .taskgame_header_wrapper_right {
         width: 64%;
-    }
-}
-
-@media only screen and (max-height: 770px) {
-    .taskgame_header_div {
-        height: 5%;
-        margin-top: 1%;
-
-        font-size: 1.5rem;
-        font-family: "Grinched";
-        text-shadow: 1px 1px black;
     }
 }
