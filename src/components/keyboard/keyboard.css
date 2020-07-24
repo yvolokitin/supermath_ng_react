@@ -4,7 +4,6 @@
     min-width: 340px;
     max-width: 340px;
 }
-
 .keyboard button {
     font-family: "Grinched";
     -webkit-box-flex: 1;
@@ -23,7 +22,6 @@
     -moz-transition: background-color 1s ease-out;
     transition: background-color 1s ease-out;
 }
-
 .keyboard button:hover {
     border: 1px solid #aaa;
 }
@@ -35,13 +33,47 @@
     outline: none;
 }
 
+@media only screen and (max-width: 980px) {
+    .keyboard {
+        min-width: 320px;
+        max-width: 320px;
+    }
+    .keyboard button {
+        margin: 0.3rem;
+        font-size: 2.65rem;
+    }
+}
+@media only screen and (max-width: 920px) {
+    .keyboard {
+        min-width: 300px;
+        max-width: 300px;
+    }
+    .keyboard button {
+        margin: 0.25rem;
+        font-size: 2.55rem;
+    }
+}
+@media only screen and (max-width: 860px) {
+    .keyboard {
+        min-width: 270px;
+        max-width: 270px;
+    }
+    .keyboard button {
+        margin: 0.10rem;
+        font-size: 2.55rem;
+    }
+}
+@media only screen and (max-width: 780px) {
+    .keyboard {
+        min-width: 250px;
+        max-width: 250px;
+    }
+    .keyboard button {
+        font-size: 2.25rem;
+    }
+}
 #dot,
 #clear,
-#more,
-#equals,
-#less,
-#plus,
-#minus,
 #divide,
 #multiply,
 #subtract,
@@ -50,10 +82,6 @@
 }
 
 #dot:active,
-#clear:active,
-#equals:active,
-#plus:active,
-#minus:active,
 #divide:active,
 #multiply:active,
 #subtract:active,
@@ -64,9 +92,6 @@
 
 #dot:hover,
 #clear:hover,
-#equals:hover,
-#plus:hover,
-#minus:hover,
 #divide:hover,
 #multiply:hover,
 #subtract:hover,
