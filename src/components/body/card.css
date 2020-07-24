@@ -90,7 +90,7 @@
     padding-right: 10px;
 
     color: #333333;
-    text-align: left;
+    text-align: justify;
     user-select: none;
     font-family: 'Roboto', Helvetica, Arial, sans-serif;
     font-size: 14px;
@@ -111,20 +111,19 @@
     user-select: none;
     font-family: 'Roboto', Helvetica, Arial, sans-serif;
     font-size: 14px;
-    /*font-weight: bold;*/
-
     background-color: #fbfbf8;
 }
 .card_wrapper_btn {
     height: 35px;
     width: 100%;
-    padding-left: 10px;
 
     display: flex;
     align-items: center;
+    justify-content: space-around;
 
     background-color: #fbfbf8;
     color: #3f51b5;
+    border-radius: 5px;
 }
 .card_info_title {
     margin-top: 3%;
@@ -166,27 +165,42 @@
         min-height: 190px;
     }
     .card_wrapper_img {
-        height: 121px;
+        height: 128px;
         width: 100%;
     }
     .card_wrapper_img img {
-        height: 121px;
-        width: auto;
+        height: auto;
+        width: 245px;
     }
     .card_test_wrapper_img {
-        height: 147px;
+        height: 140px;
         width: auto;
+    }
+    .card_wrapper_img_disabled {
+        height: 121px;
+        width: auto;
+        overflow: hidden;
+    }
+    .card_wrapper_img_disabled img {
+        height: 161px;
+        width: auto;
+        overflow: hidden;
     }
     .card_wrapper_text {
         min-width: 245px;
         max-width: 245px;
-
-        height: 52px;
+        height: 39px;
+        font-size: 12px;
     }
     .card_test_wrapper_text {
         min-width: 245px;
         max-width: 245px;
-
-        height: 26px;
+        height: 27px;
+        font-size: 13px;
+    }
+    .card_wrapper_btn {
+        height: 23px;
+        width: 100%;
+        padding-left: 0;
     }
 }
