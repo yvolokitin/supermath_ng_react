@@ -34,11 +34,10 @@
     float: right;
     cursor: pointer;
 
-    text-align: right;
-
     overflow: hidden;
     white-space: nowrap; 
     text-overflow: clip; 
+    text-align: right;
 
     display: flex;
     align-items: center;
@@ -165,15 +164,6 @@
     }
 }
 @media only screen and (max-width: 580px) {
-    .div_supermath_long {
-        display: none;
-    }
-    .div_supermath_short {
-        display: block;
-        margin-left: 5%;
-        color: orange;
-        transition: transform 1.0s;
-    }
     .header_div {
         height: 80px;
         font-size: 2.0rem;
@@ -184,7 +174,7 @@
 
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: space-around;
     }
     .header_div_right {
         height: 50%;
@@ -192,7 +182,7 @@
 
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: space-around;
     }
     .div_register {
         margin: auto;
@@ -203,6 +193,22 @@
         color: orange;
     }
     .div_lang {
-        margin: auto;
+        height: 100%;
+        margin: none;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+@media only screen and (max-width: 380px) {
+    .div_supermath_long {
+        display: none;
+    }
+    .div_supermath_short {
+        display: block;
+        margin-left: 5%;
+        color: orange;
+        transition: transform 1.0s;
     }
 }

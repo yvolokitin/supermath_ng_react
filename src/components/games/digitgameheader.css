@@ -2,18 +2,20 @@
     height: 10%;
     width: 100%;
     font-size: 2.00rem;
-    font-family: "Grinched";
+    font-family: 'Grinched';
     text-shadow: 2px 2px black;
 }
 .games_header_div_left {
     height: 100%;
     width: 61%;
     padding: 2%;
+
+    color: green;
     float: left;
     cursor: pointer;
+
     display: flex;
     align-items: center;
-    color: green;
 }
 .games_header_div_right {
     height: 100%;
@@ -22,38 +24,47 @@
     cursor: pointer;
     color: orange;
     display: flex;
+
     align-items: center;
     justify-content: center;
+    justify-content: space-around;
 }
 @media only screen and (max-width: 760px) {
     .games_header_div {
-        font-size: 1.5rem;
-        font-family: "Grinched";
+        margin-top: 3px;
+        font-size: 2rem;
         text-shadow: 1px 1px black;
     }
     .games_header_div_left {
-        width: 49%;
+        width: 59%;
     }
     .games_header_div_right {
-        width: 50%;
+        width: 40%;
     }
 }
 @media only screen and (max-width: 600px) {
+    .games_header_div {
+        margin-top: 1px;
+        font-size: 1.8rem;
+        text-shadow: 1px 1px black;
+    }
     .games_header_div_left {
-        width: 35%;
+        width: 39%;
     }
     .games_header_div_right {
-        width: 64%;
+        width: 60%;
     }
 }
-
-@media only screen and (max-height: 770px) {
+@media only screen and (max-width: 480px) {
+    .games_header_div_left {
+        width: 34%;
+    }
+    .games_header_div_right {
+        width: 65%;
+    }
+}
+@media only screen and (max-width: 400px) {
     .games_header_div {
-        height: 5%;
-        margin-top: 1%;
-
         font-size: 1.5rem;
-        font-family: "Grinched";
-        text-shadow: 1px 1px black;
     }
 }

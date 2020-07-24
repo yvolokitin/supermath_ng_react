@@ -44,3 +44,17 @@
         font-size: 2.5rem;
     }
 }
+@media only screen and (max-width: 940px) {
+    .linekeyboard {
+        min-width: 96%;
+        max-width: 96%;
+    }
+}
+@media only screen and (max-width: 940px) {
+    .linekeyboard button {
+        width: 57px;
+        height: 60px;
+        margin: 5px;
+        font-size: 2.1rem;
+    }
+}

@@ -161,32 +161,30 @@
     }
     .line_body_div_left {
         height: 100%;
-        width: 49%;
     }
     .line_body_div_right {
-        height: 100%;
-        width: 50%;
+        height: 80%;
+        margin-top: 13%;
     }
 }
-@media only screen and (max-width: 760px) {
-    .line_gameboard {
-        font-size: 3rem;
-    }
-}
-@media only screen and (max-width: 560px) {
+@media only screen and (max-width: 600px) {
     .line_gameboard {
         font-size: 2rem;
     }
-}
-@media only screen and (max-width: 460px) {
     .line_body_div_left {
         height: 50%;
         width: 100%;
-        float: left;
+        float: none;
     }
     .line_body_div_right {
         height: 50%;
         width: 100%;
-        float: right;
+        float: none;
+        margin-top: 0%;
+    }
+    .line_gameboard {
+        height: 95%;
+        width: 95%;
+        font-size: 4rem;
     }
 }

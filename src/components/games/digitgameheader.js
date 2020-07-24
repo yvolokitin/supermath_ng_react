@@ -27,9 +27,15 @@ export default function GameHeader(props) {
                 <font onClick={() => setValue(true)}>SUPERMATH</font>
             </div>
             <div className='games_header_div_right' onClick={() => setProgress(true)}>
-                <font style={{color: 'black'}}>{props.total}</font> &nbsp; &#128279; &nbsp;
-                <font style={{color: 'green'}}>{props.passed}</font> &nbsp; &#128515; &nbsp;
-                <font style={{color: 'red'}}>{props.failed}</font> &nbsp; &#128169;
+                <font style={{color: 'black'}}>
+                    {props.total} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128279;</span>
+                </font>
+                <font style={{color: 'green'}}>
+                    {props.passed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
+                </font>
+                <font style={{color: 'red'}}>
+                    {props.failed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
+                </font>
             </div>
 
             <AlertDialog open={value}

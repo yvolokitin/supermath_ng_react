@@ -85,15 +85,25 @@
     .keyboard {
         min-width: 200px;
         max-width: 200px;
-        border: 1px solid black;
     }
     .keyboard button {
         margin: 0.20rem;
     }
 }
-@media only screen and (max-width: 570px) {
-    /* most probably it will be one by one and have to restore all settings back to normal */
+@media only screen and (max-width: 600px) {
+    /* restore original sizes since device in hiehg mode */
+    .keyboard {
+        min-height: 265px;
+        max-height: 265px;
+        min-width: 340px;
+        max-width: 340px;
+    }
+    .keyboard button {
+        margin: 0.33rem;
+        font-size: 2.75rem;
+    }
 }
+
 #dot,
 #clear,
 #divide,

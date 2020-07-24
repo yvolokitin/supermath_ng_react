@@ -643,38 +643,34 @@ export default class SuperMathPage extends React.Component {
                         </div>
                     </div>
 
-                    <div className='header_div_right'>
-                        { (this.state.id > 0) ? (
-                            <>
-                                <font onClick={() => this.setState({screen: STATUS.ACCOUNT})}
-                                    style={{color: this.state.color}}
-                                    className='font_userinfo'>
-                                        {this.state.name}:
-                                </font>
+                    { (this.state.id > 0) ? (
+                        <div className='header_div_right'>
+                            <font className='font_userinfo' onClick={() => this.setState({screen: STATUS.ACCOUNT})} style={{color: this.state.color}}>
+                                {this.state.name}:
+                            </font>
+                            <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo' style={{color:'green'}}>
+                                {this.state.passed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
+                            </font> 
+                            <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo' style={{color:'red'}}>
+                                {this.state.failed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
+                            </font> 
+                            <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo' style={{color:'green'}}>
+                                {this.state.cards} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127183;</span>
+                            </font> 
 
-                                <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo' style={{color:'green'}}>
-                                    {this.state.passed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
-                                </font> 
-                                <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo' style={{color:'red'}}>
-                                    {this.state.failed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
-                                </font> 
-                                <font onClick={() => this.setState({screen: STATUS.ACCOUNT})} className='font_userinfo' style={{color:'green'}}>
-                                    {this.state.cards} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127183;</span>
-                                </font> 
-                            </>
-                        ) : (
-                            <>
-                                <div className='div_register' onClick={() => this.setState({screen: STATUS.REGISTER})}>
-                                    {header[this.state.lang]['register']}
-                                </div>
-                                <div className='div_login' onClick={() => this.setState({screen: STATUS.LOGIN})}>
-                                    {header[this.state.lang]['login']}
-                                </div>
-                            </>
-                        )}
-
-                        <div onClick={() => this.setState({screen: STATUS.LANG})} className='div_lang'> {header[this.state.lang]['lang']} </div>
-                    </div>
+                            <div className='div_lang' onClick={() => this.setState({screen: STATUS.LANG})}> {header[this.state.lang]['lang']} </div>
+                        </div>
+                    ) : (
+                        <div className='header_div_right'>
+                            <div className='div_register' onClick={() => this.setState({screen: STATUS.REGISTER})}>
+                                {header[this.state.lang]['register']}
+                            </div>
+                            <div className='div_login' onClick={() => this.setState({screen: STATUS.LOGIN})}>
+                                {header[this.state.lang]['login']}
+                            </div>
+                            <div className='div_lang' onClick={() => this.setState({screen: STATUS.LANG})}> {header[this.state.lang]['lang']} </div>
+                        </div>
+                    )}
                 </div>
 
                 <Tabs onUpdate={this.onUserInfo}

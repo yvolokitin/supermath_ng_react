@@ -155,3 +155,38 @@
     padding: 13px;
     width: 100%;
 }
+@media only screen and (max-width: 670px) {
+    .card_wrapper {
+        margin: 7px;
+    }
+}
+@media only screen and (max-width: 640px) {
+    .card_wrapper {
+        min-width: 245px;
+        min-height: 190px;
+    }
+    .card_wrapper_img {
+        height: 121px;
+        width: 100%;
+    }
+    .card_wrapper_img img {
+        height: 121px;
+        width: auto;
+    }
+    .card_test_wrapper_img {
+        height: 147px;
+        width: auto;
+    }
+    .card_wrapper_text {
+        min-width: 245px;
+        max-width: 245px;
+
+        height: 52px;
+    }
+    .card_test_wrapper_text {
+        min-width: 245px;
+        max-width: 245px;
+
+        height: 26px;
+    }
+}
