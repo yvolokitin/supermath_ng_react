@@ -85,7 +85,7 @@
     justify-content: center;
 }
 .taskgame_gameboard_image_wrapper {
-    height: 240px;
+    height: 200px;
     width: 100%;
 
     display: flex;
@@ -186,21 +186,12 @@
 }
 @media only screen and (max-width: 760px) {
     .taskgame_header_wrapper {
+        height: 5%;
+    }
+    .taskgame_header_wrapper {
         font-size: 1.5rem;
         text-shadow: 1px 1px black;
     }
-    .taskgame_header_wrapper_left {
-        width: 49%;
-    }
-    .taskgame_header_wrapper_right {
-        width: 50%;
-    }
 }
 @media only screen and (max-width: 600px) {
-    .taskgame_header_wrapper_left {
-        width: 35%;
-    }
-    .taskgame_header_wrapper_right {
-        width: 64%;
-    }
 }
