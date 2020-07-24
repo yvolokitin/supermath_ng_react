@@ -389,15 +389,21 @@ export default class GameBoard extends React.Component {
                 {this.props.type.includes('comp_') ? (
                     <>
                       <div className='line_body_div_up'>
-                        <div className='line_gameboard' style={{backgroundColor: this.state.board, animation: this.state.animation}}>
-                          { this.props.type.includes('comp_nums') ? (<div className='line_result'>{this.state.task.expr1}</div>) : (null) }
-                          { this.props.type.includes('comp_nums') ? (<div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>) : (null) }
-                          { this.props.type.includes('comp_nums') ? (<div className='line_result'>{this.state.task.expr2}</div>) : (null) }
+                        {(this.props.type.includes('comp_nums')) ? (
+                            <div className='line_gameboard' style={{backgroundColor: this.state.board, animation: this.state.animation}}>
+                                <div className='line_result'>{this.state.task.expr1}</div>
+                                <div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>
+                                <div className='line_result'>{this.state.task.expr2}</div>
+                            </div>
+                        ) : ( null )}
 
-                          { this.props.type.includes('comp_expr') ? (<div className='line_expression'>{this.state.task.expr1}</div>) : (null) }
-                          { this.props.type.includes('comp_expr') ? (<div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>) : (null) }
-                          { this.props.type.includes('comp_expr') ? (<div className='line_expression'>{this.state.task.expr2}</div>) : (null) }
-                        </div>
+                        {(this.props.type.includes('comp_expr')) ? (
+                            <div className='line_gameboard line_gameboard_comp' style={{backgroundColor: this.state.board, animation: this.state.animation}}>
+                                <div className='line_expression'>{this.state.task.expr1}</div>
+                                <div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>
+                                <div className='line_expression'>{this.state.task.expr2}</div>
+                            </div>
+                        ) : ( null )}
                       </div>
 
                       <div className='line_body_div_bottom'>

@@ -36,7 +36,7 @@
     height: 80%;
     width: 95%;
 
-    font-family: "Grinched";
+    font-family: 'Grinched';
     font-size: 6rem;
 
     display: flex;
@@ -65,7 +65,7 @@
 }
 .line_3result {
     height: 100%;
-    width: 17%;
+    width: 25%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -186,5 +186,8 @@
         height: 95%;
         width: 95%;
         font-size: 4rem;
+    }
+    .line_gameboard_comp {
+        font-size: 2.6rem;
     }
 }

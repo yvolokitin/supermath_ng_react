@@ -185,11 +185,11 @@
         justify-content: space-around;
     }
     .div_register {
-        margin: auto;
+        margin: none;
         color: orange;
     }
     .div_login {
-        margin: auto;
+        margin: none;
         color: orange;
     }
     .div_lang {

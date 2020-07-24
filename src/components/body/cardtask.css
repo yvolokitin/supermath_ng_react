@@ -54,9 +54,9 @@
     align-items: center;
     justify-content: center;
 
-    cursor: pointer;
     overflow: hidden;
     border-radius: 50%;
+    cursor: pointer;
     border: 2px solid grey;
 }
 .cardtask_wrapper_image img {
@@ -77,4 +77,40 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 5px;
+}
+@media only screen and (max-width: 670px) {
+    .cardtask_wrapper {
+        margin: 7px;
+    }
+}
+@media only screen and (max-width: 640px) {
+    .cardtask_wrapper {
+        min-height: 190px;
+        min-width: 245px;
+        margin: 4px;
+    }
+    .cardtask_wrapper_title {
+        height: 35px;
+        font-size: 2.0rem;
+    }
+    .cardtask_wrapper_description {
+        height: 100px;
+        width: 245px;
+    }
+    .cardtask_wrapper_image {
+        height: 100px;
+        width: 100px;
+    }
+    .cardtask_wrapper_image img {
+        height: 100px;
+        width: auto;
+    }
+    .cardtask_wrapper_btn {
+        height: 30px;
+        width: 100%;
+    }
+    .cardtask_wrapper_rate {
+        height: 25px;
+    }
 }
