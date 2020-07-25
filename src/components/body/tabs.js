@@ -54,10 +54,10 @@ export default function Tabs(props) {
 
     const [game, setGame] = useState(false);
 
-    React.useEffect(() => {
+    /*React.useEffect(() => {
         console.log('Tabs(props) -> ' + props.belt + ' <-');
 
-    }, [props.belt, ]);
+    }, [props.belt, ]);*/
 
     function onTabChange(user_tab) {
         console.log('Tabs.onTabPress ' + user_tab.font);

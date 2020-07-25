@@ -10,6 +10,7 @@ export const body = {
         'navy': 'navy',
         'brown': 'brown',
         'black': 'black',
+        'help': 'help',
     },
     // Russian
     'ru': {
@@ -21,6 +22,7 @@ export const body = {
         'navy': 'синий',
         'brown': 'бурый',
         'black': 'черный',
+        'help': 'помощь',
     },
     // Dutch
     'nl' : {
@@ -32,6 +34,7 @@ export const body = {
         'navy': 'marine',
         'brown': 'bruin',
         'black': 'zwart',
+        'help': 'helpen',
     },
     // French
     'fr' : {
@@ -43,6 +46,7 @@ export const body = {
         'navy': 'Marin',
         'brown': 'Marron',
         'black': 'Noir',
+        'help': 'aider',
     },
     // German
     'de' : {
@@ -54,6 +58,7 @@ export const body = {
         'navy': 'Marine',
         'brown': 'Braun',
         'black': 'Schwarz',
+        'help': 'hilfe',
     },
     // Spanish
     'es' : {
@@ -65,6 +70,7 @@ export const body = {
         'navy': 'Azul',
         'brown': 'Marron',
         'black': 'Negro',
+        'help': 'ayuda',
     },
     // Italian
     'it' : {
@@ -76,5 +82,6 @@ export const body = {
         'navy': 'Blu',
         'brown': 'Marrone',
         'black': 'Nero',
+        'help': 'aiuto',
     },
 };

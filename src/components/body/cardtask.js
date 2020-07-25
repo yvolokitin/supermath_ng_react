@@ -64,7 +64,7 @@ export default function CardTask(props) {
                     <Button size='small' color='primary' onClick={() => onOpen('info')} startIcon={<VisibilityIcon/>}>
                         {tasks[props.lang]['info']}
                     </Button>
-                    <Button size='small' color='primary' onClick={() => onOpen('game')} disabled={props.task.locked} startIcon={<PlayCircleFilledWhiteIcon/>}>
+                    <Button size='small' color='primary' onClick={() => onOpen('game')} startIcon={<PlayCircleFilledWhiteIcon/>}> disabled={props.task.locked}
                         {tasks[props.lang]['play']}
                     </Button>
                 </div>

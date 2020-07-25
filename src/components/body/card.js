@@ -1,6 +1,7 @@
 ﻿import React, { useState, useEffect } from 'react';
 import {Button} from '@material-ui/core';
 
+import HelpIcon from '@material-ui/icons/Help';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
 
@@ -17,12 +18,16 @@ import {body} from './../translations/body';
 import './card.css';
 
 export default function Card(props) {
+    // info type: information or help (if card disabled)
+    const [type, setType] = useState('info');
     const [info, openInfo] = useState(false);
 
     const [desc, setDesc] = useState([]);
     const [title, setTitle] = useState([]);
     const [gradient, setGradient] = useState('');
-    const [animation, setAnimation] = useState(['none']);
+    const [opacity, setOpacity] = useState('1.0');
+    const [cursor, setCursor] = useState('pointer');
+    const [animation, setAnimation] = useState('none');
 
     useEffect(() => {
         // console.log('Card.useEffect -> ' + props.task.uid + ', nonexam ' + props.nonexam + ', locked ' + props.locked);
@@ -64,23 +69,35 @@ export default function Card(props) {
                 break;
         }
 
+        if (props.locked) {
+            setOpacity('0.5');
+            setCursor('no-drop');
+        }
+
     }, [props.task, props.color, props.lang, props.locked, props.nonexam]);
 
     function onOpen(property) {
         // console.log('Card.onClick, props.locked: ' + props.locked);
-        setAnimation('rotate .8s');
-        // call in .5sec to show picture rotate animation
-        setTimeout(() => {
-            if (property === 'info') {
-                openInfo(true);
-            } else if (property === 'game') {
-                props.onUpdate(props.task);
-            }
-        }, 700);
+        if (property === 'info') {
+            // open info without card animation
+            setType('info'); openInfo(true);
 
-        setTimeout(() => {
-            setAnimation('none');
-        }, 1000);
+        } else if (property === 'help') {
+            // open help why card is disabled
+            setType('help'); openInfo(true);
+
+        } else if (props.locked === false) {
+            setAnimation('rotate .8s');
+            // call in .5sec to show picture rotate animation
+            setTimeout(() => {
+                if (property === 'game') {
+                    props.onUpdate(props.task);
+                }
+            }, 700);
+            setTimeout(() => {
+                setAnimation('none');
+            }, 1000);
+        }
     }
 
     function onClose(property) {
@@ -91,59 +108,48 @@ export default function Card(props) {
     }
 
     return (
-        <>
-            {(props.nonexam === false) ? (
-                <div className='card_wrapper' style={{'animation': animation}}>
+        <div className='card_wrapper' style={{'animation': animation}}>
+            {(props.nonexam) ? (
+                <>
+                    <div className='card_wrapper_img' style={{'opacity': opacity, 'cursor': cursor}} onClick={() => onOpen('game')}>
+                        <img src={props.task.logo} alt='logo' onContextMenu={(e) => e.preventDefault()}/>
+                    </div>
+                    <div className='card_wrapper_text' style={{'opacity': opacity}}> {title} </div>
+                    <div className='card_wrapper_btn'>
+                        <Button size='small' color='primary' onClick={() => onOpen('info')}
+                            startIcon={<VisibilityIcon/>}> {body[props.lang]['info']}
+                        </Button>
+                        {(props.locked) ? (
+                            <Button size='small' color='primary' onClick={() => onOpen('help')}
+                                startIcon={<HelpIcon/>}> {body[props.lang]['help']}
+                            </Button>
+                        ) : (
+                            <Button size='small' color='primary' onClick={() => onOpen('game')}
+                                startIcon={<PlayCircleFilledWhiteIcon/>}> {body[props.lang]['play']}
+                            </Button>
+                        )}
+                    </div>
+                </>
+            ) : (
+                <>
                     <div className='card_test_wrapper_img' onClick={() => onOpen('game')} style={{backgroundImage: gradient}}>
                         <img src={image} alt='numbers' onContextMenu={(e) => e.preventDefault()}/>
                     </div>
                     <div className='card_test_wrapper_text'> {title} </div>
                     <div className='card_wrapper_btn'>
                         <Button size='small' color='primary' onClick={() => onOpen('info')}
-                                startIcon={<VisibilityIcon/>}> {body[props.lang]['info']}
+                            startIcon={<VisibilityIcon/>}> {body[props.lang]['info']}
                         </Button>
                         <Button size='small' color='primary' onClick={() => onOpen('game')}
                             startIcon={<PlayCircleFilledWhiteIcon/>}> {body[props.lang]['play']}
                         </Button>
                     </div>
-                </div>
-            ) : (
-              <>
-                {(props.locked === false) ? (
-                    <div className='card_wrapper' style={{'animation': animation}}>
-                        <div className='card_wrapper_img' onClick={() => onOpen('game')}>
-                            <img src={props.task.logo} alt={props.task.logo} onContextMenu={(e) => e.preventDefault()}/>
-                        </div>
-                        <div className='card_wrapper_text'> {title} </div>
-                        <div className='card_wrapper_btn'>
-                            <Button size='small' color='primary' onClick={() => onOpen('info')}
-                                    startIcon={<VisibilityIcon/>}> {body[props.lang]['info']}
-                            </Button>
-                            <Button size='small' color='primary' onClick={() => onOpen('game')}
-                                startIcon={<PlayCircleFilledWhiteIcon/>}> {body[props.lang]['play']}
-                            </Button>
-                        </div>
-                    </div>
-                ) : (
-                    <div className='card_wrapper' style={{opacity: '0.5'}}>
-                        <div className='card_wrapper_img_disabled'>
-                            <img src={props.task.logo} alt={props.task.logo} onContextMenu={(e) => e.preventDefault()}/>
-                        </div>
-                        <div className='card_wrapper_text'> {title} </div>
-                        <div className='card_wrapper_btn'>
-                            <Button size='small' color='primary' disabled
-                                    startIcon={<VisibilityIcon/>}> {body[props.lang]['info']}
-                            </Button>
-                            <Button size='small' color='primary' disabled
-                                startIcon={<PlayCircleFilledWhiteIcon/>}> {body[props.lang]['play']}
-                            </Button>
-                        </div>
-                    </div>
-                )}
-              </>
+                </>
             )}
 
             <Info open={info}
+                type={type}
+                locked={props.locked}
                 title={title}
                 text={desc}
                 source={props.task.logo}
@@ -152,6 +158,6 @@ export default function Card(props) {
                 fullScreen={props.width<820}
                 lang={props.lang}
                 onClose={onClose}/>
-        </>
+        </div>
     );
 }
