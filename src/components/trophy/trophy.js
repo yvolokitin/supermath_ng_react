@@ -112,8 +112,14 @@ export default function Trophy(props) {
      }
 
     function onThrow(user_id, user_name) {
-        console.log('Trophy.onThrow ' + user_id + ', ' + user_name);
-        if (props.id > 0 && user_id > 0) {
+        console.log('Trophy.onThrow, current ' + props.id + ' to ' + user_id + ', ' + user_name);
+        if (props.id < 1) {
+            setError(trophy[props.lang]['error_login']);
+
+        } else if (user_id < 1) {
+            setError(trophy[props.lang]['error_login']);
+
+        } else if (props.id !== user_id) {
             if (props.passed > POOP_COST) {
                 setTarget(user_id);
                 setName(user_name);
@@ -121,6 +127,10 @@ export default function Trophy(props) {
             } else {
                 setError(trophy[props.lang]['error_smiles']);
             }
+
+        } else if (props.id === user_id) {
+            // setError(trophy[props.lang]['error_login']);
+            console.log('Throw to your self -> TBD.');
         }
     }
 
@@ -128,109 +138,55 @@ export default function Trophy(props) {
     */
     return (
         <Dialog open={props.open} onClose={() => props.onClose()}
-            maxWidth='md' fullWidth={true} fullScreen={props.width<840}
+            maxWidth='md' fullWidth={true} fullScreen={props.fullScreen}
             TransitionComponent={Transition} transitionDuration={800}>
 
             <SMTitle title='' onClick={() => props.onClose()}/>
             <ColorLine/>
 
             <div className='trophy_wrapper'>
-                <div className='trophy_table_wrapper'>
-                    { (loading === true) ? (
-                        <div className='trophy_throw_wrapper'>
-                            <img src={image} alt='progress'/>
-                        </div>
-                    ) : (
-                      <>
-                        <div className='trophy_table_row'>
-                            {(props.id > 0) ? (
-                                <div className='trophy_table_cell_throw' style={{border: 'none'}}>  </div>
-                            ) : (
-                                <> </>
-                            )}
-
-                            <div className='trophy_table_cell_num'>
-                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127942;</span>
+                {(loading === true) ? (
+                    <div className='trophy_throw_wrapper'>
+                        <img src={image} alt='progress'/>
+                    </div>
+                ) : (
+                    <div className='trophy_table_wrapper'>
+                        <div className='trophy_table_line_fake'>
+                            <div className='trophy_table_line_index_fake'> </div>
+                            <div className='trophy_table_line_name_fake'>
+                                {trophy[props.lang]['top10']}
                             </div>
-                            <div className='trophy_table_cell_ava'>
-                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128102;</span>
-                            </div>
-                            <div className='trophy_table_cell_blt'>
-                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#129355;</span>
-                            </div>
-                            <div className='trophy_table_cell_name'>
-                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127947;</span>
-                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128105;</span>
-                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128170;</span>
-                            </div>
-                            <div className='trophy_table_cell_res'>
-                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127919;</span>
-                            </div>
-                            <div className='trophy_table_cell_res' style={{backgroundColor:'#bbff99'}}>
-                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
-                            </div>
-
-                            <div className='trophy_table_cell_res' style={{backgroundColor:'#cc9900'}}>
+                            <div className='trophy_table_line_numb_fake'>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                             </div>
+                            <div className='trophy_table_line_numb_fake'>
+                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
+                            </div>
+                            <div className='trophy_table_line_numb_fake'>
+                                <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127919;</span>
+                            </div>
                         </div>
+
                         {scores.map((user, index) => (
-                            (props.id === user.id) ? (
-                                <div className='trophy_table_row' key={index}>
-                                    {(props.id > 0) ? (<div className='trophy_table_cell_throw' style={{border: 'none'}}></div>):(<></>)}
+                            <div key={index} className='trophy_table_line' style={{backgroundColor: user.color}} onClick={() => onThrow(user.id, user.name)}>
+                                <div className='trophy_table_line_index'> {index+1} </div>
 
-                                    <div className='trophy_table_cell_num' style={{backgroundColor:'green',color:'orange'}}> {index+1} </div>
-                                    <div className='trophy_table_cell_ava' style={{backgroundColor:'green',color:'orange'}}>
-                                        <img src={get_avatar_by_name(user.avatar)} alt={user.avatar} onContextMenu={(e) => e.preventDefault()}/>
-                                    </div>
-                                    <div className='trophy_table_cell_blt'>
-                                        <div className='trophy_table_cell_blt_level' style={{backgroundColor: user.color}}></div>
-                                    </div>
-                                    <div className='trophy_table_cell_name' style={{backgroundColor:'green',color:'orange'}}> {user.name} {user.surname} </div>
-                                    {
-                                        (user.score.toString().includes('-')) ? (
-                                            <div className='trophy_table_cell_res' style={{backgroundColor:'green',color:'orange'}}> {user.score} </div>
-                                        ):(
-                                            <div className='trophy_table_cell_res' style={{backgroundColor:'green',color:'orange'}}> +{user.score} </div>
-                                        )
-                                    }
-                                    <div className='trophy_table_cell_res' style={{backgroundColor:'green',color:'orange'}}> {user.passed} </div>
-                                    <div className='trophy_table_cell_res' style={{backgroundColor:'green',color:'orange'}}> {user.failed} </div>
+                                <div className='trophy_table_line_name'>
+                                    <img src={get_avatar_by_name(user.avatar)} alt={user.avatar} onContextMenu={(e) => e.preventDefault()}/>
+                                    <font> {user.name} {user.surname} </font>
                                 </div>
-                            ) : (
-                                <div className='trophy_table_row' key={index}>
-                                    {(props.id > 0) ? (
-                                        <div className='trophy_table_cell_throw' onClick={() => onThrow(user.id, user.name)}>
-                                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128168;</span>
-                                        </div>
-                                    ) : (
-                                        <> </>
-                                    )}
-
-                                    <div className='trophy_table_cell_num'> {index+1} </div>
-                                    <div className='trophy_table_cell_ava'>
-                                        <img src={get_avatar_by_name(user.avatar)} alt={user.avatar} onContextMenu={(e) => e.preventDefault()}/>
-                                    </div>
-                                    <div className='trophy_table_cell_blt'>
-                                        <div className='trophy_table_cell_blt_level' style={{backgroundColor: user.color}}></div>
-                                    </div>
-                                    <div className='trophy_table_cell_name'> {user.name} {user.surname} </div>
-                                    {
-                                        (user.score.toString().includes('-')) ? (
-                                            <div className='trophy_table_cell_res'> {user.score} </div>
-                                        ):(
-                                            <div className='trophy_table_cell_res'> +{user.score} </div>
-                                        )
-                                    }
-                                    <div className='trophy_table_cell_res' style={{backgroundColor:'#bbff99'}}> {user.passed} </div>
-                                    <div className='trophy_table_cell_res' style={{backgroundColor:'#cc9900'}}> {user.failed} </div>
-                                </div>
-                            )
+                                <div className='trophy_table_line_numb'> {user.failed} </div>
+                                <div className='trophy_table_line_numb'> {user.passed} </div>
+                                <div className='trophy_table_line_numb'> {user.score} </div>
+                            </div>
                         ))}
-                      </>
-                    )}
-                </div>
+
+                        <div className='trophy_table_line_fake'> </div>
+                    </div>
+                )}
             </div>
+
+            <ColorLine margin={'0px'}/>
 
             <DialogActions>
                 <Button size='small' color='primary' startIcon={<CancelIcon />}
@@ -243,8 +199,11 @@ export default function Trophy(props) {
                 fullScreen={props.fullScreen}
                 onThrow={onThrowConfirmation}/>
 
-            <Snackbar open={error.length !== 0} onClose={() => setError('')} autoHideDuration={15000} anchorOrigin={{vertical:'top', horizontal:'center'}}>
-                <Alert onClose={() => setError('')} severity='error'> {error} </Alert>
+            <Snackbar open={error.length !== 0} onClose={() => setError('')} autoHideDuration={15000}
+                style={{border: '3px solid black', backgroundColor: 'white'}}
+                anchorOrigin={{vertical:'top', horizontal:'center'}}>
+
+                    <Alert onClose={() => setError('')} severity='error'> {error} </Alert>
             </Snackbar>
         </Dialog>
     );

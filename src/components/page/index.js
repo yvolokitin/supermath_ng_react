@@ -66,7 +66,7 @@ export default class SuperMathPage extends React.Component {
         var active_user = get_active_user();
         this.state = {
             width: window.innerWidth,
-            screen: STATUS.NONE,
+            screen: STATUS.TROPHY, // NONE,
 
             // get active user id and language
             id: active_user,
@@ -685,9 +685,9 @@ export default class SuperMathPage extends React.Component {
                 <Trophy open={this.state.screen === STATUS.TROPHY}
                     onClose={() => this.setState({screen: STATUS.NONE})}
                     onTrophyUpdate={this.onTrophyUpdate}
+                    fullScreen={this.state.width<940}
                     pswdhash={this.state.pswdhash}
                     passed={this.state.passed}
-                    width={this.state.width}
                     lang={this.state.lang}
                     id={this.state.id}/>
 
