@@ -151,18 +151,18 @@ export default function Trophy(props) {
                     </div>
                 ) : (
                     <div className='trophy_table_wrapper'>
-                        <div className='trophy_table_line_fake'>
-                            <div className='trophy_table_line_index_fake'> </div>
-                            <div className='trophy_table_line_name_fake'>
+                        <div className='trophy_table_line_header'>
+                            <div className='trophy_table_line_index_header'> </div>
+                            <div className='trophy_table_line_name_header'>
                                 {trophy[props.lang]['top10']}
                             </div>
-                            <div className='trophy_table_line_numb_fake'>
+                            <div className='trophy_table_line_numb_header'>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                             </div>
-                            <div className='trophy_table_line_numb_fake'>
+                            <div className='trophy_table_line_numb_header'>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
                             </div>
-                            <div className='trophy_table_line_numb_fake'>
+                            <div className='trophy_table_line_numb_header'>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127919;</span>
                             </div>
                         </div>

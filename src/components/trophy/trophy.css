@@ -34,14 +34,21 @@
     margin-top: 3px;
     margin-left: 1%;
     margin-right: 1%;
+}
+.trophy_table_line_header {
+    height: 45px;
+    width: 98%;
+    margin-top: 3px;
+    margin-left: 1%;
+    margin-right: 1%;
     font-size: 1.6rem;
 }
-.trophy_table_line_index_fake {
+.trophy_table_line_index_header {
     height: 100%;
     width: 8%;
     float: left;
 }
-.trophy_table_line_name_fake {
+.trophy_table_line_name_header {
     height: 100%;
     width: 52%;
     float: left;
@@ -56,7 +63,7 @@
     align-items: center;
     justify-content: center;
 }
-.trophy_table_line_numb_fake {
+.trophy_table_line_numb_header {
     height: 100%;
     width: 13%;
     float: right;
@@ -153,8 +160,13 @@
 @keyframes numbers360rotation { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 @keyframes fade { from {opacity: .1}  to {opacity: 1} }
 
-@media only screen and (max-height: 460px) {
+@media only screen and (max-height: 670px) {
     .trophy_table_line_fake {
+        display: none;
+    }
+}
+@media only screen and (max-height: 460px) {
+    .trophy_table_line_header {
         display: none;
     }
 }
