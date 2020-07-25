@@ -103,6 +103,54 @@
         font-size: 2.75rem;
     }
 }
+@media only screen and (max-width: 420px) {
+    .keyboard {
+        min-height: 235px;
+        max-height: 235px;
+    }
+    .keyboard button {
+        margin: 0.3rem;
+        font-size: 2.45rem;
+    }
+}
+@media only screen and (max-width: 360px) {
+    .keyboard {
+        min-width: 320px;
+        max-width: 320px;
+    }
+    .keyboard button {
+        margin: 0.2rem;
+        font-size: 2.65rem;
+    }
+}
+@media only screen and (max-width: 341px) {
+    .keyboard {
+        min-width: 270px;
+        max-width: 270px;
+    }
+    .keyboard button {
+        font-size: 2.25rem;
+    }
+}
+@media only screen and (max-width: 320px) {
+    .keyboard {
+        min-width: 250px;
+        max-width: 250px;
+    }
+}
+
+@media only screen and (max-height: 650px) {
+    .keyboard {
+        min-height: 230px;
+        max-height: 230px;
+        min-width: 300px;
+        max-width: 300px;
+    }
+    .keyboard button {
+        margin: 0.3rem;
+        font-size: 2.45rem;
+    }
+}
 
 #dot,
 #clear,

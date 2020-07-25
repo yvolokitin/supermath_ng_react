@@ -19,17 +19,21 @@
 
     float: left;
     cursor: pointer;
+    display: flex;
+    align-items: center;
 
     overflow: hidden;
     white-space: nowrap; 
     text-overflow: clip; 
-
-    display: flex;
-    align-items: center;
+    background-color: #3f51b5;
 }
 .header_div_right {
     height: 100%;
     width: 59%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 
     float: right;
     cursor: pointer;
@@ -38,10 +42,7 @@
     white-space: nowrap; 
     text-overflow: clip; 
     text-align: right;
-
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    background-color: #3f51b5;
 }
 .div_trophy {
     transition: transform 1.0s;
@@ -167,10 +168,12 @@
     .header_div {
         height: 80px;
         font-size: 1.8rem;
+        text-shadow: 1px 1px 2px black;
     }
     .header_div_left {
         height: 49%;
         width: 100%;
+        float: none;
 
         display: flex;
         align-items: center;
@@ -179,6 +182,7 @@
     .header_div_right {
         height: 50%;
         width: 100%;
+        float: none;
 
         display: flex;
         align-items: center;

@@ -47,31 +47,28 @@ export default function CardTask(props) {
     /*
     */
     return (
-        <>
-            <div className='cardtask_wrapper'>
-                <div className='cardtask_wrapper_title' onClick={() => onOpen('game')}
-                    style={{color: props.task.color}}>
-                        {title}
+        <div className='cardtask_wrapper'>
+            <div className='cardtask_wrapper_title' onClick={() => onOpen('game')} style={{color: props.task.color}}>
+                {title}
+            </div>
+ 
+           <div className='cardtask_wrapper_description' onClick={() => onOpen('game')}>
+                <div className='cardtask_wrapper_image'>
+                    <img src={props.task.logo} alt='level'/>
                 </div>
+            </div>
 
-                <div className='cardtask_wrapper_description' onClick={() => onOpen('game')}>
-                    <div className='cardtask_wrapper_image'>
-                        <img src={props.task.logo} alt='level'/>
-                    </div>
-                </div>
+            <div className='cardtask_wrapper_btn'>
+                <Button size='small' color='primary' onClick={() => onOpen('info')} startIcon={<VisibilityIcon/>}>
+                    {tasks[props.lang]['info']}
+                </Button>
+                <Button size='small' color='primary' onClick={() => onOpen('game')} startIcon={<PlayCircleFilledWhiteIcon/>} disabled={props.task.locked}>
+                    {tasks[props.lang]['play']}
+                </Button>
+            </div>
 
-                <div className='cardtask_wrapper_btn'>
-                    <Button size='small' color='primary' onClick={() => onOpen('info')} startIcon={<VisibilityIcon/>}>
-                        {tasks[props.lang]['info']}
-                    </Button>
-                    <Button size='small' color='primary' onClick={() => onOpen('game')} startIcon={<PlayCircleFilledWhiteIcon/>}> disabled={props.task.locked}
-                        {tasks[props.lang]['play']}
-                    </Button>
-                </div>
-
-                <div className='cardtask_wrapper_rate'>
-                    {stars.map((star, index) => <StarsIcon key={index} color='primary'/>)}
-                </div>
+            <div className='cardtask_wrapper_rate'>
+                {stars.map((star, index) => <StarsIcon key={index} color='primary'/>)}
             </div>
 
             <Info open={info}
@@ -83,6 +80,6 @@ export default function CardTask(props) {
                 fullScreen={props.width<820}
                 lang={props.lang}
                 onClose={onClose}/>
-        </>
+        </div>
     );
 }

@@ -194,7 +194,7 @@ export default function TaskGame(props) {
                     </div>
 
                     <div className='taskgame_body_wrapper_down' style={{alignItems: 'center'}}>
-                        <KeyBoard onDigit={onDigit} onOperator={onOperator} plus={true} minus={true}/>
+                        <KeyBoard onDigit={onDigit} onOperator={onOperator}/>
                     </div>
                 </div>
             </div>
@@ -206,7 +206,7 @@ export default function TaskGame(props) {
             ) : (<></>)}
 
             <AlertDialog open={openAlert}
-                fullScreen={props.fullScreen}
+                fullScreen={props.width<880}
                 title={taskgame[props.lang]['title']}
                 yes={taskgame[props.lang]['yes']}
                 no={taskgame[props.lang]['no']}
