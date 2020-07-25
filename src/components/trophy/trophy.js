@@ -145,8 +145,8 @@ export default function Trophy(props) {
             <ColorLine/>
 
             <div className='trophy_wrapper'>
-                {(loading === true) ? (
-                    <div className='trophy_throw_wrapper'>
+                {(loading) ? (
+                    <div className='trophy_loading_wrapper'>
                         <img src={image} alt='progress'/>
                     </div>
                 ) : (

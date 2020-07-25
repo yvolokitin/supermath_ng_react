@@ -7,15 +7,17 @@
     user-select: none;
     background-color: #8080ff;
 }
-.trophy_throw_wrapper {
-    height: 100%;
-    width: 100%;
+.trophy_loading_wrapper {
+    width: 98%;
+    min-height: 350px;
+    margin-left: 1%;
+    margin-right: 1%;
 
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.trophy_throw_wrapper img {
+.trophy_loading_wrapper img {
     height: 140px;
     width: auto;
     animation: numbers360rotation 4s linear infinite;
