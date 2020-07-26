@@ -66,7 +66,7 @@ export default class SuperMathPage extends React.Component {
         var active_user = get_active_user();
         this.state = {
             width: window.innerWidth,
-            screen: STATUS.TROPHY, // NONE,
+            screen: STATUS.NONE,
 
             // get active user id and language
             id: active_user,

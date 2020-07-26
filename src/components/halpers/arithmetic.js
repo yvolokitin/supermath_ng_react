@@ -37,7 +37,8 @@ export function generate_task(type, settings) {
     } else if ((type === '3digits') || (type === 'line_3numbers')) {
         // operations, range_numbers, factor
         if (array[0] === '+-') { // plus and minus
-            result = generate_3digit_task(array[0], array[1], array[2]);
+            // function generate_3digit_task(operations, range_numbers, factor=1, type='line') {
+            result = generate_3digit_task(array[0], array[1], array[2], type='line');
 
         // multiplications only: 3x2x9
         } else if (array[0] === 'x') {

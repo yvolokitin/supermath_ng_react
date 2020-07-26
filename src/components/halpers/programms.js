@@ -106,7 +106,7 @@ export const green_games = [
     {id: 4, uid: 'green4', time: 0, logo: green4, type: '2digits', task: '+-,1-9,1-9,10,100', amount: task_amount},
     {id: 5, uid: 'green5', time: 0, logo: green5, type: '2digits', task: '+-,1-99,1-99,10,10', amount: task_amount},
     {id: 6, uid: 'green6', time: 0, logo: green6, type: '2digits', task: '+-,1-9,101-999,1,1', amount: task_amount},
-    {id: 7, uid: 'green7', time: 0, logo: green7, type: '2digits', task: '+-,1-9,101-999,1,1', amount: task_amount},
+    {id: 7, uid: 'green7', time: 0, logo: green7, type: 'line_3numbers', task: '+-,1-99,1', amount: task_amount},
     {id: 8, uid: 'green8', time: 0, logo: green8, type: 'digit_2column', task: '+-,11-99,101-999,1,1', amount: task_amount},
     {id: 9, uid: 'green9', time: 0, logo: green9, type: 'digit_2column', task: '+-,1001-9999,1001-9999,1,1', amount: task_amount},
     {id: 10, uid: 'greenT', time: 10, logo: 'none', type: 'test', task: 'green2,green5,green6,green7,green8,green9', amount: task_amount},

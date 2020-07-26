@@ -137,10 +137,7 @@ export default function Trophy(props) {
     /*
     */
     return (
-        <Dialog open={props.open} onClose={() => props.onClose()}
-            maxWidth='md' fullWidth={true} fullScreen={props.fullScreen}
-            TransitionComponent={Transition} transitionDuration={800}>
-
+        <Dialog open={props.open} onClose={() => props.onClose()} fullScreen={true} TransitionComponent={Transition} transitionDuration={800}>
             <SMTitle title='' onClick={() => props.onClose()}/>
             <ColorLine/>
 
@@ -202,7 +199,6 @@ export default function Trophy(props) {
             <Snackbar open={error.length !== 0} onClose={() => setError('')} autoHideDuration={15000}
                 style={{border: '3px solid black', backgroundColor: 'white'}}
                 anchorOrigin={{vertical:'top', horizontal:'center'}}>
-
                     <Alert onClose={() => setError('')} severity='error'> {error} </Alert>
             </Snackbar>
         </Dialog>

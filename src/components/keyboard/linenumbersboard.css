@@ -1,6 +1,7 @@
 ﻿.linekeyboard {
     min-width: 920px;
     max-width: 920px;
+    height: 90px;
 
     display: flex;
     align-items: center;
