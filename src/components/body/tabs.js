@@ -162,6 +162,7 @@ export default function Tabs(props) {
                 amount={game.amount}
                 lang={props.lang}
                 belt={color}
+                width={props.width}
                 fullScreen={props.width<880}
                 onClose={onGameClose}/>
 

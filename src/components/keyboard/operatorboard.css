@@ -3,6 +3,7 @@
 
     min-height: 150px;
     max-height: 150px;
+    user-select: none;
 
     display: flex;
     align-items: center;
@@ -20,21 +21,19 @@
     cursor: pointer;
     color: #444;
     background-color: #ddd;
+    user-select: none;
 
     -webkit-transition: background-color 1s ease-out;
     -moz-transition: background-color 1s ease-out;
     transition: background-color 1s ease-out;
 }
-
 .operatorboard button:hover {
     border: 1px solid #aaa;
 }
-
 .operatorboard button:active {
     background-color: rgba(0, 0, 0, 0.8);
     outline: none;
 }
-
 .operatorboard button:focus {
     outline: none;
 }

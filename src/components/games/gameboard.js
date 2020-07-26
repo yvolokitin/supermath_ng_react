@@ -18,7 +18,11 @@ export default class GameBoard extends React.Component {
                       color: 'grey',
                       board: 'yellow',
                       counter: 0,
-                      attempt: 0};
+                      attempt: 0,
+                      size: '1rem'};
+
+        // console.log('SCREEN width ' + props.width);
+        // , fontSize: this.state.size
     }
 
     componentDidMount() {
@@ -294,7 +298,32 @@ export default class GameBoard extends React.Component {
     }
 
     /*
-            <div onKeyDown={this.onKeyboard} className='gameboard_wrapper'>
+                {(this.props.type.includes('line_compnums')) ? (
+                    <div className='line_body_div_up'>
+                        <div className='line_gameboard' style={{backgroundColor: this.state.board, animation: this.state.animation}}>
+                            <div className='line_result'> {this.state.task.expr1} </div>
+                            <div className='line_result' style={{color: this.state.color}}> {this.state.result} </div>
+                            <div className='line_result'> {this.state.task.expr2} </div>
+                        </div>
+                    </div>
+                    <div className='line_body_div_bottom'>
+                        <OperatorBoard onOperator={this.onOperator} more={true} less={true} equals={true}/>
+                    </div>
+                ) : (<></>)}
+
+                {(this.props.type.includes('line_compexpr')) ? (
+                    <div className='line_body_div_up'>
+                        <div className='line_gameboard' style={{backgroundColor: this.state.board, animation: this.state.animation}}>
+                            <div className='line_expression'> {this.state.task.expr1} </div>
+                            <div className='line_result' style={{color: this.state.color}}> <font> {this.state.result} </font> </div>
+                            <div className='line_expression'>{this.state.task.expr2}</div>
+                        </div>
+                    </div>
+                    <div className='line_body_div_bottom'>
+                        <OperatorBoard onOperator={this.onOperator} more={true} less={true} equals={true}/>
+                    </div>
+                ) : (<></>)}
+
     */
     render() {
         return (
@@ -359,7 +388,7 @@ export default class GameBoard extends React.Component {
                                 <div className='line_task'>{this.state.task.expr1}</div>
                                 {(this.state.task.result.toString().length < 3) ? (
                                     <div className='line_result' style={{color: this.state.color}}>{this.state.result}</div>
-                                  ) : ( null )}
+                                  ) : ( <></> )}
 
                                 {(this.state.task.result.toString().length === 3) ? (
                                     <div className='line_3result' style={{color: this.state.color}}>{this.state.result}</div>
@@ -414,56 +443,53 @@ export default class GameBoard extends React.Component {
 
                 {this.props.type.includes('line_') ? (
                     <>
-                      <div className='line_body_div_up'>
-                        <div className='line_gameboard' style={{backgroundColor: this.state.board, animation: this.state.animation}}>
-                          { this.props.type.includes('line_compnums') ? (<div className='line_result'>{this.state.task.expr1}</div>):(null)}
-                          { this.props.type.includes('line_compnums') ? (<div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>):(null)}
-                          { this.props.type.includes('line_compnums') ? (<div className='line_result'>{this.state.task.expr2}</div>):(null)}
+                        <div className='line_body_div_up'>
+                            <div className='line_gameboard' style={{backgroundColor: this.state.board, animation: this.state.animation}}>
+                                { this.props.type.includes('line_compnums') ? (<div className='line_result'>{this.state.task.expr1}</div>):(null)}
+                                { this.props.type.includes('line_compnums') ? (<div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>):(null)}
+                                { this.props.type.includes('line_compnums') ? (<div className='line_result'>{this.state.task.expr2}</div>):(null)}
 
-                          { this.props.type.includes('line_compexpr') ? (<div className='line_expression'>{this.state.task.expr1}</div>):(null)}
-                          { this.props.type.includes('line_compexpr') ? (<div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>):(null)}
-                          { this.props.type.includes('line_compexpr') ? (<div className='line_expression'>{this.state.task.expr2}</div>):(null)}
+                                { this.props.type.includes('line_compexpr') ? (<div className='line_expression'>{this.state.task.expr1}</div>):(null)}
+                                { this.props.type.includes('line_compexpr') ? (<div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>):(null)}
+                                { this.props.type.includes('line_compexpr') ? (<div className='line_expression'>{this.state.task.expr2}</div>):(null)}
 
-                          { this.props.type.includes('numbers') ? (<div className='line_task'>{this.state.task.expr1}</div>):(null)}
-                          { this.props.type.includes('numbers') ? (
-                            <>
-                                {(this.state.task.result.toString().length < 3) ? (
-                                    <div className='line_result' style={{color: this.state.color}}>{this.state.result}</div>
-                                  ) : ( null )}
+                                { this.props.type.includes('numbers') ? (<div className='line_task'>{this.state.task.expr1}</div>):(null)}
+                                { this.props.type.includes('numbers') ? (
+                                    <>
+                                        {(this.state.task.result.toString().length < 3) ? (
+                                            <div className='line_result' style={{color: this.state.color}}>{this.state.result}</div>
+                                          ) : ( null )}
 
-                                {(this.state.task.result.toString().length === 3) ? (
-                                    <div className='line_3result' style={{color: this.state.color}}>{this.state.result}</div>
-                                  ) : ( null )}
+                                        {(this.state.task.result.toString().length === 3) ? (
+                                            <div className='line_3result' style={{color: this.state.color}}>{this.state.result}</div>
+                                        ) : ( null )}
 
-                                {(this.state.task.result.toString().length === 4) ? (
-                                    <div className='line_4result' style={{color: this.state.color}}>{this.state.result}</div>
-                                  ) : ( null )}
+                                        {(this.state.task.result.toString().length === 4) ? (
+                                            <div className='line_4result' style={{color: this.state.color}}>{this.state.result}</div>
+                                        ) : ( null )}
 
-                                {(this.state.task.result.toString().length > 4) ? (
-                                    <div className='line_5result' style={{color: this.state.color}}>{this.state.result}</div>
-                                  ) : ( null )}
-                            </>
-                            ):(null)}
+                                        {(this.state.task.result.toString().length > 4) ? (
+                                            <div className='line_5result' style={{color: this.state.color}}>{this.state.result}</div>
+                                        ) : ( null )}
+                                    </>
+                                ) : ( <> </>)}
+                            </div>
                         </div>
-                      </div>
-
-                      <div className='line_body_div_bottom'>
-                          { this.props.type.includes('line_comp') ? (
-                              <OperatorBoard onOperator={this.onOperator} more={true} less={true} equals={true}/>
-                            ):(
-                              <LineNumbersBoard
-                                onDigit={this.onDigit}
-                                onOperator={this.onOperator}
-                                floats={this.props.type.includes('_fr')}
-                                minus={this.props.type.includes('_signed')}
-                                />
-                            )
-                          }
-                      </div>
+                        <div className='line_body_div_bottom'>
+                            {this.props.type.includes('line_comp') ? (
+                                <OperatorBoard
+                                    onOperator={this.onOperator}
+                                    more={true} less={true} equals={true}/>
+                            ) : (
+                                <LineNumbersBoard
+                                    onDigit={this.onDigit}
+                                    onOperator={this.onOperator}
+                                    floats={this.props.type.includes('_fr')}
+                                    minus={this.props.type.includes('_signed')}/>
+                            )}
+                        </div>
                     </>
-                ):( null ) }
-
-
+                ) : ( <> </>)}
             </div>
         );
     }

@@ -283,6 +283,7 @@ export default class DigitGame extends React.Component {
                             onColor={this.onColorUpdate}
                             onTest={this.onTestUpdate}
                             is_test={this.state.is_test}
+                            width={this.props.width}
                             uid={this.state.uid}
                             type={this.state.type}
                             task={this.state.task}

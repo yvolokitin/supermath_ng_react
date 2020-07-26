@@ -8,11 +8,12 @@
 .games_header_div_left {
     height: 100%;
     width: 61%;
-    padding: 2%;
+    padding-left: 2%;
 
     color: green;
     float: left;
     cursor: pointer;
+    user-select: none;
 
     display: flex;
     align-items: center;
@@ -21,12 +22,13 @@
     height: 100%;
     width: 38%;
     float: right;
+
     cursor: pointer;
     color: orange;
-    display: flex;
+    user-select: none;
 
+    display: flex;
     align-items: center;
-    justify-content: center;
     justify-content: space-around;
 }
 @media only screen and (max-width: 760px) {

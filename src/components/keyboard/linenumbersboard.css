@@ -1,61 +1,212 @@
-﻿.linekeyboard {
-    min-width: 920px;
-    max-width: 920px;
-    height: 90px;
+﻿.line_keyboard {
+    min-width: 1220px;
+    max-width: 1220px;
+    height: 110px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+    user-select: none;
     border: 1px solid grey;
     border-radius: 10px;
 }
-.linekeyboard button {
-    width: 9%;
-    margin: 1%;
+.line_keyboard_left {
+    height: 100%;
+    width: 600px;
+    float: left;
 
-    flex: 1 1 calc(25% - 0.5rem);
-    font-family: "Grinched";
-    font-size: 4.00rem;
-    outline: none;
-    border: 1px solid #c6c6c6;
-    border-radius: 10px;
-    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.line_keyboard_right {
+    height: 100%;
+    width: 600px;
+    float: right;
+
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.line_keyboard_button {
+    height: 80px;
+    width: 80px;
+
     color: #444;
     background-color: #ddd;
-    -webkit-transition: background-color 1s ease-out;
-    -moz-transition: background-color 1s ease-out;
+
+    cursor: pointer;
+    font-size: 4.00rem;
+    font-family: 'Grinched';
+    outline: none;
+    user-select: none;
+
+    border-radius: 10px;
+    border: 1px solid #c6c6c6;
     transition: background-color 1s ease-out;
 }
-.linekeyboard button:hover {
+.line_keyboard_button:hover {
     border: 1px solid #aaa;
 }
-.linekeyboard button:active {
+.line_keyboard_button:active {
     background-color: rgba(0, 0, 0, 0.8);
     outline: none;
 }
-.linekeyboard button:focus {
+.line_keyboard_button:focus {
     outline: none;
 }
-@media only screen and (max-width: 1200px) {
-    .linekeyboard button {
-        width: 67px;
-        height: 77px;
-        margin: 5px;
-        font-size: 2.5rem;
+
+@media only screen and (max-width: 1250px) {
+    .line_keyboard {
+        min-width: 1020px;
+        max-width: 1020px;
+        height: 90px;
     }
-}
-@media only screen and (max-width: 940px) {
-    .linekeyboard {
-        min-width: 96%;
-        max-width: 96%;
+    .line_keyboard_left {
+        width: 500px;
     }
-}
-@media only screen and (max-width: 940px) {
-    .linekeyboard button {
-        width: 57px;
+    .line_keyboard_right {
+        width: 500px;
+    }
+    .line_keyboard_button {
         height: 60px;
-        margin: 5px;
-        font-size: 2.1rem;
+        width: 60px;
+        font-size: 3.00rem;
+    }
+}
+@media only screen and (max-width: 1050px) {
+    .line_keyboard {
+        min-width: 940px;
+        max-width: 940px;
+        height: 95px;
+    }
+    .line_keyboard_left {
+        width: 465px;
+    }
+    .line_keyboard_right {
+        width: 465px;
+    }
+    .line_keyboard_button {
+        height: 75px;
+        width: 75px;
+    }
+}
+@media only screen and (max-width: 950px) {
+    .line_keyboard {
+        min-width: 840px;
+        max-width: 840px;
+        height: 95px;
+    }
+    .line_keyboard_left {
+        width: 415px;
+    }
+    .line_keyboard_right {
+        width: 415px;
+    }
+    .line_keyboard_button {
+        height: 75px;
+        width: 75px;
+    }
+}
+@media only screen and (max-width: 850px) {
+    .line_keyboard {
+        min-width: 680px;
+        max-width: 680px;
+        height: 70px;
+    }
+    .line_keyboard_left {
+        width: 338px;
+    }
+    .line_keyboard_right {
+        width: 338px;
+    }
+    .line_keyboard_button {
+        height: 51px;
+        width: 51px;
+        font-size: 2.2rem;
+    }
+}
+@media only screen and (max-width: 700px) {
+    .line_keyboard {
+        min-width: 590px;
+        max-width: 590px;
+        height: 70px;
+    }
+    .line_keyboard_left {
+        width: 280px;
+    }
+    .line_keyboard_right {
+        width: 280px;
+    }
+    .line_keyboard_button {
+        height: 45px;
+        width: 45px;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .line_keyboard {
+        min-width: 520px;
+        max-width: 520px;
+        height: 200px;
+    }
+    .line_keyboard_left {
+        height: 50%;
+        width: 100%;
+        float: none;
+    }
+    .line_keyboard_right {
+        height: 50%;
+        width: 100%;
+        float: none;
+    }
+    .line_keyboard_button {
+        height: 80px;
+        width: 80px;
+        font-size: 3rem;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .line_keyboard {
+        min-width: 420px;
+        max-width: 420px;
+        height: 140px;
+    }
+    .line_keyboard_button {
+        height: 60px;
+        width: 60px;
+        font-size: 2rem;
+    }
+}
+@media only screen and (max-width: 420px) {
+    .line_keyboard {
+        min-width: 380px;
+        max-width: 380px;
+        height: 145px;
+    }
+    .line_keyboard_button {
+        height: 60px;
+        width: 60px;
+    }
+}
+@media only screen and (max-width: 380px) {
+    .line_keyboard {
+        min-width: 340px;
+        max-width: 340px;
+        height: 130px;
+    }
+    .line_keyboard_button {
+        height: 55px;
+        width: 55px;
+    }
+}
+@media only screen and (max-width: 330px) {
+    .line_keyboard {
+        min-width: 280px;
+        max-width: 280px;
+        height: 125px;
+    }
+    .line_keyboard_button {
+        height: 50px;
+        width: 50px;
+        font-size: 2rem;
     }
 }

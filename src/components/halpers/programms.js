@@ -81,7 +81,8 @@ export const white_games = [
     {id: 7, uid: 'white7', logo: white7, type: '3digits', task: '+-,1-10,1', amount: task_amount},
     {id: 8, uid: 'white8', logo: white8, type: 'comp_expr', task: '<>=,+-,0-10,1', amount: task_amount},
     {id: 9, uid: 'white9', logo: white9, type: '2digit_arg', task: 'd,+-,0-10,0-10,1,1', amount: task_amount},
-    {id: 10, uid: 'whiteT', logo: 'none', type: 'test', task: 'white1,white2,white5,white6,white7,white8,white9', amount: task_amount},
+    // white7 is repeated 3 time to make test more complex
+    {id: 10, uid: 'whiteT', logo: 'none', type: 'test', task: 'white1,white2,white5,white6,white7,white8,white7,white9,white7', amount: task_amount},
 ];
 
 export const orange_games = [
