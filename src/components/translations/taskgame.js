@@ -3,8 +3,9 @@ export const taskgame = {
     // English
     'en': {
         'title': 'Do you really want to Exit?',
+        'text': 'All your results are automatically saved if you are logged in',
         'yes': 'Exit',
-        'no': 'Let Me Stay and Continue',
+        'no': 'Stay and Continue',
         'answer': 'answer',
         'exit': 'exit',
         'help': 'help',
@@ -13,16 +14,18 @@ export const taskgame = {
     // Russian
     'ru': {
         'title': 'Вы действительно хотите Выйти?',
+        'text': 'Все ваши результаты автоматически сохраняются, если вы авторизованы',
         'yes': 'Выход',
-        'no': 'Позвольте мне Продолжить',
+        'no': 'Остаться в Игре',
         'answer': 'проверить',
         'exit': 'ВЫХОД',
         'help': 'ПОМОЩЬ',
-        'sorry': 'нам очень жаль',
+        'sorry': 'очень жаль',
     },
     // Dutch
     'nl' : {
         'title': 'Do you really want to Exit?',
+        'text': 'All your results are automatically saved if you are logged in',
         'yes': 'Exit',
         'no': 'Let Me Stay and Continue',
         'answer': 'answer',
@@ -33,6 +36,7 @@ export const taskgame = {
     // French
     'fr' : {
         'title': 'Do you really want to Exit?',
+        'text': 'All your results are automatically saved if you are logged in',
         'yes': 'Exit',
         'no': 'Let Me Stay and Continue',
         'answer': 'answer',
@@ -43,6 +47,7 @@ export const taskgame = {
     // German
     'de' : {
         'title': 'Do you really want to Exit?',
+        'text': 'All your results are automatically saved if you are logged in',
         'yes': 'Exit',
         'no': 'Let Me Stay and Continue',
         'answer': 'answer',
@@ -53,6 +58,7 @@ export const taskgame = {
     // Spanish
     'es' : {
         'title': 'Do you really want to Exit?',
+        'text': 'All your results are automatically saved if you are logged in',
         'yes': 'Exit',
         'no': 'Let Me Stay and Continue',
         'answer': 'answer',
@@ -63,6 +69,7 @@ export const taskgame = {
     // Italian
     'it' : {
         'title': 'Do you really want to Exit?',
+        'text': 'All your results are automatically saved if you are logged in',
         'yes': 'Exit',
         'no': 'Let Me Stay and Continue',
         'answer': 'answer',

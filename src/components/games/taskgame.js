@@ -3,6 +3,8 @@ import {Dialog, Slide, } from '@material-ui/core';
 
 import axios from 'axios';
 
+import GameExit from './gameexit';
+
 import ColorLine from './../line/line';
 import AlertDialog from './../alert/alert';
 import {taskgame} from './../translations/taskgame';
@@ -14,7 +16,7 @@ import './taskgame.css';
 const url_prefix = 'http://supermath.xyz:3000/static/images/';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction='up' ref={ref} {...props} />;
+    return <Slide direction='down' ref={ref} {...props} />;
 });
 
 export default function TaskGame(props) {
@@ -205,12 +207,14 @@ export default function TaskGame(props) {
                 </div>
             ) : (<></>)}
 
-            <AlertDialog open={openAlert}
+            <GameExit open={openAlert}
                 fullScreen={props.width<880}
                 title={taskgame[props.lang]['title']}
+                text={taskgame[props.lang]['text']}
                 yes={taskgame[props.lang]['yes']}
                 no={taskgame[props.lang]['no']}
                 onClose={onAlertDialog}/>
+
         </Dialog>
     );
 }

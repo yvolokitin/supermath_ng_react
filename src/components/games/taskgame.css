@@ -242,7 +242,7 @@
         width: 98%;
         margin: 1%;
         border-radius: 13px;
-        border: 3px outset #1C6EA4;
+        border: 2px outset grey;
     }
     .taskgame_gameboard_image_wrapper img {
         height: 100%;
@@ -269,7 +269,7 @@
         margin-right: 1%;
 
         border-radius: 13px;
-        border: 3px outset orange;
+        border: 2px outset grey;
     }
     .taskgame_answer_btn {
         height: 30%;
@@ -277,9 +277,10 @@
         margin: 1%;
 
         border-radius: 9px;
-        border: 3px outset red;
+        border: 2px outset grey;
     }
 }
+
 @media only screen and (max-height: 650px) {
     .taskgame_body_wrapper_left {
         height: 40%;
@@ -297,17 +298,15 @@
     .taskgame_answer_text {
         height: 50%;
         width: 98%;
+
         margin-top: 2%;
         margin-left: 1%;
         margin-right: 1%;
 
         border-radius: 13px;
-        border: 4px outset orange;
+        border: 2px outset orange;
     }
     .taskgame_answer_btn {
         height: 35%;
-    }
-    .taskgame_body_wrapper_down {
-
     }
 }

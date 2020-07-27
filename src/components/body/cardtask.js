@@ -28,12 +28,13 @@ export default function CardTask(props) {
     }, [props.value, props.task, props.lang, ]);
 
     function onOpen(property) {
-        if (property === 'info') {
-            openInfo(true);
-        } else if (property === 'game') {
+        if (property === 'game') {
             if (props.task.locked === false) {
                 props.onUpdate(props.task);
             }
+
+        } else {
+            openInfo(true);
         }
     }
 
@@ -72,6 +73,7 @@ export default function CardTask(props) {
             </div>
 
             <Info open={info}
+                type={'info'}
                 title={title}
                 text={description}
                 source={props.task.logo}

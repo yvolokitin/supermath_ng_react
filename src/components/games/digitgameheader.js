@@ -1,8 +1,8 @@
 ﻿import React from 'react';
 import './digitgameheader.css';
-import GameProgress from "./digitgameprogress";
 
-import AlertDialog from './../alert/alert';
+import GameExit from './gameexit';
+import GameProgress from "./digitgameprogress";
 
 import {gameheader} from './../translations/gameheader';
 
@@ -38,7 +38,7 @@ export default function GameHeader(props) {
                 </font>
             </div>
 
-            <AlertDialog open={value}
+            <GameExit open={value}
                 fullScreen={props.fullScreen}
                 title={gameheader[props.lang]['title']}
                 text={gameheader[props.lang]['text']}
