@@ -453,9 +453,10 @@ export default class GameBoard extends React.Component {
                                 { this.props.type.includes('line_compexpr') ? (<div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>):(null)}
                                 { this.props.type.includes('line_compexpr') ? (<div className='line_expression'>{this.state.task.expr2}</div>):(null)}
 
-                                { this.props.type.includes('numbers') ? (<div className='line_task'>{this.state.task.expr1}</div>):(null)}
                                 { this.props.type.includes('numbers') ? (
-                                    <>
+                                    <div className='line_gameboard_numbers'>
+                                        <div className='line_task'>{this.state.task.expr1}</div>
+
                                         {(this.state.task.result.toString().length < 3) ? (
                                             <div className='line_result' style={{color: this.state.color}}>{this.state.result}</div>
                                           ) : ( null )}
@@ -471,7 +472,7 @@ export default class GameBoard extends React.Component {
                                         {(this.state.task.result.toString().length > 4) ? (
                                             <div className='line_5result' style={{color: this.state.color}}>{this.state.result}</div>
                                         ) : ( null )}
-                                    </>
+                                    </div>
                                 ) : ( <> </>)}
                             </div>
                         </div>
