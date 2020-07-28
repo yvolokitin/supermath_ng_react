@@ -29,8 +29,12 @@ export default function GameExit(props) {
 
             <DialogContent>
                 <Typography align='center' onClick={() => props.onClose('logout')}>
-                    <img src={image} alt={'logout'} style={{width: '40%', cursor: 'pointer'}} onContextMenu={(e) => e.preventDefault()}/>
+                    <img src={image} alt={'logout'} className='game_exit_image' onContextMenu={(e) => e.preventDefault()}/>
                 </Typography>
+            </DialogContent>
+
+            <DialogContent>
+                <DialogContentText> </DialogContentText>
             </DialogContent>
 
             <ColorLine/>

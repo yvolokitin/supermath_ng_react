@@ -4,12 +4,10 @@ import {Dialog, Slide, } from '@material-ui/core';
 import axios from 'axios';
 
 import GameExit from './gameexit';
-
-import ColorLine from './../line/line';
-import AlertDialog from './../alert/alert';
 import {taskgame} from './../translations/taskgame';
 
-import KeyBoard from './../keyboard/keyboard';
+// import KeyBoard from './../keyboard/keyboard';
+import EnterKeyboard from './../keyboard/enterkeyboard';
 
 import './taskgame.css';
 
@@ -121,6 +119,8 @@ export default function TaskGame(props) {
             } else {
                 setAnswer(answer.slice(0, -1));
             }
+        } else if (symbol === 'enter') {
+            checkAnswer();
         }
     }
 
@@ -169,35 +169,23 @@ export default function TaskGame(props) {
                 </div>
             </div>
 
-            <ColorLine margin={'0px'}/>
-
             <div className='taskgame_body_wrapper'>
                 <div className='taskgame_body_wrapper_left' style={{'float': float_desk}}>
-                    <div className='taskgame_body_wrapper_up'>
-                            <div className='taskgame_gameboard_image_wrapper'>
-                                <img src={image} alt='task' onContextMenu={(e) => e.preventDefault()}/>
-                            </div>
+                    <div className='taskgame_gameboard_image_wrapper'>
+                        <img src={image} alt='task' onContextMenu={(e) => e.preventDefault()}/>
                     </div>
-                    <div className='taskgame_body_wrapper_down'>
-                        <div className='taskgame_line_gameboard'> {task} </div>
-                    </div>
-                </div>
 
-                <div className='taskgame_body_wrapper_right' style={{'float': float_board}}>
-                    <div className='taskgame_body_wrapper_up'>
-                        <div className='taskgame_answer_text'>
+                    <div className='taskgame_gameboard_answer_wrapper'>
                             <font style={{'color': font, 'animation': animation}}>
                                 {answer}
                             </font>
-                        </div>
-                        <div className='taskgame_answer_btn' onClick={checkAnswer}>
-                            {taskgame[props.lang]['answer']}
-                        </div>
                     </div>
 
-                    <div className='taskgame_body_wrapper_down' style={{alignItems: 'center'}}>
-                        <KeyBoard onDigit={onDigit} onOperator={onOperator}/>
-                    </div>
+                    <div className='taskgame_gameboard_wrapper'> {task} </div>
+                </div>
+
+                <div className='taskgame_body_wrapper_right' style={{'float': float_board}}>
+                    <EnterKeyboard onDigit={onDigit} onOperator={onOperator}/>
                 </div>
             </div>
 

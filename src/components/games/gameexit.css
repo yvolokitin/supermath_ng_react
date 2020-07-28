@@ -1,1 +1,21 @@
-﻿
+﻿.game_exit_image {
+    width: 40%;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 50%;
+    border: 5px solid white;
+}
+.game_exit_image:hover {
+    border-radius: 50%;
+    border: 5px outset green;
+}
+.enter:active {
+    border-radius: 50%;
+    border: 5px outset green;
+}
+
+@media only screen and (max-width: 640px) {
+    .game_exit_image {
+        width: 60%;
+    }
+}
