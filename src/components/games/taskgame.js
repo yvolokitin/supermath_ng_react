@@ -185,7 +185,7 @@ export default function TaskGame(props) {
                 </div>
 
                 <div className='taskgame_body_wrapper_right' style={{'float': float_board}}>
-                    <EnterKeyboard onDigit={onDigit} onOperator={onOperator}/>
+                    <EnterKeyboard navi='true' onDigit={onDigit} onOperator={onOperator}/>
                 </div>
             </div>
 

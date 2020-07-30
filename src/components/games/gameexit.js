@@ -5,6 +5,15 @@ import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} fr
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+
+import RestoreIcon from '@material-ui/icons/Restore';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+
 import SMTitle from './../dialog/title';
 import ColorLine from './../line/line';
 
@@ -34,7 +43,16 @@ export default function GameExit(props) {
             </DialogContent>
 
             <DialogContent>
-                <DialogContentText> </DialogContentText>
+            </DialogContent>
+
+            <DialogContent>
+                <BottomNavigation showLabels>
+                    <BottomNavigationAction label='Recents' value='recents' icon={<RestoreIcon/>}/>
+                    <BottomNavigationAction label='Favorites' value='favorites' icon={<FavoriteIcon/>}/>
+                    <BottomNavigationAction label='Help' value='favorites' icon={<HelpOutlineIcon/>}/>
+                    <BottomNavigationAction label='Previous Task' value='back' icon={<ArrowBackIcon/>}/>
+                    <BottomNavigationAction label='Next Task' value='next' icon={<ArrowForwardIcon/>}/>
+                </BottomNavigation>
             </DialogContent>
 
             <ColorLine/>
