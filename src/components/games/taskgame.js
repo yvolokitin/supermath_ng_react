@@ -175,10 +175,8 @@ export default function TaskGame(props) {
                         <img src={image} alt='task' onContextMenu={(e) => e.preventDefault()}/>
                     </div>
 
-                    <div className='taskgame_gameboard_answer_wrapper'>
-                            <font style={{'color': font, 'animation': animation}}>
-                                {answer}
-                            </font>
+                    <div className='taskgame_gameboard_answer_wrapper' style={{'color': font, 'animation': animation}}>
+                        {answer}
                     </div>
 
                     <div className='taskgame_gameboard_wrapper'> {task} </div>
