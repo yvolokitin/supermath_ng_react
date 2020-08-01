@@ -199,6 +199,7 @@ export default function TaskGame(props) {
                 text={taskgame[props.lang]['text']}
                 yes={taskgame[props.lang]['yes']}
                 no={taskgame[props.lang]['no']}
+                lang={props.lang}
                 onClose={onAlertDialog}/>
 
         </Dialog>

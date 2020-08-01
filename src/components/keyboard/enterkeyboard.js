@@ -1,6 +1,8 @@
 ﻿import React from 'react';
 import './enterkeyboard.css';
 
+/*
+*/
 export default function EnterKeyboard(props) {
     return (
         <div className='enter_keyboard'>

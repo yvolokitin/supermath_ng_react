@@ -17,13 +17,12 @@ import ColorLine from './../line/line';
 
 import './gameexit.css';
 import image from './../../images/logout.png';
-import {game} from './../translations/game';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction='up' ref={ref} {...props} />;
+    return <Slide direction='left' ref={ref} {...props} />;
 });
 
-export default function GameExit(props) {
+export default function GameHelp(props) {
     return (
         <Dialog open={props.open} onClose={() => props.onClose('close')}
                 scroll='body' fullScreen={props.fullScreen}
@@ -49,9 +48,9 @@ export default function GameExit(props) {
 
             <DialogContent scroll='body'>
                 <BottomNavigation showLabels>
-                    <BottomNavigationAction label={game[props.lang]['settings']} value='settings' icon={<SettingsIcon/>}/>
-                    <BottomNavigationAction label={game[props.lang]['help']} value='help' icon={<HelpOutlineIcon/>}/>
-                    <BottomNavigationAction disabled label={game[props.lang]['previous']} value='previous' icon={<ArrowBackIcon/>}/>
+                    <BottomNavigationAction label='Settings' value='settings' icon={<SettingsIcon/>}/>
+                    <BottomNavigationAction label='Help' value='favorites' icon={<HelpOutlineIcon/>}/>
+                    <BottomNavigationAction disabled label='Previous' value='back' icon={<ArrowBackIcon/>}/>
                     <BottomNavigationAction label='Next Task' value='next' icon={<ArrowForwardIcon/>}/>
                 </BottomNavigation>
             </DialogContent>
