@@ -53,6 +53,7 @@ export default function Tabs(props) {
     const [taskOpen, setTaskOpen] = useState(false);
 
     const [game, setGame] = useState(false);
+    const [description, setDescription] = useState('');
 
     /*React.useEffect(() => {
         console.log('Tabs(props) -> ' + props.belt + ' <-');
@@ -68,8 +69,9 @@ export default function Tabs(props) {
         setBackground(user_tab.bckgrnd);
     };
 
-    function onGameOpen(task) {
+    function onGameOpen(task, description) {
         console.log('Tabs.onGameOpen ' + task.uid);
+        setDescription(description);
         setGame(task);
 
         if (task.type === 'task') {
@@ -171,6 +173,7 @@ export default function Tabs(props) {
                 task={game}
                 lang={props.lang}
                 width={props.width}
+                description={description}
                 onClose={onGameClose}/>
         </div>
     );

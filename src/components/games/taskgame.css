@@ -2,6 +2,7 @@
     height: 7%;
     width: 100%;
 
+    user-select: none;
     font-size: 2.00rem;
     font-family: 'Grinched';
     text-shadow: 2px 2px black;
@@ -39,6 +40,7 @@
     width: 64%;
     float: left;
     padding-left: 2%;
+    user-select: none;
 
     display: flex;
     align-items: center;
@@ -51,6 +53,7 @@
     width: 35%;
     float: right;
     cursor: pointer;
+    user-select: none;
 
     display: flex;
     align-items: center;

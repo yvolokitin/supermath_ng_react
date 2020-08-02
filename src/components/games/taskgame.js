@@ -4,9 +4,9 @@ import {Dialog, Slide, } from '@material-ui/core';
 import axios from 'axios';
 
 import GameExit from './gameexit';
-import {taskgame} from './../translations/taskgame';
+import GameHelp from './gamehelp';
 
-// import KeyBoard from './../keyboard/keyboard';
+import {taskgame} from './../translations/taskgame';
 import EnterKeyboard from './../keyboard/enterkeyboard';
 
 import './taskgame.css';
@@ -16,6 +16,13 @@ const url_prefix = 'http://supermath.xyz:3000/static/images/';
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='down' ref={ref} {...props} />;
 });
+
+const ALERT = {
+    NONE: 0,
+    EXIT: 1,
+    HELP: 2,
+    SETTINGS: 3,
+}
 
 export default function TaskGame(props) {
     const [task, setTask] = useState('');
@@ -36,7 +43,7 @@ export default function TaskGame(props) {
     const [font, setFont] = useState('grey');
     const [animation, setAnimation] = useState('blinker 5s linear infinite');
 
-    const [openAlert, setOpenAlert] = useState(false);
+    const [openAlert, setOpenAlert] = useState(ALERT.NONE);
 
     const onGetNewTaskUpdate = useCallback((response) => {
         if ('data' in response) {
@@ -88,11 +95,21 @@ export default function TaskGame(props) {
     }, [props.open, props.task, getNewTask]);
 
     const onAlertDialog = (status) => {
+        console.log('TaskGame.onAlertDialog ' + status);
         if (loading === false) {
-            if (status === 'logout') {
+            if (status === 'close') {
                 props.onClose('close', {'passed': 0, 'failed': 0});
+                setOpenAlert(ALERT.NONE);
+
+            } else if (status === 'exit') {
+                setOpenAlert(ALERT.EXIT);
+
+            }  else if (status === 'help') {
+                setOpenAlert(ALERT.HELP);
+
+            } else { // close
+                setOpenAlert(ALERT.NONE);
             }
-            setOpenAlert(false);
         }
     }
 
@@ -154,7 +171,7 @@ export default function TaskGame(props) {
         <Dialog open={props.open} fullScreen={true} TransitionComponent={Transition} transitionDuration={900}>
             <div className='taskgame_header_wrapper'>
                 <div className='taskgame_header_wrapper_left' style={{'float': float_desk}}>
-                    <font style={{color: 'orange'}} onClick={() => setOpenAlert(true)}>SUPERMATH</font>
+                    <font style={{color: 'orange'}} onClick={() => onAlertDialog('exit')}>SUPERMATH</font>
                 </div>
                 <div className='taskgame_header_wrapper_right' style={{'float': float_board}}>
                     <font style={{color: 'black'}}>
@@ -193,12 +210,18 @@ export default function TaskGame(props) {
                 </div>
             ) : (<></>)}
 
-            <GameExit open={openAlert}
+            <GameExit open={openAlert === ALERT.EXIT}
                 fullScreen={props.width<880}
                 title={taskgame[props.lang]['title']}
                 text={taskgame[props.lang]['text']}
                 yes={taskgame[props.lang]['yes']}
                 no={taskgame[props.lang]['no']}
+                lang={props.lang}
+                onClose={onAlertDialog}/>
+
+            <GameHelp open={openAlert === ALERT.EXIT}
+                description={props.description}
+                fullScreen={props.width<880}
                 lang={props.lang}
                 onClose={onAlertDialog}/>
 

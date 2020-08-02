@@ -30,7 +30,7 @@ export default function CardTask(props) {
     function onOpen(property) {
         if (property === 'game') {
             if (props.task.locked === false) {
-                props.onUpdate(props.task);
+                props.onUpdate(props.task, description);
             }
 
         } else {
@@ -40,8 +40,8 @@ export default function CardTask(props) {
 
     function onClose(property) {
         openInfo(false);
-        if (property === 'play') { 
-            props.onUpdate(props.task);
+        if (property === 'play') {
+            props.onUpdate(props.task, description);
         }
     }
 
@@ -73,7 +73,7 @@ export default function CardTask(props) {
             </div>
 
             <Info open={info}
-                type={'info'}
+                type='info'
                 title={title}
                 text={description}
                 source={props.task.logo}

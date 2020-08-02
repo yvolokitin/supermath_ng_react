@@ -24,12 +24,17 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function GameExit(props) {
+    const handleChange = (event, value) => {
+        console.log('handleChange ' + value);
+        // setValue(newValue);
+    }
+
     return (
-        <Dialog open={props.open} onClose={() => props.onClose('close')}
+        <Dialog open={props.open} onClose={() => props.onClose('')}
                 scroll='body' fullScreen={props.fullScreen}
                 TransitionComponent={Transition} transitionDuration={900}>
 
-            <SMTitle title='' onClick={() => props.onClose('close')}/>
+            <SMTitle title='' onClick={() => props.onClose('')}/>
             <ColorLine/>
 
             <DialogTitle> {props.title} </DialogTitle>
@@ -39,7 +44,7 @@ export default function GameExit(props) {
             </DialogContent>
 
             <DialogContent>
-                <Typography align='center' onClick={() => props.onClose('logout')}>
+                <Typography align='center' onClick={() => props.onClose('exit')}>
                     <img src={image} alt={'logout'} className='game_exit_image' onContextMenu={(e) => e.preventDefault()}/>
                 </Typography>
             </DialogContent>
@@ -48,18 +53,18 @@ export default function GameExit(props) {
             </DialogContent>
 
             <DialogContent scroll='body'>
-                <BottomNavigation showLabels>
+                <BottomNavigation onChange={handleChange} showLabels>
                     <BottomNavigationAction label={game[props.lang]['settings']} value='settings' icon={<SettingsIcon/>}/>
                     <BottomNavigationAction label={game[props.lang]['help']} value='help' icon={<HelpOutlineIcon/>}/>
-                    <BottomNavigationAction disabled label={game[props.lang]['previous']} value='previous' icon={<ArrowBackIcon/>}/>
-                    <BottomNavigationAction label='Next Task' value='next' icon={<ArrowForwardIcon/>}/>
+                    <BottomNavigationAction label={game[props.lang]['previous']} value='previous' icon={<ArrowBackIcon/>} disabled/>
+                    <BottomNavigationAction label={game[props.lang]['next']}  value='next' icon={<ArrowForwardIcon/>}/>
                 </BottomNavigation>
             </DialogContent>
 
             <ColorLine/>
             <DialogActions>
-                <Button onClick={() => props.onClose('logout')} color='primary' startIcon={<ExitToAppIcon/>} autoFocus> {props.yes} </Button>
-                <Button onClick={() => props.onClose('close')} color='primary' startIcon={<FavoriteBorderIcon/>}> {props.no} </Button>
+                <Button onClick={() => props.onClose('exit')} color='primary' startIcon={<ExitToAppIcon/>} autoFocus> {props.yes} </Button>
+                <Button onClick={() => props.onClose('')} color='primary' startIcon={<FavoriteBorderIcon/>}> {props.no} </Button>
             </DialogActions>
         </Dialog>
   );
