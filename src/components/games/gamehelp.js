@@ -5,11 +5,8 @@ import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} fr
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
-import CancelIcon from '@material-ui/icons/Cancel';
-
 import SettingsIcon from '@material-ui/icons/Settings';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 import SMTitle from './../dialog/title';
 import ColorLine from './../line/line';
@@ -38,7 +35,7 @@ export default function GameHelp(props) {
             </DialogContent>
 
             <DialogContent>
-                <Typography align='center' onClick={() => props.onClose('logout')}>
+                <Typography align='center' onClick={() => props.onClose('')}>
                     <img src={image} alt='help' className='game_exit_image' onContextMenu={(e) => e.preventDefault()}/>
                 </Typography>
             </DialogContent>
@@ -48,9 +45,7 @@ export default function GameHelp(props) {
 
             <DialogContent scroll='body'>
                 <BottomNavigation showLabels>
-                    <BottomNavigationAction label='Settings' value='settings' icon={<SettingsIcon/>}/>
-                    <BottomNavigationAction disabled label='Previous' value='back' icon={<ArrowBackIcon/>}/>
-                    <BottomNavigationAction label='Next Task' value='next' icon={<ArrowForwardIcon/>}/>
+                    <BottomNavigationAction label={game[props.lang]['settings']} value='settings' icon={<SettingsIcon/>}/>
                 </BottomNavigation>
             </DialogContent>
 

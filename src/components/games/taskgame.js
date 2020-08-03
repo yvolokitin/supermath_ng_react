@@ -98,8 +98,8 @@ export default function TaskGame(props) {
         console.log('TaskGame.onAlertDialog ' + status);
         if (loading === false) {
             if (status === 'close') {
-                props.onClose('close', {'passed': 0, 'failed': 0});
                 setOpenAlert(ALERT.NONE);
+                props.onClose('close', {'passed': 0, 'failed': 0});
 
             } else if (status === 'exit') {
                 setOpenAlert(ALERT.EXIT);
@@ -109,6 +109,11 @@ export default function TaskGame(props) {
 
             } else if (status === 'settings') {
                 setOpenAlert(ALERT.SETTINGS);
+
+            } else if (status === 'next') {
+                // console.log('Proceed with Next Task');
+                setLoading(true); getNewTask();
+                setOpenAlert(ALERT.NONE);
 
             } else { // close
                 setOpenAlert(ALERT.NONE);
@@ -195,8 +200,8 @@ export default function TaskGame(props) {
                         <img src={image} alt='task' onContextMenu={(e) => e.preventDefault()}/>
                     </div>
 
-                    <div className='taskgame_gameboard_answer_wrapper' style={{'color': font, 'animation': animation}}>
-                        {answer}
+                    <div className='taskgame_gameboard_answer_wrapper'>
+                        <font style={{'color': font, 'animation': animation}}> {answer} </font>
                     </div>
 
                     <div className='taskgame_gameboard_wrapper'> {task} </div>

@@ -40,11 +40,11 @@ export default function GameExit(props) {
             <DialogTitle> {props.title} </DialogTitle>
 
             <DialogContent>
-                <DialogContentText>{props.text}</DialogContentText>
+                <DialogContentText> {props.text} </DialogContentText>
             </DialogContent>
 
             <DialogContent>
-                <Typography align='center' onClick={() => props.onClose('exit')}>
+                <Typography align='center' onClick={() => props.onClose('close')}>
                     <img className='game_exit_image' src={image} alt='logout' onContextMenu={(e) => e.preventDefault()}/>
                 </Typography>
             </DialogContent>
@@ -63,7 +63,7 @@ export default function GameExit(props) {
 
             <ColorLine/>
             <DialogActions>
-                <Button onClick={() => props.onClose('exit')} color='primary' startIcon={<ExitToAppIcon/>} autoFocus> {props.yes} </Button>
+                <Button onClick={() => props.onClose('close')} color='primary' startIcon={<ExitToAppIcon/>} autoFocus> {props.yes} </Button>
                 <Button onClick={() => props.onClose('')} color='primary' startIcon={<FavoriteBorderIcon/>}> {props.no} </Button>
             </DialogActions>
         </Dialog>

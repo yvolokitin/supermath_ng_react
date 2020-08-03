@@ -32,7 +32,6 @@
     font-family: 'Roboto', Helvetica, Arial, sans-serif;
 
     border-radius: 5px;
-    border: 3px solid #ff1a1a;
 }
 
 .taskgame_header_wrapper_left {
@@ -113,7 +112,8 @@
 
     border-radius: 15px;
     box-shadow: 1px 1px 2px 1px black;
-
+}
+.taskgame_gameboard_answer_wrapper font {
     animation: blinker 5s linear infinite; 
 }
 
