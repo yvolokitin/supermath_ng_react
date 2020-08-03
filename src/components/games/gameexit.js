@@ -26,7 +26,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function GameExit(props) {
     const handleChange = (event, value) => {
         console.log('handleChange ' + value);
-        // setValue(newValue);
+        props.onClose(value);
     }
 
     return (
@@ -45,7 +45,7 @@ export default function GameExit(props) {
 
             <DialogContent>
                 <Typography align='center' onClick={() => props.onClose('exit')}>
-                    <img src={image} alt={'logout'} className='game_exit_image' onContextMenu={(e) => e.preventDefault()}/>
+                    <img className='game_exit_image' src={image} alt='logout' onContextMenu={(e) => e.preventDefault()}/>
                 </Typography>
             </DialogContent>
 

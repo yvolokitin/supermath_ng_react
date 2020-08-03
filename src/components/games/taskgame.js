@@ -104,8 +104,11 @@ export default function TaskGame(props) {
             } else if (status === 'exit') {
                 setOpenAlert(ALERT.EXIT);
 
-            }  else if (status === 'help') {
+            } else if (status === 'help') {
                 setOpenAlert(ALERT.HELP);
+
+            } else if (status === 'settings') {
+                setOpenAlert(ALERT.SETTINGS);
 
             } else { // close
                 setOpenAlert(ALERT.NONE);
@@ -219,7 +222,7 @@ export default function TaskGame(props) {
                 lang={props.lang}
                 onClose={onAlertDialog}/>
 
-            <GameHelp open={openAlert === ALERT.EXIT}
+            <GameHelp open={openAlert === ALERT.HELP}
                 description={props.description}
                 fullScreen={props.width<880}
                 lang={props.lang}

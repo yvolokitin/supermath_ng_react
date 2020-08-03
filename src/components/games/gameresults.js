@@ -121,11 +121,11 @@ export default function GameResults(props) {
                     <div className='result_board_button' onClick={() => setResults(true)}>
                         {gameresults[props.lang]['show']}
                     </div>
-                    { (props.id === 0) ? (
+                    {(props.id === 0) ? (
                         <div className='result_board_button' onClick={() => props.onClose('register', data)}>
                             {gameresults[props.lang]['registration']}
                         </div>
-                    ) : (
+                    ):(
                         <div className='result_board_button' onClick={() => props.onClose('progress', data)}>
                             {gameresults[props.lang]['progress']}
                         </div>

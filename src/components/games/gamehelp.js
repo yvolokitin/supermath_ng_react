@@ -10,7 +10,6 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 import SMTitle from './../dialog/title';
 import ColorLine from './../line/line';
@@ -40,7 +39,7 @@ export default function GameHelp(props) {
 
             <DialogContent>
                 <Typography align='center' onClick={() => props.onClose('logout')}>
-                    <img src={image} alt={'logout'} className='game_exit_image' onContextMenu={(e) => e.preventDefault()}/>
+                    <img src={image} alt='help' className='game_exit_image' onContextMenu={(e) => e.preventDefault()}/>
                 </Typography>
             </DialogContent>
 
