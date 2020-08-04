@@ -5,7 +5,7 @@ import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} fr
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
-import SettingsIcon from '@material-ui/icons/Settings';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 import SMTitle from './../dialog/title';
@@ -19,7 +19,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='left' ref={ref} {...props} />;
 });
 
-export default function GameHelp(props) {
+export default function GameSettings(props) {
     return (
         <Dialog open={props.open} onClose={() => props.onClose('')}
                 scroll='body' fullScreen={props.fullScreen}
@@ -28,24 +28,21 @@ export default function GameHelp(props) {
             <SMTitle title='' onClick={() => props.onClose('')}/>
             <ColorLine/>
 
-            <DialogTitle> {game[props.lang]['help']} </DialogTitle>
-
-            <DialogContent>
-                <DialogContentText> {props.description} </DialogContentText>
-            </DialogContent>
+            <DialogTitle> {game[props.lang]['settings']} </DialogTitle>
 
             <DialogContent>
                 <Typography align='center' onClick={() => props.onClose('')}>
-                    <img src={image} alt='help' className='game_exit_image' onContextMenu={(e) => e.preventDefault()}/>
+                    <img src={image} alt='settings' className='game_exit_image' onContextMenu={(e) => e.preventDefault()}/>
                 </Typography>
             </DialogContent>
 
             <DialogContent>
+
             </DialogContent>
 
             <DialogContent scroll='body'>
                 <BottomNavigation showLabels>
-                    <BottomNavigationAction label={game[props.lang]['settings']} value='settings' icon={<SettingsIcon/>}/>
+                    <BottomNavigationAction label={game[props.lang]['help']} value='help' icon={<HelpOutlineIcon/>}/>
                 </BottomNavigation>
             </DialogContent>
 

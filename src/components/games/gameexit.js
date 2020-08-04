@@ -67,5 +67,5 @@ export default function GameExit(props) {
                 <Button onClick={() => props.onClose('')} color='primary' startIcon={<FavoriteBorderIcon/>}> {props.no} </Button>
             </DialogActions>
         </Dialog>
-  );
+    );
 }

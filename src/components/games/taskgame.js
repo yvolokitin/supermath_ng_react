@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import GameExit from './gameexit';
 import GameHelp from './gamehelp';
+import GameSettings from './gamesettings';
 
 import {taskgame} from './../translations/taskgame';
 import EnterKeyboard from './../keyboard/enterkeyboard';
@@ -229,6 +230,11 @@ export default function TaskGame(props) {
 
             <GameHelp open={openAlert === ALERT.HELP}
                 description={props.description}
+                fullScreen={props.width<880}
+                lang={props.lang}
+                onClose={onAlertDialog}/>
+
+            <GameSettings open={openAlert === ALERT.SETTINGS}
                 fullScreen={props.width<880}
                 lang={props.lang}
                 onClose={onAlertDialog}/>
