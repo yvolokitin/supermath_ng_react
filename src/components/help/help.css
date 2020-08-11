@@ -67,6 +67,7 @@
     width: 95%;
     user-select: none;
 }
+
 @media only screen and (max-width: 800px) {
     .help_tab_wrapper {
         width: 20%;
@@ -76,4 +77,17 @@
         width: 98%;
     }
 }
-
+@media only screen and (max-width: 420px) {
+    .help_wrapper {
+        height: 35px;
+    }
+    .help_tabs_wrapper {
+        height: 31px;
+    }
+    .help_tab_wrapper {
+        font-size: 1rem;
+    }
+    .typography_div_wrapper {
+        width: 98%;
+    }
+}
