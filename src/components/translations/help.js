@@ -13,7 +13,7 @@ export const help = {
         'colors': 'цвета',
         'signin': 'регистрация',
         'profile': 'профиль',
-        'glossary': 'глоссарий',
+        'glossary': 'словарь',
         'issues': 'проблемы',
     },
     // Dutch
