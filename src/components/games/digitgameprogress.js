@@ -1,13 +1,25 @@
 ﻿import React from 'react';
 
-import {Dialog, DialogTitle, DialogActions, DialogContent, Button} from '@material-ui/core';
+import {Dialog, DialogTitle, DialogActions, DialogContent, Button, Slide} from '@material-ui/core';
 import {Table, TableRow, TableBody, TableCell, TableContainer, Paper} from '@material-ui/core';
+
+import SMTitle from './../dialog/title';
+import ColorLine from './../line/line';
 
 import './digitgameprogress.css';
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction='down' ref={ref} {...props} />;
+});
+
 export default function GameProgress(props) {
     return (
-        <Dialog open={props.open} onClose={() => props.onClose()}>
+        <Dialog open={props.open} onClose={() => props.onClose()}
+            TransitionComponent={Transition} transitionDuration={900}>
+
+            <SMTitle title='' onClick={() => props.onClose('')}/>
+            <ColorLine/>
+
             <DialogTitle>
                 <font className='digitgameprogress_title' style={{color:'black'}}>
                     {props.results.length} &nbsp; &#128279; &nbsp;
@@ -38,6 +50,7 @@ export default function GameProgress(props) {
                 </TableContainer>
             </DialogContent>
 
+            <ColorLine/>
             <DialogActions>
                 <Button onClick={() => props.onClose()} className='digitgameprogress_close' color='primary' autoFocus>Close</Button>
             </DialogActions>

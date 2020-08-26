@@ -272,11 +272,12 @@ export default class DigitGame extends React.Component {
                     <>
                         <GameHeader onClick={this.onGameClose}
                             fullScreen={this.props.fullScreen}
-                            lang={this.props.lang}
                             total={this.state.total}
                             passed={this.state.passed}
                             failed={this.state.failed}
-                            results={this.state.results}/>
+                            results={this.state.results}
+                            width={this.props.width}
+                            lang={this.props.lang}/>
 
                         <GameBoard onClose={this.onGameClose}
                             onCounter={this.onCounterUpdate}
@@ -317,11 +318,12 @@ export default class DigitGame extends React.Component {
 
                         <GameHeader onClick={this.onGameClose}
                             fullScreen={this.props.fullScreen}
-                            lang={this.props.lang}
                             total={this.state.total}
                             passed={this.state.passed}
                             failed={this.state.failed}
-                            results={this.state.results}/>
+                            results={this.state.results}
+                            width={this.props.width}
+                            lang={this.props.lang}/>
 
                         <Calendar id={this.props.id}
                             pswdhash='' name=''

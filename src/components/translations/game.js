@@ -3,6 +3,7 @@ export const game = {
     // English
     'en': {
         'settings': 'Settings',
+        'results': 'Results',
         'previous': 'Previous',
         'next': 'Next Task',
         'help': 'Help',
@@ -11,6 +12,7 @@ export const game = {
     // Russian
     'ru': {
         'settings': 'Настройки',
+        'results': 'Результаты',
         'previous': 'Назад',
         'next': 'Следующая',
         'help': 'Помощь',
@@ -19,6 +21,7 @@ export const game = {
     // Dutch
     'nl' : {
         'settings': 'Settings',
+        'results': 'Results',
         'previous': 'Previous',
         'next': 'Next Task',
         'help': 'Help',
@@ -27,6 +30,7 @@ export const game = {
     // French
     'fr' : {
         'settings': 'Settings',
+        'results': 'Results',
         'previous': 'Previous',
         'next': 'Next Task',
         'help': 'Help',
@@ -35,6 +39,7 @@ export const game = {
     // German
     'de' : {
         'settings': 'Settings',
+        'results': 'Results',
         'previous': 'Previous',
         'next': 'Next Task',
         'help': 'Help',
@@ -43,6 +48,7 @@ export const game = {
     // Spanish
     'es' : {
         'settings': 'Settings',
+        'results': 'Results',
         'previous': 'Previous',
         'next': 'Next Task',
         'help': 'Help',
@@ -51,6 +57,7 @@ export const game = {
     // Italian
     'it' : {
         'settings': 'Settings',
+        'results': 'Results',
         'previous': 'Previous',
         'next': 'Next Task',
         'help': 'Help',

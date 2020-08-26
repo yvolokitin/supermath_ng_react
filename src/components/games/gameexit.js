@@ -6,6 +6,7 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ShowChartIcon from '@material-ui/icons/ShowChart';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -56,8 +57,14 @@ export default function GameExit(props) {
                 <BottomNavigation onChange={handleChange} showLabels>
                     <BottomNavigationAction label={game[props.lang]['settings']} value='settings' icon={<SettingsIcon/>}/>
                     <BottomNavigationAction label={game[props.lang]['help']} value='help' icon={<HelpOutlineIcon/>}/>
-                    <BottomNavigationAction label={game[props.lang]['previous']} value='previous' icon={<ArrowBackIcon/>} disabled/>
-                    <BottomNavigationAction label={game[props.lang]['next']}  value='next' icon={<ArrowForwardIcon/>}/>
+                    {(props.type === 'task') ? (
+                        <>
+                            <BottomNavigationAction label={game[props.lang]['previous']} value='previous' icon={<ArrowBackIcon/>} disabled/>
+                            <BottomNavigationAction label={game[props.lang]['next']}  value='next' icon={<ArrowForwardIcon/>}/>
+                        </>
+                    ) : (
+                        <BottomNavigationAction label={game[props.lang]['results']} value='progress' icon={<ShowChartIcon/>}/>
+                    )}
                 </BottomNavigation>
             </DialogContent>
 
