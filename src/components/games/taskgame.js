@@ -154,9 +154,10 @@ export default function TaskGame(props) {
         console.log('answer ' + answer + ', result ' + result);
         if (answer !== '?') {
             if (answer === result) {
-                setTotal(total + 1);
+                setTotal(total => total + 1);
+
                 if (counter === 0) {
-                    setPassed(passed + 1);
+                    setPassed(passed => passed + 1);
                 }
 
                 setFont('green');
@@ -168,10 +169,10 @@ export default function TaskGame(props) {
 
             } else {
                 if (counter === 0) {
-                    setFailed(failed + 1);
+                    setFailed(failed => failed + 1);
                 }
 
-                setCounter(counter + 1);
+                setCounter(counter => counter + 1);
             }
         }
     }
