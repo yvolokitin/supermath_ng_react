@@ -13,6 +13,10 @@
     border-radius: 50%;
     border: 5px outset green;
 }
+.game_settings {
+    border: 1px solid black;
+    padding: 40px;    
+}
 
 @media only screen and (max-width: 640px) {
     .game_exit_image {

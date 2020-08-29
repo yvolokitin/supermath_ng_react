@@ -18,6 +18,7 @@ import ColorLine from './../line/line';
 
 import './gameexit.css';
 import image from './../../images/logout.png';
+
 import {game} from './../translations/game';
 
 const Transition = React.forwardRef(function Transition(props, ref) {

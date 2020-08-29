@@ -233,6 +233,7 @@ export default function TaskGame(props) {
             <GameHelp open={openAlert === ALERT.HELP}
                 description={props.description}
                 fullScreen={props.width<880}
+                type='task'
                 lang={props.lang}
                 onClose={onAlertDialog}/>
 

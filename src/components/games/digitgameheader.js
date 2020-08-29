@@ -74,6 +74,7 @@ export default function GameHeader(props) {
             <GameHelp open={openAlert === ALERT.HELP}
                 description={props.description}
                 fullScreen={props.width<880}
+                type='game'
                 lang={props.lang}
                 onClose={onAlertDialog}/>
 
