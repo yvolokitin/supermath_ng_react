@@ -4,14 +4,11 @@
     user-select: none;
     border-radius: 50%;
     border: 5px solid white;
+    transition: border-color 1.6s linear;
 }
 .game_exit_image:hover {
     border-radius: 50%;
-    border: 5px outset green;
-}
-.enter:active {
-    border-radius: 50%;
-    border: 5px outset green;
+    border-color: green;
 }
 .game_settings {
     border: 1px solid black;
