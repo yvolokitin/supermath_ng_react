@@ -8,6 +8,7 @@ export const header = {
         'logout': 'logout',
         'register': 'registration',
         'lang': 'en',
+        'error': 'We are sorry, server returned error: ',
     },
     // Russian
     'ru': {
@@ -17,9 +18,7 @@ export const header = {
         'logout': 'выйти',
         'register': 'регистрация',
         'lang': 'ru',
-        'logout_title': 'Вы действительно хотите Выйти?',
-        'logout_yes': 'Да, Пожалуйста и поскорее!',
-        'logout_no': 'Нет, хочу остаться как ',
+        'error': 'Простите, ошибка на сервере: ',
     },
     // Dutch
     'nl' : {
@@ -29,9 +28,7 @@ export const header = {
         'logout': 'uitloggen',
         'register': 'registratie',
         'lang': 'nl',
-        'logout_title': 'Wil je echt uitloggen?',
-        'logout_yes': 'Ja, doe het alsjeblieft',
-        'logout_no': 'Nee, ik wil blijven zoals ',
+        'error': 'Het spijt ons, de server heeft een fout geretourneerd: ',
     },
     // French
     'fr' : {
@@ -41,9 +38,7 @@ export const header = {
         'logout': 'deconnecter',
         'register': 'enregistrement',
         'lang': 'fr',
-        'logout_title': 'Voulez-vous vraiment vous déconnecter?',
-        'logout_yes': 'Oui, veuillez le faire',
-        'logout_no': 'Non, je veux rester ',
+        'error': 'Nous sommes désolés, le serveur a renvoyé une erreur: ',
     },
     // German
     'de' : {
@@ -53,9 +48,7 @@ export const header = {
         'logout': 'ausloggen',
         'register': 'registrieren',
         'lang': 'de',
-        'logout_title': 'Mochten Sie sich wirklich abmelden?',
-        'logout_yes': 'Ja, bitte mach es',
-        'logout_no': 'Nein, ich mochte bleiben als',
+        'error': 'Es tut uns leid, Server hat Fehler zurückgegeben: ',
     },
     // Spanish
     'es' : {
@@ -65,9 +58,7 @@ export const header = {
         'logout': 'cerrar',
         'register': 'registrarse',
         'lang': 'es',
-        'logout_title': 'Realmente quieres cerrar sesion?',
-        'logout_yes': 'Si, por favor hazlo',
-        'logout_no': 'No, quiero quedarme como ',
+        'error': 'Lo sentimos, el servidor devolvió un error: ',
     },
     // Italian
     'it' : {
@@ -77,8 +68,6 @@ export const header = {
         'logout': 'disconnettersi',
         'register': 'registrati',
         'lang': 'it',
-        'logout_title': 'Vuoi davvero disconnetterti?',
-        'logout_yes': 'Si, per favore fallo',
-        'logout_no': 'No, voglio restare come',
+        'error': 'Siamo spiacenti, errore restituito dal server: ',
     },
 };
