@@ -38,6 +38,7 @@ import navy6 from './../../images/tasks/navi_6.jpg';
 import navy7 from './../../images/tasks/navi_7.jpg';
 import navy8 from './../../images/tasks/navi_8.jpg';
 import navy9 from './../../images/tasks/navi_9.jpg';
+import navy10 from './../../images/tasks/navi_10.jpg';
 
 import brown1 from './../../images/tasks/brown_1.jpg';
 import brown2 from './../../images/tasks/brown_2.jpg';
@@ -124,7 +125,8 @@ export const navy_games = [
     {id: 7, uid: 'navy7', time: 0, logo: navy7, type: '2digits', task: 'x,11-20,11-20,1,1', amount: task_amount},
     {id: 8, uid: 'navy8', time: 0, logo: navy8, type: '3digits', task: 'x,1-10,1', amount: task_amount},
     {id: 9, uid: 'navy9', time: 0, logo: navy9, type: 'line_5numbers', task: '+-x,5,0-10,1', amount: task_amount},
-    {id: 10, uid: 'navyT', time: 10, logo: 'none', type: 'test', task: 'navy2,navy3,navy4,navy5,navy6,navy7,navy8,navy9', amount: task_amount},
+    {id: 10, uid: 'navy10', time: 0, logo: navy10, type: 'line_2numbers_signed', task: '+-,-100-100,-100-100,1,1', amount: task_amount},
+    {id: 11, uid: 'navyT', time: 10, logo: 'none', type: 'test', task: 'navy2,navy3,navy4,navy5,navy6,navy7,navy8,navy9', amount: task_amount},
 ];
 
 export const brown_games = [
