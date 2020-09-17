@@ -48,7 +48,7 @@ const STATUS = {
 export default function Language(props) {
     function onLanguageChange(lang) {
         console.log('Language.onLangChange ' + lang);
-        props.onUpdate(STATUS.LANG, lang);
+        props.onUpdate(STATUS.NONE, lang);
     }
 
     return (
