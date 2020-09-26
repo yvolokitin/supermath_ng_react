@@ -116,7 +116,7 @@ export default function Login(props) {
                 setLoading(true); var pswdhash = generate_pswdhash(password);
                 // console.log('onLogin -> crypto pswdhash: ' + pswdhash);
                 var post_data = {'email': email, 'pswdhash': pswdhash};
-                axios.post('http://supermath.xyz:3000/api/login', post_data)
+                axios.post('https://supermath.xyz:3000/api/login', post_data)
                     .then(onLoginResponse)
                     .catch(onLoginError);
 

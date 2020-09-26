@@ -11,7 +11,7 @@ export default function Footer(props) {
     return (
         <div className='footer_wrapper'>
             <div className='footer_copyright'>
-                {'Copyright © '} <Link color='inherit' href='http://supermath.xyz'>SuperMath.XYZ</Link>{' '} {new Date().getFullYear()}
+                {'Copyright © '} <Link color='inherit' href='https://supermath.xyz'>SuperMath.XYZ</Link>{' '} {new Date().getFullYear()}
             </div>
 
             <div className='footer_contacts'>
