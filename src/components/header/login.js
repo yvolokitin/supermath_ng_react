@@ -136,7 +136,7 @@ export default function Login(props) {
 
         // process with login request from localstorage data
         setLoading(true); var post_data = {'email': user_email, 'pswdhash': user_pswd};
-        axios.post('http://supermath.xyz:3000/api/login', post_data)
+        axios.post('https://supermath.xyz:3000/api/login', post_data)
             .then(onLoginResponse)
             .catch(onLoginError);
 

@@ -68,7 +68,7 @@ export default function Trophy(props) {
     }, [props.lang, ])
 
     const getScores = useCallback(() => {
-        axios.post('http://supermath.xyz:3000/api/scores', {'amount': 10})
+        axios.post('https://supermath.xyz:3000/api/scores', {'amount': 10})
              .then(onScoresUpdate)
              .catch(onScoresError);
 
@@ -80,7 +80,7 @@ export default function Trophy(props) {
             'pswdhash': props.pswdhash,
             'target_id': target,
         };
-        axios.post('http://supermath.xyz:3000/api/poopthrow', post)
+        axios.post('https://supermath.xyz:3000/api/poopthrow', post)
             .then(onScoresUpdate)
             .catch(onScoresError);
 

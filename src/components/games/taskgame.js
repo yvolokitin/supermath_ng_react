@@ -12,7 +12,7 @@ import EnterKeyboard from './../keyboard/enterkeyboard';
 
 import './taskgame.css';
 
-const url_prefix = 'http://supermath.xyz:3000/static/images/';
+const url_prefix = 'https://supermath.xyz:3000/static/images/';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='down' ref={ref} {...props} />;
@@ -76,7 +76,7 @@ export default function TaskGame(props) {
 
     const getNewTask = useCallback(() => {
         var data = {'lang': props.lang, 'level': props.task.uid}
-        axios.post('http://supermath.xyz:3000/api/gettask', data)
+        axios.post('https://supermath.xyz:3000/api/gettask', data)
              .then(onGetNewTaskUpdate)
              .catch(onGetNewTaskError);
 

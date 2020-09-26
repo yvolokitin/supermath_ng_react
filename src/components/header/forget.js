@@ -63,7 +63,7 @@ export default class Forget extends React.Component {
 
                 this.setState({success: false, loading: true});
                 var post_data = {'email': this.state.email};
-                axios.post('http://supermath.xyz:3000/api/forget', post_data)
+                axios.post('https://supermath.xyz:3000/api/forget', post_data)
                     .then(this.onForgetResponse)
                     .catch(this.onForgetError);
                 this.time = new Date().getTime();

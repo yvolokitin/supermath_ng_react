@@ -1,9 +1,13 @@
 ﻿import axios from 'axios';
 import {set_item} from './../halpers/localstorage';
 
+const URL_EMAIL = 'https://supermath.xyz:3000/api/email';
+const URL_UPDATE = 'https://supermath.xyz:3000/api/update';
+const URL_COUNTER = 'https://supermath.xyz:3000/api/counter';
+
 export function send_email(data) {
     console.log('Communicator.send_email ' + data.email);
-    axios.post('http://supermath.xyz:3000/api/email', data)
+    axios.post(URL_EMAIL, data)
         .then(onApiCall)
         .catch(onApiCallError);
 }
@@ -17,7 +21,7 @@ export function update_avatar(id, pswdhash, avatar) {
         'operation': 'avatar',
         'avatar': avatar,
     };
-    axios.post('http://supermath.xyz:3000/api/update', data)
+    axios.post(URL_UPDATE, data)
          .then(onApiCall)
          .catch(onApiCallError);
 }
@@ -31,7 +35,7 @@ export function update_usersettings(id, pswdhash, property, value) {
         'pswdhash': pswdhash
     };
     data[property] = value;
-    axios.post('http://supermath.xyz:3000/api/update', data)
+    axios.post(URL_UPDATE, data)
          .then(onApiCall)
          .catch(onApiCallError);
 }
@@ -45,7 +49,7 @@ export function update_language(id, pswdhash, language) {
             'pswdhash': pswdhash,
             'operation': 'lang',
             'lang': language};
-        axios.post('http://supermath.xyz:3000/api/update', data)
+        axios.post(URL_UPDATE, data)
              .then(onApiCall)
              .catch(onApiCallError);
     }
@@ -66,7 +70,7 @@ export function update_counter(id, pswdhash, data, passed, failed) {
         set_item(data.user_id, 'failed', failed);
 
         data.user_id = id; data.pswdhash = pswdhash;
-        axios.post('http://supermath.xyz:3000/api/update', data)
+        axios.post(URL_UPDATE, data)
              .then(onApiCall)
              .catch(onApiCallError);
     }
@@ -100,7 +104,7 @@ export function update_user_scores(id, pswdhash, belt, value) {
         'failed': failbin,
         'cards': cardbin,
     };
-    axios.post('http://supermath.xyz:3000/api/counter', post)
+    axios.post(URL_COUNTER, post)
          .then(onApiCall)
          .catch(onApiCallError);
 }

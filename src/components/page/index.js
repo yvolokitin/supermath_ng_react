@@ -140,7 +140,7 @@ export default class SuperMathPage extends React.Component {
                 'user_id': this.state.id,
                 'pswdhash': this.state.pswdhash,
                 'refresh': false};
-            axios.post('http://supermath.xyz:3000/api/refresh', post_data)
+            axios.post('https://supermath.xyz:3000/api/refresh', post_data)
                  .then(this.onApiUpdate)
                  .catch(this.onApiUpdateError);
         }
@@ -173,7 +173,7 @@ export default class SuperMathPage extends React.Component {
                 'user_id': this.state.id,
                 'pswdhash': this.state.pswdhash,
                 'refresh': false};
-            axios.post('http://supermath.xyz:3000/api/refresh', post_data)
+            axios.post('https://supermath.xyz:3000/api/refresh', post_data)
                  .then(this.onApiUpdate)
                  .catch(this.onApiUpdateError);
         }
@@ -189,7 +189,7 @@ export default class SuperMathPage extends React.Component {
                 'pswdhash': this.state.pswdhash,
                 'refresh': true,
             };
-            axios.post('http://supermath.xyz:3000/api/refresh', post_data)
+            axios.post('https://supermath.xyz:3000/api/refresh', post_data)
                  .then(this.onApiUpdate)
                  .catch(this.onApiUpdateError);
 
@@ -258,7 +258,7 @@ export default class SuperMathPage extends React.Component {
                     'pswdhash': get_item(value, 'pswdhash'),
                     'refresh': false,
                 };
-                axios.post('http://supermath.xyz:3000/api/refresh', post)
+                axios.post('https://supermath.xyz:3000/api/refresh', post)
                      .then(this.onApiUpdate)
                      .catch(this.onApiUpdateError);
 
