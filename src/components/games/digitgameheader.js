@@ -16,6 +16,8 @@ const ALERT = {
     PROGRESS: 4,
 }
 
+const FULL_SCREEN = 880;
+
 export default function GameHeader(props) {
     const [openAlert, setOpenAlert] = React.useState(ALERT.NONE);
 
@@ -62,7 +64,7 @@ export default function GameHeader(props) {
             </div>
 
             <GameExit open={openAlert === ALERT.EXIT}
-                fullScreen={props.width<880}
+                fullScreen={props.width<FULL_SCREEN}
                 title={gameheader[props.lang]['title']}
                 text={gameheader[props.lang]['text']}
                 yes={gameheader[props.lang]['yes']}
@@ -73,17 +75,18 @@ export default function GameHeader(props) {
 
             <GameHelp open={openAlert === ALERT.HELP}
                 description={props.description}
-                fullScreen={props.width<880}
+                fullScreen={props.width<FULL_SCREEN}
                 type='game'
                 lang={props.lang}
                 onClose={onAlertDialog}/>
 
             <GameSettings open={openAlert === ALERT.SETTINGS}
-                fullScreen={props.width<880}
+                fullScreen={props.width<FULL_SCREEN}
                 lang={props.lang}
                 onClose={onAlertDialog}/>
 
             <GameProgress open={openAlert === ALERT.PROGRESS}
+                fullScreen={props.width<FULL_SCREEN}
                 total={props.total}
                 passed={props.passed}
                 failed={props.failed}

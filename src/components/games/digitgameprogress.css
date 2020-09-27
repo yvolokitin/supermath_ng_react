@@ -17,3 +17,13 @@
     font-size: 3rem;
     font-weight: bold;
 }
+
+@media only screen and (max-width: 640px) {
+    .digitgameprogress_title {
+        font-size: 1.5rem;
+    }
+    .digitgameprogress_table {
+        font-size: 1.5rem;
+    }
+
+}
