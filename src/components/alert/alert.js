@@ -35,5 +35,5 @@ export default function AlertDialog(props) {
                 </Button>
             </DialogActions>
         </Dialog>
-  );
+    );
 }

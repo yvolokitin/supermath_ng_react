@@ -94,7 +94,7 @@ export default class Registration extends React.Component {
                          'failed': this.props.failed,
                          'pswdhash': generate_pswdhash(this.state.pswd),
         };
-        axios.post('http://supermath.xyz:3000/api/reg', post_data)
+        axios.post('https://supermath.xyz:3000/api/reg', post_data)
              .then(this.onRegistrationResponse)
              .catch(this.onRegistrationError);
 

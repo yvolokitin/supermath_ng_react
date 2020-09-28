@@ -1,4 +1,5 @@
 import React from 'react';
+import Snackbar from '@material-ui/core/Snackbar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import axios from 'axios';
@@ -6,6 +7,8 @@ import axios from 'axios';
 import {update_counter, update_user_scores, update_language} from './../halpers/communicator';
 import {update_avatar, update_usersettings } from './../halpers/communicator';
 import {get_belt_color} from './../halpers/functions';
+
+import Alert from '@material-ui/lab/Alert';
 
 import About from './../header/about';
 import Login from './../header/login';
@@ -52,6 +55,8 @@ export default class SuperMathPage extends React.Component {
         this.onApiUpdate = this.onApiUpdate.bind(this);
         this.onApiUpdateError = this.onApiUpdateError.bind(this);
 
+        this.onError = this.onError.bind(this);
+
         this.onForget = this.onForget.bind(this);
         this.onResult = this.onResult.bind(this);
         this.onRefresh = this.onRefresh.bind(this);
@@ -67,6 +72,9 @@ export default class SuperMathPage extends React.Component {
         this.state = {
             width: window.innerWidth,
             screen: STATUS.NONE,
+
+            // error from backend
+            error: '',
 
             // get active user id and language
             id: active_user,
@@ -132,7 +140,7 @@ export default class SuperMathPage extends React.Component {
                 'user_id': this.state.id,
                 'pswdhash': this.state.pswdhash,
                 'refresh': false};
-            axios.post('http://supermath.xyz:3000/api/refresh', post_data)
+            axios.post('https://supermath.xyz:3000/api/refresh', post_data)
                  .then(this.onApiUpdate)
                  .catch(this.onApiUpdateError);
         }
@@ -154,6 +162,10 @@ export default class SuperMathPage extends React.Component {
         this.setState({width: window.innerWidth});
     }
 
+    onError(message) {
+        this.setState({error: message});
+    }
+
     onTrophyUpdate(user_id, pswdhash) {
         if ((this.state.id > 0) && (this.state.pswdhash.length > 0)) {
             // console.log('onTrophyUpdate. refreshing ' + this.state.id + ', pswdhash: ' + this.state.pswdhash);
@@ -161,7 +173,7 @@ export default class SuperMathPage extends React.Component {
                 'user_id': this.state.id,
                 'pswdhash': this.state.pswdhash,
                 'refresh': false};
-            axios.post('http://supermath.xyz:3000/api/refresh', post_data)
+            axios.post('https://supermath.xyz:3000/api/refresh', post_data)
                  .then(this.onApiUpdate)
                  .catch(this.onApiUpdateError);
         }
@@ -177,7 +189,7 @@ export default class SuperMathPage extends React.Component {
                 'pswdhash': this.state.pswdhash,
                 'refresh': true,
             };
-            axios.post('http://supermath.xyz:3000/api/refresh', post_data)
+            axios.post('https://supermath.xyz:3000/api/refresh', post_data)
                  .then(this.onApiUpdate)
                  .catch(this.onApiUpdateError);
 
@@ -246,7 +258,7 @@ export default class SuperMathPage extends React.Component {
                     'pswdhash': get_item(value, 'pswdhash'),
                     'refresh': false,
                 };
-                axios.post('http://supermath.xyz:3000/api/refresh', post)
+                axios.post('https://supermath.xyz:3000/api/refresh', post)
                      .then(this.onApiUpdate)
                      .catch(this.onApiUpdateError);
 
@@ -615,8 +627,10 @@ export default class SuperMathPage extends React.Component {
 
     onApiUpdateError(error) {
         console.log('Header.onApiUpdateError -> error ' + error);
+        this.onError('Server returned ' + error);
+
         // refreshing page
-        window.location.reload();
+        // window.location.reload();
     }
 
     /*
@@ -741,6 +755,12 @@ export default class SuperMathPage extends React.Component {
                     passed={this.state.passed}
                     failed={this.state.failed}
                     onClose={this.onWelcome}/>
+
+                <Snackbar open={this.state.error.length !== 0} onClose={() => this.onError('')} autoHideDuration={25000} anchorOrigin={{vertical:'bottom', horizontal:'center'}}>
+                    <Alert onClose={() => this.onError('')} severity='error'>
+                        {header[this.state.lang]['error']} {this.state.error}
+                    </Alert>
+                </Snackbar>
 
             </React.Fragment>
         )

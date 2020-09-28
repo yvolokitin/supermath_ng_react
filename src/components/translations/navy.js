@@ -10,8 +10,9 @@ export const navy_titles = {
         '6': 'Multiplication and Division of three numbers',
         '7': 'Multiplication of two two-digit number from 11 to 20',
         '8': 'Multiplication of three one-digit numbers (1..9)',
-        '9': 'Addition and Subtraction of four numbers',
-        '10': 'Take Navy Belt Test',
+        '9': 'Addition, Subtraction and Multiplication of four numbers',
+        '10': 'Addition and Subtraction of negative number and positive numbers',
+        '11': 'Take Navy Belt Test',
     },
     // Russian
     'ru': {
@@ -24,7 +25,8 @@ export const navy_titles = {
         '7': 'Умножение двух двузначных чисел от 11 до 20',
         '8': 'Умножение трех однозначных чисел (от 1 до 9)',
         '9': 'Сложение, Вычитание и Умножение четырех и пяти чисел',
-        '10': 'Пройди тест на Синий пояс',
+        '10': 'Сложение и Вычитание отрицательных числа и положительных чисел',
+        '11': 'Пройди тест на Синий пояс',
     },
     // Dutch
     'nl' : {
@@ -36,8 +38,9 @@ export const navy_titles = {
         '6': 'Multiplication and Division of three numbers',
         '7': 'Multiplication two two-digit number from 11 to 20',
         '8': 'Multiplication of three one-digit numbers (1..9)',
-        '9': 'Addition and Subtraction of four numbers',
-        '10': 'Take Navy Belt Test',
+        '9': 'Addition, Subtraction and Multiplication of four numbers',
+        '10': 'Addition and Subtraction of negative number and positive numbers',
+        '11': 'Take Navy Belt Test',
     },
     // French
     'fr' : {
@@ -49,8 +52,9 @@ export const navy_titles = {
         '6': 'Multiplication and Division of three numbers',
         '7': 'Multiplication two two-digit number from 11 to 20',
         '8': 'Multiplication of three one-digit numbers (1..9)',
-        '9': 'Addition and Subtraction of four numbers',
-        '10': 'Take Navy Belt Test',
+        '9': 'Addition, Subtraction and Multiplication of four numbers',
+        '10': 'Addition and Subtraction of negative number and positive numbers',
+        '11': 'Take Navy Belt Test',
     },
     // German
     'de' : {
@@ -62,8 +66,9 @@ export const navy_titles = {
         '6': 'Multiplication and Division of three numbers',
         '7': 'Multiplication two two-digit number from 11 to 20',
         '8': 'Multiplication of three one-digit numbers (1..9)',
-        '9': 'Addition and Subtraction of four numbers',
-        '10': 'Take Navy Belt Test',
+        '9': 'Addition, Subtraction and Multiplication of four numbers',
+        '10': 'Addition and Subtraction of negative number and positive numbers',
+        '11': 'Take Navy Belt Test',
     },
     // Spanish
     'es' : {
@@ -75,8 +80,9 @@ export const navy_titles = {
         '6': 'Multiplication and Division of three numbers',
         '7': 'Multiplication two two-digit number from 11 to 20',
         '8': 'Multiplication of three one-digit numbers (1..9)',
-        '9': 'Addition and Subtraction of four numbers',
-        '10': 'Take Navy Belt Test',
+        '9': 'Addition, Subtraction and Multiplication of four numbers',
+        '10': 'Addition and Subtraction of negative number and positive numbers',
+        '11': 'Take Navy Belt Test',
     },
     // Italian
     'it' : {
@@ -88,8 +94,9 @@ export const navy_titles = {
         '6': 'Multiplication and Division of three numbers',
         '7': 'Multiplication two two-digit number from 11 to 20',
         '8': 'Multiplication of three one-digit numbers (1..9)',
-        '9': 'Addition and Subtraction of four numbers',
-        '10': 'Take Navy Belt Test',
+        '9': 'Addition, Subtraction and Multiplication of four numbers',
+        '10': 'Addition and Subtraction of negative number and positive numbers',
+        '11': 'Take Navy Belt Test',
     },
 };
 
@@ -106,7 +113,8 @@ export const navy_descriptions = {
         '7': 'Tasks for multiplication of two two-digit numbers from 11 to 20. Multiplication often denoted by the cross symbol x or by an asterisk * or dot. For example: 17 x 13 = ?, 15 x 16 = ? or 18 x 18 = ?.',
         '8': 'Addition, Subtraction and Multiplication of 4 or 5 numbers. Kids have to determiny the right secuance of operatnios (Multiplication always goes before Addition and Subtraction), make correct calculation and answer. Multiplication happaned between one-digit numbers only, when Addition and Subtraction can use two-digit numbers. It can be at least one Multiplication (two in most cases).',
         '9': 'Addition and Subtraction of four numbers, where each number has different length: one-digit, two-digit, three- and four-digit. For example, 4051 + 655 + 70 + 5 = ? (result is 4781).',
-        '10': 'Take Navy Belt Test',
+        '10': 'Addition and Subtraction of negative number and positive numbers',
+        '11': 'Take Navy Belt Test',
     },
     // Russian
     'ru': {
@@ -119,7 +127,8 @@ export const navy_descriptions = {
         '7': 'Tasks for multiplication of two two-digit numbers from 11 to 20. Multiplication often denoted by the cross symbol x or by an asterisk * or dot. For example: 17 x 13 = ?, 15 x 16 = ? or 18 x 18 = ?.',
         '8': 'Addition, Subtraction and Multiplication of 4 or 5 numbers. Kids have to determiny the right secuance of operatnios (Multiplication always goes before Addition and Subtraction), make correct calculation and answer. Multiplication happaned between one-digit numbers only, when Addition and Subtraction can use two-digit numbers. It can be at least one Multiplication (two in most cases).',
         '9': 'Addition and Subtraction of four numbers, where each number has different length: one-digit, two-digit, three- and four-digit. For example, 4051 + 655 + 70 + 5 = ? (result is 4781).',
-        '10': 'Пройди тест на Синий пояс',
+        '10': 'Addition and Subtraction of negative number and positive numbers',
+        '11': 'Пройди тест на Синий пояс',
     },
     // Dutch
     'nl' : {
@@ -132,7 +141,8 @@ export const navy_descriptions = {
         '7': 'Tasks for multiplication of two two-digit numbers from 11 to 20. Multiplication often denoted by the cross symbol x or by an asterisk * or dot. For example: 17 x 13 = ?, 15 x 16 = ? or 18 x 18 = ?.',
         '8': 'Addition, Subtraction and Multiplication of 4 or 5 numbers. Kids have to determiny the right secuance of operatnios (Multiplication always goes before Addition and Subtraction), make correct calculation and answer. Multiplication happaned between one-digit numbers only, when Addition and Subtraction can use two-digit numbers. It can be at least one Multiplication (two in most cases).',
         '9': 'Addition and Subtraction of four numbers, where each number has different length: one-digit, two-digit, three- and four-digit. For example, 4051 + 655 + 70 + 5 = ? (result is 4781).',
-        '10': 'Take Navy Belt Test',
+        '10': 'Addition and Subtraction of negative number and positive numbers',
+        '11': 'Take Navy Belt Test',
     },
     // French
     'fr' : {
@@ -145,7 +155,8 @@ export const navy_descriptions = {
         '7': 'Tasks for multiplication of two two-digit numbers from 11 to 20. Multiplication often denoted by the cross symbol x or by an asterisk * or dot. For example: 17 x 13 = ?, 15 x 16 = ? or 18 x 18 = ?.',
         '8': 'Addition, Subtraction and Multiplication of 4 or 5 numbers. Kids have to determiny the right secuance of operatnios (Multiplication always goes before Addition and Subtraction), make correct calculation and answer. Multiplication happaned between one-digit numbers only, when Addition and Subtraction can use two-digit numbers. It can be at least one Multiplication (two in most cases).',
         '9': 'Addition and Subtraction of four numbers, where each number has different length: one-digit, two-digit, three- and four-digit. For example, 4051 + 655 + 70 + 5 = ? (result is 4781).',
-        '10': 'Take Navy Belt Test',
+        '10': 'Addition and Subtraction of negative number and positive numbers',
+        '11': 'Take Navy Belt Test',
     },
     // German
     'de' : {
@@ -158,7 +169,8 @@ export const navy_descriptions = {
         '7': 'Tasks for multiplication of two two-digit numbers from 11 to 20. Multiplication often denoted by the cross symbol x or by an asterisk * or dot. For example: 17 x 13 = ?, 15 x 16 = ? or 18 x 18 = ?.',
         '8': 'Addition, Subtraction and Multiplication of 4 or 5 numbers. Kids have to determiny the right secuance of operatnios (Multiplication always goes before Addition and Subtraction), make correct calculation and answer. Multiplication happaned between one-digit numbers only, when Addition and Subtraction can use two-digit numbers. It can be at least one Multiplication (two in most cases).',
         '9': 'Addition and Subtraction of four numbers, where each number has different length: one-digit, two-digit, three- and four-digit. For example, 4051 + 655 + 70 + 5 = ? (result is 4781).',
-        '10': 'Take Navy Belt Test',
+        '10': 'Addition and Subtraction of negative number and positive numbers',
+        '11': 'Take Navy Belt Test',
     },
     // Spanish
     'es' : {
@@ -171,7 +183,8 @@ export const navy_descriptions = {
         '7': 'Tasks for multiplication of two two-digit numbers from 11 to 20. Multiplication often denoted by the cross symbol x or by an asterisk * or dot. For example: 17 x 13 = ?, 15 x 16 = ? or 18 x 18 = ?.',
         '8': 'Addition, Subtraction and Multiplication of 4 or 5 numbers. Kids have to determiny the right secuance of operatnios (Multiplication always goes before Addition and Subtraction), make correct calculation and answer. Multiplication happaned between one-digit numbers only, when Addition and Subtraction can use two-digit numbers. It can be at least one Multiplication (two in most cases).',
         '9': 'Addition and Subtraction of four numbers, where each number has different length: one-digit, two-digit, three- and four-digit. For example, 4051 + 655 + 70 + 5 = ? (result is 4781).',
-        '10': 'Take Navy Belt Test',
+        '10': 'Addition and Subtraction of negative number and positive numbers',
+        '11': 'Take Navy Belt Test',
     },
     // Italian
     'it' : {
@@ -184,6 +197,7 @@ export const navy_descriptions = {
         '7': 'Tasks for multiplication of two two-digit numbers from 11 to 20. Multiplication often denoted by the cross symbol x or by an asterisk * or dot. For example: 17 x 13 = ?, 15 x 16 = ? or 18 x 18 = ?.',
         '8': 'Addition, Subtraction and Multiplication of 4 or 5 numbers. Kids have to determiny the right secuance of operatnios (Multiplication always goes before Addition and Subtraction), make correct calculation and answer. Multiplication happaned between one-digit numbers only, when Addition and Subtraction can use two-digit numbers. It can be at least one Multiplication (two in most cases).',
         '9': 'Addition and Subtraction of four numbers, where each number has different length: one-digit, two-digit, three- and four-digit. For example, 4051 + 655 + 70 + 5 = ? (result is 4781).',
-        '10': 'Take Navy Belt Test',
+        '10': 'Addition and Subtraction of negative number and positive numbers',
+        '11': 'Take Navy Belt Test',
     },
 };

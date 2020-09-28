@@ -41,16 +41,17 @@ export default function Exchange(props) {
             }
 
         } else if (type === 'cards') {
+            console.log('CARD !!!');
             if (value < 0) { // -1
-                if (((failed+10) <= props.failed) && ((cards+1) <= props.cards)) {
-                    setCards(cards+1);
-                    setFailed(failed+10);
+                if ((cards > 0) && (failed > 9)) {
+                    setCards(cards-1);
+                    setFailed(failed-10);
                 }
 
             } else { // +1
-                if ((cards > 0) && (failed > 10)) {
-                    setCards(cards-1);
-                    setFailed(failed-10);
+                if (((failed+10) <= props.failed) && ((cards+1) <= props.cards)) {
+                    setCards(cards+1);
+                    setFailed(failed+10);
                 }
             }
         }
@@ -114,12 +115,12 @@ export default function Exchange(props) {
 
                     <div className='exchange_board_line'>
                         <div className='exchange_board_line_col'>
-                            <font className='font_oper' onClick={() => updateCounter('passed', 30)}> + </font>
                             <font className='font_oper' onClick={() => updateCounter('passed', -30)}> - </font>
+                            <font className='font_oper' onClick={() => updateCounter('passed', 30)}> + </font>
                         </div>
                         <div className='exchange_board_line_col'>
-                            <font className='font_oper' onClick={() => updateCounter('cards', 1)}> + </font>
                             <font className='font_oper' onClick={() => updateCounter('cards', -1)}> - </font>
+                            <font className='font_oper' onClick={() => updateCounter('cards', 1)}> + </font>
                         </div>
                         <div className='exchange_board_line_col'> </div>
                     </div>

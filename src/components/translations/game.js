@@ -3,6 +3,7 @@ export const game = {
     // English
     'en': {
         'settings': 'Settings',
+        'results': 'Results',
         'previous': 'Previous',
         'next': 'Next Task',
         'help': 'Help',
@@ -11,6 +12,7 @@ export const game = {
     // Russian
     'ru': {
         'settings': 'Настройки',
+        'results': 'Результаты',
         'previous': 'Назад',
         'next': 'Следующая',
         'help': 'Помощь',
@@ -18,42 +20,47 @@ export const game = {
     },
     // Dutch
     'nl' : {
-        'settings': 'Settings',
-        'previous': 'Previous',
-        'next': 'Next Task',
-        'help': 'Help',
+        'settings': 'Instellingen',
+        'results': 'Resultaten',
+        'previous': 'Vorige',
+        'next': 'Volgende Taak',
+        'help': 'Helpen',
         'close': 'dichtbij',
     },
     // French
     'fr' : {
-        'settings': 'Settings',
-        'previous': 'Previous',
-        'next': 'Next Task',
-        'help': 'Help',
+        'settings': 'Paramètres',
+        'results': 'Résultats',
+        'previous': 'Précédent',
+        'next': 'Tâche Suivante',
+        'help': 'Aidez-moi',
         'close': 'proche',
     },
     // German
     'de' : {
-        'settings': 'Settings',
-        'previous': 'Previous',
-        'next': 'Next Task',
-        'help': 'Help',
+        'settings': 'Einstellungen',
+        'results': 'Ergebnisse',
+        'previous': 'Bisherige',
+        'next': 'Nächste Aufgabe',
+        'help': 'Hilfe',
         'close': 'nah',
     },
     // Spanish
     'es' : {
-        'settings': 'Settings',
-        'previous': 'Previous',
-        'next': 'Next Task',
-        'help': 'Help',
+        'settings': 'Configuraciones',
+        'results': 'Resultados',
+        'previous': 'Previo',
+        'next': 'Siguiente Tarea',
+        'help': 'Ayuda',
         'close': 'cerca',
     },
     // Italian
     'it' : {
-        'settings': 'Settings',
-        'previous': 'Previous',
-        'next': 'Next Task',
-        'help': 'Help',
+        'settings': 'Impostazioni',
+        'results': 'Risultati',
+        'previous': 'Precedente',
+        'next': 'Attività successiva',
+        'help': 'Aiuto',
         'close': 'close',
     },
 };

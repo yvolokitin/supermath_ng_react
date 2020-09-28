@@ -12,7 +12,7 @@ import EnterKeyboard from './../keyboard/enterkeyboard';
 
 import './taskgame.css';
 
-const url_prefix = 'http://supermath.xyz:3000/static/images/';
+const url_prefix = 'https://supermath.xyz:3000/static/images/';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='down' ref={ref} {...props} />;
@@ -76,7 +76,7 @@ export default function TaskGame(props) {
 
     const getNewTask = useCallback(() => {
         var data = {'lang': props.lang, 'level': props.task.uid}
-        axios.post('http://supermath.xyz:3000/api/gettask', data)
+        axios.post('https://supermath.xyz:3000/api/gettask', data)
              .then(onGetNewTaskUpdate)
              .catch(onGetNewTaskError);
 
@@ -154,9 +154,10 @@ export default function TaskGame(props) {
         console.log('answer ' + answer + ', result ' + result);
         if (answer !== '?') {
             if (answer === result) {
-                setTotal(total + 1);
+                setTotal(total => total + 1);
+
                 if (counter === 0) {
-                    setPassed(passed + 1);
+                    setPassed(passed => passed + 1);
                 }
 
                 setFont('green');
@@ -168,10 +169,10 @@ export default function TaskGame(props) {
 
             } else {
                 if (counter === 0) {
-                    setFailed(failed + 1);
+                    setFailed(failed => failed + 1);
                 }
 
-                setCounter(counter + 1);
+                setCounter(counter => counter + 1);
             }
         }
     }
@@ -225,12 +226,14 @@ export default function TaskGame(props) {
                 text={taskgame[props.lang]['text']}
                 yes={taskgame[props.lang]['yes']}
                 no={taskgame[props.lang]['no']}
+                type='task'
                 lang={props.lang}
                 onClose={onAlertDialog}/>
 
             <GameHelp open={openAlert === ALERT.HELP}
                 description={props.description}
                 fullScreen={props.width<880}
+                type='task'
                 lang={props.lang}
                 onClose={onAlertDialog}/>
 

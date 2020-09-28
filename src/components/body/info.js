@@ -12,6 +12,10 @@ import {info} from './../translations/info';
 import './info.css';
 
 export default function Info(props) {
+    /*React.useEffect(() => {
+        console.log('Info.useEffect -> ' + props.source);
+    }, [props.source, ]);*/
+
     return (
         <Dialog open={props.open} fullScreen={props.fullScreen} transitionDuration={700} scroll='body'>
             <SMTitle title='' onClick={() => props.onClose('info', false)}/>

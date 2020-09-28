@@ -154,14 +154,14 @@ export default class GameBoard extends React.Component {
 
                 case '>':
                 case 'ArrowRight':
-                    if (this.props.type === 'comp_expr') {
+                    if (this.props.type === 'comp_expr' || this.props.type === 'comp_nums') {
                         this.check_response('>');
                     }
                     break;
 
                 case '<':
                 case 'ArrowLeft':
-                    if (this.props.type === 'comp_expr') {
+                    if (this.props.type === 'comp_expr' || this.props.type === 'comp_nums') {
                         this.check_response('<');
                     }
                     break;
@@ -169,7 +169,7 @@ export default class GameBoard extends React.Component {
                 case '=':
                 case 'ArrowUp':
                 case 'ArrowDown':
-                    if (this.props.type === 'comp_expr') {
+                    if (this.props.type === 'comp_expr' || this.props.type === 'comp_nums') {
                         this.check_response('=');
                     }
                     break;

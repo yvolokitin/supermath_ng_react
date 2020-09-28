@@ -2,17 +2,22 @@
 import {Button, Slide, Typography} from '@material-ui/core';
 import {Dialog, DialogActions, DialogContent, DialogTitle} from '@material-ui/core';
 
+import {FormControl, FormControlLabel, Checkbox, } from '@material-ui/core';
+
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import CancelIcon from '@material-ui/icons/Cancel';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import ShowChartIcon from '@material-ui/icons/ShowChart';
 
 import SMTitle from './../dialog/title';
 import ColorLine from './../line/line';
 
 import './gameexit.css';
-import image from './../../images/information.png';
+import image from './../../images/settings.png';
 import {game} from './../translations/game';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -20,6 +25,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function GameSettings(props) {
+    const handleChange = (event, value) => {
+        console.log('handleChange ' + value);
+        props.onClose(value);
+    }
+
     return (
         <Dialog open={props.open} onClose={() => props.onClose('')}
                 scroll='body' fullScreen={props.fullScreen}
@@ -32,17 +42,28 @@ export default function GameSettings(props) {
 
             <DialogContent>
                 <Typography align='center' onClick={() => props.onClose('')}>
-                    <img src={image} alt='settings' className='game_exit_image' onContextMenu={(e) => e.preventDefault()}/>
+                    <img className='game_exit_image' src={image} alt='settings' onContextMenu={(e) => e.preventDefault()}/>
                 </Typography>
             </DialogContent>
 
             <DialogContent>
-
+                <FormControl className='game_settings' component='fieldset' color='secondary' size='medium' fullWidth={true}>
+                    <FormControlLabel value='end' labelPlacement='end' control={<Checkbox color='primary'/>} label='Enable Dark mode interface'/>
+                    <FormControlLabel value='end' labelPlacement='end' control={<Checkbox color='primary'/>} label='Show Keyboard from right side'/>
+                </FormControl>
             </DialogContent>
 
             <DialogContent scroll='body'>
-                <BottomNavigation showLabels>
+                <BottomNavigation onChange={handleChange} showLabels>
                     <BottomNavigationAction label={game[props.lang]['help']} value='help' icon={<HelpOutlineIcon/>}/>
+                    {(props.type === 'task') ? (
+                        <>
+                            <BottomNavigationAction label={game[props.lang]['previous']} value='previous' icon={<ArrowBackIcon/>} disabled/>
+                            <BottomNavigationAction label={game[props.lang]['next']}  value='next' icon={<ArrowForwardIcon/>}/>
+                        </>
+                    ) : (
+                        <BottomNavigationAction label={game[props.lang]['results']} value='progress' icon={<ShowChartIcon/>}/>
+                    )}
                 </BottomNavigation>
             </DialogContent>
 

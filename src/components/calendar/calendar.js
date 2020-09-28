@@ -49,7 +49,7 @@ export default function Calendar(props) {
             'month': new_month+1,
             'year': new_year,
         };
-        axios.post('http://supermath.xyz:3000/api/results', post_data)
+        axios.post('https://supermath.xyz:3000/api/results', post_data)
             .then(onResultsUpdate)
             .catch(onResultsError);
 
