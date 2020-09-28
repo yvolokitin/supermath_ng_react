@@ -1,4 +1,4 @@
-﻿import white1 from './../../images/tasks/white_1.jpg';
+import white1 from './../../images/tasks/white_1.jpg';
 import white2 from './../../images/tasks/white_2.jpg';
 import white3 from './../../images/tasks/white_3.jpg';
 import white4 from './../../images/tasks/white_4.jpg';
