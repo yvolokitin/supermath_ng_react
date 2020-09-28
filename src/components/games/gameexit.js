@@ -13,7 +13,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
-import SMTitle from './../dialog/title';
+import Title from './../title/title';
 import ColorLine from './../line/line';
 
 import './gameexit.css';
@@ -36,8 +36,8 @@ export default function GameExit(props) {
                 scroll='body' fullScreen={props.fullScreen}
                 TransitionComponent={Transition} transitionDuration={900}>
 
-            <SMTitle title='' onClick={() => props.onClose('')}/>
-            <ColorLine/>
+            <Title title='EXIT' src={image} onClick={() => props.onClose('')}/>
+            <ColorLine margin={'0px'}/>
 
             <DialogTitle> {props.title} </DialogTitle>
 

@@ -13,7 +13,11 @@ const useStyles = makeStyles((theme) => ({
     avatar: {
         width: theme.spacing(7),
         height: theme.spacing(7),
-        border: '1px solid black',
+    },
+    title: {
+        marginLeft: '13px',
+        fontSize: '24px',
+        fontFamily: 'TeleGrotesk',
     },
     button: {
         position: 'absolute',
@@ -21,11 +25,6 @@ const useStyles = makeStyles((theme) => ({
         top: '1%',
         color: 'grey',
     },
-    title: {
-        marginLeft: '13px',
-        fontSize: '24px',
-        fontFamily: 'TeleGrotesk',
-    }
 }));
 
 export default function Title(props) {
