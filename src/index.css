@@ -11,3 +11,7 @@ code {
   font-family: 'Grinched';
   src: local('Grinched'), url(./fonts/Grinched2.0.ttf) format('truetype');
 }
+@font-face {
+  font-family: 'TeleGrotesk';
+  src: local('TeleGrotesk'), url(./fonts/TeleGroteskHeadline-Ultra.ttf) format('truetype');
+}
