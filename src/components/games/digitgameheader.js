@@ -2,6 +2,7 @@
 import './digitgameheader.css';
 
 import GameExit from './gameexit';
+import GameInfo from './gameinfo';
 import GameHelp from './gamehelp';
 import GameSettings from './gamesettings';
 import GameProgress from "./digitgameprogress";
@@ -11,9 +12,10 @@ import {gameheader} from './../translations/gameheader';
 const ALERT = {
     NONE: 0,
     EXIT: 1,
-    HELP: 2,
-    SETTINGS: 3,
-    PROGRESS: 4,
+    INFO: 2,
+    HELP: 3,
+    SETTINGS: 4,
+    PROGRESS: 5,
 }
 
 const FULL_SCREEN = 880;
@@ -65,10 +67,13 @@ export default function GameHeader(props) {
 
             <GameExit open={openAlert === ALERT.EXIT}
                 fullScreen={props.width<FULL_SCREEN}
-                title={gameheader[props.lang]['title']}
-                text={gameheader[props.lang]['text']}
-                yes={gameheader[props.lang]['yes']}
-                no={gameheader[props.lang]['no']}
+                type='game'
+                lang={props.lang}
+                onClose={onAlertDialog}/>
+
+            <GameInfo open={openAlert === ALERT.INFO}
+                description={props.description}
+                fullScreen={props.width<FULL_SCREEN}
                 type='game'
                 lang={props.lang}
                 onClose={onAlertDialog}/>
@@ -92,6 +97,7 @@ export default function GameHeader(props) {
                 failed={props.failed}
                 results={props.results}
                 onClose={onAlertDialog}/>
+
         </div>
     );
 }

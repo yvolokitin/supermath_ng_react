@@ -33,11 +33,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='left' ref={ref} {...props} />;
 });
 
-export default function GameSettings(props) {
+export default function GameInfo(props) {
     const classes = useStyles();
 
     const handleChange = (event, value) => {
-        console.log('handleChange ' + value);
+        console.log('GameInfo.handleChange ' + value);
         props.onClose(value);
     }
 
@@ -46,7 +46,7 @@ export default function GameSettings(props) {
                 scroll='body' fullScreen={props.fullScreen}
                 TransitionComponent={Transition} transitionDuration={900}>
 
-            <Title title={game[props.lang]['settings']} src={image} onClose={() => props.onClose('')}/>
+            <Title title={game[props.lang]['info']} src={image} onClose={() => props.onClose('')}/>
             <ColorLine margin={'0px'}/>
 
             <DialogTitle className={classes.title}> {game[props.lang]['settings_title']} </DialogTitle>
