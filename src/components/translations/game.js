@@ -30,18 +30,24 @@ export const game = {
     },
     // Russian
     'ru': {
+        'exit': 'EXIT',
+        'exit_title': 'Выход',
+        'exit_question': 'Вы действительно хотите Прервать текущую игру и Выйти?',
+        'exit_text': 'You will lose All your Passed scores data if you Exit (when Fails counter will be kept under your profile)! We are strongly recommend you to finish current Math tasks',
+
+        'settings': 'НАСТРОЙКИ',
+        'settings_title': 'Настройки',
+        'settings_question': 'В этом разделе можно изменить визуальные параметры',
+
         'exit': 'ВЫХОД',
         'help': 'ПОМОЩЬ',
         'info': 'О ИГРЕ',
-        'settings': 'НАСТРОЙКИ',
         'results': 'РЕЗУЛЬТАТЫ',
 
         'previous': 'Назад',
         'next': 'Следующая',
 
         'close': 'закрыть',
-
-        'settings_title': 'В этом разделе можно изменить визуальные параметры',
     },
     // Dutch
     'nl' : {

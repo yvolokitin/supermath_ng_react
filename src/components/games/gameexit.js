@@ -42,12 +42,6 @@ export default function GameExit(props) {
         props.onClose(value);
     }
 
-    /*
-                title={gameheader[props.lang]['title']}
-                text={gameheader[props.lang]['text']}
-                yes={gameheader[props.lang]['yes']}
-                no={gameheader[props.lang]['no']}
-    */
     return (
         <Dialog open={props.open} onClose={() => props.onClose('')}
                 scroll='body' fullScreen={props.fullScreen}
