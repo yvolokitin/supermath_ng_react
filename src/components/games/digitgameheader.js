@@ -5,9 +5,7 @@ import GameExit from './gameexit';
 import GameInfo from './gameinfo';
 import GameHelp from './gamehelp';
 import GameSettings from './gamesettings';
-import GameProgress from "./digitgameprogress";
-
-import {gameheader} from './../translations/gameheader';
+import GameProgress from "./gameprogress";
 
 const ALERT = {
     NONE: 0,
@@ -18,7 +16,7 @@ const ALERT = {
     PROGRESS: 5,
 }
 
-const FULL_SCREEN = 880;
+const FULL_SCREEN = 890;
 
 export default function GameHeader(props) {
     const [openAlert, setOpenAlert] = React.useState(ALERT.NONE);
@@ -32,6 +30,9 @@ export default function GameHeader(props) {
                 break;
             case 'exit':
                 setOpenAlert(ALERT.EXIT);
+                break;
+            case 'info':
+                setOpenAlert(ALERT.INFO);
                 break;
             case 'help':
                 setOpenAlert(ALERT.HELP);

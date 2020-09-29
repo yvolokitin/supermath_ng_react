@@ -1,14 +1,15 @@
 ﻿import React from 'react';
 import {Button, Slide, Typography} from '@material-ui/core';
-import {Dialog, DialogActions, DialogContent, DialogTitle} from '@material-ui/core';
+import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
 
 import {FormControl, FormControlLabel, Checkbox, } from '@material-ui/core';
 
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import InfoIcon from '@material-ui/icons/Info';
 import CancelIcon from '@material-ui/icons/Cancel';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
@@ -49,31 +50,38 @@ export default function GameSettings(props) {
             <Title title={game[props.lang]['settings']} src={image} onClose={() => props.onClose('')}/>
             <ColorLine margin={'0px'}/>
 
-            <DialogTitle className={classes.title}> {game[props.lang]['settings_title']} </DialogTitle>
+            <DialogTitle className={classes.title}> {game[props.lang]['settings_question']} </DialogTitle>
 
             <DialogContent>
-                <Typography align='center' onClick={() => props.onClose('')}>
-                    <img className='game_exit_image' src={image} alt='settings' onContextMenu={(e) => e.preventDefault()}/>
+                <DialogContentText style={{textAlign: 'justify'}}> {game[props.lang]['settings_text']} {props.text} </DialogContentText>
+            </DialogContent>
+
+            <DialogContent>
+                <Typography align='center'>
+                    <img className='game_exit_image' src={image} alt='logout' onContextMenu={(e) => e.preventDefault()}/>
                 </Typography>
             </DialogContent>
 
             <DialogContent>
                 <FormControl className='game_settings' component='fieldset' color='secondary' size='medium' fullWidth={true}>
-                    <FormControlLabel value='end' labelPlacement='end' control={<Checkbox color='primary'/>} label='Enable Dark mode interface'/>
-                    <FormControlLabel value='end' labelPlacement='end' control={<Checkbox color='primary'/>} label='Show Keyboard from right side'/>
+                    <FormControlLabel value='end' labelPlacement='end' control={<Checkbox color='primary'/>} label={game[props.lang]['settings_dark']}/>
+                    <FormControlLabel value='end' labelPlacement='end' control={<Checkbox color='primary'/>} label={game[props.lang]['settings_keyboard']}/>
                 </FormControl>
             </DialogContent>
 
             <DialogContent scroll='body'>
                 <BottomNavigation onChange={handleChange} showLabels>
-                    <BottomNavigationAction label={game[props.lang]['help']} value='help' icon={<HelpOutlineIcon/>}/>
+                    <BottomNavigationAction label={game[props.lang]['help_title']} value='help' icon={<HelpOutlineIcon/>}/>
                     {(props.type === 'task') ? (
-                        <>
-                            <BottomNavigationAction label={game[props.lang]['previous']} value='previous' icon={<ArrowBackIcon/>} disabled/>
-                            <BottomNavigationAction label={game[props.lang]['next']}  value='next' icon={<ArrowForwardIcon/>}/>
-                        </>
+                        <BottomNavigationAction label={game[props.lang]['previous_title']} value='previous' icon={<ArrowBackIcon/>} disabled/>
                     ) : (
-                        <BottomNavigationAction label={game[props.lang]['results']} value='progress' icon={<ShowChartIcon/>}/>
+                        <BottomNavigationAction label={game[props.lang]['info_title']} value='info' icon={<InfoIcon/>}/>
+                    )}
+
+                    {(props.type === 'task') ? (
+                        <BottomNavigationAction label={game[props.lang]['next_title']}  value='next' icon={<ArrowForwardIcon/>}/>
+                    ) : (
+                        <BottomNavigationAction label={game[props.lang]['results_title']} value='progress' icon={<ShowChartIcon/>}/>
                     )}
                 </BottomNavigation>
             </DialogContent>

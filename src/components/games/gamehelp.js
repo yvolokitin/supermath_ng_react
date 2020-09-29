@@ -5,51 +5,43 @@ import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} fr
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
-import SettingsIcon from '@material-ui/icons/Settings';
+import InfoIcon from '@material-ui/icons/Info';
 import CancelIcon from '@material-ui/icons/Cancel';
+import SettingsIcon from '@material-ui/icons/Settings';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 
-import SMTitle from './../dialog/title';
+import Title from './../title/title';
 import ColorLine from './../line/line';
 
 import './gameexit.css';
-import image from './../../images/information.png';
+import image from './../../images/help.jpg';
 
 import {game} from './../translations/game';
-import {info} from './../translations/info';
+import {colors} from './../translations/colors';
+
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    title: {
+        fontFamily: 'TeleGrotesk',
+    },
+}));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='left' ref={ref} {...props} />;
 });
 
 export default function GameHelp(props) {
+    const classes = useStyles();
+
     const handleChange = (event, value) => {
-        console.log('handleChange ' + value);
+        console.log('GameHelp.handleChange ' + value);
         props.onClose(value);
     }
 
-    return (
-        <Dialog open={props.open} onClose={() => props.onClose('')}
-                scroll='body' fullScreen={props.fullScreen}
-                TransitionComponent={Transition} transitionDuration={900}>
-
-            <SMTitle title='' onClick={() => props.onClose('')}/>
-            <ColorLine/>
-
-            <DialogTitle> {game[props.lang]['help']} </DialogTitle>
-
-            <DialogContent>
-                <DialogContentText> {props.description} </DialogContentText>
-            </DialogContent>
-
-            <DialogContent>
-                <Typography align='center' onClick={() => props.onClose('')}>
-                    <img src={image} alt='help' className='game_exit_image' onContextMenu={(e) => e.preventDefault()}/>
-                </Typography>
-            </DialogContent>
-
+    /*
             <DialogContent>
                 {(props.type === 'game') ? (
                     <Typography align='justify'>
@@ -58,16 +50,41 @@ export default function GameHelp(props) {
                 ) : (<></>)}
             </DialogContent>
 
+    */
+    return (
+        <Dialog open={props.open} onClose={() => props.onClose('')}
+                scroll='body' fullScreen={props.fullScreen}
+                TransitionComponent={Transition} transitionDuration={900}>
+
+            <Title title={game[props.lang]['help']} src={image} onClose={() => props.onClose('')}/>
+            <ColorLine margin={'0px'}/>
+
+            <DialogTitle className={classes.title}> {game[props.lang]['help_question']} </DialogTitle>
+
+            <DialogContent>
+                <DialogContentText style={{textAlign: 'justify'}}> {colors[props.lang]['title']} </DialogContentText>
+            </DialogContent>
+
+            <DialogContent>
+                <Typography align='center'>
+                    <img src={image} alt='help' className='game_exit_image' onContextMenu={(e) => e.preventDefault()}/>
+                </Typography>
+            </DialogContent>
+
             <DialogContent scroll='body'>
                 <BottomNavigation onChange={handleChange} showLabels>
-                    <BottomNavigationAction label={game[props.lang]['settings']} value='settings' icon={<SettingsIcon/>}/>
+                    <BottomNavigationAction label={game[props.lang]['settings_title']} value='settings' icon={<SettingsIcon/>}/>
+
                     {(props.type === 'task') ? (
-                        <>
-                            <BottomNavigationAction label={game[props.lang]['previous']} value='previous' icon={<ArrowBackIcon/>} disabled/>
-                            <BottomNavigationAction label={game[props.lang]['next']}  value='next' icon={<ArrowForwardIcon/>}/>
-                        </>
+                        <BottomNavigationAction label={game[props.lang]['previous_title']} value='previous' icon={<ArrowBackIcon/>} disabled/>
                     ) : (
-                        <BottomNavigationAction label={game[props.lang]['results']} value='progress' icon={<ShowChartIcon/>}/>
+                        <BottomNavigationAction label={game[props.lang]['info_title']} value='info' icon={<InfoIcon/>}/>
+                    )}
+
+                    {(props.type === 'task') ? (
+                        <BottomNavigationAction label={game[props.lang]['next_title']}  value='next' icon={<ArrowForwardIcon/>}/>
+                    ) : (
+                        <BottomNavigationAction label={game[props.lang]['results_title']} value='progress' icon={<ShowChartIcon/>}/>
                     )}
                 </BottomNavigation>
             </DialogContent>

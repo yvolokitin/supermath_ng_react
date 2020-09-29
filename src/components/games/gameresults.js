@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import RadialChart from "./../charts/radialchart";
-import GameProgress from "./digitgameprogress";
+import GameProgress from "./gameprogress";
 
 import SMTitle from './../dialog/title';
 import ColorLine from './../line/line';
