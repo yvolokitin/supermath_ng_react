@@ -69,6 +69,7 @@ export default class DigitGame extends React.Component {
             };
 
             if (this.props.type === 'test')  {
+                console.log('!!!!!!!!! this.props.task ' + this.props.task + ', this.props.uid ' + this.props.uid);
                 current = get_random_taks_for_test(this.props.task, this.props.uid);
                 it_is_test = true;
             }

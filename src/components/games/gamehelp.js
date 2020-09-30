@@ -7,6 +7,7 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
 import InfoIcon from '@material-ui/icons/Info';
 import CancelIcon from '@material-ui/icons/Cancel';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
@@ -19,7 +20,6 @@ import './gameexit.css';
 import image from './../../images/help.jpg';
 
 import {game} from './../translations/game';
-import {colors} from './../translations/colors';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -62,7 +62,7 @@ export default function GameHelp(props) {
             <DialogTitle className={classes.title}> {game[props.lang]['help_question']} </DialogTitle>
 
             <DialogContent>
-                <DialogContentText style={{textAlign: 'justify'}}> {colors[props.lang]['title']} </DialogContentText>
+                <DialogContentText style={{textAlign: 'justify'}}> {game[props.lang]['help_text']} </DialogContentText>
             </DialogContent>
 
             <DialogContent>
@@ -73,6 +73,7 @@ export default function GameHelp(props) {
 
             <DialogContent scroll='body'>
                 <BottomNavigation onChange={handleChange} showLabels>
+                    <BottomNavigationAction label={game[props.lang]['exit_title']} value='exit' icon={<ExitToAppIcon/>}/>
                     <BottomNavigationAction label={game[props.lang]['settings_title']} value='settings' icon={<SettingsIcon/>}/>
 
                     {(props.type === 'task') ? (

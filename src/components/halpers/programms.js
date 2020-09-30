@@ -171,8 +171,10 @@ export const task_games = [
 
 /**
  * {'type': type, 'task': task}
+ * this.props.task, this.props.uid
+ * white1,white2,white5,white6,white7,white8,white7,white9,white7, this.props.uid undefined
  */
-export function get_random_taks_for_test(tasks, escaped_task) {
+export function get_random_taks_for_test(tasks, escaped_task='') {
     var rnd_task, array = tasks.split(',');
     while (true) {
         rnd_task = array[Math.floor(Math.random() * (array.length))];

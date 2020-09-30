@@ -14,11 +14,10 @@ export const game = {
         'settings_dark': 'Enable Dark mode interface',
         'settings_keyboard': 'Show Keyboard from right side',
 
-        'progress': 'CURRENT RESULTS',
-
         'help': 'HELP',
         'help_title': 'Help',
         'help_question': 'How can we help you?',
+        'help_text': 'Please, feel free to use the Contacts form on the bottom of the main page, if you have any questions or need a help',
 
         'info': 'INFO',
         'info_title': 'Info',
@@ -49,11 +48,10 @@ export const game = {
         'settings_dark': 'Включить ночной режим',
         'settings_keyboard': 'Отображать клавиатуру справа',
 
-        'progress': 'ТЕКУЩИЕ РЕЗУЛЬТАТЫ',
-
         'help': 'ПОМОЩЬ',
         'help_title': 'Помощь',
         'help_question': 'Чем мы можем вам помочь?',
+        'help_text': 'Пожалуйста, используйте форму Контактов на главной странице если у вас есть вопросы или вам нужна помощь.',
 
         'info': 'О ИГРЕ',
         'info_title': 'О игре',
