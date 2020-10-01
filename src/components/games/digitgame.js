@@ -297,20 +297,18 @@ export default class DigitGame extends React.Component {
                     </>
                 ) : (<> </>) }
 
-
-                { (this.state.status === DG_STATUS.RESULTS) ? (
-                    <GameResults id={this.props.id}
-                        passed={this.state.passed}
-                        failed={this.state.failed}
-                        results={this.state.results}
-                        amount={this.state.amount}
-                        duration={this.state.duration}
-                        game_uid={this.props.game_uid}
-                        belt={this.props.belt}
-                        lang={this.props.lang}
-                        type={this.state.type}
-                        onClose={this.onGameClose}/>
-                ) : ( <> </> )}
+                <GameResults open={this.state.status === DG_STATUS.RESULTS}
+                    user_id={this.props.id}
+                    passed={this.state.passed}
+                    failed={this.state.failed}
+                    results={this.state.results}
+                    amount={this.state.amount}
+                    duration={this.state.duration}
+                    game_uid={this.props.game_uid}
+                    belt={this.props.belt}
+                    lang={this.props.lang}
+                    type={this.state.type}
+                    onClose={this.onGameClose}/>
 
                 { (this.state.status === DG_STATUS.PROGRESS) ? (
                     <div className='digitgamebody'>

@@ -1,4 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import {Dialog, DialogContent, Slide} from '@material-ui/core';
+
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+
+import ReplayIcon from '@material-ui/icons/Replay';
+import CategoryIcon from '@material-ui/icons/Category';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 import RadialChart from "./../charts/radialchart";
 // import GameProgress from "./gameprogress";
@@ -12,11 +20,19 @@ import {gameresults} from './../translations/gameresults';
 
 import './gameresults.css';
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction='up' ref={ref} {...props} />;
+});
+
 export default function GameResults(props) {
-    const [results, setResults] = useState(false);
     const [title, setTitle] = useState('');
     const [scores, setScores] = useState({});
     const [data, setData] = useState({});
+
+    const handleChange = (event, value) => {
+        console.log('GameProgress.handleChange ' + value);
+        props.onClose('close', data);
+    }
 
     useEffect(() => {
         var current_rates = calculate_rates(props.duration, props.passed, props.amount);
@@ -37,7 +53,7 @@ export default function GameResults(props) {
             + ', ' + current_rates.minutes + ' ' + gameresults[props.lang]['minutes']
             + ', ' + current_rates.seconds + ' ' + gameresults[props.lang]['seconds']);
 
-    }, [props.id, props.game_uid, props.passed, props.failed, props.results, props.type,
+    }, [props.user_id, props.game_uid, props.passed, props.failed, props.results, props.type,
         props.amount, props.duration, props.belt, props.lang]);
 
     function calculate_rates(duration, passed, amount) {
@@ -66,21 +82,13 @@ export default function GameResults(props) {
         return {'percent': percent, 'rate': rate, 'hours': hours, 'minutes': minutes, 'seconds': seconds}
     }
 
-    /*
-            <GameProgress open={results}
-                total={props.total}
-                passed={props.passed}
-                failed={props.failed}
-                results={props.results}
-                onClose={() => setResults(false)}/>
-    */
     return (
-        <div className='result_board_wrapper'>
-            <Title title={title} src={image} onClose={() => props.onClose('')}/>
+        <Dialog open={props.open} fullScreen={true} TransitionComponent={Transition} transitionDuration={900}>
+            <Title title={title} src={image} onClose={() => props.onClose('close', data)}/>
             <ColorLine margin={'0px'}/>
 
             <div className='result_board'>
-                <div className='result_board_chart' onClick={() => setResults(true)}>
+                <div className='result_board_chart'>
                     <font style={{color:'#248f24',}}>
                         <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span> &nbsp; {props.passed} &nbsp;
                     </font>
@@ -90,7 +98,7 @@ export default function GameResults(props) {
                     </font>
                 </div>
 
-                { (props.id > 0) ? (
+                { (props.user_id > 0) ? (
                     <div className='result_board_body'>
                         {gameresults[props.lang]['reach']} &nbsp; <font style={{color:'orange'}}> {gameresults[props.lang][scores.rate]} </font>
                         &nbsp; {gameresults[props.lang]['score']} &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#129504;</span>
@@ -110,32 +118,13 @@ export default function GameResults(props) {
                 )}
             </div>
 
-            <div className='result_board_button_wrapper'>
-                <div className='result_board_button_left'>
-                    <div className='result_board_button' onClick={() => setResults(true)}>
-                        {gameresults[props.lang]['show']}
-                    </div>
-                    {(props.id === 0) ? (
-                        <div className='result_board_button' onClick={() => props.onClose('register', data)}>
-                            {gameresults[props.lang]['registration']}
-                        </div>
-                    ):(
-                        <div className='result_board_button' onClick={() => props.onClose('progress', data)}>
-                            {gameresults[props.lang]['progress']}
-                        </div>
-                    )}
-                </div>
-
-                <div className='result_board_button_right'>
-                    <div className='result_board_button' onClick={() => props.onClose('replay', data)}>
-                        {gameresults[props.lang]['play']}
-                    </div>
-                    <div className='result_board_button' onClick={() => props.onClose('close', data)}>
-                        {gameresults[props.lang]['close']}
-                    </div>
-                </div>
-            </div>
-
-        </div>
+            <DialogContent scroll='body'>
+                <BottomNavigation onChange={handleChange} showLabels>
+                    <BottomNavigationAction label={gameresults[props.lang]['replay']} value='replay' icon={<ReplayIcon/>}/>
+                    <BottomNavigationAction label={gameresults[props.lang]['results']} value='results' icon={<CategoryIcon/>}/>
+                    <BottomNavigationAction label={gameresults[props.lang]['close']} value='close' icon={<HighlightOffIcon/>}/>
+                </BottomNavigation>
+            </DialogContent>
+        </Dialog>
     );
 }

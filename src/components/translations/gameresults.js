@@ -16,9 +16,7 @@ export const gameresults = {
         'pill': 'pill to became more',
         'smart': 'smart, strong',
         'health': 'and health',
-        'show': 'show details',
-        'play': 'play again',
-        'close': 'close',
+
         'excellent': 'Excellent',
         'quite_good': 'Quite Good',
         'good': 'Good',
@@ -26,6 +24,10 @@ export const gameresults = {
         'not_well': 'Not really Well',
         'quite_bad': 'Quite Bad',
         'really_bad': 'Really Bad',
+
+        'replay': 'Replay',
+        'results': 'Results',
+        'close': 'Close',
     },
     // Russian
     'ru': {
@@ -43,9 +45,7 @@ export const gameresults = {
         'pill': 'витаминку, чтобы стать более',
         'smart': 'умным, сильным',
         'health': 'и крепким',
-        'show': 'результаты',
-        'play': 'играть еще',
-        'close': 'закрыть',
+
         'excellent': 'великолепный',
         'quite_good': 'достаточно хороший',
         'good': 'хороший',
@@ -53,6 +53,10 @@ export const gameresults = {
         'not_well': 'не очень хороший',
         'quite_bad': 'достаточно плохой',
         'really_bad': 'очень плохой',
+
+        'replay': 'Играть снова',
+        'results': 'Результаты',
+        'close': 'Закрыть',
     },
     // Dutch
     'nl' : {
@@ -69,9 +73,7 @@ export const gameresults = {
         'pill': 'pill to became more',
         'smart': 'smart, strong',
         'health': 'and health',
-        'show': 'show details',
-        'play': 'play again',
-        'close': 'close',
+
         'excellent': 'Excellent',
         'quite_good': 'Quite Good',
         'good': 'Good',
@@ -79,6 +81,10 @@ export const gameresults = {
         'not_well': 'Not really Well',
         'quite_bad': 'Quite Bad',
         'really_bad': 'Really Bad',
+
+        'replay': 'Replay',
+        'results': 'Results',
+        'close': 'Close',
     },
     // French
     'fr' : {
@@ -95,9 +101,7 @@ export const gameresults = {
         'pill': 'pill to became more',
         'smart': 'smart, strong',
         'health': 'and health',
-        'show': 'show details',
-        'play': 'play again',
-        'close': 'close',
+
         'excellent': 'Excellent',
         'quite_good': 'Quite Good',
         'good': 'Good',
@@ -105,6 +109,10 @@ export const gameresults = {
         'not_well': 'Not really Well',
         'quite_bad': 'Quite Bad',
         'really_bad': 'Really Bad',
+
+        'replay': 'Replay',
+        'results': 'Results',
+        'close': 'Close',
     },
     // German
     'de' : {
@@ -121,9 +129,7 @@ export const gameresults = {
         'pill': 'pill to became more',
         'smart': 'smart, strong',
         'health': 'and health',
-        'show': 'show details',
-        'play': 'play again',
-        'close': 'close',
+
         'excellent': 'Excellent',
         'quite_good': 'Quite Good',
         'good': 'Good',
@@ -131,6 +137,10 @@ export const gameresults = {
         'not_well': 'Not really Well',
         'quite_bad': 'Quite Bad',
         'really_bad': 'Really Bad',
+
+        'replay': 'Replay',
+        'results': 'Results',
+        'close': 'Close',
     },
     // Spanish
     'es' : {
@@ -147,9 +157,7 @@ export const gameresults = {
         'pill': 'pill to became more',
         'smart': 'smart, strong',
         'health': 'and health',
-        'show': 'show details',
-        'play': 'play again',
-        'close': 'close',
+
         'excellent': 'Excellent',
         'quite_good': 'Quite Good',
         'good': 'Good',
@@ -157,6 +165,10 @@ export const gameresults = {
         'not_well': 'Not really Well',
         'quite_bad': 'Quite Bad',
         'really_bad': 'Really Bad',
+
+        'replay': 'Replay',
+        'results': 'Results',
+        'close': 'Close',
     },
     // Italian
     'it' : {
@@ -173,9 +185,7 @@ export const gameresults = {
         'pill': 'pill to became more',
         'smart': 'smart, strong',
         'health': 'and health',
-        'show': 'show details',
-        'play': 'play again',
-        'close': 'close',
+
         'excellent': 'Excellent',
         'quite_good': 'Quite Good',
         'good': 'Good',
@@ -183,5 +193,9 @@ export const gameresults = {
         'not_well': 'Not really Well',
         'quite_bad': 'Quite Bad',
         'really_bad': 'Really Bad',
+
+        'replay': 'Replay',
+        'results': 'Results',
+        'close': 'Close',
     },
 };
