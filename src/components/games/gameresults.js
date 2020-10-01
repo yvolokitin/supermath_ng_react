@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
 import RadialChart from "./../charts/radialchart";
-import GameProgress from "./gameprogress";
+// import GameProgress from "./gameprogress";
 
-import SMTitle from './../dialog/title';
+import Title from './../title/title';
 import ColorLine from './../line/line';
 
 import './gameresults.css';
@@ -58,10 +58,21 @@ export default function GameResults(props) {
         return {'percent': percent, 'rate': rate, 'hours': hours, 'minutes': minutes, 'seconds': seconds}
     }
 
-    return (
-        <div className='result_board_wrapper'>
+    /*
             <SMTitle title='' onClick={() => props.onClose('close', data)}/>
             <ColorLine/>
+
+            <GameProgress open={results}
+                total={props.total}
+                passed={props.passed}
+                failed={props.failed}
+                results={props.results}
+                onClose={() => setResults(false)}/>
+    */
+    return (
+        <div className='result_board_wrapper'>
+            <Title title={game[props.lang]['results']} src={image} onClose={() => props.onClose('')}/>
+            <ColorLine margin={'0px'}/>
 
             <div className='result_board'>
                 <div className='result_board_title_wrapper'>
@@ -142,12 +153,6 @@ export default function GameResults(props) {
                 </div>
             </div>
 
-            <GameProgress open={results}
-                total={props.total}
-                passed={props.passed}
-                failed={props.failed}
-                results={props.results}
-                onClose={() => setResults(false)}/>
         </div>
     );
 }
