@@ -6,11 +6,15 @@ import RadialChart from "./../charts/radialchart";
 import Title from './../title/title';
 import ColorLine from './../line/line';
 
-import './gameresults.css';
+import image from './../../images/time.png';
+
 import {gameresults} from './../translations/gameresults';
+
+import './gameresults.css';
 
 export default function GameResults(props) {
     const [results, setResults] = useState(false);
+    const [title, setTitle] = useState('');
     const [scores, setScores] = useState({});
     const [data, setData] = useState({});
 
@@ -28,6 +32,10 @@ export default function GameResults(props) {
             'task': props.type,
             'game_uid': props.game_uid,
         });
+
+        setTitle(gameresults[props.lang]['time'] + current_rates.hours + ' ' + gameresults[props.lang]['hours']
+            + ', ' + current_rates.minutes + ' ' + gameresults[props.lang]['minutes']
+            + ', ' + current_rates.seconds + ' ' + gameresults[props.lang]['seconds']);
 
     }, [props.id, props.game_uid, props.passed, props.failed, props.results, props.type,
         props.amount, props.duration, props.belt, props.lang]);
@@ -59,9 +67,6 @@ export default function GameResults(props) {
     }
 
     /*
-            <SMTitle title='' onClick={() => props.onClose('close', data)}/>
-            <ColorLine/>
-
             <GameProgress open={results}
                 total={props.total}
                 passed={props.passed}
@@ -71,22 +76,10 @@ export default function GameResults(props) {
     */
     return (
         <div className='result_board_wrapper'>
-            <Title title={game[props.lang]['results']} src={image} onClose={() => props.onClose('')}/>
+            <Title title={title} src={image} onClose={() => props.onClose('')}/>
             <ColorLine margin={'0px'}/>
 
             <div className='result_board'>
-                <div className='result_board_title_wrapper'>
-                    <div className='result_board_title_left'>
-                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#9201;</span>
-                        &nbsp; {gameresults[props.lang]['time']} 
-                    </div>
-                    <div className='result_board_title_right'>
-                        {scores.hours} {gameresults[props.lang]['hours']},&nbsp;
-                        {scores.minutes} {gameresults[props.lang]['minutes']},&nbsp;
-                        {scores.seconds} {gameresults[props.lang]['seconds']}
-                    </div>
-                </div>
-
                 <div className='result_board_chart' onClick={() => setResults(true)}>
                     <font style={{color:'#248f24',}}>
                         <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span> &nbsp; {props.passed} &nbsp;
@@ -96,34 +89,24 @@ export default function GameResults(props) {
                         &nbsp; {props.failed} &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                     </font>
                 </div>
-                <div className='result_board_body'>
-                        {gameresults[props.lang]['reach']} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#9757;</span> &nbsp;
-                        <font style={{color:'orange'}}> {gameresults[props.lang][scores.rate]} </font> {gameresults[props.lang]['score']}
-                        &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128202;</span>
-                </div>
 
                 { (props.id > 0) ? (
-                    <>
-                        <div className='result_board_body'>
-                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#129504;</span> {gameresults[props.lang]['brain']}
-                        </div>
-                        <div className='result_board_body'>
-                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128138;</span> {gameresults[props.lang]['pill']}
-                        </div>
-                        <div className='result_board_body'>
-                            {gameresults[props.lang]['smart']} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128170;</span>
-                            {gameresults[props.lang]['health']} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128540;</span>
-                        </div>
-                    </>
+                    <div className='result_board_body'>
+                        {gameresults[props.lang]['reach']} &nbsp; <font style={{color:'orange'}}> {gameresults[props.lang][scores.rate]} </font>
+                        &nbsp; {gameresults[props.lang]['score']} &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#129504;</span>
+                        &nbsp; {gameresults[props.lang]['brain']} &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128138;</span>
+                        &nbsp; {gameresults[props.lang]['pill']} {gameresults[props.lang]['smart']}
+                        &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128170;</span> &nbsp;
+                        {gameresults[props.lang]['health']} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128540;</span>
+                    </div>
                 ) : (
-                    <>
-                        <div className='result_board_body' onClick={() => props.onClose('register', data)} style={{cursor:'pointer'}}>
-                            <font style={{color:'red'}}> {gameresults[props.lang]['register']} </font>
-                        </div>
-                        <div className='result_board_body' onClick={() => props.onClose('register', data)} style={{cursor:'pointer'}}>
-                            <font style={{color:'orange'}}> {gameresults[props.lang]['save_results']} </font>
-                        </div>
-                    </>
+                    <div className='result_board_body'>
+                        {gameresults[props.lang]['reach']} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#9757;</span> &nbsp;
+                        <font style={{color:'orange'}}> {gameresults[props.lang][scores.rate]} </font> &nbsp; {gameresults[props.lang]['score']}
+                        &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128202;</span>
+                        <font style={{color:'red'}}> {gameresults[props.lang]['register']} </font>
+                        <font style={{color:'orange'}}> {gameresults[props.lang]['save_results']} </font>
+                    </div>
                 )}
             </div>
 

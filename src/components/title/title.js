@@ -35,7 +35,7 @@ export default function Title(props) {
             {(props.title.length > 0) ? (
                 <>
                 <Badge color='secondary'>
-                    <Avatar src={props.src} alt={props.title} className={classes.avatar}/>
+                    <Avatar src={props.src} alt={props.title} className={classes.avatar} onContextMenu={(e) => e.preventDefault()}/>
                 </Badge>
                 <Badge color='secondary'>
                     <Typography className={classes.title}> {props.title} </Typography>
