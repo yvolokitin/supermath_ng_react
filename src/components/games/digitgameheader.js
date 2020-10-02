@@ -4,8 +4,9 @@ import './digitgameheader.css';
 import GameExit from './gameexit';
 import GameInfo from './gameinfo';
 import GameHelp from './gamehelp';
+import GameReplay from './gamereplay';
 import GameSettings from './gamesettings';
-import GameProgress from "./gameprogress";
+import GameProgress from './gameprogress';
 
 const ALERT = {
     NONE: 0,
@@ -14,6 +15,7 @@ const ALERT = {
     HELP: 3,
     SETTINGS: 4,
     PROGRESS: 5,
+    REPLAY: 6,
 }
 
 const FULL_SCREEN = 890;
@@ -42,6 +44,9 @@ export default function GameHeader(props) {
                 break;
             case 'progress':
                 setOpenAlert(ALERT.PROGRESS);
+                break;
+            case 'replay':
+                setOpenAlert(ALERT.REPLAY);
                 break;
             default:
                 setOpenAlert(ALERT.NONE);
@@ -99,6 +104,14 @@ export default function GameHeader(props) {
                 failed={props.failed}
                 results={props.results}
                 onClose={onAlertDialog}/>
+
+            <GameReplay open={openAlert === ALERT.REPLAY}
+                description={props.description}
+                fullScreen={props.width<FULL_SCREEN}
+                type='game'
+                lang={props.lang}
+                onClose={onAlertDialog}/>
+
 
         </div>
     );

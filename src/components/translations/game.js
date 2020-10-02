@@ -24,6 +24,11 @@ export const game = {
         'info_question': 'Use SuperMath as mathematical vitamins!',
         'info_text': 'SuperMath is designed to help students transition from counting or calculating to recalling the basic arithmetic facts.',
 
+        'replay': 'REPLAY',
+        'replay_title': 'Replay',
+        'replay_question': 'Do you really want to Restart the game from scratch?',
+        'replay_text': 'All your scores and results will be reset! We would recommend you to finish current Math tasks and try one more time.',
+
         'results': 'RESULTS',
         'results_title': 'Results',
 
@@ -58,6 +63,11 @@ export const game = {
         'info_title': 'О игре',
         'info_question': 'SuperMath - это ежедневная витаминка для ваших детей!',
         'info_text': 'SuperMath разработан для того, чтобы помочь детям и взрослым научиться делать быстрые математические действия в уме.',
+
+        'replay': 'Начать снова',
+        'replay_title': 'Переиграть',
+        'replay_question': 'Вы действительно хотите перезапустить игру с начала?',
+        'replay_text': 'Все ваши баллы и результаты будут сброшены! Мы рекомендуем вам закончить текущие математические задачи и попробовать еще раз.',
 
         'results': 'РЕЗУЛЬТАТЫ',
         'results_title': 'Результаты',
@@ -94,6 +104,11 @@ export const game = {
         'info_question': 'Use SuperMath as mathematical vitamins!',
         'info_text': 'SuperMath is designed to help students transition from counting or calculating to recalling the basic arithmetic facts.',
 
+        'replay': 'HERHALING',
+        'replay_title': 'Herhaling',
+        'replay_question': 'Wil je het spel echt helemaal opnieuw starten?',
+        'replay_text': 'Al uw scores en resultaten worden gereset! We raden u aan de huidige wiskundige taken af te maken en het nog een keer te proberen.',
+
         'results': 'RESULTATEN',
         'results_title': 'Resultaten',
 
@@ -128,6 +143,11 @@ export const game = {
         'info_title': 'Info',
         'info_question': 'Use SuperMath as mathematical vitamins!',
         'info_text': 'SuperMath is designed to help students transition from counting or calculating to recalling the basic arithmetic facts.',
+
+        'replay': 'REDÉMARRER',
+        'replay_title': 'Redémarrer',
+        'replay_question': 'Voulez-vous vraiment redémarrer le jeu à partir de zéro?',
+        'replay_text': 'Tous vos scores et résultats seront réinitialisés! Nous vous recommandons de terminer les tâches mathématiques en cours et de réessayer.',
 
         'results': 'RÉSULTATS',
         'results_title': 'Résultats',
@@ -164,6 +184,11 @@ export const game = {
         'info_question': 'Use SuperMath as mathematical vitamins!',
         'info_text': 'SuperMath is designed to help students transition from counting or calculating to recalling the basic arithmetic facts.',
 
+        'replay': 'WIEDERHOLUNG',
+        'replay_title': 'Wiederholung',
+        'replay_question': 'Möchten Sie das Spiel wirklich von Grund auf neu starten?',
+        'replay_text': 'Alle Ihre Ergebnisse und Ergebnisse werden zurückgesetzt! Wir empfehlen Ihnen, die aktuellen mathematischen Aufgaben zu beenden und es noch einmal zu versuchen.',
+
         'results': 'ERGEBNISSE',
         'results_title': 'Ergebnisse',
 
@@ -199,6 +224,11 @@ export const game = {
         'info_question': '¡Usa SuperMath como vitaminas matemáticas!',
         'info_text': 'SuperMath está diseñado para ayudar a los estudiantes a pasar de contar o calcular a recordar las operaciones aritméticas básicas.',
 
+        'replay': 'REINICIAR',
+        'replay_title': 'Reiniciar',
+        'replay_question': '¿Realmente quieres reiniciar el juego desde cero?',
+        'replay_text': '¡Todos tus puntajes y resultados se restablecerán! Le recomendamos que termine las tareas actuales de matemáticas e intente una vez más.',
+
         'results': 'RESULTADOS',
         'results_title': 'Resultados',
 
@@ -233,6 +263,11 @@ export const game = {
         'info_title': 'Info',
         'info_question': 'Usa SuperMath come vitamine matematiche!',
         'info_text': 'SuperMath è progettato per aiutare gli studenti a passare dal conteggio o calcolo al richiamo dei fatti aritmetici di base.',
+
+        'replay': 'RICOMINCIA',
+        'replay_title': 'Ricomincia',
+        'replay_question': 'Vuoi davvero riavviare il gioco da zero?',
+        'replay_text': 'Tutti i tuoi punteggi e risultati verranno ripristinati! Ti consigliamo di terminare le attività matematiche correnti e di riprovare.',
 
         'results': 'RISULTATI',
         'results_title': 'Risultati',
