@@ -272,7 +272,6 @@ export default class DigitGame extends React.Component {
                 { (this.state.status === DG_STATUS.GAME) ? (
                     <>
                         <GameHeader onClick={this.onGameClose}
-                            fullScreen={this.props.fullScreen}
                             total={this.state.total}
                             passed={this.state.passed}
                             failed={this.state.failed}

@@ -46,7 +46,7 @@ export default function GameReplay(props) {
                 scroll='body' fullScreen={props.fullScreen}
                 TransitionComponent={Transition} transitionDuration={900}>
 
-            <Title title={game[props.lang]['replay']} src={image} onClose={() => props.onClose('')}/>
+            <Title title={game[props.lang]['replay']} src={image} onClose={() => props.onClose('')} fullScreen={props.fullScreen}/>
             <ColorLine margin={'0px'}/>
 
             <DialogTitle className={classes.title}> {game[props.lang]['replay_question']} </DialogTitle>
@@ -56,7 +56,7 @@ export default function GameReplay(props) {
             </DialogContent>
 
             <DialogContent>
-                <Typography align='center'>
+                <Typography align='center' onClick={() => props.onClose('replay')}>
                     <img src={image} alt='help' className='game_exit_image' onContextMenu={(e) => e.preventDefault()}/>
                 </Typography>
             </DialogContent>

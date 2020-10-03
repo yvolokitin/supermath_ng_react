@@ -47,7 +47,7 @@ export default function GameExit(props) {
                 scroll='body' fullScreen={props.fullScreen}
                 TransitionComponent={Transition} transitionDuration={900}>
 
-            <Title title={game[props.lang]['exit']} src={image} onClose={() => props.onClose('')}/>
+            <Title title={game[props.lang]['exit']} src={image} onClose={() => props.onClose('')} fullScreen={props.fullScreen}/>
             <ColorLine margin={'0px'}/>
 
             <DialogTitle className={classes.title}> {game[props.lang]['exit_question']} </DialogTitle>

@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 
-import {Typography, Badge, Avatar} from '@material-ui/core';
+import {Badge, Avatar} from '@material-ui/core';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 
 import CloseIcon from '@material-ui/icons/Close';
@@ -10,9 +10,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import './title.css';
 
 const useStyles = makeStyles((theme) => ({
-    avatar: {
+    avatar_large: {
         width: theme.spacing(7),
         height: theme.spacing(7),
+    },
+    avatar_small: {
+        width: theme.spacing(4),
+        height: theme.spacing(4),
     },
     title: {
         marginLeft: '13px',
@@ -35,14 +39,19 @@ export default function Title(props) {
             {(props.title.length > 0) ? (
                 <>
                 <Badge color='secondary'>
-                    <Avatar src={props.src} alt={props.title} className={classes.avatar} onContextMenu={(e) => e.preventDefault()}/>
+                    {(props.fullScreen === true) ? (
+                            <Avatar src={props.src} alt={props.title} className={classes.avatar_small} onContextMenu={(e) => e.preventDefault()}/>
+                        ) : (
+                            <Avatar src={props.src} alt={props.title} className={classes.avatar_large} onContextMenu={(e) => e.preventDefault()}/>
+                        )                    
+                    }
                 </Badge>
                 <Badge color='secondary'>
-                    <Typography className='title_header'> {props.title} </Typography>
+                    <div className='title_header'> {props.title} </div>
                 </Badge>
                 </>
             ) : (
-                <Typography className={classes.title} style={{margin: '20px'}}> {props.title} </Typography>
+                <div className='title_header'> {props.title} </div>
             )}
             
             <IconButton aria-label='close' onClick={() => props.onClose()} className={classes.button}>

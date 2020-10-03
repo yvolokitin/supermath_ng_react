@@ -84,7 +84,7 @@ export default function GameResults(props) {
 
     return (
         <Dialog open={props.open} fullScreen={true} TransitionComponent={Transition} transitionDuration={900}>
-            <Title title={title} src={image} onClose={() => props.onClose('close', data)}/>
+            <Title title={title} src={image} onClose={() => props.onClose('close', data)} fullScreen={props.fullScreen}/>
             <ColorLine margin={'0px'}/>
 
             <div className='result_board'>
