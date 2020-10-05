@@ -9,7 +9,7 @@ import CategoryIcon from '@material-ui/icons/Category';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 import RadialChart from "./../charts/radialchart";
-// import GameProgress from "./gameprogress";
+import GameProgress from "./gameprogress";
 
 import Title from './../title/title';
 import ColorLine from './../line/line';
@@ -20,18 +20,28 @@ import {gameresults} from './../translations/gameresults';
 
 import './gameresults.css';
 
+const FULL_SCREEN = 890;
+
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='up' ref={ref} {...props} />;
 });
 
 export default function GameResults(props) {
+    // if 
+    const [progress, setProgress] = useState(false);
+
     const [title, setTitle] = useState('');
     const [scores, setScores] = useState({});
     const [data, setData] = useState({});
 
     const handleChange = (event, value) => {
         console.log('GameProgress.handleChange ' + value);
-        props.onClose('close', data);
+        if (value === 'results') {
+            setProgress(true);
+
+        } else {
+            props.onClose(value, data);
+        }
     }
 
     useEffect(() => {
@@ -125,6 +135,16 @@ export default function GameResults(props) {
                     <BottomNavigationAction label={gameresults[props.lang]['close']} value='close' icon={<HighlightOffIcon/>}/>
                 </BottomNavigation>
             </DialogContent>
+
+            <GameProgress open={progress}
+                fullScreen={props.width<FULL_SCREEN}
+                lang={props.lang}
+                total={props.total}
+                passed={props.passed}
+                failed={props.failed}
+                results={props.results}
+                onClose={() => setProgress(false)}/>
+
         </Dialog>
     );
 }

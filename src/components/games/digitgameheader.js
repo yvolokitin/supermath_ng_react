@@ -1,12 +1,12 @@
 ﻿import React from 'react';
 import './digitgameheader.css';
 
+import GameProgress from './gameprogress';
+import GameSettings from './gamesettings';
+import GameReplay from './gamereplay';
 import GameExit from './gameexit';
 import GameInfo from './gameinfo';
 import GameHelp from './gamehelp';
-import GameReplay from './gamereplay';
-import GameSettings from './gamesettings';
-import GameProgress from './gameprogress';
 
 const ALERT = {
     NONE: 0,
@@ -47,6 +47,10 @@ export default function GameHeader(props) {
                 break;
             case 'replay':
                 setOpenAlert(ALERT.REPLAY);
+                break;
+            case 'restart':
+                setOpenAlert(ALERT.NONE);
+                props.onClick('restart');
                 break;
             default:
                 setOpenAlert(ALERT.NONE);
@@ -111,7 +115,6 @@ export default function GameHeader(props) {
                 type='game'
                 lang={props.lang}
                 onClose={onAlertDialog}/>
-
 
         </div>
     );

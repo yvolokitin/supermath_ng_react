@@ -109,7 +109,7 @@ export default class DigitGame extends React.Component {
 
     // closed, pass, fail passed only when game is closed
     onGameClose(status, data) {
-        console.log('DigitGame.onGameClose ' + status);
+        console.log('!!!!!!!!!!!!!!!!!!!! DigitGame.onGameClose ' + status);
 
         // game was unexpecdetly closed by user during play
         switch (status) {
@@ -139,6 +139,23 @@ export default class DigitGame extends React.Component {
                 });
                 this.timer = new Date().getTime();
                 this.props.onClose(status, data);
+                break;
+
+            case 'restart':
+                this.setState({
+                    'status': DG_STATUS.GAME,
+                    'results': [],
+                    'circle': 'white',
+                    'total': 0,
+                    'passed': 0,
+                    'failed': 0,
+                });
+                this.timer = new Date().getTime();
+                var restart_data = {
+                    'passed': 0,
+                    'failed': 0,
+                };
+                this.props.onClose(status, restart_data);
                 break;
 
             case 'interrapted':
@@ -307,6 +324,7 @@ export default class DigitGame extends React.Component {
                     belt={this.props.belt}
                     lang={this.props.lang}
                     type={this.state.type}
+                    width={this.props.width}
                     onClose={this.onGameClose}/>
 
                 { (this.state.status === DG_STATUS.PROGRESS) ? (

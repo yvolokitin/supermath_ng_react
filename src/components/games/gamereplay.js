@@ -6,6 +6,7 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
 import InfoIcon from '@material-ui/icons/Info';
+import ReplayIcon from '@material-ui/icons/Replay';
 import CancelIcon from '@material-ui/icons/Cancel';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -56,7 +57,7 @@ export default function GameReplay(props) {
             </DialogContent>
 
             <DialogContent>
-                <Typography align='center' onClick={() => props.onClose('replay')}>
+                <Typography align='center' onClick={() => props.onClose('restart')}>
                     <img src={image} alt='help' className='game_exit_image' onContextMenu={(e) => e.preventDefault()}/>
                 </Typography>
             </DialogContent>
@@ -82,6 +83,7 @@ export default function GameReplay(props) {
 
             <ColorLine/>
             <DialogActions>
+                <Button onClick={() => props.onClose('restart')} color='primary' startIcon={<ReplayIcon/>}> {game[props.lang]['replay']} </Button>
                 <Button onClick={() => props.onClose('')} color='primary' startIcon={<CancelIcon/>}> {game[props.lang]['close']} </Button>
             </DialogActions>
         </Dialog>
