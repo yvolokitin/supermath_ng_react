@@ -8,6 +8,8 @@ export const account = {
         'settings': 'settings',
         'progress': 'progress',
         'friends': 'friends',
+        'profile': 'user profile',
+        'user_id': 'user id: ',
     },
     // Russian
     'ru': {
@@ -18,6 +20,8 @@ export const account = {
         'progress': 'прогресс',
         'friends': 'друзья',
         'logout': 'выход',
+        'profile': 'профиль пользователя',
+        'user_id': 'Идентификатор: ',
     },
     // Dutch
     'nl' : {
@@ -27,6 +31,8 @@ export const account = {
         'settings': 'instellingen',
         'progress': 'vooruitgang',
         'friends': 'vrienden',
+        'profile': 'gebruikersprofiel',
+        'user_id': 'user id',
     },
     // French
     'fr' : {
@@ -36,6 +42,8 @@ export const account = {
         'settings': 'paramètres',
         'progress': 'le progrès',
         'friends': 'amis',
+        'profile': 'profil de l\'utilisateur',
+        'user_id': 'user id',
     },
     // German
     'de' : {
@@ -45,6 +53,8 @@ export const account = {
         'settings': 'einstellungen',
         'progress': 'progress',
         'friends': 'freunde',
+        'profile': 'Benutzerprofil',
+        'user_id': 'user id',
     },
     // Spanish
     'es' : {
@@ -54,6 +64,8 @@ export const account = {
         'settings': 'ajustes',
         'progress': 'progreso',
         'friends': 'amigos',
+        'profile': 'perfil del usuario',
+        'user_id': 'user id',
     },
     // Italian
     'it' : {
@@ -63,5 +75,7 @@ export const account = {
         'settings': 'impostazioni',
         'progress': 'progresso',
         'friends': 'amici',
+        'profile': 'profilo utente',
+        'user_id': 'user id',
     },
 };

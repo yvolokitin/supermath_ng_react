@@ -1,28 +1,42 @@
-﻿import React, { useState } from 'react';
-import Link from '@material-ui/core/Link';
+﻿import React from 'react';
+import { Link } from '@material-ui/core';
 
 import Contact from './contact';
+import Share from './share';
+
 import {footer} from './../translations/footer';
 import './footer.css';
 
 export default function Footer(props) {
-    const [value, setValue] = useState(false);
+    const [contacts, setContacts] = React.useState(false);
+    const [share, setShare] = React.useState(false);
 
     return (
         <div className='footer_wrapper'>
+            <div className='footer_share'>
+                <font onClick={() => setShare(true)}>{footer[props.lang]['share']}</font>
+            </div>
+
             <div className='footer_copyright'>
-                {'Copyright © '} <Link color='inherit' href='https://supermath.xyz'>SuperMath.XYZ</Link>{' '} {new Date().getFullYear()}
+                {'Copyright © '} <Link color='inherit' href='https://supermath.xyz'>SuperMath.XYZ</Link>{', '} {new Date().getFullYear()}
             </div>
 
             <div className='footer_contacts'>
-                <font onClick={() => setValue(true)}>{footer[props.lang]['contacts']}</font>
+                <font onClick={() => setContacts(true)}>{footer[props.lang]['contacts']}</font>
             </div>
 
-            <Contact open={value}
+            <Share open={share}
+                user_id={props.id}
                 name={props.name}
                 email={props.email}
                 lang={props.lang}
-                onClose={() => setValue(false)}/>
+                onClose={() => setShare(false)}/>
+
+            <Contact open={contacts}
+                name={props.name}
+                email={props.email}
+                lang={props.lang}
+                onClose={() => setContacts(false)}/>
         </div>
     );
 }

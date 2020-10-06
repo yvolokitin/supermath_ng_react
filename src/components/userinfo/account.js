@@ -1,7 +1,7 @@
 ﻿import React, { useEffect, useState } from 'react';
 import { Dialog, Slide, Typography } from '@material-ui/core';
 
-import SMTitle from './../dialog/title';
+import Title from './../title/title';
 import ColorLine from './../line/line';
 
 import Logout from './logout';
@@ -10,6 +10,8 @@ import Friends from './friends';
 import Settings from './settings';
 import Exchange from './exchange';
 import Progress from './progress';
+
+import profile_image from './../../images/profile.jpg';
 
 import {account} from './../translations/account';
 import {avatars} from './../halpers/avatars';
@@ -124,9 +126,9 @@ export default function Account(props) {
     return (
         <Dialog open={props.open} fullScreen={true} TransitionComponent={Transition} transitionDuration={800}>
             <Typography component='div'>
-            <SMTitle title='' onClick={onClose}/>
 
-            <ColorLine/>
+            <Title title={account[props.lang]['profile']} src={profile_image} onClose={() => onClose()} fullScreen={props.fullScreen}/>
+            <ColorLine margin={'0px'}/>
 
             <div className='account_board_wrapper'>
                 <div className='account_board'>
