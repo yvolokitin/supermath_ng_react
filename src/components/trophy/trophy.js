@@ -7,14 +7,18 @@ import Alert from '@material-ui/lab/Alert';
 import axios from 'axios';
 
 import Throw from './throw';
-import SMTitle from './../dialog/title';
+
+import Title from './../title/title';
 import ColorLine from './../line/line';
+
+import image_trophy from './../../images/trophy.jpeg';
+import image_numbers from './../../images/trophy/numbers.png';
+
 import {trophy} from './../translations/trophy';
 import './trophy.css';
 
 import {get_avatar_by_name} from './../halpers/avatars';
 import {get_belt_color} from './../halpers/functions';
-import image from './../../images/trophy/numbers.png';
 
 const POOP_COST = 30;
 
@@ -138,21 +142,20 @@ export default function Trophy(props) {
     */
     return (
         <Dialog open={props.open} onClose={() => props.onClose()} fullScreen={true} TransitionComponent={Transition} transitionDuration={800}>
-            <SMTitle title='' onClick={() => props.onClose()}/>
-            <ColorLine/>
+
+            <Title title={trophy[props.lang]['top10']} src={image_trophy} onClose={() => props.onClose('')} fullScreen={props.fullScreen}/>
+            <ColorLine margin={'0px'}/>
 
             <div className='trophy_wrapper'>
                 {(loading) ? (
                     <div className='trophy_loading_wrapper'>
-                        <img src={image} alt='progress'/>
+                        <img src={image_numbers} alt='progress'/>
                     </div>
                 ) : (
                     <div className='trophy_table_wrapper'>
                         <div className='trophy_table_line_header'>
                             <div className='trophy_table_line_index_header'> </div>
-                            <div className='trophy_table_line_name_header'>
-                                {trophy[props.lang]['top10']}
-                            </div>
+                            <div className='trophy_table_line_name_header'>  </div>
                             <div className='trophy_table_line_numb_header'>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                             </div>
