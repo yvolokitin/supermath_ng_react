@@ -138,6 +138,7 @@ export default function GameResults(props) {
 
             <GameProgress open={progress}
                 fullScreen={props.width<FULL_SCREEN}
+                from='results'
                 lang={props.lang}
                 total={props.total}
                 passed={props.passed}

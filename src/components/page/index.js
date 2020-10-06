@@ -80,6 +80,11 @@ export default class SuperMathPage extends React.Component {
             id: active_user,
             lang: get_lang(active_user),
 
+            // user level is user color belt actually, which can be following:
+            // none, white, orange, green, blue, brown or black
+            // none - means user did not take any test to proof any level
+            level: get_item(active_user, 'level'),
+
             // current user information
             email: get_item(active_user, 'email'),
             name: get_item(active_user, 'name'),
@@ -87,7 +92,6 @@ export default class SuperMathPage extends React.Component {
             cards: get_item(active_user, 'cards'),
             passed: get_item(active_user, 'passed'),
             failed: get_item(active_user, 'failed'),
-            level: get_item(active_user, 'level'),
             color: get_belt_color(get_item(active_user, 'level')),
             belt: get_item(active_user, 'belt'),
             avatar: get_item(active_user, 'avatar'),

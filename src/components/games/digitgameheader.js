@@ -102,6 +102,7 @@ export default function GameHeader(props) {
 
             <GameProgress open={openAlert === ALERT.PROGRESS}
                 fullScreen={props.width<FULL_SCREEN}
+                from='game'
                 lang={props.lang}
                 total={props.total}
                 passed={props.passed}

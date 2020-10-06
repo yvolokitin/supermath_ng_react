@@ -69,7 +69,7 @@ export default class DigitGame extends React.Component {
             };
 
             if (this.props.type === 'test')  {
-                console.log('!!!!!!!!! this.props.task ' + this.props.task + ', this.props.uid ' + this.props.uid);
+                // console.log('this.props.task ' + this.props.task + ', this.props.uid ' + this.props.uid);
                 current = get_random_taks_for_test(this.props.task, this.props.uid);
                 it_is_test = true;
             }
@@ -109,7 +109,7 @@ export default class DigitGame extends React.Component {
 
     // closed, pass, fail passed only when game is closed
     onGameClose(status, data) {
-        console.log('!!!!!!!!!!!!!!!!!!!! DigitGame.onGameClose ' + status);
+        console.log('DigitGame.onGameClose ' + status);
 
         // game was unexpecdetly closed by user during play
         switch (status) {
