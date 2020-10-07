@@ -16,6 +16,8 @@ import {get_belt_by_color, color_belts,} from './../halpers/programms';
 import {set_item} from './../halpers/localstorage';
 import {tabs} from './../translations/tabs';
 
+const FULL_SCREEN = 890;
+
 function MenuTab(props) {
     return (
       <>
@@ -152,9 +154,10 @@ export default function Tabs(props) {
             </div>
 
             <Footer id={props.id}
+                lang={props.lang}
                 name={props.name}
                 email={props.email}
-                lang={props.lang}/>
+                fullScreen={props.width<FULL_SCREEN}/>
 
             <DigitGame open={gameOpen}
                 id={props.id}
@@ -165,7 +168,7 @@ export default function Tabs(props) {
                 lang={props.lang}
                 belt={color}
                 width={props.width}
-                fullScreen={props.width<880}
+                fullScreen={props.width<FULL_SCREEN}
                 onClose={onGameClose}/>
 
             <TaskGame open={taskOpen}

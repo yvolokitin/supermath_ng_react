@@ -10,6 +10,8 @@ import constraints from './../header/constraints';
 
 import {send_email} from './../halpers/communicator';
 
+import image_contacts from './../../images/contacts.jpg';
+
 import image from './../../images/contact/mail_icon.jpg';
 import twitter from './../../images/contact/twitter.jpg';
 import youtube from './../../images/contact/youtube.jpg';
@@ -17,9 +19,10 @@ import facebook from './../../images/contact/facebook.jpg';
 import vkontakte from './../../images/contact/vkontakte.jpg';
 import instagram from './../../images/contact/instagram.jpg';
 
-import {contact} from './../translations/contact';
+import Title from './../title/title';
 import ColorLine from './../line/line';
-import SMTitle from './../dialog/title';
+
+import {contact} from './../translations/contact';
 import './contact.css';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -63,8 +66,8 @@ export default function Contact(props) {
             fullScreen={props.fullScreen} fullWidth={true} maxWidth='md' scroll='body'
             TransitionComponent={Transition} transitionDuration={900}>
 
-            <SMTitle title='' onClick={() => props.onClose()}/>
-            <ColorLine/>
+            <Title title={contact[props.lang]['contact']} src={image_contacts} onClose={() => props.onClose('')} fullScreen={props.fullScreen}/>
+            <ColorLine margin={'0px'}/>
 
             <div className='contact_email_wrapper'>
                 <div className='contact_email_image'>

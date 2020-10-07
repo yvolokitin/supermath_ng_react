@@ -18,7 +18,7 @@ export default function Footer(props) {
             </div>
 
             <div className='footer_copyright'>
-                {'Copyright © '} <Link color='inherit' href='https://supermath.xyz'>SuperMath.XYZ</Link>{', '} {new Date().getFullYear()}
+                {'Copyright © '} <Link color='inherit' href='https://supermath.xyz'>SuperMath.XYZ</Link>{'. '} {new Date().getFullYear()}
             </div>
 
             <div className='footer_contacts'>
@@ -30,13 +30,16 @@ export default function Footer(props) {
                 name={props.name}
                 email={props.email}
                 lang={props.lang}
+                fullScreen={props.fullScreen}
                 onClose={() => setShare(false)}/>
 
             <Contact open={contacts}
                 name={props.name}
                 email={props.email}
                 lang={props.lang}
+                fullScreen={props.fullScreen}
                 onClose={() => setContacts(false)}/>
+
         </div>
     );
 }

@@ -5,9 +5,10 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import Title from './../title/title';
 import ColorLine from './../line/line';
 
-import {share} from './../translations/share';
+import {footer} from './../translations/footer';
 
-import image from './../../images/share.png';
+import image_share from './../../images/share.png';
+import image_bonus from './../../images/bonus_200.jpg';
 
 import { makeStyles } from '@material-ui/core/styles';
 import './share.css';
@@ -50,23 +51,32 @@ export default function Share(props) {
             fullScreen={props.fullScreen} fullWidth={true} maxWidth='md' scroll='body'
             TransitionComponent={Transition} transitionDuration={900}>
 
-            <Title title={share[props.lang]['share']} src={image} onClose={() => props.onClose('')} fullScreen={props.fullScreen}/>
+            <Title title={footer[props.lang]['share_title']} src={image_share} onClose={() => props.onClose('')} fullScreen={props.fullScreen}/>
             <ColorLine margin={'0px'}/>
 
-            <DialogTitle className={classes.title}> {share[props.lang]['share_question']} </DialogTitle>
+            <DialogTitle className={classes.title}> {footer[props.lang]['share_question']} </DialogTitle>
 
-            <DialogContent>
-                <DialogContentText style={{textAlign: 'justify'}}> {share[props.lang]['share_text']} {props.text} </DialogContentText>
-            </DialogContent>
+            {(props.user_id > 0) ? (
+                <DialogContent>
+                    <DialogContentText style={{textAlign: 'justify'}}> {footer[props.lang]['share_text']} {props.text} </DialogContentText>
 
-            <Typography style={{textAlign: 'justify', width: '100%',}}>
-                {code}
-            </Typography>
+                    <Typography align='center'>
+                        <img className='share_image' src={image_bonus} alt='Bonus 200' onContextMenu={(e) => e.preventDefault()}/>
+                    </Typography>
+
+                    <div className='share_bonus_code'>
+                        <font>{code}</font>
+                    </div>
+                </DialogContent>
+            ) : (
+                <DialogContent>
+                </DialogContent>
+            )}
 
             <ColorLine/>
 
             <DialogActions>
-                <Button onClick={() => props.onClose('')} color='primary' startIcon={<CancelIcon/>}> {share[props.lang]['close']} </Button>
+                <Button onClick={() => props.onClose('')} color='primary' startIcon={<CancelIcon/>}> {footer[props.lang]['close']} </Button>
             </DialogActions>
 
         </Dialog>

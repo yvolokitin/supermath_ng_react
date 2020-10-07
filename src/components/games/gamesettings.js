@@ -18,7 +18,7 @@ import ShowChartIcon from '@material-ui/icons/ShowChart';
 import Title from './../title/title';
 import ColorLine from './../line/line';
 
-import image from './../../images/settings.png';
+import image from './../../images/settings.jpg';
 
 import {game} from './../translations/game';
 
