@@ -1,13 +1,15 @@
 ﻿import React, { useState } from 'react';
 import { Dialog, Slide, Typography } from '@material-ui/core';
 
-import SMTitle from './../dialog/title';
+import Title from './../title/title';
 import ColorLine from './../line/line';
 
 import Colors from './colors';
 import SignIn from './signin';
 import Glossary from './glossary';
 import Issues from './issues';
+
+import image from './../../images/help.jpg';
 
 import './help.css';
 import {help} from './../translations/help';
@@ -63,8 +65,9 @@ export default function Help(props) {
             TransitionComponent={Transition} transitionDuration={800}>
 
             <Typography component='div' style={{height: '100%', width: '100%', backgroundColor:'#ffffcc'}}>
-                <SMTitle title='' onClick={() => props.onClose()}/>
-                <ColorLine/>
+                <Title title={help[props.lang]['help']} src={image} onClose={() => props.onClose('')} fullScreen={props.fullScreen}/>
+                <ColorLine margin={'0px'}/>
+
                 <div className='help_wrapper'>
                     <div className='help_tabs_wrapper'>
                         {tabs.map(

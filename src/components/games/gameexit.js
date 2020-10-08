@@ -38,7 +38,7 @@ export default function GameExit(props) {
     const classes = useStyles();
 
     const handleChange = (event, value) => {
-        console.log('handleChange ' + value);
+        console.log('GameExit.handleChange ' + value);
         props.onClose(value);
     }
 

@@ -297,34 +297,6 @@ export default class GameBoard extends React.Component {
         this.loading = false;
     }
 
-    /*
-                {(this.props.type.includes('line_compnums')) ? (
-                    <div className='line_body_div_up'>
-                        <div className='line_gameboard' style={{backgroundColor: this.state.board, animation: this.state.animation}}>
-                            <div className='line_result'> {this.state.task.expr1} </div>
-                            <div className='line_result' style={{color: this.state.color}}> {this.state.result} </div>
-                            <div className='line_result'> {this.state.task.expr2} </div>
-                        </div>
-                    </div>
-                    <div className='line_body_div_bottom'>
-                        <OperatorBoard onOperator={this.onOperator} more={true} less={true} equals={true}/>
-                    </div>
-                ) : (<></>)}
-
-                {(this.props.type.includes('line_compexpr')) ? (
-                    <div className='line_body_div_up'>
-                        <div className='line_gameboard' style={{backgroundColor: this.state.board, animation: this.state.animation}}>
-                            <div className='line_expression'> {this.state.task.expr1} </div>
-                            <div className='line_result' style={{color: this.state.color}}> <font> {this.state.result} </font> </div>
-                            <div className='line_expression'>{this.state.task.expr2}</div>
-                        </div>
-                    </div>
-                    <div className='line_body_div_bottom'>
-                        <OperatorBoard onOperator={this.onOperator} more={true} less={true} equals={true}/>
-                    </div>
-                ) : (<></>)}
-
-    */
     render() {
         return (
             <div className='gameboard_wrapper'>

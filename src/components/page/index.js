@@ -42,10 +42,9 @@ const STATUS = {
     LOGOUT: 5,
     REGISTER: 6,
     WELCOME: 7,
-    USERINFO: 8,
+    ACCOUNT: 8,
     FORGET: 9,
     LANG: 10,
-    ACCOUNT: 11,
 }
 
 export default class SuperMathPage extends React.Component {
@@ -204,7 +203,17 @@ export default class SuperMathPage extends React.Component {
 
     onWelcome(property) {
         if (property === 'userinfo') {
-            this.setState({screen: STATUS.USERINFO});
+            this.setState({screen: STATUS.ACCOUNT});
+
+        } else if (property === 'about') {
+            this.setState({screen: STATUS.ABOUT});
+
+        } else if (property === 'help') {
+            this.setState({screen: STATUS.HELP});
+
+        } else if (property === 'language') {
+            this.setState({screen: STATUS.LANG});
+
         } else {
             this.setState({screen: STATUS.NONE});
         }

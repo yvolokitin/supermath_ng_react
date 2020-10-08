@@ -3,11 +3,16 @@ export const footer = {
     // English
     'en': {
         'close': 'Close',
+        'about': 'About',
+        'help': 'Help',
 
         'share': 'Share',
         'share_title': 'Share information',
         'share_question': 'Use your bonus code and get 200 points',
         'share_text': 'Start sharing your bonus code. Every time when somebody uses your bonus code during Registration, you will receive 200 bonus points',
+
+        'share_question_reg': 'Use below bonus code and get 100 points',
+        'share_text_reg': 'Use below bonus code during Registration and receive 100 bonus points, which you can exchange in your account',
 
         'contacts': 'Contacts',
         'contacts_title': 'Contacts us',
@@ -17,11 +22,16 @@ export const footer = {
     // Russian
     'ru': {
         'close': 'Закрыть',
+        'about': 'О Программе',
+        'help': 'Помощь',
 
         'share': 'Поделиться',
         'share_title': 'Поделиться информацией',
         'share_question': 'Используй бонус-код и получи 200 очков',
         'share_text': 'Начни делиться своим бонус-кодом. Каждый раз, когда кто-то использует твой бонус-код при Регистрации, ты будешь получать 200 бонусных балов',
+
+        'share_question_reg': 'Используй бонус-код и получи 100 очков',
+        'share_text_reg': 'Используй бонусный код при регистрации и получите 100 бонусных баллов, которые будет можно обменять в личном кабинете!',
 
         'contacts': 'Контакты',
         'contacts_title': 'Напишите нам на адрес электронной почты',
@@ -31,6 +41,8 @@ export const footer = {
     // Dutch
     'nl' : {
         'close': 'Dichtbij',
+        'about': 'About',
+        'help': 'Help',
 
         'share': 'Delen',
         'share_title': 'Informatie delen',
@@ -45,6 +57,8 @@ export const footer = {
     // French
     'fr' : {
         'close': 'Fermer',
+        'about': 'About',
+        'help': 'Help',
 
         'share': 'Partager',
         'share_title': 'Partager l\'information',
@@ -59,6 +73,8 @@ export const footer = {
     // German
     'de' : {
         'close': 'Schließen',
+        'about': 'About',
+        'help': 'Help',
 
         'share': 'Teilen',
         'share_title': 'Informationen teilen',
@@ -72,6 +88,8 @@ export const footer = {
     // Spanish
     'es' : {
         'close': 'Cerca',
+        'about': 'About',
+        'help': 'Help',
 
         'share': 'Compartir',
         'share_title': 'Compartir información',
@@ -85,6 +103,8 @@ export const footer = {
     // Italian
     'it' : {
         'close': 'Vicino',
+        'about': 'About',
+        'help': 'Help',
 
         'share': 'Condividere',
         'share_title': 'Condividere informazioni',

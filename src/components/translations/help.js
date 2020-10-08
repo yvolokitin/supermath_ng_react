@@ -2,6 +2,7 @@
 export const help = {
     // English
     'en': {
+        'help': 'Help',
         'colors': 'colors',
         'signin': 'sign in',
         'profile': 'profile',
@@ -10,6 +11,7 @@ export const help = {
     },
     // Russian
     'ru': {
+        'help': 'Помощь',
         'colors': 'цвета',
         'signin': 'регистрация',
         'profile': 'профиль',
@@ -18,6 +20,7 @@ export const help = {
     },
     // Dutch
     'nl' : {
+        'help': 'Help',
         'colors': 'kleuren',
         'signin': 'inloggen',
         'profile': 'profile',
@@ -26,6 +29,7 @@ export const help = {
     },
     // French
     'fr' : {
+        'help': 'Help',
         'colors': 'couleurs',
         'signin': 'se connecter',
         'profile': 'compte',
@@ -34,6 +38,7 @@ export const help = {
     },
     // German
     'de' : {
+        'help': 'Help',
         'colors': 'farben',
         'signin': 'einloggen',
         'profile': 'konto',
@@ -42,6 +47,7 @@ export const help = {
     },
     // Spanish
     'es' : {
+        'help': 'Help',
         'colors': 'colores',
         'signin': 'registrarse',
         'profile': 'cuenta',
@@ -50,6 +56,7 @@ export const help = {
     },
     // Italian
     'it' : {
+        'help': 'Help',
         'colors': 'colori',
         'signin': 'registrati',
         'profile': 'profile',
