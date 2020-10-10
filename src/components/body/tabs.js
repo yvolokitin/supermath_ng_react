@@ -12,11 +12,10 @@ import Wave from './wave';
 import './tabs.css';
 
 import {get_belt_by_color, color_belts,} from './../halpers/programms';
+import {FULL_SCREEN} from './../halpers/functions';
 
 import {set_item} from './../halpers/localstorage';
 import {tabs} from './../translations/tabs';
-
-const FULL_SCREEN = 890;
 
 function MenuTab(props) {
     return (

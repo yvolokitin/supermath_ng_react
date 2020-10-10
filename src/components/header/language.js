@@ -4,8 +4,12 @@ import {Dialog, Slide, Card, Button} from '@material-ui/core';
 import {language} from './../translations/language';
 import {languages} from './../halpers/languages';
 
-import SMTitle from "./../dialog/title";
-import world from './../../images/world.jpg';
+import Title from './../title/title';
+import ColorLine from './../line/line';
+
+import image_world from './../../images/world.jpg';
+import image_lang from './../../images/world.jpg';
+
 import './language.css';
 
 function LanguageImage(props) {
@@ -53,14 +57,14 @@ export default function Language(props) {
 
     return (
         <Dialog open={props.open} onClose={() => props.onUpdate(STATUS.NONE, props.lang)}
-            TransitionComponent={Transition} transitionDuration={800}
-            fullScreen={props.width<820} fullWidth={true} maxWidth='sm' scroll='body'>
+            fullScreen={props.width<820} fullWidth={true} maxWidth='sm' scroll='body'
+            TransitionComponent={Transition} transitionDuration={800}>
 
-            <SMTitle title={language[props.lang]['title']} className='language_title'
-                onClick={() => props.onUpdate(STATUS.NONE, props.lang)}/>
+            <Title title={language[props.lang]['title']} src={image_lang} onClose={() => props.onUpdate(STATUS.NONE, props.lang)} fullScreen={props.fullScreen}/>
+            <ColorLine margin={'0px'}/>
 
             <div className='language_selector_image_map'>
-                <img src={world} alt='World Map' onContextMenu={(e) => e.preventDefault()}/>
+                <img src={image_world} alt='World Map' onContextMenu={(e) => e.preventDefault()}/>
             </div>
 
             <div className='language_selector_wrapper'>

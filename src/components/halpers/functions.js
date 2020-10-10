@@ -1,3 +1,5 @@
+export const FULL_SCREEN = 890;
+
 export function get_belt_color(belt) {
     if (belt === 'black') {
         return '#404040';

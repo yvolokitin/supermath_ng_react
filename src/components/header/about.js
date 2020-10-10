@@ -3,9 +3,12 @@ import {Slide, Dialog, DialogActions, Button} from '@material-ui/core';
 
 import CancelIcon from '@material-ui/icons/Cancel';
 
-import SMTitle from './../dialog/title';
+import Title from './../title/title';
 import ColorLine from './../line/line';
-import vitamins from './../../images/vitamins.jpg';
+
+import image_about from './../../images/information.png';
+import image_vitamins from './../../images/vitamins.jpg';
+
 import {about} from './../translations/about';
 
 import './about.css';
@@ -16,22 +19,19 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function About(props) {
     return (
-        <Dialog open={props.open}
-            fullWidth={true} maxWidth='md' 
-            onClose={() => props.onClose()}
-            fullScreen={props.fullScreen}
-            TransitionComponent={Transition}
-            transitionDuration={800}>
+        <Dialog open={props.open} onClose={() => props.onClose('close')}
+            fullScreen={props.fullScreen} scroll='body' fullWidth={true} maxWidth='md' 
+            TransitionComponent={Transition} transitionDuration={800}>
 
-            <SMTitle title='' onClick={() => props.onClose()}/>
-            <ColorLine/>
+            <Title title={props.title} src={image_about} onClose={() => props.onClose('close')} fullScreen={props.fullScreen}/>
+            <ColorLine margin={'0px'}/>
 
             <div className='about_title'>
                 {about[props.lang]['use']} <font style={{color:'green'}}>SuperMath</font> {about[props.lang]['vitamins']}
             </div>
 
             <div className='about_image'>
-                <img src={vitamins} alt='Vitamins!'/>
+                <img src={image_vitamins} alt='Vitamins!'/>
             </div>
 
             <div className='about_text'>

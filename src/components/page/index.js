@@ -25,6 +25,8 @@ import Account from './../userinfo/account';
 import {avatars} from './../halpers/avatars';
 import Tabs from "./../body/tabs";
 
+import {FULL_SCREEN} from './../halpers/functions';
+
 import {get_lang, set_lang} from './../halpers/localstorage';
 import {set_item, get_item/*, remove_item*/} from './../halpers/localstorage';
 import {get_active_user, set_active_user} from './../halpers/localstorage';
@@ -712,7 +714,7 @@ export default class SuperMathPage extends React.Component {
                 <Trophy open={this.state.screen === STATUS.TROPHY}
                     onClose={() => this.setState({screen: STATUS.NONE})}
                     onTrophyUpdate={this.onTrophyUpdate}
-                    fullScreen={this.state.width<940}
+                    fullScreen={this.state.width<FULL_SCREEN}
                     pswdhash={this.state.pswdhash}
                     passed={this.state.passed}
                     lang={this.state.lang}
@@ -720,22 +722,24 @@ export default class SuperMathPage extends React.Component {
 
                 <Help open={this.state.screen === STATUS.HELP}
                     onClose={() => this.setState({screen: STATUS.NONE})}
-                    fullScreen={this.state.width<581}
+                    fullScreen={this.state.width<FULL_SCREEN}
                     id={this.state.id} lang={this.state.lang}/>
 
                 <About open={this.state.screen === STATUS.ABOUT}
                     onClose={() => this.setState({screen: STATUS.NONE})}
-                    fullScreen={this.state.width<740}
+                    title={header[this.state.lang]['about']}
+                    fullScreen={this.state.width<FULL_SCREEN}
                     lang={this.state.lang}/>
 
                 <Login open={this.state.screen === STATUS.LOGIN}
-                    fullScreen={this.state.width<740}
+                    title={header[this.state.lang]['login']}
+                    fullScreen={this.state.width<FULL_SCREEN}
                     onClose={this.onResult}
                     lang={this.state.lang}/>
 
                 <Forget open={this.state.screen === STATUS.FORGET}
+                    fullScreen={this.state.width<FULL_SCREEN}
                     onClose={this.onForget}
-                    fullScreen={this.state.width<740}
                     lang={this.state.lang}/>
 
                 <Account open={this.state.screen === STATUS.ACCOUNT}
@@ -749,25 +753,26 @@ export default class SuperMathPage extends React.Component {
                     belt_color={this.state.color} level={this.state.level}/>
 
                 <Registration open={this.state.screen === STATUS.REGISTER}
-                    onClose={this.onResult}
-                    fullScreen={this.state.width<800}
-                    lang={this.state.lang}
+                    fullScreen={this.state.width<FULL_SCREEN}
                     passed={this.props.passed}
-                    failed={this.props.failed}/>
+                    failed={this.props.failed}
+                    onClose={this.onResult}
+                    lang={this.state.lang}/>
 
                 <Language open={this.state.screen === STATUS.LANG}
+                    fullScreen={this.state.width<FULL_SCREEN}
                     onUpdate={this.onLanguage}
                     width={this.state.width} 
                     lang={this.state.lang}/>
 
                 <Welcome open={this.state.screen === STATUS.WELCOME}
-                    fullScreen={this.state.width<581} 
-                    lang={this.state.lang}
-                    name={this.state.name}
+                    fullScreen={this.state.width<FULL_SCREEN}
                     surname={this.state.surname}
                     passed={this.state.passed}
                     failed={this.state.failed}
-                    onClose={this.onWelcome}/>
+                    onClose={this.onWelcome}
+                    lang={this.state.lang}
+                    name={this.state.name}/>
 
                 <Snackbar open={this.state.error.length !== 0} onClose={() => this.onError('')} autoHideDuration={25000} anchorOrigin={{vertical:'bottom', horizontal:'center'}}>
                     <Alert onClose={() => this.onError('')} severity='error'>

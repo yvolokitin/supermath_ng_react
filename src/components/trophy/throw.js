@@ -1,16 +1,21 @@
-﻿// import React, { useEffect,  } from 'react';
-import React from 'react';
+﻿import React from 'react';
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
 
-import './throw.css';
-import SMTitle from './../dialog/title';
-import ColorLine from "./../line/line";
+import Title from './../title/title';
+import ColorLine from './../line/line';
+
+import image from './../../images/trophy.jpeg';
+
 import {trophy} from './../translations/trophy';
+
+import './throw.css';
 
 export default function Throw(props) {
     return (
         <Dialog open={props.open} fullScreen={props.fullScreen} onClose={() => props.onThrow('close')}>
-            <SMTitle title='' onClick={() => props.onThrow('close')}/>
+            <Title title={trophy[props.lang]['top10']} src={image} onClose={() => props.onThrow('close')} fullScreen={props.fullScreen}/>
+            <ColorLine margin={'0px'}/>
+
             <DialogTitle> {trophy[props.lang]['title']} </DialogTitle>
 
             <DialogContent>

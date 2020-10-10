@@ -4,9 +4,11 @@ import {Dialog, Button} from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
 import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
 
-import ColorLine from "./../line/line";
+import Title from './../title/title';
+import ColorLine from './../line/line';
 
-import SMTitle from './../dialog/title';
+import image from './../../images/information.png';
+
 import {info} from './../translations/info';
 
 import './info.css';
@@ -18,8 +20,8 @@ export default function Info(props) {
 
     return (
         <Dialog open={props.open} fullScreen={props.fullScreen} transitionDuration={700} scroll='body'>
-            <SMTitle title='' onClick={() => props.onClose('info', false)}/>
-            <ColorLine/>
+            <Title title={info[props.lang]['information']} src={image} onClose={() => props.onClose('info', false)} fullScreen={props.fullScreen}/>
+            <ColorLine margin={'0px'}/>
 
             {(props.type === 'info') ? (
                 <>

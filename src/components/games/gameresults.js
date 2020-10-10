@@ -16,11 +16,10 @@ import ColorLine from './../line/line';
 
 import image from './../../images/time.png';
 
+import {FULL_SCREEN} from './../halpers/functions';
 import {gameresults} from './../translations/gameresults';
 
 import './gameresults.css';
-
-const FULL_SCREEN = 890;
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='up' ref={ref} {...props} />;

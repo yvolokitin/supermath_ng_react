@@ -7,10 +7,13 @@ import Alert from '@material-ui/lab/Alert';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import CheckIcon from '@material-ui/icons/Check';
 
-import SMTitle from './../dialog/title';
-import ColorLine from "./../line/line";
+import Title from './../title/title';
+import ColorLine from './../line/line';
 
 import {login} from './../translations/login';
+
+import image from './../../images/login.png';
+
 import {get_avatar_by_name} from './../halpers/avatars';
 import {set_item, generate_pswdhash} from './../halpers/localstorage';
 import {validate_email, validate_pswd} from './../halpers/validator.js';
@@ -153,8 +156,8 @@ export default function Login(props) {
         <Dialog open={props.open} fullWidth={true} fullScreen={props.fullScreen}
             TransitionComponent={Transition} transitionDuration={600}>
 
-            <SMTitle title='' onClick={() => onClose()}/>
-            <ColorLine/>
+            <Title title={props.title} src={image} onClose={() => props.onClose('close')} fullScreen={props.fullScreen}/>
+            <ColorLine margin={'0px'}/>
 
             <div className='login_wrapper'>
                 <div className='login_forms'>

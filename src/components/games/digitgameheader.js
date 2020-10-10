@@ -8,6 +8,8 @@ import GameExit from './gameexit';
 import GameInfo from './gameinfo';
 import GameHelp from './gamehelp';
 
+import {FULL_SCREEN} from './../halpers/functions';
+
 const ALERT = {
     NONE: 0,
     EXIT: 1,
@@ -17,8 +19,6 @@ const ALERT = {
     PROGRESS: 5,
     REPLAY: 6,
 }
-
-const FULL_SCREEN = 890;
 
 export default function GameHeader(props) {
     const [openAlert, setOpenAlert] = React.useState(ALERT.NONE);
