@@ -7,7 +7,7 @@ import GameFooter from './digitgamefooter';
 import GameBoard from './gameboard';
 import GameResults from './gameresults';
 
-import SMTitle from './../dialog/title';
+import Title from './../title/title';
 import ColorLine from './../line/line';
 import Calendar from './../calendar/calendar';
 
@@ -329,8 +329,8 @@ export default class DigitGame extends React.Component {
 
                 { (this.state.status === DG_STATUS.PROGRESS) ? (
                     <div className='digitgamebody'>
-                        <SMTitle title='' onClick={() => this.onGameClose('close', {})}/>
-                        <ColorLine/>
+                        <Title title='' onClose={() => this.onGameClose('close', {})} fullScreen={this.props.fullScreen}/>
+                        <ColorLine margin={'0px'}/>
 
                         <GameHeader onClick={this.onGameClose}
                             fullScreen={this.props.fullScreen}

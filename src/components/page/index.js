@@ -753,6 +753,7 @@ export default class SuperMathPage extends React.Component {
                     belt_color={this.state.color} level={this.state.level}/>
 
                 <Registration open={this.state.screen === STATUS.REGISTER}
+                    title={header[this.state.lang]['register']}
                     fullScreen={this.state.width<FULL_SCREEN}
                     passed={this.props.passed}
                     failed={this.props.failed}
@@ -762,7 +763,7 @@ export default class SuperMathPage extends React.Component {
                 <Language open={this.state.screen === STATUS.LANG}
                     fullScreen={this.state.width<FULL_SCREEN}
                     onUpdate={this.onLanguage}
-                    width={this.state.width} 
+                    width={this.state.width}
                     lang={this.state.lang}/>
 
                 <Welcome open={this.state.screen === STATUS.WELCOME}

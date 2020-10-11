@@ -154,7 +154,7 @@ export default function Login(props) {
 
     return (
         <Dialog open={props.open} fullWidth={true} fullScreen={props.fullScreen}
-            TransitionComponent={Transition} transitionDuration={600}>
+            TransitionComponent={Transition} transitionDuration={900}>
 
             <Title title={props.title} src={image} onClose={() => props.onClose('close')} fullScreen={props.fullScreen}/>
             <ColorLine margin={'0px'}/>
