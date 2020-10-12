@@ -62,3 +62,20 @@
 .registration_desk_button:focus {
   outline: none;
 }
+
+@media only screen and (max-width: 890px) {
+    .registration_desk {
+        height: 70%;
+        width: 96%;
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+    .registration_desk_title {
+        height: 13%;
+    }
+    .registration_desk_textfield {
+        height: 10%;
+        width: 98%;
+        margin: 1%;
+    }
+}
