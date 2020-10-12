@@ -24,7 +24,11 @@ import image from './../../images/help/sign-up.png';
 
 import './registration.css';
 
+// timeout for error message
 const TIMEOUT_DURATION = 15000;
+
+// light orange color for background
+const DEFAULT_COLOR = '#ffb366';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='down' ref={ref} {...props} />;
@@ -38,12 +42,13 @@ export default function Registration(props) {
     const [pswd, setPswd] = useState('');
     const [bonus, setBonus] = useState('0000000');
     const [subcsr, setSubcsr] = useState(false);
-    const [color, setColor] = useState('');
+
+    const [color, setColor] = useState(DEFAULT_COLOR);
 
     const [currentTime, setCurrentTime] = useState(new Date().getTime());
 
     // fetch API and error handling
-    const [success, setSuccess] = useState(false);
+    // const [success, setSuccess] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
@@ -72,8 +77,7 @@ export default function Registration(props) {
             setTimeout(() => {
                 set_item(response.data.id, 'pswdhash', generate_pswdhash(pswd));
                 props.onClose('successed', response.data);
-                setLoading(false);
-                setColor('orange');
+                setLoading(false); setColor(DEFAULT_COLOR);
             }, timeout);
 
         } else {
@@ -82,8 +86,8 @@ export default function Registration(props) {
                     setError(response.data.error.toString());
                     setLoading(false);
                     setColor('red');
-
                 }, timeout);
+
             } else {
                 setTimeout(() => {
                     setError('Uuupps! Something went wrong');
@@ -92,7 +96,7 @@ export default function Registration(props) {
                 }, timeout);
             }
 
-            setTimeout(() => {setColor('orange');}, timeout+1000);
+            // setTimeout(() => {setColor(DEFAULT_COLOR);}, timeout+1000);
         }
     }, [props, pswd, currentTime, ])
 
@@ -101,38 +105,39 @@ export default function Registration(props) {
         setError(error.toString());
         setLoading(false);
         setColor('red');
-        setTimeout(() => {
-            setColor('orange');}, 1000);
+        // setTimeout(() => {setColor(DEFAULT_COLOR);}, 1000);
     }, [ ])
 
     const onRegistration = useCallback((event) => {
-        event.preventDefault();
+        console.log('Registration.onRegistration -> ' + props.lang);
+        // event.preventDefault();
+
         var result = validate({'name': name}, constraints);
         if ('name' in result) {
+            console.log('Registration.onRegistration -> ' + result.name);
             setError(result.name);
             return;
         }
+
         result = validate({'birth': birth}, constraints);
         if ('birth' in result) {
             setError(result.birth);
             return;
         }
+
         result = validate({'email': email}, constraints);
         if ('email' in result) {
-            this.setState({error: true,
-                           duration: 5000,
-                           message: result.email});
-            return;
-        }
-        result = validate({'pswd': pswd}, constraints);
-        if ('pswd' in result) {
-            this.setState({error: true,
-                           duration: 5000,
-                           message: result.pswd});
+            setError(result.email);
             return;
         }
 
-        this.setState({loading: true, color: '#ffd9b3'});
+        result = validate({'pswd': pswd}, constraints);
+        if ('pswd' in result) {
+            setError(result.pswd);
+            return;
+        }
+
+        setLoading(true); setColor('#ffd9b3');
         var post_data = {
             'name': name,
             'lang': props.lang,
@@ -142,15 +147,17 @@ export default function Registration(props) {
             'subcsr': subcsr,
             'passed': props.passed,
             'failed': props.failed,
-            'pswdhash': generate_pswdhash(pswd),
+            'bonus': bonus,
+            // 'pswdhash': generate_pswdhash(pswd),
         };
         axios.post('https://supermath.xyz:3000/api/reg', post_data)
              .then(onRegistrationResponse)
              .catch(onRegistrationError);
 
-        this.time = new Date().getTime();
+        setCurrentTime(new Date().getTime());
 
-    }, [props.lang, props.passed, props.failed, name, surname, birth, email, pswd, subcsr, onRegistrationResponse, onRegistrationError, ])
+    }, [props.lang, props.passed, props.failed, name, surname, birth, email, pswd, subcsr, bonus,
+        onRegistrationResponse, onRegistrationError, ])
 
     return (
         <Dialog open={props.open} fullScreen={props.fullScreen} fullWidth={true} maxWidth='md' scroll='body'
@@ -167,47 +174,53 @@ export default function Registration(props) {
                 </div>
 
                 <div className='registration_desk_textfield'>
-                    <TextField disabled={loading} onChange={(event) => {this.setState({name: event.target.value})}}
+                    <TextField disabled={loading} onChange={(event) => setName(event.target.value)}
                         autoFocus required fullWidth variant='outlined' label={registration[props.lang]['name']}/>
                 </div>
 
                 <div className='registration_desk_textfield'>
-                    <TextField disabled={loading} onChange={(event) => {this.setState({surname: event.target.value})}}
+                    <TextField disabled={loading} onChange={(event) => setSurname(event.target.value)}
                         fullWidth variant='outlined' label={registration[props.lang]['surname']}/>
                 </div>
 
                 <div className='registration_desk_textfield'>
-                    <TextField disabled={loading} onChange={(event) => {this.setState({birth: event.target.value})}}
+                    <TextField disabled={loading} onChange={(event) => setBirth(event.target.value)}
                         fullWidth variant='outlined' type='date' placeholder='Birthday'/>
                 </div>
 
                 <div className='registration_desk_textfield'>
-                    <TextField disabled={loading} onChange={(event) => {this.setState({email: event.target.value})}}
+                    <TextField disabled={loading} onChange={(event) => setEmail(event.target.value)}
                         required fullWidth variant='outlined' label={registration[props.lang]['email']}/>
                 </div>
 
                 <div className='registration_desk_textfield'>
-                    <TextField disabled={loading} onChange={(event) => {this.setState({pswd: event.target.value})}}
+                    <TextField disabled={loading} onChange={(event) => setPswd(event.target.value)}
                         required fullWidth variant='outlined' label={registration[props.lang]['password']}/>
                 </div>
 
                 <div className='registration_desk_textfield'>
-                    <FormControlLabel disabled={loading} control={<Checkbox value={subcsr} defaultChecked={true} color='primary'/>}
-                        onChange={(event) => {this.setState({subcsr: event.target.value})}} label={registration[props.lang]['subscribe']}/>
-                    </div>
+                    <TextField disabled={loading} onChange={(event) => setBonus(event.target.value)}
+                        fullWidth variant='outlined' label={registration[props.lang]['bonus']}/>
                 </div>
 
-                <div className='registration_desk_button' onClick={() => onRegistration()}> {registration[props.lang]['create']} </div>
+                <div className='registration_desk_textfield'>
+                    <FormControlLabel disabled={loading} control={<Checkbox value={subcsr} defaultChecked={true} color='primary'/>}
+                        onChange={(event) => setSubcsr(event.target.value)} label={registration[props.lang]['subscribe']}/>
+                </div>
+            </div>
 
-                <Link style={{marginRight:'5%',float:'right',cursor:'pointer'}} onClick={() => onClose('login')}>
-                    {registration[props.lang]['registered']}
-                </Link>
+            <div className='registration_desk_button' onClick={() => onRegistration()}> {registration[props.lang]['create']} </div>
 
-                <Snackbar anchorOrigin={{vertical:'top', horizontal:'center'}} onClose={() => setError('')} autoHideDuration={TIMEOUT_DURATION} open={error.legth>0}>
-                    <Alert onClose={(e) => this.setState({error:false})} severity='error'>
+            <Link style={{marginRight:'5%',float:'right',cursor:'pointer'}} onClick={() => onClose('login')}>
+                {registration[props.lang]['registered']}
+            </Link>
+
+            <Snackbar open={error.length !== 0} onClose={() => {setError('');setColor(DEFAULT_COLOR);}}
+                autoHideDuration={TIMEOUT_DURATION} anchorOrigin={{vertical:'top', horizontal:'center'}}>
+                    <Alert onClose={() => {setError('');setColor(DEFAULT_COLOR);}} severity='error'>
                         {registration[props.lang]['error']}: {error}
                     </Alert>
-                </Snackbar>
+            </Snackbar>
 
         </Dialog>
     );
