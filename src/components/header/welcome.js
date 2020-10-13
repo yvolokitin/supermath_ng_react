@@ -53,7 +53,15 @@ export default function Welcome(props) {
                 </AppBar>
             </div>
 
-            <div className='welcome_content' style={{marginTop:'4%'}}> {welcome[props.lang]['text']} </div>
+            {(props.refferal.length > 0) ? (
+                <div className='welcome_content' style={{marginTop:'4%'}}>
+                    {welcome[props.lang]['thanks']} <b> {props.refferal} </b> {welcome[props.lang]['extra']}
+                </div>
+            ) : (
+                <div className='welcome_content' style={{marginTop:'4%'}}>
+                    {welcome[props.lang]['text']}
+                </div>
+            )}
 
             <div onClick={() => props.onClose('userinfo')} className='welcome_content' style={{marginTop:'2%',cursor:'pointer'}}>
                 <img src={image_avatars} alt='avatars' style={{width:'100%',padding:'1%',border:'1px solid grey'}}/>

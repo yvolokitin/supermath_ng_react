@@ -100,6 +100,9 @@ export default class SuperMathPage extends React.Component {
             age: get_item(active_user, 'age'),
             solved: get_item(active_user, 'solved'),
             pswdhash: get_item(active_user, 'pswdhash'),
+
+            // refferal name and lastname to show on welcome screen
+            refferal: '',
         };
     }
 
@@ -562,7 +565,7 @@ export default class SuperMathPage extends React.Component {
             }
 
             this.setState({
-                'screen': current_screen,
+                'screen': STATUS.WELCOME, // current_screen,
                 'avatar': (data.avatar.length > 0) ? data.avatar : avatars[12]['name'],
                 'pswdhash': get_item(data.id, 'pswdhash'),
                 'color': get_belt_color(data.level),
@@ -579,6 +582,7 @@ export default class SuperMathPage extends React.Component {
                 'belt': data.belt,
                 'solved': data.solved,
                 'age': age,
+                'refferal': data.refferal,
             });
 
             set_active_user(data.id);
@@ -768,6 +772,7 @@ export default class SuperMathPage extends React.Component {
 
                 <Welcome open={this.state.screen === STATUS.WELCOME}
                     fullScreen={this.state.width<FULL_SCREEN}
+                    refferal= 'Yura V' // {this.state.refferal}
                     surname={this.state.surname}
                     passed={this.state.passed}
                     failed={this.state.failed}

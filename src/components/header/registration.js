@@ -26,7 +26,7 @@ import './registration.css';
 
 // timeout for error message
 const TIMEOUT_DURATION = 15000;
-const TIMEOUT_DEFAULT = 1800;
+const TIMEOUT_DEFAULT = 900;
 
 // light orange color for background
 const DEFAULT_COLOR = '#ffb366';
