@@ -6,7 +6,7 @@ export const footer = {
         'about': 'About',
         'help': 'Help',
 
-        'share': 'Share',
+        'share': 'Bonus points',
         'share_title': 'Share information',
         'share_question': 'Use your bonus code and get 200 points',
         'share_text': 'Start sharing your bonus code. Every time when somebody uses your bonus code during Registration, you will receive 200 bonus points',
@@ -25,7 +25,7 @@ export const footer = {
         'about': 'О Программе',
         'help': 'Помощь',
 
-        'share': 'Поделиться',
+        'share': 'Бонус баллы',
         'share_title': 'Поделиться информацией',
         'share_question': 'Используй бонус-код и получи 200 очков',
         'share_text': 'Начни делиться своим бонус-кодом. Каждый раз, когда кто-то использует твой бонус-код при Регистрации, ты будешь получать 200 бонусных балов',
@@ -44,7 +44,7 @@ export const footer = {
         'about': 'About',
         'help': 'Help',
 
-        'share': 'Delen',
+        'share': 'Bonus punten',
         'share_title': 'Informatie delen',
         'share_question': 'Gebruik uw bonuscode en ontvang 200 punten',
         'share_text': 'Begin met het delen van uw bonuscode. Elke keer dat iemand uw bonuscode gebruikt tijdens de registratie, ontvangt u 200 bonuspunten',
@@ -60,7 +60,7 @@ export const footer = {
         'about': 'About',
         'help': 'Help',
 
-        'share': 'Partager',
+        'share': 'Points bonus',
         'share_title': 'Partager l\'information',
         'share_question': 'Utilisez votre code bonus et obtenez 200 points',
         'share_text': 'Commencez à partager votre code bonus. Chaque fois que quelqu\'un utilise votre code bonus lors de l\'inscription, vous recevrez 200 points bonus',
@@ -76,7 +76,7 @@ export const footer = {
         'about': 'About',
         'help': 'Help',
 
-        'share': 'Teilen',
+        'share': 'Bonuspunkte',
         'share_title': 'Informationen teilen',
         'share_question': 'Verwenden Sie Ihren Bonuscode und erhalten Sie 200 Punkte',
         'share_text': 'Teilen Sie Ihren Bonuscode. Jedes Mal, wenn jemand Ihren Bonuscode während der Registrierung verwendet, erhalten Sie 200 Bonuspunkte',
@@ -91,7 +91,7 @@ export const footer = {
         'about': 'About',
         'help': 'Help',
 
-        'share': 'Compartir',
+        'share': 'Bonus points',
         'share_title': 'Compartir información',
         'share_question': 'Utilice su código de bonificación y obtenga 200 puntos',
         'share_text': 'Comience a compartir su código de bonificación. Cada vez que alguien use su código de bonificación durante el registro, recibirá 200 puntos de bonificación.',

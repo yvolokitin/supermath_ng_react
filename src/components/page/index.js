@@ -565,7 +565,7 @@ export default class SuperMathPage extends React.Component {
             }
 
             this.setState({
-                'screen': STATUS.WELCOME, // current_screen,
+                'screen': current_screen,
                 'avatar': (data.avatar.length > 0) ? data.avatar : avatars[12]['name'],
                 'pswdhash': get_item(data.id, 'pswdhash'),
                 'color': get_belt_color(data.level),
@@ -772,7 +772,7 @@ export default class SuperMathPage extends React.Component {
 
                 <Welcome open={this.state.screen === STATUS.WELCOME}
                     fullScreen={this.state.width<FULL_SCREEN}
-                    refferal= 'Yura V' // {this.state.refferal}
+                    refferal={this.state.refferal}
                     surname={this.state.surname}
                     passed={this.state.passed}
                     failed={this.state.failed}
