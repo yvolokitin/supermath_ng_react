@@ -34,6 +34,7 @@
         presence: true,
         length: {
             minimum: 10,
+            maximum: 10,
             message: 'Birth Date should be specified in exact format: dd/mm/yyyy'
         }
     },

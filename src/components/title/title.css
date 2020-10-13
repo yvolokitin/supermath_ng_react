@@ -1,5 +1,6 @@
 ﻿.title_header {
     margin-left: 13px;
+    user-select: none;
     font-size: 24px;
     font-weight: bold;
     font-family: TeleGrotesk, 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;

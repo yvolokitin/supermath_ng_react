@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {Dialog, Slide, TextField, FormControlLabel, Checkbox, Link} from '@material-ui/core';
 import {Snackbar, CircularProgress} from '@material-ui/core';
 
@@ -26,6 +26,7 @@ import './registration.css';
 
 // timeout for error message
 const TIMEOUT_DURATION = 15000;
+const TIMEOUT_DEFAULT = 1800;
 
 // light orange color for background
 const DEFAULT_COLOR = '#ffb366';
@@ -45,19 +46,10 @@ export default function Registration(props) {
 
     const [color, setColor] = useState(DEFAULT_COLOR);
 
-    const [currentTime, setCurrentTime] = useState(new Date().getTime());
-
     // fetch API and error handling
     // const [success, setSuccess] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-
-    useEffect(() => {
-        if (props.open === true) {
-            setCurrentTime(new Date().getTime());
-        }
-
-    }, [props.open, ]);
 
     const onClose = useCallback((status, data) => {
         console.log('Registration.onClose ' + status + ', loading ' + loading);
@@ -68,50 +60,60 @@ export default function Registration(props) {
     }, [loading, props, ])
 
     const onRegistrationResponse = useCallback((response) => {
-        var timeout = new Date().getTime() - currentTime;
-        if (timeout < 2000) {
-            timeout = 2000;
-        }
+        console.log('Registration.onRegistrationResponse');
 
-        if ((response.data.error === undefined) && (response.data.id !== undefined)) {
-            setTimeout(() => {
-                set_item(response.data.id, 'pswdhash', generate_pswdhash(pswd));
-                props.onClose('successed', response.data);
-                setLoading(false); setColor(DEFAULT_COLOR);
-            }, timeout);
+        if ('data' in response) {
+            if (('id' in response.data) &&
+                ('name' in response.data) &&
+                ('lang' in response.data) &&
+                ('surname' in response.data) &&
+                ('email' in response.data) &&
+                ('passed' in response.data) &&
+                ('failed' in response.data) &&
+                ('solved' in response.data) &&
+                ('cards' in response.data) &&
+                ('avatar' in response.data) &&
+                ('belt' in response.data)) {
 
-        } else {
-            if (response.data.error !== undefined) {
+                setTimeout(() => {
+                    set_item(response.data.id, 'pswdhash', generate_pswdhash(pswd));
+                    props.onClose('successed', response.data);
+                    setLoading(false); setColor(DEFAULT_COLOR);
+                }, TIMEOUT_DEFAULT);
+
+            } else if ('error' in response.data) {
                 setTimeout(() => {
                     setError(response.data.error.toString());
-                    setLoading(false);
-                    setColor('red');
-                }, timeout);
+                    setLoading(false); setColor('red');
+                }, TIMEOUT_DEFAULT);
 
             } else {
                 setTimeout(() => {
                     setError('Uuupps! Something went wrong');
-                    setLoading(false);
-                    setColor('red');
-                }, timeout);
+                    setLoading(false); setColor('red');
+                }, TIMEOUT_DEFAULT);
             }
-
-            // setTimeout(() => {setColor(DEFAULT_COLOR);}, timeout+1000);
+        } else {
+            setTimeout(() => {
+                setError('Uuupps! Something went wrong');
+                setLoading(false); setColor('red');
+            }, TIMEOUT_DEFAULT);
         }
-    }, [props, pswd, currentTime, ])
+
+    }, [props, pswd, ])
 
     const onRegistrationError = useCallback((error) => {
-        console.log('onRegistrationError '+ error.toString());
-        setError(error.toString());
-        setLoading(false);
-        setColor('red');
-        // setTimeout(() => {setColor(DEFAULT_COLOR);}, 1000);
+        console.log('Registration.onRegistrationError '+ error.toString());
+        setError('Error: ' + error.toString());
+        setLoading(false); setColor('red');
     }, [ ])
 
     const onRegistration = useCallback((event) => {
-        console.log('Registration.onRegistration -> ' + props.lang);
-        // event.preventDefault();
+        if (loading) {
+            return;
+        }
 
+        console.log('Registration.onRegistration -> ' + props.lang);
         var result = validate({'name': name}, constraints);
         if ('name' in result) {
             console.log('Registration.onRegistration -> ' + result.name);
@@ -148,16 +150,14 @@ export default function Registration(props) {
             'passed': props.passed,
             'failed': props.failed,
             'bonus': bonus,
-            // 'pswdhash': generate_pswdhash(pswd),
+            'pswdhash': generate_pswdhash(pswd),
         };
         axios.post('https://supermath.xyz:3000/api/reg', post_data)
              .then(onRegistrationResponse)
              .catch(onRegistrationError);
 
-        setCurrentTime(new Date().getTime());
-
-    }, [props.lang, props.passed, props.failed, name, surname, birth, email, pswd, subcsr, bonus,
-        onRegistrationResponse, onRegistrationError, ])
+    }, [props.lang, props.passed, props.failed, onRegistrationResponse, onRegistrationError, 
+        loading, name, surname, birth, email, pswd, subcsr, bonus, ])
 
     return (
         <Dialog open={props.open} fullScreen={props.fullScreen} fullWidth={true} maxWidth='md' scroll='body'
@@ -203,11 +203,12 @@ export default function Registration(props) {
                         fullWidth variant='outlined' label={registration[props.lang]['bonus']}/>
                 </div>
 
-                <div className='registration_desk_textfield'>
+                <div className='registration_desk_textfield' style={{marginBottom: '0'}}>
                     <FormControlLabel disabled={loading} control={<Checkbox value={subcsr} defaultChecked={true} color='primary'/>}
                         onChange={(event) => setSubcsr(event.target.value)} label={registration[props.lang]['subscribe']}/>
                 </div>
             </div>
+            <ColorLine margin={'0px'}/>
 
             <div className='registration_desk_button' onClick={() => onRegistration()}> {registration[props.lang]['create']} </div>
 
