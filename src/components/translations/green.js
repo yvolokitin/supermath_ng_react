@@ -99,14 +99,14 @@ export const green_descriptions = {
     'en': {
         '1': 'Tasks for Comparison of two expressions of tens (10, 20, 30, 40, 50, 60, 70, 80 and 90). You have two arithmetic expressions from the left and right side and have to select one of the following operations: more (>), less (<) and equal (=). To solve such tasks and choose proper inequality you have to calculate both arithmetic expressions and compare results. For example: 30-20 ? 80-70, 30-20=10 and 80-70=10, which means that both expressions are equal (=).',
         '2': 'Tasks for Comparison of two expressions of two-digit numbers (from 11 to 99). You have two arithmetic expressions from the left and right side and have to select one of the following operations: more (>), less (<) and equal (=). To solve such tasks and choose proper inequality you have to calculate both arithmetic expressions and compare results. For example: 93-58 ? 13+13, 93-58=35 and 13+13=26, which means that the first expression is more (>) then the second one.',
-        '3': 'Addition and Subtraction of hundreds (100, 200, 300, 400, 500, 600, 700, 800 and 900). There is two numbers and you have to the result of addition and subtraction. Both numbers can be hundreds only.',
-        '4': 'Addition and Subtraction of tens and hundreds',
-        '5': 'Addition and Subtraction of round hundreds and tens',
-        '6': 'Addition and Subtraction of three- and one digit numbers',
-        '7': 'Addition and Subtraction of hungreds, tens and one digit numbers',
-        '8': 'Long Addition and Subtraction of two- and three- digit numbers',
-        '9': 'Long Addition and Subtraction of four digit numbers',
-        '10': 'The Green Belt test includes the following programs: tasks for Comparison of two expressions of two-digit numbers (from 11 to 99); addition and subtraction of round hundreds and tens; addition and subtraction of three- and one digit numbers; ',
+        '3': 'Tasks for Addition and Subtraction of hundreds (100, 200, 300, 400, 500, 600, 700, 800 and 900). There is two numbers and you have to the result of addition and subtraction. Both numbers can be hundreds only.',
+        '4': 'Tasks for Addition and Subtraction of tens (10, 20, 30, 40, 50, 60, 70, 80 and 90) and hundreds (100, 200, 300, 400, 500, 600, 700, 800 and 900). ',
+        '5': 'Tasks for Addition and Subtraction of round hundreds and tens. ',
+        '6': 'Tasks for Addition and Subtraction of three- and one digit numbers. ',
+        '7': 'Tasks for Addition and Subtraction of hungreds, tens and one digit numbers. ',
+        '8': 'Long Addition and Subtraction of two- and three- digit numbers. All digits are located and ordered in right rank: ones under ones, tens under tens, etc.',
+        '9': 'Long Addition and Subtraction of four digit numbers. All digits are located and ordered in right rank: ones under ones, tens under tens, etc.',
+        '10': 'The Green Belt test includes the following programs: tasks for Comparison of two expressions of two-digit numbers (from 11 to 99); addition and subtraction of round hundreds and tens; addition and subtraction of three- and one digit numbers; long Addition and Subtraction of two- and three- digit numbers; long Addition and Subtraction of four digit numbers.',
     },
     // Russian
     'ru': {

@@ -14,6 +14,7 @@ import {black_titles, black_descriptions} from './../translations/black';
 
 import Info from './info';
 import image from './../../images/tasks/numbers.png';
+
 import {body} from './../translations/body';
 import './card.css';
 
@@ -30,7 +31,7 @@ export default function Card(props) {
     const [animation, setAnimation] = useState('none');
 
     useEffect(() => {
-        // console.log('Card.useEffect -> ' + props.task.uid + ', nonexam ' + props.nonexam + ', locked ' + props.locked);
+        // console.log('Card.useEffect -> ' + props.task.uid + ', props.color ' + props.color + ', props.nonexam ' + props.nonexam);
         switch (props.color) {
             case 'black':
                 setGradient('linear-gradient(to bottom, white 50%, black 50%)');
@@ -152,6 +153,7 @@ export default function Card(props) {
                 locked={props.locked}
                 title={title}
                 text={desc}
+                color={props.color}
                 source={props.task.logo}
                 task_id={props.task_id}
                 task={props.task.type}
