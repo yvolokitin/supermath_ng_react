@@ -65,7 +65,7 @@ export default function Share(props) {
     const handleChange = (event, value) => {
         console.log('Share.handleChange ' + value);
         // props.onClose(value);
-        props.onAction(value);
+        props.onClose(value);
     }
 
     return (
@@ -113,6 +113,7 @@ export default function Share(props) {
                     <BottomNavigationAction label={footer[props.lang]['contacts']} value='contacts' icon={<ContactsIcon/>}/>
                     <BottomNavigationAction label={footer[props.lang]['about']} value='about' icon={<InfoIcon/>}/>
                     <BottomNavigationAction label={footer[props.lang]['help']} value='help' icon={<ContactSupportIcon/>}/>
+
                 </BottomNavigation>
             </DialogContent>
 

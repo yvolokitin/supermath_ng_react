@@ -23,7 +23,7 @@ import Help from './../help/help';
 import Account from './../userinfo/account';
 
 import {avatars} from './../halpers/avatars';
-import Tabs from "./../body/tabs";
+import Body from "./../body/body";
 
 import {FULL_SCREEN} from './../halpers/functions';
 
@@ -456,7 +456,7 @@ export default class SuperMathPage extends React.Component {
                 }
                 break;
 
-            // if unregistered user pressed register button from game results
+            // if unregistered user pressed register button from game results OR <Body ...>
             case 'register':
                 this.setState({screen: STATUS.REGISTER});
                 break;
@@ -511,6 +511,16 @@ export default class SuperMathPage extends React.Component {
 
                     update_user_scores(this.state.id, this.state.pswdhash, this.state.belt, value);
                 }
+                break;
+
+            // <Body ... onUpdate={this.onUserInfo}/>
+            case 'about':
+                this.setState({screen: STATUS.ABOUT});
+                break;
+
+            // <Body ... onUpdate={this.onUserInfo}/>
+            case 'help':
+                this.setState({screen: STATUS.HELP});
                 break;
 
             default:
@@ -706,14 +716,14 @@ export default class SuperMathPage extends React.Component {
                     )}
                 </div>
 
-                <Tabs onUpdate={this.onUserInfo}
-                    id={this.state.id}
+                <Body id={this.state.id}
                     belt={this.state.belt}
                     lang={this.state.lang}
                     name={this.state.name}
                     email={this.state.email}
                     solved={this.state.solved}
-                    width={this.state.width}/>
+                    width={this.state.width}
+                    onUpdate={this.onUserInfo}/>
 
                 <Trophy open={this.state.screen === STATUS.TROPHY}
                     onClose={() => this.setState({screen: STATUS.NONE})}

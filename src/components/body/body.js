@@ -11,15 +11,15 @@ import Wave from './wave';
 import Share from './share';
 import Contact from './contact';
 
-import './tabs.css';
+import './body.css';
 
+import {tabs} from './../translations/tabs';
 import {footer} from './../translations/footer';
 
 import {get_belt_by_color, color_belts,} from './../halpers/programms';
 import {FULL_SCREEN} from './../halpers/functions';
 
 import {set_item} from './../halpers/localstorage';
-import {tabs} from './../translations/tabs';
 
 function MenuTab(props) {
     return (
@@ -57,7 +57,7 @@ const STATUS = {
     CONTACTS: 4,
 }
 
-export default function Tabs(props) {
+export default function Body(props) {
     const [color, setColor] = useState(props.belt);
     const [tasks, setTasks] = useState(get_belt_by_color(props.belt)['games']);
     const [background, setBackground] = useState(get_belt_by_color(props.belt)['bckgrnd']);
@@ -68,12 +68,11 @@ export default function Tabs(props) {
     const [status, setStatus] = useState(STATUS.NONE);
 
     /*React.useEffect(() => {
-        console.log('Tabs(props) -> ' + props.belt + ' <-');
-
+        console.log('Body(props) -> ' + props.belt);
     }, [props.belt, ]);*/
 
     function onTabChange(user_tab) {
-        console.log('Tabs.onTabPress ' + user_tab.font);
+        console.log('Body.onTabPress ' + user_tab.font);
         set_item(props.id, 'belt', user_tab.id);
 
         setColor(user_tab.id);
@@ -82,7 +81,7 @@ export default function Tabs(props) {
     };
 
     function onGameOpen(task, description) {
-        console.log('Tabs.onGameOpen ' + task.uid);
+        console.log('Body.onGameOpen ' + task.uid);
         setGame(task); setDescription(description);
 
         if (task.type === 'task') {
@@ -93,8 +92,23 @@ export default function Tabs(props) {
     }
 
     function onShare(property) {
-        console.log('Tabs.onFooter -> ' + property);
+        console.log('Body.Share -> ' + property);
+        switch (property) {
+            case 'contacts':
+                setStatus(STATUS.CONTACTS);
+                break;
 
+            case 'help':
+            case 'about':
+            case 'register':
+                setStatus(STATUS.NONE);
+                props.onUpdate(property);
+                break;
+
+            default:
+                setStatus(STATUS.NONE);
+                break;
+        }
     }
 
     function onGameClose(status, data) {
@@ -196,6 +210,7 @@ export default function Tabs(props) {
                 lang={props.lang}
                 width={props.width}
                 description={description}
+                fullScreen={props.width<FULL_SCREEN}
                 onClose={onGameClose}/>
 
             <Share open={status === STATUS.SHARE}
@@ -204,7 +219,7 @@ export default function Tabs(props) {
                 email={props.email}
                 lang={props.lang}
                 fullScreen={props.width<FULL_SCREEN}
-                onClose={() => setStatus(STATUS.NONE)}/>
+                onClose={onShare}/>
 
             <Contact open={status === STATUS.CONTACTS}
                 user_id={props.id}
