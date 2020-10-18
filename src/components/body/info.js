@@ -15,8 +15,8 @@ import './info.css';
 
 export default function Info(props) {
     /*React.useEffect(() => {
-        console.log('Info.useEffect -> ' + props.source);
-    }, [props.source, ]);*/
+        console.log('Info.useEffect -> ' + props.source + ', props.type: ' + props.type);
+    }, [props.source, props.type, ]);*/
 
     return (
         <Dialog open={props.open} fullScreen={props.fullScreen} transitionDuration={700} scroll='body'>
@@ -30,10 +30,13 @@ export default function Info(props) {
                     <div className='card_info_wrapper_img' onContextMenu={(e) => e.preventDefault()}>
                         <img src={props.source} alt={props.source}/>
                     </div>
-                    <div className='card_info_wrapper_common'> {info[props.lang]['extra']} </div>
+                    <div className='card_info_text'> {info[props.lang]['extra']} </div>
                 </>
             ) : (
-                <div className='card_info_wrapper_common'> {info[props.lang]['unlock']} </div>
+                <>
+                    <div className='card_info_title' style={{color: props.color}}> {info[props.lang]['task_locked']} </div>
+                    <div className='card_info_text'> {info[props.lang]['unlock']} </div>
+                </>
             )}
 
             <ColorLine/>

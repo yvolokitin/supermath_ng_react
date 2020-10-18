@@ -1,4 +1,5 @@
 ﻿import React, { useState, } from 'react';
+import { Link } from '@material-ui/core';
 
 import DigitGame from './../games/digitgame';
 import TaskGame from './../games/taskgame';
@@ -6,10 +7,13 @@ import TaskGame from './../games/taskgame';
 import Card from './card';
 import CardTask from './cardtask';
 
-import Footer from "./footer";
 import Wave from './wave';
+import Share from './share';
+import Contact from './contact';
 
 import './tabs.css';
+
+import {footer} from './../translations/footer';
 
 import {get_belt_by_color, color_belts,} from './../halpers/programms';
 import {FULL_SCREEN} from './../halpers/functions';
@@ -45,16 +49,23 @@ function MenuTab(props) {
     );
 }
 
+const STATUS = {
+    NONE: 0,
+    GAME: 1,
+    TASK: 2,
+    SHARE: 3,
+    CONTACTS: 4,
+}
+
 export default function Tabs(props) {
     const [color, setColor] = useState(props.belt);
     const [tasks, setTasks] = useState(get_belt_by_color(props.belt)['games']);
     const [background, setBackground] = useState(get_belt_by_color(props.belt)['bckgrnd']);
 
-    const [gameOpen, setGameOpen] = useState(false);
-    const [taskOpen, setTaskOpen] = useState(false);
-
     const [game, setGame] = useState(false);
     const [description, setDescription] = useState('');
+
+    const [status, setStatus] = useState(STATUS.NONE);
 
     /*React.useEffect(() => {
         console.log('Tabs(props) -> ' + props.belt + ' <-');
@@ -72,20 +83,23 @@ export default function Tabs(props) {
 
     function onGameOpen(task, description) {
         console.log('Tabs.onGameOpen ' + task.uid);
-        setDescription(description);
-        setGame(task);
+        setGame(task); setDescription(description);
 
         if (task.type === 'task') {
-            setTaskOpen(true);
+            setStatus(STATUS.TASK);
         } else {
-            setGameOpen(true);
+            setStatus(STATUS.GAME);
         }
+    }
+
+    function onShare(property) {
+        console.log('Tabs.onFooter -> ' + property);
+
     }
 
     function onGameClose(status, data) {
         if ((status === 'close') || (status === 'register')) {
-            setTaskOpen(false);
-            setGameOpen(false);
+            setStatus(STATUS.NONE);
         }
 
         if (props.id > 0) {
@@ -152,13 +166,19 @@ export default function Tabs(props) {
                 </Wave>
             </div>
 
-            <Footer id={props.id}
-                lang={props.lang}
-                name={props.name}
-                email={props.email}
-                fullScreen={props.width<FULL_SCREEN}/>
+            <div className='footer_wrapper'>
+                <div className='footer_share'>
+                    <font onClick={() => setStatus(STATUS.SHARE)}>{footer[props.lang]['share']}</font>
+                </div>
+                <div className='footer_copyright'>
+                    {'Copyright © '} <Link color='inherit' href='https://supermath.xyz'>SuperMath.XYZ</Link>{'. '} {new Date().getFullYear()}
+                </div>
+                <div className='footer_contacts'>
+                    <font onClick={() => setStatus(STATUS.CONTACTS)}>{footer[props.lang]['contacts']}</font>
+                </div>
+            </div>
 
-            <DigitGame open={gameOpen}
+            <DigitGame open={status === STATUS.GAME}
                 id={props.id}
                 game_uid={game.uid}
                 type={game.type}
@@ -170,13 +190,30 @@ export default function Tabs(props) {
                 fullScreen={props.width<FULL_SCREEN}
                 onClose={onGameClose}/>
 
-            <TaskGame open={taskOpen}
+            <TaskGame open={status === STATUS.TASK}
                 id={props.id}
                 task={game}
                 lang={props.lang}
                 width={props.width}
                 description={description}
                 onClose={onGameClose}/>
+
+            <Share open={status === STATUS.SHARE}
+                user_id={props.id}
+                name={props.name}
+                email={props.email}
+                lang={props.lang}
+                fullScreen={props.width<FULL_SCREEN}
+                onClose={() => setStatus(STATUS.NONE)}/>
+
+            <Contact open={status === STATUS.CONTACTS}
+                user_id={props.id}
+                name={props.name}
+                email={props.email}
+                lang={props.lang}
+                fullScreen={props.width<FULL_SCREEN}
+                onClose={() => setStatus(STATUS.NONE)}/>
+
         </div>
     );
 }

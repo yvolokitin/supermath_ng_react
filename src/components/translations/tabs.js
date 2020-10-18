@@ -50,6 +50,9 @@ export const tabs = {
         'nav': 'mrn',
         'brn': 'brn',
         'blk': 'zwt',
+
+        'tasks': 'taken',
+        'tsk': 'tkn',
     },
     // French
     'fr' : {
@@ -65,6 +68,9 @@ export const tabs = {
         'nav': 'mrn',
         'brn': 'mar',
         'blk': 'noir',
+
+        'tasks': 'tâches',
+        'tsk': 'tch',
     },
     // German
     'de' : {
@@ -80,6 +86,9 @@ export const tabs = {
         'nav': 'mrn',
         'brn': 'brn',
         'blk': 'schz',
+
+        'tasks': 'aufgaben',
+        'tsk': 'aufg',
     },
     // Spanish
     'es' : {
@@ -95,6 +104,9 @@ export const tabs = {
         'nav': 'azul',
         'brn': 'mrn',
         'blk': 'ngr',
+
+        'tasks': 'tareas',
+        'tsk': 'tar',
     },
     // Italian
     'it' : {
@@ -110,5 +122,8 @@ export const tabs = {
         'nav': 'blu',
         'brn': 'mar',
         'blk': 'nero',
+
+        'tasks': 'compiti',
+        'tsk': 'cpt',
     },
 };

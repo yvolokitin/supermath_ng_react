@@ -63,6 +63,64 @@
     width: 100%;
     height: 40px;
 }
+.footer_wrapper {
+    width: 100%;
+    height: 23px;
+    padding-bottom: 5px;
+
+    cursor: pointer;
+    user-select: none;
+
+    font-size: 14px;
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+
+    background-color: #3f51b5;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.footer_copyright {
+    width: 25%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: clip; 
+}
+.footer_share {
+    width: 13%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: clip;
+}
+.footer_contacts {
+    width: 13%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: clip;
+}
+
 /*this is solution to show tasks in three rows*/
 @media only screen and (max-width: 2500px) {
     .tasks_wrapper {
@@ -76,11 +134,51 @@
         margin-left: 10px;
         margin-right: 10px;
     }
+    .footer_copyright {
+        width: 30%;
+    }
+    .footer_share {
+        width: 25%;
+    }
+    .footer_contacts {
+        width: 25%;
+    }
+}
+@media only screen and (max-width: 1000px) {
+    .footer_copyright {
+        width: 35%;
+    }
+    .footer_share {
+        width: 25%;
+    }
+    .footer_contacts {
+        width: 25%;
+    }
 }
 @media only screen and (max-height: 800px) {
     .tasks_waver {
         margin-top: -15px;
         width: 100%;
         height: 40px;
+    }
+    .footer_copyright {
+        width: 45%;
+    }
+    .footer_share {
+        width: 25%;
+    }
+    .footer_contacts {
+        width: 25%;
+    }
+}
+@media only screen and (max-width: 550px) {
+    .footer_copyright {
+        width: 55%;
+    }
+    .footer_share {
+        width: 22%;
+    }
+    .footer_contacts {
+        width: 22%;
     }
 }

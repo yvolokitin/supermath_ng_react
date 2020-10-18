@@ -65,7 +65,7 @@ export default function Share(props) {
     const handleChange = (event, value) => {
         console.log('Share.handleChange ' + value);
         // props.onClose(value);
-        props.onClose();
+        props.onAction(value);
     }
 
     return (
