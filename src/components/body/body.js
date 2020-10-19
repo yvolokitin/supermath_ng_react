@@ -91,8 +91,8 @@ export default function Body(props) {
         }
     }
 
-    function onShare(property) {
-        console.log('Body.Share -> ' + property);
+    function onShare(property, value='') {
+        console.log('Body.Share -> ' + property + ', value ' + value);
         switch (property) {
             case 'contacts':
                 setStatus(STATUS.CONTACTS);
@@ -100,9 +100,13 @@ export default function Body(props) {
 
             case 'help':
             case 'about':
-            case 'register':
                 setStatus(STATUS.NONE);
                 props.onUpdate(property);
+                break;
+
+            case 'register':
+                setStatus(STATUS.NONE);
+                props.onUpdate(property, value);
                 break;
 
             default:

@@ -41,8 +41,9 @@ export default function Registration(props) {
     const [birth, setBirth] = useState('');
     const [email, setEmail] = useState('');
     const [pswd, setPswd] = useState('');
-    const [bonus, setBonus] = useState('0000000');
     const [subcsr, setSubcsr] = useState(false);
+
+    const [bonus, setBonus] = useState(props.refferal);
 
     const [color, setColor] = useState(DEFAULT_COLOR);
 
@@ -50,6 +51,12 @@ export default function Registration(props) {
     // const [success, setSuccess] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+
+    React.useEffect(() => {
+        console.log('props.refferal -> ' + props.refferal);
+        setBonus(props.refferal);
+
+    }, [props.refferal, ]);
 
     const onClose = useCallback((status, data) => {
         console.log('Registration.onClose ' + status + ', loading ' + loading);
@@ -200,7 +207,7 @@ export default function Registration(props) {
 
                 <div className='registration_desk_textfield'>
                     <TextField disabled={loading} onChange={(event) => setBonus(event.target.value)}
-                        fullWidth variant='outlined' label={registration[props.lang]['bonus']}/>
+                        fullWidth variant='outlined' value={bonus} label={registration[props.lang]['bonus']}/>
                 </div>
 
                 <div className='registration_desk_textfield' style={{marginBottom: '0'}}>

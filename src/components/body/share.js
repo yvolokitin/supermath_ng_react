@@ -4,7 +4,8 @@ import {BottomNavigation, BottomNavigationAction, Button, Typography, Slide} fro
 
 import InfoIcon from '@material-ui/icons/Info';
 import CancelIcon from '@material-ui/icons/Cancel';
-import ContactsIcon from '@material-ui/icons/Contacts';
+import PermPhoneMsgIcon from '@material-ui/icons/PermPhoneMsg';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 
 import Title from './../title/title';
@@ -62,10 +63,9 @@ export default function Share(props) {
 
     }, [props.user_id, ]);
     
-    const handleChange = (event, value) => {
-        console.log('Share.handleChange ' + value);
-        // props.onClose(value);
-        props.onClose(value);
+    const handleChange = (event, option) => {
+        console.log('Share.handleChange ' + option);
+        props.onClose(option, code);
     }
 
     return (
@@ -110,9 +110,13 @@ export default function Share(props) {
 
             <DialogContent scroll='body'>
                 <BottomNavigation onChange={handleChange} showLabels>
-                    <BottomNavigationAction label={footer[props.lang]['contacts']} value='contacts' icon={<ContactsIcon/>}/>
+                    <BottomNavigationAction label={footer[props.lang]['contacts']} value='contacts' icon={<PermPhoneMsgIcon/>}/>
                     <BottomNavigationAction label={footer[props.lang]['about']} value='about' icon={<InfoIcon/>}/>
                     <BottomNavigationAction label={footer[props.lang]['help']} value='help' icon={<ContactSupportIcon/>}/>
+
+                    {(props.user_id < 1) ? (
+                        <BottomNavigationAction label={footer[props.lang]['register']} value='register' icon={<AccountCircleIcon/>}/>
+                    ) : ( null )}
 
                 </BottomNavigation>
             </DialogContent>

@@ -5,6 +5,7 @@ export const footer = {
         'close': 'Close',
         'about': 'About',
         'help': 'Help',
+        'register': 'Register now',
 
         'share': 'Bonus points',
         'share_title': 'Share information',
@@ -24,6 +25,7 @@ export const footer = {
         'close': 'Закрыть',
         'about': 'О Программе',
         'help': 'Помощь',
+        'register': 'Зарегистрироваться',
 
         'share': 'Бонус баллы',
         'share_title': 'Поделиться информацией',
@@ -43,6 +45,7 @@ export const footer = {
         'close': 'Dichtbij',
         'about': 'About',
         'help': 'Help',
+        'register': 'Registreer nu',
 
         'share': 'Bonus punten',
         'share_title': 'Informatie delen',
@@ -59,6 +62,7 @@ export const footer = {
         'close': 'Fermer',
         'about': 'About',
         'help': 'Help',
+        'register': 'S\'inscrire maintenant',
 
         'share': 'Points bonus',
         'share_title': 'Partager l\'information',
@@ -75,6 +79,7 @@ export const footer = {
         'close': 'Schließen',
         'about': 'About',
         'help': 'Help',
+        'register': 'Jetzt registrieren',
 
         'share': 'Bonuspunkte',
         'share_title': 'Informationen teilen',
@@ -90,6 +95,7 @@ export const footer = {
         'close': 'Cerca',
         'about': 'About',
         'help': 'Help',
+        'register': 'Regístrate ahora',
 
         'share': 'Bonus points',
         'share_title': 'Compartir información',
@@ -105,6 +111,7 @@ export const footer = {
         'close': 'Vicino',
         'about': 'About',
         'help': 'Help',
+        'register': 'Iscriviti ora',
 
         'share': 'Condividere',
         'share_title': 'Condividere informazioni',

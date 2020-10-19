@@ -458,7 +458,8 @@ export default class SuperMathPage extends React.Component {
 
             // if unregistered user pressed register button from game results OR <Body ...>
             case 'register':
-                this.setState({screen: STATUS.REGISTER});
+                this.setState({screen: STATUS.REGISTER,
+                    refferal: value});
                 break;
 
             // update from Account - Settgins Tab
@@ -769,6 +770,7 @@ export default class SuperMathPage extends React.Component {
                 <Registration open={this.state.screen === STATUS.REGISTER}
                     title={header[this.state.lang]['register']}
                     fullScreen={this.state.width<FULL_SCREEN}
+                    refferal={this.state.refferal}
                     passed={this.props.passed}
                     failed={this.props.failed}
                     onClose={this.onResult}
