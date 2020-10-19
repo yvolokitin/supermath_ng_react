@@ -31,9 +31,9 @@
 }
 .card_info_wrapper_img img {
     width: 70%;
-    border: 1px solid #ddd;
-    border-radius: 5px;
     padding: 13px;
+    border-radius: 13px;
+    border: 1px solid #ddd;
 }
 .card_info_wrapper_btn {
     height: 35px;

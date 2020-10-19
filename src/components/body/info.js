@@ -27,9 +27,11 @@ export default function Info(props) {
                 <>
                     <div className='card_info_title' style={{color: props.color}}> {props.title} </div>
                     <div className='card_info_text'> {props.text} </div>
+
                     <div className='card_info_wrapper_img' onContextMenu={(e) => e.preventDefault()}>
-                        <img src={props.source} alt={props.source}/>
+                        <img src={props.source} alt={props.source} style={{backgroundColor: props.color}}/>
                     </div>
+
                     <div className='card_info_text'> {info[props.lang]['extra']} </div>
                 </>
             ) : (
