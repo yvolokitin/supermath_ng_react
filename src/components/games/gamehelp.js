@@ -41,16 +41,6 @@ export default function GameHelp(props) {
         props.onClose(value);
     }
 
-    /*
-            <DialogContent>
-                {(props.type === 'game') ? (
-                    <Typography align='justify'>
-                        {info[props.lang]['extra']}
-                    </Typography>
-                ) : (<></>)}
-            </DialogContent>
-
-    */
     return (
         <Dialog open={props.open} onClose={() => props.onClose('')}
                 scroll='body' fullScreen={props.fullScreen}

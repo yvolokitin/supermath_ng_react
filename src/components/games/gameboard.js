@@ -13,12 +13,15 @@ export default class GameBoard extends React.Component {
         this.onOperator = this.onOperator.bind(this);
         this.onKeyboard = this.onKeyboard.bind(this);
 
+        // this.proceed_with_timeout = this.proceed_with_timeout.bind(this);
+
         this.state = {task: generate_task(props.type, props.task),
                       result: '?',
                       color: 'grey',
                       board: 'yellow',
                       counter: 0,
                       attempt: 0,
+                      timer: 0,
                       size: '1rem'};
 
         // console.log('SCREEN width ' + props.width);
@@ -52,10 +55,31 @@ export default class GameBoard extends React.Component {
                        board: 'yellow',
                        animation: 'none',
                        color: 'grey',
+                       timer: 0,
                        attempt: 0}, () => {
-                            this.props.onColor('white');
+                            this.props.onCircles(0);
                             this.loading = false;
         });
+
+        if (this.props.is_test) {
+            setTimeout(() => this.proceed_with_timeout(), 1500);
+        }
+    }
+
+    proceed_with_timeout() {
+        if (this.state.timer < 10) {
+            console.log('proceed_with_timeout() ' + this.state.timer);
+            this.setState((prevState, props) => ({
+                timer: prevState.timer + 1
+            }), () => {
+                this.props.onCircles(this.state.timer);
+            });
+
+            setTimeout(() => this.proceed_with_timeout(), 1500);
+
+        } else {
+            console.log('!!!!!!!!!!!!! Hello');
+        }
     }
 
     proceed_with_next_task() {
@@ -231,7 +255,7 @@ export default class GameBoard extends React.Component {
         // console.log('set_failed from ' + this.state.attempt + ' attempts');
         // console.log('set_failed ' + digit + ', expected: ' + this.state.task.result.toString());
         // notify parent to change circles color in game footer
-        this.props.onColor('red');
+        this.props.onCircles(10);
 
         if (this.state.attempt === 0) {
             // notify parent to change circles color in game footer
@@ -258,7 +282,7 @@ export default class GameBoard extends React.Component {
                 board: 'yellow',
                 animation: '', result: '?'},
                     () => {
-                        this.props.onColor('white');
+                        this.props.onCircles(0);
                         this.loading = false;
             });
         }, 700);
@@ -267,8 +291,6 @@ export default class GameBoard extends React.Component {
     set_passed(digit) {
         // console.log('PASSED from ' + this.state.attempt + ' attempts');
         if (this.state.attempt === 0) {
-            // notify parent to change circles color in game footer
-            this.props.onColor('green');
             // notify parent to update counters
             this.props.onCounter(this.state.attempt, this.state.task);
             this.setState({
@@ -278,7 +300,6 @@ export default class GameBoard extends React.Component {
                 animation: 'smooth_yellow_to_green 0.8s',
             });
         } else {
-            this.props.onColor('yellow');
             this.setState({
                 color: 'yellow',
                 result: digit,

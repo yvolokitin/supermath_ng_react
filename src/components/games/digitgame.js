@@ -31,7 +31,7 @@ export default class DigitGame extends React.Component {
 
         this.onGameClose = this.onGameClose.bind(this);
         this.onTestUpdate = this.onTestUpdate.bind(this);
-        this.onColorUpdate = this.onColorUpdate.bind(this);
+        this.onCirclesUpdate = this.onCirclesUpdate.bind(this);
         this.onCounterUpdate = this.onCounterUpdate.bind(this);
 
         this.state = {
@@ -41,12 +41,16 @@ export default class DigitGame extends React.Component {
             uid: 'unknown',
             amount: props.amount,
             results: [],
-            circle: 'white',
             total: 0,
             passed: 0,
             failed: 0,
             duration: 0,
+
+            // test is the special type of task, which requires task solving per timer
             is_test: false,
+
+            // circles shows how many circles should be in colored during test
+            circles: 0,
         };
 
         // count general time to solve all tasks
@@ -81,10 +85,10 @@ export default class DigitGame extends React.Component {
                 'task': current.task,
                 'uid': current.uid,
                 'amount': this.props.amount,
-                'circle': 'white',
                 'total': 0,
                 'passed': 0,
                 'failed': 0,
+                'circles': 0,
                 'is_test': it_is_test,
             });
         }
@@ -132,10 +136,10 @@ export default class DigitGame extends React.Component {
                 this.setState({
                     'status': DG_STATUS.GAME,
                     'results': [],
-                    'circle': 'white',
                     'total': 0,
                     'passed': 0,
                     'failed': 0,
+                    'circles': 0,
                 });
                 this.timer = new Date().getTime();
                 this.props.onClose(status, data);
@@ -145,10 +149,10 @@ export default class DigitGame extends React.Component {
                 this.setState({
                     'status': DG_STATUS.GAME,
                     'results': [],
-                    'circle': 'white',
                     'total': 0,
                     'passed': 0,
                     'failed': 0,
+                    'circles': 0,
                 });
                 this.timer = new Date().getTime();
                 var restart_data = {
@@ -175,10 +179,10 @@ export default class DigitGame extends React.Component {
                 this.setState({
                     'status': DG_STATUS.GAME,
                     results: [],
-                    circle: 'white',
                     total: 0,
                     passed: 0,
-                    failed: 0
+                    failed: 0,
+                    circles: 0,
                 });
 
                 this.timer = new Date().getTime();
@@ -274,8 +278,8 @@ export default class DigitGame extends React.Component {
         }
     }
 
-    onColorUpdate(color) {
-        this.setState({circle: color});
+    onCirclesUpdate(number) {
+        this.setState({circles: number});
     }
 
     /**
@@ -298,7 +302,7 @@ export default class DigitGame extends React.Component {
 
                         <GameBoard onClose={this.onGameClose}
                             onCounter={this.onCounterUpdate}
-                            onColor={this.onColorUpdate}
+                            onCircles={this.onCirclesUpdate}
                             onTest={this.onTestUpdate}
                             is_test={this.state.is_test}
                             width={this.props.width}
@@ -308,7 +312,8 @@ export default class DigitGame extends React.Component {
                             amount={this.state.amount}
                             lang={this.props.lang}/>
 
-                        <GameFooter color={this.state.circle}
+                        <GameFooter is_test={this.state.is_test}
+                            circles={this.state.circles}
                             lang={this.props.lang}/>
                     </>
                 ) : (<> </>) }
