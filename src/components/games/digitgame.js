@@ -314,6 +314,7 @@ export default class DigitGame extends React.Component {
 
                         <GameFooter is_test={this.state.is_test}
                             circles={this.state.circles}
+                            width={this.props.width}
                             lang={this.props.lang}/>
                     </>
                 ) : (<> </>) }

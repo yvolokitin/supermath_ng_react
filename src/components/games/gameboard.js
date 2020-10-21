@@ -1,8 +1,11 @@
 ﻿import React from 'react';
-import {generate_task} from './../halpers/arithmetic';
+
 import KeyBoard from './../keyboard/keyboard';
 import OperatorBoard from './../keyboard/operatorboard';
 import LineNumbersBoard from './../keyboard/linenumbersboard';
+
+import {generate_task} from './../halpers/arithmetic';
+
 import './gameboard.css';
 
 export default class GameBoard extends React.Component {
@@ -13,8 +16,6 @@ export default class GameBoard extends React.Component {
         this.onOperator = this.onOperator.bind(this);
         this.onKeyboard = this.onKeyboard.bind(this);
 
-        // this.proceed_with_timeout = this.proceed_with_timeout.bind(this);
-
         this.state = {task: generate_task(props.type, props.task),
                       result: '?',
                       color: 'grey',
@@ -24,8 +25,9 @@ export default class GameBoard extends React.Component {
                       timer: 0,
                       size: '1rem'};
 
-        // console.log('SCREEN width ' + props.width);
-        // , fontSize: this.state.size
+        if (this.props.is_test) {
+            this.timer = setTimeout(() => this.proceed_with_timeout(), 1500);
+        }
     }
 
     componentDidMount() {
@@ -36,6 +38,11 @@ export default class GameBoard extends React.Component {
     }
 
     componentWillUnmount() {
+        if (this.props.is_test) {
+            this.props.onCircles(0);
+            clearTimeout(this.timer);
+        }
+
         window.removeEventListener('keydown', this.onKeyboard);
     }
 
@@ -62,23 +69,23 @@ export default class GameBoard extends React.Component {
         });
 
         if (this.props.is_test) {
-            setTimeout(() => this.proceed_with_timeout(), 1500);
+            this.timer = setTimeout(() => this.proceed_with_timeout(), 1500);
         }
     }
 
     proceed_with_timeout() {
         if (this.state.timer < 10) {
-            console.log('proceed_with_timeout() ' + this.state.timer);
+            // console.log('proceed_with_timeout() ' + this.state.timer);
             this.setState((prevState, props) => ({
                 timer: prevState.timer + 1
             }), () => {
                 this.props.onCircles(this.state.timer);
             });
 
-            setTimeout(() => this.proceed_with_timeout(), 1500);
+            this.timer = setTimeout(() => this.proceed_with_timeout(), 1500);
 
         } else {
-            console.log('!!!!!!!!!!!!! Hello');
+            this.set_failed('?');
         }
     }
 
@@ -252,21 +259,33 @@ export default class GameBoard extends React.Component {
     }
 
     set_failed(digit) {
-        // console.log('set_failed from ' + this.state.attempt + ' attempts');
-        // console.log('set_failed ' + digit + ', expected: ' + this.state.task.result.toString());
+        // console.log('FAILED.set_failed -> attempt: ' + this.state.attempt + ', digit ' + digit);
         // notify parent to change circles color in game footer
         this.props.onCircles(10);
 
+        if (this.props.is_test) {
+            clearTimeout(this.timer);
+        }
+
         if (this.state.attempt === 0) {
-            // notify parent to change circles color in game footer
             this.props.onCounter(this.state.attempt + 1, this.state.task);
-            this.setState({color: 'yellow',
+            /*this.setState({color: 'yellow',
                            board: 'red',
                            animation: 'shake 0.8s',
                            result: digit,
                            counter: this.state.counter + 1,
                            failed: this.state.failed + 1,
-                           attempt: this.state.attempt + 1});
+                           attempt: this.state.attempt + 1});*/
+
+            this.setState(prevState => ({
+                color: 'yellow',
+                board: 'red',
+                result: digit,
+                animation: 'shake 0.8s',
+                counter: prevState.counter + 1,
+                failed: prevState.failed + 1,
+                attempt: prevState.attempt + 1}));
+
         } else {
             this.setState({color: 'yellow',
                            board: 'red',
@@ -280,19 +299,30 @@ export default class GameBoard extends React.Component {
             this.setState({
                 color: 'grey',
                 board: 'yellow',
-                animation: '', result: '?'},
+                animation: '',
+                result: '?'},
                     () => {
-                        this.props.onCircles(0);
+                        // this.props.onCircles(0);
                         this.loading = false;
             });
         }, 700);
     }
 
     set_passed(digit) {
-        // console.log('PASSED from ' + this.state.attempt + ' attempts');
+        // console.log('PASSED, attempts: ' + this.state.attempt + ', timer: ' + this.state.timer);
+
+        if (this.props.is_test) {
+            clearTimeout(this.timer);
+        }
+
         if (this.state.attempt === 0) {
             // notify parent to update counters
-            this.props.onCounter(this.state.attempt, this.state.task);
+            if (this.props.is_test && this.state.timer === 10) {
+                this.props.onCounter(this.state.timer, this.state.task);
+            } else {
+                this.props.onCounter(this.state.attempt, this.state.task);
+            }
+
             this.setState({
                 color: 'yellow',
                 result: digit,

@@ -3,13 +3,24 @@
 import ColorLine from './../line/line';
 import './digitgamefooter.css';
 
+const circles = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
 export default function GameFooter(props) {
-    const circles = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const [radius, setRadius] = React.useState(0);
 
     React.useEffect(() => {
-        console.log('GameFooter -> props.circles ' + props.circles);
+        // console.log('GameFooter -> props.circles ' + props.circles);
+        if (props.width > 800) {
+            setRadius(25);
 
-    }, [props.circles, ]);
+        } else if (props.width > 500) {
+            setRadius(16);
+
+        } else {
+            setRadius(8);
+        }
+
+    }, [props.width, props.circles, ]);
 
     return (
         <>
@@ -20,9 +31,9 @@ export default function GameFooter(props) {
                         {circles.map((item, key) => (
                             <svg key={item} height='100%' width='100%'>
                                 {(props.circles > item) ? (
-                                    <circle cx={50} cy={50} r={16} stroke='black' strokeWidth='2' fill={'green'}/>
+                                    <circle cx='50%' cy='50%' r={radius} stroke='black' strokeWidth='2' fill={'green'}/>
                                 ) : (
-                                    <circle cx={50} cy={50} r={16} stroke='black' strokeWidth='2' fill={'white'}/>
+                                    <circle cx='50%' cy='50%' r={radius} stroke='black' strokeWidth='2' fill={'white'}/>
                                 )}
                             </svg>
                         ))}
