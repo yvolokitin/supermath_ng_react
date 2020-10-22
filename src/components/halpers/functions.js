@@ -4,6 +4,9 @@ export const FULL_SCREEN = 890;
 // red circles on footer during test
 export const RED_CIRCLE = 13;
 
+// green circles on footer during test
+export const GREEN_CIRCLE = 131313;
+
 export function get_belt_color(belt) {
     if (belt === 'black') {
         return '#404040';
