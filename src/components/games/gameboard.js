@@ -1,8 +1,10 @@
-﻿import React from 'react';
+import React from 'react';
 
 import KeyBoard from './../keyboard/keyboard';
 import OperatorBoard from './../keyboard/operatorboard';
 import LineNumbersBoard from './../keyboard/linenumbersboard';
+
+import {RED_CIRCLE} from './../halpers/functions';
 
 import {generate_task} from './../halpers/arithmetic';
 
@@ -261,7 +263,7 @@ export default class GameBoard extends React.Component {
     set_failed(digit) {
         // console.log('FAILED.set_failed -> attempt: ' + this.state.attempt + ', digit ' + digit);
         // notify parent to change circles color in game footer
-        this.props.onCircles(10);
+        this.props.onCircles(RED_CIRCLE);
 
         if (this.props.is_test) {
             clearTimeout(this.timer);
@@ -302,7 +304,6 @@ export default class GameBoard extends React.Component {
                 animation: '',
                 result: '?'},
                     () => {
-                        // this.props.onCircles(0);
                         this.loading = false;
             });
         }, 700);
