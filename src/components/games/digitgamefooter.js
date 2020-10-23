@@ -30,9 +30,9 @@ export default function GameFooter(props) {
             {(props.is_test) ? (
                 <>
                     <ColorLine margin={'0px'}/>
-                    <div className='game_footer_div'>
+                    <div className='game_footer_div' style={{height: '8%', width: '100%'}}>
                         {circles.map((item, key) => (
-                            <svg key={item} height='100%' width='100%'>
+                            <svg key={item} height='10%' width='10%' className='game_footer_div_svg'>
                                 {(props.circles === RED_CIRCLE) ? (
                                     <circle cx='50%' cy='50%' r={radius} stroke='black' strokeWidth='2' fill={'red'}/>
                                 ) : (

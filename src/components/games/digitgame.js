@@ -1,7 +1,6 @@
 ﻿import React from 'react';
-import {Dialog, Slide} from '@material-ui/core';
 
-import GameHeader from './digitgameheader';
+// import GameHeader from './digitgameheader';
 import GameFooter from './digitgamefooter';
 
 import GameBoard from './gameboard';
@@ -13,10 +12,6 @@ import Calendar from './../calendar/calendar';
 
 import {get_random_taks_for_test} from './../halpers/programms';
 import './digitgame.css';
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction='down' ref={ref} {...props} />;
-});
 
 const DG_STATUS = {
     NONE: 0,
@@ -289,35 +284,19 @@ export default class DigitGame extends React.Component {
     */
     render() {
         return (
-            <Dialog open={this.props.open} fullScreen={true} TransitionComponent={Transition} transitionDuration={900}>
-                { (this.state.status === DG_STATUS.GAME) ? (
-                    <>
-                        <GameHeader onClick={this.onGameClose}
-                            total={this.state.total}
-                            passed={this.state.passed}
-                            failed={this.state.failed}
-                            results={this.state.results}
-                            width={this.props.width}
-                            lang={this.props.lang}/>
-
-                        <GameBoard onClose={this.onGameClose}
-                            onCounter={this.onCounterUpdate}
-                            onCircles={this.onCirclesUpdate}
-                            onTest={this.onTestUpdate}
-                            is_test={this.state.is_test}
-                            width={this.props.width}
-                            uid={this.state.uid}
-                            type={this.state.type}
-                            task={this.state.task}
-                            amount={this.state.amount}
-                            lang={this.props.lang}/>
-
-                        <GameFooter is_test={this.state.is_test}
-                            circles={this.state.circles}
-                            width={this.props.width}
-                            lang={this.props.lang}/>
-                    </>
-                ) : (<> </>) }
+            <>
+                <GameBoard open={this.state.status === DG_STATUS.GAME}
+                    uid={this.state.uid}
+                    type={this.state.type}
+                    task={this.state.task}
+                    lang={this.props.lang}
+                    width={this.props.width}
+                    amount={this.state.amount}
+                    is_test={this.state.is_test}
+                    onClose={this.onGameClose}
+                    onTest={this.onTestUpdate}
+                    onCounter={this.onCounterUpdate}
+                    onCircles={this.onCirclesUpdate}/>
 
                 <GameResults open={this.state.status === DG_STATUS.RESULTS}
                     user_id={this.props.id}
@@ -338,23 +317,13 @@ export default class DigitGame extends React.Component {
                         <Title title='' onClose={() => this.onGameClose('close', {})} fullScreen={this.props.fullScreen}/>
                         <ColorLine margin={'0px'}/>
 
-                        <GameHeader onClick={this.onGameClose}
-                            fullScreen={this.props.fullScreen}
-                            total={this.state.total}
-                            passed={this.state.passed}
-                            failed={this.state.failed}
-                            results={this.state.results}
-                            width={this.props.width}
-                            lang={this.props.lang}/>
-
                         <Calendar id={this.props.id}
                             pswdhash='' name=''
                             lang={this.props.lang}/>
                     </div>
 
                 ) : ( <> </> )}
-
-            </Dialog>
+            </>
         );
     }
 }

@@ -1,153 +1,197 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Dialog, Slide } from '@material-ui/core';
 
 import KeyBoard from './../keyboard/keyboard';
 import OperatorBoard from './../keyboard/operatorboard';
 import LineNumbersBoard from './../keyboard/linenumbersboard';
+
+import GameProgress from './gameprogress';
+import GameSettings from './gamesettings';
+import GameReplay from './gamereplay';
+import GameExit from './gameexit';
+import GameInfo from './gameinfo';
+import GameHelp from './gamehelp';
 
 import {GREEN_CIRCLE, RED_CIRCLE} from './../halpers/functions';
 
 import {generate_task} from './../halpers/arithmetic';
 
 import './gameboard.css';
+import './digitgameheader.css';
 
-export default class GameBoard extends React.Component {
-    constructor(props) {
-        super(props);
+import {FULL_SCREEN} from './../halpers/functions';
 
-        this.onDigit = this.onDigit.bind(this);
-        this.onOperator = this.onOperator.bind(this);
-        this.onKeyboard = this.onKeyboard.bind(this);
+const ALERT = {
+    NONE: 0,
+    EXIT: 1,
+    INFO: 2,
+    HELP: 3,
+    SETTINGS: 4,
+    PROGRESS: 5,
+    REPLAY: 6,
+}
 
-        this.state = {task: generate_task(props.type, props.task),
-                      result: '?',
-                      color: 'grey',
-                      board: 'yellow',
-                      counter: 0,
-                      attempt: 0,
-                      timer: 0,
-                      size: '1rem'};
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction='up' ref={ref} {...props} />;
+});
 
-        if (this.props.is_test) {
-            this.timer = setTimeout(() => this.proceed_with_timeout(), 1500);
+export default function GameBoard(props) {
+    // const [task, setTask] = useState(generate_task(props.type, props.task));
+    const [task, setTask] = useState(() => {
+        const initialTask = generate_task(props.type, props.task)
+        return initialTask;
+    });
+
+    const [result, setResult] = useState('?');
+    const [color, setColor] = useState('grey');
+    const [board, setBoard] = useState('yellow');
+    const [counter, setCounter] = useState(0);
+    const [attempt, setAttempt] = useState(0);
+    const [circles, setCircles] = useState(0);
+    const [animation, setAnimation] = useState('');
+    const [size, setSize] = useState('1rem');
+    const [timer, setTimer] = useState(0);
+
+    const [total, setTotal] = useState(0);
+    const [passed, setPassed] = useState(0);
+    const [failed, setFailed] = useState(0);
+
+    const [openAlert, setOpenAlert] = React.useState(ALERT.NONE);
+
+    const onAlertDialog = (status) => {
+        console.log('GameHeader.onAlertDialog -> ' + status);
+        switch (status) {
+            case 'close':
+                setOpenAlert(ALERT.NONE);
+                props.onClick('interrapted');
+                break;
+            case 'exit':
+                setOpenAlert(ALERT.EXIT);
+                break;
+            case 'info':
+                setOpenAlert(ALERT.INFO);
+                break;
+            case 'help':
+                setOpenAlert(ALERT.HELP);
+                break;
+            case 'settings':
+                setOpenAlert(ALERT.SETTINGS);
+                break;
+            case 'progress':
+                setOpenAlert(ALERT.PROGRESS);
+                break;
+            case 'replay':
+                setOpenAlert(ALERT.REPLAY);
+                break;
+            case 'restart':
+                setOpenAlert(ALERT.NONE);
+                props.onClick('restart');
+                break;
+            default:
+                setOpenAlert(ALERT.NONE);
+                break;
         }
     }
 
-    componentDidMount() {
-        window.addEventListener('keydown', this.onKeyboard);
+    useEffect(() => {
+        console.log('GameBoard.useEffect -> !!!!!!!!!!! ' );
 
-        // to ignore user actions during animation
-        this.loading = false;
-    }
-
-    componentWillUnmount() {
-        if (this.props.is_test) {
-            this.props.onCircles(0);
-            clearTimeout(this.timer);
+        if (props.is_test) {
+            timer = setTimeout(() => proceed_with_timeout(), 1500);
         }
 
+        // keyboard events listener
+        window.addEventListener('keydown', onKeyboard);
+
+        setTimer(new Date().getTime());
+        set_task();
+    });
+
+    function onClose() {
         window.removeEventListener('keydown', this.onKeyboard);
-    }
 
-    componentDidUpdate(prevProps) {
-        // Typical usage (don't forget to compare props), otherwise you get infinitive loop
-        if (this.props.uid !== prevProps.uid) {
-            console.log('GameBoard.componentDidUpdate type ' + this.props.type + ', task: ' + this.props.task);
-            this.timer = new Date().getTime();
-            this.set_task();
+        if (props.is_test) {
+            clearTimeout(timer);
+            props.onCircles(0);
         }
     }
 
-    set_task() {
-        console.log('GameBoard.set_task ' + this.state.counter);
-        this.setState({task: generate_task(this.props.type, this.props.task),
-                       result: '?',
-                       board: 'yellow',
-                       animation: 'none',
-                       color: 'grey',
-                       timer: 0,
-                       attempt: 0}, () => {
-                            this.loading = false;
-        });
+    function set_task() {
+        console.log('GameBoard.set_task -> ' + counter);
+        setTask(generate_task(props.type, props.task));
+        setResult('?'); setColor('grey'); setBoard('yellow');
+        setCounter(0); setAttempt(0);
 
-        if (this.props.is_test) {
-            this.timer = setTimeout(() => this.proceed_with_timeout(), 1500);
+        if (props.is_test) {
+            timer = setTimeout(() => {
+                setCircles(0); proceed_with_timeout();
+            }, 1500);
         }
     }
 
-    proceed_with_timeout() {
-        if (this.state.timer < 10) {
-            // console.log('proceed_with_timeout() ' + this.state.timer);
-            this.setState((prevState, props) => ({
-                timer: prevState.timer + 1
-            }), () => {
-                this.props.onCircles(this.state.timer);
-            });
-
-            this.timer = setTimeout(() => this.proceed_with_timeout(), 1500);
-
+    function proceed_with_timeout() {
+        if (circles < 10) {
+            setCircles(prevCircles => prevCircles + 1);
+            timer = setTimeout(() => proceed_with_timeout(), 1500);
         } else {
-            this.set_failed('?');
+            set_failed('?');
         }
     }
 
-    proceed_with_next_task() {
-        // console.log('proceed_with_next_task:: counter: ' + this.state.counter + ', amount: ' + this.props.amount);
-        if (this.state.counter < this.props.amount) {
-            if (this.props.is_test === false) {
-                this.set_task();
+    function proceed_with_next_task() {
+        // console.log('proceed_with_next_task:: counter: ' + this.state.counter + ', amount: ' + props.amount);
+        if (this.state.counter < props.amount) {
+            if (props.is_test === false) {
+                set_task();
             } else {
-                this.props.onTest();
+                props.onTest();
             }
 
         } else {
             console.log('Game is Finished');
-            this.props.onClose('finished');
+            props.onClose('finished');
         }
     }
 
-    onDigit(digit_number) {
+    function onDigit(digit_number) {
         // console.log('onDigit ' + target.innerText);
         // skip any checks if in red already
-        if (this.loading === false) {
-            this.check_response(digit_number);
-        }
+        check_response(digit_number);
     }
 
-    onOperator(symbol) {
+    function onOperator(symbol) {
         // console.log('check operator response ' + target.innerText);
-        if (this.loading === false) {
-            if (this.props.type.includes('_fr')) {
-                this.check_response(symbol);
+        if (props.type.includes('_fr')) {
+            check_response(symbol);
 
-            } else if (this.props.type.includes('digit')) {
-                var expected_result = this.state.task.result.toString();
-                if ((expected_result.length > 1) && (this.state.result !== '?')) {
-                    var new_result = this.state.result.substring(0, this.state.result.length - 1);
+        } else if (props.type.includes('digit')) {
+                var expected_result = task.result.toString();
+                if ((expected_result.length > 1) && (result !== '?')) {
+                    var new_result = result.substring(0, result.length - 1);
                     if (new_result.length === 0) {
-                        this.setState({result: '?', color: 'grey'});
+                        setResult('?'); setColor('grey');
                     } else {
-                        this.setState({result: new_result});
+                        setResult(new_result);
                     }
 
                 // white, level 6:
                 // {id: 6, logo: logo6, type: '2digit_arg', task: 'o,+-,1-10,1-10,1,1', amount: task_amount},
-                } else if ((this.props.type === '2digit_arg') && (this.props.task.includes('o'))) {
-                    this.check_response(symbol);
+                } else if ((props.type === '2digit_arg') && (props.task.includes('o'))) {
+                    check_response(symbol);
 
                 } else {
                     console.log('Escaping backspace ' + symbol);
                 }
-            } else {
-                this.check_response(symbol);
-            }
+
+        } else {
+            check_response(symbol);
         }
     }
 
-    onKeyboard({ key }) {
-        // console.log('onKeyboard ' + key + ', this.loading ' + this.loading);
+    function onKeyboard({ key }) {
+        console.log('onKeyboard ' + key);
         // skip any checks if in red already
-        if (this.loading === false) {
-            switch (key) {
+        switch (key) {
                 case '0':
                 case '1':
                 case '2':
@@ -158,13 +202,13 @@ export default class GameBoard extends React.Component {
                 case '7':
                 case '8':
                 case '9':
-                    this.check_response(key);
+                    check_response(key);
                     break;
 
                 case '.':
                 case ',':
-                    if (this.props.type.includes('_fr')) {
-                        this.check_response('.');
+                    if (props.type.includes('_fr')) {
+                        check_response('.');
                     }
                     break;
 
@@ -176,33 +220,33 @@ export default class GameBoard extends React.Component {
                 case ':':
                     // white, level 6:
                     // {id: 6, logo: logo6, type: '2digit_arg', task: 'o,+-,1-10,1-10,1,1', amount: task_amount},
-                    if ((this.props.type === '2digit_arg') && (this.props.task.includes('o'))) {
-                        this.check_response(key);
+                    if ((props.type === '2digit_arg') && (props.task.includes('o'))) {
+                        check_response(key);
 
-                    } else if (this.props.type.includes('_signed') && key === '-') {
-                        this.check_response(key);
+                    } else if (props.type.includes('_signed') && key === '-') {
+                        check_response(key);
                     }
                     break;
 
                 case '>':
                 case 'ArrowRight':
-                    if (this.props.type === 'comp_expr' || this.props.type === 'comp_nums') {
-                        this.check_response('>');
+                    if (props.type === 'comp_expr' || props.type === 'comp_nums') {
+                        check_response('>');
                     }
                     break;
 
                 case '<':
                 case 'ArrowLeft':
-                    if (this.props.type === 'comp_expr' || this.props.type === 'comp_nums') {
-                        this.check_response('<');
+                    if (props.type === 'comp_expr' || props.type === 'comp_nums') {
+                        check_response('<');
                     }
                     break;
 
                 case '=':
                 case 'ArrowUp':
                 case 'ArrowDown':
-                    if (this.props.type === 'comp_expr' || this.props.type === 'comp_nums') {
-                        this.check_response('=');
+                    if (props.type === 'comp_expr' || props.type === 'comp_nums') {
+                        check_response('=');
                     }
                     break;
 
@@ -214,42 +258,40 @@ export default class GameBoard extends React.Component {
                 default:
                     // console.log('nothing to check for ' + key);
                     break;
-            }
         }
     }
 
-    check_response(digit) {
-        this.loading = true;
-        var expected_result = this.state.task.result.toString();
+    function check_response(digit) {
+        var expected_result = task.result.toString();
         // console.log('check_response, digit: ' + digit + ', expected_result: ' + expected_result);
         if (expected_result.length === 1) {
             if (digit === expected_result) {
-                this.set_passed(digit);
+                set_passed(digit);
             } else {
-                this.set_failed(digit);
+                set_failed(digit);
             }
 
         } else if (expected_result.length > 1) {
-            if (this.state.result === '?') {
+            if (result === '?') {
                 if (expected_result.charAt(0).toString() === digit) {
-                    this.set_interim(digit);
+                    set_interim(digit);
                 } else {
-                    this.set_failed(digit);
+                    set_failed(digit);
                 }
             } else {
                 var current = this.state.result + digit;
                 if (current === expected_result) {
-                    this.set_passed(current);
+                    set_passed(current);
                 } else if (current.length === expected_result.length) {
-                    this.set_failed(current);
+                    set_failed(current);
                 } else {
                     var position = this.state.result.length;
                     var val = expected_result.charAt(position).toString();
                     // console.log('val ' + val + ', digit ' + digit + ', position ' + position);
                     if (val === digit) {
-                        this.set_interim(current);
+                        set_interim(current);
                     } else {
-                        this.set_failed(current);
+                        set_failed(current);
                     }
                 }
             }
@@ -259,259 +301,285 @@ export default class GameBoard extends React.Component {
         }
     }
 
-    set_failed(digit) {
+    function set_failed(digit) {
         // console.log('FAILED.set_failed -> attempt: ' + this.state.attempt + ', digit ' + digit);
-        if (this.props.is_test) {
-            // notify parent to change circles color in game footer
-            this.props.onCircles(RED_CIRCLE);
+        if (props.is_test) {
+            setCircles(RED_CIRCLE);
             // remove timer to stop counting
-            clearTimeout(this.timer);
+            clearTimeout(timer);
         }
 
-        if (this.state.attempt === 0) {
-            this.props.onCounter(this.state.attempt + 1, this.state.task);
+        setColor('yellow'); setBoard('red');
+        setResult(digit); setAnimation('shake 0.8s');
+        setAttempt(prevAttempt => prevAttempt + 1);
 
-            this.setState(prevState => ({
-                color: 'yellow',
-                board: 'red',
-                result: digit,
-                animation: 'shake 0.8s',
-                counter: prevState.counter + 1,
-                failed: prevState.failed + 1,
-                attempt: prevState.attempt + 1}));
+        if (attempt === 0) {
+            setCounter(prevCounter => prevCounter + 1);
+            setFailed(prevFailed => prevFailed + 1);
 
-        } else {
-            this.setState(prevState => ({
-                color: 'yellow',
-                board: 'red',
-                animation: 'shake 0.6s',
-                result: digit,
-                attempt: prevState.attempt + 1}));
+            props.onCounter(attempt, task);
         }
 
         // clear result value in 1.5 seconds
         setTimeout(() => {
-            this.setState({
-                // color: 'grey',
-                // board: 'yellow',
-                animation: '',
-                result: '?'},
-                    () => {
-                        this.loading = false;
-            });
+            setResult('?');
+            setAnimation('');
         }, 700);
     }
 
-    set_passed(digit) {
+    function set_passed(digit) {
         // console.log('PASSED, attempts: ' + this.state.attempt + ', timer: ' + this.state.timer);
-        if (this.props.is_test) {
-            this.props.onCircles(GREEN_CIRCLE);
-            clearTimeout(this.timer);
+        if (props.is_test) {
+            props.onCircles(GREEN_CIRCLE);
+            clearTimeout(timer);
         }
 
-        if (this.state.attempt === 0) {
+        if (attempt === 0) {
             // notify parent to update counters
-            if (this.props.is_test && this.state.timer === 10) {
-                this.props.onCounter(this.state.timer, this.state.task);
+            if (props.is_test && timer === 10) {
+                props.onCounter(timer, task);
             } else {
-                this.props.onCounter(this.state.attempt, this.state.task);
+                props.onCounter(attempt, task);
             }
 
-            this.setState({
-                color: 'yellow',
-                result: digit,
-                counter: this.state.counter + 1,
-                animation: 'smooth_yellow_to_green 0.8s',
-            });
-        } else {
-            this.setState({
-                color: 'yellow',
-                result: digit,
-                animation: 'smooth_yellow_to_green 0.8s',
-            });
+            setCounter(prevCounter => prevCounter + 1);
         }
 
+        setColor('yellow'); setResult(digit);
+        setAnimation('smooth_yellow_to_green 0.8');
+
         setTimeout(() => {
-            this.props.onCircles(0);
-            this.proceed_with_next_task();
+            props.onCircles(0);
+            proceed_with_next_task();
         }, 800);
     }
 
-    set_interim(digit) {
-        this.setState({
-            color: 'black',
-            result: digit
-        });
-        this.loading = false;
+    function set_interim(digit) {
+        setColor('black');
+        setResult(digit);
     }
 
-    render() {
-        return (
+    return (
+        <Dialog open={props.open} fullScreen={true} TransitionComponent={Transition} transitionDuration={900}>
+            <div className="games_header_div">
+                <div className='games_header_div_left'>
+                    <font onClick={() => onAlertDialog('exit')}>SUPERMATH</font>
+                </div>
+                <div className='games_header_div_right' onClick={() => onAlertDialog('progress')}>
+                    <font style={{color: 'black'}}>
+                        {total} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128279;</span>
+                    </font>
+                    <font style={{color: 'green'}}>
+                        {passed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
+                    </font>
+                    <font style={{color: 'red'}}>
+                        {failed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
+                    </font>
+                </div>
+            </div>
+
             <div className='gameboard_wrapper'>
-                {this.props.type.includes('digit') ? (
+                {props.type.includes('digit') ? (
                     <>
                       <div className='line_body_div_left'>
-                        <div className='line_gameboard' style={{backgroundColor: this.state.board, animation: this.state.animation}}>
-                            {((this.props.type.indexOf('2digit_arg') !== -1) && ('argument' in this.state.task)) ? (
+                        <div className='line_gameboard' style={{backgroundColor: board, 'animation': animation}}>
+                            {((props.type.indexOf('2digit_arg') !== -1) && ('argument' in this.state.task)) ? (
                               <>
                                 {this.state.task.argument.includes('1') ? (
-                                    <div className='line_result' style={{color: this.state.color}}>{this.state.result}</div>
+                                    <div className='line_result' style={{color: color}}>{result}</div>
                                 ) : (
-                                    <div className='line_result'>{this.state.task.num1}</div>
+                                    <div className='line_result'>{task.num1}</div>
                                 )}
 
                                 {this.state.task.argument.includes('o') ? (
-                                    <div className='line_result' style={{color: this.state.color}}>{this.state.result}</div>
+                                    <div className='line_result' style={{color: color}}>{result}</div>
                                 ) : (
-                                    <div className='line_result'>{this.state.task.operation}</div>
+                                    <div className='line_result'>{task.operation}</div>
                                 )}
 
                                 {this.state.task.argument.includes('2') ? (
-                                    <div className='line_result' style={{color: this.state.color}}>{this.state.result}</div>
+                                    <div className='line_result' style={{color: color}}>{result}</div>
                                 ) : (
-                                    <div className='line_result'>{this.state.task.num2}</div>
+                                    <div className='line_result'>{task.num2}</div>
                                 )}
                                 <div className='line_result'>=</div>
-                                <div className='line_result'>{this.state.task.outcome}</div>
+                                <div className='line_result'>{task.outcome}</div>
                               </>
                             ) : ( null )}
 
-                            {((this.props.type.indexOf('_2column') !== -1) &&
-                                ('num1' in this.state.task) &&
-                                ('num2' in this.state.task) &&
-                                ('operation' in this.state.task)) ? (
+                            {((props.type.indexOf('_2column') !== -1) &&
+                                ('num1' in task) && ('num2' in task) && ('operation' in task)) ? (
                                   <div style={{height:'90%',width:'90%'}}>
                                     <div style={{height:'25%',width:'80%'}}></div>
-                                    <div className='column_number'>{this.state.task.num1}</div>
-                                    <div className='column_number'>{this.state.task.operation}   {this.state.task.num2}</div>
+                                    <div className='column_number'>{task.num1}</div>
+                                    <div className='column_number'>{task.operation} {task.num2}</div>
                                     <div className='column_black_line'> </div>
-                                    <div className='column_result' style={{color: this.state.color}}>{this.state.result}</div>
+                                    <div className='column_result' style={{color: color}}>{result}</div>
                                   </div>
                             ) : ( null )}
 
-                            {((this.props.type.indexOf('_3column') !== -1) &&
-                                ('num1' in this.state.task) &&
-                                ('num2' in this.state.task) &&
-                                ('num3' in this.state.task)) ? (
+                            {((props.type.indexOf('_3column') !== -1) &&
+                                ('num1' in task) && ('num2' in task) && ('num3' in task)) ? (
                                   <div style={{height:'90%',width:'90%'}}>
                                     <div style={{height:'25%',width:'80%'}}></div>
-                                    <div className='column_number'>{this.state.task.num1}</div>
-                                    <div className='column_number'>{this.state.task.operation1}   {this.state.task.num2}</div>
-                                    <div className='column_number'>{this.state.task.operation2}   {this.state.task.num3}</div>
+                                    <div className='column_number'>{task.num1}</div>
+                                    <div className='column_number'>{task.operation1}   {task.num2}</div>
+                                    <div className='column_number'>{task.operation2}   {task.num3}</div>
                                     <div className='column_black_line'> </div>
-                                    <div className='column_result' style={{color: this.state.color}}>{this.state.result}</div>
+                                    <div className='column_result' style={{color: color}}>{result}</div>
                                   </div>
                             ) : ( null )}
 
-                            {this.props.type.includes('digits') ? (
+                            {props.type.includes('digits') ? (
                               <>
-                                <div className='line_task'>{this.state.task.expr1}</div>
+                                <div className='line_task'>{task.expr1}</div>
                                 {(this.state.task.result.toString().length < 3) ? (
-                                    <div className='line_result' style={{color: this.state.color}}>{this.state.result}</div>
+                                    <div className='line_result' style={{color: color}}>{result}</div>
                                   ) : ( <></> )}
 
                                 {(this.state.task.result.toString().length === 3) ? (
-                                    <div className='line_3result' style={{color: this.state.color}}>{this.state.result}</div>
+                                    <div className='line_3result' style={{color: color}}>{result}</div>
                                   ) : ( null )}
 
                                 {(this.state.task.result.toString().length === 4) ? (
-                                    <div className='line_4result' style={{color: this.state.color}}>{this.state.result}</div>
+                                    <div className='line_4result' style={{color: color}}>{result}</div>
                                   ) : ( null )}
 
                                 {(this.state.task.result.toString().length > 4) ? (
-                                    <div className='line_5result' style={{color: this.state.color}}>{this.state.result}</div>
+                                    <div className='line_5result' style={{color: color}}>{result}</div>
                                   ) : ( null )}
                               </>
                             ) : ( null )}
                         </div>
                       </div>
                       <div className='line_body_div_right'>
-                          {this.props.task.includes('o,') ? (
-                            <OperatorBoard onOperator={this.onOperator} plus={true} minus={true}/>
+                          {props.task.includes('o,') ? (
+                            <OperatorBoard onOperator={() => onOperator} plus={true} minus={true}/>
                           ) : (
-                            <KeyBoard onDigit={this.onDigit} onOperator={this.onOperator}/>
+                            <KeyBoard onDigit={() => onDigit()} onOperator={this.onOperator}/>
                           )}
                       </div>
                     </>
                 ):( null ) }
 
-                {this.props.type.includes('comp_') ? (
+                {props.type.includes('comp_') ? (
                     <>
                       <div className='line_body_div_up'>
-                        {(this.props.type.includes('comp_nums')) ? (
-                            <div className='line_gameboard' style={{backgroundColor: this.state.board, animation: this.state.animation}}>
-                                <div className='line_result'>{this.state.task.expr1}</div>
-                                <div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>
-                                <div className='line_result'>{this.state.task.expr2}</div>
+                        {(props.type.includes('comp_nums')) ? (
+                            <div className='line_gameboard' style={{backgroundColor: board, animation: animation}}>
+                                <div className='line_result'>{task.expr1}</div>
+                                <div className='line_result' style={{color: color}}><font>{result}</font></div>
+                                <div className='line_result'>{task.expr2}</div>
                             </div>
                         ) : ( null )}
 
-                        {(this.props.type.includes('comp_expr')) ? (
-                            <div className='line_gameboard line_gameboard_comp' style={{backgroundColor: this.state.board, animation: this.state.animation}}>
-                                <div className='line_expression'>{this.state.task.expr1}</div>
-                                <div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>
-                                <div className='line_expression'>{this.state.task.expr2}</div>
+                        {(props.type.includes('comp_expr')) ? (
+                            <div className='line_gameboard line_gameboard_comp' style={{backgroundColor: board, animation: animation}}>
+                                <div className='line_expression'>{task.expr1}</div>
+                                <div className='line_result' style={{color: color}}><font>{result}</font></div>
+                                <div className='line_expression'>{task.expr2}</div>
                             </div>
                         ) : ( null )}
                       </div>
 
                       <div className='line_body_div_bottom'>
-                          <OperatorBoard onOperator={this.onOperator} more={true} less={true} equals={true}/>
+                          <OperatorBoard onOperator={onOperator} more={true} less={true} equals={true}/>
                       </div>
                     </>
                 ):( null ) }
 
-                {this.props.type.includes('line_') ? (
+                {props.type.includes('line_') ? (
                     <>
                         <div className='line_body_div_up'>
                             <div className='line_gameboard' style={{backgroundColor: this.state.board, animation: this.state.animation}}>
-                                { this.props.type.includes('line_compnums') ? (<div className='line_result'>{this.state.task.expr1}</div>):(null)}
-                                { this.props.type.includes('line_compnums') ? (<div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>):(null)}
-                                { this.props.type.includes('line_compnums') ? (<div className='line_result'>{this.state.task.expr2}</div>):(null)}
+                                { props.type.includes('line_compnums') ? (<div className='line_result'>{this.state.task.expr1}</div>):(null)}
+                                { props.type.includes('line_compnums') ? (<div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>):(null)}
+                                { props.type.includes('line_compnums') ? (<div className='line_result'>{this.state.task.expr2}</div>):(null)}
 
-                                { this.props.type.includes('line_compexpr') ? (<div className='line_expression'>{this.state.task.expr1}</div>):(null)}
-                                { this.props.type.includes('line_compexpr') ? (<div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>):(null)}
-                                { this.props.type.includes('line_compexpr') ? (<div className='line_expression'>{this.state.task.expr2}</div>):(null)}
+                                { props.type.includes('line_compexpr') ? (<div className='line_expression'>{this.state.task.expr1}</div>):(null)}
+                                { props.type.includes('line_compexpr') ? (<div className='line_result' style={{color: this.state.color}}><font>{this.state.result}</font></div>):(null)}
+                                { props.type.includes('line_compexpr') ? (<div className='line_expression'>{this.state.task.expr2}</div>):(null)}
 
-                                { this.props.type.includes('numbers') ? (
+                                { props.type.includes('numbers') ? (
                                     <div className='line_gameboard_numbers'>
-                                        <div className='line_task'>{this.state.task.expr1}</div>
+                                        <div className='line_task'>{task.expr1}</div>
 
-                                        {(this.state.task.result.toString().length < 3) ? (
-                                            <div className='line_result' style={{color: this.state.color}}>{this.state.result}</div>
+                                        {(task.result.toString().length < 3) ? (
+                                            <div className='line_result' style={{'color': color}}>{result}</div>
                                           ) : ( null )}
 
-                                        {(this.state.task.result.toString().length === 3) ? (
-                                            <div className='line_3result' style={{color: this.state.color}}>{this.state.result}</div>
+                                        {(task.result.toString().length === 3) ? (
+                                            <div className='line_3result' style={{'color': color}}>{result}</div>
                                         ) : ( null )}
 
-                                        {(this.state.task.result.toString().length === 4) ? (
-                                            <div className='line_4result' style={{color: this.state.color}}>{this.state.result}</div>
+                                        {(task.result.toString().length === 4) ? (
+                                            <div className='line_4result' style={{'color': color}}>{result}</div>
                                         ) : ( null )}
 
-                                        {(this.state.task.result.toString().length > 4) ? (
-                                            <div className='line_5result' style={{color: this.state.color}}>{this.state.result}</div>
+                                        {(task.result.toString().length > 4) ? (
+                                            <div className='line_5result' style={{'color': color}}>{result}</div>
                                         ) : ( null )}
                                     </div>
                                 ) : ( <> </>)}
                             </div>
                         </div>
                         <div className='line_body_div_bottom'>
-                            {this.props.type.includes('line_comp') ? (
-                                <OperatorBoard
-                                    onOperator={this.onOperator}
+                            {props.type.includes('line_comp') ? (
+                                <OperatorBoard onOperator={onOperator}
                                     more={true} less={true} equals={true}/>
                             ) : (
-                                <LineNumbersBoard
-                                    onDigit={this.onDigit}
-                                    onOperator={this.onOperator}
-                                    floats={this.props.type.includes('_fr')}
-                                    minus={this.props.type.includes('_signed')}/>
+                                <LineNumbersBoard onDigit={onDigit}
+                                    onOperator={onOperator}
+                                    floats={props.type.includes('_fr')}
+                                    minus={props.type.includes('_signed')}/>
                             )}
                         </div>
                     </>
                 ) : ( <> </>)}
             </div>
-        );
-    }
+
+            <GameExit open={openAlert === ALERT.EXIT}
+                fullScreen={props.width<FULL_SCREEN}
+                type='game'
+                lang={props.lang}
+                onClose={onAlertDialog}/>
+
+            <GameInfo open={openAlert === ALERT.INFO}
+                description={props.description}
+                fullScreen={props.width<FULL_SCREEN}
+                type='game'
+                lang={props.lang}
+                onClose={onAlertDialog}/>
+
+            <GameHelp open={openAlert === ALERT.HELP}
+                description={props.description}
+                fullScreen={props.width<FULL_SCREEN}
+                type='game'
+                lang={props.lang}
+                onClose={onAlertDialog}/>
+
+            <GameSettings open={openAlert === ALERT.SETTINGS}
+                fullScreen={props.width<FULL_SCREEN}
+                lang={props.lang}
+                onClose={onAlertDialog}/>
+
+            <GameProgress open={openAlert === ALERT.PROGRESS}
+                fullScreen={props.width<FULL_SCREEN}
+                from='game'
+                lang={props.lang}
+                total={props.total}
+                passed={props.passed}
+                failed={props.failed}
+                results={props.results}
+                onClose={onAlertDialog}/>
+
+            <GameReplay open={openAlert === ALERT.REPLAY}
+                description={props.description}
+                fullScreen={props.width<FULL_SCREEN}
+                type='game'
+                lang={props.lang}
+                onClose={onAlertDialog}/>
+
+        </Dialog>
+    );
 }
