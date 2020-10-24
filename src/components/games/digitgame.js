@@ -16,8 +16,7 @@ import {GREEN_CIRCLE, RED_CIRCLE} from './../halpers/functions';
 import {get_random_task_for_test} from './../halpers/programms';
 import {generate_task, align_task_format} from './../halpers/arithmetic';
 
-import './gameboard.css';
-import './digitgameheader.css';
+import './digitgame.css';
 
 import {FULL_SCREEN} from './../halpers/functions';
 
@@ -59,6 +58,79 @@ export default function DigitGame(props) {
 
     const [openAlert, setOpenAlert] = React.useState(ALERT.NONE);
 
+    // need to set as const => () 
+    function onKeyboard({ key }) {
+        console.log('onKeyboard ' + key);
+        // skip any checks if in red already
+        switch (key) {
+            case '0':
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
+                check_response(key);
+                break;
+
+            case '.':
+            case ',':
+                if (type.indexOf('_fr') > -1) {
+                    check_response('.');
+                }
+                break;
+
+            case '+':
+            case '-':
+            case 'x':
+            case '*':
+            case '/':
+            case ':':
+                // white, level 6:
+                // {id: 6, logo: logo6, type: '2digit_arg', task: 'o,+-,1-10,1-10,1,1', amount: task_amount},
+                if ((type === '2digit_arg') && (conditions.includes('o'))) {
+                    check_response(key);
+                } else if (type.includes('_signed') && key === '-') {
+                    check_response(key);
+                }
+                break;
+
+            case '>':
+            case 'ArrowRight':
+                if (type === 'comp_expr' || type === 'comp_nums') {
+                    check_response('>');
+                }
+                break;
+
+            case '<':
+            case 'ArrowLeft':
+                if (type === 'comp_expr' || type === 'comp_nums') {
+                    check_response('<');
+                }
+                break;
+
+            case '=':
+            case 'ArrowUp':
+            case 'ArrowDown':
+                if (type === 'comp_expr' || type === 'comp_nums') {
+                    check_response('=');
+                }
+                break;
+
+            case 'Escape':
+                console.log('onKeyboard: Escape');
+                // this.onGameClose('');
+                break;
+
+            default:
+                // console.log('nothing to check for ' + key);
+                break;
+        }
+    }
+
     React.useEffect(() => {
         if (props.open) {
             console.log('DigitGame.useEffect ' + props.type + ', ' + props.conditions);
@@ -72,6 +144,8 @@ export default function DigitGame(props) {
             setTotal(0); setPassed(0); setFailed(0);
 
             setResults([]);
+
+            // window.addEventListener('keydown', onKeyboard);
         }
 
     }, [props.open, props.type, props.conditions, ]);
@@ -88,6 +162,7 @@ export default function DigitGame(props) {
 
     function proceed_with_next_task() {
         console.log('DigitGame.proceed_with_next_task -> type ' + type + ', conditions ' + conditions);
+
         if (counter < props.amount) {
             setBoard('yellow'); setColor('grey'); 
             setResult('?'); setAttempt(0);
@@ -130,13 +205,12 @@ export default function DigitGame(props) {
                 break;
 
             case 'close':
-                console.log('CLOSE -> uid ' + props.game_uid + ', passed ' + passed + ', failed ' + failed);
                 window.removeEventListener('keydown', onKeyboard);
                 if (props.is_test) {
                     clearTimeout(timer);
                 }
                 setOpenAlert(ALERT.NONE); setCircles(0);
-                props.onClose('interrapted',
+                props.onClose('close',
                     {'game_uid': props.game_uid,
                      'passed': passed,
                      'failed': failed});
@@ -208,78 +282,6 @@ export default function DigitGame(props) {
 
         } else {
             check_response(symbol);
-        }
-    }
-
-    function onKeyboard({ key }) {
-        console.log('onKeyboard ' + key);
-        // skip any checks if in red already
-        switch (key) {
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-                check_response(key);
-                break;
-
-            case '.':
-            case ',':
-                if (type.indexOf('_fr') > -1) {
-                    check_response('.');
-                }
-                break;
-
-            case '+':
-            case '-':
-            case 'x':
-            case '*':
-            case '/':
-            case ':':
-                // white, level 6:
-                // {id: 6, logo: logo6, type: '2digit_arg', task: 'o,+-,1-10,1-10,1,1', amount: task_amount},
-                if ((type === '2digit_arg') && (conditions.includes('o'))) {
-                    check_response(key);
-                } else if (type.includes('_signed') && key === '-') {
-                    check_response(key);
-                }
-                break;
-
-            case '>':
-            case 'ArrowRight':
-                if (type === 'comp_expr' || type === 'comp_nums') {
-                    check_response('>');
-                }
-                break;
-
-            case '<':
-            case 'ArrowLeft':
-                if (type === 'comp_expr' || type === 'comp_nums') {
-                    check_response('<');
-                }
-                break;
-
-            case '=':
-            case 'ArrowUp':
-            case 'ArrowDown':
-                if (type === 'comp_expr' || type === 'comp_nums') {
-                    check_response('=');
-                }
-                break;
-
-            case 'Escape':
-                console.log('onKeyboard: Escape');
-                // this.onGameClose('');
-                break;
-
-            default:
-                // console.log('nothing to check for ' + key);
-                break;
         }
     }
 
@@ -385,81 +387,6 @@ export default function DigitGame(props) {
 
     /*
             <div className='gameboard_wrapper'>
-
-                {type.includes('comp_') ? (
-                    <>
-                      <div className='line_body_div_up'>
-                        {(type.includes('comp_nums')) ? (
-                            <div className='line_gameboard' style={{backgroundColor: board, animation: animation}}>
-                                <div className='line_result'>{task.expr1}</div>
-                                <div className='line_result' style={{color: color}}><font>{result}</font></div>
-                                <div className='line_result'>{task.expr2}</div>
-                            </div>
-                        ) : ( null )}
-
-                        {(type.includes('comp_expr')) ? (
-                            <div className='line_gameboard line_gameboard_comp' style={{backgroundColor: board, animation: animation}}>
-                                <div className='line_expression'>{task.expr1}</div>
-                                <div className='line_result' style={{color: color}}><font>{result}</font></div>
-                                <div className='line_expression'>{task.expr2}</div>
-                            </div>
-                        ) : ( null )}
-                      </div>
-
-                      <div className='line_body_div_bottom'>
-                          <OperatorBoard onOperator={onOperator} more={true} less={true} equals={true}/>
-                      </div>
-                    </>
-                ):( null ) }
-
-                {type.includes('line_') ? (
-                    <>
-                        <div className='line_body_div_up'>
-                            <div className='line_gameboard' style={{backgroundColor: board, animation: animation}}>
-                                { type.includes('line_compnums') ? (<div className='line_result'>{task.expr1}</div>):(null)}
-                                { type.includes('line_compnums') ? (<div className='line_result' style={{color: color}}><font>{result}</font></div>):(null)}
-                                { type.includes('line_compnums') ? (<div className='line_result'>{task.expr2}</div>):(null)}
-
-                                { type.includes('line_compexpr') ? (<div className='line_expression'>{task.expr1}</div>):(null)}
-                                { type.includes('line_compexpr') ? (<div className='line_result' style={{'color': color}}><font>{result}</font></div>):(null)}
-                                { type.includes('line_compexpr') ? (<div className='line_expression'>{task.expr2}</div>):(null)}
-
-                                { type.includes('numbers') ? (
-                                    <div className='line_gameboard_numbers'>
-                                        <div className='line_task'>{task.expr1}</div>
-
-                                        {(task.result.toString().length < 3) ? (
-                                            <div className='line_result' style={{'color': color}}>{result}</div>
-                                          ) : ( null )}
-
-                                        {(task.result.toString().length === 3) ? (
-                                            <div className='line_3result' style={{'color': color}}>{result}</div>
-                                        ) : ( null )}
-
-                                        {(task.result.toString().length === 4) ? (
-                                            <div className='line_4result' style={{'color': color}}>{result}</div>
-                                        ) : ( null )}
-
-                                        {(task.result.toString().length > 4) ? (
-                                            <div className='line_5result' style={{'color': color}}>{result}</div>
-                                        ) : ( null )}
-                                    </div>
-                                ) : ( <> </>)}
-                            </div>
-                        </div>
-                        <div className='line_body_div_bottom'>
-                            {type.includes('line_comp') ? (
-                                <OperatorBoard onOperator={onOperator}
-                                    more={true} less={true} equals={true}/>
-                            ) : (
-                                <LineNumbersBoard onDigit={onDigit}
-                                    onOperator={onOperator}
-                                    floats={type.includes('_fr')}
-                                    minus={type.includes('_signed')}/>
-                            )}
-                        </div>
-                    </>
-                ) : ( <> </>)}
             </div>
     */
 
@@ -559,6 +486,66 @@ export default function DigitGame(props) {
                             <OperatorBoard onOperator={onOperator} plus={true} minus={true}/>
                         ) : (
                             <KeyBoard onDigit={onDigit} onOperator={onOperator}/>
+                        )}
+                    </div>
+                </div>
+            }
+
+            {type.indexOf('comp_') > -1 &&
+                <div className='gameboard_wrapper'>
+                    <div className='line_body_div_up'>
+                        {type.indexOf('comp_nums') > -1 &&
+                            <div className='line_gameboard' style={{backgroundColor: board, animation: boardanimation}}>
+                                <div className='line_result'>{task.expr1}</div>
+                                <div className='line_result' style={{color: color}}><font>{result}</font></div>
+                                <div className='line_result'>{task.expr2}</div>
+                            </div>
+                        }
+
+                        {type.indexOf('comp_expr') > -1 &&
+                            <div className='line_gameboard line_gameboard_comp' style={{backgroundColor: board, animation: boardanimation}}>
+                                <div className='line_expression'>{task.expr1}</div>
+                                <div className='line_result' style={{color: color}}><font>{result}</font></div>
+                                <div className='line_expression'>{task.expr2}</div>
+                            </div>
+                        }
+                    </div>
+                    <div className='line_body_div_bottom'>
+                        <OperatorBoard onOperator={onOperator} more={true} less={true} equals={true}/>
+                    </div>
+                </div>
+            }
+
+            {type.indexOf('line_') > -1 &&
+                <div className='gameboard_wrapper'>
+                    <div className='line_body_div_up'>
+                        <div className='line_gameboard' style={{backgroundColor: board, animation: boardanimation}}>
+                            {type.indexOf('line_compnums') > -1 && <div className='line_result'>{task.expr1}</div>}
+                            {type.indexOf('line_compnums') > -1 && <div className='line_result' style={{color: color}}><font>{result}</font></div>}
+                            {type.indexOf('line_compnums') > -1 && <div className='line_result'>{task.expr2}</div>}
+
+                            {type.indexOf('line_compexpr') > -1 && <div className='line_expression'>{task.expr1}</div>}
+                            {type.indexOf('line_compexpr') > -1 && <div className='line_result' style={{'color': color}}><font>{result}</font></div>}
+                            {type.indexOf('line_compexpr') > -1 && <div className='line_expression'>{task.expr2}</div>}
+
+                            {type.indexOf('numbers') > -1 &&
+                                <div className='line_gameboard_numbers'>
+                                    <div className='line_task'>{task.expr1}</div>
+
+                                    {task.result.toString().length < 3 && <div className='line_result' style={{'color': color}}>{result}</div>}
+                                    {task.result.toString().length === 3 && <div className='line_3result' style={{'color': color}}>{result}</div>}
+                                    {task.result.toString().length === 4 && <div className='line_4result' style={{'color': color}}>{result}</div>}
+                                    {task.result.toString().length > 4 && <div className='line_5result' style={{'color': color}}>{result}</div>}
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div className='line_body_div_bottom'>
+                        {type.indexOf('line_comp') > -1 ? (
+                            <OperatorBoard onOperator={onOperator} more={true} less={true} equals={true}/>
+                        ) : (
+                            <LineNumbersBoard onDigit={onDigit} onOperator={onOperator}
+                                floats={type.includes('_fr')} minus={type.includes('_signed')}/>
                         )}
                     </div>
                 </div>
