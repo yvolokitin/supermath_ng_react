@@ -62,7 +62,7 @@ export default function Body(props) {
     const [tasks, setTasks] = useState(get_belt_by_color(props.belt)['games']);
     const [background, setBackground] = useState(get_belt_by_color(props.belt)['bckgrnd']);
 
-    const [game, setGame] = useState(false);
+    const [game, setGame] = useState({type: 'linedigits', task: '0-7'});
     const [description, setDescription] = useState('');
 
     const [status, setStatus] = useState(STATUS.NONE);
@@ -81,7 +81,7 @@ export default function Body(props) {
     };
 
     function onGameOpen(task, description) {
-        console.log('Body.onGameOpen ' + task.uid);
+        console.log('Body.onGameOpen -> type ' + task.type + ', uid ' + task.uid);
         setGame(task); setDescription(description);
 
         if (task.type === 'task') {
@@ -200,7 +200,7 @@ export default function Body(props) {
                 id={props.id}
                 game_uid={game.uid}
                 type={game.type}
-                task={game.task}
+                conditions={game.task}
                 amount={game.amount}
                 lang={props.lang}
                 belt={color}

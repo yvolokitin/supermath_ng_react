@@ -83,16 +83,19 @@ export default function TaskGame(props) {
     }, [props.lang, props.task, onGetNewTaskUpdate, onGetNewTaskError])
 
     useEffect(() => {
-        console.log('TaskGame.useEffect -> ' + props.task.uid);
-        if (props.open === true) {
+        if (props.open) {
+            console.log('TaskGame.useEffect -> ' + props.task.uid);
+
             setFloatDesk('left'); setFloatBoard('right');
             setLoading(true); getNewTask();
-        } else {
+
+        // } else {
             setCounter(0); setTotal(0);
             setPassed(0); setFailed(0);
             setAnswer('?'); setResult('?');
             setFont('grey'); setAnimation('blinker 5s linear infinite');
         }
+
     }, [props.open, props.task, getNewTask]);
 
     const onAlertDialog = (status) => {

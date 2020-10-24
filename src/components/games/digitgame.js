@@ -1,329 +1,611 @@
-﻿import React from 'react';
+import React from 'react';
+import { Dialog, Slide } from '@material-ui/core';
 
-// import GameHeader from './digitgameheader';
-import GameFooter from './digitgamefooter';
+import KeyBoard from './../keyboard/keyboard';
+import OperatorBoard from './../keyboard/operatorboard';
+import LineNumbersBoard from './../keyboard/linenumbersboard';
 
-import GameBoard from './gameboard';
-import GameResults from './gameresults';
+import GameProgress from './gameprogress';
+import GameSettings from './gamesettings';
+import GameReplay from './gamereplay';
+import GameExit from './gameexit';
+import GameInfo from './gameinfo';
+import GameHelp from './gamehelp';
 
-import Title from './../title/title';
-import ColorLine from './../line/line';
-import Calendar from './../calendar/calendar';
+import {GREEN_CIRCLE, RED_CIRCLE} from './../halpers/functions';
+import {get_random_task_for_test} from './../halpers/programms';
+import {generate_task, align_task_format} from './../halpers/arithmetic';
 
-import {get_random_taks_for_test} from './../halpers/programms';
-import './digitgame.css';
+import './gameboard.css';
+import './digitgameheader.css';
 
-const DG_STATUS = {
+import {FULL_SCREEN} from './../halpers/functions';
+
+const ALERT = {
     NONE: 0,
-    GAME: 1,
-    RESULTS: 2,
-    PROGRESS: 3,
+    EXIT: 1,
+    INFO: 2,
+    HELP: 3,
+    SETTINGS: 4,
+    PROGRESS: 5,
+    REPLAY: 6,
 }
 
-export default class DigitGame extends React.Component {
-    constructor(props) {
-        super(props);
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction='up' ref={ref} {...props} />;
+});
 
-        this.onGameClose = this.onGameClose.bind(this);
-        this.onTestUpdate = this.onTestUpdate.bind(this);
-        this.onCirclesUpdate = this.onCirclesUpdate.bind(this);
-        this.onCounterUpdate = this.onCounterUpdate.bind(this);
+export default function DigitGame(props) {
+    const [task, setTask] = React.useState({expr1: '', result: ''});
 
-        this.state = {
-            status: DG_STATUS.GAME,
-            type: props.type,
-            task: props.task,
-            uid: 'unknown',
-            amount: props.amount,
-            results: [],
-            total: 0,
-            passed: 0,
-            failed: 0,
-            duration: 0,
+    const [conditions, setConditions] = React.useState('');
+    const [type, setType] = React.useState('');
 
-            // test is the special type of task, which requires task solving per timer
-            is_test: false,
+    const [results, setResults] = React.useState([]);
+    const [result, setResult] = React.useState('?');
 
-            // circles shows how many circles should be in colored during test
-            circles: 0,
-        };
+    const [boardanimation, setAnimation] = React.useState('');
+    const [board, setBoard] = React.useState('yellow');
+    const [color, setColor] = React.useState('grey');
 
-        // count general time to solve all tasks
-        this.timer = new Date().getTime();
-    }
+    const [counter, setCounter] = React.useState(0);
+    const [attempt, setAttempt] = React.useState(0);
+    const [circles, setCircles] = React.useState(0);
+    const [timer, setTimer] = React.useState(0);
 
-    // {id: 11, uid: 'orangeT', logo: 'none', type: 'test', task: 'orange1,orange2,orange3,orange4,', amount: task_amount},
-    // {id: 10, uid: 'orange10', logo: orange10, type: '2digits', task: '+-,11-99,1-1,1,100', amount: task_amount},
-    componentDidUpdate(prevProps) {
-        // console.log('DigitGame.componentDidUpdate ' + this.props.game_uid + ', prevProps.game_uid ' + prevProps.game_uid);
-        // Typical usage (don't forget to compare props), otherwise you get infinitive loop
-        if (this.props.game_uid !== prevProps.game_uid) {
-            this.timer = new Date().getTime();
+    const [passed, setPassed] = React.useState(0);
+    const [failed, setFailed] = React.useState(0);
+    const [total, setTotal] = React.useState(0);
 
-            var it_is_test = false;
-            var current = {
-                'type': this.props.type,
-                'task': this.props.task,
-                'uid': this.props.uid,
-            };
+    const [openAlert, setOpenAlert] = React.useState(ALERT.NONE);
 
-            if (this.props.type === 'test')  {
-                // console.log('this.props.task ' + this.props.task + ', this.props.uid ' + this.props.uid);
-                current = get_random_taks_for_test(this.props.task, this.props.uid);
-                it_is_test = true;
-            }
+    React.useEffect(() => {
+        if (props.open) {
+            console.log('DigitGame.useEffect ' + props.type + ', ' + props.conditions);
+            setTask(generate_task(props.type, props.conditions));
+            setType(props.type); setConditions(props.conditions);
 
-            console.log('DigitGame.componentDidUpdate: type: ' + current.type + ', task ' + current.task + ', uid ' + current.uid + ', old ' + this.state.uid);
-            this.setState({
-                'status': DG_STATUS.GAME,
-                'type': current.type,
-                'task': current.task,
-                'uid': current.uid,
-                'amount': this.props.amount,
-                'total': 0,
-                'passed': 0,
-                'failed': 0,
-                'circles': 0,
-                'is_test': it_is_test,
-            });
+            setBoard('yellow'); setColor('grey');
+            setResult('?'); setAnimation('');
+
+            setAttempt(0); setCounter(0); setCircles(0);
+            setTotal(0); setPassed(0); setFailed(0);
+
+            setResults([]);
+        }
+
+    }, [props.open, props.type, props.conditions, ]);
+
+    function proceed_with_timeout() {
+        if (circles < 10) {
+            setCircles(prevCircles => prevCircles + 1);
+            setTimer(setTimeout(() => proceed_with_timeout(), 1500));
+
+        } else {
+            set_failed('?');
         }
     }
 
-    /*
-    // possible solution to block user, when calculator is used
-    componentDidMount() {
-        window.addEventListener('focus', function() {
-            console.log('focus ' +  document.hidden);
-        });
+    function proceed_with_next_task() {
+        console.log('DigitGame.proceed_with_next_task -> type ' + type + ', conditions ' + conditions);
+        if (counter < props.amount) {
+            setBoard('yellow'); setColor('grey'); 
+            setResult('?'); setAttempt(0);
 
-        document.addEventListener('visibilitychange', function() {
-            console.log('visibilitychange ' +  document.hidden);
-        });
+            if (props.is_test) {
+                // return {'type': games[i].type, 'task': games[i].task, 'uid': rnd_task};
+                var new_task_type_uid = get_random_task_for_test(props.conditions, props.game_uid);
+                // console.log('new_task_type_uid ' + new_task_type_uid.type + ', ' + new_task_type_uid.uid);
+                setType(new_task_type_uid.type); setConditions(new_task_type_uid.task);
+                setTask(generate_task(new_task_type_uid.type, new_task_type_uid.task));
+
+                setTimer(setTimeout(() => {
+                    proceed_with_timeout();
+                }, 1500));
+
+            } else {
+                setTask(generate_task(type, conditions));
+            }
+
+        } else {
+            console.log('Game is Finished');
+            setOpenAlert(ALERT.NONE); // should be results page
+            // onDialog('finished');
+        }
     }
 
-    componentWillUnmount() {
-        document.addEventListener('visibilitychange');
-    }
-    */
-
-    // closed, pass, fail passed only when game is closed
-    onGameClose(status, data) {
-        console.log('DigitGame.onGameClose ' + status);
-
-        // game was unexpecdetly closed by user during play
+    function onDialog(status) {
+        console.log('DigitGame.onDialog -> ' + status);
         switch (status) {
             case 'finished':
-                this.setState({
-                    'status': DG_STATUS.RESULTS,
-                    'duration': (new Date().getTime() - this.timer)});
+                window.removeEventListener('keydown', onKeyboard);
+                if (props.is_test) {
+                    clearTimeout(timer);
+                }
+                setOpenAlert(ALERT.NONE); setCircles(0);
+                props.onClose('interrapted',
+                    {'game_uid': props.game_uid,
+                     'passed': passed,
+                     'failed': failed});
                 break;
 
-            case 'progress':
-                this.setState({'status': DG_STATUS.PROGRESS});
-                this.props.onClose(status, data);
-                break;
-
-            case 'register':
-            case 'replay':
             case 'close':
-                // game was properly closed after showing results
-                // and user decided to exit/replay/register
-                this.setState({
-                    'status': DG_STATUS.GAME,
-                    'results': [],
-                    'total': 0,
-                    'passed': 0,
-                    'failed': 0,
-                    'circles': 0,
-                });
-                this.timer = new Date().getTime();
-                this.props.onClose(status, data);
+                console.log('CLOSE -> uid ' + props.game_uid + ', passed ' + passed + ', failed ' + failed);
+                window.removeEventListener('keydown', onKeyboard);
+                if (props.is_test) {
+                    clearTimeout(timer);
+                }
+                setOpenAlert(ALERT.NONE); setCircles(0);
+                props.onClose('interrapted',
+                    {'game_uid': props.game_uid,
+                     'passed': passed,
+                     'failed': failed});
                 break;
 
             case 'restart':
-                this.setState({
-                    'status': DG_STATUS.GAME,
-                    'results': [],
-                    'total': 0,
-                    'passed': 0,
-                    'failed': 0,
-                    'circles': 0,
-                });
-                this.timer = new Date().getTime();
-                var restart_data = {
-                    'passed': 0,
-                    'failed': 0,
-                };
-                this.props.onClose(status, restart_data);
+                setOpenAlert(ALERT.NONE);
+
+                setAttempt(0); setCounter(0); setCircles(0);
+                setTotal(0); setPassed(0); setFailed(0);
+                setResults([]);
+
+                proceed_with_next_task();
                 break;
 
-            case 'interrapted':
-                console.log('Game interraption with ' + this.state.failed + ' fails');
-                var user_data = {
-                    'operation': 'results',
-                    'game_uid': this.props.game_uid,
-                    'passed': 0,
-                    'failed': this.state.failed,
-                    'duration': (new Date().getTime() - this.timer),
-                    'percent': 0,
-                    'rate': 'really_bad',
-                    'belt': this.props.belt,
-                    'task': this.state.type,
-                };
-
-                this.setState({
-                    'status': DG_STATUS.GAME,
-                    results: [],
-                    total: 0,
-                    passed: 0,
-                    failed: 0,
-                    circles: 0,
-                });
-
-                this.timer = new Date().getTime();
-                this.props.onClose('close', user_data);
+            case 'exit':
+                setOpenAlert(ALERT.EXIT);
                 break;
-
+            case 'info':
+                setOpenAlert(ALERT.INFO);
+                break;
+            case 'help':
+                setOpenAlert(ALERT.HELP);
+                break;
+            case 'settings':
+                setOpenAlert(ALERT.SETTINGS);
+                break;
+            case 'progress':
+                setOpenAlert(ALERT.PROGRESS);
+                break;
+            case 'replay':
+                setOpenAlert(ALERT.REPLAY);
+                break;
             default:
-                console.log('onGameClose: Wrong status received: ' + status);
+                setOpenAlert(ALERT.NONE);
                 break;
         }
     }
 
-    /**
-     * if counter === 0 -> user answered right from first time -> passed
-     * if counter > 0 -> user could not properly answer from first time -> failed
-     */
-    onCounterUpdate(counter, user_task) {
-        // console.log('onCounterUpdate ' + counter + ', task: ' + user_task);
-        var format = '', color = counter ? 'red' : 'green';
-        switch (this.state.type) {
-            case '2digits':
-            case '3digits':
-            case '2digits_fr':
-            case 'linedigits':
-                format = user_task.expr1 + user_task.result;
-                break;
+    function onDigit(digit_number) {
+        // console.log('onDigit ' + target.innerText);
+        // skip any checks if in red already
+        check_response(digit_number);
+    }
 
-            case '2digit_arg':
-                format = user_task.expr1 + user_task.result;
-                if (user_task.argument.includes('1')) {
-                    format = '?';
+    function onOperator(symbol) {
+        // console.log('check operator response ' + target.innerText);
+        if (type.includes('_fr')) {
+            check_response(symbol);
+
+        } else if (type.includes('digit')) {
+                var expected_result = task.result.toString();
+                if ((expected_result.length > 1) && (result !== '?')) {
+                    var new_result = result.substring(0, result.length - 1);
+                    if (new_result.length === 0) {
+                        setResult('?'); setColor('grey');
+                    } else {
+                        setResult(new_result);
+                    }
+
+                // white, level 6:
+                // {id: 6, logo: logo6, type: '2digit_arg', task: 'o,+-,1-10,1-10,1,1', amount: task_amount},
+                } else if ((type === '2digit_arg') && (conditions.includes('o'))) {
+                    check_response(symbol);
+
                 } else {
-                    format = user_task.num1;
+                    console.log('Escaping backspace ' + symbol);
                 }
 
-                if (user_task.argument.includes('o')) {
-                    format = format + ' ? ';
-                } else {
-                    format = format + ' ' + user_task.operation + ' ';
-                }
-
-                if (user_task.argument.includes('2')) {
-                    format = format + '? = ' + user_task.outcome;
-                } else {
-                    format = format + user_task.num2 + ' = ' + user_task.outcome;
-                }
-                break;
-
-            case 'digit_2column':
-                format = user_task.num1 + user_task.operation + user_task.num2 + '=' + user_task.result;
-                break;
-
-            case 'digit_3column':
-                format = user_task.num1 + ' ' + user_task.operation1 + ' ' + user_task.num2 + ' ' + user_task.operation2 + ' ' + user_task.num3 + ' = ' + user_task.result;
-                break;
-
-            case 'comp_nums':
-            case 'comp_expr':
-                format = user_task.expr1 + user_task.result + user_task.expr2;
-                break;
-
-            default:
-                console.log('unknown format of ' + this.state.type + ', use default representation');
-                format = user_task.expr1 + user_task.result;
-                break;
-        }
-
-        var value = {'task': format, 'color': color};
-        if (counter === 0) {
-            this.setState(prevState => ({
-                total: prevState.total + 1,
-                passed: prevState.passed + 1,
-                results: [...prevState.results, value],
-            }))
         } else {
-            this.setState(prevState => ({
-                total: prevState.total + 1,
-                failed: prevState.failed + 1,
-                results: [...prevState.results, value],
-            }))
+            check_response(symbol);
         }
     }
 
-    onTestUpdate() {
-        if (this.props.type === 'test')  {
-            var current = get_random_taks_for_test(this.props.task, this.state.uid);
-            console.log('DigitGame.onTestUpdate: type ' + current.type + ', task ' + current.task + ', uid ' + current.uid + ', old uid ' + this.state.uid);
-            this.setState({
-                type: current.type,
-                task: current.task,
-                uid: current.uid,
-            });
+    function onKeyboard({ key }) {
+        console.log('onKeyboard ' + key);
+        // skip any checks if in red already
+        switch (key) {
+            case '0':
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
+                check_response(key);
+                break;
+
+            case '.':
+            case ',':
+                if (type.indexOf('_fr') > -1) {
+                    check_response('.');
+                }
+                break;
+
+            case '+':
+            case '-':
+            case 'x':
+            case '*':
+            case '/':
+            case ':':
+                // white, level 6:
+                // {id: 6, logo: logo6, type: '2digit_arg', task: 'o,+-,1-10,1-10,1,1', amount: task_amount},
+                if ((type === '2digit_arg') && (conditions.includes('o'))) {
+                    check_response(key);
+                } else if (type.includes('_signed') && key === '-') {
+                    check_response(key);
+                }
+                break;
+
+            case '>':
+            case 'ArrowRight':
+                if (type === 'comp_expr' || type === 'comp_nums') {
+                    check_response('>');
+                }
+                break;
+
+            case '<':
+            case 'ArrowLeft':
+                if (type === 'comp_expr' || type === 'comp_nums') {
+                    check_response('<');
+                }
+                break;
+
+            case '=':
+            case 'ArrowUp':
+            case 'ArrowDown':
+                if (type === 'comp_expr' || type === 'comp_nums') {
+                    check_response('=');
+                }
+                break;
+
+            case 'Escape':
+                console.log('onKeyboard: Escape');
+                // this.onGameClose('');
+                break;
+
+            default:
+                // console.log('nothing to check for ' + key);
+                break;
         }
     }
 
-    onCirclesUpdate(number) {
-        this.setState({circles: number});
+    function check_response(digit) {
+        var expected_result = task.result.toString();
+        // console.log('check_response, digit: ' + digit + ', expected_result: ' + expected_result);
+        if (expected_result.length === 1) {
+            if (digit === expected_result) {
+                set_passed(digit);
+            } else {
+                set_failed(digit);
+            }
+
+        } else if (expected_result.length > 1) {
+            if (result === '?') {
+                if (expected_result.charAt(0).toString() === digit) {
+                    set_interim(digit);
+                } else {
+                    set_failed(digit);
+                }
+            } else {
+                var current = result + digit;
+                if (current === expected_result) {
+                    set_passed(current);
+                } else if (current.length === expected_result.length) {
+                    set_failed(current);
+                } else {
+                    var position = result.length;
+                    var val = expected_result.charAt(position).toString();
+                    // console.log('val ' + val + ', digit ' + digit + ', position ' + position);
+                    if (val === digit) {
+                        set_interim(current);
+                    } else {
+                        set_failed(current);
+                    }
+                }
+            }
+        } else {
+            alert('DigitGame.check_response: wrong check_response() statement ' + digit + ', expected_result: ' + expected_result);
+            console.log('DigitGame.check_response: wrong check_response() statement ' + digit + ', expected_result: ' + expected_result);
+        }
     }
 
-    /**
-     * GameHeader: height: 10%  width: 100%
-     * Body <div>: height: 80%  width: 100%
-     * GameFooter: height: 10%  width: 100%
+    function set_failed(digit) {
+        // console.log('FAILED.set_failed -> attempt: ' + attempt + ', digit ' + digit);
+        if (props.is_test) {
+            setCircles(RED_CIRCLE);
+            // remove timer to stop counting
+            clearTimeout(timer);
+        }
+
+        setResult(digit); setAnimation('shake 0.8s');
+        setColor('yellow'); setBoard('red');
+
+        if (attempt === 0) {
+            setAttempt(prevAttempt => prevAttempt + 1);
+            setCounter(prevCounter => prevCounter + 1);
+            setFailed(prevFailed => prevFailed + 1);
+            setTotal(prevTotal => prevTotal + 1);
+            // props.onCounter(attempt, task);
+        }
+
+        // clear result value in 1.5 seconds
+        setTimeout(() => {
+            setResult('?');
+            setAnimation('');
+        }, 700);
+    }
+
+    function set_passed(digit) {
+        console.log('PASSED, digit ' + digit + ', attempts ' + attempt + ', timer ' + timer);
+
+        setCounter(prevCounter => prevCounter + 1);
+        setAnimation('smooth_yellow_to_green 0.8');
+        setBoard('green'); setColor('yellow'); setResult(digit);
+
+        if (props.is_test) {
+            props.onCircles(GREEN_CIRCLE);
+            clearTimeout(timer);
+        }
+
+        if (attempt === 0) {
+            setTotal(prevTotal => prevTotal + 1);
+            setPassed(prevPassed => prevPassed + 1);
+        }
+
+        // export function align_task_format(user_task, type, counter) {
+        var result_to_add = align_task_format(task, type, attempt);
+        // return {'task': format, 'color': color};
+        // console.log('result_to_add ' + result_to_add.task + ', ' + result_to_add.color);
+        setResults([...results, result_to_add]);
+
+        setTimeout(() => {
+            proceed_with_next_task();
+            setCircles(0); setAnimation('');
+        }, 900);
+    }
+
+    function set_interim(digit) {
+        setColor('black');
+        setResult(digit);
+    }
+
+    /*
+            <div className='gameboard_wrapper'>
+
+                {type.includes('comp_') ? (
+                    <>
+                      <div className='line_body_div_up'>
+                        {(type.includes('comp_nums')) ? (
+                            <div className='line_gameboard' style={{backgroundColor: board, animation: animation}}>
+                                <div className='line_result'>{task.expr1}</div>
+                                <div className='line_result' style={{color: color}}><font>{result}</font></div>
+                                <div className='line_result'>{task.expr2}</div>
+                            </div>
+                        ) : ( null )}
+
+                        {(type.includes('comp_expr')) ? (
+                            <div className='line_gameboard line_gameboard_comp' style={{backgroundColor: board, animation: animation}}>
+                                <div className='line_expression'>{task.expr1}</div>
+                                <div className='line_result' style={{color: color}}><font>{result}</font></div>
+                                <div className='line_expression'>{task.expr2}</div>
+                            </div>
+                        ) : ( null )}
+                      </div>
+
+                      <div className='line_body_div_bottom'>
+                          <OperatorBoard onOperator={onOperator} more={true} less={true} equals={true}/>
+                      </div>
+                    </>
+                ):( null ) }
+
+                {type.includes('line_') ? (
+                    <>
+                        <div className='line_body_div_up'>
+                            <div className='line_gameboard' style={{backgroundColor: board, animation: animation}}>
+                                { type.includes('line_compnums') ? (<div className='line_result'>{task.expr1}</div>):(null)}
+                                { type.includes('line_compnums') ? (<div className='line_result' style={{color: color}}><font>{result}</font></div>):(null)}
+                                { type.includes('line_compnums') ? (<div className='line_result'>{task.expr2}</div>):(null)}
+
+                                { type.includes('line_compexpr') ? (<div className='line_expression'>{task.expr1}</div>):(null)}
+                                { type.includes('line_compexpr') ? (<div className='line_result' style={{'color': color}}><font>{result}</font></div>):(null)}
+                                { type.includes('line_compexpr') ? (<div className='line_expression'>{task.expr2}</div>):(null)}
+
+                                { type.includes('numbers') ? (
+                                    <div className='line_gameboard_numbers'>
+                                        <div className='line_task'>{task.expr1}</div>
+
+                                        {(task.result.toString().length < 3) ? (
+                                            <div className='line_result' style={{'color': color}}>{result}</div>
+                                          ) : ( null )}
+
+                                        {(task.result.toString().length === 3) ? (
+                                            <div className='line_3result' style={{'color': color}}>{result}</div>
+                                        ) : ( null )}
+
+                                        {(task.result.toString().length === 4) ? (
+                                            <div className='line_4result' style={{'color': color}}>{result}</div>
+                                        ) : ( null )}
+
+                                        {(task.result.toString().length > 4) ? (
+                                            <div className='line_5result' style={{'color': color}}>{result}</div>
+                                        ) : ( null )}
+                                    </div>
+                                ) : ( <> </>)}
+                            </div>
+                        </div>
+                        <div className='line_body_div_bottom'>
+                            {type.includes('line_comp') ? (
+                                <OperatorBoard onOperator={onOperator}
+                                    more={true} less={true} equals={true}/>
+                            ) : (
+                                <LineNumbersBoard onDigit={onDigit}
+                                    onOperator={onOperator}
+                                    floats={type.includes('_fr')}
+                                    minus={type.includes('_signed')}/>
+                            )}
+                        </div>
+                    </>
+                ) : ( <> </>)}
+            </div>
     */
-    render() {
-        return (
-            <>
-                <GameBoard open={this.state.status === DG_STATUS.GAME}
-                    uid={this.state.uid}
-                    type={this.state.type}
-                    task={this.state.task}
-                    lang={this.props.lang}
-                    width={this.props.width}
-                    amount={this.state.amount}
-                    is_test={this.state.is_test}
-                    onClose={this.onGameClose}
-                    onTest={this.onTestUpdate}
-                    onCounter={this.onCounterUpdate}
-                    onCircles={this.onCirclesUpdate}/>
 
-                <GameResults open={this.state.status === DG_STATUS.RESULTS}
-                    user_id={this.props.id}
-                    passed={this.state.passed}
-                    failed={this.state.failed}
-                    results={this.state.results}
-                    amount={this.state.amount}
-                    duration={this.state.duration}
-                    game_uid={this.props.game_uid}
-                    belt={this.props.belt}
-                    lang={this.props.lang}
-                    type={this.state.type}
-                    width={this.props.width}
-                    onClose={this.onGameClose}/>
+    return (
+        <Dialog open={props.open} fullScreen={true} TransitionComponent={Transition} transitionDuration={900}>
+            <div className="games_header_div">
+                <div className='games_header_div_left'>
+                    <font onClick={() => onDialog('exit')}>SUPERMATH</font>
+                </div>
+                <div className='games_header_div_right' onClick={() => onDialog('progress')}>
+                    <font style={{color: 'black'}}>
+                        {total} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128279;</span>
+                    </font>
+                    <font style={{color: 'green'}}>
+                        {passed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
+                    </font>
+                    <font style={{color: 'red'}}>
+                        {failed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
+                    </font>
+                </div>
+            </div>
 
-                { (this.state.status === DG_STATUS.PROGRESS) ? (
-                    <div className='digitgamebody'>
-                        <Title title='' onClose={() => this.onGameClose('close', {})} fullScreen={this.props.fullScreen}/>
-                        <ColorLine margin={'0px'}/>
+            {type.indexOf('digit') > -1 &&
+                <div className='gameboard_wrapper'>
+                    <div className='line_body_div_left'>
+                        <div className='line_gameboard' style={{backgroundColor: board, animation: boardanimation}}>
+                            {type.indexOf('2digit_arg') > -1 && ('argument' in task) &&
+                                <>
+                                    {task.argument.indexOf('1') > -1 ? (
+                                        <div className='line_result' style={{color: color}}>{result}</div>
+                                    ) : (
+                                        <div className='line_result'>{task.num1}</div>
+                                    )}
 
-                        <Calendar id={this.props.id}
-                            pswdhash='' name=''
-                            lang={this.props.lang}/>
+                                    {task.argument.indexOf('o') > -1 ? (
+                                        <div className='line_result' style={{color: color}}>{result}</div>
+                                    ) : (
+                                        <div className='line_result'>{task.operation}</div>
+                                    )}
+
+                                    {task.argument.indexOf('2') > -1 ? (
+                                        <div className='line_result' style={{color: color}}>{result}</div>
+                                    ) : (
+                                        <div className='line_result'>{task.num2}</div>
+                                    )}
+                                    <div className='line_result'>=</div>
+                                    <div className='line_result'>{task.outcome}</div>
+                                </>
+                            }
+
+                            {type.indexOf('_2column') > -1 && ('num1' in task) && ('num2' in task) && ('operation' in task) &&
+                                <div style={{height:'90%', width:'90%'}}>
+                                    <div style={{height:'25%', width:'80%'}}></div>
+                                    <div className='column_number'>{task.num1}</div>
+                                    <div className='column_number'>{task.operation} {task.num2}</div>
+                                    <div className='column_black_line'> </div>
+                                    <div className='column_result' style={{color: color}}>{result}</div>
+                                </div>
+                            }
+
+                            {type.indexOf('_3column') > -1 && ('num1' in task) && ('num2' in task) && ('num3' in task) &&
+                                <div style={{height:'90%',width:'90%'}}>
+                                    <div style={{height:'25%',width:'80%'}}></div>
+                                    <div className='column_number'>{task.num1}</div>
+                                    <div className='column_number'>{task.operation1}   {task.num2}</div>
+                                    <div className='column_number'>{task.operation2}   {task.num3}</div>
+                                    <div className='column_black_line'> </div>
+                                    <div className='column_result' style={{color: color}}>{result}</div>
+                                </div>
+                            }
+
+                            {type.indexOf('digits') > -1 &&
+                                <>
+                                    <div className='line_task'>{task.expr1}</div>
+                                    {task.result.toString().length < 3 &&
+                                        <div className='line_result' style={{color: color}}>{result}</div>
+                                    }
+
+                                    {task.result.toString().length === 3 &&
+                                        <div className='line_3result' style={{color: color}}>{result}</div>
+                                    }
+
+                                    {task.result.toString().length === 4 &&
+                                        <div className='line_4result' style={{color: color}}>{result}</div>
+                                    }
+
+                                    {task.result.toString().length > 4 &&
+                                        <div className='line_5result' style={{color: color}}>{result}</div>
+                                    }
+                                </>
+                            }
+                        </div>
                     </div>
 
-                ) : ( <> </> )}
-            </>
-        );
-    }
+                    <div className='line_body_div_right'>
+                        {conditions.indexOf('o,') > -1 ? (
+                            <OperatorBoard onOperator={onOperator} plus={true} minus={true}/>
+                        ) : (
+                            <KeyBoard onDigit={onDigit} onOperator={onOperator}/>
+                        )}
+                    </div>
+                </div>
+            }
+
+            <GameExit open={openAlert === ALERT.EXIT}
+                fullScreen={props.width<FULL_SCREEN}
+                type='game'
+                lang={props.lang}
+                onClose={onDialog}/>
+
+            <GameInfo open={openAlert === ALERT.INFO}
+                description={props.description}
+                fullScreen={props.width<FULL_SCREEN}
+                type='game'
+                lang={props.lang}
+                onClose={onDialog}/>
+
+            <GameHelp open={openAlert === ALERT.HELP}
+                description={props.description}
+                fullScreen={props.width<FULL_SCREEN}
+                type='game'
+                lang={props.lang}
+                onClose={onDialog}/>
+
+            <GameSettings open={openAlert === ALERT.SETTINGS}
+                fullScreen={props.width<FULL_SCREEN}
+                lang={props.lang}
+                onClose={onDialog}/>
+
+            <GameProgress open={openAlert === ALERT.PROGRESS}
+                fullScreen={props.width<FULL_SCREEN}
+                from='game'
+                lang={props.lang}
+                total={total}
+                passed={passed}
+                failed={failed}
+                results={results}
+                onClose={onDialog}/>
+
+            <GameReplay open={openAlert === ALERT.REPLAY}
+                description={props.description}
+                fullScreen={props.width<FULL_SCREEN}
+                type='game'
+                lang={props.lang}
+                onClose={onDialog}/>
+
+        </Dialog>
+    );
 }

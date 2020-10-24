@@ -9,9 +9,17 @@ var OPERATION_DIV = ':';
 
 /**
  * Task generation from type and settings
+ *
+ * @param {string} type - one of the known task type:
+ *  2digits, 3digits, line_3numbers, line_2numbers_signed etc.
+ *
+ * @param {string} conditions - task conditions, like range, sign, operation etc.
+ * For example: '0-7', '<>=,0-10,1', '+,0-10,0-10,1,1', 'd,+-,0-10,0-10,1,1'
+ *
+ * @returns {object} - task object
  */
 export function generate_task(type, settings) {
-    // console.log('generate_task ' + type + ', settings ' + settings);
+    console.log('arithmetic.generate_task -> ' + type + ', settings ' + settings);
     var array = settings.split(',');
 
     // depends from type, result may have different properties
@@ -125,6 +133,63 @@ export function generate_task(type, settings) {
     }
 
     return result;
+}
+
+/**
+ * ---
+ */
+export function align_task_format(user_task, type, counter) {
+    var format = '', color = counter ? 'red' : 'green';
+    switch (type) {
+        case '2digits':
+        case '3digits':
+        case '2digits_fr':
+        case 'linedigits':
+            format = user_task.expr1 + user_task.result;
+            break;
+
+        case '2digit_arg':
+            format = user_task.expr1 + user_task.result;
+            if (user_task.argument.includes('1')) {
+                format = '?';
+            } else {
+                format = user_task.num1;
+            }
+
+            if (user_task.argument.includes('o')) {
+                format = format + ' ? ';
+            } else {
+                format = format + ' ' + user_task.operation + ' ';
+            }
+
+            if (user_task.argument.includes('2')) {
+                format = format + '? = ' + user_task.outcome;
+            } else {
+                format = format + user_task.num2 + ' = ' + user_task.outcome;
+            }
+            break;
+
+        case 'digit_2column':
+            format = user_task.num1 + user_task.operation + user_task.num2 + '=' + user_task.result;
+            break;
+
+        case 'digit_3column':
+            format = user_task.num1 + ' ' + user_task.operation1 + ' ' + user_task.num2 + ' '
+               + user_task.operation2 + ' ' + user_task.num3 + ' = ' + user_task.result;
+            break;
+
+        case 'comp_nums':
+        case 'comp_expr':
+            format = user_task.expr1 + user_task.result + user_task.expr2;
+            break;
+
+        default:
+            console.log('unknown format of ' + type + ', use default representation');
+            format = user_task.expr1 + user_task.result;
+            break;
+    }
+
+    return {'task': format, 'color': color};
 }
 
 function generate_3digit_mul_task() {
