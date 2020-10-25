@@ -15,13 +15,13 @@ import GameExit from './gameexit';
 import GameInfo from './gameinfo';
 import GameHelp from './gamehelp';
 
-import {GREEN_CIRCLE, RED_CIRCLE} from './../halpers/functions';
+import ColorLine from './../line/line';
+
+import {FULL_SCREEN, GREEN_CIRCLE, RED_CIRCLE} from './../halpers/functions';
 import {get_random_task_for_test} from './../halpers/programms';
 import {generate_task, align_task_format} from './../halpers/arithmetic';
 
 import './digitgame.css';
-
-import {FULL_SCREEN} from './../halpers/functions';
 
 const ALERT = {
     NONE: 0,
@@ -33,6 +33,8 @@ const ALERT = {
     REPLAY: 6,
     RESULTS: 7,
 }
+
+const footer_circles = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='down' ref={ref} {...props} />;
@@ -59,6 +61,8 @@ export default function DigitGame(props) {
     const [passed, setPassed] = React.useState(0);
     const [failed, setFailed] = React.useState(0);
     const [total, setTotal] = React.useState(0);
+
+    const [radius, setRadius] = React.useState(0);
 
     const [duration, setDuration] = React.useState(0);
 
@@ -163,9 +167,17 @@ export default function DigitGame(props) {
             setTotal(0); setPassed(0); setFailed(0);
 
             setResults([]); setDuration(new Date().getTime());
+
+            if (props.width > 800) {
+                setRadius(23);
+            } else if (props.width > 500) {
+                setRadius(15);
+            } else {
+                setRadius(8);
+            }
         }
 
-    }, [props.open, props.type, props.conditions, props.game_uid]);
+    }, [props.open, props.type, props.conditions, props.game_uid, props.width]);
 
     function proceed_with_timeout() {
         if (circles < 10) {
@@ -183,6 +195,7 @@ export default function DigitGame(props) {
         if (counter < props.amount) {
             setBoard('yellow'); setColor('grey'); 
             setResult('?'); setAttempt(0);
+            setAnimation('');
 
             if (props.type === 'test') {
                 // return {'type': games[i].type, 'task': games[i].task, 'uid': rnd_task};
@@ -304,8 +317,15 @@ export default function DigitGame(props) {
     }
 
     function check_response(digit) {
+        // console.log('check_response, digit: ' + digit);
+
+        // to prevent false error, when switch between solved and new task
+        if (boardanimation.indexOf('smooth_yellow_to_green') > -1) {
+            console.log('############## !!!!!!!!!!!! ################');
+            return;
+        }
+
         var expected_result = task.result.toString();
-        // console.log('check_response, digit: ' + digit + ', expected_result: ' + expected_result);
         if (expected_result.length === 1) {
             if (digit === expected_result) {
                 set_passed(digit);
@@ -373,8 +393,9 @@ export default function DigitGame(props) {
         console.log('PASSED, digit ' + digit + ', attempts ' + attempt + ', timer ' + timer);
 
         setCounter(prevCounter => prevCounter + 1);
-        setAnimation('smooth_yellow_to_green 0.8');
-        setBoard('green'); setColor('yellow'); setResult(digit);
+        setResult(digit); setAnimation('smooth_yellow_to_green 0.8s');
+        setColor('yellow'); setBoard('green');
+
 
         if (props.type === 'test') {
             setCircles(GREEN_CIRCLE);
@@ -394,7 +415,7 @@ export default function DigitGame(props) {
 
         setTimeout(() => {
             proceed_with_next_task();
-            setCircles(0); setAnimation('');
+            setCircles(0);
         }, 900);
     }
 
@@ -562,6 +583,29 @@ export default function DigitGame(props) {
                         )}
                     </div>
                 </div>
+            }
+
+            {props.type === 'test' &&
+                <>
+                    <ColorLine margin={'0px'}/>
+                    <div className='game_footer_div' style={{height: '8%', width: '100%'}}>
+                        {footer_circles.map((item, key) => (
+                            <svg key={item} height='10%' width='10%' className='game_footer_div_svg'>
+                                {(circles === RED_CIRCLE) ? (
+                                    <circle cx='50%' cy='50%' r={radius} stroke='black' strokeWidth='2' fill={'red'}/>
+                                ) : (
+                                    <>
+                                        {(circles > item) ? (
+                                            <circle cx='50%' cy='50%' r={radius} stroke='black' strokeWidth='2' fill={'green'}/>
+                                        ) : (
+                                            <circle cx='50%' cy='50%' r={radius} stroke='black' strokeWidth='2' fill={'white'}/>
+                                        )}
+                                    </>
+                                )}
+                            </svg>
+                        ))}
+                    </div>
+                </>
             }
 
             <GameExit open={openAlert === ALERT.EXIT}
