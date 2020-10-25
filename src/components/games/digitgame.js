@@ -4,6 +4,7 @@ import { Dialog, Slide } from '@material-ui/core';
 import KeyBoard from './../keyboard/keyboard';
 import OperatorBoard from './../keyboard/operatorboard';
 import LineNumbersBoard from './../keyboard/linenumbersboard';
+import useKeyboardEvent from './../keyboard/usekeyboardevent';
 
 import GameProgress from './gameprogress';
 import GameSettings from './gamesettings';
@@ -31,7 +32,7 @@ const ALERT = {
 }
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction='up' ref={ref} {...props} />;
+    return <Slide direction='down' ref={ref} {...props} />;
 });
 
 export default function DigitGame(props) {
@@ -58,9 +59,8 @@ export default function DigitGame(props) {
 
     const [openAlert, setOpenAlert] = React.useState(ALERT.NONE);
 
-    // need to set as const => () 
-    function onKeyboard({ key }) {
-        console.log('onKeyboard ' + key);
+    useKeyboardEvent((key) => {
+        console.log('DigitGame.useKeyboardEvent ' + key);
         // skip any checks if in red already
         switch (key) {
             case '0':
@@ -129,7 +129,7 @@ export default function DigitGame(props) {
                 // console.log('nothing to check for ' + key);
                 break;
         }
-    }
+    });
 
     React.useEffect(() => {
         if (props.open) {
@@ -144,8 +144,6 @@ export default function DigitGame(props) {
             setTotal(0); setPassed(0); setFailed(0);
 
             setResults([]);
-
-            // window.addEventListener('keydown', onKeyboard);
         }
 
     }, [props.open, props.type, props.conditions, ]);
@@ -193,7 +191,7 @@ export default function DigitGame(props) {
         console.log('DigitGame.onDialog -> ' + status);
         switch (status) {
             case 'finished':
-                window.removeEventListener('keydown', onKeyboard);
+                // window.removeEventListener('keydown', onKeyboard);
                 if (props.is_test) {
                     clearTimeout(timer);
                 }
@@ -205,7 +203,7 @@ export default function DigitGame(props) {
                 break;
 
             case 'close':
-                window.removeEventListener('keydown', onKeyboard);
+                // window.removeEventListener('keydown', onKeyboard);
                 if (props.is_test) {
                     clearTimeout(timer);
                 }
