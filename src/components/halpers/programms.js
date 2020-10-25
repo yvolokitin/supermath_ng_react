@@ -72,7 +72,7 @@ import task9 from './../../images/levels/task_9.jpg';
 
 import test_img from './../../images/tasks/test_img.jpg';
 
-const task_amount = 3; // 30;
+const task_amount = 5; // 30;
 
 export const white_games = [
     {id: 1, uid: 'white1', logo: white1, type: 'linedigits', task: '0-7', amount: task_amount},
@@ -198,9 +198,12 @@ export function get_random_task_for_test(tasks, escaped_task='') {
 
     for (var i = 0; i < games.length; i++) {
         if (games[i].uid === rnd_task) {
+            console.log('!!!!!! type ' + games[i].type + ', task ' + games[i].task + ', uid ' + rnd_task);
             return {'type': games[i].type, 'task': games[i].task, 'uid': rnd_task};
         }
     }
+
+    console.log('!!!!!!!!!!!! FRIED ');
 }
 
 export const color_belts = [

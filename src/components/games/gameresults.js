@@ -16,7 +16,6 @@ import ColorLine from './../line/line';
 
 import image from './../../images/time.png';
 
-import {FULL_SCREEN} from './../halpers/functions';
 import {gameresults} from './../translations/gameresults';
 
 import './gameresults.css';
@@ -26,7 +25,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function GameResults(props) {
-    // if 
     const [progress, setProgress] = useState(false);
 
     const [title, setTitle] = useState('');
@@ -136,7 +134,7 @@ export default function GameResults(props) {
             </DialogContent>
 
             <GameProgress open={progress}
-                fullScreen={props.width<FULL_SCREEN}
+                fullScreen={props.FULL_SCREEN}
                 from='results'
                 lang={props.lang}
                 total={props.total}
