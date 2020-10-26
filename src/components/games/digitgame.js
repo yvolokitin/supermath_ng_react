@@ -17,7 +17,8 @@ import GameHelp from './gamehelp';
 
 import ColorLine from './../line/line';
 
-import {FULL_SCREEN, GREEN_CIRCLE, RED_CIRCLE} from './../halpers/functions';
+import {GREEN_CIRCLE, RED_CIRCLE} from './../halpers/functions';
+import {get_timeout_per_test, get_radius_per_width} from './../halpers/functions';
 import {get_random_task_for_test} from './../halpers/programms';
 import {generate_task, align_task_format} from './../halpers/arithmetic';
 
@@ -40,9 +41,13 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='down' ref={ref} {...props} />;
 });
 
+// global timer for setTimeouts
+var global_game_timer = 0;
+
 export default function DigitGame(props) {
-    // global timer for setTimeouts
-    let global_game_timer = 0;
+    const [circles, setCircles] = React.useState(0);
+    const circlesRef = React.useRef(circles);
+    circlesRef.current = circles;
 
     const [task, setTask] = React.useState({expr1: '', result: ''});
 
@@ -58,15 +63,14 @@ export default function DigitGame(props) {
 
     const [counter, setCounter] = React.useState(1);
     const [attempt, setAttempt] = React.useState(0);
-    const [circles, setCircles] = React.useState(0);
-
     const [passed, setPassed] = React.useState(0);
     const [failed, setFailed] = React.useState(0);
     const [total, setTotal] = React.useState(0);
 
-    const [radius, setRadius] = React.useState(0);
+    const [radius, setRadius] = React.useState(get_radius_per_width());
 
     const [duration, setDuration] = React.useState(0);
+    const [testTimeout, setTestTimeout] = React.useState(1300);
 
     const [openAlert, setOpenAlert] = React.useState(ALERT.NONE);
 
@@ -144,7 +148,7 @@ export default function DigitGame(props) {
 
     React.useEffect(() => {
         if (props.open) {
-            console.log('DigitGame.useEffect ' + props.type + ', ' + props.conditions);
+            console.log('DigitGame.useEffect ' + props.game_uid + ', ' + props.belt);
 
             if (props.type === 'test') {
                 // return {'type': games[i].type, 'task': games[i].task, 'uid': rnd_task};
@@ -155,7 +159,7 @@ export default function DigitGame(props) {
 
                 /*setTimer(setTimeout(() => {
                     proceed_with_timeout();
-                }, 1500));*/
+                }, testTimeout));*/
 
             } else {
                 setTask(generate_task(props.type, props.conditions));
@@ -170,22 +174,17 @@ export default function DigitGame(props) {
 
             setResults([]); setDuration(new Date().getTime());
 
-            if (props.width > 800) {
-                setRadius(23);
-            } else if (props.width > 500) {
-                setRadius(15);
-            } else {
-                setRadius(8);
-            }
+            setRadius(get_radius_per_width());
+            setTestTimeout(get_timeout_per_test(props.belt));
         }
 
-    }, [props.open, props.type, props.conditions, props.game_uid, props.width]);
+    }, [props.open, props.belt, props.type, props.conditions, props.game_uid]);
 
     function proceed_with_timeout() {
-        console.log('DigitGame.proceed_with_timeout ' + circles);
-        if (circles < 9) {
+        console.log('DigitGame.proceed_with_timeout ' + circlesRef.current);
+        if (circlesRef.current < 9) {
             setCircles(prevCircles => prevCircles + 1);
-            global_game_timer = setTimeout(() => proceed_with_timeout(), 1500);
+            global_game_timer = setTimeout(() => proceed_with_timeout(), testTimeout);
 
         } else {
             // remove timer to stop counting
@@ -208,7 +207,7 @@ export default function DigitGame(props) {
                 setType(new_task_type_uid.type); setConditions(new_task_type_uid.task);
                 setTask(generate_task(new_task_type_uid.type, new_task_type_uid.task));
 
-                global_game_timer = setTimeout(() => {proceed_with_timeout();}, 1500);
+                global_game_timer = setTimeout(() => {proceed_with_timeout();}, testTimeout);
 
             } else {
                 setTask(generate_task(type, conditions));
@@ -302,7 +301,7 @@ export default function DigitGame(props) {
             default:
                 setOpenAlert(ALERT.NONE);
                 if (props.type === 'test') {
-                    global_game_timer = setTimeout(() => proceed_with_timeout(), 1500);
+                    global_game_timer = setTimeout(() => proceed_with_timeout(), testTimeout);
                 }
                 break;
         }
@@ -616,16 +615,22 @@ export default function DigitGame(props) {
                     <div className='game_footer_div' style={{height: '8%', width: '100%'}}>
                         {footer_circles.map((item, key) => (
                             <svg key={item} height='10%' width='10%' className='game_footer_div_svg'>
-                                {(circles === RED_CIRCLE) ? (
-                                    <circle cx='50%' cy='50%' r={radius} stroke='black' strokeWidth='2' fill={'red'}/>
+                                {circles === RED_CIRCLE ? (
+                                    <circle cx='50%' cy='50%' r={radius} stroke='black' strokeWidth='2' fill={'red'} style={{animation: boardanimation}}/>
                                 ) : (
-                                    <>
-                                        {(circles > item) ? (
-                                            <circle cx='50%' cy='50%' r={radius} stroke='black' strokeWidth='2' fill={'green'}/>
-                                        ) : (
-                                            <circle cx='50%' cy='50%' r={radius} stroke='black' strokeWidth='2' fill={'white'}/>
-                                        )}
-                                    </>
+                                  <>
+                                    {circles === GREEN_CIRCLE ? (
+                                        <circle cx='50%' cy='50%' r={radius} stroke='black' strokeWidth='2' fill={'green'} style={{animation: boardanimation}}/>
+                                    ) : (
+                                        <>
+                                            {(circles > item) ? (
+                                                <circle cx='50%' cy='50%' r={radius} stroke='black' strokeWidth='2' fill={'green'} style={{animation: boardanimation}}/>
+                                            ) : (
+                                                <circle cx='50%' cy='50%' r={radius} stroke='black' strokeWidth='2' fill={'white'}/>
+                                            )}
+                                        </>
+                                    )}
+                                  </>
                                 )}
                             </svg>
                         ))}
@@ -634,32 +639,32 @@ export default function DigitGame(props) {
             }
 
             <GameExit open={openAlert === ALERT.EXIT}
-                fullScreen={props.width<FULL_SCREEN}
+                fullScreen={props.fullScreen}
                 type='game'
                 lang={props.lang}
                 onClose={onDialog}/>
 
             <GameInfo open={openAlert === ALERT.INFO}
                 description={props.description}
-                fullScreen={props.width<FULL_SCREEN}
+                fullScreen={props.fullScreen}
                 type='game'
                 lang={props.lang}
                 onClose={onDialog}/>
 
             <GameHelp open={openAlert === ALERT.HELP}
-                fullScreen={props.width<FULL_SCREEN}
+                fullScreen={props.fullScreen}
                 description={props.description}
                 type='game'
                 lang={props.lang}
                 onClose={onDialog}/>
 
             <GameSettings open={openAlert === ALERT.SETTINGS}
-                fullScreen={props.width<FULL_SCREEN}
+                fullScreen={props.fullScreen}
                 lang={props.lang}
                 onClose={onDialog}/>
 
             <GameProgress open={openAlert === ALERT.PROGRESS}
-                fullScreen={props.width<FULL_SCREEN}
+                fullScreen={props.fullScreen}
                 from='game'
                 lang={props.lang}
                 total={total}
@@ -669,14 +674,14 @@ export default function DigitGame(props) {
                 onClose={onDialog}/>
 
             <GameReplay open={openAlert === ALERT.REPLAY}
-                fullScreen={props.width<FULL_SCREEN}
+                fullScreen={props.fullScreen}
                 description={props.description}
                 type='game'
                 lang={props.lang}
                 onClose={onDialog}/>
 
             <GameResults open={openAlert === ALERT.RESULTS}
-                fullScreen={props.width<FULL_SCREEN}
+                fullScreen={props.fullScreen}
                 user_id={props.user_id}
                 game_uid={props.game_uid}
                 amount={props.amount}

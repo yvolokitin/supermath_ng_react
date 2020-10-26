@@ -197,6 +197,7 @@ export default function Body(props) {
             </div>
 
             <DigitGame open={status === STATUS.GAME}
+                fullScreen={props.width<FULL_SCREEN}
                 id={props.id}
                 game_uid={game.uid}
                 type={game.type}
@@ -204,33 +205,31 @@ export default function Body(props) {
                 amount={game.amount}
                 lang={props.lang}
                 belt={color}
-                width={props.width}
-                fullScreen={props.width<FULL_SCREEN}
                 onClose={onGameClose}/>
 
             <TaskGame open={status === STATUS.TASK}
+                fullScreen={props.width<FULL_SCREEN}
                 id={props.id}
                 task={game}
                 lang={props.lang}
                 width={props.width}
                 description={description}
-                fullScreen={props.width<FULL_SCREEN}
                 onClose={onGameClose}/>
 
             <Share open={status === STATUS.SHARE}
+                fullScreen={props.width<FULL_SCREEN}
                 user_id={props.id}
                 name={props.name}
                 email={props.email}
                 lang={props.lang}
-                fullScreen={props.width<FULL_SCREEN}
                 onClose={onShare}/>
 
             <Contact open={status === STATUS.CONTACTS}
+                fullScreen={props.width<FULL_SCREEN}
                 user_id={props.id}
                 name={props.name}
                 email={props.email}
                 lang={props.lang}
-                fullScreen={props.width<FULL_SCREEN}
                 onClose={() => setStatus(STATUS.NONE)}/>
 
         </div>
