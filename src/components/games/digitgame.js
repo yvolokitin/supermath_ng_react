@@ -41,6 +41,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function DigitGame(props) {
+    // global timer for setTimeouts
+    let global_game_timer = 0;
+
     const [task, setTask] = React.useState({expr1: '', result: ''});
 
     const [conditions, setConditions] = React.useState('');
@@ -56,7 +59,6 @@ export default function DigitGame(props) {
     const [counter, setCounter] = React.useState(1);
     const [attempt, setAttempt] = React.useState(0);
     const [circles, setCircles] = React.useState(0);
-    const [timer, setTimer] = React.useState(0);
 
     const [passed, setPassed] = React.useState(0);
     const [failed, setFailed] = React.useState(0);
@@ -180,11 +182,13 @@ export default function DigitGame(props) {
     }, [props.open, props.type, props.conditions, props.game_uid, props.width]);
 
     function proceed_with_timeout() {
-        if (circles < 10) {
+        console.log('DigitGame.proceed_with_timeout ' + circles);
+        if (circles < 9) {
             setCircles(prevCircles => prevCircles + 1);
-            setTimer(setTimeout(() => proceed_with_timeout(), 1500));
+            global_game_timer = setTimeout(() => proceed_with_timeout(), 1500);
 
         } else {
+            // remove timer to stop counting
             set_failed('?');
         }
     }
@@ -204,9 +208,7 @@ export default function DigitGame(props) {
                 setType(new_task_type_uid.type); setConditions(new_task_type_uid.task);
                 setTask(generate_task(new_task_type_uid.type, new_task_type_uid.task));
 
-                setTimer(setTimeout(() => {
-                    proceed_with_timeout();
-                }, 1500));
+                global_game_timer = setTimeout(() => {proceed_with_timeout();}, 1500);
 
             } else {
                 setTask(generate_task(type, conditions));
@@ -223,7 +225,7 @@ export default function DigitGame(props) {
         switch (status) {
             case 'finished':
                 if (props.type === 'test') {
-                    clearTimeout(timer);
+                    clearTimeout(global_game_timer);
                 }
                 setOpenAlert(ALERT.RESULTS); setCircles(0);
                 props.onClose('interrapted',
@@ -234,7 +236,7 @@ export default function DigitGame(props) {
 
             case 'close':
                 if (props.type === 'test') {
-                    clearTimeout(timer);
+                    clearTimeout(global_game_timer);
                 }
                 setOpenAlert(ALERT.NONE); setCircles(0);
                 props.onClose('close',
@@ -256,27 +258,52 @@ export default function DigitGame(props) {
 
             case 'exit':
                 setOpenAlert(ALERT.EXIT);
+                if (props.type === 'test') {
+                    clearTimeout(global_game_timer);
+                }
                 break;
+
             case 'info':
                 setOpenAlert(ALERT.INFO);
+                if (props.type === 'test') {
+                    clearTimeout(global_game_timer);
+                }
                 break;
+
             case 'help':
                 setOpenAlert(ALERT.HELP);
+                if (props.type === 'test') {
+                    clearTimeout(global_game_timer);
+                }
                 break;
+
             case 'settings':
                 setOpenAlert(ALERT.SETTINGS);
+                if (props.type === 'test') {
+                    clearTimeout(global_game_timer);
+                }
                 break;
+
             case 'progress':
                 setOpenAlert(ALERT.PROGRESS);
+                if (props.type === 'test') {
+                    clearTimeout(global_game_timer);
+                }
                 break;
 
             // reply is statment to show particular menu dialog
             case 'replay':
                 setOpenAlert(ALERT.REPLAY);
+                if (props.type === 'test') {
+                    clearTimeout(global_game_timer);
+                }
                 break;
 
             default:
                 setOpenAlert(ALERT.NONE);
+                if (props.type === 'test') {
+                    global_game_timer = setTimeout(() => proceed_with_timeout(), 1500);
+                }
                 break;
         }
     }
@@ -321,7 +348,7 @@ export default function DigitGame(props) {
 
         // to prevent false error, when switch between solved and new task
         if (boardanimation.indexOf('smooth_yellow_to_green') > -1) {
-            console.log('############## !!!!!!!!!!!! ################');
+            // console.log('escaping check_response request ' + digit);
             return;
         }
 
@@ -364,11 +391,11 @@ export default function DigitGame(props) {
     }
 
     function set_failed(digit) {
-        // console.log('FAILED.set_failed -> attempt: ' + attempt + ', digit ' + digit);
+        console.log('FAILED.set_failed -> attempt: ' + attempt + ', digit ' + digit);
+
         if (props.type === 'test') {
             setCircles(RED_CIRCLE);
-            // remove timer to stop counting
-            clearTimeout(timer);
+            clearTimeout(global_game_timer);
         }
 
         setResult(digit); setAnimation('shake 0.8s');
@@ -379,7 +406,6 @@ export default function DigitGame(props) {
             setCounter(prevCounter => prevCounter + 1);
             setFailed(prevFailed => prevFailed + 1);
             setTotal(prevTotal => prevTotal + 1);
-            // props.onCounter(attempt, task);
         }
 
         // clear result value in 1.5 seconds
@@ -390,16 +416,15 @@ export default function DigitGame(props) {
     }
 
     function set_passed(digit) {
-        console.log('PASSED, digit ' + digit + ', attempts ' + attempt + ', timer ' + timer);
+        console.log('PASSED, digit ' + digit + ', attempts ' + attempt + ', global_game_timer ' + global_game_timer);
 
         setCounter(prevCounter => prevCounter + 1);
         setResult(digit); setAnimation('smooth_yellow_to_green 0.8s');
         setColor('yellow'); setBoard('green');
 
-
         if (props.type === 'test') {
             setCircles(GREEN_CIRCLE);
-            clearTimeout(timer);
+            clearTimeout(global_game_timer);
         }
 
         if (attempt === 0) {
