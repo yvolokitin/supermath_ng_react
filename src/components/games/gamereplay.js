@@ -5,14 +5,16 @@ import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} fr
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
-import InfoIcon from '@material-ui/icons/Info';
 import ReplayIcon from '@material-ui/icons/Replay';
 import CancelIcon from '@material-ui/icons/Cancel';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import SettingsIcon from '@material-ui/icons/Settings';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
+
+// import InfoIcon from '@material-ui/icons/Info';
+// import SettingsIcon from '@material-ui/icons/Settings';
 
 import Title from './../title/title';
 import ColorLine from './../line/line';
@@ -42,6 +44,9 @@ export default function GameReplay(props) {
         props.onClose(value);
     }
 
+    /*
+                    <BottomNavigationAction label={game[props.lang]['settings_title']} value='settings' icon={<SettingsIcon/>}/>
+    */
     return (
         <Dialog open={props.open} onClose={() => props.onClose('')}
                 scroll='body' fullScreen={props.fullScreen}
@@ -65,19 +70,16 @@ export default function GameReplay(props) {
             <DialogContent scroll='body'>
                 <BottomNavigation onChange={handleChange} showLabels>
                     <BottomNavigationAction label={game[props.lang]['exit_title']} value='exit' icon={<ExitToAppIcon/>}/>
-                    <BottomNavigationAction label={game[props.lang]['settings_title']} value='settings' icon={<SettingsIcon/>}/>
+                    <BottomNavigationAction label={game[props.lang]['help_title']} value='help' icon={<HelpOutlineIcon/>}/>
+                    <BottomNavigationAction label={game[props.lang]['results_title']} value='progress' icon={<ShowChartIcon/>}/>
 
-                    {(props.type === 'task') ? (
+                    {props.type === 'task' &&
                         <BottomNavigationAction label={game[props.lang]['previous_title']} value='previous' icon={<ArrowBackIcon/>} disabled/>
-                    ) : (
-                        <BottomNavigationAction label={game[props.lang]['info_title']} value='info' icon={<InfoIcon/>}/>
-                    )}
+                    }
 
-                    {(props.type === 'task') ? (
+                    {props.type === 'task' &&
                         <BottomNavigationAction label={game[props.lang]['next_title']}  value='next' icon={<ArrowForwardIcon/>}/>
-                    ) : (
-                        <BottomNavigationAction label={game[props.lang]['results_title']} value='progress' icon={<ShowChartIcon/>}/>
-                    )}
+                    }
                 </BottomNavigation>
             </DialogContent>
 
