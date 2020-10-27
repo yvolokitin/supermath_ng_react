@@ -38,7 +38,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='down' ref={ref} {...props} />;
 });
 
-// 
 export default function GameProgress(props) {
     const classes = useStyles();
 
@@ -47,9 +46,6 @@ export default function GameProgress(props) {
         props.onClose(value);
     }
 
-    /*
-                        <BottomNavigationAction label={game[props.lang]['settings_title']} value='settings' icon={<SettingsIcon/>}/>
-    */
     return (
         <Dialog open={props.open} onClose={() => props.onClose()}
             scroll='body' fullScreen={props.fullScreen}
@@ -93,7 +89,7 @@ export default function GameProgress(props) {
                     </Typography>
                 }
 
-                {(props.from === 'game') ? (
+                {props.from === 'game' &&
                     <BottomNavigation onChange={handleChange} showLabels>
                         <BottomNavigationAction label={game[props.lang]['exit_title']} value='exit' icon={<ExitToAppIcon/>}/>
                         <BottomNavigationAction label={game[props.lang]['replay_title']} value='replay' icon={<ReplayIcon/>}/>
@@ -107,8 +103,7 @@ export default function GameProgress(props) {
                             <BottomNavigationAction label={game[props.lang]['next_title']}  value='next' icon={<ArrowForwardIcon/>}/>
                         }
                     </BottomNavigation>
-                ) : ( <> </> )}
-
+                }
             </DialogContent>
 
             <ColorLine/>

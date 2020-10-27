@@ -74,7 +74,7 @@ export default function DigitGame(props) {
 
     const [radius, setRadius] = React.useState(get_radius_per_width());
 
-    const [duration, setDuration] = React.useState(0);
+    const [duration, setDuration] = React.useState(new Date().getTime());
     const [testTimeout, setTestTimeout] = React.useState(1300);
 
     const [openAlert, setOpenAlert] = React.useState(ALERT.NONE);
@@ -224,8 +224,9 @@ export default function DigitGame(props) {
             }
 
         } else {
-            console.log('Game is Finished');
-            onDialog('finished');
+            var game_duration = new Date().getTime() - duration;
+            console.log('Game is Finished ' + game_duration);
+            setDuration(game_duration); onDialog('finished');
         }
     }
 
@@ -237,11 +238,28 @@ export default function DigitGame(props) {
                 if (props.type === 'test') {
                     clearTimeout(global_game_timer);
                 }
-                setOpenAlert(ALERT.RESULTS); setCircles(0);
-                props.onClose('interrapted',
-                    {'game_uid': props.game_uid,
-                     'passed': passed,
-                     'failed': failed});
+                setOpenAlert(ALERT.RESULTS);
+                setCircles(0); setCounter(1);
+ 
+                var rate = 'really_bad';
+                var percent = 100 * passed / props.amount;
+                if (percent > 99) { rate = 'excellent';
+                } else if (percent > 95) { rate = 'quite_good';
+                } else if (percent > 90) { rate = 'good';
+                } else if (percent > 80) { rate = 'well';
+                } else if (percent > 60) { rate = 'not_well';
+                } else if (percent > 40) { rate = 'quite_bad';}
+
+                props.onClose('counter', {
+                    'game_uid': props.game_uid,
+                    'passed': passed,
+                    'failed': failed,
+                    'duration': duration,
+                    'rate': rate,
+                    'percent': percent,
+                    'belt': props.belt,
+                    'task': props.type,
+                });
                 break;
 
             // close game -> game interraption
@@ -250,10 +268,7 @@ export default function DigitGame(props) {
                     clearTimeout(global_game_timer);
                 }
                 setOpenAlert(ALERT.NONE); setCircles(0);
-                props.onClose('close',
-                    {'game_uid': props.game_uid,
-                     'passed': passed,
-                     'failed': failed});
+                props.onClose('close');
                 break;
 
             // reply menu -> show reply menu dialog
@@ -265,6 +280,7 @@ export default function DigitGame(props) {
                 break;
 
             // restart is action item from reply menu call
+            // game will be restarted from scratch
             case 'restart':
                 setOpenAlert(ALERT.NONE);
 
@@ -272,6 +288,7 @@ export default function DigitGame(props) {
                 setTotal(0); setPassed(0); setFailed(0);
                 setResults([]); setDuration(new Date().getTime());
 
+                console.log('$$$ RESTART ' + counter);
                 proceed_with_next_task();
                 break;
 

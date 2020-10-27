@@ -68,9 +68,9 @@ export default function GameExit(props) {
 
             <DialogContent scroll='body'>
                 <BottomNavigation onChange={handleChange} showLabels>
-                    <BottomNavigationAction label={game[props.lang]['replay_title']} value='replay' icon={<ReplayIcon/>}/>
-                    <BottomNavigationAction label={game[props.lang]['help_title']} value='help' icon={<HelpOutlineIcon/>}/>
-                    <BottomNavigationAction label={game[props.lang]['results_title']} value='progress' icon={<ShowChartIcon/>}/>
+                    <BottomNavigationAction label={game[props.lang]['replay_title']} value='replay' icon={<ReplayIcon/>} style={{transform:'scale(1.3'}}/>
+                    <BottomNavigationAction label={game[props.lang]['help_title']} value='help' icon={<HelpOutlineIcon/>} style={{transform:'scale(1.3)'}}/>
+                    <BottomNavigationAction label={game[props.lang]['results_title']} value='progress' icon={<ShowChartIcon/>} style={{transform:'scale(1.3)'}}/>
 
                     {props.type === 'task' &&
                         <BottomNavigationAction label={game[props.lang]['previous_title']} value='previous' icon={<ArrowBackIcon/>} disabled/>

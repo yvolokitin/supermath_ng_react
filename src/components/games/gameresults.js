@@ -56,9 +56,16 @@ export default function GameResults(props) {
             'game_uid': props.game_uid,
         });
 
-        setTitle(gameresults[props.lang]['time'] + current_rates.hours + ' ' + gameresults[props.lang]['hours']
-            + ', ' + current_rates.minutes + ' ' + gameresults[props.lang]['minutes']
-            + ', ' + current_rates.seconds + ' ' + gameresults[props.lang]['seconds']);
+        var title_to_set = gameresults[props.lang]['time'] + ' ';
+        if (current_rates.hours > 0) {
+            title_to_set = title_to_set + current_rates.hours + ' ' + gameresults[props.lang]['hours'] + ', ';
+        }
+
+        if (current_rates.minutes > 0) {
+            title_to_set = title_to_set + current_rates.minutes + ' ' + gameresults[props.lang]['minutes']+ ', ';
+        }
+
+        setTitle(title_to_set + current_rates.seconds + ' ' + gameresults[props.lang]['seconds']);
 
     }, [props.user_id, props.game_uid, props.passed, props.failed, props.results, props.type,
         props.amount, props.duration, props.belt, props.lang]);
@@ -127,9 +134,9 @@ export default function GameResults(props) {
 
             <DialogContent scroll='body'>
                 <BottomNavigation onChange={handleChange} showLabels>
-                    <BottomNavigationAction label={gameresults[props.lang]['replay']} value='replay' icon={<ReplayIcon/>}/>
-                    <BottomNavigationAction label={gameresults[props.lang]['results']} value='results' icon={<CategoryIcon/>}/>
-                    <BottomNavigationAction label={gameresults[props.lang]['close']} value='close' icon={<HighlightOffIcon/>}/>
+                    <BottomNavigationAction label={gameresults[props.lang]['replay']} value='restart' icon={<ReplayIcon/>} style={{transform:'scale(1.7)'}}/>
+                    <BottomNavigationAction label={gameresults[props.lang]['results']} value='results' icon={<CategoryIcon/>} style={{transform:'scale(1.7)'}}/>
+                    <BottomNavigationAction label={gameresults[props.lang]['close']} value='close' icon={<HighlightOffIcon/>} style={{transform:'scale(1.7)'}}/>
                 </BottomNavigation>
             </DialogContent>
 

@@ -21,13 +21,14 @@ import {get_avatar_by_name} from './../halpers/avatars';
 import {get_belt_color} from './../halpers/functions';
 
 const POOP_COST = 30;
+const URL_SCORES = 'https://supermath.xyz:3000/api/scores';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='down' ref={ref} {...props} />;
 });
 
 export default function Trophy(props) {
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(props.open);
     const [progress, setProgress] = useState(false);
     const [scores, setScores] = useState([]);
     
@@ -71,13 +72,6 @@ export default function Trophy(props) {
         setLoading(false);
     }, [props.lang, ])
 
-    const getScores = useCallback(() => {
-        axios.post('https://supermath.xyz:3000/api/scores', {'amount': 10})
-             .then(onScoresUpdate)
-             .catch(onScoresError);
-
-    }, [onScoresUpdate, onScoresError])
-
     const throwPoop = useCallback(() => {
         var post = {
             'user_id': props.id,
@@ -93,13 +87,12 @@ export default function Trophy(props) {
     useEffect(() => {
         // console.log('Trophy.props.open ' + props.open);
         if (props.open === true) {
-            setLoading(true);
-            setTimeout(() => {
-                getScores();
-            }, 800);
+            axios.post(URL_SCORES, {'amount': 10})
+                .then(onScoresUpdate)
+                .catch(onScoresError);
         }
 
-    }, [props.open, props.lang, props.id, getScores]);
+    }, [props.open, onScoresUpdate, onScoresError]);
 
     function onThrowConfirmation(status) {
         console.log('Trophy.onThrowConfirmation ' + status);

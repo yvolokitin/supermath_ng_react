@@ -116,19 +116,22 @@ export default function Body(props) {
     }
 
     function onGameClose(status, data) {
-        if ((status === 'close') || (status === 'register')) {
-            setStatus(STATUS.NONE);
-        }
+        switch (status) {
+            case 'close':
+                setStatus(STATUS.NONE);
+                break;
 
-        if (props.id > 0) {
-            if (('failed' in data) && ('passed' in data)) {
-                if ((data.failed > 0) || (data.passed > 0)) {
-                    props.onUpdate('counter', data);
-                }
-            }
+            case 'register':
+                console.log('onGameClose: to be implemented :-)');
+                break;
 
-        } else if (status === 'register') {
-            props.onUpdate(status, data);
+            case 'finished':
+                props.onUpdate('counter', data);
+                break;
+
+            default:
+                setStatus(STATUS.NONE);
+                break;
         }
     }
 
