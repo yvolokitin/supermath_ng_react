@@ -7,6 +7,7 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import ReplayIcon from '@material-ui/icons/Replay';
 import CategoryIcon from '@material-ui/icons/Category';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import RadialChart from "./../charts/radialchart";
 import GameProgress from "./gameprogress";
@@ -32,7 +33,7 @@ export default function GameResults(props) {
     const [data, setData] = useState({});
 
     const handleChange = (event, value) => {
-        console.log('GameProgress.handleChange ' + value);
+        console.log('GameProgress.handleChange ' + value + ', props.user_id ' + props.user_id);
         if (value === 'results') {
             setProgress(true);
 
@@ -137,6 +138,10 @@ export default function GameResults(props) {
                     <BottomNavigationAction label={gameresults[props.lang]['replay']} value='restart' icon={<ReplayIcon/>} style={{transform:'scale(1.7)'}}/>
                     <BottomNavigationAction label={gameresults[props.lang]['results']} value='results' icon={<CategoryIcon/>} style={{transform:'scale(1.7)'}}/>
                     <BottomNavigationAction label={gameresults[props.lang]['close']} value='close' icon={<HighlightOffIcon/>} style={{transform:'scale(1.7)'}}/>
+
+                    {props.user_id === 0 &&
+                        <BottomNavigationAction label={gameresults[props.lang]['registration']} value='register' icon={<AccountCircleIcon/>} style={{transform:'scale(1.7)'}}/>
+                    }
                 </BottomNavigation>
             </DialogContent>
 

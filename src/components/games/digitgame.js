@@ -22,7 +22,7 @@ import GameHelp from './gamehelp';
 
 import ColorLine from './../line/line';
 
-import {GREEN_CIRCLE, RED_CIRCLE} from './../halpers/functions';
+import {GREEN_CIRCLE, RED_CIRCLE, get_rate_per_percent} from './../halpers/functions';
 import {get_timeout_per_test, get_radius_per_width} from './../halpers/functions';
 import {get_random_task_for_test} from './../halpers/programms';
 import {generate_task, align_task_format} from './../halpers/arithmetic';
@@ -241,21 +241,14 @@ export default function DigitGame(props) {
                 setOpenAlert(ALERT.RESULTS);
                 setCircles(0); setCounter(1);
  
-                var rate = 'really_bad';
                 var percent = 100 * passed / props.amount;
-                if (percent > 99) { rate = 'excellent';
-                } else if (percent > 95) { rate = 'quite_good';
-                } else if (percent > 90) { rate = 'good';
-                } else if (percent > 80) { rate = 'well';
-                } else if (percent > 60) { rate = 'not_well';
-                } else if (percent > 40) { rate = 'quite_bad';}
-
-                props.onClose('counter', {
+                props.onClose('finished', {
+                    'operation': 'results',
                     'game_uid': props.game_uid,
                     'passed': passed,
                     'failed': failed,
                     'duration': duration,
-                    'rate': rate,
+                    'rate': get_rate_per_percent(percent),
                     'percent': percent,
                     'belt': props.belt,
                     'task': props.type,
@@ -269,6 +262,14 @@ export default function DigitGame(props) {
                 }
                 setOpenAlert(ALERT.NONE); setCircles(0);
                 props.onClose('close');
+                break;
+
+            case 'register':
+                if (props.type === 'test') {
+                    clearTimeout(global_game_timer);
+                }
+                setOpenAlert(ALERT.NONE); setCircles(0);
+                props.onClose('register', '0000000');
                 break;
 
             // reply menu -> show reply menu dialog

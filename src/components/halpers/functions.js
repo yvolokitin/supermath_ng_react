@@ -56,3 +56,21 @@ export function get_radius_per_width() {
        return 8;
     }
 }
+
+export function get_rate_per_percent(percent) {
+    var rate = 'really_bad';
+    if (percent > 99) {
+        rate = 'excellent';
+    } else if (percent > 95) {
+        rate = 'quite_good';
+    } else if (percent > 90) {
+        rate = 'good';
+    } else if (percent > 80) {
+        rate = 'well';
+    } else if (percent > 60) {
+        rate = 'not_well';
+    } else if (percent > 40) {
+        rate = 'quite_bad';
+    }
+    return rate;
+}

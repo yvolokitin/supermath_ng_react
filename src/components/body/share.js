@@ -114,10 +114,9 @@ export default function Share(props) {
                     <BottomNavigationAction label={footer[props.lang]['about']} value='about' icon={<InfoIcon/>}/>
                     <BottomNavigationAction label={footer[props.lang]['help']} value='help' icon={<ContactSupportIcon/>}/>
 
-                    {(props.user_id < 1) ? (
+                    {props.user_id < 1 &&
                         <BottomNavigationAction label={footer[props.lang]['register']} value='register' icon={<AccountCircleIcon/>}/>
-                    ) : ( null )}
-
+                    }
                 </BottomNavigation>
             </DialogContent>
 

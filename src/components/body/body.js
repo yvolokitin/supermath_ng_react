@@ -91,9 +91,16 @@ export default function Body(props) {
         }
     }
 
-    function onShare(property, value='') {
-        console.log('Body.Share -> ' + property + ', value ' + value);
+    /**
+     * Callback on close action from finished game or bonus
+     */
+    function onClose(property, data) {
+        console.log('Body.onClose -> property ' + property + ', data: ' + JSON.stringify(data));
         switch (property) {
+            case 'close':
+                setStatus(STATUS.NONE);
+                break;
+
             case 'contacts':
                 setStatus(STATUS.CONTACTS);
                 break;
@@ -104,27 +111,13 @@ export default function Body(props) {
                 props.onUpdate(property);
                 break;
 
+            // data in that case is String value of bonus code
             case 'register':
                 setStatus(STATUS.NONE);
-                props.onUpdate(property, value);
+                props.onUpdate(property, data);
                 break;
 
-            default:
-                setStatus(STATUS.NONE);
-                break;
-        }
-    }
-
-    function onGameClose(status, data) {
-        switch (status) {
-            case 'close':
-                setStatus(STATUS.NONE);
-                break;
-
-            case 'register':
-                console.log('onGameClose: to be implemented :-)');
-                break;
-
+            // data in that case is JSON Object
             case 'finished':
                 props.onUpdate('counter', data);
                 break;
@@ -133,6 +126,8 @@ export default function Body(props) {
                 setStatus(STATUS.NONE);
                 break;
         }
+
+        console.log('Body.onGameClose -> status ' + status);
     }
 
     return (
@@ -201,14 +196,14 @@ export default function Body(props) {
 
             <DigitGame open={status === STATUS.GAME}
                 fullScreen={props.width<FULL_SCREEN}
-                id={props.id}
+                user_id={props.id}
                 game_uid={game.uid}
                 type={game.type}
                 conditions={game.task}
                 amount={game.amount}
                 lang={props.lang}
                 belt={color}
-                onClose={onGameClose}/>
+                onClose={onClose}/>
 
             <TaskGame open={status === STATUS.TASK}
                 fullScreen={props.width<FULL_SCREEN}
@@ -217,7 +212,7 @@ export default function Body(props) {
                 lang={props.lang}
                 width={props.width}
                 description={description}
-                onClose={onGameClose}/>
+                onClose={onClose}/>
 
             <Share open={status === STATUS.SHARE}
                 fullScreen={props.width<FULL_SCREEN}
@@ -225,7 +220,7 @@ export default function Body(props) {
                 name={props.name}
                 email={props.email}
                 lang={props.lang}
-                onClose={onShare}/>
+                onClose={onClose}/>
 
             <Contact open={status === STATUS.CONTACTS}
                 fullScreen={props.width<FULL_SCREEN}
@@ -233,7 +228,7 @@ export default function Body(props) {
                 name={props.name}
                 email={props.email}
                 lang={props.lang}
-                onClose={() => setStatus(STATUS.NONE)}/>
+                onClose={onClose}/>
 
         </div>
     );
