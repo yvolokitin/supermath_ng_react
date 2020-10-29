@@ -91,16 +91,16 @@ export default function GameProgress(props) {
 
                 {props.from === 'game' &&
                     <BottomNavigation onChange={handleChange} showLabels>
-                        <BottomNavigationAction label={game[props.lang]['exit_title']} value='exit' icon={<ExitToAppIcon/>}/>
-                        <BottomNavigationAction label={game[props.lang]['replay_title']} value='replay' icon={<ReplayIcon/>}/>
-                        <BottomNavigationAction label={game[props.lang]['help_title']} value='help' icon={<HelpOutlineIcon/>}/>
+                        <BottomNavigationAction label={game[props.lang]['exit_title']} value='exit' icon={<ExitToAppIcon/>} style={{transform:'scale(1.3'}}/>
+                        <BottomNavigationAction label={game[props.lang]['replay_title']} value='replay' icon={<ReplayIcon/>} style={{transform:'scale(1.3'}}/>
+                        <BottomNavigationAction label={game[props.lang]['help_title']} value='help' icon={<HelpOutlineIcon/>} style={{transform:'scale(1.3'}}/>
 
                         {props.type === 'task' &&
-                            <BottomNavigationAction label={game[props.lang]['previous_title']} value='previous' icon={<ArrowBackIcon/>} disabled/>
+                            <BottomNavigationAction label={game[props.lang]['previous_title']} value='previous' icon={<ArrowBackIcon/>} style={{transform:'scale(1.3'}} disabled/>
                         }
 
                         {props.type === 'task' &&
-                            <BottomNavigationAction label={game[props.lang]['next_title']}  value='next' icon={<ArrowForwardIcon/>}/>
+                            <BottomNavigationAction label={game[props.lang]['next_title']}  value='next' icon={<ArrowForwardIcon/>} style={{transform:'scale(1.3'}}/>
                         }
                     </BottomNavigation>
                 }

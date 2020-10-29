@@ -51,9 +51,6 @@ const TIMEOUT_BEFORE_TASK = 900;
 
 const fake_task = {expr1: '', result: 'fake'};
 
-// global timer for setTimeouts
-var game_timer = 0;
-
 export default function DigitGame(props) {
     const [circles, setCircles] = React.useState(0);
     const circlesRef = React.useRef(circles);
@@ -81,10 +78,7 @@ export default function DigitGame(props) {
     const [failed, setFailed] = React.useState(0);
 
     const [radius, setRadius] = React.useState(get_radius_per_width());
-
     const [duration, setDuration] = React.useState(new Date().getTime());
-    const [testTimeout, setTestTimeout] = React.useState(get_timeout_per_test(props.belt));
-
     const [openAlert, setOpenAlert] = React.useState(ALERT.NONE);
 
     useKeyboardEvent((key) => {
@@ -170,7 +164,6 @@ export default function DigitGame(props) {
 
         if (props.type === 'test') {
             setCircles(RED_CIRCLE);
-            clearTimeout(game_timer);
         }
 
         setResult(digit); setAnimation('shake 0.8s');
@@ -184,15 +177,14 @@ export default function DigitGame(props) {
 
         // clear result value in 0.7 seconds
         setTimeout(() => {
-            setResult('?');
-            setAnimation('');
+            setResult('?'); setAnimation('');
         }, 700);
 
     }, [props.type, attempt, ])
 
     React.useEffect(() => {
         if (props.open) {
-            console.log('DigitGame.useEffect -> counter ' + counter);
+            // console.log('DigitGame.useEffect -> counter ' + counter);
 
             // counter=1: initialization
             if (counter === 0) {
@@ -216,21 +208,17 @@ export default function DigitGame(props) {
                 }
 
                 setCounter(prevCounter => prevCounter + 1);
+
             }
 
             if (props.type === 'test' && openAlert === ALERT.NONE) {
-                console.log('DigitGame.useEffect -> circles ' + circles);
-
+                // console.log('DigitGame.useEffect -> circles ' + circles);
                 var test_timeout = get_timeout_per_test(props.belt);
-                setTestTimeout(test_timeout);
-
                 if (circlesRef.current < 9) {
                     const game_timer = setTimeout(() => {
                         setCircles(prevCircles => prevCircles + 1);
-
                     }, test_timeout);
                     return () => clearTimeout(game_timer);
-
                 } else if (circlesRef.current !== GREEN_CIRCLE && circlesRef.current !==  RED_CIRCLE) {
                     set_failed('?');
                 }
@@ -240,18 +228,11 @@ export default function DigitGame(props) {
     }, [props.open, props.belt, props.type, props.conditions, props.game_uid, counter, circles, set_failed, openAlert]);
 
     function set_passed(digit) {
-        console.log('PASSED, digit ' + digit + ', attempts ' + attempt + ', game_timer ' + game_timer);
-
+        console.log('PASSED, digit ' + digit + ', attempts ' + attempt);
         setResult(digit); setAnimation('smooth_yellow_to_green 0.8s');
         setColor('yellow'); setBoard('green');
 
-        if (props.type === 'test') {
-            setCircles(GREEN_CIRCLE);
-            clearTimeout(game_timer);
-        }
-
         if (attempt === 0) {
-            // setCounter(prevCounter => prevCounter + 1);
             setPassed(prevPassed => prevPassed + 1);
         }
 
@@ -261,14 +242,17 @@ export default function DigitGame(props) {
         // console.log('result_to_add ' + result_to_add.task + ', ' + result_to_add.color);
         setResults([...results, result_to_add]);
 
+        if (props.type === 'test') {
+            setCircles(GREEN_CIRCLE);
+        }
+
         setTimeout(() => {
-            proceed_with_next_task();
-            setCircles(0);
+            proceed_with_next_task(); setCircles(0);
         }, TIMEOUT_BEFORE_TASK);
     }
 
     function proceed_with_next_task() {
-        console.log('DigitGame.proceed_with_next_task -> testTimeout ' + testTimeout);
+        console.log('DigitGame.proceed_with_next_task -> passed ' + passed + ', failed ' + failed);
 
         if (counter < props.amount) {
             setBoard('yellow'); setColor('grey'); 
@@ -283,8 +267,6 @@ export default function DigitGame(props) {
                 setTask(generate_task(new_task_type_uid.type, new_task_type_uid.task));
                 setCircles(0);
 
-                // game_timer = setTimeout(() => {proceed_with_timeout();}, testTimeout);
-
             } else {
                 setTask(generate_task(type, conditions));
             }
@@ -293,6 +275,7 @@ export default function DigitGame(props) {
 
         } else {
             console.log('Game is Finished');
+            // setTimeout(() => onDialog('finished'), 200);
             onDialog('finished');
         }
     }
@@ -302,10 +285,7 @@ export default function DigitGame(props) {
         switch (status) {
             // when game is finished -> trigger results board
             case 'finished':
-                if (props.type === 'test') {
-                    clearTimeout(game_timer);
-                }
- 
+                console.log('DigitGame.onDialog -> ' + status + ', passed ' + passed);
                 var percent = 100 * passed / props.amount;
                 var result_data = {
                     'operation': 'results',
@@ -320,25 +300,18 @@ export default function DigitGame(props) {
                 };
 
                 props.onClose('finished', result_data);
-                // setCircles(0); setCounter(0);
                 setResultData(result_data);
                 setOpenAlert(ALERT.RESULTS);
                 break;
 
             // close game -> game interraption
             case 'close':
-                if (props.type === 'test') {
-                    clearTimeout(game_timer);
-                }
                 setOpenAlert(ALERT.NONE);
                 setCounter(0); setCircles(0);
                 props.onClose('close');
                 break;
 
             case 'register':
-                if (props.type === 'test') {
-                    clearTimeout(game_timer);
-                }
                 setOpenAlert(ALERT.NONE);
                 setCounter(0); setCircles(0);
                 props.onClose('register', '0000000');
@@ -347,9 +320,6 @@ export default function DigitGame(props) {
             // reply menu -> show reply menu dialog
             case 'replay':
                 setOpenAlert(ALERT.REPLAY);
-                if (props.type === 'test') {
-                    clearTimeout(game_timer);
-                }
                 break;
 
             // restart is action item from reply menu call
@@ -362,23 +332,14 @@ export default function DigitGame(props) {
             // show progress results in addition menu dialog
             case 'progress':
                 setOpenAlert(ALERT.PROGRESS);
-                if (props.type === 'test') {
-                    clearTimeout(game_timer);
-                }
                 break;
 
             case 'exit':
                 setOpenAlert(ALERT.EXIT);
-                if (props.type === 'test') {
-                    clearTimeout(game_timer);
-                }
                 break;
 
             case 'help':
                 setOpenAlert(ALERT.HELP);
-                if (props.type === 'test') {
-                    clearTimeout(game_timer);
-                }
                 break;
 
             default:
@@ -490,7 +451,7 @@ export default function DigitGame(props) {
                 </div>
                 <div className='games_header_div_right' onClick={() => onDialog('progress')}>
                     <font style={{color: 'black'}}>
-                        {counter} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128279;</span>
+                        {props.amount - counter} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128279;</span>
                     </font>
                     <font style={{color: 'green'}}>
                         {passed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
@@ -713,20 +674,3 @@ export default function DigitGame(props) {
         </Dialog>
     );
 }
-
-            // settings and info are temporary disabled
-            // development should be finished later
-/*
-            <GameInfo open={openAlert === ALERT.INFO}
-                description={props.description}
-                fullScreen={props.fullScreen}
-                type='game'
-                lang={props.lang}
-                onClose={onDialog}/>
-
-            <GameSettings open={openAlert === ALERT.SETTINGS}
-                fullScreen={props.fullScreen}
-                lang={props.lang}
-                onClose={onDialog}/>
-
-*/
