@@ -72,7 +72,7 @@ export default function Body(props) {
     }, [props.belt, ]);*/
 
     function onTabChange(user_tab) {
-        console.log('Body.onTabPress ' + user_tab.font);
+        console.log('Body.onTabPress ' + user_tab.id);
         set_item(props.id, 'belt', user_tab.id);
 
         setColor(user_tab.id);

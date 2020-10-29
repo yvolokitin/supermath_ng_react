@@ -72,7 +72,7 @@ import task9 from './../../images/levels/task_9.jpg';
 
 import test_img from './../../images/tasks/test_img.jpg';
 
-const task_amount = 2; // 30;
+const task_amount = 5; // 30;
 
 export const white_games = [
     {id: 1, uid: 'white1', logo: white1, type: 'linedigits', task: '0-7', amount: task_amount},

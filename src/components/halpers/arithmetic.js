@@ -19,9 +19,8 @@ var OPERATION_DIV = ':';
  * @returns {object} - task object
  */
 export function generate_task(type, settings) {
-    console.log('arithmetic.generate_task -> ' + type + ', settings ' + settings);
+    // console.log('arithmetic.generate_task -> ' + type + ', settings ' + settings);
     var array = settings.split(',');
-
     // depends from type, result may have different properties
     var task, result = {};
 

@@ -53,10 +53,12 @@ export default function Registration(props) {
     const [error, setError] = useState('');
 
     React.useEffect(() => {
-        console.log('props.refferal -> ' + props.refferal);
-        setBonus(props.refferal);
+        if (props.open) {
+            console.log('props.refferal -> ' + props.refferal);
+            setBonus(props.refferal);
+       }
 
-    }, [props.refferal, ]);
+    }, [props.open, props.refferal, ]);
 
     const onClose = useCallback((status, data) => {
         console.log('Registration.onClose ' + status + ', loading ' + loading);
