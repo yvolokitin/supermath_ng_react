@@ -152,6 +152,11 @@ export default function Login(props) {
 
     }, [ ])
 
+    /*
+                <div className='login_forms' style={{marginTop: '10px'}}>
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                </div>
+    */
     return (
         <Dialog open={props.open} fullWidth={true} fullScreen={props.fullScreen}
             TransitionComponent={Transition} transitionDuration={900}>
