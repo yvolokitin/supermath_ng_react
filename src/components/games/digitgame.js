@@ -228,7 +228,7 @@ export default function DigitGame(props) {
     }, [props.open, props.belt, props.type, props.conditions, props.game_uid, counter, circles, set_failed, openAlert]);
 
     function set_passed(digit) {
-        console.log('PASSED, digit ' + digit + ', attempts ' + attempt);
+        // console.log('PASSED, digit ' + digit + ', attempts ' + attempt);
         setResult(digit); setAnimation('smooth_yellow_to_green 0.8s');
         setColor('yellow'); setBoard('green');
 
@@ -252,8 +252,7 @@ export default function DigitGame(props) {
     }
 
     function proceed_with_next_task() {
-        console.log('DigitGame.proceed_with_next_task -> passed ' + passed + ', failed ' + failed);
-
+        // console.log('DigitGame.proceed_with_next_task -> passed ' + passed + ', failed ' + failed);
         if (counter < props.amount) {
             setBoard('yellow'); setColor('grey'); 
             setResult('?'); setAttempt(0);
@@ -275,22 +274,22 @@ export default function DigitGame(props) {
 
         } else {
             console.log('Game is Finished');
-            // setTimeout(() => onDialog('finished'), 200);
             onDialog('finished');
         }
     }
 
     function onDialog(status) {
-        // console.log('DigitGame.onDialog -> ' + status);
+        console.log('DigitGame.onDialog -> ' + status);
         switch (status) {
             // when game is finished -> trigger results board
             case 'finished':
-                console.log('DigitGame.onDialog -> ' + status + ', passed ' + passed);
-                var percent = 100 * passed / props.amount;
+                // console.log('DigitGame.onDialog -> ' + status + ', passed ' + passed);
+                // (props.amount - failed) is workaround for passed calculations
+                var percent = 100 * (props.amount - failed) / props.amount;
                 var result_data = {
                     'operation': 'results',
                     'game_uid': props.game_uid,
-                    'passed': passed,
+                    'passed': (props.amount - failed),
                     'failed': failed,
                     'duration': (new Date().getTime() - duration),
                     'rate': get_rate_per_percent(percent),
@@ -451,7 +450,7 @@ export default function DigitGame(props) {
                 </div>
                 <div className='games_header_div_right' onClick={() => onDialog('progress')}>
                     <font style={{color: 'black'}}>
-                        {props.amount - counter} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128279;</span>
+                        {props.amount - counter + 1} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128279;</span>
                     </font>
                     <font style={{color: 'green'}}>
                         {passed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>

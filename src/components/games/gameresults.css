@@ -16,10 +16,8 @@
     align-items: center;
     justify-content: center;
 
-    background-color: #00cc66;
-    border-radius: 15px 50px;
-
     cursor: pointer;
+    user-select: none;
     font-size: 6.2rem;
     font-family: 'Grinched';
     text-shadow: 2px 2px black;
@@ -27,6 +25,8 @@
     box-shadow: 7px 7px black;
 
     transition: transform .8s;
+    border-radius: 15px 50px;
+    background-color: #00cc66;
 }
 .result_board_body {
     width: 94%;
@@ -36,6 +36,7 @@
     margin-left: 3%;
     margin-right: 3%;
 
+    user-select: none;
     text-align: center;
     text-shadow: 1px 1px black;
     font-family: 'Grinched';

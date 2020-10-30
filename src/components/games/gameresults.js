@@ -30,12 +30,11 @@ export default function GameResults(props) {
     const [title, setTitle] = React.useState('');
 
     const handleChange = (event, value) => {
-        console.log('GameProgress.handleChange ' + value + ', props.user_id ' + props.user_id);
+        console.log('GameResults.handleChange ' + value + ', props.user_id ' + props.user_id);
         if (value === 'results') {
             setProgress(true);
-
         } else {
-            props.onClose('close');
+            props.onClose(value);
         }
     }
 
@@ -73,7 +72,7 @@ export default function GameResults(props) {
             <ColorLine margin={'0px'}/>
 
             <div className='result_board'>
-                <div className='result_board_chart'>
+                <div className='result_board_chart' onClick={() => handleChange('', 'results')}>
                     <font style={{color:'#248f24',}}>
                         <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span> &nbsp; {props.data.passed} &nbsp;
                     </font>
