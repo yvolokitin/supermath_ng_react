@@ -2,6 +2,8 @@
 import {Fab, CircularProgress, Snackbar} from '@material-ui/core';
 import {Slide, Dialog, TextField, Link, Button,} from '@material-ui/core';
 
+import { GoogleLogin } from 'react-google-login';
+
 import Alert from '@material-ui/lab/Alert';
 
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -13,6 +15,8 @@ import ColorLine from './../line/line';
 import {login} from './../translations/login';
 
 import image from './../../images/login.png';
+
+import {GOOGLE_CLIENTID} from './../halpers/authentication';
 
 import {get_avatar_by_name} from './../halpers/avatars';
 import {set_item, generate_pswdhash} from './../halpers/localstorage';
@@ -40,7 +44,7 @@ export default function Login(props) {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        if (props.open === true) {
+        if (props.open) {
             setUsers(get_local_users(0));
         }
 
@@ -152,61 +156,68 @@ export default function Login(props) {
 
     }, [ ])
 
+    const onGoogleSuccess = (res) => {
+        console.log('Login.onGoogleSuccess -> ' + res.profileObj);
+        // refreshTokenSetup(res);
+    };
+
+    const onGoogleFailure = (res) => {
+        console.log('Login.onGoogleFailure -> ' + res);
+    };
+
     /*
-                <div className='login_forms' style={{marginTop: '10px'}}>
-                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                </div>
+            <div className='login_wrapper'>
+                    <div className='login_forms'>
+                        <Fab style={{color: 'white', backgroundColor: 'red'}}>
+                            {(success) ? ( <CheckIcon/> ) : ( <LockOutlinedIcon/> )}
+                        </Fab>
+                        {loading && <CircularProgress size={68} className='login_forms_progress'/>}
+                    </div>
+            </div>
+
     */
     return (
-        <Dialog open={props.open} fullWidth={true} fullScreen={props.fullScreen}
+        <Dialog open={props.open} maxWidth='md' scroll='body'
+            fullScreen={props.fullScreen} fullWidth={true}
             TransitionComponent={Transition} transitionDuration={900}>
 
             <Title title={props.title} src={image} onClose={() => props.onClose('close')} fullScreen={props.fullScreen}/>
             <ColorLine margin={'0px'}/>
 
             <div className='login_wrapper'>
-                <div className='login_forms'>
-                    <Fab style={{color: 'white', backgroundColor: 'red'}}>
-                        {(success) ? (
-                            <CheckIcon/>
-                        ) : (
-                            <LockOutlinedIcon/>
-                        )}
-                    </Fab>
-
-                    {(loading === true) ? (
-                        <CircularProgress size={68} className='login_forms_progress'/>
-                    ) : (
-                        <> </>
-                    )}
+                <div className='login_wrapper_left'>
+                    <div className='login_forms'>
+                        <TextField disabled={loading} onChange={(event) => setEmail(event.target.value)}
+                            required fullWidth autoFocus variant='outlined' margin='normal' autoComplete='email' label={login[props.lang]['email']}/>
+                    </div>
+                    <div className='login_forms'>
+                        <TextField disabled={loading} onChange={(event) => setPassword(event.target.value)} autoComplete='current-password'
+                            required fullWidth variant='outlined' margin='normal' type='password' label={login[props.lang]['password']}/>
+                    </div>
+                    <div className='login_forms' style={{marginTop: '10px'}}>
+                        <Button disabled={loading} onClick={() => onLogin()} fullWidth type='submit' variant='contained' color='primary'>
+                            {login[props.lang]['login']}
+                        </Button>
+                    </div>
+                    <div className='login_forms_links'>
+                        <Link onClick={() => onClose('forget')} variant='body2'>{login[props.lang]['forgot']}</Link>
+                        <Link onClick={() => onClose('register')} variant='body2'>{login[props.lang]['signup']}</Link>
+                    </div>
                 </div>
 
-                <div className='login_forms'>
-                    <TextField disabled={loading} onChange={(event) => setEmail(event.target.value)}
-                        required fullWidth autoFocus variant='outlined' margin='normal' autoComplete='email' label={login[props.lang]['email']}/>
-                </div>
+                <div className='login_wrapper_right'>
+                    <GoogleLogin clientId={GOOGLE_CLIENTID} buttonText='Sign in with Google' cookiePolicy={'single_host_origin'}
+                        onSuccess={onGoogleSuccess} onFailure={onGoogleFailure} isSignedIn={true} style={{borderRadius:'5px', border: '1px solid black'}}/>
 
-                <div className='login_forms'>
-                    <TextField disabled={loading} onChange={(event) => setPassword(event.target.value)} autoComplete='current-password'
-                        required fullWidth variant='outlined' margin='normal' type='password' label={login[props.lang]['password']}/>
-                </div>
-
-                <div className='login_forms' style={{marginTop: '10px'}}>
-                    <Button disabled={loading} onClick={() => onLogin()} fullWidth type='submit' variant='contained' color='primary'>
-                        {login[props.lang]['login']}
-                    </Button>
-                </div>
-
-                <div className='login_forms_links'>
-                    <Link onClick={() => onClose('forget')} variant='body2'>{login[props.lang]['forgot']}</Link>
-                    <Link onClick={() => onClose('register')} variant='body2'>{login[props.lang]['signup']}</Link>
+                    <GoogleLogin clientId={GOOGLE_CLIENTID} buttonText='Sign in with Google' cookiePolicy={'single_host_origin'}
+                        onSuccess={onGoogleSuccess} onFailure={onGoogleFailure} isSignedIn={true} disabled={true}/>
                 </div>
             </div>
 
-            {(users.length > 0) ? (
+            {users.length > 0 &&
                 <>
                     <ColorLine margin={'10px'}/>
-                    <div className='login_wrapper'>
+                    <div className='login_wrapper_users'>
                         {users.map((user) =>
                             <div key={user.id} className='login_account'>
                                 <div className='login_account_avatar' onClick={() => onHashLogin(user.email, user.pswdhash)}>
@@ -228,7 +239,7 @@ export default function Login(props) {
                     </div>
                     <ColorLine margin={'10px'}/>
                 </>
-            ) : (<></>)}
+            }
 
             <Snackbar open={error.length !== 0} onClose={() => setError('')} autoHideDuration={15000} anchorOrigin={{vertical:'top', horizontal:'center'}}>
                 <Alert onClose={() => setError('')} severity='error'>
