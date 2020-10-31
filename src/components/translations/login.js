@@ -9,10 +9,23 @@ export const login = {
         'remember': 'Remember me',
         'forgot': 'Forgot password?',
         'signup': 'Don\'t have an account? Sign Up',
+
         'error': 'Login failed',
         'error_no_user': 'Sorry, You have entered wrong email address or password!',
         'error_no_data': 'Uuupps! Something went wrong. Received NO data in response from server',
         'error_no_error': 'Uuupps! Something went wrong, no ID or ERROR in data response from server',
+
+        'error_google': 'We are sorry, Login with Google not implemented yet. Please, try it later',
+        'error_facebook': 'We are sorry, Login with Facebook not implemented yet. Please, try it later',
+        'error_twitter': 'We are sorry, Login with Twitter not implemented yet. Please, try it later',
+        'error_vk': 'We are sorry, Login with VKontakte not implemented yet. Please, try it later',
+
+        'signin': 'Login with ',
+        'click': 'Click \'Login\' to agree to ',
+        'terms': 'SuperMath’s Terms of Service',
+        'acknowledge': ' and acknowledge that ',
+        'policy': 'SuperMath’s Privacy Policy',
+        'applies': ' applies to you',
     },
     // Russian
     'ru': {
@@ -23,10 +36,23 @@ export const login = {
         'remember': 'Запомнить',
         'forgot': 'Забыли пароль?',
         'signup': 'Создать аккаунт',
+
         'error': 'Ошибка входа',
         'error_no_user': 'Указан неверный email адрес или пароль!',
         'error_no_data': 'Uuupps! Что-то пошло не так и сервер не отвечает',
         'error_no_error': 'Uuupps! Что-то пошло не так и сервер ответил с ошибкой',
+
+        'error_google': 'We are sorry, Login with Google not implemented yet. Please, try it later',
+        'error_facebook': 'We are sorry, Login with Facebook not implemented yet. Please, try it later',
+        'error_twitter': 'We are sorry, Login with Twitter not implemented yet. Please, try it later',
+        'error_vk': 'We are sorry, Login with VKontakte not implemented yet. Please, try it later',
+
+        'signin': 'Войти с ',
+        'click': 'Нажимая \'Войти\', вы принимаете условия ',
+        'terms': 'Пользовательского Соглашения',
+        'acknowledge': ' SuperMath и принимаете условиями ',
+        'policy': 'Политики Конфиденциальности',
+        'applies': '.',
     },
     // Dutch
     'nl' : {
@@ -37,10 +63,23 @@ export const login = {
         'remember': 'Remember me',
         'forgot': 'Forgot password?',
         'signup': 'Don\'t have an account? Sign Up',
+
         'error': 'Login failed',
         'error_no_user': 'Sorry, You have entered wrong email address or password!',
         'error_no_data': 'Uuupps! Something went wrong. Received NO data in response from server',
         'error_no_error': 'Uuupps! Something went wrong, no ID or ERROR in data response from server',
+
+        'error_google': 'We are sorry, Login with Google not implemented yet. Please, try it later',
+        'error_facebook': 'We are sorry, Login with Facebook not implemented yet. Please, try it later',
+        'error_twitter': 'We are sorry, Login with Twitter not implemented yet. Please, try it later',
+        'error_vk': 'We are sorry, Login with VKontakte not implemented yet. Please, try it later',
+
+        'signin': 'Login with ',
+        'click': 'Click \'Login\' to agree to ',
+        'terms': 'SuperMath’s Terms of Service',
+        'acknowledge': ' and acknowledge that ',
+        'policy': 'SuperMath’s Privacy Policy',
+        'applies': ' applies to you',
     },
     // French
     'fr' : {
@@ -51,10 +90,23 @@ export const login = {
         'remember': 'Remember me',
         'forgot': 'Forgot password?',
         'signup': 'Don\'t have an account? Sign Up',
+
         'error': 'Login failed',
         'error_no_user': 'Sorry, You have entered wrong email address or password!',
         'error_no_data': 'Uuupps! Something went wrong. Received NO data in response from server',
         'error_no_error': 'Uuupps! Something went wrong, no ID or ERROR in data response from server',
+
+        'error_google': 'We are sorry, Login with Google not implemented yet. Please, try it later',
+        'error_facebook': 'We are sorry, Login with Facebook not implemented yet. Please, try it later',
+        'error_twitter': 'We are sorry, Login with Twitter not implemented yet. Please, try it later',
+        'error_vk': 'We are sorry, Login with VKontakte not implemented yet. Please, try it later',
+
+        'signin': 'Login with ',
+        'click': 'Click \'Login\' to agree to ',
+        'terms': 'SuperMath’s Terms of Service',
+        'acknowledge': ' and acknowledge that ',
+        'policy': 'SuperMath’s Privacy Policy',
+        'applies': ' applies to you',
     },
     // German
     'de' : {
@@ -65,10 +117,23 @@ export const login = {
         'remember': 'Remember me',
         'forgot': 'Forgot password?',
         'signup': 'Don\'t have an account? Sign Up',
+
         'error': 'Login failed',
         'error_no_user': 'Sorry, You have entered wrong email address or password!',
         'error_no_data': 'Uuupps! Something went wrong. Received NO data in response from server',
         'error_no_error': 'Uuupps! Something went wrong, no ID or ERROR in data response from server',
+
+        'error_google': 'We are sorry, Login with Google not implemented yet. Please, try it later',
+        'error_facebook': 'We are sorry, Login with Facebook not implemented yet. Please, try it later',
+        'error_twitter': 'We are sorry, Login with Twitter not implemented yet. Please, try it later',
+        'error_vk': 'We are sorry, Login with VKontakte not implemented yet. Please, try it later',
+
+        'signin': 'Login with ',
+        'click': 'Click \'Login\' to agree to ',
+        'terms': 'SuperMath’s Terms of Service',
+        'acknowledge': ' and acknowledge that ',
+        'policy': 'SuperMath’s Privacy Policy',
+        'applies': ' applies to you',
     },
     // Spanish
     'es' : {
@@ -83,6 +148,13 @@ export const login = {
         'error_no_user': 'Sorry, You have entered wrong email address or password!',
         'error_no_data': 'Uuupps! Something went wrong. Received NO data in response from server',
         'error_no_error': 'Uuupps! Something went wrong, no ID or ERROR in data response from server',
+
+        'signin': 'Login with ',
+        'click': 'Click \'Login\' to agree to ',
+        'terms': 'SuperMath’s Terms of Service',
+        'acknowledge': ' and acknowledge that ',
+        'policy': 'SuperMath’s Privacy Policy',
+        'applies': ' applies to you',
     },
     // Italian
     'it' : {
@@ -97,5 +169,12 @@ export const login = {
         'error_no_user': 'Sorry, You have entered wrong email address or password!',
         'error_no_data': 'Uuupps! Something went wrong. Received NO data in response from server',
         'error_no_error': 'Uuupps! Something went wrong, no ID or ERROR in data response from server',
+
+        'signin': 'Login with ',
+        'click': 'Click \'Login\' to agree to ',
+        'terms': 'SuperMath’s Terms of Service',
+        'acknowledge': ' and acknowledge that ',
+        'policy': 'SuperMath’s Privacy Policy',
+        'applies': ' applies to you',
     },
 };

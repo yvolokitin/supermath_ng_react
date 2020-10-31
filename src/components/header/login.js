@@ -1,13 +1,6 @@
 ﻿import React, { useEffect, useCallback, useState } from 'react';
-import {Fab, CircularProgress, Snackbar} from '@material-ui/core';
-import {Slide, Dialog, TextField, Link, Button,} from '@material-ui/core';
-
-import { GoogleLogin } from 'react-google-login';
-
+import {Snackbar, Slide, Dialog, TextField, Link, Button,} from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
-
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import CheckIcon from '@material-ui/icons/Check';
 
 import Title from './../title/title';
 import ColorLine from './../line/line';
@@ -16,15 +9,21 @@ import {login} from './../translations/login';
 
 import image from './../../images/login.png';
 
-import {GOOGLE_CLIENTID} from './../halpers/authentication';
-
 import {get_avatar_by_name} from './../halpers/avatars';
 import {set_item, generate_pswdhash} from './../halpers/localstorage';
 import {validate_email, validate_pswd} from './../halpers/validator.js';
 import {get_local_users, remove_local_user} from './../halpers/localstorage';
 
+import icon1 from './../../images/signin/g-logo.png';
+import icon2 from './../../images/signin/f-logo.png';
+import icon3 from './../../images/signin/t-logo.png';
+import icon4 from './../../images/signin/VK_Compact_Logo.svg';
+
 import axios from 'axios';
 import './login.css';
+
+// import GoogleLogin from 'react-google-login';
+// import {GOOGLE_CLIENTID} from './../halpers/authentication';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='down' ref={ref} {...props} />;
@@ -33,11 +32,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const DEFAULT_HIDDEN_PSWD = '*******';
 
 export default function Login(props) {
+    const networks = [
+        {id: 'Google', icon: icon1},
+        {id: 'Facebook', icon: icon2},
+        {id: 'Twitter', icon: icon3},
+        {id: 'VK', icon: icon4}];
+
     // login credentials: email and password
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const [success, setSuccess] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
@@ -82,8 +86,7 @@ export default function Login(props) {
                         set_item(response.data.id, 'pswdhash', pswdhash);
                     }
 
-                    setSuccess(true); setLoading(false);
-                    onClose('successed', response.data);
+                    setLoading(false); onClose('successed', response.data);
                 }, timeout);
 
             } else if ('error' in response.data) {
@@ -92,18 +95,16 @@ export default function Login(props) {
                     if ('no user found') {
                         message = login[props.lang]['error_no_user'];
                     }
-                    setSuccess(false); setLoading(false); setError(message);
+                    setLoading(false); setError(message);
                 }, timeout);
             } else {
                 setTimeout(() => {
-                    setSuccess(false); setLoading(false);
-                    setError(login[props.lang]['error_no_error']);
+                    setLoading(false); setError(login[props.lang]['error_no_error']);
                 }, timeout);
             }
         } else {
             setTimeout(() => {
-                setSuccess(false); setLoading(false);
-                setError(login[props.lang]['error_no_data']);
+                setLoading(false); setError(login[props.lang]['error_no_data']);
             }, timeout);
         } 
 
@@ -111,28 +112,64 @@ export default function Login(props) {
 
     const onLoginError = useCallback((error) => {
         console.log('Login.onLoginError -> axios.post error ' + error);
-        setSuccess(false); setLoading(false);
-        setError(error.toString());
+        setLoading(false); setError(error.toString());
 
     }, [ ])
 
-    const onLogin = useCallback(() => {
-        // console.log('Login.onLogin -> email ' + email + ', password ' + password);
-        if (validate_email(email, props.lang) === 'ok') {
-            if (validate_pswd(password, props.lang) === 'ok') {
-                setLoading(true); var pswdhash = generate_pswdhash(password);
-                // console.log('onLogin -> crypto pswdhash: ' + pswdhash);
-                var post_data = {'email': email, 'pswdhash': pswdhash};
-                axios.post('https://supermath.xyz:3000/api/login', post_data)
-                    .then(onLoginResponse)
-                    .catch(onLoginError);
+    const onLogin = useCallback((login_type) => {
+        console.log('Login.onLogin -> ' + login_type);
+        switch (login_type) {
+            case 'Google':
+                setLoading(true);
+                setTimeout(() => {
+                    setError(login[props.lang]['error_google']);
+                    setLoading(false);
+                }, 1700);
+                break;
 
-            } else {
-                setError(validate_pswd(password, props.lang));
-            }
-        } else {
-            setError(validate_email(email, props.lang));
+            case 'Facebook':
+                setLoading(true);
+                setTimeout(() => {
+                    setError(login[props.lang]['error_facebook']);
+                    setLoading(false);
+                }, 1700);
+                break;
+
+            case 'Twitter':
+                setLoading(true);
+                setTimeout(() => {
+                    setError(login[props.lang]['error_twitter']);
+                    setLoading(false);
+                }, 1700);
+                break;
+
+            case 'VK':
+                setLoading(true);
+                setTimeout(() => {
+                    setError(login[props.lang]['error_vk']);
+                    setLoading(false);
+                }, 1700);
+                break;
+
+            default:
+                console.log('Login.onLogin -> email ' + email + ', password ' + password);
+                if (validate_email(email, props.lang) === 'ok') {
+                    if (validate_pswd(password, props.lang) === 'ok') {
+                        setLoading(true); var pswdhash = generate_pswdhash(password);
+                        // console.log('onLogin -> crypto pswdhash: ' + pswdhash);
+                        var post_data = {'email': email, 'pswdhash': pswdhash};
+                        axios.post('https://supermath.xyz:3000/api/login', post_data)
+                            .then(onLoginResponse)
+                            .catch(onLoginError);
+                    } else {
+                        setError(validate_pswd(password, props.lang));
+                    }
+                } else {
+                    setError(validate_email(email, props.lang));
+                }
+                break;
         }
+
     }, [props.lang, email, password, onLoginResponse, onLoginError, ])
 
     const onHashLogin = useCallback((user_email, user_pswd) => {
@@ -156,6 +193,7 @@ export default function Login(props) {
 
     }, [ ])
 
+    /*
     const onGoogleSuccess = (res) => {
         console.log('Login.onGoogleSuccess -> ' + res.profileObj);
         // refreshTokenSetup(res);
@@ -165,17 +203,25 @@ export default function Login(props) {
         console.log('Login.onGoogleFailure -> ' + res);
     };
 
-    /*
-            <div className='login_wrapper'>
-                    <div className='login_forms'>
-                        <Fab style={{color: 'white', backgroundColor: 'red'}}>
-                            {(success) ? ( <CheckIcon/> ) : ( <LockOutlinedIcon/> )}
-                        </Fab>
-                        {loading && <CircularProgress size={68} className='login_forms_progress'/>}
-                    </div>
-            </div>
-
+                        <GoogleLogin clientId={GOOGLE_CLIENTID} buttonText='Sign in with Google' cookiePolicy={'single_host_origin'}
+                            onSuccess={onGoogleSuccess} onFailure={onGoogleFailure} isSignedIn={true}/>
     */
+
+    /*
+                    <div style={{width: '98%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center',}}>
+                        <img src={image_numbers} alt='progress'/>
+                    </div>
+    */
+    function ProgressDialog(props) {
+        return (
+            <Dialog open={props.open} maxWidth='md' scroll='body'
+                style={{backgroundColor: 'transparent'}}
+                fullScreen={props.fullScreen} fullWidth={true}>
+
+            </Dialog>
+        );
+    }
+
     return (
         <Dialog open={props.open} maxWidth='md' scroll='body'
             fullScreen={props.fullScreen} fullWidth={true}
@@ -195,7 +241,7 @@ export default function Login(props) {
                             required fullWidth variant='outlined' margin='normal' type='password' label={login[props.lang]['password']}/>
                     </div>
                     <div className='login_forms' style={{marginTop: '10px'}}>
-                        <Button disabled={loading} onClick={() => onLogin()} fullWidth type='submit' variant='contained' color='primary'>
+                        <Button disabled={loading} onClick={() => onLogin('email')} fullWidth type='submit' variant='contained' color='primary'>
                             {login[props.lang]['login']}
                         </Button>
                     </div>
@@ -206,47 +252,60 @@ export default function Login(props) {
                 </div>
 
                 <div className='login_wrapper_right'>
-                    <GoogleLogin clientId={GOOGLE_CLIENTID} buttonText='Sign in with Google' cookiePolicy={'single_host_origin'}
-                        onSuccess={onGoogleSuccess} onFailure={onGoogleFailure} isSignedIn={true} style={{borderRadius:'5px', border: '1px solid black'}}/>
+                    {networks.map((net) =>
+                        <div key={net.id} className='login_wrapper_signin'>
+                            <div className='login_wrapper_signin_net' onClick={() => onLogin(net.id)}>
+                                <div className='login_wrapper_signin_net_icon'>
+                                    <img src={net.icon} alt='login' onContextMenu={(e) => e.preventDefault()}/>
+                                </div>
 
-                    <GoogleLogin clientId={GOOGLE_CLIENTID} buttonText='Sign in with Google' cookiePolicy={'single_host_origin'}
-                        onSuccess={onGoogleSuccess} onFailure={onGoogleFailure} isSignedIn={true} disabled={true}/>
+                                {login[props.lang]['signin']} {net.id}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </div>
+            <div className='login_wrapper' style={{justifyContent: 'center'}}>
+                <div className='login_wrapper_center'>
+                    {login[props.lang]['click']}
+                    <a href='https://supermath.xyz:3000/static/policy/privacy_policy_ru.pdf' target='_blank' rel='noopener noreferrer'> {login[props.lang]['terms']} </a>
+                    {login[props.lang]['acknowledge']} 
+                    <a href='https://supermath.xyz:3000/static/policy/privacy_policy_ru.pdf' target='_blank' rel='noopener noreferrer'> {login[props.lang]['policy']} </a>
+                    {login[props.lang]['applies']}
                 </div>
             </div>
 
+            <ColorLine margin={'10px'}/>
             {users.length > 0 &&
-                <>
-                    <ColorLine margin={'10px'}/>
-                    <div className='login_wrapper_users'>
-                        {users.map((user) =>
-                            <div key={user.id} className='login_account'>
-                                <div className='login_account_avatar' onClick={() => onHashLogin(user.email, user.pswdhash)}>
-                                    <img src={get_avatar_by_name(user.avatar)} alt={user.avatar} onContextMenu={(e) => e.preventDefault()}/>
+                <div className='login_wrapper' style={{flexDirection: 'column', marginTop: '5px'}}>
+                    {users.map((user) =>
+                        <div key={user.id} className='login_account'>
+                            <div className='login_account_avatar' onClick={() => onHashLogin(user.email, user.pswdhash)}>
+                                <img src={get_avatar_by_name(user.avatar)} alt={user.avatar} onContextMenu={(e) => e.preventDefault()}/>
+                            </div>
+                            <div className='login_account_name'>
+                                <div className='login_account_name_signout' onClick={() => onDelete(user.id)}>
+                                    <font>{login[props.lang]['delete']}</font>
                                 </div>
-                                <div className='login_account_name'>
-                                    <div className='login_account_name_signout' onClick={() => onDelete(user.id)}>
-                                        <font>{login[props.lang]['delete']}</font>
-                                    </div>
-                                    <div className='login_account_name_surname' onClick={() => onHashLogin(user.email, user.pswdhash)}>
-                                        {user.name} {user.surname}
-                                    </div>
-                                    <div className='login_account_name_email' onClick={() => onHashLogin(user.email, user.pswdhash)}>
-                                        {user.email}
-                                    </div>
+                                <div className='login_account_name_surname' onClick={() => onHashLogin(user.email, user.pswdhash)}>
+                                    {user.name} {user.surname}
+                                </div>
+                                <div className='login_account_name_email' onClick={() => onHashLogin(user.email, user.pswdhash)}>
+                                    {user.email}
                                 </div>
                             </div>
-                        )}
-                    </div>
-                    <ColorLine margin={'10px'}/>
-                </>
+                        </div>
+                    )}
+                </div>
             }
 
-            <Snackbar open={error.length !== 0} onClose={() => setError('')} autoHideDuration={15000} anchorOrigin={{vertical:'top', horizontal:'center'}}>
+            <Snackbar open={error.length !== 0} onClose={() => setError('')} anchorOrigin={{vertical:'top', horizontal:'center'}}>
                 <Alert onClose={() => setError('')} severity='error'>
                     {login[props.lang]['error']}: {error}
                 </Alert>
             </Snackbar>
 
+            <ProgressDialog open={loading}/>
         </Dialog>
     );
 }
