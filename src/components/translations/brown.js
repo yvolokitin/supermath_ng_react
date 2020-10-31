@@ -107,7 +107,7 @@ export const brown_descriptions = {
         '8': 'Addition and Subtraction of four numbers, where each number has different length: one-digit, two-digit, three- and four-digit. For example, 4051 + 655 + 70 + 5 = ? (result is 4781).',
         '9': 'Tasks for Long Multiplication of of two- and three-digit numbers (from 10 to 999). Multiplication often denoted by the cross symbol x or by an asterisk * or dot. For example, 631 x 104 = ? (result is 65624) OR 306 x 703 = ? (results is 215118).',
         // '9': 'Tasks for Division with remainder of two natural numbers provides a quotient, which is the number of times the second one is contained in the first one, and a remainder, which is the part of the first number that remains, when in the course of computing the quotient, no further full chunk of the size of the second number can be allocated.',
-        '10': 'Take Brown Belt Test',
+        '10': 'Take Brown Belt Test. Programs are randomly selected and limited by time for response (50 seconds max per each task).',
     },
     // Russian
     'ru': {
@@ -120,7 +120,7 @@ export const brown_descriptions = {
         '7': 'Сложение и Вычитание в столбик трех трехзначных чисел',
         '8': 'Сложение и Вычитание четырех-, трех-, дву и одназначных',
         '9': 'Умножение в столбик дву и трехзначных чисел',
-        '10': 'Пройди тест на Бурый пояс',
+        '10': 'Пройди тест на Бурый пояс. Программы выбираются в случайном порядке и ограничены по времени для ответа (50 секунд максимум на решение одной задачи).',
     },
     // Dutch
     'nl' : {

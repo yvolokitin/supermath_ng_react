@@ -106,7 +106,7 @@ export const green_descriptions = {
         '7': 'Tasks for Addition and Subtraction of hungreds, tens and one digit numbers. ',
         '8': 'Long Addition and Subtraction of two- and three- digit numbers. All digits are located and ordered in right rank: ones under ones, tens under tens, etc.',
         '9': 'Long Addition and Subtraction of four digit numbers. All digits are located and ordered in right rank: ones under ones, tens under tens, etc.',
-        '10': 'The Green Belt test includes the following programs: tasks for Comparison of two expressions of two-digit numbers (from 11 to 99); addition and subtraction of round hundreds and tens; addition and subtraction of three- and one digit numbers; long Addition and Subtraction of two- and three- digit numbers; long Addition and Subtraction of four digit numbers.',
+        '10': 'The Green Belt test includes the following programs: tasks for Comparison of two expressions of two-digit numbers (from 11 to 99); addition and subtraction of round hundreds and tens; addition and subtraction of three- and one digit numbers; long Addition and Subtraction of two- and three- digit numbers; long Addition and Subtraction of four digit numbers. Programs are randomly selected and limited by time for response (13 seconds max per each task).',
     },
     // Russian
     'ru': {
@@ -119,7 +119,7 @@ export const green_descriptions = {
         '7': 'Сложение и вычитание сотен, десятков и однозначных',
         '8': 'Сложение и Вычитание в столбик трёх- и двузначных чисел',
         '9': 'Сложение и Вычитание в столбик четырёхзначных чисел',
-        '10': 'Пройди тест на Зеленый пояс',
+        '10': 'Пройди тест на Зеленый пояс. Программы выбираются в случайном порядке и ограничены по времени для ответа: 13 секунд максимум на решение одной задачи, таймер отсчета распределен равномерно.',
     },
     // Dutch
     'nl' : {

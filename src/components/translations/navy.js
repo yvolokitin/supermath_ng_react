@@ -114,7 +114,7 @@ export const navy_descriptions = {
         '8': 'Multiplication of three one-digit numbers (1..9). You have to count/multiple numbers one by one. Due to result of multiplication does not depend on ordering, you have to start multiply from two easiest numbers.',
         '9': 'Addition, Subtraction and Multiplication of 4 or 5 numbers. Kids have to determiny the right secuance of operations (Multiplication always goes before Addition and Subtraction), make correct calculation and answer. Multiplication happaned between one-digit numbers only, when Addition and Subtraction can use two-digit numbers. It can be at least one Multiplication (two in most cases).',
         '10': 'Addition and Subtraction of negative numbers. There are two types of numbers based on the sign — positive numbers and negative numbers. These numbers can be represented on a number line. The middle number on this line is zero (Zero is a neutral element with respect to adding integers). On the left side of zero are negative numbers, and on the right side are positive numbers.',
-        '11': 'Take Navy Belt Test',
+        '11': 'Take Navy Belt Test. Programs are randomly selected and limited by time for response (30 seconds max per each task).',
     },
     // Russian
     'ru': {
@@ -128,7 +128,7 @@ export const navy_descriptions = {
         '8': 'Addition, Subtraction and Multiplication of 4 or 5 numbers. Kids have to determiny the right secuance of operatnios (Multiplication always goes before Addition and Subtraction), make correct calculation and answer. Multiplication happaned between one-digit numbers only, when Addition and Subtraction can use two-digit numbers. It can be at least one Multiplication (two in most cases).',
         '9': 'Addition and Subtraction of four numbers, where each number has different length: one-digit, two-digit, three- and four-digit. For example, 4051 + 655 + 70 + 5 = ? (result is 4781).',
         '10': 'Сложение и вычитание отрицательных чисел. На основе знака числа могут быть двух видов - положительные числа и отрицательные числа. Эти числа могут быть представлены на числовой линией. Среднее число в этой строке равно нулю (Ноль - это нейтральный элемент относительно сложения целых чисел). С левой стороны от нуля находятся отрицательные числа, а с правой стороны - положительные.',
-        '11': 'Пройди тест на Синий пояс',
+        '11': 'Пройди тест на Синий пояс. Программы выбираются в случайном порядке и ограничены по времени для ответа (10 секунд максимум на решение одной задачи).',
     },
     // Dutch
     'nl' : {

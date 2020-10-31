@@ -258,8 +258,9 @@ export default function Login(props) {
                                 <div className='login_wrapper_signin_net_icon'>
                                     <img src={net.icon} alt='login' onContextMenu={(e) => e.preventDefault()}/>
                                 </div>
-
-                                {login[props.lang]['signin']} {net.id}
+                                <font className='login_wrapper_signin_net_font'>
+                                    {login[props.lang]['signin']} {net.id}
+                                </font>
                             </div>
                         </div>
                     )}

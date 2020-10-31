@@ -106,7 +106,7 @@ export const black_descriptions = {
         '7': 'Tasks for addition and subtraction of two decimal fractions (11..999). You always earn points when solve any program from Black belt (even if you already in Black). Programs from Black belt can never be locked.',
         '8': 'Tasks for division and multiplication of three numbers (11..999). You always earn points when solve any program from Black belt (even if you already in Black). Programs from Black belt can never be locked.',
         '9': 'Tasks for addition and subtraction of negative numbers. You always earn points when solve any program from Black belt (even if you already in Black). Programs from Black belt can never be locked.',
-        '10': 'Black Belt Test. All programs from all Color Levels/Belts will be automatically unlocked in case of passing of Black Belt test. Successful passing of Black belt test means the Highest color level. You always earn points when solve any program from Black belt (even if you already in Black). Programs from Black belt can never be locked.',
+        '10': 'Black Belt Test. All programs from all Color Levels/Belts will be automatically unlocked in case of passing of Black Belt test. Successful passing of Black belt test means the Highest color level. You always earn points when solve any program from Black belt (even if you already in Black). Programs from Black belt can never be locked. Programs are randomly selected and limited by time for response (70 seconds max per each task).',
     },
     // Russian
     'ru': {
@@ -119,7 +119,7 @@ export const black_descriptions = {
         '7': 'Задачи на сложение и вычитание трехначных и дробных (11..999). Любая программа из чёрного пояса всегда приносит очки (даже при условии, если ученик уже обладает чёрным поясом) и никогда не может быть заблокирована.',
         '8': 'Задачи на деление и умножение трех чисел (11..999). Любая программа из чёрного пояса всегда приносит очки (даже при условии, если ученик уже обладает чёрным поясом) и никогда не может быть заблокирована.',
         '9': 'Задачи на сложение и вычитание отрицательных чисел. Любая программа из чёрного пояса всегда приносит очки (даже при условии, если ученик уже обладает чёрным поясом) и никогда не может быть заблокирована.',
-        '10': 'Тест на Чёрный пояс. Успешное прохождение теста на чёрный пояс автоматически разблокирует программы на всех цветовых уровнях. Защита чёрного пояса означает получение наивысшего Цветового уровня. Любая программа из чёрного пояса всегда приносит очки (даже при условии, если ученик уже обладает чёрным поясом) и никогда не может быть заблокирована.',
+        '10': 'Тест на Чёрный пояс. Успешное прохождение теста на чёрный пояс автоматически разблокирует программы на всех цветовых уровнях. Защита чёрного пояса означает получение наивысшего Цветового уровня. Любая программа из чёрного пояса всегда приносит очки (даже при условии, если ученик уже обладает чёрным поясом) и никогда не может быть заблокирована. Программы выбираются в случайном порядке и ограничены по времени для ответа (70 секунд максимум на решение одной задачи).',
     },
     // Dutch
     'nl' : {

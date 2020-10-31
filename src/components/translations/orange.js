@@ -114,7 +114,7 @@ export const orange_descriptions = {
         '8': 'Tasks for Addition and Subtraction of two-digit numbers, where both numbers are in range from 11 to 99. The results pf operation can be Zero, one-, two- and three-digit number. For example, 85 - 51 = ? (result is 34) OR 88 + 24 = ? (result is 122).',
         '9': 'Tasks for Addition and Subtraction of two-digit numbers, where kids know only one of the argument and result of math task. Based on mathematical operation they have to find another argument. For example, 15 + ? = 29 (the answer is 14) or ? - 27 = 62 (the answer is 89)',
         '10': 'Tasks for Addition and Subtraction of one hugred and two-number (11..99). ',
-        '11': 'The Orange belt test includes the following programs: determination of two digit number from sequence; comparison of two numbers from 10 to 100; addition and subtraction of one-digits, two-digits and hundreds. Programs are randomly selected and may have a limited time for response.',
+        '11': 'The Orange belt test includes the following programs: determination of two digit number from sequence; comparison of two numbers from 10 to 100; addition and subtraction of one-digits, two-digits and hundreds. Programs are randomly selected and limited by time for response (11 seconds max per each task).',
     },
     // Russian
     'ru': {
@@ -128,7 +128,7 @@ export const orange_descriptions = {
         '8': 'Задачи на Сложение и Вычитание двух двузначных чисел от 11 до 99. ',
         '9': 'Задачи на Сложение и Вычитание двух двузначных чисел от 11 до 99, когда известно одно из двух чисел и результат. Задачи данного типа сходны с решением простого уравнения с одним неизвестным. Например, 15 + ? = 29 (правильный ответ 14) или ? - 27 = 62 (правильный ответ 89).',
         '10': 'Задачи на Сложение и вычитание ста и двузначного числа от 11 до 99.',
-        '11': 'Тест на Оранжевый пояс включает в себя прохождение следующих программ: определение двузначного числа; сравнение двух чисел от 10 до 100; сложение и вычитание однозначных, двузначных и сотен. Программы выбираются в случайном порядке и могут быть ограничены по времени для ответа.',
+        '11': 'Тест на Оранжевый пояс включает в себя прохождение следующих программ: определение двузначного числа; сравнение двух чисел от 10 до 100; сложение и вычитание однозначных, двузначных и сотен. Программы выбираются в случайном порядке и ограничены по времени для ответа (11 секунд максимум на решение одной задачи).',
     },
     // Dutch
     'nl' : {
