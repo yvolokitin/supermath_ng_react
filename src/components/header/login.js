@@ -9,6 +9,10 @@ import {login} from './../translations/login';
 
 import image from './../../images/login.png';
 
+// import LoginGoogle from './../halpers/logingoogle';
+// import {GOOGLE_CLIENTID} from './../halpers/authentication';
+// https://www.intricatecloud.io/2019/08/adding-google-sign-in-to-your-webapp-a-react-example/
+
 import {get_avatar_by_name} from './../halpers/avatars';
 import {set_item, generate_pswdhash} from './../halpers/localstorage';
 import {validate_email, validate_pswd} from './../halpers/validator.js';
@@ -21,9 +25,6 @@ import icon4 from './../../images/signin/VK_Compact_Logo.svg';
 
 import axios from 'axios';
 import './login.css';
-
-// import GoogleLogin from 'react-google-login';
-// import {GOOGLE_CLIENTID} from './../halpers/authentication';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='down' ref={ref} {...props} />;
@@ -115,7 +116,20 @@ export default function Login(props) {
         setLoading(false); setError(error.toString());
 
     }, [ ])
+/*
+    const onGoogleSuccess = (res) => {
+        console.log('Login.onGoogleSuccess -> ' + res.profileObj);
+        // refreshTokenSetup(res);
+    };
 
+    const onGoogleFailure = (res) => {
+        console.log('Login.onGoogleFailure -> ' + res);
+    };
+*/
+    /*
+     <GoogleLogin clientId={GOOGLE_CLIENTID} buttonText='Sign in with Google' cookiePolicy={'single_host_origin'}
+     onSuccess={onGoogleSuccess} onFailure={onGoogleFailure} isSignedIn={true}/>
+    */
     const onLogin = useCallback((login_type) => {
         console.log('Login.onLogin -> ' + login_type);
         switch (login_type) {
@@ -193,25 +207,6 @@ export default function Login(props) {
 
     }, [ ])
 
-    /*
-    const onGoogleSuccess = (res) => {
-        console.log('Login.onGoogleSuccess -> ' + res.profileObj);
-        // refreshTokenSetup(res);
-    };
-
-    const onGoogleFailure = (res) => {
-        console.log('Login.onGoogleFailure -> ' + res);
-    };
-
-                        <GoogleLogin clientId={GOOGLE_CLIENTID} buttonText='Sign in with Google' cookiePolicy={'single_host_origin'}
-                            onSuccess={onGoogleSuccess} onFailure={onGoogleFailure} isSignedIn={true}/>
-    */
-
-    /*
-                    <div style={{width: '98%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center',}}>
-                        <img src={image_numbers} alt='progress'/>
-                    </div>
-    */
     function ProgressDialog(props) {
         return (
             <Dialog open={props.open} maxWidth='md' scroll='body'
