@@ -102,7 +102,7 @@ export default class SuperMathPage extends React.Component {
             pswdhash: get_item(active_user, 'pswdhash'),
 
             // refferal name and lastname to show on welcome screen
-            refferal: '',
+            refferal: '0000000',
         };
     }
 
@@ -244,7 +244,7 @@ export default class SuperMathPage extends React.Component {
                 break;
 
             case 'logout':
-                this.setState({screen: STATUS.NONE, id: 0, solved: ''});
+                this.setState({screen: STATUS.NONE, id: 0, solved: '', refferal: '0000000',});
                 // remove_item('user_id');
                 set_active_user(0);
                 break;

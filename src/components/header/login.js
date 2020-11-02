@@ -170,7 +170,7 @@ export default function Login(props) {
                 if (validate_email(email, props.lang) === 'ok') {
                     if (validate_pswd(password, props.lang) === 'ok') {
                         setLoading(true); var pswdhash = generate_pswdhash(password);
-                        // console.log('onLogin -> crypto pswdhash: ' + pswdhash);
+                        console.log('onLogin -> crypto pswdhash: ' + pswdhash);
                         var post_data = {'email': email, 'pswdhash': pswdhash};
                         axios.post('https://supermath.xyz:3000/api/login', post_data)
                             .then(onLoginResponse)

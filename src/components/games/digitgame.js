@@ -83,7 +83,7 @@ export default function DigitGame(props) {
 
     useKeyboardEvent((key) => {
         // ignore any keyboard events when sub menus are opened
-        if (openAlert !== ALERT.NONE) {
+        if (props.open === false || openAlert !== ALERT.NONE) {
             return;
         }
 

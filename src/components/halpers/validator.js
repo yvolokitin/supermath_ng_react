@@ -1,7 +1,8 @@
 ﻿import {validator} from './../translations/validator';
 
 const charsPattern = /^[a-zA-Z]+$/;
-const letterNumber = /^[0-9a-zA-Z]+$/;
+// const letterNumber = /^[0-9a-zA-Z]+$/;
+const letterNumber = /^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/;
 const emailLocalPart = /^[0-9_a-z\-A-Z.]+$/;
 const emailDomainPart = /^[a-zA-Z\-0-9.]+$/;
 //const pswdPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
@@ -75,6 +76,24 @@ export function validate_name(name, lang) {
 }
 
 /**
+ * Validate Surname for letters and numbers only
+ * Surname can be empty, i.e. length === 0
+ */
+export function validate_surname(surname, lang) {
+    if (surname.length > 0) {
+        if (surname.length > 32) {
+            return validator[lang]['name_max_length'];
+        }
+
+        if (letterNumber.test(surname) !== true) {
+            return validator[lang]['name_chars'];
+        }
+    }
+
+    return 'ok';
+}
+
+/**
  * Password validation
  *
  */
@@ -103,7 +122,9 @@ export function validate_birth(birthday, lang) {
     // birth[0] is year
     var birth = birthday.split('-');
     if ((birth[0].length < 4) || (parseInt(birth[0]) < 1939)) {
-        return validator[lang]['birthday_year'];
+        var date_now = parseInt((new Date()).getFullYear()) - parseInt(birth[0]);
+        console.log('YURA: date_now ' + date_now);
+        return validator[lang]['birthday_year'] + ' ' + date_now + validator[lang]['year_old'];
     }
 
     return 'ok';

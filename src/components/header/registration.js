@@ -4,15 +4,11 @@ import {Snackbar, CircularProgress} from '@material-ui/core';
 
 import Alert from '@material-ui/lab/Alert';
 
-// name validator
-// import {validate_name} from './../halpers/validator.js';
-
-// email validator
-import {validate} from 'validate.js';
-import constraints from './constraints';
-
 import {registration} from './../translations/registration';
 import {set_item, generate_pswdhash} from './../halpers/localstorage';
+
+import {validate_name, validate_surname, validate_birth} from './../halpers/validator';
+import {validate_email, validate_pswd} from './../halpers/validator';
 
 import axios from 'axios';
 
@@ -24,8 +20,6 @@ import image from './../../images/help/sign-up.png';
 
 import './registration.css';
 
-// timeout for error message
-const TIMEOUT_DURATION = 15000;
 const TIMEOUT_DEFAULT = 900;
 
 // light orange color for background
@@ -35,6 +29,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='down' ref={ref} {...props} />;
 });
 
+function ProgressDialog(props) {
+    return (
+        <Dialog open={props.open} maxWidth='md' scroll='body'
+                style={{backgroundColor: 'transparent'}}
+                fullScreen={props.fullScreen} fullWidth={true}>
+
+        </Dialog>
+    );
+}
+
 export default function Registration(props) {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
@@ -43,7 +47,7 @@ export default function Registration(props) {
     const [pswd, setPswd] = useState('');
     const [subcsr, setSubcsr] = useState(false);
 
-    const [bonus, setBonus] = useState(props.refferal);
+    const [bonus, setBonus] = useState('0000000');
 
     const [color, setColor] = useState(DEFAULT_COLOR);
 
@@ -84,11 +88,9 @@ export default function Registration(props) {
                 ('avatar' in response.data) &&
                 ('belt' in response.data)) {
 
-                setTimeout(() => {
-                    set_item(response.data.id, 'pswdhash', generate_pswdhash(pswd));
-                    props.onClose('successed', response.data);
-                    setLoading(false); setColor(DEFAULT_COLOR);
-                }, TIMEOUT_DEFAULT);
+                set_item(response.data.id, 'pswdhash', generate_pswdhash(pswd));
+                props.onClose('successed', response.data);
+                setLoading(false); setColor(DEFAULT_COLOR);
 
             } else if ('error' in response.data) {
                 setTimeout(() => {
@@ -123,47 +125,44 @@ export default function Registration(props) {
         }
 
         console.log('Registration.onRegistration -> ' + props.lang);
-        var result = validate({'name': name}, constraints);
-        if ('name' in result) {
-            console.log('Registration.onRegistration -> ' + result.name);
-            setError(result.name);
-            return;
-        }
+        if (validate_name(name, props.lang) === 'ok') {
+            if (validate_surname(surname, props.lang) === 'ok') {
+                if (validate_birth(birth, props.lang) === 'ok') {
+                    if (validate_email(email, props.lang) === 'ok') {
+                        if (validate_pswd(pswd, props.lang) === 'ok') {
+                            var pswdhash = generate_pswdhash(pswd);
+                            console.log('Registration.onRegistration -> pswdhash: ' + pswdhash);
+                            setLoading(true); setColor('#ffd9b3');
+                            var post_data = {
+                                'name': name,
+                                'lang': props.lang,
+                                'birthday': birth,
+                                'lastname': surname,
+                                'email': email,
+                                'subcsr': subcsr,
+                                'passed': props.passed,
+                                'failed': props.failed,
+                                'bonus': bonus,
+                                'pswdhash': pswdhash};
+                            axios.post('https://supermath.xyz:3000/api/reg', post_data)
+                                .then(onRegistrationResponse)
+                                .catch(onRegistrationError);
 
-        result = validate({'birth': birth}, constraints);
-        if ('birth' in result) {
-            setError(result.birth);
-            return;
+                        } else {
+                            setError(validate_pswd(pswd, props.lang));
+                        }
+                    } else {
+                        setError(validate_email(email, props.lang));
+                    }
+                } else {
+                    setError(validate_birth(birth, props.lang));
+                }
+            } else {
+                setError(validate_name(surname, props.lang));
+            }
+        } else {
+            setError(validate_name(name, props.lang));
         }
-
-        result = validate({'email': email}, constraints);
-        if ('email' in result) {
-            setError(result.email);
-            return;
-        }
-
-        result = validate({'pswd': pswd}, constraints);
-        if ('pswd' in result) {
-            setError(result.pswd);
-            return;
-        }
-
-        setLoading(true); setColor('#ffd9b3');
-        var post_data = {
-            'name': name,
-            'lang': props.lang,
-            'birthday': birth,
-            'lastname': surname,
-            'email': email,
-            'subcsr': subcsr,
-            'passed': props.passed,
-            'failed': props.failed,
-            'bonus': bonus,
-            'pswdhash': generate_pswdhash(pswd),
-        };
-        axios.post('https://supermath.xyz:3000/api/reg', post_data)
-             .then(onRegistrationResponse)
-             .catch(onRegistrationError);
 
     }, [props.lang, props.passed, props.failed, onRegistrationResponse, onRegistrationError, 
         loading, name, surname, birth, email, pswd, subcsr, bonus, ])
@@ -225,13 +224,13 @@ export default function Registration(props) {
                 {registration[props.lang]['registered']}
             </Link>
 
-            <Snackbar open={error.length !== 0} onClose={() => {setError('');setColor(DEFAULT_COLOR);}}
-                autoHideDuration={TIMEOUT_DURATION} anchorOrigin={{vertical:'top', horizontal:'center'}}>
-                    <Alert onClose={() => {setError('');setColor(DEFAULT_COLOR);}} severity='error'>
-                        {registration[props.lang]['error']}: {error}
-                    </Alert>
+            <Snackbar open={error.length !== 0} onClose={() => {setError(''); setColor(DEFAULT_COLOR);}} anchorOrigin={{vertical:'top', horizontal:'center'}}>
+                <Alert onClose={() => {setError(''); setColor(DEFAULT_COLOR);}} severity='error'>
+                    {registration[props.lang]['error']}: {error}
+                </Alert>
             </Snackbar>
 
+            <ProgressDialog open={loading}/>
         </Dialog>
     );
 }
