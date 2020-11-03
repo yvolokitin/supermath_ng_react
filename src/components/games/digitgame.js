@@ -184,6 +184,22 @@ export default function DigitGame(props) {
 
     React.useEffect(() => {
         if (props.open) {
+            // https://medium.com/@hermenmartins/react-hooks-how-to-use-hooks-conditionally-click-outside-example-8b9b63a8a63d
+            /*
+            const listener = event => {
+                if (!ref.current || ref.current.contains(event.target)) {
+                    return;
+                }
+                handler(event);
+            };
+            document.addEventListener('mousedown', listener);
+            document.addEventListener('touchstart', listener);
+            // unmount
+            return () => {
+                document.removeEventListener('mousedown', listener);
+                document.removeEventListener('touchstart', listener);
+            };
+            */
             // console.log('DigitGame.useEffect -> counter ' + counter);
 
             // counter=1: initialization
