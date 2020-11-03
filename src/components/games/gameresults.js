@@ -29,6 +29,9 @@ export default function GameResults(props) {
     const [progress, setProgress] = React.useState(false);
     const [title, setTitle] = React.useState('');
 
+    const [background, setBackground] = React.useState('white');
+    const [game, setGame] = React.useState('');
+
     const handleChange = (event, value) => {
         console.log('GameResults.handleChange ' + value + ', props.user_id ' + props.user_id);
         if (value === 'results') {
@@ -62,6 +65,9 @@ export default function GameResults(props) {
             }
 
             setTitle(title_to_set + seconds + ' ' + gameresults[props.lang]['seconds']);
+
+            setBackground(props.data.belt);
+            setGame(props.data.game_uid);
         }
 
     }, [props.open, props.data, props.lang, ]);
@@ -72,17 +78,23 @@ export default function GameResults(props) {
             <ColorLine margin={'0px'}/>
 
             <div className='result_board'>
-                <div className='result_board_chart' onClick={() => handleChange('', 'results')}>
-                    <font style={{color:'#248f24',}}>
-                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span> &nbsp; {props.data.passed} &nbsp;
-                    </font>
-                    &nbsp; <RadialChart progress={props.data.percent}/> &nbsp;
-                    <font style={{color:'red',}}>
-                        &nbsp; {props.data.failed} &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
-                    </font>
-                </div>
+                {(game.indexOf('T') === -1) ? (
+                    <div className='result_board_chart' onClick={() => handleChange('', 'results')}>
+                        <font style={{color:'#248f24',}}>
+                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span> &nbsp; {props.data.passed} &nbsp;
+                        </font>
+                        &nbsp; <RadialChart progress={props.data.percent}/> &nbsp;
+                        <font style={{color:'red',}}>
+                            &nbsp; {props.data.failed} &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
+                        </font>
+                    </div>
+                ) : (
+                    <div className='result_board_belt' style={{backgroundColor: background}} onClick={() => handleChange('', 'results')}>
 
-                { (props.user_id > 0) ? (
+                    </div>
+                )}
+
+                {(props.user_id > 0) ? (
                     <div className='result_board_body'>
                         {gameresults[props.lang]['reach']} &nbsp; <font style={{color:'orange'}}> {gameresults[props.lang][props.data.rate]} </font>
                         &nbsp; {gameresults[props.lang]['score']} &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#129504;</span>

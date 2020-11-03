@@ -302,10 +302,16 @@ export default function DigitGame(props) {
                 // console.log('DigitGame.onDialog -> ' + status + ', passed ' + passed);
                 // (props.amount - failed) is workaround for passed calculations
                 var percent = 100 * (props.amount - failed) / props.amount;
+                var passed_counter = props.amount - failed;
+                if (failed === 0) {
+                    // double pass counter if passed exam test
+                    passed_counter = passed_counter * 2;
+                }
+
                 var result_data = {
                     'operation': 'results',
                     'game_uid': props.game_uid,
-                    'passed': (props.amount - failed),
+                    'passed': passed_counter,
                     'failed': failed,
                     'duration': (new Date().getTime() - duration),
                     'rate': get_rate_per_percent(percent),
