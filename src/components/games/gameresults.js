@@ -19,6 +19,8 @@ import image from './../../images/time.png';
 
 import {gameresults} from './../translations/gameresults';
 
+// import image_belt from './../../images/belt_cimono.jpg';
+import image_belt from './../../images/belt_cimono_white.jpg';
 import './gameresults.css';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -78,7 +80,18 @@ export default function GameResults(props) {
             <ColorLine margin={'0px'}/>
 
             <div className='result_board'>
-                {(game.indexOf('T') === -1) ? (
+                {((game.indexOf('T') > 0) && (props.data.failed === 0)) ? (
+                    <div className='result_board_belt' style={{backgroundColor: background}} onClick={() => handleChange('', 'results')}>
+                        <div className='result_board_belt_left'>
+                            <div className='result_board_belt_left_img'>
+                                <img src={image_belt} alt='Belt' onContextMenu={(e) => e.preventDefault()}/>
+                            </div>
+                        </div>
+                        <div className='result_board_belt_right'>
+                            
+                        </div>
+                    </div>
+                ) : (
                     <div className='result_board_chart' onClick={() => handleChange('', 'results')}>
                         <font style={{color:'#248f24',}}>
                             <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span> &nbsp; {props.data.passed} &nbsp;
@@ -87,10 +100,6 @@ export default function GameResults(props) {
                         <font style={{color:'red',}}>
                             &nbsp; {props.data.failed} &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                         </font>
-                    </div>
-                ) : (
-                    <div className='result_board_belt' style={{backgroundColor: background}} onClick={() => handleChange('', 'results')}>
-
                     </div>
                 )}
 

@@ -225,6 +225,7 @@ export default function DigitGame(props) {
 
                 setCounter(prevCounter => prevCounter + 1);
 
+                // setOpenAlert(ALERT.RESULTS);
             }
 
             if (props.type === 'test' && openAlert === ALERT.NONE) {

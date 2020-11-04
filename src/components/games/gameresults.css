@@ -28,6 +28,42 @@
     border-radius: 15px 50px;
     background-color: #00cc66;
 }
+.result_board_belt_left {
+    width: 49%;
+    height: 100%;
+    float: left;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.result_board_belt_left_img {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: clip;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.result_board_belt_left_img img {
+    height: 130%;
+    width: 130%;
+}
+.result_board_belt_right {
+    width: 49%;
+    height: 100%;
+    float: right;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 3px solid black;
+}
 .result_board_body {
     width: 94%;
     height: 46%;
