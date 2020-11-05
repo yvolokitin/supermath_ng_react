@@ -30,7 +30,7 @@ export const trophy = {
     'nl' : {
         'title': 'Poeps gooien',
         'question': 'Gooi kost 30 glimlachen. Wil je kak gooien',
-        'close': 'dichtbij',
+        'close': 'dicht',
         'yes': 'Ja, gooi het',
         'no': 'Nee',
         'top10': 'TOP 10 RANGEN',

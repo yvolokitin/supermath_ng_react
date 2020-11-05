@@ -1,5 +1,5 @@
 ﻿import React, { useEffect, useCallback, useState } from 'react';
-import {Snackbar, Slide, Dialog, TextField, Link, Button,} from '@material-ui/core';
+import {Snackbar, Slide, Dialog, TextField, Link, Button, CircularProgress} from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 
 import Title from './../title/title';
@@ -32,6 +32,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const DEFAULT_HIDDEN_PSWD = '*******';
 
+function LoginProgressDialog(props) {
+    return (
+        <Dialog open={props.open} maxWidth='md' scroll='body'
+            style={{backgroundColor: 'transparent'}}
+            fullScreen={props.fullScreen} fullWidth={true}>
+                <> </>
+        </Dialog>
+    );
+}
+
 export default function Login(props) {
     const networks = [
         {id: 'Google', icon: icon1},
@@ -51,8 +61,8 @@ export default function Login(props) {
     useEffect(() => {
         if (props.open) {
             setUsers(get_local_users(0));
+            setLoading(false);
         }
-
     }, [props.open, ]);
 
     const onClose = useCallback((status, data) => {
@@ -207,16 +217,6 @@ export default function Login(props) {
 
     }, [ ])
 
-    function ProgressDialog(props) {
-        return (
-            <Dialog open={props.open} maxWidth='md' scroll='body'
-                style={{backgroundColor: 'transparent'}}
-                fullScreen={props.fullScreen} fullWidth={true}>
-
-            </Dialog>
-        );
-    }
-
     return (
         <Dialog open={props.open} maxWidth='md' scroll='body'
             fullScreen={props.fullScreen} fullWidth={true}
@@ -226,6 +226,8 @@ export default function Login(props) {
             <ColorLine margin={'0px'}/>
 
             <div className='login_wrapper'>
+                {loading && <CircularProgress size={68} className='circular_progress'/>}
+
                 <div className='login_wrapper_left'>
                     <div className='login_forms'>
                         <TextField disabled={loading} onChange={(event) => setEmail(event.target.value)}
@@ -301,7 +303,7 @@ export default function Login(props) {
                 </Alert>
             </Snackbar>
 
-            <ProgressDialog open={loading}/>
+            <LoginProgressDialog open={loading}/>
         </Dialog>
     );
 }

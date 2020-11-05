@@ -305,8 +305,50 @@ export default function DigitGame(props) {
                 var percent = 100 * (props.amount - failed) / props.amount;
                 var passed_counter = props.amount - failed;
                 if (failed === 0) {
-                    // double pass counter if passed exam test
-                    passed_counter = passed_counter * 2;
+                    if (props.game_uid === 'whiteT') {
+                        if ((props.level !== 'white') &&
+                            (props.level !== 'orange') &&
+                            (props.level !== 'green') &&
+                            (props.level !== 'navy') &&
+                            (props.level !== 'brown') &&
+                            (props.level !== 'black')) {
+                            // double pass counter if passed exam test
+                            passed_counter = passed_counter * 2;
+                        }
+                    } else if (props.game_uid === 'orangeT') {
+                        if ((props.level !== 'orange') &&
+                            (props.level !== 'green') &&
+                            (props.level !== 'navy') &&
+                            (props.level !== 'brown') &&
+                            (props.level !== 'black')) {
+                            // double pass counter if passed exam test
+                            passed_counter = passed_counter * 2;
+                        }
+                    } else if (props.game_uid === 'greenT') {
+                        if ((props.level !== 'green') &&
+                            (props.level !== 'navy') &&
+                            (props.level !== 'brown') &&
+                            (props.level !== 'black')) {
+                                // double pass counter if passed exam test
+                                passed_counter = passed_counter * 2;
+                        }
+                    } else if (props.game_uid === 'navyT') {
+                        if ((props.level !== 'navy') && 
+                            (props.level !== 'brown') &&
+                            (props.level !== 'black')) {
+                            // double pass counter if passed exam test
+                            passed_counter = passed_counter * 2;
+                        }
+                    } else if (props.game_uid === 'brownT') {
+                        if ((props.level !== 'brown') && 
+                            (props.level !== 'black')) {
+                            // double pass counter if passed exam test
+                            passed_counter = passed_counter * 2;
+                        }
+                    } else if (props.game_uid === 'blackT') {
+                        // double pass counter if passed exam test
+                        passed_counter = passed_counter * 2;
+                    }
                 }
 
                 var result_data = {
@@ -688,6 +730,8 @@ export default function DigitGame(props) {
             <GameResults open={openAlert === ALERT.RESULTS}
                 fullScreen={props.fullScreen}
                 user_id={props.user_id}
+                amount={props.amount}
+                level={props.level}
                 lang={props.lang}
                 results={results}
                 data={resultData}

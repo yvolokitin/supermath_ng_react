@@ -28,7 +28,7 @@ export const about = {
         'offer': 'Bied het kind aan om de voorbeelden in SuperMath slechts een keer per dag gedurende 15 minuten regelmatig op te lossen, en u zult merken hoeveel sneller en nauwkeuriger het op de cijfers zal werken. De snelheid en nauwkeurigheid van de berekeningen - dit zijn de stenen die de basis vormen van de wiskundige opvoeding van uw kind.',
         'nonprofit': 'SuperMath is een non-profitorganisatie die zich inzet voor wiskundige prestaties voor iedereen. Ons doel is om effectieve, efficiente, adaptieve en intrinsiek lonende aanvullende wiskundige activiteiten te ontwikkelen.',
         'colors': 'Op dit moment zijn er zes kleurgradaties of riemen met verschillende moeilijkheidsgraden beschikbaar voor gebruikers: wit, oranje, groen, blauw, bruin en zwart.',
-        'close': 'dichtbij',
+        'close': 'dicht',
     },
     // French
     'fr' : {

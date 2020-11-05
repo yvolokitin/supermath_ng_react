@@ -74,10 +74,8 @@ export default function Body(props) {
     function onTabChange(user_tab) {
         console.log('Body.onTabPress ' + user_tab.id);
         set_item(props.id, 'belt', user_tab.id);
-
-        setColor(user_tab.id);
-        setTasks(user_tab.games);
         setBackground(user_tab.bckgrnd);
+        setTasks(user_tab.games); setColor(user_tab.id);
     };
 
     function onGameOpen(task, description) {
@@ -201,6 +199,7 @@ export default function Body(props) {
                 type={game.type}
                 conditions={game.task}
                 amount={game.amount}
+                level={props.level}
                 lang={props.lang}
                 belt={color}
                 onClose={onClose}/>

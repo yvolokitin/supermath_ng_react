@@ -297,6 +297,7 @@ export default class SuperMathPage extends React.Component {
                         // we have to unlock all locked programs
                         var l = 0, new_solved = '', new_level = this.state.level;
                         var levels = this.state.solved.split(',');
+                        var new_belt = this.state.belt;
 
                         switch (value.game_uid) {
                             case 'blackT':
@@ -307,19 +308,17 @@ export default class SuperMathPage extends React.Component {
                                 break;
 
                             case 'brownT':
+                                new_passed = new_passed + parseInt(value.passed);
                                 if (this.state.level !== 'black') {
-                                    new_passed = new_passed + parseInt(value.passed);
-                                    new_cards = new_cards + 1;
-                                    new_level = 'brown';
-                                    new_solved = '';
+                                    new_cards = new_cards + 1; new_belt = 'black';
+                                    new_level = 'brown'; new_solved = '';
                                 }
                                 break;
 
                             case 'navyT':
+                                new_passed = new_passed + parseInt(value.passed);
                                 if (this.state.level !== 'black' && this.state.level !== 'brown') {
-                                    new_passed = new_passed + parseInt(value.passed);
-                                    new_cards = new_cards + 1;
-                                    new_level = 'navy';
+                                    new_cards = new_cards + 1; new_level = 'navy'; new_belt = 'brown';
                                     for (l = 0; l < levels.length; l++) {
                                         if (levels[l].includes('brown')) {
                                             new_solved = new_solved + levels[l] + ',';
@@ -329,10 +328,9 @@ export default class SuperMathPage extends React.Component {
                                 break;
 
                             case 'greenT':
+                                new_passed = new_passed + parseInt(value.passed);
                                 if (this.state.level !== 'black' && this.state.level !== 'brown' && this.state.level !== 'navy') {
-                                    new_passed = new_passed + parseInt(value.passed);
-                                    new_cards = new_cards + 1;
-                                    new_level = 'green';
+                                    new_cards = new_cards + 1; new_level = 'green'; new_belt = 'navy';
                                     for (l = 0; l < levels.length; l++) {
                                         if (levels[l].includes('brown') || levels[l].includes('navy')) {
                                             new_solved = new_solved + levels[l] + ',';
@@ -342,10 +340,10 @@ export default class SuperMathPage extends React.Component {
                                 break;
 
                             case 'orangeT':
+                                new_passed = new_passed + parseInt(value.passed);
                                 if (this.state.level !== 'black' && this.state.level !== 'brown' &&
                                     this.state.level !== 'navy' && this.state.level !== 'green') {
-                                        new_passed = new_passed + parseInt(value.passed);
-                                        new_cards = new_cards + 1; new_level = 'orange';
+                                        new_cards = new_cards + 1; new_level = 'orange'; new_belt = 'green';
                                         for (l = 0; l < levels.length; l++) {
                                             if (levels[l].includes('brown') ||
                                                 levels[l].includes('navy') ||
@@ -357,17 +355,17 @@ export default class SuperMathPage extends React.Component {
                                 break;
 
                             default: // whiteT
+                                new_passed = new_passed + parseInt(value.passed);
                                 if (this.state.level !== 'black' && this.state.level !== 'brown' &&
                                     this.state.level !== 'navy' && this.state.level !== 'green' &&
-                                    this.state.level !== 'orange') {
-                                        new_passed = new_passed + parseInt(value.passed);
-                                        new_cards = new_cards + 1; new_level = 'white';
+                                    this.state.level !== 'orange' && this.state.level !== 'white') {
+                                        new_cards = new_cards + 1; new_level = 'white';  new_belt = 'orange';
                                         for (l = 0; l < levels.length; l++) {
                                             if (levels[l].includes('white') === false) {
                                                 new_solved = new_solved + levels[l] + ',';
                                             }
                                         }
-                                    }
+                                }
                                 break;
                         }
 
@@ -377,6 +375,7 @@ export default class SuperMathPage extends React.Component {
                             solved: new_solved,
                             level: new_level,
                             cards: new_cards,
+                            belt: new_belt,
                         });
 
                     // black belt is excluded form solved
@@ -722,6 +721,7 @@ export default class SuperMathPage extends React.Component {
                     lang={this.state.lang}
                     name={this.state.name}
                     email={this.state.email}
+                    level={this.state.level}
                     solved={this.state.solved}
                     width={this.state.width}
                     onUpdate={this.onUserInfo}/>

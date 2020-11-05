@@ -27,15 +27,15 @@ export function get_timeout_per_test(belt) {
     if (belt === 'white') {
         return 1000;
     } else if (belt === 'orange') {
-        return 1100;
+        return 1200;
     } else if (belt === 'green') {
-        return 1300;
+        return 1500;
     } else if (belt === 'navy') {
         return 3000;
     } else if (belt === 'brown') {
         return 5000;
     }
-    return 7000;
+    return 8500;
 }
 
 export function get_radius_per_width() {

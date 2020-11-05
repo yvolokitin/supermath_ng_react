@@ -34,7 +34,7 @@ function ProgressDialog(props) {
         <Dialog open={props.open} maxWidth='md' scroll='body'
                 style={{backgroundColor: 'transparent'}}
                 fullScreen={props.fullScreen} fullWidth={true}>
-
+            <> </>
         </Dialog>
     );
 }
@@ -175,7 +175,7 @@ export default function Registration(props) {
             <ColorLine margin={'0px'}/>
 
             <div className='registration_desk' style={{backgroundColor: color}}>
-                {loading ? <CircularProgress size={68} className='circular_progress'/> : null}
+                {loading && <CircularProgress size={68} className='circular_progress'/>}
 
                 <div className='registration_desk_title'>
                     <img src={image} alt='Registration'/>

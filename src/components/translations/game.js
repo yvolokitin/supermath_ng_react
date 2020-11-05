@@ -104,8 +104,8 @@ export const game = {
         'info_question': 'Use SuperMath as mathematical vitamins!',
         'info_text': 'SuperMath is designed to help students transition from counting or calculating to recalling the basic arithmetic facts.',
 
-        'replay': 'HERHALING',
-        'replay_title': 'Herhaling',
+        'replay': 'OPNIEUW SPELEN',
+        'replay_title': 'Opnieuw spelen',
         'replay_question': 'Wil je het spel echt helemaal opnieuw starten?',
         'replay_text': 'Al uw scores en resultaten worden gereset! We raden u aan de huidige wiskundige taken af te maken en het nog een keer te proberen.',
 
@@ -118,7 +118,7 @@ export const game = {
         'answer_yes': 'Uitgang',
         'answer_no': 'Laat me blijven en doorgaan',
 
-        'close': 'dichtbij',
+        'close': 'dicht',
     },
     // French
     'fr' : {

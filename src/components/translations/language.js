@@ -13,7 +13,7 @@ export const language = {
     // Dutch
     'nl' : {
         'title': 'Selecteer je taal',
-        'close': 'dichtbij',
+        'close': 'dicht',
     },
     // French
     'fr' : {

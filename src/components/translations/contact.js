@@ -30,7 +30,7 @@ export const contact = {
         'name': 'Your Name',
         'email': 'Your Email Address',
         'message': 'Message',
-        'close': 'close',
+        'close': 'dicht',
         'send': 'send',
     },
     // French

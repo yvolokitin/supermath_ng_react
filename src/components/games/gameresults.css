@@ -29,7 +29,7 @@
     background-color: #00cc66;
 }
 .result_board_belt_left {
-    width: 49%;
+    width: 40%;
     height: 100%;
     float: left;
 
@@ -48,21 +48,30 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    background-color: white;
+    border: 5px solid black;
 }
 .result_board_belt_left_img img {
-    height: 130%;
-    width: 130%;
+    height: 90%;
+    width: 90%;
 }
 .result_board_belt_right {
-    width: 49%;
+    width: 59%;
     height: 100%;
     float: right;
+    padding: 10%;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border: 3px solid black;
+    user-select: none;
+    text-align: center;
+    text-shadow: 1px 1px black;
+    font-family: 'Grinched';
+    font-size: 2.5rem;
+    line-height: 1.2;
 }
 .result_board_body {
     width: 94%;
@@ -150,20 +159,36 @@
         font-size: 5.5rem;
     }
 }
+@media only screen and (max-width: 910px) {
+    .result_board_belt_right {
+        font-size: 2.4rem;
+        line-height: 1.1;
+    }
+}
 @media only screen and (max-width: 890px) {
     .result_board_belt, .result_board_chart {
         font-size: 5.0rem;
+    }
+    .result_board_belt_right {
+        font-size: 2.3rem;
     }
 }
 @media only screen and (max-width: 840px) {
     .result_board_belt, .result_board_chart {
         font-size: 4.5rem;
     }
+    .result_board_belt_right {
+        font-size: 2.1rem;
+    }
 }
 @media only screen and (max-width: 800px) {
     .result_board_belt, .result_board_chart {
         letter-spacing: -3px;
         font-size: 4.0rem;
+    }
+    .result_board_belt_right {
+        letter-spacing: 0px;
+        font-size: 2rem;
     }
     .result_board_body {
         font-size: 2.6rem;
@@ -178,6 +203,9 @@
 @media only screen and (max-width: 690px) {
     .result_board_body {
         font-size: 2.2rem;
+    }
+    .result_board_belt_right {
+        font-size: 1.8rem;
     }
 }
 @media only screen and (max-width: 660px) {
@@ -197,6 +225,19 @@
         height: 48%;
         width: 100%;
         margin-top: 2%;
+    }
+}
+@media only screen and (max-width: 540px) {
+    .result_board_belt_left {
+        width: 35%;
+    }
+    .result_board_belt_left_img {
+        width: 130px;
+        height: 130px;
+    }
+    .result_board_belt_right {
+        width: 64%;
+        padding: 1%;
     }
 }
 @media only screen and (max-width: 500px) {

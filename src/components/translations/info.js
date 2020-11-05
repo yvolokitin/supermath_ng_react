@@ -24,7 +24,7 @@ export const info = {
         'unlock': 'Het huidige programma is vergrendeld omdat je enige tijd geleden alle wiskundige problemen hier hebt opgelost. Dat programma wordt ontgrendeld wanneer u slaagt voor de test van het huidige kleurbandniveau. Programma vergrendeld is nodig om te voorkomen dat dergelijke gebruikers echt gemakkelijke punten bereiken, dat niveau staat ver boven. Zodra de gebruiker zijn riemniveau heeft gecontroleerd en het examen heeft gehaald, zijn alle programma\'s op dat niveau automatisch ontgrendeld.',
         'information': 'information',
         'task_locked': 'De taak is tijdelijk vergrendeld',
-        'close': 'close',
+        'close': 'dicht',
         'play': 'play',
     },
     // French

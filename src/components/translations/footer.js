@@ -42,7 +42,7 @@ export const footer = {
     },
     // Dutch
     'nl' : {
-        'close': 'Dichtbij',
+        'close': 'Dicht',
         'about': 'About',
         'help': 'Help',
         'register': 'Registreer nu',

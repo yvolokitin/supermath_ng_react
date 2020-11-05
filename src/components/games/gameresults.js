@@ -19,8 +19,13 @@ import image from './../../images/time.png';
 
 import {gameresults} from './../translations/gameresults';
 
-// import image_belt from './../../images/belt_cimono.jpg';
-import image_belt from './../../images/belt_cimono_white.jpg';
+import image_belt_white from './../../images/belt_white.png';
+import image_belt_orange from './../../images/belt_orange.png';
+import image_belt_green from './../../images/belt_green.png';
+import image_belt_navy from './../../images/belt_blue.png';
+import image_belt_brown from './../../images/belt_brown.png';
+import image_belt_black from './../../images/belt_black.png';
+
 import './gameresults.css';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -32,7 +37,11 @@ export default function GameResults(props) {
     const [title, setTitle] = React.useState('');
 
     const [background, setBackground] = React.useState('white');
+    const [nopoints, setNopoints] = React.useState(false);
     const [game, setGame] = React.useState('');
+    const [belt, setBelt] = React.useState('');
+    const [font, setFont] = React.useState('');
+    const [text, setText] = React.useState('');
 
     const handleChange = (event, value) => {
         console.log('GameResults.handleChange ' + value + ', props.user_id ' + props.user_id);
@@ -67,12 +76,37 @@ export default function GameResults(props) {
             }
 
             setTitle(title_to_set + seconds + ' ' + gameresults[props.lang]['seconds']);
-
-            setBackground(props.data.belt);
             setGame(props.data.game_uid);
+
+            if (props.data.game_uid.indexOf('orange') > -1) {
+                setBelt(image_belt_orange); setFont('#008000'); setBackground('#ff9933');
+            } else if (props.data.game_uid.indexOf('green') > -1) {
+                setBelt(image_belt_green); setFont('#ffa31a'); setBackground('#009933');
+            } else if (props.data.game_uid.indexOf('navy') > -1) {
+                setBelt(image_belt_navy); setFont('#ffe6e6'); setBackground('#0033cc');
+            } else if (props.data.game_uid.indexOf('brown') > -1) {
+                setBelt(image_belt_brown); setFont('#b3d9ff'); setBackground('#b35900');
+            } else if (props.data.game_uid.indexOf('black') > -1) {
+                setBelt(image_belt_black); setFont('#cccccc'); setBackground('#333333');
+            } else {
+                setBelt(image_belt_white); setFont('black'); setBackground('#e6e6e6');
+            }
+
+            if (props.data.passed > props.amount) {
+                setText(gameresults[props.lang]['test'] + ' ' + gameresults[props.lang]['doubled'] + props.data.passed);
+            } else {
+                setText(gameresults[props.lang]['test'] + ' ' + gameresults[props.lang]['your_score'] + props.data.passed);
+            }
+
+            if (props.data.failed === 0 && props.data.belt === props.level) {
+                // in case of test -> user always score points
+                if (props.data.game_uid.indexOf('T') === -1) {
+                    setNopoints(true);
+                }
+            }
         }
 
-    }, [props.open, props.data, props.lang, ]);
+    }, [props.open, props.data, props.amount, props.level, props.lang, ]);
 
     return (
         <Dialog open={props.open} fullScreen={true} TransitionComponent={Transition} transitionDuration={900}>
@@ -80,15 +114,15 @@ export default function GameResults(props) {
             <ColorLine margin={'0px'}/>
 
             <div className='result_board'>
-                {((game.indexOf('T') > 0) && (props.data.failed === 0)) ? (
+                {((game.indexOf('T') > -1) && (props.data.failed === 0) && (props.user_id > 0)) ? (
                     <div className='result_board_belt' style={{backgroundColor: background}} onClick={() => handleChange('', 'results')}>
                         <div className='result_board_belt_left'>
                             <div className='result_board_belt_left_img'>
-                                <img src={image_belt} alt='Belt' onContextMenu={(e) => e.preventDefault()}/>
+                                <img src={belt} alt='Belt' onContextMenu={(e) => e.preventDefault()}/>
                             </div>
                         </div>
-                        <div className='result_board_belt_right'>
-                            
+                        <div className='result_board_belt_right' style={{color: font,}}>
+                            {text}
                         </div>
                     </div>
                 ) : (
@@ -105,12 +139,20 @@ export default function GameResults(props) {
 
                 {(props.user_id > 0) ? (
                     <div className='result_board_body'>
-                        {gameresults[props.lang]['reach']} &nbsp; <font style={{color:'orange'}}> {gameresults[props.lang][props.data.rate]} </font>
-                        &nbsp; {gameresults[props.lang]['score']} &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#129504;</span>
-                        &nbsp; {gameresults[props.lang]['brain']} &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128138;</span>
-                        &nbsp; {gameresults[props.lang]['pill']} {gameresults[props.lang]['smart']}
-                        &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128170;</span> &nbsp;
-                        {gameresults[props.lang]['health']} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128540;</span>
+                        {(nopoints) ? (
+                            <>
+                                {gameresults[props.lang]['sorry']} &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#9996;</span>
+                            </>
+                        ) : (
+                            <>
+                                {gameresults[props.lang]['reach']} &nbsp; <font style={{color:'orange'}}> {gameresults[props.lang][props.data.rate]} </font>
+                                &nbsp; {gameresults[props.lang]['score']} &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#129504;</span>
+                                &nbsp; {gameresults[props.lang]['brain']} &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128138;</span>
+                                &nbsp; {gameresults[props.lang]['pill']} {gameresults[props.lang]['smart']}
+                                &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128170;</span> &nbsp;
+                                {gameresults[props.lang]['health']} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128540;</span>
+                            </>
+                        )}
                     </div>
                 ) : (
                     <div className='result_board_body'>
