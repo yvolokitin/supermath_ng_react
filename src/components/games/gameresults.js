@@ -177,6 +177,10 @@ export default function GameResults(props) {
                 </BottomNavigation>
             </DialogContent>
 
+            <audio controls>
+                <source src='https://supermath.xyz:3000/static/audio/seven_nation_army.mp3' type='audio/mpeg' autoPlay={true}/>
+            </audio>
+
             <GameProgress open={progress}
                 fullScreen={props.FULL_SCREEN}
                 from='results'
