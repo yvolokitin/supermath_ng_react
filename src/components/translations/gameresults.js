@@ -83,7 +83,7 @@ export const gameresults = {
         'smart': 'slim, sterk',
         'health': 'en gezondheid',
 
-        'sorry': 'Sorry, your level is higher from what that you solved now. Current points will not be added to your score',
+        'sorry': 'Sorry, je niveau is hoger dan wat je nu hebt opgelost. Huidige punten worden niet bij je score opgeteld',
         'test': 'Gefeliciteerd, je bent geslaagd voor de test!',
         'doubled': 'Je score wordt verdubbeld: ',
         'your_score': 'Je score wordt: ',
