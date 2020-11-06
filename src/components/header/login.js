@@ -176,7 +176,7 @@ export default function Login(props) {
                 break;
 
             default:
-                console.log('Login.onLogin -> email ' + email + ', password ' + password);
+                // console.log('Login.onLogin -> email ' + email + ', password ' + password);
                 if (validate_email(email, props.lang) === 'ok') {
                     if (validate_pswd(password, props.lang) === 'ok') {
                         setLoading(true); var pswdhash = generate_pswdhash(password);
