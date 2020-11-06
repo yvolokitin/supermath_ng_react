@@ -29,7 +29,7 @@ export function generate_task(type, settings) {
             // 2 numbers task, like: 1 + 2 = 3
             task = generate_2digit_task(array[0], array[1], array[2], array[3], array[4]);
             result = {'expr1': task.num1 + ' ' + task.operation + ' ' + task.num2 + ' = ', 'result': task.result};
-            console.log(type + ' generate_task: ' + result.expr1 + '' + result.result);
+            // console.log(type + ' generate_task: ' + result.expr1 + '' + result.result);
             break;
 
         case '3digits':
@@ -46,20 +46,20 @@ export function generate_task(type, settings) {
                 // division and multiplication: x:,101-999,1
                 result = generate_3digit_div_task(array[1]);
             }
-            console.log(type + ' generate_task: ' + result.expr1 + result.result);
+            // console.log(type + ' generate_task: ' + result.expr1 + result.result);
             break;
 
         case 'line_2numbers_signed':
             task = generate_2digit_task_signed(array[0], array[1], array[2], array[3], array[4]);
             result = {'expr1': task.num1 + ' ' + task.operation + ' ' + task.num2 + ' = ', 'result': task.result};
-            console.log(type + ' line_2numbers_signed: ' + result.expr1 + '' + result.result);
+            // console.log(type + ' line_2numbers_signed: ' + result.expr1 + '' + result.result);
             break;
 
         case '2digits_fr':
         case 'line_2numbers_fr':
             task = generate_2digit_fractional_task(array[0], array[1], array[2], array[3], array[4]);
             result = {'expr1': task.num1 + ' ' + task.operation + ' ' + task.num2 + ' = ', 'result': task.result};
-            console.log(type + ' generate_task: ' + result.expr1 + '' + result.result);
+            // console.log(type + ' generate_task: ' + result.expr1 + '' + result.result);
             break;
 
         case '2digit_arg':
@@ -76,58 +76,58 @@ export function generate_task(type, settings) {
             }
             result = {'num1': task.num1, 'num2': task.num2, 'operation': task.operation,
                       'outcome': task.result, 'result': expected, 'argument': argument};
-            console.log(type + ' generate_task: ' + result.num1 + result.operation + result.num2 + '=' + result.result);
+            // console.log(type + ' generate_task: ' + result.num1 + result.operation + result.num2 + '=' + result.result);
             break;
 
         case 'linedigits':
             // sequence digits like, 1,2,3,4 or 8,7,6,5 etc.
             result = generate_sequence_task(settings);
-            console.log(type + ' generate_task: ' + result.expr1 + result.result);
+            // console.log(type + ' generate_task: ' + result.expr1 + result.result);
             break;
 
         case 'comp_nums':
             // comparision digits, 5 < 6
             // <>=,0-10,1 -> operations, range, factor
             result = generate_comparison_digits(array[0], array[1], parseInt(array[2]));
-            console.log(type + ' generate_task: ' + result.expr1 + result.result + result.expr2);
+            // console.log(type + ' generate_task: ' + result.expr1 + result.result + result.expr2);
             break;
 
         case 'comp_expr':
             // comparision expressions, 2+3 vs 9-3 (<>=)
             // <>=,+-,0-10,1 -> operations, range_1, range_2, factor_1, factor_2
             result = generate_comparison_expressions(array[1], array[2], array[2], parseInt(array[3]), parseInt(array[3]));
-            console.log(type + ' generate_task: ' + result.expr1 + result.result + result.expr2);
+            // console.log(type + ' generate_task: ' + result.expr1 + result.result + result.expr2);
             break;
 
         case 'line_4numbers':
             // input string: '+-*,5,0-10,1' -> (0)operations: +-*, (1)#numbers: 5, (2)range: 0-10, (3)factor: 1
             // operations, range_numbers, factor
             result = generate_4digit_task(array[0], array[1], array[2]);
-            console.log(type + ' generate_task: ' + result.expr1 + result.result);
+            // console.log(type + ' generate_task: ' + result.expr1 + result.result);
             break;
 
         case 'line_5numbers':
             // input string: '+-x,5,0-10,1' -> (0)operations: +-x, (1)#numbers: 5, (2)range: 0-10, (3)factor: 1
             // operations, range_numbers, factor
             result = generate_5digit_task(array[0], array[2], array[3]);
-            console.log(type + ' generate_task: ' + result.expr1 + result.result);
+            // console.log(type + ' generate_task: ' + result.expr1 + result.result);
             break;
 
         case 'digit_2column':
             result = generate_2digit_task(array[0], array[1], array[2], array[3], array[4]);
-            console.log(type + ' generate_task: ' + result.num1 + result.operation + result.num2 + '=' + result.result);
+            // console.log(type + ' generate_task: ' + result.num1 + result.operation + result.num2 + '=' + result.result);
             break;
 
         case 'digit_3column':
             // operations, range_numbers, factor
             result = generate_3digit_task(array[0], array[1], array[2], 'column');
-            console.log(type + ' generate_task: ' + result.num1 + result.operation1 + result.num2 + result.operation2 + result.num3 + '=' + result.result);
+            // console.log(type + ' generate_task: ' + result.num1 + result.operation1 + result.num2 + result.operation2 + result.num3 + '=' + result.result);
             break;
 
         default:
             // undefined tasks, will return error
             result = 'generate_task: wrong type "' + type + '" or task: "' + settings + '"';
-            console.log(type + ' generate_task: ' + result);
+            // console.log(type + ' generate_task: ' + result);
             break;
     }
 
