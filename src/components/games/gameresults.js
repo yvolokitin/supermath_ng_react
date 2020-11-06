@@ -43,6 +43,8 @@ export default function GameResults(props) {
     const [font, setFont] = React.useState('');
     const [text, setText] = React.useState('');
 
+    const [audio, setAudio] = React.useState('');
+
     const handleChange = (event, value) => {
         console.log('GameResults.handleChange ' + value + ', props.user_id ' + props.user_id);
         if (value === 'results') {
@@ -55,6 +57,16 @@ export default function GameResults(props) {
     React.useEffect(() => {
         if (props.open) {
             console.log('GameResults.useEffect -> data: ' + JSON.stringify(props.data));
+
+            if (props.data.game_uid.indexOf('T') > -1) {
+                if (props.data.failed === 0) {
+                    setAudio('https://supermath.xyz:3000/static/audio/we_will_rock_you.mp3');
+                } else {
+                    setAudio('https://supermath.xyz:3000/static/audio/zombie.mp3');
+                }
+            } else {
+                setAudio('https://supermath.xyz:3000/static/audio/seven_nation_army.mp3');
+            }
 
             var title_to_set = gameresults[props.lang]['time'] + ' ';
 
@@ -104,6 +116,8 @@ export default function GameResults(props) {
                     setNopoints(true);
                 }
             }
+        } else {
+            setAudio('');
         }
 
     }, [props.open, props.data, props.amount, props.level, props.lang, ]);
@@ -177,9 +191,7 @@ export default function GameResults(props) {
                 </BottomNavigation>
             </DialogContent>
 
-            <audio controls>
-                <source src='https://supermath.xyz:3000/static/audio/seven_nation_army.mp3' type='audio/mpeg' autoPlay={true}/>
-            </audio>
+            <audio src={audio} type='audio/mpeg' autoPlay={true}/>
 
             <GameProgress open={progress}
                 fullScreen={props.FULL_SCREEN}

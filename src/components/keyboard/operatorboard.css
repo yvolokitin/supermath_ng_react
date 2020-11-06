@@ -7,40 +7,43 @@
 
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; 
 }
-.operatorboard button {
-    font-family: "Grinched";
+.operatorboard_button {
     width: 120px;
     height: 120px;
-    margin: 20px;
-    font-size: 6.00rem;
-    outline: none;
-    border: 1px solid #c6c6c6;
-    border-radius: 50%;
-    cursor: pointer;
+    margin: 45px;
+
     color: #444;
-    background-color: #ddd;
+    outline: none;
+    font-size: 6.00rem;
+    font-family: 'Grinched';
+
+    cursor: pointer;
     user-select: none;
 
-    -webkit-transition: background-color 1s ease-out;
-    -moz-transition: background-color 1s ease-out;
-    transition: background-color 1s ease-out;
+    border-radius: 50%;
+    background-color: #ddd;
+    border: 1px solid #c6c6c6;
+
+    transition: background-color 1s;
 }
-.operatorboard button:hover {
+.operatorboard_button:hover {
     border: 1px solid #aaa;
 }
-.operatorboard button:active {
+.operatorboard_button:active {
     background-color: rgba(0, 0, 0, 0.8);
     outline: none;
 }
-.operatorboard button:focus {
+.operatorboard_button:focus {
     outline: none;
 }
 
-@media only screen and (max-width: 1220px) {
-    .operatorboard button {
-        width: 130px;
-        height: 90px;
+@media only screen and (max-width: 900px) {
+    .operatorboard {
+        justify-content: space-around; 
+    }
+    .operatorboard_button {
+        margin: 0;
     }
 }
