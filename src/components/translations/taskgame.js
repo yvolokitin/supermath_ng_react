@@ -2,8 +2,6 @@
 export const taskgame = {
     // English
     'en': {
-        'title': 'Do you really want to Exit?',
-        'text': 'All your results are automatically saved if you are logged in',
         'yes': 'Exit',
         'no': 'Stay and Continue',
         'answer': 'answer',
@@ -13,8 +11,6 @@ export const taskgame = {
     },
     // Russian
     'ru': {
-        'title': 'Вы действительно хотите Выйти?',
-        'text': 'Все ваши результаты автоматически сохраняются, если вы авторизованы',
         'yes': 'Выход',
         'no': 'Остаться в Игре',
         'answer': 'проверить',

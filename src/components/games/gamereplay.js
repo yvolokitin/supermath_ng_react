@@ -8,10 +8,11 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import ReplayIcon from '@material-ui/icons/Replay';
 import CancelIcon from '@material-ui/icons/Cancel';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
+
+// import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+// import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 // import InfoIcon from '@material-ui/icons/Info';
 // import SettingsIcon from '@material-ui/icons/Settings';
@@ -69,17 +70,9 @@ export default function GameReplay(props) {
 
             <DialogContent scroll='body'>
                 <BottomNavigation onChange={handleChange} showLabels>
-                    <BottomNavigationAction label={game[props.lang]['exit_title']} value='exit' icon={<ExitToAppIcon/>} style={{transform:'scale(1.3'}}/>
-                    <BottomNavigationAction label={game[props.lang]['help_title']} value='help' icon={<HelpOutlineIcon/>} style={{transform:'scale(1.3'}}/>
-                    <BottomNavigationAction label={game[props.lang]['results_title']} value='progress' icon={<ShowChartIcon/>} style={{transform:'scale(1.3'}}/>
-
-                    {props.type === 'task' &&
-                        <BottomNavigationAction label={game[props.lang]['previous_title']} value='previous' icon={<ArrowBackIcon/>} style={{transform:'scale(1.3'}} disabled/>
-                    }
-
-                    {props.type === 'task' &&
-                        <BottomNavigationAction label={game[props.lang]['next_title']}  value='next' icon={<ArrowForwardIcon/>} style={{transform:'scale(1.3'}}/>
-                    }
+                    <BottomNavigationAction label={game[props.lang]['exit_title']} value='exit' icon={<ExitToAppIcon/>} style={{transform:'scale(1.3)'}}/>
+                    <BottomNavigationAction label={game[props.lang]['help_title']} value='help' icon={<HelpOutlineIcon/>} style={{transform:'scale(1.3)'}}/>
+                    <BottomNavigationAction label={game[props.lang]['results_title']} value='progress' icon={<ShowChartIcon/>} style={{transform:'scale(1.3)'}}/>
                 </BottomNavigation>
             </DialogContent>
 

@@ -7,6 +7,9 @@ export const game = {
         'exit_question': 'Do you really want to Exit from the game?',
         'exit_text': 'You will lose All your Passed scores data if you Exit (when Fails counter will be kept under your profile)! We are strongly recommend you to finish current Math tasks.',
 
+        'exit_task_question': 'Do you really want to Exit?',
+        'exit_task_text': 'All your results are automatically saved if you are logged in',
+
         'settings': 'SETTINGS',
         'settings_title': 'Settings',
         'settings_question': 'You can change the visual parameters here',
@@ -47,6 +50,9 @@ export const game = {
         'exit_question': 'Вы действительно хотите Прервать текущую игру и Выйти?',
         'exit_text': 'При выходе из игры, вы потеряете Все успешно набранные очки (при этом - все фешки, то есть неудачно набранные очки сохранятся)! Мы настоятельно рекомендуем закончить текущую игру',
 
+        'exit_task_question': 'Вы действительно хотите Выйти?',
+        'exit_task_text': 'Все ваши результаты автоматически сохраняются, если вы авторизованы',
+
         'settings': 'НАСТРОЙКИ',
         'settings_title': 'Настройки',
         'settings_question': 'В этом разделе можно изменить визуальные параметры',
@@ -72,7 +78,7 @@ export const game = {
         'results': 'РЕЗУЛЬТАТЫ',
         'results_title': 'Результаты',
 
-        'previous': 'Назад',
+        'previous': 'Предыдущая',
         'next': 'Следующая',
 
         'answer_yes': 'Выход',

@@ -4,8 +4,7 @@ import {Dialog, Slide, } from '@material-ui/core';
 import axios from 'axios';
 
 import GameExit from './gameexit';
-import GameHelp from './gamehelp';
-import GameSettings from './gamesettings';
+// import GameHelp from './gamehelp';
 
 import {taskgame} from './../translations/taskgame';
 import EnterKeyboard from './../keyboard/enterkeyboard';
@@ -98,8 +97,8 @@ export default function TaskGame(props) {
 
     }, [props.open, props.task, getNewTask]);
 
-    const onAlertDialog = (status) => {
-        console.log('TaskGame.onAlertDialog ' + status);
+    const onDialog = (status) => {
+        console.log('TaskGame.onDialog ' + status);
         if (loading === false) {
             if (status === 'close') {
                 setOpenAlert(ALERT.NONE);
@@ -113,6 +112,9 @@ export default function TaskGame(props) {
 
             } else if (status === 'settings') {
                 setOpenAlert(ALERT.SETTINGS);
+
+            } else if (status === 'previous') {
+                console.log('Back to Previous Task, escaped');
 
             } else if (status === 'next') {
                 // console.log('Proceed with Next Task');
@@ -184,7 +186,7 @@ export default function TaskGame(props) {
         <Dialog open={props.open} fullScreen={true} TransitionComponent={Transition} transitionDuration={900}>
             <div className='taskgame_header_wrapper'>
                 <div className='taskgame_header_wrapper_left' style={{'float': float_desk}}>
-                    <font style={{color: 'orange'}} onClick={() => onAlertDialog('exit')}>SUPERMATH</font>
+                    <font style={{color: 'orange'}} onClick={() => onDialog('exit')}>SUPERMATH</font>
                 </div>
                 <div className='taskgame_header_wrapper_right' style={{'float': float_board}}>
                     <font style={{color: 'black'}}>
@@ -217,33 +219,13 @@ export default function TaskGame(props) {
                 </div>
             </div>
 
-            {(props.lang !== 'ru') ? (
-                <div className='taskgame_footer_wrapper'>
-                    {taskgame[props.lang]['sorry']}
-                </div>
-            ) : (<></>)}
+            <div className='taskgame_footer_wrapper'> {taskgame[props.lang]['sorry']} </div>
 
             <GameExit open={openAlert === ALERT.EXIT}
-                fullScreen={props.width<880}
-                title={taskgame[props.lang]['title']}
-                text={taskgame[props.lang]['text']}
-                yes={taskgame[props.lang]['yes']}
-                no={taskgame[props.lang]['no']}
+                fullScreen={props.fullScreen}
                 type='task'
                 lang={props.lang}
-                onClose={onAlertDialog}/>
-
-            <GameHelp open={openAlert === ALERT.HELP}
-                description={props.description}
-                fullScreen={props.width<880}
-                type='task'
-                lang={props.lang}
-                onClose={onAlertDialog}/>
-
-            <GameSettings open={openAlert === ALERT.SETTINGS}
-                fullScreen={props.width<880}
-                lang={props.lang}
-                onClose={onAlertDialog}/>
+                onClose={onDialog}/>
 
         </Dialog>
     );
