@@ -31,7 +31,7 @@ export const settings = {
         'name': 'Name',
         'surname': 'Surname',
         'email': 'Email',
-        'pswd': 'Enter a New Password',
+        'pswd': 'Enter a New Wachtwoord',
         'edit': 'edit',
         'save': 'save',
         'abort': 'abort',

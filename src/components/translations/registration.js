@@ -32,7 +32,7 @@ export const registration = {
         'surname': 'Achternaam',
         'birthday': 'Verjaardag',
         'email': 'E-mail',
-        'password': 'Paswoord',
+        'password': 'Wachtwoord',
         'subscribe': 'Ik wil inspiratie, acties en updates ontvangen via e-mail',
         'create': 'Maak een account aan',
         'registered': 'Heb je al een account? Aanmelden',

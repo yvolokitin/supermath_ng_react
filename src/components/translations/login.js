@@ -57,7 +57,7 @@ export const login = {
     // Dutch
     'nl' : {
         'email': 'Email',
-        'password': 'Password',
+        'password': 'Wachtwoord',
         'login': 'login',
         'delete': 'delete',
         'remember': 'Remember me',

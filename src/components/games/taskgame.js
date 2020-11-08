@@ -26,6 +26,7 @@ const ALERT = {
 
 export default function TaskGame(props) {
     const [task, setTask] = useState('');
+    const [message, setMessage]  = useState('');
     const [loading, setLoading] = useState(true);
 
     const [result, setResult] = useState('?');
@@ -45,23 +46,29 @@ export default function TaskGame(props) {
 
     const onUpdate = useCallback((response) => {
         if ('data' in response) {
+            console.table(response.data);
             if ('error' in response.data) {
-                console.log('TaskGame.onUpdate -> ' + response.data.error);
+                setMessage('Error: ' + response.data.error);
                 setTask('Error: ' + response.data.error);
                 setImage(url_prefix + 'sm_error.jpg');
 
             } else if ('id' in response.data) {
-                console.log('onGetNewTaskUpdate ' + response.data.id + ', ' + response.data.level + ', ' + response.data.image);
                 setTask(response.data.description);
                 setResult(response.data.result);
                 setImage(url_prefix + response.data.image);
                 setFont('grey'); setAnimation('blinker 5s linear infinite');
+
+                if (props.lang !== response.data.lang) {
+                    setMessage(taskgame[props.lang]['sorry']);
+                } else {
+                    setMessage('');
+                }
             }
         }
 
         setCounter(prevCounter => prevCounter + 1);
         setLoading(false);
-    }, [ ]);
+    }, [props.lang, ]);
 
     const onError = useCallback((error) => {
         console.log('TaskGame.onError ' + error);
@@ -77,12 +84,12 @@ export default function TaskGame(props) {
                 setFloatDesk('left'); setFloatBoard('right');
                 setPassed(0); setFailed(0); setFont('grey');
                 setAnimation('blinker 5s linear infinite');
-            }
 
-            setLoading(true);
-            var data = {'lang': props.lang, 'level': props.task.uid}
-            axios.post('https://supermath.xyz:3000/api/gettask', data)
-                .then(onUpdate).catch(onError);
+                setLoading(true); setMessage('Loading task');
+                var data = {'lang': props.lang, 'level': props.task.uid}
+                axios.post('https://supermath.xyz:3000/api/gettask', data)
+                    .then(onUpdate).catch(onError);
+            }
         }
 
     }, [props.open, props.task, props.lang, counter, onUpdate, onError, ]);
@@ -119,6 +126,15 @@ export default function TaskGame(props) {
 
     function onAnswer(answer) {
         console.log('TaskGame.onAnswer -> answer ' + answer + ', expected ' + result);
+        if (answer === result) {
+            setLoading(true);
+            var data = {'lang': props.lang, 'level': props.task.uid}
+            axios.post('https://supermath.xyz:3000/api/gettask', data)
+                .then(onUpdate).catch(onError);
+
+        } else {
+            console.log('TaskGame.onAnswer -> WRONG ANSWER !!!');
+        }
     }
 
     /*
@@ -161,7 +177,7 @@ export default function TaskGame(props) {
                 </div>
             </div>
 
-            <div className='taskgame_footer_wrapper'> {taskgame[props.lang]['sorry']} </div>
+            <div className='taskgame_footer_wrapper'> {message} </div>
 
             <GameExit open={openAlert === ALERT.EXIT}
                 fullScreen={props.fullScreen}
