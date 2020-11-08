@@ -24,6 +24,16 @@ const ALERT = {
     SETTINGS: 3,
 }
 
+function TaskLoadingDialog(props) {
+    return (
+        <Dialog open={props.open} maxWidth='md' scroll='body'
+            style={{backgroundColor: 'transparent'}}
+            fullScreen={props.fullScreen} fullWidth={true}>
+            <> </>
+        </Dialog>
+    );
+}
+
 export default function TaskGame(props) {
     const [task, setTask] = useState('');
     const [message, setMessage]  = useState('');
@@ -48,7 +58,7 @@ export default function TaskGame(props) {
         if ('data' in response) {
             console.table(response.data);
             if ('error' in response.data) {
-                setMessage('Error: ' + response.data.error);
+                setMessage(taskgame[props.lang]['error'] + response.data.error);
                 setTask('Error: ' + response.data.error);
                 setImage(url_prefix + 'sm_error.jpg');
 
@@ -72,9 +82,9 @@ export default function TaskGame(props) {
 
     const onError = useCallback((error) => {
         console.log('TaskGame.onError ' + error);
-        setTask('Error: ' + error);
-        setLoading(false);
-    }, [ ]);
+        setMessage(taskgame[props.lang]['error'] + error);
+        setTask('Error: ' + error); setLoading(false);
+    }, [props.lang, ]);
 
     useEffect(() => {
         if (props.open) {
@@ -98,7 +108,7 @@ export default function TaskGame(props) {
         console.log('TaskGame.onDialog ' + status + ', loading ' + loading);
         if (loading === false) {
             if (status === 'close') {
-                setOpenAlert(ALERT.NONE);
+                setOpenAlert(ALERT.NONE); setCounter(0);
                 props.onClose('close', {'passed': 0, 'failed': 0});
 
             } else if (status === 'exit') {
@@ -114,8 +124,17 @@ export default function TaskGame(props) {
                 console.log('Back to Previous Task, escaped');
 
             } else if (status === 'next') {
-                // console.log('Proceed with Next Task');
-                // setLoading(true); getNewTask();
+                console.log('Proceed with Next Task');
+                setFailed(prevPassed => prevPassed + 1);
+                setMessage(taskgame[props.lang]['loading']);
+                setLoading(true);
+
+                setTimeout(() => {
+                    var data = {'lang': props.lang, 'level': props.task.uid}
+                    axios.post('https://supermath.xyz:3000/api/gettask', data)
+                        .then(onUpdate).catch(onError);
+                }, 800);
+
                 setOpenAlert(ALERT.NONE);
 
             } else { // close
@@ -127,21 +146,19 @@ export default function TaskGame(props) {
     function onAnswer(answer) {
         console.log('TaskGame.onAnswer -> answer ' + answer + ', expected ' + result);
         if (answer === result) {
-            setLoading(true);
-            var data = {'lang': props.lang, 'level': props.task.uid}
-            axios.post('https://supermath.xyz:3000/api/gettask', data)
-                .then(onUpdate).catch(onError);
+            setPassed(prevPassed => prevPassed + 1); setLoading(true);
+
+            setTimeout(() => {
+                var data = {'lang': props.lang, 'level': props.task.uid}
+                axios.post('https://supermath.xyz:3000/api/gettask', data)
+                    .then(onUpdate).catch(onError);
+            }, 800);
 
         } else {
             console.log('TaskGame.onAnswer -> WRONG ANSWER !!!');
         }
     }
 
-    /*
-                    <div className='taskgame_gameboard_answer_wrapper'>
-                        <font style={{'color': font, 'animation': animation}}> {answer} </font>
-                    </div>
-    */
     return (
         <Dialog open={props.open} fullScreen={true} TransitionComponent={Transition} transitionDuration={900}>
             <div className='taskgame_header_wrapper'>
@@ -184,6 +201,8 @@ export default function TaskGame(props) {
                 type='task'
                 lang={props.lang}
                 onClose={onDialog}/>
+
+            <TaskLoadingDialog open={loading}/>
 
         </Dialog>
     );

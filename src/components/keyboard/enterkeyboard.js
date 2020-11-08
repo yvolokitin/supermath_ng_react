@@ -1,8 +1,6 @@
 ﻿import React from 'react';
 import './enterkeyboard.css';
 
-/*
-*/
 export default function EnterKeyboard(props) {
     const [animation, setAnimation] = React.useState('blinker 5s linear infinite');
     const [font, setFont] = React.useState('grey');
@@ -37,9 +35,11 @@ export default function EnterKeyboard(props) {
 
     React.useEffect(() => {
         if (props.open) {
-            console.log('EnterKeyboard.useEffect');
-            setResult('?'); setAnimation('blinker 5s linear infinite');
+            // console.log('EnterKeyboard.useEffect');
+            setResult('?'); setFont('grey');
+            setAnimation('blinker 5s linear infinite');
         }
+
     }, [props.open, ]);
 
     return (
