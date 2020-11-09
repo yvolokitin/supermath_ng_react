@@ -159,6 +159,15 @@ export default function TaskGame(props) {
         }
     }
 
+    function onTaskImageLoad(event) {
+        console.log('onTaskImageLoad -> ' + event.toString());
+    }
+
+    function onTaskImageError(event) {
+        console.log('onTaskImageError -> ' + event.toString());
+        console.error(event);
+    }
+
     return (
         <Dialog open={props.open} fullScreen={true} TransitionComponent={Transition} transitionDuration={900}>
             <div className='taskgame_header_wrapper'>
@@ -181,7 +190,10 @@ export default function TaskGame(props) {
             <div className='taskgame_body_wrapper'>
                 <div className='taskgame_body_wrapper_left' style={{'float': float_desk}}>
                     <div className='taskgame_gameboard_image_wrapper'>
-                        <img src={image} alt='task' onContextMenu={(e) => e.preventDefault()}/>
+                        <img src={image} alt='task'
+                            onLoad={(e) => onTaskImageLoad(e)}
+                            onError={(e) => onTaskImageError(e)}
+                            onContextMenu={(e) => e.preventDefault()}/>
                     </div>
 
                     <div className='taskgame_gameboard_task_wrapper'> {task} </div>
