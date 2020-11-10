@@ -4,6 +4,7 @@ export const tasks = {
     'en': {
         'play': 'Play',
         'info': 'Tasks Details',
+
         'beginner': 'beginner',
         'elementary': 'elementary',
         'intermediate': 'intermediate',

@@ -89,13 +89,14 @@
     align-items: center;
     justify-content: center;
 
+    cursor: pointer;
     overflow: hidden;
     border-radius: 11px;
     box-shadow: 1px 1px 2px 1px black;
 }
 .taskgame_gameboard_image_wrapper img {
-    height: 95%;
-    width: auto;
+    height: auto;
+    width: 95%;
     border-radius: 11px;
 }
 

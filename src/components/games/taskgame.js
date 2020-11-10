@@ -4,7 +4,7 @@ import {Dialog, Slide, } from '@material-ui/core';
 import axios from 'axios';
 
 import GameExit from './gameexit';
-// import GameHelp from './gamehelp';
+import GameImage from './gameimage';
 
 import {taskgame} from './../translations/taskgame';
 import EnterKeyboard from './../keyboard/enterkeyboard';
@@ -12,6 +12,7 @@ import EnterKeyboard from './../keyboard/enterkeyboard';
 import './taskgame.css';
 
 const url_prefix = 'https://supermath.xyz:3000/static/images/';
+const image_error = 'sm_error.jpg';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='down' ref={ref} {...props} />;
@@ -22,6 +23,7 @@ const ALERT = {
     EXIT: 1,
     HELP: 2,
     SETTINGS: 3,
+    IMAGE: 4,
 }
 
 function TaskLoadingDialog(props) {
@@ -60,7 +62,7 @@ export default function TaskGame(props) {
             if ('error' in response.data) {
                 setMessage(taskgame[props.lang]['error'] + response.data.error);
                 setTask('Error: ' + response.data.error);
-                setImage(url_prefix + 'sm_error.jpg');
+                setImage(url_prefix + image_error);
 
             } else if ('id' in response.data) {
                 setTask(response.data.description);
@@ -111,6 +113,11 @@ export default function TaskGame(props) {
                 setOpenAlert(ALERT.NONE); setCounter(0);
                 props.onClose('close', {'passed': 0, 'failed': 0});
 
+            } else if (status === 'image') {
+                if (image.indexOf(image_error) === -1) {
+                    setOpenAlert(ALERT.IMAGE);
+                }
+
             } else if (status === 'exit') {
                 setOpenAlert(ALERT.EXIT);
 
@@ -160,12 +167,23 @@ export default function TaskGame(props) {
     }
 
     function onTaskImageLoad(event) {
-        console.log('onTaskImageLoad -> ' + event.toString());
+        if (props.open && image !== '') {
+            console.log('onTaskImageLoad -> ' + event.toString());
+        }
     }
 
     function onTaskImageError(event) {
-        console.log('onTaskImageError -> ' + event.toString());
-        console.error(event);
+        if (props.open && image !== '') {
+            console.log('onTaskImageError -> ' + event.toString());
+            console.error(event);
+
+            var http = new XMLHttpRequest();
+            http.open('HEAD', image, true);
+            http.send();
+            console.log('onTaskImageError -> ' + http.status);
+            setImage(url_prefix + image_error);
+            setMessage(taskgame[props.lang]['image'] + http.status);
+        }
     }
 
     return (
@@ -189,7 +207,7 @@ export default function TaskGame(props) {
 
             <div className='taskgame_body_wrapper'>
                 <div className='taskgame_body_wrapper_left' style={{'float': float_desk}}>
-                    <div className='taskgame_gameboard_image_wrapper'>
+                    <div className='taskgame_gameboard_image_wrapper' onClick={() => onDialog('image')}>
                         <img src={image} alt='task'
                             onLoad={(e) => onTaskImageLoad(e)}
                             onError={(e) => onTaskImageError(e)}
@@ -200,9 +218,7 @@ export default function TaskGame(props) {
                 </div>
 
                 <div className='taskgame_body_wrapper_right' style={{'float': float_board}}>
-                    <EnterKeyboard open={loading}
-                        animation={animation}
-                        onAnswer={onAnswer}/>
+                    <EnterKeyboard open={loading} animation={animation} onAnswer={onAnswer}/>
                 </div>
             </div>
 
@@ -212,6 +228,12 @@ export default function TaskGame(props) {
                 fullScreen={props.fullScreen}
                 type='task'
                 lang={props.lang}
+                onClose={onDialog}/>
+
+            <GameImage open={openAlert === ALERT.IMAGE}
+                fullScreen={props.fullScreen}
+                lang={props.lang}
+                image={image}
                 onClose={onDialog}/>
 
             <TaskLoadingDialog open={loading}/>
