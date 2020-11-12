@@ -206,7 +206,9 @@ export default function Body(props) {
 
             <TaskGame open={status === STATUS.TASK}
                 fullScreen={props.width<FULL_SCREEN}
-                id={props.id}
+                tasks_progress={props.tasks_progress}
+                tasks_failed={props.tasks_failed}
+                user_id={props.id}
                 task={game}
                 lang={props.lang}
                 width={props.width}

@@ -186,15 +186,20 @@ export function remove_item(key) {
 /**
  * setItem(): Add key and value to localStorage
  *
- * @param id is user id
+ * @param user_id is user id
  *
  */
-export function set_item(id, key, value) {
-    if ((id !== undefined) && (key !== undefined) && (value !== undefined)) {
+export function set_item(user_id, key, value) {
+    if ((user_id !== undefined) && (key !== undefined) && (value !== undefined)) {
         if (typeof(Storage) !== 'undefined') {
             // Code for localStorage
-            var storage_key = id.toString() + '_' + key;
-            localStorage.setItem(storage_key, value);
+            var storage_key = user_id.toString() + '_' + key;
+            if (key === 'tasks_progress' || key === 'tasks_failed') {
+                localStorage.setItem(storage_key, JSON.stringify(value));
+
+            } else {
+                localStorage.setItem(storage_key, value);
+            }
 
         } else {
             // No web storage Support
@@ -207,13 +212,19 @@ export function set_item(id, key, value) {
  * getItem(): Retrieve a value by the key from localStorage
  *
  */
-export function get_item(id, key) {
+export function get_item(user_id, key) {
     var property = '';
-    if ((id !== undefined) && (key !== undefined)) {
+    if ((user_id !== undefined) && (key !== undefined)) {
         if (typeof(Storage) !== 'undefined') {
             // Code for localStorage
-            var storage_key = id.toString() + '_' + key;
-            property = localStorage.getItem(storage_key);
+            var storage_key = user_id.toString() + '_' + key;
+            if (key === 'tasks_progress' || key === 'tasks_failed') {
+                property = JSON.parse(localStorage.getItem(storage_key));
+
+            } else {
+                property = localStorage.getItem(storage_key);
+            }
+
             // console.log(storage_key + ': ' + property);
             // localStorage.removeItem(storage_key);
 
@@ -236,6 +247,19 @@ export function get_item(id, key) {
 
             case 'avatar':
                 property = 'martin';
+                break;
+
+            case 'tasks_progress':
+            case 'tasks_failed':
+                property = {'task_1': '0',
+                    'task_2': '0',
+                    'task_3': '0',
+                    'task_4': '0',
+                    'task_5': '0',
+                    'task_6': '0',
+                    'task_7': '0',
+                    'task_8': '0',
+                    'task_9': '0',};
                 break;
 
             default:

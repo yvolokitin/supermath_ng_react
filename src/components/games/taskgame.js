@@ -1,5 +1,5 @@
-﻿import React, { useEffect, useState, useCallback } from 'react';
-import {Dialog, Slide, } from '@material-ui/core';
+import React, { useEffect, useState, useCallback } from 'react';
+import {Dialog, CircularProgress, Slide, } from '@material-ui/core';
 
 import axios from 'axios';
 
@@ -8,6 +8,8 @@ import GameImage from './gameimage';
 
 import {taskgame} from './../translations/taskgame';
 import EnterKeyboard from './../keyboard/enterkeyboard';
+
+import thinking_image from './../../images/thinking.png';
 
 import './taskgame.css';
 
@@ -37,12 +39,18 @@ function TaskLoadingDialog(props) {
 }
 
 export default function TaskGame(props) {
+    // task description -> conditions and explanation
     const [task, setTask] = useState('');
+    // task exepcted result -> received from server
+    const [result, setResult] = useState('?');
+    // task image, sometimes necessary for task condition
+    const [image, setImage] = useState('');
+
+    const [tasksFailed, setTasksFailed] = useState({});
+    const [tasksProgress, setTasksProgress] = useState({});
+
     const [message, setMessage]  = useState('');
     const [loading, setLoading] = useState(true);
-
-    const [result, setResult] = useState('?');
-    const [image, setImage] = useState('');
 
     const [counter, setCounter] = useState(0);
     const [passed, setPassed] = useState(0);
@@ -53,6 +61,9 @@ export default function TaskGame(props) {
 
     const [animation, setAnimation] = useState('blinker 5s linear infinite');
     const [font, setFont] = useState('grey');
+
+    const [boardanimation, setBoardAnimation] = React.useState('');
+    const [board, setBoard] = React.useState('#006600');
 
     const [openAlert, setOpenAlert] = useState(ALERT.NONE);
 
@@ -68,7 +79,8 @@ export default function TaskGame(props) {
                 setTask(response.data.description);
                 setResult(response.data.result);
                 setImage(url_prefix + response.data.image);
-                setFont('grey'); setAnimation('blinker 5s linear infinite');
+                setFont('grey'); setBoard('#006600');
+                setAnimation('blinker 5s linear infinite');
 
                 if (props.lang !== response.data.lang) {
                     setMessage(taskgame[props.lang]['sorry']);
@@ -80,38 +92,118 @@ export default function TaskGame(props) {
 
         setCounter(prevCounter => prevCounter + 1);
         setLoading(false);
+
     }, [props.lang, ]);
 
     const onError = useCallback((error) => {
         console.log('TaskGame.onError ' + error);
         setMessage(taskgame[props.lang]['error'] + error);
         setTask('Error: ' + error); setLoading(false);
+
     }, [props.lang, ]);
 
     useEffect(() => {
         if (props.open) {
-            console.log('TaskGame.useEffect -> ' + props.task.uid);
+            console.log('TaskGame.useEffect -> ' + props.task.uid + ', props.user_id ' + props.user_id);
 
             if (counter === 0) {
+                // later it will be gathered from user settings
                 setFloatDesk('left'); setFloatBoard('right');
+
                 setPassed(0); setFailed(0); setFont('grey');
                 setAnimation('blinker 5s linear infinite');
 
-                setLoading(true); setMessage('Loading task');
-                var data = {'lang': props.lang, 'level': props.task.uid}
+                setMessage(taskgame[props.lang]['loading']);
+
+                // tasks_progress={props.tasks_progress}
+                // tasks_failed={props.tasks_failed}
+                console.log('progress -> ' + props.tasks_progress[props.task.uid]);
+                console.log('failed -> ' + props.tasks_failed[props.task.uid]);
+
+                setTasksProgress(props.tasks_progress); 
+                setTasksFailed(props.tasks_failed);
+
+                setLoading(true);
+                var data = {'lang': props.lang,
+                    'level': props.task.uid,
+                    'user_id': props.user_id,
+                    'counter': props.tasks_progress[props.task.uid],
+                    'failed': props.tasks_failed[props.task.uid],}
                 axios.post('https://supermath.xyz:3000/api/gettask', data)
                     .then(onUpdate).catch(onError);
             }
         }
 
-    }, [props.open, props.task, props.lang, counter, onUpdate, onError, ]);
+    }, [props.open, props.task, props.user_id, props.lang,
+        props.tasks_progress, props.tasks_failed, counter, onUpdate, onError]);
 
-    const onDialog = (status) => {
+    function onTaskImageLoad(event) {
+        if (props.open && image !== '') {
+            // console.log('onTaskImageLoad -> ' + event.toString());
+        }
+    }
+
+    function onTaskImageError(event) {
+        if (props.open && image !== '') {
+            console.log('onTaskImageError -> ' + event.toString());
+            var http = new XMLHttpRequest();
+            http.open('HEAD', image, true);
+            http.send();
+            setImage(thinking_image);
+            // setMessage(taskgame[props.lang]['image'] + http.status);
+        }
+    }
+
+    function getNewTask() {
+        // setTasksProgress(props.tasks_progress); 
+        // setTasksFailed(props.tasks_failed);
+
+        var data = {'lang': props.lang,
+            'level': props.task.uid,
+            'user_id': props.user_id,
+            'counter': tasksProgress[props.task.uid],
+            'failed': tasksFailed[props.task.uid],}
+        axios.post('https://supermath.xyz:3000/api/gettask', data)
+            .then(onUpdate).catch(onError);
+    }
+
+    function onAnswer(answer) {
+        console.log('TaskGame.onAnswer -> answer ' + answer + ', expected ' + result);
+        if (answer === result) {
+            setPassed(prevPassed => prevPassed + 1);
+            setMessage(taskgame[props.lang]['loading']);
+            setLoading(true);
+            setTimeout(() => getNewTask(), 800);
+
+        } else {
+            if ((passed + failed) < counter) {
+                setFailed(prevFailed => prevFailed + 1);
+            }
+
+            setBoard('red'); setBoardAnimation('shake 0.6s');
+            setTimeout(() => {
+                setBoardAnimation('smooth_red_to_green 0.6s');
+                setBoard('#006600');
+            }, 800);
+
+            setMessage(answer + ' - ' + taskgame[props.lang]['wrong_answer']);
+        }
+    }
+
+    function onDialog(status) {
         console.log('TaskGame.onDialog ' + status + ', loading ' + loading);
         if (loading === false) {
             if (status === 'close') {
                 setOpenAlert(ALERT.NONE); setCounter(0);
                 props.onClose('close', {'passed': 0, 'failed': 0});
+
+            } else if (status === 'next') {
+                console.log('Proceed with Next Task');
+                setFailed(prevPassed => prevPassed + 1);
+                setMessage(taskgame[props.lang]['loading']);
+                setLoading(true);
+                setTimeout(() => getNewTask(), 800);
+                setOpenAlert(ALERT.NONE);
 
             } else if (status === 'image') {
                 if (image.indexOf(image_error) === -1) {
@@ -130,59 +222,9 @@ export default function TaskGame(props) {
             } else if (status === 'previous') {
                 console.log('Back to Previous Task, escaped');
 
-            } else if (status === 'next') {
-                console.log('Proceed with Next Task');
-                setFailed(prevPassed => prevPassed + 1);
-                setMessage(taskgame[props.lang]['loading']);
-                setLoading(true);
-
-                setTimeout(() => {
-                    var data = {'lang': props.lang, 'level': props.task.uid}
-                    axios.post('https://supermath.xyz:3000/api/gettask', data)
-                        .then(onUpdate).catch(onError);
-                }, 800);
-
-                setOpenAlert(ALERT.NONE);
-
             } else { // close
                 setOpenAlert(ALERT.NONE);
             }
-        }
-    }
-
-    function onAnswer(answer) {
-        console.log('TaskGame.onAnswer -> answer ' + answer + ', expected ' + result);
-        if (answer === result) {
-            setPassed(prevPassed => prevPassed + 1); setLoading(true);
-
-            setTimeout(() => {
-                var data = {'lang': props.lang, 'level': props.task.uid}
-                axios.post('https://supermath.xyz:3000/api/gettask', data)
-                    .then(onUpdate).catch(onError);
-            }, 800);
-
-        } else {
-            console.log('TaskGame.onAnswer -> WRONG ANSWER !!!');
-        }
-    }
-
-    function onTaskImageLoad(event) {
-        if (props.open && image !== '') {
-            console.log('onTaskImageLoad -> ' + event.toString());
-        }
-    }
-
-    function onTaskImageError(event) {
-        if (props.open && image !== '') {
-            console.log('onTaskImageError -> ' + event.toString());
-            console.error(event);
-
-            var http = new XMLHttpRequest();
-            http.open('HEAD', image, true);
-            http.send();
-            console.log('onTaskImageError -> ' + http.status);
-            setImage(url_prefix + image_error);
-            setMessage(taskgame[props.lang]['image'] + http.status);
         }
     }
 
@@ -208,13 +250,17 @@ export default function TaskGame(props) {
             <div className='taskgame_body_wrapper'>
                 <div className='taskgame_body_wrapper_left' style={{'float': float_desk}}>
                     <div className='taskgame_gameboard_image_wrapper' onClick={() => onDialog('image')}>
-                        <img src={image} alt='task'
-                            onLoad={(e) => onTaskImageLoad(e)}
-                            onError={(e) => onTaskImageError(e)}
-                            onContextMenu={(e) => e.preventDefault()}/>
+                        {loading ? (
+                            <CircularProgress size={68} className='circular_progress'/>
+                        ): (
+                            <img src={image} alt='task' onLoad={(e) => onTaskImageLoad(e)}
+                                onError={(e) => onTaskImageError(e)}
+                                onContextMenu={(e) => e.preventDefault()}/>
+                        )}
                     </div>
 
-                    <div className='taskgame_gameboard_task_wrapper'> {task} </div>
+                    <div className='taskgame_gameboard_task_wrapper'
+                        style={{backgroundColor: board, animation: boardanimation}}> {task} </div>
                 </div>
 
                 <div className='taskgame_body_wrapper_right' style={{'float': float_board}}>

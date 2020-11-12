@@ -103,6 +103,13 @@ export default class SuperMathPage extends React.Component {
 
             // refferal name and lastname to show on welcome screen
             refferal: '0000000',
+
+            // data structure for tasks: {'task_1': 'counter_1', ... 'task_9': 'counter_9'}
+            // counter_N is current task progress counter per current task level (task_L)
+            tasks_progress: get_item(active_user, 'tasks_progress'),
+
+            // data structure for tasks: {'task_1': '2,6,9,', ... 'task_9': '1,2,3,4'}
+            tasks_failed: get_item(active_user, 'tasks_failed'),
         };
     }
 
@@ -724,6 +731,8 @@ export default class SuperMathPage extends React.Component {
                     level={this.state.level}
                     solved={this.state.solved}
                     width={this.state.width}
+                    tasks_failed={this.state.tasks_failed}
+                    tasks_progress={this.state.tasks_progress}
                     onUpdate={this.onUserInfo}/>
 
                 <Trophy open={this.state.screen === STATUS.TROPHY}
