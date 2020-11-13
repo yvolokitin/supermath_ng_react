@@ -6,10 +6,7 @@ import OperatorBoard from './../keyboard/operatorboard';
 import LineNumbersBoard from './../keyboard/linenumbersboard';
 
 import useKeyboardEvent from './../keyboard/usekeyboardevent';
-// import useTimeoutEvent from './../keyboard/usetimeoutevent';
-
 import GameResults from './gameresults';
-
 import GameProgress from './gameprogress';
 import GameReplay from './gamereplay';
 import GameExit from './gameexit';

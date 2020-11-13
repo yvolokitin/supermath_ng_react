@@ -151,7 +151,6 @@ export default function TaskGame(props) {
             // http.open('HEAD', image, true);
             // http.send();
             setImage(image_thinking);
-            // setMessage(taskgame[props.lang]['image'] + http.status);
         }
     }
 
@@ -174,7 +173,7 @@ export default function TaskGame(props) {
             setPassed(prevPassed => prevPassed + 1);
             setMessage(taskgame[props.lang]['loading']);
             setImage(image_numbers); setLoading(true);
-            setTimeout(() => getNewTask(), 800);
+            setTimeout(() => getNewTask(), 1100);
 
         } else {
             if ((passed + failed) < counter) {
@@ -203,12 +202,13 @@ export default function TaskGame(props) {
                 setFailed(prevPassed => prevPassed + 1);
                 setMessage(taskgame[props.lang]['loading']);
                 setImage(image_numbers); setLoading(true);
-                setTimeout(() => getNewTask(), 800);
+                setTimeout(() => getNewTask(), 1100);
                 setOpenAlert(ALERT.NONE);
 
             } else if (status === 'image') {
-                if (image.indexOf(image_error) === -1) {
-                    setOpenAlert(ALERT.IMAGE);
+                if (image.indexOf(image_error) === -1 &&
+                    image.indexOf('think') === -1) {
+                        setOpenAlert(ALERT.IMAGE);
                 }
 
             } else if (status === 'exit') {
