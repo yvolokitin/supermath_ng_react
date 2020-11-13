@@ -9,7 +9,8 @@ import GameImage from './gameimage';
 import {taskgame} from './../translations/taskgame';
 import EnterKeyboard from './../keyboard/enterkeyboard';
 
-import thinking_image from './../../images/thinking.png';
+import image_thinking from './../../images/thinking.png';
+import image_numbers from './../../images/trophy/numbers.png';
 
 import './taskgame.css';
 
@@ -146,10 +147,10 @@ export default function TaskGame(props) {
     function onTaskImageError(event) {
         if (props.open && image !== '') {
             console.log('onTaskImageError -> ' + event.toString());
-            var http = new XMLHttpRequest();
-            http.open('HEAD', image, true);
-            http.send();
-            setImage(thinking_image);
+            // var http = new XMLHttpRequest();
+            // http.open('HEAD', image, true);
+            // http.send();
+            setImage(image_thinking);
             // setMessage(taskgame[props.lang]['image'] + http.status);
         }
     }
@@ -172,7 +173,7 @@ export default function TaskGame(props) {
         if (answer === result) {
             setPassed(prevPassed => prevPassed + 1);
             setMessage(taskgame[props.lang]['loading']);
-            setLoading(true);
+            setImage(image_numbers); setLoading(true);
             setTimeout(() => getNewTask(), 800);
 
         } else {
@@ -201,7 +202,7 @@ export default function TaskGame(props) {
                 console.log('Proceed with Next Task');
                 setFailed(prevPassed => prevPassed + 1);
                 setMessage(taskgame[props.lang]['loading']);
-                setLoading(true);
+                setImage(image_numbers); setLoading(true);
                 setTimeout(() => getNewTask(), 800);
                 setOpenAlert(ALERT.NONE);
 
