@@ -83,6 +83,8 @@ export default function TaskGame(props) {
                 setFont('grey'); setBoard('#006600');
                 setAnimation('blinker 5s linear infinite');
 
+                console.table(tasksProgress);
+
                 if (props.lang !== response.data.lang) {
                     setMessage(taskgame[props.lang]['sorry']);
                 } else {
@@ -94,12 +96,13 @@ export default function TaskGame(props) {
         setCounter(prevCounter => prevCounter + 1);
         setLoading(false);
 
-    }, [props.lang, ]);
+    }, [props.lang, tasksProgress, ]);
 
     const onError = useCallback((error) => {
         console.log('TaskGame.onError ' + error);
         setMessage(taskgame[props.lang]['error'] + error);
-        setTask('Error: ' + error); setLoading(false);
+        setTask(taskgame[props.lang]['error'] + error);
+        setLoading(false);
 
     }, [props.lang, ]);
 
@@ -113,14 +116,7 @@ export default function TaskGame(props) {
 
                 setPassed(0); setFailed(0); setFont('grey');
                 setAnimation('blinker 5s linear infinite');
-
                 setMessage(taskgame[props.lang]['loading']);
-
-                // tasks_progress={props.tasks_progress}
-                // tasks_failed={props.tasks_failed}
-                console.log('progress -> ' + props.tasks_progress[props.task.uid]);
-                console.log('failed -> ' + props.tasks_failed[props.task.uid]);
-
                 setTasksProgress(props.tasks_progress); 
                 setTasksFailed(props.tasks_failed);
 
@@ -170,6 +166,11 @@ export default function TaskGame(props) {
     function onAnswer(answer) {
         console.log('TaskGame.onAnswer -> answer ' + answer + ', expected ' + result);
         if (answer === result) {
+            // tasksProgress
+            console.table(tasksProgress);
+            // tasks_progress[props.task.uid]
+            // setTasksProgress(prevProgress => prevProgress[props.task.uid] + 1);
+
             setPassed(prevPassed => prevPassed + 1);
             setMessage(taskgame[props.lang]['loading']);
             setImage(image_numbers); setLoading(true);
@@ -269,7 +270,7 @@ export default function TaskGame(props) {
                 </div>
             </div>
 
-            <div className='taskgame_footer_wrapper'> {message} </div>
+            {message.length>0 && <div className='taskgame_footer_wrapper'> {message} </div>}
 
             <GameExit open={openAlert === ALERT.EXIT}
                 fullScreen={props.fullScreen}
