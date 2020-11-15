@@ -199,7 +199,7 @@ export default function DigitGame(props) {
             */
             // console.log('DigitGame.useEffect -> counter ' + counter);
 
-            // counter=1: initialization
+            // counter=0: initialization
             if (counter === 0) {
                 setBoard('yellow'); setColor('grey');
                 setResult('?'); setAnimation('');

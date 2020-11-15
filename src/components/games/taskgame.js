@@ -45,10 +45,12 @@ export default function TaskGame(props) {
     // task exepcted result -> received from server
     const [result, setResult] = useState('?');
     // task image, sometimes necessary for task condition
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState(image_numbers);
 
-    const [tasksFailed, setTasksFailed] = useState({});
-    const [tasksProgress, setTasksProgress] = useState({});
+    const [error, setError] = useState('');
+
+    const [current, setCurrent] = useState(0);
+    const [fails, setFails] = useState('');
 
     const [message, setMessage]  = useState('');
     const [loading, setLoading] = useState(true);
@@ -60,79 +62,96 @@ export default function TaskGame(props) {
     const [float_desk, setFloatDesk] = useState('left');
     const [float_board, setFloatBoard] = useState('right');
 
-    const [animation, setAnimation] = useState('blinker 5s linear infinite');
-    const [font, setFont] = useState('grey');
-
     const [boardanimation, setBoardAnimation] = React.useState('');
     const [board, setBoard] = React.useState('#006600');
 
     const [openAlert, setOpenAlert] = useState(ALERT.NONE);
 
     const onUpdate = useCallback((response) => {
+        console.log('TaskGame.onUpdate');
         if ('data' in response) {
             console.table(response.data);
             if ('error' in response.data) {
-                setMessage(taskgame[props.lang]['error'] + response.data.error);
-                setTask('Error: ' + response.data.error);
-                setImage(url_prefix + image_error);
+                var messer = taskgame[props.lang]['error']
+                    + '. ' + response.data.error
+                    + '. ' + taskgame[props.lang]['later'];
+                setMessage(messer); setTask(messer); console.log(messer);
+                setBoard('red'); setImage(image_numbers);
 
-            } else if ('id' in response.data) {
-                setTask(response.data.description);
-                setResult(response.data.result);
-                setImage(url_prefix + response.data.image);
-                setFont('grey'); setBoard('#006600');
-                setAnimation('blinker 5s linear infinite');
+            } else if (('id' in response.data) && 
+                ('description' in response.data) &&
+                ('result' in response.data) &&
+                ('image' in response.data) &&
+                ('lang' in response.data)) {
+                    // task counter at current moment
+                    setCounter(prevCounter => parseInt(prevCounter) + 1);
+                    // current user task progress counter
+                    setCurrent(prevCurrent => parseInt(prevCurrent) + 1);
+                    setTask(response.data.description);
+                    setResult(response.data.result);
+                    setImage(url_prefix + response.data.image);
+                    setBoard('#006600');
 
-                console.table(tasksProgress);
+                    if (props.lang !== response.data.lang) {
+                        setMessage(taskgame[props.lang]['sorry']);
+                    } else {
+                        setMessage('');
+                    }
 
-                if (props.lang !== response.data.lang) {
-                    setMessage(taskgame[props.lang]['sorry']);
-                } else {
-                    setMessage('');
-                }
+            } else {
+                var logger = taskgame[props.lang]['error']
+                    + taskgame[props.lang]['not_enough']
+                    + ' ' + taskgame[props.lang]['later'];
+                setMessage(logger); setTask(logger); console.log(logger);
+                setBoard('red'); setImage(image_numbers);
             }
         }
 
-        setCounter(prevCounter => prevCounter + 1);
         setLoading(false);
 
-    }, [props.lang, tasksProgress, ]);
+    }, [props.lang, ]);
 
-    const onError = useCallback((error) => {
-        console.log('TaskGame.onError ' + error);
-        setMessage(taskgame[props.lang]['error'] + error);
-        setTask(taskgame[props.lang]['error'] + error);
-        setLoading(false);
+    const onError = useCallback((msg) => {
+        console.log('TaskGame.onError ' + msg);
+        var logger = taskgame[props.lang]['error'] + msg
+            + '. ' + taskgame[props.lang]['later'];
+        setMessage(logger); setTask(logger); setError(logger);
+        setBoard('red'); setLoading(false);
+        setImage(image_numbers);
 
     }, [props.lang, ]);
 
     useEffect(() => {
         if (props.open) {
-            console.log('TaskGame.useEffect -> ' + props.task.uid + ', props.user_id ' + props.user_id);
+            // console.log('TaskGame.useEffect -> props.task_uid ' + props.task_uid + ', props.user_id ' + props.user_id);
+            // console.log('TaskGame.useEffect -> task_current ' + props.task_current + ', task_fails ' + props.task_fails);
 
+            // counter=0: initialization
             if (counter === 0) {
                 // later it will be gathered from user settings
                 setFloatDesk('left'); setFloatBoard('right');
 
-                setPassed(0); setFailed(0); setFont('grey');
-                setAnimation('blinker 5s linear infinite');
-                setMessage(taskgame[props.lang]['loading']);
-                setTasksProgress(props.tasks_progress); 
-                setTasksFailed(props.tasks_failed);
+                setPassed(0); setFailed(0); setImage(image_numbers);
+                setBoard('#006600'); setLoading(true);
 
-                setLoading(true);
-                var data = {'lang': props.lang,
-                    'level': props.task.uid,
-                    'user_id': props.user_id,
-                    'counter': props.tasks_progress[props.task.uid],
-                    'failed': props.tasks_failed[props.task.uid],}
-                axios.post('https://supermath.xyz:3000/api/gettask', data)
-                    .then(onUpdate).catch(onError);
+                setMessage(taskgame[props.lang]['loading']);
+                setCurrent(props.task_current);
+                setFails(props.task_fails);
+
+                setTimeout(() => {
+                    var data = {'lang': props.lang,
+                        'level': props.task_uid,
+                        'user_id': props.user_id,
+                        'current': props.task_current,
+                        'fails': props.task_fails}
+                    axios.post('https://supermath.xyz:3000/api/gettask', data)
+                        .then(onUpdate).catch(onError);
+                }, 600);
             }
         }
 
-    }, [props.open, props.task, props.user_id, props.lang,
-        props.tasks_progress, props.tasks_failed, counter, onUpdate, onError]);
+    }, [props.open, props.task_uid, props.user_id, props.lang,
+        props.task_current, props.task_fails, counter, onUpdate, onError]);
 
     function onTaskImageLoad(event) {
         if (props.open && image !== '') {
@@ -142,7 +161,7 @@ export default function TaskGame(props) {
 
     function onTaskImageError(event) {
         if (props.open && image !== '') {
-            console.log('onTaskImageError -> ' + event.toString());
+            // console.log('onTaskImageError -> ' + event.toString());
             // var http = new XMLHttpRequest();
             // http.open('HEAD', image, true);
             // http.send();
@@ -151,43 +170,57 @@ export default function TaskGame(props) {
     }
 
     function getNewTask() {
-        // setTasksProgress(props.tasks_progress); 
-        // setTasksFailed(props.tasks_failed);
-
         var data = {'lang': props.lang,
-            'level': props.task.uid,
+            'level': props.task_uid,
             'user_id': props.user_id,
-            'counter': tasksProgress[props.task.uid],
-            'failed': tasksFailed[props.task.uid],}
+            'current': props.task_current,
+            'fails': props.task_fails}
         axios.post('https://supermath.xyz:3000/api/gettask', data)
             .then(onUpdate).catch(onError);
     }
 
     function onAnswer(answer) {
         console.log('TaskGame.onAnswer -> answer ' + answer + ', expected ' + result);
-        if (answer === result) {
-            // tasksProgress
-            console.table(tasksProgress);
-            // tasks_progress[props.task.uid]
-            // setTasksProgress(prevProgress => prevProgress[props.task.uid] + 1);
 
-            setPassed(prevPassed => prevPassed + 1);
-            setMessage(taskgame[props.lang]['loading']);
-            setImage(image_numbers); setLoading(true);
-            setTimeout(() => getNewTask(), 1100);
+        // image_numbers shown in case of backend errors, possible root causes
+        // supermath backend is down, various network issues etc.
+        if (image === image_numbers) {
+            return;
+        }
+
+        if (answer === result) {
+            if (error.length > 0) {
+                setError('');
+            }
+
+            // if passed + failed > counter -> wrong answer received on hat task
+            if ((passed + failed) < counter) {
+                setPassed(prevPassed => prevPassed + 1);
+            }
+
+            if (counter < props.amount) {
+                setMessage(taskgame[props.lang]['loading']);
+                setImage(image_numbers); setLoading(true);
+                setTimeout(() => getNewTask(), 1100);
+
+            } else {
+                console.log('Game is Finished, amount ' + props.amount);
+                onDialog('finished');
+            }
 
         } else {
             if ((passed + failed) < counter) {
                 setFailed(prevFailed => prevFailed + 1);
             }
 
+            setMessage(answer + ' - ' + taskgame[props.lang]['wrong_answer']);
+            setError(answer + ' - ' + taskgame[props.lang]['wrong_answer']);
             setBoard('red'); setBoardAnimation('shake 0.6s');
+
             setTimeout(() => {
                 setBoardAnimation('smooth_red_to_green 0.6s');
                 setBoard('#006600');
             }, 800);
-
-            setMessage(answer + ' - ' + taskgame[props.lang]['wrong_answer']);
         }
     }
 
@@ -205,6 +238,10 @@ export default function TaskGame(props) {
                 setImage(image_numbers); setLoading(true);
                 setTimeout(() => getNewTask(), 1100);
                 setOpenAlert(ALERT.NONE);
+
+            } else if (status === 'finished') {
+                console.log('EXIT: ' + current + ', fails ' + fails);
+                setOpenAlert(ALERT.EXIT);
 
             } else if (status === 'image') {
                 if (image.indexOf(image_error) === -1 &&
@@ -266,7 +303,7 @@ export default function TaskGame(props) {
                 </div>
 
                 <div className='taskgame_body_wrapper_right' style={{'float': float_board}}>
-                    <EnterKeyboard open={loading} animation={animation} onAnswer={onAnswer}/>
+                    <EnterKeyboard open={loading} error={error} lock={image === image_numbers} onAnswer={onAnswer}/>
                 </div>
             </div>
 
