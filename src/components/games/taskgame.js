@@ -79,18 +79,25 @@ export default function TaskGame(props) {
                 setBoard('red'); setImage(image_numbers);
 
             } else if (('id' in response.data) && 
-                ('description' in response.data) &&
-                ('result' in response.data) &&
+                ('lang' in response.data) &&
                 ('image' in response.data) &&
-                ('lang' in response.data)) {
+                ('result' in response.data) &&
+                ('description' in response.data)) {
                     // task counter at current moment
                     setCounter(prevCounter => parseInt(prevCounter) + 1);
                     // current user task progress counter
                     setCurrent(prevCurrent => parseInt(prevCurrent) + 1);
                     setTask(response.data.description);
                     setResult(response.data.result);
-                    setImage(url_prefix + response.data.image);
                     setBoard('#006600');
+
+                    // if image.length === 0 -> task has no exact image
+                    // default image_thinking should be used in that case
+                    if (response.data.image.length === 0) {
+                        setImage(image_thinking);
+                    } else {
+                        setImage(url_prefix + response.data.image);
+                    }
 
                     if (props.lang !== response.data.lang) {
                         setMessage(taskgame[props.lang]['sorry']);
