@@ -72,101 +72,105 @@ import task9 from './../../images/levels/task_9.jpg';
 
 import test_img from './../../images/tasks/test_img.jpg';
 
-const task_amount = 30;
+// for GAMES: white, orange, ... black
+const game_amount = 30;
+
+// for TASKS
+const task_amount = 2; // 5;
 
 export const white_games = [
-    {id: 1, uid: 'white1', logo: white1, type: 'linedigits', task: '0-7', amount: task_amount},
-    {id: 2, uid: 'white2', logo: white2, type: 'comp_nums', task: '<>=,0-10,1', amount: task_amount},
-    {id: 3, uid: 'white3', logo: white3, type: '2digits', task: '+,0-10,0-10,1,1', amount: task_amount},
-    {id: 4, uid: 'white4', logo: white4, type: '2digits', task: '-,0-10,0-10,1,1', amount: task_amount},
-    {id: 5, uid: 'white5', logo: white5, type: '2digits', task: '+-,0-10,0-10,1,1', amount: task_amount},
-    {id: 6, uid: 'white6', logo: white6, type: '2digit_arg', task: 'o,+-,1-10,1-10,1,1', amount: task_amount},
-    {id: 7, uid: 'white7', logo: white7, type: '3digits', task: '+-,1-10,1', amount: task_amount},
-    {id: 8, uid: 'white8', logo: white8, type: 'comp_expr', task: '<>=,+-,0-10,1', amount: task_amount},
-    {id: 9, uid: 'white9', logo: white9, type: '2digit_arg', task: 'd,+-,0-10,0-10,1,1', amount: task_amount},
+    {id: 1, uid: 'white1', logo: white1, type: 'linedigits', task: '0-7', amount: game_amount},
+    {id: 2, uid: 'white2', logo: white2, type: 'comp_nums', task: '<>=,0-10,1', amount: game_amount},
+    {id: 3, uid: 'white3', logo: white3, type: '2digits', task: '+,0-10,0-10,1,1', amount: game_amount},
+    {id: 4, uid: 'white4', logo: white4, type: '2digits', task: '-,0-10,0-10,1,1', amount: game_amount},
+    {id: 5, uid: 'white5', logo: white5, type: '2digits', task: '+-,0-10,0-10,1,1', amount: game_amount},
+    {id: 6, uid: 'white6', logo: white6, type: '2digit_arg', task: 'o,+-,1-10,1-10,1,1', amount: game_amount},
+    {id: 7, uid: 'white7', logo: white7, type: '3digits', task: '+-,1-10,1', amount: game_amount},
+    {id: 8, uid: 'white8', logo: white8, type: 'comp_expr', task: '<>=,+-,0-10,1', amount: game_amount},
+    {id: 9, uid: 'white9', logo: white9, type: '2digit_arg', task: 'd,+-,0-10,0-10,1,1', amount: game_amount},
     // white7 is repeated 3 time to make test more complex
-    {id: 10, uid: 'whiteT', logo: test_img, type: 'test', task: 'white1,white2,white5,white6,white7,white8,white7,white9,white7', amount: task_amount},
+    {id: 10, uid: 'whiteT', logo: test_img, type: 'test', task: 'white1,white2,white5,white6,white7,white8,white7,white9,white7', amount: game_amount},
 ];
 
 export const orange_games = [
     // id1 starts from 12 due to: 13-12-11-10, if less it will be 10-9-8-7
-    {id: 1, uid: 'orange1', time: 0, logo: orange1, type: 'linedigits', task: '13-97', amount: task_amount},
-    {id: 2, uid: 'orange2', time: 0, logo: orange2, type: 'comp_nums', task: '<>=,11-99,1', amount: task_amount},
-    {id: 3, uid: 'orange3', time: 0, logo: orange3, type: '2digits', task: '+-,1-9,10-20,1,1', amount: task_amount},
-    {id: 4, uid: 'orange4', time: 0, logo: orange4, type: '2digits', task: '+-,1-9,1-9,10,10', amount: task_amount},
-    {id: 5, uid: 'orange5', time: 0, logo: orange5, type: '2digits', task: '+-,1-9,1-9,10,1', amount: task_amount},
-    {id: 6, uid: 'orange6', time: 0, logo: orange6, type: '2digits', task: '+-,1-9,11-99,1,1', amount: task_amount},
-    {id: 7, uid: 'orange7', time: 0, logo: orange7, type: '2digits', task: '+-,1-9,11-99,10,1', amount: task_amount},
-    {id: 8, uid: 'orange8', time: 0, logo: orange8, type: '2digits', task: '+-,11-99,11-99,1,1', amount: task_amount},
-    {id: 9, uid: 'orange9', time: 0, logo: orange9, type: '2digit_arg', task: 'd,+-,11-99,11-99,1,1', amount: task_amount},
-    {id: 10, uid: 'orange10', time: 0, logo: orange10, type: '2digits', task: '+-,11-99,1-1,1,100', amount: task_amount},
-    {id: 11, uid: 'orangeT', time: 10, logo: test_img, type: 'test', task: 'orange1,orange2,orange4,orange5,orange6,orange7,orange8,orange9,orange10', amount: task_amount},
+    {id: 1, uid: 'orange1', time: 0, logo: orange1, type: 'linedigits', task: '13-97', amount: game_amount},
+    {id: 2, uid: 'orange2', time: 0, logo: orange2, type: 'comp_nums', task: '<>=,11-99,1', amount: game_amount},
+    {id: 3, uid: 'orange3', time: 0, logo: orange3, type: '2digits', task: '+-,1-9,10-20,1,1', amount: game_amount},
+    {id: 4, uid: 'orange4', time: 0, logo: orange4, type: '2digits', task: '+-,1-9,1-9,10,10', amount: game_amount},
+    {id: 5, uid: 'orange5', time: 0, logo: orange5, type: '2digits', task: '+-,1-9,1-9,10,1', amount: game_amount},
+    {id: 6, uid: 'orange6', time: 0, logo: orange6, type: '2digits', task: '+-,1-9,11-99,1,1', amount: game_amount},
+    {id: 7, uid: 'orange7', time: 0, logo: orange7, type: '2digits', task: '+-,1-9,11-99,10,1', amount: game_amount},
+    {id: 8, uid: 'orange8', time: 0, logo: orange8, type: '2digits', task: '+-,11-99,11-99,1,1', amount: game_amount},
+    {id: 9, uid: 'orange9', time: 0, logo: orange9, type: '2digit_arg', task: 'd,+-,11-99,11-99,1,1', amount: game_amount},
+    {id: 10, uid: 'orange10', time: 0, logo: orange10, type: '2digits', task: '+-,11-99,1-1,1,100', amount: game_amount},
+    {id: 11, uid: 'orangeT', time: 10, logo: test_img, type: 'test', task: 'orange1,orange2,orange4,orange5,orange6,orange7,orange8,orange9,orange10', amount: game_amount},
 ];
 
 export const green_games = [
-    {id: 1, uid: 'green1', time: 0, logo: green1, type: 'comp_expr', task: '<>=,+-,1-9,10', amount: task_amount},
-    {id: 2, uid: 'green2', time: 0, logo: green2, type: 'comp_expr', task: '<>=,+-,11-99,1', amount: task_amount},
-    {id: 3, uid: 'green3', time: 0, logo: green3, type: '2digits', task: '+-,1-9,1-9,100,100', amount: task_amount},
-    {id: 4, uid: 'green4', time: 0, logo: green4, type: '2digits', task: '+-,1-9,1-9,10,100', amount: task_amount},
-    {id: 5, uid: 'green5', time: 0, logo: green5, type: '2digits', task: '+-,1-99,1-99,10,10', amount: task_amount},
-    {id: 6, uid: 'green6', time: 0, logo: green6, type: '2digits', task: '+-,1-9,101-999,1,1', amount: task_amount},
-    {id: 7, uid: 'green7', time: 0, logo: green7, type: 'line_3numbers', task: '+-,1-99,1', amount: task_amount},
-    {id: 8, uid: 'green8', time: 0, logo: green8, type: 'digit_2column', task: '+-,11-99,101-999,1,1', amount: task_amount},
-    {id: 9, uid: 'green9', time: 0, logo: green9, type: 'digit_2column', task: '+-,1001-9999,1001-9999,1,1', amount: task_amount},
-    {id: 10, uid: 'greenT', time: 10, logo: test_img, type: 'test', task: 'green2,green5,green6,green7,green8,green9', amount: task_amount},
+    {id: 1, uid: 'green1', time: 0, logo: green1, type: 'comp_expr', task: '<>=,+-,1-9,10', amount: game_amount},
+    {id: 2, uid: 'green2', time: 0, logo: green2, type: 'comp_expr', task: '<>=,+-,11-99,1', amount: game_amount},
+    {id: 3, uid: 'green3', time: 0, logo: green3, type: '2digits', task: '+-,1-9,1-9,100,100', amount: game_amount},
+    {id: 4, uid: 'green4', time: 0, logo: green4, type: '2digits', task: '+-,1-9,1-9,10,100', amount: game_amount},
+    {id: 5, uid: 'green5', time: 0, logo: green5, type: '2digits', task: '+-,1-99,1-99,10,10', amount: game_amount},
+    {id: 6, uid: 'green6', time: 0, logo: green6, type: '2digits', task: '+-,1-9,101-999,1,1', amount: game_amount},
+    {id: 7, uid: 'green7', time: 0, logo: green7, type: 'line_3numbers', task: '+-,1-99,1', amount: game_amount},
+    {id: 8, uid: 'green8', time: 0, logo: green8, type: 'digit_2column', task: '+-,11-99,101-999,1,1', amount: game_amount},
+    {id: 9, uid: 'green9', time: 0, logo: green9, type: 'digit_2column', task: '+-,1001-9999,1001-9999,1,1', amount: game_amount},
+    {id: 10, uid: 'greenT', time: 10, logo: test_img, type: 'test', task: 'green2,green5,green6,green7,green8,green9', amount: game_amount},
 ];
 
 export const navy_games = [
-    {id: 1, uid: 'navy1', time: 0, logo: navy1, type: '2digits', task: 'x,0-5,0-5,1,1', amount: task_amount},
-    {id: 2, uid: 'navy2', time: 0, logo: navy2, type: '2digits', task: 'x,1-10,1-10,1,1', amount: task_amount},
+    {id: 1, uid: 'navy1', time: 0, logo: navy1, type: '2digits', task: 'x,0-5,0-5,1,1', amount: game_amount},
+    {id: 2, uid: 'navy2', time: 0, logo: navy2, type: '2digits', task: 'x,1-10,1-10,1,1', amount: game_amount},
     // exclude multiplacation to ZERO (o) due to issue with many possible options, like 0x1=0, 0x2=0 etc.
-    {id: 3, uid: 'navy3', time: 0, logo: navy3, type: '2digit_arg', task: 'd,x,1-10,1-10,1,1', amount: task_amount},
-    {id: 4, uid: 'navy4', time: 0, logo: navy4, type: '2digits', task: ':,1-10,1-10,1,1', amount: task_amount},
-    {id: 5, uid: 'navy5', time: 0, logo: navy5, type: '2digits', task: ':,11-99,2-9,1,1', amount: task_amount},
-    {id: 6, uid: 'navy6', time: 0, logo: navy6, type: '3digits', task: 'x:,1-10,1', amount: task_amount},
-    {id: 7, uid: 'navy7', time: 0, logo: navy7, type: '2digits', task: 'x,11-20,11-20,1,1', amount: task_amount},
-    {id: 8, uid: 'navy8', time: 0, logo: navy8, type: '3digits', task: 'x,1-10,1', amount: task_amount},
-    {id: 9, uid: 'navy9', time: 0, logo: navy9, type: 'line_5numbers', task: '+-x,5,0-10,1', amount: task_amount},
-    {id: 10, uid: 'navy10', time: 0, logo: navy10, type: 'line_2numbers_signed', task: '+-,-100-100,-100-100,1,1', amount: task_amount},
-    {id: 11, uid: 'navyT', time: 10, logo: test_img, type: 'test', task: 'navy2,navy3,navy4,navy5,navy6,navy7,navy8,navy9', amount: task_amount},
+    {id: 3, uid: 'navy3', time: 0, logo: navy3, type: '2digit_arg', task: 'd,x,1-10,1-10,1,1', amount: game_amount},
+    {id: 4, uid: 'navy4', time: 0, logo: navy4, type: '2digits', task: ':,1-10,1-10,1,1', amount: game_amount},
+    {id: 5, uid: 'navy5', time: 0, logo: navy5, type: '2digits', task: ':,11-99,2-9,1,1', amount: game_amount},
+    {id: 6, uid: 'navy6', time: 0, logo: navy6, type: '3digits', task: 'x:,1-10,1', amount: game_amount},
+    {id: 7, uid: 'navy7', time: 0, logo: navy7, type: '2digits', task: 'x,11-20,11-20,1,1', amount: game_amount},
+    {id: 8, uid: 'navy8', time: 0, logo: navy8, type: '3digits', task: 'x,1-10,1', amount: game_amount},
+    {id: 9, uid: 'navy9', time: 0, logo: navy9, type: 'line_5numbers', task: '+-x,5,0-10,1', amount: game_amount},
+    {id: 10, uid: 'navy10', time: 0, logo: navy10, type: 'line_2numbers_signed', task: '+-,-100-100,-100-100,1,1', amount: game_amount},
+    {id: 11, uid: 'navyT', time: 10, logo: test_img, type: 'test', task: 'navy2,navy3,navy4,navy5,navy6,navy7,navy8,navy9', amount: game_amount},
 ];
 
 export const brown_games = [
-    {id: 1, uid: 'brown1', time: 0, logo: brown1, type: '2digits_fr', task: '+,1-99,1-10,0,1', amount: task_amount},
-    {id: 2, uid: 'brown2', time: 0, logo: brown2, type: '2digits_fr', task: '+-,1-99,1-99,1,1', amount: task_amount},
-    {id: 3, uid: 'brown3', time: 0, logo: brown3, type: '2digits_fr', task: '+-,1-99,1-99,2,1', amount: task_amount},
-    {id: 4, uid: 'brown4', time: 0, logo: brown4, type: 'line_2numbers_fr', task: '+-,1-99,1-99,3,3', amount: task_amount},
-    {id: 5, uid: 'brown5', time: 0, logo: brown5, type: '2digits_fr', task: 'x,1-10,1-10,0,1', amount: task_amount},
-    {id: 6, uid: 'brown6', time: 0, logo: brown6, type: '2digits_fr', task: 'x,1-10,1-10,1,1', amount: task_amount},
-    {id: 7, uid: 'brown7', time: 0, logo: brown7, type: 'digit_3column', task: '+-,100-999,1', amount: task_amount},
-    {id: 8, uid: 'brown8', time: 0, logo: brown8, type: 'line_4numbers', task: '+-,1-999,1', amount: task_amount},
-    {id: 9, uid: 'brown9', time: 0, logo: brown9, type: 'digit_2column', task: 'x,10-999,10-999,1,1', amount: task_amount},
-    {id: 10, uid: 'brownT', time: 10, logo: test_img, type: 'test', task: 'brown3,brown4,brown5,brown6,brown7,brown8,brown9', amount: task_amount},
+    {id: 1, uid: 'brown1', time: 0, logo: brown1, type: '2digits_fr', task: '+,1-99,1-10,0,1', amount: game_amount},
+    {id: 2, uid: 'brown2', time: 0, logo: brown2, type: '2digits_fr', task: '+-,1-99,1-99,1,1', amount: game_amount},
+    {id: 3, uid: 'brown3', time: 0, logo: brown3, type: '2digits_fr', task: '+-,1-99,1-99,2,1', amount: game_amount},
+    {id: 4, uid: 'brown4', time: 0, logo: brown4, type: 'line_2numbers_fr', task: '+-,1-99,1-99,3,3', amount: game_amount},
+    {id: 5, uid: 'brown5', time: 0, logo: brown5, type: '2digits_fr', task: 'x,1-10,1-10,0,1', amount: game_amount},
+    {id: 6, uid: 'brown6', time: 0, logo: brown6, type: '2digits_fr', task: 'x,1-10,1-10,1,1', amount: game_amount},
+    {id: 7, uid: 'brown7', time: 0, logo: brown7, type: 'digit_3column', task: '+-,100-999,1', amount: game_amount},
+    {id: 8, uid: 'brown8', time: 0, logo: brown8, type: 'line_4numbers', task: '+-,1-999,1', amount: game_amount},
+    {id: 9, uid: 'brown9', time: 0, logo: brown9, type: 'digit_2column', task: 'x,10-999,10-999,1,1', amount: game_amount},
+    {id: 10, uid: 'brownT', time: 10, logo: test_img, type: 'test', task: 'brown3,brown4,brown5,brown6,brown7,brown8,brown9', amount: game_amount},
 ];
 
 export const black_games = [
-    {id: 1, uid: 'black1', time: 0, logo: black1, type: 'digit_2column', task: '+-,100000-999999,100000-999999,1,1', amount: task_amount},
-    {id: 2, uid: 'black2', time: 0, logo: black2, type: 'digit_2column', task: '+-,1000000-99999999,1000000-99999999,1,1', amount: task_amount},
-    {id: 3, uid: 'black3', time: 0, logo: black3, type: 'digit_2column', task: 'x,100-999,100-999,1,1', amount: task_amount},
-    {id: 4, uid: 'black4', time: 0, logo: black4, type: 'digit_2column', task: 'x,1000-9999,1000-9999,1,1', amount: task_amount},
-    {id: 5, uid: 'black5', time: 0, logo: black5, type: 'digit_3column', task: '+-,101-99999,1', amount: task_amount},
-    {id: 6, uid: 'black6', time: 0, logo: black6, type: '2digits', task: ':,101-999,11-999,1,1', amount: task_amount},
-    {id: 7, uid: 'black7', time: 0, logo: black7, type: 'line_2numbers_fr', task: '+-,11-999,11-999,4,4', amount: task_amount},
-    {id: 8, uid: 'black8', time: 0, logo: black8, type: 'line_3numbers', task: 'x:,101-999,1', amount: task_amount},
-    {id: 9, uid: 'black9', time: 0, logo: black9, type: 'line_2numbers_signed', task: '+-,-99999-99999,-99999-99999,1,1', amount: task_amount},
-    {id: 10, uid: 'blackT', time: 20, logo: test_img, type: 'test', task: 'black2,black4,black5,black6,black7,black8,black9', amount: task_amount},
+    {id: 1, uid: 'black1', time: 0, logo: black1, type: 'digit_2column', task: '+-,100000-999999,100000-999999,1,1', amount: game_amount},
+    {id: 2, uid: 'black2', time: 0, logo: black2, type: 'digit_2column', task: '+-,1000000-99999999,1000000-99999999,1,1', amount: game_amount},
+    {id: 3, uid: 'black3', time: 0, logo: black3, type: 'digit_2column', task: 'x,100-999,100-999,1,1', amount: game_amount},
+    {id: 4, uid: 'black4', time: 0, logo: black4, type: 'digit_2column', task: 'x,1000-9999,1000-9999,1,1', amount: game_amount},
+    {id: 5, uid: 'black5', time: 0, logo: black5, type: 'digit_3column', task: '+-,101-99999,1', amount: game_amount},
+    {id: 6, uid: 'black6', time: 0, logo: black6, type: '2digits', task: ':,101-999,11-999,1,1', amount: game_amount},
+    {id: 7, uid: 'black7', time: 0, logo: black7, type: 'line_2numbers_fr', task: '+-,11-999,11-999,4,4', amount: game_amount},
+    {id: 8, uid: 'black8', time: 0, logo: black8, type: 'line_3numbers', task: 'x:,101-999,1', amount: game_amount},
+    {id: 9, uid: 'black9', time: 0, logo: black9, type: 'line_2numbers_signed', task: '+-,-99999-99999,-99999-99999,1,1', amount: game_amount},
+    {id: 10, uid: 'blackT', time: 20, logo: test_img, type: 'test', task: 'black2,black4,black5,black6,black7,black8,black9', amount: game_amount},
 ];
 
 export const task_games = [
-    {id: 1, uid: 'task_1', time: 0, logo: task1, type: 'task', color: '#9900ff', level: 'beginner', locked: false},
-    {id: 2, uid: 'task_2', time: 0, logo: task2, type: 'task', color: '#0000cc', level: 'elementary', locked: false},
-    {id: 3, uid: 'task_3', time: 0, logo: task3, type: 'task', color: '#336699', level: 'intermediate', locked: true},
-    {id: 4, uid: 'task_4', time: 0, logo: task4, type: 'task', color: '#00b3b3', level: 'upper intermediate', locked: true},
-    {id: 5, uid: 'task_5', time: 0, logo: task5, type: 'task', color: '#808000', level: 'pre-advanced', locked: true},
-    {id: 6, uid: 'task_6', time: 0, logo: task6, type: 'task', color: '#006600', level: 'advanced', locked: true},
-    {id: 7, uid: 'task_7', time: 0, logo: task7, type: 'task', color: '#ff9933', level: 'proficient', locked: true},
-    {id: 8, uid: 'task_8', time: 0, logo: task8, type: 'task', color: '#993300', level: 'expert', locked: true},
-    {id: 9, uid: 'task_9', time: 0, logo: task9, type: 'task', color: '#800000', level: 'mastery', locked: true},
+    {id: 1, uid: 'task_1', time: 0, logo: task1, type: 'task', amount: task_amount, color: '#9900ff', level: 'beginner', locked: false},
+    {id: 2, uid: 'task_2', time: 0, logo: task2, type: 'task', amount: task_amount, color: '#0000cc', level: 'elementary', locked: false},
+    {id: 3, uid: 'task_3', time: 0, logo: task3, type: 'task', amount: task_amount, color: '#336699', level: 'intermediate', locked: true},
+    {id: 4, uid: 'task_4', time: 0, logo: task4, type: 'task', amount: task_amount, color: '#00b3b3', level: 'upper intermediate', locked: true},
+    {id: 5, uid: 'task_5', time: 0, logo: task5, type: 'task', amount: task_amount, color: '#808000', level: 'pre-advanced', locked: true},
+    {id: 6, uid: 'task_6', time: 0, logo: task6, type: 'task', amount: task_amount, color: '#006600', level: 'advanced', locked: true},
+    {id: 7, uid: 'task_7', time: 0, logo: task7, type: 'task', amount: task_amount, color: '#ff9933', level: 'proficient', locked: true},
+    {id: 8, uid: 'task_8', time: 0, logo: task8, type: 'task', amount: task_amount, color: '#993300', level: 'expert', locked: true},
+    {id: 9, uid: 'task_9', time: 0, logo: task9, type: 'task', amount: task_amount, color: '#800000', level: 'mastery', locked: true},
 ];
 
 /**

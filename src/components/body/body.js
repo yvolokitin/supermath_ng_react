@@ -210,7 +210,7 @@ export default function Body(props) {
                 task_uid={game.uid}
                 task_current={props.tasks_progress[game.uid]}
                 task_fails={props.tasks_failed[game.uid]}
-                amount={'5'}
+                amount={game.amount}
                 lang={props.lang}
                 width={props.width}
                 description={description}

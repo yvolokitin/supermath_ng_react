@@ -60,8 +60,8 @@ export default function DigitGame(props) {
 
     const [result, setResult] = React.useState('?');
 
-    const [resultData, setResultData] = React.useState({});
     const [results, setResults] = React.useState([]);
+    const [resultData, setResultData] = React.useState({});
 
     const [boardanimation, setAnimation] = React.useState('');
     const [board, setBoard] = React.useState('yellow');

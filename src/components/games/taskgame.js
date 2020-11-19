@@ -5,9 +5,12 @@ import axios from 'axios';
 
 import GameExit from './gameexit';
 import GameImage from './gameimage';
+import GameResults from './gameresults';
 
 import {taskgame} from './../translations/taskgame';
 import EnterKeyboard from './../keyboard/enterkeyboard';
+
+import {get_rate_per_percent} from './../halpers/functions';
 
 import image_thinking from './../../images/thinking.png';
 import image_numbers from './../../images/trophy/numbers.png';
@@ -27,6 +30,7 @@ const ALERT = {
     HELP: 2,
     SETTINGS: 3,
     IMAGE: 4,
+    RESULTS: 5,
 }
 
 function TaskLoadingDialog(props) {
@@ -49,11 +53,16 @@ export default function TaskGame(props) {
 
     const [error, setError] = useState('');
 
+    const [results, setResults] = React.useState([]);
+    const [resultData, setResultData] = React.useState({});
+
     const [current, setCurrent] = useState(0);
     const [fails, setFails] = useState('');
 
     const [message, setMessage]  = useState('');
     const [loading, setLoading] = useState(true);
+
+    const [duration, setDuration] = React.useState(new Date().getTime());
 
     const [counter, setCounter] = useState(0);
     const [passed, setPassed] = useState(0);
@@ -139,7 +148,9 @@ export default function TaskGame(props) {
                 setFloatDesk('left'); setFloatBoard('right');
 
                 setPassed(0); setFailed(0); setImage(image_numbers);
-                setBoard('#006600'); setLoading(true);
+                setResults([]); setBoard('#006600'); setLoading(true);
+
+                setDuration(new Date().getTime());
 
                 setMessage(taskgame[props.lang]['loading']);
                 setCurrent(props.task_current);
@@ -203,6 +214,7 @@ export default function TaskGame(props) {
             // if passed + failed > counter -> wrong answer received on hat task
             if ((passed + failed) < counter) {
                 setPassed(prevPassed => prevPassed + 1);
+                setResults([...results, {'task': 'yura', 'color': 'green'}]);
             }
 
             if (counter < props.amount) {
@@ -248,7 +260,23 @@ export default function TaskGame(props) {
 
             } else if (status === 'finished') {
                 console.log('EXIT: ' + current + ', fails ' + fails);
-                setOpenAlert(ALERT.EXIT);
+
+                var percent = 100 * (props.amount - failed) / props.amount;
+                var result_data = {
+                    'operation': 'results',
+                    'game_uid': props.task_uid,
+                    'passed': passed,
+                    'failed': failed,
+                    'duration': (new Date().getTime() - duration),
+                    'rate': get_rate_per_percent(percent),
+                    'percent': percent,
+                    'belt': 'task',
+                    'task': 'task',
+                };
+
+                console.table(result_data);
+                setResultData(result_data);
+                setOpenAlert(ALERT.RESULTS);
 
             } else if (status === 'image') {
                 if (image.indexOf(image_error) === -1 &&
@@ -316,9 +344,11 @@ export default function TaskGame(props) {
 
             {message.length>0 && <div className='taskgame_footer_wrapper'> {message} </div>}
 
+            <TaskLoadingDialog open={loading}/>
+
             <GameExit open={openAlert === ALERT.EXIT}
-                fullScreen={props.fullScreen}
                 type='task'
+                fullScreen={props.fullScreen}
                 lang={props.lang}
                 onClose={onDialog}/>
 
@@ -328,7 +358,16 @@ export default function TaskGame(props) {
                 image={image}
                 onClose={onDialog}/>
 
-            <TaskLoadingDialog open={loading}/>
+            <GameResults open={openAlert === ALERT.RESULTS}
+                type='task'
+                fullScreen={props.fullScreen}
+                user_id={props.user_id}
+                amount={props.amount}
+                level={props.level}
+                lang={props.lang}
+                results={results}
+                data={resultData}
+                onClose={onDialog}/>
 
         </Dialog>
     );
