@@ -38,6 +38,22 @@ export function get_timeout_per_test(belt) {
     return 8500;
 }
 
+export function get_number_per_belt(belt) {
+    if (belt === 'black') {
+        return 6;
+    } else if (belt === 'brown') {
+        return 5;
+    } else if (belt === 'navy') {
+        return 4;
+    } else if (belt === 'green') {
+        return 3;
+    } else if (belt === 'orange') {
+        return 2;
+    }
+    // the White one
+    return 1;
+}
+
 export function get_radius_per_width() {
     var width = window.innerWidth;
     if (width > 1600) {

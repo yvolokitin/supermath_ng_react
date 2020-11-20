@@ -244,60 +244,107 @@ export default function TaskGame(props) {
     }
 
     function onDialog(status) {
-        console.log('TaskGame.onDialog ' + status + ', loading ' + loading);
+        console.log('TaskGame.onDialog ' + status);
         if (loading === false) {
-            if (status === 'close') {
-                setOpenAlert(ALERT.NONE); setCounter(0);
-                props.onClose('close', {'passed': 0, 'failed': 0});
+            switch (status) {
+                case 'close':
+                    setOpenAlert(ALERT.NONE); setCounter(0);
+                    props.onClose('close', {'passed': 0, 'failed': 0});
+                    break;
 
-            } else if (status === 'next') {
-                console.log('Proceed with Next Task');
-                setFailed(prevPassed => prevPassed + 1);
-                setMessage(taskgame[props.lang]['loading']);
-                setImage(image_numbers); setLoading(true);
-                setTimeout(() => getNewTask(), 1100);
-                setOpenAlert(ALERT.NONE);
+                // when game is finished and results shown
+                // and user pressed Play again
+                case 'restart':
+                    setCounter(0); setOpenAlert(ALERT.NONE);
+                    break;
 
-            } else if (status === 'finished') {
-                console.log('EXIT: ' + current + ', fails ' + fails);
+                case 'next':
+                    console.log('Proceed with Next Task');
+                    setFailed(prevPassed => prevPassed + 1);
+                    setMessage(taskgame[props.lang]['loading']);
+                    setImage(image_numbers); setLoading(true);
+                    setTimeout(() => getNewTask(), 1100);
+                    setOpenAlert(ALERT.NONE);
+                    break;
 
-                var percent = 100 * (props.amount - failed) / props.amount;
-                var result_data = {
-                    'operation': 'results',
-                    'game_uid': props.task_uid,
-                    'passed': passed,
-                    'failed': failed,
-                    'duration': (new Date().getTime() - duration),
-                    'rate': get_rate_per_percent(percent),
-                    'percent': percent,
-                    'belt': 'task',
-                    'task': 'task',
-                };
+                case 'finished':
+                    console.log('EXIT: ' + current + ', fails ' + fails);
+                    var percent = 100 * (props.amount - failed) / props.amount;
+                    var passed_counter = props.amount - failed;
+                    if (failed === 0) {
+                        switch (props.task_uid) {
+                            case 'task_2':
+                                passed_counter = passed_counter * 2;
+                                break;
+                            case 'task_3':
+                                passed_counter = passed_counter * 3;
+                                break;
+                            case 'task_4':
+                                passed_counter = passed_counter * 4;
+                                break;
+                            case 'task_5':
+                                passed_counter = passed_counter * 5;
+                                break;
+                            case 'task_6':
+                                passed_counter = passed_counter * 6;
+                                break;
+                            case 'task_7':
+                                passed_counter = passed_counter * 7;
+                                break;
+                            case 'task_8':
+                                passed_counter = passed_counter * 8;
+                                break;
+                            case 'task_9':
+                                passed_counter = passed_counter * 10;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
 
-                console.table(result_data);
-                setResultData(result_data);
-                setOpenAlert(ALERT.RESULTS);
+                    var result_data = {
+                        'operation': 'results',
+                        'game_uid': props.task_uid,
+                        'passed': passed_counter,
+                        'failed': failed,
+                        'duration': (new Date().getTime() - duration),
+                        'rate': get_rate_per_percent(percent),
+                        'percent': percent,
+                        'belt': 'task',
+                        'task': 'task',
+                    };
 
-            } else if (status === 'image') {
-                if (image.indexOf(image_error) === -1 &&
-                    image.indexOf('think') === -1) {
-                        setOpenAlert(ALERT.IMAGE);
-                }
+                    console.table(result_data);
+                    setResultData(result_data);
+                    setOpenAlert(ALERT.RESULTS);
+                    break;
 
-            } else if (status === 'exit') {
-                setOpenAlert(ALERT.EXIT);
+                case 'image':
+                    if (image.indexOf(image_error) === -1 &&
+                        image.indexOf('think') === -1) {
+                            setOpenAlert(ALERT.IMAGE);
+                    }
+                    break;
 
-            } else if (status === 'help') {
-                setOpenAlert(ALERT.HELP);
+                case 'exit':
+                    setOpenAlert(ALERT.EXIT);
+                    break;
 
-            } else if (status === 'settings') {
-                setOpenAlert(ALERT.SETTINGS);
+                case 'help':
+                    setOpenAlert(ALERT.HELP);
+                    break;
 
-            } else if (status === 'previous') {
-                console.log('Back to Previous Task, escaped');
+                case 'settings':
+                    setOpenAlert(ALERT.SETTINGS);
+                    break;
 
-            } else { // close
-                setOpenAlert(ALERT.NONE);
+                case 'previous':
+                    console.log('Back to Previous Task, escaped');
+                    break;
+
+                default: // close
+                    setOpenAlert(ALERT.NONE);
+                    break;
             }
         }
     }

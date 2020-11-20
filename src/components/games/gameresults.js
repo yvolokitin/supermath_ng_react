@@ -18,6 +18,7 @@ import ColorLine from './../line/line';
 import image from './../../images/time.png';
 
 import {gameresults} from './../translations/gameresults';
+import {get_number_per_belt} from './../halpers/functions';
 
 import image_belt_white from './../../images/belt_white.png';
 import image_belt_orange from './../../images/belt_orange.png';
@@ -110,12 +111,23 @@ export default function GameResults(props) {
                 setText(gameresults[props.lang]['test'] + ' ' + gameresults[props.lang]['your_score'] + props.data.passed);
             }
 
-            if (props.data.failed === 0 && props.data.belt === props.level) {
+            // props.level is current user belt (proof with test): 
+            // props.data.belt -> the color, which is user to solve at current moment
+            if (props.data.failed === 0) {
                 // in case of test -> user always score points
                 if (props.data.game_uid.indexOf('T') === -1) {
-                    setNopoints(true);
+                    // get number per belt
+                    var crt_blt = get_number_per_belt(props.data.belt);
+                    var usr_blt = get_number_per_belt(props.level);
+                    // console.log('@@@@@@@@@@@@@@@@@@ ' + props.data.belt);
+                    if ((props.data.belt !== 'black') &&
+                        (props.data.belt !== 'task') &&
+                        (usr_blt >= crt_blt)) {
+                            setNopoints(true);
+                    }
                 }
             }
+
         } else {
             setAudio('');
         }
