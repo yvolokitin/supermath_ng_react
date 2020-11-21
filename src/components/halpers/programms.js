@@ -162,15 +162,15 @@ export const black_games = [
 ];
 
 export const task_games = [
-    {id: 1, uid: 'task_1', time: 0, logo: task1, type: 'task', amount: task_amount, color: '#9900ff', level: 'beginner', locked: false},
-    {id: 2, uid: 'task_2', time: 0, logo: task2, type: 'task', amount: task_amount, color: '#0000cc', level: 'elementary', locked: false},
-    {id: 3, uid: 'task_3', time: 0, logo: task3, type: 'task', amount: task_amount, color: '#336699', level: 'intermediate', locked: false},
-    {id: 4, uid: 'task_4', time: 0, logo: task4, type: 'task', amount: task_amount, color: '#00b3b3', level: 'upper intermediate', locked: false},
-    {id: 5, uid: 'task_5', time: 0, logo: task5, type: 'task', amount: task_amount, color: '#808000', level: 'pre-advanced', locked: false},
-    {id: 6, uid: 'task_6', time: 0, logo: task6, type: 'task', amount: task_amount, color: '#006600', level: 'advanced', locked: false},
-    {id: 7, uid: 'task_7', time: 0, logo: task7, type: 'task', amount: task_amount, color: '#ff9933', level: 'proficient', locked: false},
-    {id: 8, uid: 'task_8', time: 0, logo: task8, type: 'task', amount: task_amount, color: '#993300', level: 'expert', locked: false},
-    {id: 9, uid: 'task_9', time: 0, logo: task9, type: 'task', amount: task_amount, color: '#800000', level: 'mastery', locked: false},
+    {id: 1, uid: 'task_1', logo: task1, type: 'task', amount: task_amount, color: '#9900ff', level: 'beginner'},
+    {id: 2, uid: 'task_2', logo: task2, type: 'task', amount: task_amount, color: '#0000cc', level: 'elementary'},
+    {id: 3, uid: 'task_3', logo: task3, type: 'task', amount: task_amount, color: '#336699', level: 'intermediate'},
+    {id: 4, uid: 'task_4', logo: task4, type: 'task', amount: task_amount, color: '#00b3b3', level: 'upper intermediate'},
+    {id: 5, uid: 'task_5', logo: task5, type: 'task', amount: task_amount, color: '#808000', level: 'pre-advanced'},
+    {id: 6, uid: 'task_6', logo: task6, type: 'task', amount: task_amount, color: '#006600', level: 'advanced'},
+    {id: 7, uid: 'task_7', logo: task7, type: 'task', amount: task_amount, color: '#ff9933', level: 'proficient'},
+    {id: 8, uid: 'task_8', logo: task8, type: 'task', amount: task_amount, color: '#993300', level: 'expert'},
+    {id: 9, uid: 'task_9', logo: task9, type: 'task', amount: task_amount, color: '#800000', level: 'mastery'},
 ];
 
 /**

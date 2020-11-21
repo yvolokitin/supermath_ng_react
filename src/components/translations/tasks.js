@@ -15,15 +15,16 @@ export const tasks = {
         'expert': 'expert',
         'mastery': 'mastery',
 
-        'beginner_desc': 'beginner',
-        'elementary_desc': 'elementary',
-        'intermediate_desc': 'intermediate',
-        'upper intermediate_desc': 'upper intermediate',
+        'beginner_desc': 'Basics of arithmetic and mathematical operations, the ability to operate with numbers up to one hundred. Knowledge of the simplest geometric shapes and operations with them.',
+        'elementary_desc': 'Tasks on the sequence of numbers and working with expressions, arithmetic operations of multiplication and division. Units',
+        'intermediate_desc': 'Fundamentals of geometry, numeric expressions and order of performance.',
+        'upper intermediate_desc': 'Divisibility of numbers, fractions and decimals, positive and negative numbers, proportions, properties of actions on numbers and conversion of expressions',
+
         'pre-advanced_desc': 'pre-advanced',
         'advanced_desc': 'advanced',
         'proficient_desc': 'proficient',
-        'expert_desc': 'expert',
-        'mastery_desc': 'mastery',
+        'expert_desc': 'Effective operational proficiency or expert. ',
+        'mastery_desc': 'Mastery or proficiency. ',
     },
     // Russian
     'ru': {
@@ -40,15 +41,15 @@ export const tasks = {
         'expert': 'эксперт',
         'mastery': 'мастер',
 
-        'beginner_desc': 'Основы арифметики и математических действий, умение оперировать с числами до ста. Знание простейших геометрических фигур',
-        'elementary_desc': 'Задачи на последовательности чисел и работу с выражениями, основы умножения и деления. Единицы измерения',
-        'intermediate_desc': 'Основы геометрии, числовые выражения и порядок выполнения действий',
-        'upper intermediate_desc': 'upper intermediate',
+        'beginner_desc': 'Основы арифметики и математических действий, умение оперировать с числами до ста. Знание простейших геометрических фигур и операций с ними.',
+        'elementary_desc': 'Задачи на последовательности чисел и работу с выражениями, арифметические операции умножения и деления. Единицы измерения.',
+        'intermediate_desc': 'Основы геометрии, числовые выражения и порядок выполнения действий.',
+        'upper intermediate_desc': 'Делимость чисел, обыкновенные и десятичные дроби, положительные и отрицательные числа, пропорции, свойства действий над числами и преобразование выражений',
         'pre-advanced_desc': 'pre-advanced',
         'advanced_desc': 'advanced',
         'proficient_desc': 'proficient',
-        'expert_desc': 'expert',
-        'mastery_desc': 'Владение в совершенстве ',
+        'expert_desc': 'Уровень эффективного функционирования или эксперта. ',
+        'mastery_desc': 'Владение в совершенстве.',
     },
     // Dutch
     'nl' : {

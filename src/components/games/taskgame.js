@@ -271,35 +271,10 @@ export default function TaskGame(props) {
                     console.log('EXIT: ' + current + ', fails ' + fails);
                     var percent = 100 * (props.amount - failed) / props.amount;
                     var passed_counter = props.amount - failed;
+
                     if (failed === 0) {
-                        switch (props.task_uid) {
-                            case 'task_2':
-                                passed_counter = passed_counter * 2;
-                                break;
-                            case 'task_3':
-                                passed_counter = passed_counter * 3;
-                                break;
-                            case 'task_4':
-                                passed_counter = passed_counter * 4;
-                                break;
-                            case 'task_5':
-                                passed_counter = passed_counter * 5;
-                                break;
-                            case 'task_6':
-                                passed_counter = passed_counter * 6;
-                                break;
-                            case 'task_7':
-                                passed_counter = passed_counter * 7;
-                                break;
-                            case 'task_8':
-                                passed_counter = passed_counter * 8;
-                                break;
-                            case 'task_9':
-                                passed_counter = passed_counter * 10;
-                                break;
-                            default:
-                                break;
-                        }
+                        var multiplier = parseInt(props.task_uid.charAt(props.task_uid.length - 1));
+                        passed_counter = multiplier * passed_counter;
                     }
 
                     var result_data = {
@@ -395,6 +370,8 @@ export default function TaskGame(props) {
 
             <GameExit open={openAlert === ALERT.EXIT}
                 type='task'
+                counter={counter}
+                amount={props.amount}
                 fullScreen={props.fullScreen}
                 lang={props.lang}
                 onClose={onDialog}/>

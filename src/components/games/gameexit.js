@@ -77,15 +77,15 @@ export default function GameExit(props) {
             <DialogContent scroll='body'>
                 <BottomNavigation onChange={handleChange} showLabels>
                     {props.type === 'game' &&
-                        <BottomNavigationAction label={game[props.lang]['replay_title']} value='replay' icon={<ReplayIcon/>} style={{transform:'scale(1.3)'}}/> }
+                        <BottomNavigationAction label={game[props.lang]['replay_title']} value='replay' icon={<ReplayIcon/>} style={{transform:'scale(1.3)'}}/>}
 
                     <BottomNavigationAction label={game[props.lang]['help_title']} value='help' icon={<HelpOutlineIcon/>} style={{transform:'scale(1.3)'}}/>
 
                     {props.type === 'game' &&
-                        <BottomNavigationAction label={game[props.lang]['results_title']} value='progress' icon={<ShowChartIcon/>} style={{transform:'scale(1.3)'}}/> }
+                        <BottomNavigationAction label={game[props.lang]['results_title']} value='progress' icon={<ShowChartIcon/>} style={{transform:'scale(1.3)'}}/>}
 
                     {props.type === 'task' &&
-                        <BottomNavigationAction label={game[props.lang]['previous']} value='previous' icon={<ArrowBackIcon/>} style={{transform:'scale(1.3)',cursor:'no-drop'}}/> }
+                        <BottomNavigationAction label={game[props.lang]['previous']} disabled value='previous' icon={<ArrowBackIcon/>} style={{transform:'scale(1.3)',cursor:'no-drop'}}/>}
 
                     {props.type === 'task' &&
                         <BottomNavigationAction label={game[props.lang]['next']} value='next' icon={<ArrowForwardIcon/>} style={{transform:'scale(1.3)'}}/> }

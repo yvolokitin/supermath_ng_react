@@ -1,12 +1,12 @@
 ﻿import React, { useEffect, useState } from 'react';
 import StarsIcon from '@material-ui/icons/Stars';
-// import StarBorderIcon from '@material-ui/icons/StarBorder';
 
 import {Button} from '@material-ui/core';
 
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
 
+import {FULL_SCREEN} from './../halpers/functions';
 import {tasks} from './../translations/tasks';
 
 import Info from './info';
@@ -27,13 +27,11 @@ export default function CardTask(props) {
 
     }, [props.value, props.task, props.lang, ]);
 
-    function onOpen(property) {
-        if (property === 'game') {
-            if (props.task.locked === false) {
-                props.onUpdate(props.task, description);
-            }
+    function onOpen(action) {
+        if (action === 'game') {
+            props.onUpdate(props.task, description);
 
-        } else {
+        } else { // action is info
             openInfo(true);
         }
     }
@@ -75,11 +73,12 @@ export default function CardTask(props) {
             <Info open={info}
                 type='info'
                 title={title}
+                color={props.task.color}
                 text={description}
                 source={props.task.logo}
-                task_id={props.task_id}
+                task_id={props.task.uid}
                 task={props.task.type}
-                fullScreen={props.width<820}
+                fullScreen={props.width<FULL_SCREEN}
                 lang={props.lang}
                 onClose={onClose}/>
         </div>

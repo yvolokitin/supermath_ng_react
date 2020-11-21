@@ -5,6 +5,8 @@ import HelpIcon from '@material-ui/icons/Help';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
 
+import {FULL_SCREEN} from './../halpers/functions';
+
 import {white_titles, white_descriptions} from './../translations/white';
 import {orange_titles, orange_descriptions} from './../translations/orange';
 import {green_titles, green_descriptions} from './../translations/green';
@@ -155,9 +157,9 @@ export default function Card(props) {
                 text={desc}
                 color={props.color}
                 source={props.task.logo}
-                task_id={props.task_id}
+                task_id={props.task.uid}
                 task={props.task.type}
-                fullScreen={props.width<820}
+                fullScreen={props.width<FULL_SCREEN}
                 lang={props.lang}
                 onClose={onClose}/>
         </div>
