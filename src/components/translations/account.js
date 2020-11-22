@@ -10,6 +10,7 @@ export const account = {
         'friends': 'friends',
         'profile': 'user profile',
         'user_id': 'user id: ',
+        'your_belt': 'Your belt: ',
     },
     // Russian
     'ru': {
@@ -22,6 +23,7 @@ export const account = {
         'logout': 'выход',
         'profile': 'профиль пользователя',
         'user_id': 'Идентификатор: ',
+        'your_belt': 'Твой пояс: ',
     },
     // Dutch
     'nl' : {
@@ -33,6 +35,7 @@ export const account = {
         'friends': 'vrienden',
         'profile': 'gebruikersprofiel',
         'user_id': 'user id',
+        'your_belt': 'your belt: ',
     },
     // French
     'fr' : {
@@ -44,6 +47,7 @@ export const account = {
         'friends': 'amis',
         'profile': 'profil de l\'utilisateur',
         'user_id': 'user id',
+        'your_belt': 'your belt: ',
     },
     // German
     'de' : {
@@ -55,6 +59,7 @@ export const account = {
         'friends': 'freunde',
         'profile': 'Benutzerprofil',
         'user_id': 'user id',
+        'your_belt': 'your belt: ',
     },
     // Spanish
     'es' : {
@@ -66,6 +71,7 @@ export const account = {
         'friends': 'amigos',
         'profile': 'perfil del usuario',
         'user_id': 'user id',
+        'your_belt': 'your belt: ',
     },
     // Italian
     'it' : {
@@ -77,5 +83,6 @@ export const account = {
         'friends': 'amici',
         'profile': 'profilo utente',
         'user_id': 'user id',
+        'your_belt': 'your belt: ',
     },
 };

@@ -150,7 +150,11 @@ export default function Account(props) {
                             <font style={{color:'green'}}> {props.cards} </font>
                             <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127183;</span>
                         </div>
+                        <div className='account_board_user_info_line'>
+                            {account[props.lang]['your_belt']}: {props.belt_color}
+                        </div>
                     </div>
+
                     <div className='account_board_avatar'>
                         <img src={avatar} alt={avatar_name}
                             onClick={() => setLogout(true)}
