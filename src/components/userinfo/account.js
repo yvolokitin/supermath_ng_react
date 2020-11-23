@@ -14,7 +14,10 @@ import Progress from './progress';
 import profile_image from './../../images/profile.jpg';
 
 import {account} from './../translations/account';
+import {body} from './../translations/body';
+
 import {avatars} from './../halpers/avatars';
+
 import './account.css';
 
 const SCREEN = {
@@ -133,12 +136,12 @@ export default function Account(props) {
             <div className='account_board_wrapper'>
                 <div className='account_board'>
                     <div className='account_board_user_info'>
-                        { (props.width > 440) ? (
-                            <div className='account_board_user_info_line' style={{color: props.belt_color}}>
+                        {(props.width > 440) ? (
+                            <div className='account_board_user_info_line'>
                                 {props.name} {props.surname}, {props.age} {account[props.lang]['years']}
                             </div>
                         ) : (
-                            <div className='account_board_user_info_line' style={{color: props.belt_color}}>
+                            <div className='account_board_user_info_line'>
                                 {props.name}, {props.age}
                             </div>
                         )}
@@ -150,8 +153,11 @@ export default function Account(props) {
                             <font style={{color:'green'}}> {props.cards} </font>
                             <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127183;</span>
                         </div>
-                        <div className='account_board_user_info_line'>
-                            {account[props.lang]['your_belt']}: {props.belt_color}
+                        <div className='account_board_user_info_line' style={{color: 'orange'}}>
+                            {account[props.lang]['your_belt']}
+                            <font style={{color: props.belt_color, marginRight: '25px'}}>
+                                {body[props.lang][props.level]}
+                            </font>
                         </div>
                     </div>
 
