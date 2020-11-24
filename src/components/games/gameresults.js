@@ -19,6 +19,7 @@ import image from './../../images/time.png';
 
 import {gameresults} from './../translations/gameresults';
 import {get_number_per_belt} from './../halpers/functions';
+import {get_rnd_adio_url} from './../halpers/audio';
 
 import image_belt_white from './../../images/belt_white.png';
 import image_belt_orange from './../../images/belt_orange.png';
@@ -58,7 +59,8 @@ export default function GameResults(props) {
     React.useEffect(() => {
         if (props.open) {
             console.log('GameResults.useEffect -> data: ' + JSON.stringify(props.data));
-
+            setAudio(get_rnd_adio_url());
+/*
             if (props.data.game_uid.indexOf('T') > -1) {
                 if (props.data.failed === 0) {
                     setAudio('https://supermath.xyz:3000/static/audio/we_will_rock_you.mp3');
@@ -68,7 +70,7 @@ export default function GameResults(props) {
             } else {
                 setAudio('https://supermath.xyz:3000/static/audio/seven_nation_army.mp3');
             }
-
+*/
             var title_to_set = gameresults[props.lang]['time'] + ' ';
 
             var duration = props.data.duration, hours = 0, minutes = 0, seconds = 0;

@@ -40,11 +40,10 @@ export default function Title(props) {
                 <>
                 <Badge color='secondary'>
                     {(props.fullScreen === true) ? (
-                            <Avatar src={props.src} alt={props.title} className={classes.avatar_small} onContextMenu={(e) => e.preventDefault()}/>
-                        ) : (
-                            <Avatar src={props.src} alt={props.title} className={classes.avatar_large} onContextMenu={(e) => e.preventDefault()}/>
-                        )                    
-                    }
+                        <Avatar src={props.src} alt={props.title} className={classes.avatar_small} onContextMenu={(e) => e.preventDefault()}/>
+                    ) : (
+                        <Avatar src={props.src} alt={props.title} className={classes.avatar_large} onContextMenu={(e) => e.preventDefault()}/>
+                    )}
                 </Badge>
                 <Badge color='secondary'>
                     <div className='title_header'> {props.title} </div>

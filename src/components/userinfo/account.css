@@ -65,7 +65,7 @@
     cursor: pointer;
     border-radius: 50%;
     transition: all 1.0s;
-    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 .account_board_avatar img:hover {
     transform: scale(1.05);

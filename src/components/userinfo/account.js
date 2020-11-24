@@ -155,14 +155,14 @@ export default function Account(props) {
                         </div>
                         <div className='account_board_user_info_line' style={{color: 'orange'}}>
                             {account[props.lang]['your_belt']}
-                            <font style={{color: props.belt_color, marginRight: '25px'}}>
+                            <font style={{color: props.belt_color, marginLeft: '7px'}}>
                                 {body[props.lang][props.level]}
                             </font>
                         </div>
                     </div>
 
                     <div className='account_board_avatar'>
-                        <img src={avatar} alt={avatar_name}
+                        <img src={avatar} alt={avatar_name} style={{'border': '9px solid ' + props.belt_color}}
                             onClick={() => setLogout(true)}
                             onContextMenu={(e) => e.preventDefault()}/>
                     </div>
