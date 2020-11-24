@@ -84,15 +84,17 @@ export default function Trophy(props) {
     }, [props.id, props.pswdhash, target, onScoresUpdate, onScoresError])
 
     useEffect(() => {
-        // console.log('Trophy.props.open ' + props.open);
         if (props.open === true) {
+            // console.table(props);
             // amount=10 -> ten best users
             axios.post(URL_SCORES, {'amount': 10})
                 .then(onScoresUpdate)
                 .catch(onScoresError);
+
+            setError(trophy[props.lang]['message']);
         }
 
-    }, [props.open, onScoresUpdate, onScoresError]);
+    }, [props, onScoresUpdate, onScoresError]);
 
     function onThrowConfirmation(status) {
         console.log('Trophy.onThrowConfirmation ' + status);
@@ -148,7 +150,19 @@ export default function Trophy(props) {
                     <div className='trophy_table_wrapper'>
                         <div className='trophy_table_line_header'>
                             <div className='trophy_table_line_index_header'> </div>
-                            <div className='trophy_table_line_name_header'>  </div>
+                            <div className='trophy_table_line_name_header'>
+                                {(props.id > 0) &&
+                                    <font>
+                                        {props.passed - 30*props.failed}
+                                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127919;</span>
+                                        &nbsp; = &nbsp;
+                                        {props.passed} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
+                                        &nbsp; - &nbsp;
+                                        <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
+                                        {props.failed} * 30
+                                    </font>
+                                }
+                            </div>
                             <div className='trophy_table_line_numb_header'>
                                 <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                             </div>

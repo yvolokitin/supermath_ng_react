@@ -170,3 +170,11 @@
         display: none;
     }
 }
+
+@media only screen and (max-width: 460px) {
+    .trophy_table_line_name_header {
+        font-family: 'Roboto', Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        font-weight: bold;
+    }
+}

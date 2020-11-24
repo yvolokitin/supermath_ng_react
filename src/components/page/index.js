@@ -739,7 +739,10 @@ export default class SuperMathPage extends React.Component {
                     onTrophyUpdate={this.onTrophyUpdate}
                     fullScreen={this.state.width<FULL_SCREEN}
                     pswdhash={this.state.pswdhash}
+                    failed={this.state.failed}
                     passed={this.state.passed}
+                    cards={this.state.cards}
+                    name={this.state.name}
                     lang={this.state.lang}
                     id={this.state.id}/>
 
