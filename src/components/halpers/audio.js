@@ -12,6 +12,5 @@ const AUDIO_FILES = [
 
 export function get_rnd_adio_url() {
     var file = AUDIO_FILES[AUDIO_FILES.length * Math.random() | 0];
-    console.log('$$$$$$$$$$$$$$$$$ ' + file);
     return URL_PREFIX + file;
 }

@@ -243,8 +243,7 @@ export default class SuperMathPage extends React.Component {
      * Update on User Property
      */
     onUserInfo(property, value, asset='n/a') {
-        console.log('Header.onUserInfo ' + property + ': ' + value + ', ' + asset);
-
+        // console.log('Header.onUserInfo ' + property + ': ' + value + ', ' + asset);
         switch (property) {
             case 'close':
                 this.setState({screen: STATUS.NONE});
@@ -299,7 +298,7 @@ export default class SuperMathPage extends React.Component {
                     // test is exam for belt
                     if ((parseInt(value.failed) === 0) &&
                         (parseInt(value.passed) > 0) &&
-                        (value.game_uid.indexOf('T') !== -1)) {
+                        (value.game_uid.indexOf('T') > -1)) {
 
                         // we have to unlock all locked programs
                         var l = 0, new_solved = '', new_level = this.state.level;
@@ -365,11 +364,11 @@ export default class SuperMathPage extends React.Component {
                                 new_passed = new_passed + parseInt(value.passed);
                                 if (this.state.level !== 'black' && this.state.level !== 'brown' &&
                                     this.state.level !== 'navy' && this.state.level !== 'green' &&
-                                    this.state.level !== 'orange' && this.state.level !== 'white') {
+                                    this.state.level !== 'orange') {
                                         new_cards = new_cards + 1; new_level = 'white';  new_belt = 'orange';
-                                        for (l = 0; l < levels.length; l++) {
-                                            if (levels[l].includes('white') === false) {
-                                                new_solved = new_solved + levels[l] + ',';
+                                        for (var ld = 0; ld < levels.length; ld++) {
+                                            if (levels[ld].includes('white') === false) {
+                                                new_solved = new_solved + levels[ld] + ',';
                                             }
                                         }
                                 }

@@ -68,11 +68,12 @@ export default function Body(props) {
     const [status, setStatus] = useState(STATUS.NONE);
 
     /*React.useEffect(() => {
-        console.log('Body(props) -> ' + props.belt);
-    }, [props.belt, ]);*/
+        // console.log('Body(props) -> ' + props.belt);
+        console.table(props.belt);
+    }, [props]);*/
 
     function onTabChange(user_tab) {
-        console.log('Body.onTabPress ' + user_tab.id);
+        console.log('Body.onTabPress ' + user_tab.id + ', props.solved ' + props.solved);
         set_item(props.id, 'belt', user_tab.id);
         setBackground(user_tab.bckgrnd);
         setTasks(user_tab.games); setColor(user_tab.id);
