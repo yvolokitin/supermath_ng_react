@@ -18,9 +18,8 @@ import {trophy} from './../translations/trophy';
 import './trophy.css';
 
 import {get_avatar_by_name} from './../halpers/avatars';
-import {get_belt_color} from './../halpers/functions';
+import {POOP_COST, get_belt_color} from './../halpers/functions';
 
-const POOP_COST = 30;
 const URL_SCORES = 'https://supermath.xyz:3000/api/scores';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -87,6 +86,7 @@ export default function Trophy(props) {
     useEffect(() => {
         // console.log('Trophy.props.open ' + props.open);
         if (props.open === true) {
+            // amount=10 -> ten best users
             axios.post(URL_SCORES, {'amount': 10})
                 .then(onScoresUpdate)
                 .catch(onScoresError);
@@ -189,6 +189,7 @@ export default function Trophy(props) {
             <Throw open={progress}
                 name={name}
                 lang={props.lang}
+                passed={props.passed}
                 fullScreen={props.fullScreen}
                 onThrow={onThrowConfirmation}/>
 

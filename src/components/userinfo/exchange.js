@@ -4,6 +4,8 @@ import {Typography} from '@material-ui/core';
 import './exchange.css';
 import {exchange} from './../translations/exchange';
 
+const POOP_EXCHANGE = 5;
+
 export default function Exchange(props) {
     const [hidden, setHidden] = useState(true);
 
@@ -43,15 +45,15 @@ export default function Exchange(props) {
         } else if (type === 'cards') {
             console.log('CARD !!!');
             if (value < 0) { // -1
-                if ((cards > 0) && (failed > 9)) {
+                if ((cards > 0) && (failed > (POOP_EXCHANGE-1))) {
                     setCards(cards-1);
-                    setFailed(failed-10);
+                    setFailed(failed-POOP_EXCHANGE);
                 }
 
             } else { // +1
-                if (((failed+10) <= props.failed) && ((cards+1) <= props.cards)) {
+                if (((failed+POOP_EXCHANGE) <= props.failed) && ((cards+1) <= props.cards)) {
                     setCards(cards+1);
-                    setFailed(failed+10);
+                    setFailed(failed+POOP_EXCHANGE);
                 }
             }
         }
@@ -105,7 +107,7 @@ export default function Exchange(props) {
                             <font className='font_rate' style={{color: 'orange'}}> 1 </font>
                             <span className='font_rate' role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127183;</span>
                             <font className='font_rate' style={{color: 'orange'}}> = </font>
-                            <font className='font_rate' style={{color: 'brown'}}> 10 </font>
+                            <font className='font_rate' style={{color: 'brown'}}> {POOP_EXCHANGE} </font>
                             <span className='font_rate' role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                         </div>
 

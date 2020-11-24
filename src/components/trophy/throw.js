@@ -6,6 +6,7 @@ import ColorLine from './../line/line';
 
 import image from './../../images/trophy.jpeg';
 
+import {POOP_COST} from './../halpers/functions';
 import {trophy} from './../translations/trophy';
 
 import './throw.css';
@@ -17,9 +18,17 @@ export default function Throw(props) {
             <ColorLine margin={'0px'}/>
 
             <DialogTitle> {trophy[props.lang]['title']} </DialogTitle>
-
             <DialogContent>
-                <DialogContentText> {trophy[props.lang]['question']} <b>{props.name}</b>? </DialogContentText>
+                <DialogContentText>
+                    {trophy[props.lang]['have']}
+                    <b> {props.passed} </b>
+                    {trophy[props.lang]['points']}
+                    {trophy[props.lang]['costs']}
+                    <b> {POOP_COST} </b>
+                    {trophy[props.lang]['question']}
+                    <b> {props.name} </b>
+                    ?
+                </DialogContentText>
             </DialogContent>
 
             <ColorLine/>

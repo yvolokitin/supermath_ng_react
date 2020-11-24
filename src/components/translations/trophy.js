@@ -3,7 +3,10 @@ export const trophy = {
     // English
     'en': {
         'title': 'Poops throwing',
-        'question': 'Throw costs 30 smiles. Would you like to throw poop',
+        'costs': 'Throw costs ',
+        'question': ' smiles. Would you like to throw poop',
+        'have': 'You have ',
+        'points': ' points. ',
         'close': 'close',
         'yes': 'Yes, Throw it',
         'no': 'No',
@@ -16,7 +19,10 @@ export const trophy = {
     // Russian
     'ru': {
         'title': 'Метание фикашек',
-        'question': 'Бросок стоит 30 очков, Ты бы хотел кинуть фикашку в',
+        'costs': 'Бросок стоит ',
+        'question': ' очков, Ты бы хотел кинуть фикашку в',
+        'have': 'У тебя ',
+        'points': ' очков. ',
         'close': 'закрыть',
         'yes': 'Да, Бросаем!',
         'no': 'Нет',
@@ -29,7 +35,10 @@ export const trophy = {
     // Dutch
     'nl' : {
         'title': 'Poeps gooien',
-        'question': 'Gooi kost 30 glimlachen. Wil je kak gooien',
+        'costs': 'Gooi kost ',
+        'question': ' glimlachen. Wil je kak gooien',
+        'have': 'You have ',
+        'points': ' points. ',
         'close': 'dicht',
         'yes': 'Ja, gooi het',
         'no': 'Nee',
@@ -42,7 +51,10 @@ export const trophy = {
     // French
     'fr' : {
         'title': 'Jet de merde',
-        'question': 'Lancer coûte 30 sourires. Voudriez-vous jeter de la merde',
+        'costs': 'Lancer coûte ',
+        'question': ' sourires. Voudriez-vous jeter de la merde',
+        'have': 'You have ',
+        'points': ' points. ',
         'close': 'proche',
         'yes': 'Oui, lancez-le',
         'no': 'Non',
@@ -55,7 +67,10 @@ export const trophy = {
     // German
     'de' : {
         'title': 'Poops werfen',
-        'question': 'Werfen kostet 30 Lächeln. Möchten Sie kacken werfen',
+        'costs': 'Werfen kostet ',
+        'question': ' lächeln. Möchten Sie kacken werfen',
+        'have': 'You have ',
+        'points': ' points. ',
         'close': 'schließen',
         'yes': 'Ja, wirf es',
         'no': 'Nein',
@@ -68,7 +83,10 @@ export const trophy = {
     // Spanish
     'es' : {
         'title': 'Caca tirando',
-        'question': 'Lanzar cuesta 30 sonrisas. ¿Te gustaría tirar caca?',
+        'costs': 'Lanzar cuesta ',
+        'question': ' sonrisas. ¿Te gustaría tirar caca?',
+        'have': 'You have ',
+        'points': ' points. ',
         'close': 'cerca',
         'yes': 'Sí, tíralo',
         'no': 'No',
@@ -81,7 +99,10 @@ export const trophy = {
     // Italian
     'it' : {
         'title': 'Lancio di cacca',
-        'question': 'Il lancio costa 30 sorrisi. Ti piacerebbe lanciare la cacca',
+        'costs': 'Il lancio costa ',
+        'question': ' sorrisi. Ti piacerebbe lanciare la cacca',
+        'have': 'You have ',
+        'points': ' points. ',
         'close': 'vicino',
         'yes': 'Sì, lancialo',
         'no': 'No',

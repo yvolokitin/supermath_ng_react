@@ -7,6 +7,9 @@ export const RED_CIRCLE = 13;
 // green circles on footer during test
 export const GREEN_CIRCLE = 131313;
 
+// exchange cost to throw poop in another user
+export const POOP_COST = 20;
+
 export function get_belt_color(belt) {
     if (belt === 'black') {
         return '#404040';
