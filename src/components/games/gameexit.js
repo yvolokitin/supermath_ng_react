@@ -40,6 +40,15 @@ export default function GameExit(props) {
 
     const handleChange = (event, value) => {
         console.log('GameExit.handleChange ' + value);
+        if (props.type === 'task') {
+            if (value === 'next') {
+                if ((props.counter + 1) === props.amount) {
+                    console.log('Action escaped, counter ' + props.counter + ', amount ' + props.amount);
+                    return;
+                }
+            }
+        }
+
         props.onClose(value);
     }
 
