@@ -73,10 +73,10 @@ import task9 from './../../images/levels/task_9.jpg';
 import test_img from './../../images/tasks/test_img.jpg';
 
 // for GAMES: white, orange, ... black
-const game_amount = 30;
+const game_amount = 1; // 30;
 
 // for TASKS
-const task_amount = 5;
+const task_amount = 1; // 5;
 
 export const white_games = [
     {id: 1, uid: 'white1', logo: white1, type: 'linedigits', task: '0-7', amount: game_amount},

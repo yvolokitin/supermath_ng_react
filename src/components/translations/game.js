@@ -8,7 +8,7 @@ export const game = {
         'exit_text': 'You will lose All your Passed scores data if you Exit (when Fails counter will be kept under your profile)! We are strongly recommend you to finish current Math tasks.',
 
         'exit_task_question': 'Do you really want to Exit?',
-        'exit_task_text': 'All your results are automatically saved if you are logged in',
+        'exit_task_text': 'All your results are automatically saved if you are logged in. When move to the Next Task, current task will be automatically failed with particular score / poop.',
 
         'settings': 'SETTINGS',
         'settings_title': 'Settings',
@@ -51,7 +51,7 @@ export const game = {
         'exit_text': 'При выходе из игры, вы потеряете Все успешно набранные очки (при этом - все фешки, то есть неудачно набранные очки сохранятся)! Мы настоятельно рекомендуем закончить текущую игру',
 
         'exit_task_question': 'Вы действительно хотите Выйти?',
-        'exit_task_text': 'Все ваши результаты автоматически сохраняются, если вы авторизованы',
+        'exit_task_text': 'Все ваши результаты автоматически сохраняются, если вы авторизованы. При переходе к следующей задаче текущая задача будет автоматически завершена с ошибкой (+ 1 фекашка).',
 
         'settings': 'НАСТРОЙКИ',
         'settings_title': 'Настройки',
@@ -93,6 +93,9 @@ export const game = {
         'exit_question': 'Wil je echt het spel verlaten?',
         'exit_text': 'U verliest al uw geslaagde scores-gegevens als u afsluit (de teller voor mislukken wordt onder uw profiel bewaard)! We raden u ten zeerste aan om de huidige wiskundige taken te voltooien.',
 
+        'exit_task_question': 'Wil je echt het spel verlaten?',
+        'exit_task_text': 'Al uw resultaten worden automatisch opgeslagen als u bent ingelogd. Wanneer u naar de volgende taak gaat, wordt de huidige taak automatisch mislukt met een bepaalde score / poep.',
+
         'settings': 'INSTELLINGEN',
         'settings_title': 'Instellingen',
         'settings_question': 'U kunt hier de visuele parameters wijzigen',
@@ -132,6 +135,9 @@ export const game = {
         'exit_title': 'Sortie',
         'exit_question': 'Voulez-vous vraiment quitter le jeu?',
         'exit_text': 'Vous perdrez toutes vos données de scores réussis si vous quittez (lorsque le compteur Échec sera conservé sous votre profil)! Nous vous recommandons vivement de terminer les tâches mathématiques en cours.',
+
+        'exit_task_question': 'Voulez-vous vraiment quitter le jeu?',
+        'exit_task_text': 'Tous vos résultats sont automatiquement enregistrés si vous êtes connecté. Lorsque vous passez à la tâche suivante, la tâche en cours échouera automatiquement avec un score / merde particulier.',
 
         'settings': 'PARAMETRES',
         'settings_title': 'Parameters',
@@ -173,6 +179,9 @@ export const game = {
         'exit_question': 'Möchten Sie das Spiel wirklich beenden?',
         'exit_text': 'Sie verlieren alle Ihre bestandenen Punktedaten, wenn Sie beenden (wenn der Fehlerzähler unter Ihrem Profil bleibt)! Wir empfehlen Ihnen dringend, die aktuellen mathematischen Aufgaben zu erledigen.',
 
+        'exit_task_question': 'Möchten Sie das Spiel wirklich beenden?',
+        'exit_task_text': 'Alle Ihre Ergebnisse werden automatisch gespeichert, wenn Sie angemeldet sind. Wenn Sie zur nächsten Aufgabe wechseln, schlägt die aktuelle Aufgabe automatisch mit einer bestimmten Punktzahl / einem bestimmten Kot fehl.',
+
         'settings': 'EINSTELLUNGEN',
         'settings_title': 'Einstellungen',
         'settings_question': 'Hier können Sie die visuellen Parameter ändern',
@@ -213,6 +222,9 @@ export const game = {
         'exit_question': 'De verdad quieres salir del juego?',
         'exit_text': 'Perderá todos los datos de sus puntuaciones aprobadas si sale (cuando el contador de fallos se mantendrá en su perfil)! Le recomendamos encarecidamente que termine las tareas actuales de matemáticas.',
 
+        'exit_task_question': 'De verdad quieres salir del juego?',
+        'exit_task_text': 'Todos sus resultados se guardan automáticamente si ha iniciado sesión. Cuando pase a la siguiente tarea, la tarea actual fallará automáticamente con una puntuación / caca en particular.',
+
         'settings': 'CONFIGURACIONES',
         'settings_title': 'Configuraciones',
         'settings_question': 'Puede cambiar los parámetros visuales aquí',
@@ -252,6 +264,9 @@ export const game = {
         'exit_title': 'Uscita',
         'exit_question': 'Vuoi davvero uscire dal gioco?',
         'exit_text': 'Se esci perderai tutti i dati relativi ai punteggi passati (quando il contatore dei fallimenti sarà mantenuto sotto il tuo profilo)! Ti consigliamo vivamente di completare le attività matematiche correnti.',
+
+        'exit_task_question': 'Vuoi davvero uscire dal gioco?',
+        'exit_task_text': 'Tutti i risultati vengono salvati automaticamente se si effettua l\'accesso. Quando si passa all\'attività successiva, l\'attività corrente verrà automaticamente fallita con un punteggio / cacca particolare.',
 
         'settings': 'IMPOSTAZIONI',
         'settings_title': 'Impostazioni',

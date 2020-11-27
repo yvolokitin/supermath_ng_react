@@ -214,7 +214,7 @@ export default function TaskGame(props) {
             // if passed + failed > counter -> wrong answer received on hat task
             if ((passed + failed) < counter) {
                 setPassed(prevPassed => prevPassed + 1);
-                setResults([...results, {'task': 'yura', 'color': 'green'}]);
+                setResults([...results, {'task': 'task_' + counter, 'color': 'green'}]);
             }
 
             if (counter < props.amount) {
@@ -230,6 +230,7 @@ export default function TaskGame(props) {
         } else {
             if ((passed + failed) < counter) {
                 setFailed(prevFailed => prevFailed + 1);
+                setResults([...results, {'task': 'task_' + counter, 'color': 'red'}]);
             }
 
             setMessage(answer + ' - ' + taskgame[props.lang]['wrong_answer']);
@@ -271,11 +272,8 @@ export default function TaskGame(props) {
                     console.log('EXIT: ' + current + ', fails ' + fails);
                     var percent = 100 * (props.amount - failed) / props.amount;
                     var passed_counter = props.amount - failed;
-
-                    if (failed === 0) {
-                        var multiplier = parseInt(props.task_uid.charAt(props.task_uid.length - 1));
-                        passed_counter = multiplier * passed_counter;
-                    }
+                    var multiplier = parseInt(props.task_uid.charAt(props.task_uid.length - 1));
+                    passed_counter = multiplier * passed_counter;
 
                     var result_data = {
                         'operation': 'results',

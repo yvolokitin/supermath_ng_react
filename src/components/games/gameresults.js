@@ -15,7 +15,8 @@ import GameProgress from "./gameprogress";
 import Title from './../title/title';
 import ColorLine from './../line/line';
 
-import image from './../../images/time.png';
+import image_time from './../../images/time.png';
+import image_brain from './../../images/brain.png';
 
 import {gameresults} from './../translations/gameresults';
 import {get_number_per_belt} from './../halpers/functions';
@@ -58,7 +59,6 @@ export default function GameResults(props) {
 
     React.useEffect(() => {
         if (props.open) {
-            console.log('GameResults.useEffect -> data: ' + JSON.stringify(props.data));
             setAudio(get_rnd_adio_url());
 /*
             if (props.data.game_uid.indexOf('T') > -1) {
@@ -121,7 +121,6 @@ export default function GameResults(props) {
                     // get number per belt
                     var crt_blt = get_number_per_belt(props.data.belt);
                     var usr_blt = get_number_per_belt(props.level);
-                    // console.log('@@@@@@@@@@@@@@@@@@ ' + props.data.belt);
                     if ((props.data.belt !== 'black') &&
                         (props.data.belt !== 'task') &&
                         (usr_blt >= crt_blt)) {
@@ -138,11 +137,11 @@ export default function GameResults(props) {
 
     return (
         <Dialog open={props.open} fullScreen={true} TransitionComponent={Transition} transitionDuration={900}>
-            <Title title={title} src={image} onClose={() => props.onClose('close')} fullScreen={props.fullScreen}/>
+            <Title title={title} src={image_time} onClose={() => props.onClose('close')} fullScreen={props.fullScreen}/>
             <ColorLine margin={'0px'}/>
 
             <div className='result_board'>
-                {((game.indexOf('T') > -1) && (props.data.failed === 0) && (props.user_id > 0)) ? (
+                {(props.type === 'game' && (game.indexOf('T') > -1) && (props.data.failed === 0) && (props.user_id > 0)) &&
                     <div className='result_board_belt' style={{backgroundColor: background}} onClick={() => handleChange('', 'results')}>
                         <div className='result_board_belt_left'>
                             <div className='result_board_belt_left_img'>
@@ -153,7 +152,9 @@ export default function GameResults(props) {
                             {text}
                         </div>
                     </div>
-                ) : (
+                }
+
+                {(props.type === 'game') &&
                     <div className='result_board_chart' onClick={() => handleChange('', 'results')}>
                         <font style={{color:'#248f24',}}>
                             <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span> &nbsp; {props.data.passed} &nbsp;
@@ -163,7 +164,20 @@ export default function GameResults(props) {
                             &nbsp; {props.data.failed} &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                         </font>
                     </div>
-                )}
+                }
+
+                {(props.type === 'task') &&
+                    <div className='result_board_belt' style={{backgroundColor: '#751aff'}}>
+                        <div className='result_board_belt_left'>
+                            <div className='result_board_belt_left_img'>
+                                <img src={image_brain} alt='Belt' onContextMenu={(e) => e.preventDefault()}/>
+                            </div>
+                        </div>
+                        <div className='result_board_belt_right' style={{color: font,}}>
+                            {text}
+                        </div>
+                    </div>
+                }
 
                 {(props.user_id > 0) ? (
                     <div className='result_board_body'>

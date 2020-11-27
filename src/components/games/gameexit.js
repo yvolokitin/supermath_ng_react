@@ -9,11 +9,11 @@ import ReplayIcon from '@material-ui/icons/Replay';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 // import SettingsIcon from '@material-ui/icons/Settings';
+// import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import Title from './../title/title';
 import ColorLine from './../line/line';
@@ -53,7 +53,13 @@ export default function GameExit(props) {
     }
 
     /*
+        // settgins menu: dark mode, <> left/right keyboard, 
         <BottomNavigationAction label={game[props.lang]['settings_title']} value='settings' icon={<SettingsIcon/>}/>
+
+        // back to previous task
+        {props.type === 'task' &&
+            <BottomNavigationAction label={game[props.lang]['previous']} disabled value='previous' icon={<ArrowBackIcon/>} style={{transform:'scale(1.3)',cursor:'no-drop'}}/>}
+
     */
     return (
         <Dialog open={props.open} onClose={() => props.onClose('')}
@@ -92,9 +98,6 @@ export default function GameExit(props) {
 
                     {props.type === 'game' &&
                         <BottomNavigationAction label={game[props.lang]['results_title']} value='progress' icon={<ShowChartIcon/>} style={{transform:'scale(1.3)'}}/>}
-
-                    {props.type === 'task' &&
-                        <BottomNavigationAction label={game[props.lang]['previous']} disabled value='previous' icon={<ArrowBackIcon/>} style={{transform:'scale(1.3)',cursor:'no-drop'}}/>}
 
                     {props.type === 'task' &&
                         <BottomNavigationAction label={game[props.lang]['next']} value='next' icon={<ArrowForwardIcon/>} style={{transform:'scale(1.3)'}}/> }
