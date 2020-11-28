@@ -1,0 +1,49 @@
+﻿SuperMath Page Layout Elements
+
+<SMMainPage>
+    <SMHeader> - defines a header for a document with container for navigation links
+        - Home
+        - Information
+        - Help
+        - Login (Login button name can be changed via parameter in SMHeader.props)
+        TBD: language selector, login selector (Profile, Logout etc.)
+
+    <SMSection> - defines an independent self-contained article with SuperMath Logo
+
+    <SMAlbum> - defines a main section with playing cards in page
+
+    <SMFooter> - defines a footer with Copyright
+
+Game Types:
+    linedigits: z,x,c,?
+
+    2digits: a+-b=?
+    3digits: a+b-c=?
+    2digit_arg: a+?=c
+
+    comp_nums: n <=> m
+    comp_expr: z+x <=> c-v
+
+    digit_2column: 222
+                  - 11
+                     ?
+
+    digit_3column: 333
+                 + 222
+                 + 111
+                     ?
+
+    line_compnums
+    line_compexpr
+    line_4numbers
+    line_5numbers
+
+Material Icons:
+https://material-ui.com/components/material-icons/
+
+Icons:
+http://www.iconarchive.com/
+
+JavaScript Obfuscator https://habrahabr.ru/post/112530/
+from http://discogscounter.getfreehosting.co.uk/js-noalnum_com.php?i=1
+

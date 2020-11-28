@@ -1,0 +1,22 @@
+﻿.game_exit_image {
+    width: 40%;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 50%;
+    border: 5px solid white;
+    transition: border-color 1.6s linear;
+}
+.game_exit_image:hover {
+    border-radius: 50%;
+    border-color: green;
+}
+.game_settings {
+    border: 1px solid black;
+    padding: 40px;    
+}
+
+@media only screen and (max-width: 640px) {
+    .game_exit_image {
+        width: 60%;
+    }
+}

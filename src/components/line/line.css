@@ -1,0 +1,66 @@
+﻿.line_header {
+    width: 100%;
+    height: 7px;
+    margin-top: 25px;
+    background-color: #660066;
+}
+.line_lightblue {
+    float: left;
+    width: 5%;
+    height: 100%;
+    background-color: #33ccff;
+}
+.line_blue {
+    float: left;
+    width: 15%;
+    height: 100%;
+    background-color: #007399;
+}
+.line_darkgreen {
+    float: left;
+    width: 5%;
+    height: 100%;
+    background-color: #001a00
+}
+.line_green {
+    float: left;
+    width: 15%;
+    height: 100%;
+    background-color: #006600;
+}
+.line_lightgreen {
+    float: left;
+    width: 15%;
+    height: 100%;
+    background-color: #33ff33;
+}
+.line_yellow {
+    float: left;
+    width: 5%;
+    height: 100%;
+    background-color: #ffcc66;
+}
+.line_orange {
+    float: left;
+    width: 15%;
+    height: 100%;
+    background-color: #ff9933;
+}
+.line_lightred {
+    float: left;
+    width: 5%;
+    height: 100%;
+    background-color: #ff8566;
+}
+.line_red {
+    float: left;
+    width: 10%;
+    height: 100%;
+    background-color: #ff0000;
+}
+.line_violend {
+    float: left;
+    width: 7%;
+    height: 100%;
+    background-color: #9900cc;
+}

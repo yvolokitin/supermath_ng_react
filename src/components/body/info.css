@@ -1,0 +1,100 @@
+﻿.card_info_title {
+    width: 96%;
+    margin-top: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
+
+    color: orange;
+    line-height: 0.9;
+    user-select: none;
+    text-align: center;
+    font-family: 'Grinched';
+    font-size: 2.8rem;
+
+    text-shadow: 1px 1px 2px black;
+}
+.card_info_text {
+    margin: 2%;
+    user-select: none;
+    color: #333333;
+    text-align: justify;
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+}
+.card_info_wrapper_img {
+    width: 96%;
+    margin: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.card_info_wrapper_img img {
+    width: 70%;
+    padding: 13px;
+    border-radius: 13px;
+    border: 1px solid #ddd;
+}
+.card_info_task_wrapper_img {
+    height: 250px;
+    width: 96%;
+    margin: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.card_info_task_wrapper_img img {
+    height: 100%;
+    width: auto;
+    padding: 13px;
+    border-radius: 13px;
+    border: 1px solid #ddd;
+}
+.card_info_wrapper_btn {
+    height: 35px;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    border-radius: 5px;
+    background-color: #fbfbf8;
+    color: #3f51b5;
+}
+@media only screen and (max-width: 900px) {
+    .card_info_title {
+        font-size: 2.5rem;
+    }
+    .card_info_wrapper_img img {
+        width: 60%;
+        padding: 7px;
+    }
+}
+@media only screen and (max-width: 660px) {
+    .card_info_title {
+        font-size: 2.2rem;
+    }
+}
+@media only screen and (max-height: 450px) {
+    .card_info_title {
+        font-size: 2.0rem;
+    }
+    .card_info_title {
+        margin: 5px;
+    }
+    .card_info_text {
+        margin-top: 2px;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-bottom: 0;
+        font-size: 14px;
+    }
+    .card_info_wrapper_img {
+        margin: 0;
+    }
+    .card_info_wrapper_img img {
+        width: 40%;
+        padding: 5px;
+    }
+}
