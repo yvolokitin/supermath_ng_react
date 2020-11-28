@@ -141,32 +141,7 @@ export default function GameResults(props) {
             <ColorLine margin={'0px'}/>
 
             <div className='result_board'>
-                {(props.type === 'game' && (game.indexOf('T') > -1) && (props.data.failed === 0) && (props.user_id > 0)) &&
-                    <div className='result_board_belt' style={{backgroundColor: background}} onClick={() => handleChange('', 'results')}>
-                        <div className='result_board_belt_left'>
-                            <div className='result_board_belt_left_img'>
-                                <img src={belt} alt='Belt' onContextMenu={(e) => e.preventDefault()}/>
-                            </div>
-                        </div>
-                        <div className='result_board_belt_right' style={{color: font,}}>
-                            {text}
-                        </div>
-                    </div>
-                }
-
-                {(props.type === 'game') &&
-                    <div className='result_board_chart' onClick={() => handleChange('', 'results')}>
-                        <font style={{color:'#248f24',}}>
-                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span> &nbsp; {props.data.passed} &nbsp;
-                        </font>
-                        &nbsp; <RadialChart progress={props.data.percent}/> &nbsp;
-                        <font style={{color:'red',}}>
-                            &nbsp; {props.data.failed} &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
-                        </font>
-                    </div>
-                }
-
-                {(props.type === 'task') &&
+                {(props.type === 'task') ? (
                     <div className='result_board_belt' style={{backgroundColor: '#751aff'}}>
                         <div className='result_board_belt_left'>
                             <div className='result_board_belt_left_img'>
@@ -177,7 +152,32 @@ export default function GameResults(props) {
                             {text}
                         </div>
                     </div>
-                }
+                ) : (
+                    <>
+                        {((game.indexOf('T') > -1) && (props.data.failed === 0) && (props.user_id > 0)) ? (
+                            <div className='result_board_belt' style={{backgroundColor: background}} onClick={() => handleChange('', 'results')}>
+                                <div className='result_board_belt_left'>
+                                    <div className='result_board_belt_left_img'>
+                                        <img src={belt} alt='Belt' onContextMenu={(e) => e.preventDefault()}/>
+                                    </div>
+                                </div>
+                                <div className='result_board_belt_right' style={{color: font,}}>
+                                    {text}
+                                </div>
+                            </div>
+                        ) : (
+                            <div className='result_board_chart' onClick={() => handleChange('', 'results')}>
+                                <font style={{color:'#248f24',}}>
+                                    <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span> &nbsp; {props.data.passed} &nbsp;
+                                </font>
+                                &nbsp; <RadialChart progress={props.data.percent}/> &nbsp;
+                                <font style={{color:'red',}}>
+                                    &nbsp; {props.data.failed} &nbsp; <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
+                                </font>
+                            </div>
+                        )}
+                    </>
+                )}
 
                 {(props.user_id > 0) ? (
                     <div className='result_board_body'>

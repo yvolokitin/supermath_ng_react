@@ -33,7 +33,7 @@ export default function Card(props) {
     const [animation, setAnimation] = useState('none');
 
     useEffect(() => {
-        // console.log('Card.useEffect -> ' + props.task.uid + ', props.color ' + props.color + ', props.nonexam ' + props.nonexam);
+        // console.log('Card.useEffect -> ' + props.task.uid + ', props.locked ' + props.locked);
         switch (props.color) {
             case 'black':
                 setGradient('linear-gradient(to bottom, white 50%, black 50%)');
@@ -75,6 +75,10 @@ export default function Card(props) {
         if (props.locked) {
             setOpacity('0.5');
             setCursor('no-drop');
+
+        } else {
+            setOpacity('1.0');
+            setCursor('pointer');
         }
 
     }, [props.task, props.color, props.lang, props.locked, props.nonexam]);
@@ -100,6 +104,10 @@ export default function Card(props) {
             setTimeout(() => {
                 setAnimation('none');
             }, 1000);
+
+        } else if (props.locked === true) {
+            // open help to explain, why card is disabled
+            setType('help'); openInfo(true);
         }
     }
 

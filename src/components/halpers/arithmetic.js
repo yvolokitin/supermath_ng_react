@@ -131,6 +131,7 @@ export function generate_task(type, settings) {
             break;
     }
 
+    console.table(result);
     return result;
 }
 

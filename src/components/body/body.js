@@ -67,10 +67,10 @@ export default function Body(props) {
 
     const [status, setStatus] = useState(STATUS.NONE);
 
-    /*React.useEffect(() => {
-        // console.log('Body(props) -> ' + props.belt);
-        console.table(props.belt);
-    }, [props]);*/
+    React.useEffect(() => {
+        console.log('Body(props) -> props.solved "' + props.solved + '"');
+
+    }, [props.solved]);
 
     function onTabChange(user_tab) {
         // console.log('Body.onTabPress ' + user_tab.id + ', props.solved ' + props.solved);
@@ -161,7 +161,7 @@ export default function Body(props) {
                                     width={props.width}
                                     onUpdate={onGameOpen}
                                     nonexam={task.uid.indexOf('T') === -1}
-                                    locked={props.solved.toString().includes(task.uid)}/>
+                                    locked={props.solved.indexOf(task.uid) > -1 && task.uid.indexOf('black') === -1}/>
                             )}
                         </div>
                 )}
