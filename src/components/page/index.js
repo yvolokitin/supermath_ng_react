@@ -377,12 +377,14 @@ export default class SuperMathPage extends React.Component {
                                 cards: new_cards,
                             });
 
-                        // new_level = this.state.level
-                        } else if (this.state.level !== 'black' && this.state.level !== 'brown') {
+                        } else {
                             switch (this.state.level) {
                                 case 'black':
                                 case 'brown':
-                                    console.log('this is the case');
+                                    if (value.game_uid.includes('black')) {
+                                        new_passed = new_passed + parseInt(value.passed);
+                                        new_cards = new_cards + 1;
+                                    }
                                     break;
                                 case 'navy':
                                     if (value.game_uid.includes('black') ||
@@ -429,11 +431,6 @@ export default class SuperMathPage extends React.Component {
                                 passed: new_passed,
                                 solved: new_solved,
                                 cards: new_cards,
-                            });
-
-                        } else { // this.state.level == black OR brown
-                            this.setState({
-                                passed: new_passed,
                             });
                         }
 

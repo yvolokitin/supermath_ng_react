@@ -73,10 +73,10 @@ import task9 from './../../images/levels/task_9.jpg';
 import test_img from './../../images/tasks/test_img.jpg';
 
 // for GAMES: white, orange, ... black
-const game_amount = 1; // 30;
+const game_amount = 30;
 
 // for TASKS
-const task_amount = 1; // 5;
+const task_amount = 5;
 
 export const white_games = [
     {id: 1, uid: 'white1', logo: white1, type: 'linedigits', task: '0-7', amount: game_amount},
@@ -89,7 +89,7 @@ export const white_games = [
     {id: 8, uid: 'white8', logo: white8, type: 'comp_expr', task: '<>=,+-,0-10,1', amount: game_amount},
     {id: 9, uid: 'white9', logo: white9, type: '2digit_arg', task: 'd,+-,0-10,0-10,1,1', amount: game_amount},
     // white7 is repeated 3 time to make test more complex
-    {id: 10, uid: 'whiteT', logo: test_img, type: 'test', task: 'white1,white2,white5,white6,white7,white8,white7,white9,white7', amount: game_amount},
+    {id: 10, uid: 'whiteT', logo: test_img, type: 'test', task: 'white1,white2,white5,white6,white7,white8,white7,white9,white7,white9,white7,white9', amount: game_amount},
 ];
 
 export const orange_games = [
