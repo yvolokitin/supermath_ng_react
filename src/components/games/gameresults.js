@@ -59,18 +59,8 @@ export default function GameResults(props) {
 
     React.useEffect(() => {
         if (props.open) {
+            console.log('GameResults.useEffect -> ' + props.known);
             setAudio(get_rnd_adio_url());
-/*
-            if (props.data.game_uid.indexOf('T') > -1) {
-                if (props.data.failed === 0) {
-                    setAudio('https://supermath.xyz:3000/static/audio/we_will_rock_you.mp3');
-                } else {
-                    setAudio('https://supermath.xyz:3000/static/audio/zombie.mp3');
-                }
-            } else {
-                setAudio('https://supermath.xyz:3000/static/audio/seven_nation_army.mp3');
-            }
-*/
             var title_to_set = gameresults[props.lang]['time'] + ' ';
 
             var duration = props.data.duration, hours = 0, minutes = 0, seconds = 0;
@@ -113,9 +103,13 @@ export default function GameResults(props) {
                 setText(gameresults[props.lang]['test'] + ' ' + gameresults[props.lang]['your_score'] + props.data.passed);
             }
 
+            // props.known=true -> user is already solved programm
+            if (props.known) {
+                setNopoints(true);
+
             // props.level is current user belt (proof with test): 
             // props.data.belt -> the color, which is user to solve at current moment
-            if (props.data.failed === 0) {
+            } else if (props.data.failed === 0) {
                 // in case of test -> user always score points
                 if (props.data.game_uid.indexOf('T') === -1) {
                     // get number per belt
@@ -133,7 +127,7 @@ export default function GameResults(props) {
             setAudio('');
         }
 
-    }, [props.open, props.data, props.amount, props.level, props.lang, ]);
+    }, [props.open, props.data, props.amount, props.level, props.lang, props.known]);
 
     return (
         <Dialog open={props.open} fullScreen={true} TransitionComponent={Transition} transitionDuration={900}>

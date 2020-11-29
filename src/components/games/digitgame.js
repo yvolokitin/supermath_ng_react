@@ -78,6 +78,11 @@ export default function DigitGame(props) {
     const [duration, setDuration] = React.useState(new Date().getTime());
     const [openAlert, setOpenAlert] = React.useState(ALERT.NONE);
 
+    // known means replay action took on successed task: passed>0,failed=0
+    // that needs to control that user does not score smiles/points on solving
+    // the same task continuously. Tests are excluded and always score points
+    const [known, setKnown] = React.useState(false);
+
     useKeyboardEvent((key) => {
         // ignore any keyboard events when sub menus are opened
         if (props.open === false || openAlert !== ALERT.NONE) {
@@ -272,12 +277,12 @@ export default function DigitGame(props) {
         }
     }
 
-    function onDialog(status) {
-        console.log('DigitGame.onDialog -> ' + status);
-        switch (status) {
+    function onDialog(action, value) {
+        console.log('DigitGame.onDialog -> action ' + action);
+        switch (action) {
             // when game is finished -> trigger results board
             case 'finished':
-                // console.log('DigitGame.onDialog -> ' + status + ', passed ' + passed);
+                // console.log('DigitGame.onDialog -> ' + action + ', passed ' + passed);
                 // (props.amount - failed) is workaround for passed calculations
                 var percent = 100 * (props.amount - failed) / props.amount;
                 var passed_counter = props.amount - failed;
@@ -340,7 +345,12 @@ export default function DigitGame(props) {
                     'task': props.type,
                 };
 
-                props.onClose('finished', result_data);
+                if (known === false) {
+                    props.onClose('finished', result_data);
+                } else {
+                    console.log('WARNING: user solved the same easy task continuously');
+                }
+
                 setResultData(result_data);
                 setOpenAlert(ALERT.RESULTS);
                 break;
@@ -366,6 +376,10 @@ export default function DigitGame(props) {
             // restart is action item from reply menu call
             // game will be restarted from scratch
             case 'restart':
+                if (props.game_uid.indexOf('T') === -1 &&
+                    results.length > 0 && passed > 0 && failed === 0) {
+                        setKnown(true);
+                }
                 setCounter(0); setCircles(0);
                 setOpenAlert(ALERT.NONE);
                 break;
@@ -713,6 +727,7 @@ export default function DigitGame(props) {
                 lang={props.lang}
                 results={results}
                 data={resultData}
+                known={known}
                 onClose={onDialog}/>
 
         </Dialog>

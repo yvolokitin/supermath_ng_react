@@ -389,6 +389,7 @@ export default function TaskGame(props) {
                 lang={props.lang}
                 results={results}
                 data={resultData}
+                known={false}
                 onClose={onDialog}/>
 
         </Dialog>
