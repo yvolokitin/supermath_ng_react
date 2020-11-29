@@ -97,10 +97,19 @@ export default function GameResults(props) {
                 setBelt(image_belt_white); setFont('black'); setBackground('#e6e6e6');
             }
 
-            if (props.data.passed > props.amount) {
-                setText(gameresults[props.lang]['test'] + ' ' + gameresults[props.lang]['doubled'] + props.data.passed);
+            if (props.type === 'task') {
+                setText(gameresults[props.lang]['solved_tasks'] + props.amount
+                    + gameresults[props.lang]['x_tasks'] + props.data.passed
+                    + ', ' + props.data.failed);
+
             } else {
-                setText(gameresults[props.lang]['test'] + ' ' + gameresults[props.lang]['your_score'] + props.data.passed);
+                if (props.data.passed > props.amount) {
+                    setText(gameresults[props.lang]['test'] + ' '
+                        + gameresults[props.lang]['doubled'] + props.data.passed);
+                } else {
+                    setText(gameresults[props.lang]['test'] + ' '
+                        + gameresults[props.lang]['your_score'] + props.data.passed);
+                }
             }
 
             // props.known=true -> user is already solved programm
@@ -127,7 +136,7 @@ export default function GameResults(props) {
             setAudio('');
         }
 
-    }, [props.open, props.data, props.amount, props.level, props.lang, props.known]);
+    }, [props.open, props.data, props.amount, props.type, props.level, props.lang, props.known]);
 
     return (
         <Dialog open={props.open} fullScreen={true} TransitionComponent={Transition} transitionDuration={900}>

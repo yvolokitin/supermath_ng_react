@@ -21,6 +21,9 @@ export const gameresults = {
         'doubled': 'Your score is doubled: ',
         'your_score': 'Your score is: ',
 
+        'solved_tasks': 'Congratulations, you have successfully solved ',
+        'x_tasks': ' tasks: ',
+
         'excellent': 'Excellent',
         'quite_good': 'Quite Good',
         'good': 'Good',
@@ -55,6 +58,9 @@ export const gameresults = {
         'doubled': 'Твой счет удваивается: ',
         'your_score': 'Твой счет: ',
 
+        'solved_tasks': 'Поздравляем, ты успешно решил ',
+        'x_tasks': ' задач: ',
+
         'excellent': 'великолепный',
         'quite_good': 'достаточно хороший',
         'good': 'хороший',
@@ -87,6 +93,9 @@ export const gameresults = {
         'test': 'Gefeliciteerd, je bent geslaagd voor de test!',
         'doubled': 'Je score wordt verdubbeld: ',
         'your_score': 'Je score wordt: ',
+
+        'solved_tasks': 'Congratulations, you have successfully solved ',
+        'x_tasks': ' tasks: ',
 
         'excellent': 'Uitstekend',
         'quite_good': 'Heel goed',
@@ -121,6 +130,9 @@ export const gameresults = {
         'doubled': 'Your score is doubled: ',
         'your_score': 'Your score is: ',
 
+        'solved_tasks': 'Congratulations, you have successfully solved ',
+        'x_tasks': ' tasks: ',
+
         'excellent': 'Excellent',
         'quite_good': 'Quite Good',
         'good': 'Good',
@@ -153,6 +165,9 @@ export const gameresults = {
         'test': 'Congratulations, you have successfully passed test!',
         'doubled': 'Your score is doubled: ',
         'your_score': 'Your score is: ',
+
+        'solved_tasks': 'Congratulations, you have successfully solved ',
+        'x_tasks': ' tasks: ',
 
         'excellent': 'Excellent',
         'quite_good': 'Quite Good',
@@ -187,6 +202,9 @@ export const gameresults = {
         'doubled': 'Su puntuación se duplica: ',
         'your_score': 'Su puntuación se: ',
 
+        'solved_tasks': 'Congratulations, you have successfully solved ',
+        'x_tasks': ' tasks: ',
+
         'excellent': 'Excelente',
         'quite_good': 'Bastante bueno',
         'good': 'Good',
@@ -219,6 +237,9 @@ export const gameresults = {
         'test': 'Congratulations, you have successfully passed test!',
         'doubled': 'Your score is doubled: ',
         'your_score': 'Your score is: ',
+
+        'solved_tasks': 'Congratulations, you have successfully solved ',
+        'x_tasks': ' tasks: ',
 
         'excellent': 'Excellent',
         'quite_good': 'Quite Good',

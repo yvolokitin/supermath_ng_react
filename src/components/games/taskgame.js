@@ -81,9 +81,15 @@ export default function TaskGame(props) {
         if ('data' in response) {
             console.table(response.data);
             if ('error' in response.data) {
-                var messer = taskgame[props.lang]['error']
-                    + '. ' + response.data.error
-                    + '. ' + taskgame[props.lang]['later'];
+                var messer = taskgame[props.lang]['error'];
+                if (response.data.error.indexOf('no more tasks found') === -1) {
+                    messer = messer + response.data.error
+                        + '. ' + taskgame[props.lang]['later'];
+                } else {
+                    messer = messer + taskgame[props.lang]['no_more_tasks']
+                        + taskgame[props.lang]['later'];
+                }
+                
                 setMessage(messer); setTask(messer); console.log(messer);
                 setBoard('red'); setImage(image_numbers);
 
@@ -91,11 +97,12 @@ export default function TaskGame(props) {
                 ('lang' in response.data) &&
                 ('image' in response.data) &&
                 ('result' in response.data) &&
+                ('current' in response.data) &&
                 ('description' in response.data)) {
                     // task counter at current moment
                     setCounter(prevCounter => parseInt(prevCounter) + 1);
                     // current user task progress counter
-                    setCurrent(prevCurrent => parseInt(prevCurrent) + 1);
+                    setCurrent(response.data.current);
                     setTask(response.data.description);
                     setResult(response.data.result);
                     setBoard('#006600');
@@ -191,7 +198,7 @@ export default function TaskGame(props) {
         var data = {'lang': props.lang,
             'level': props.task_uid,
             'user_id': props.user_id,
-            'current': props.task_current,
+            'current': current,
             'fails': props.task_fails}
         axios.post('https://supermath.xyz:3000/api/gettask', data)
             .then(onUpdate).catch(onError);
@@ -283,12 +290,14 @@ export default function TaskGame(props) {
                         'duration': (new Date().getTime() - duration),
                         'rate': get_rate_per_percent(percent),
                         'percent': percent,
+                        'current': current,
                         'belt': 'task',
                         'task': 'task',
                     };
 
-                    console.table(result_data);
                     setResultData(result_data);
+                    console.table(result_data);
+                    // props.onClose('finished', result_data);
                     setOpenAlert(ALERT.RESULTS);
                     break;
 

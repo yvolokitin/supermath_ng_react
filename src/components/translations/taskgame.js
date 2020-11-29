@@ -9,6 +9,7 @@ export const taskgame = {
         'wrong_answer': 'Wrong Answer!',
         'later': 'We are working on that problem and will try to fix as soon as possible. Please, try again later.',
         'not_enough': 'Do not receive enough data from server.',
+        'no_more_tasks': 'Unfortunately, we have no tasks of such level in our databases now. ',
     },
     // Russian
     'ru': {
@@ -19,6 +20,7 @@ export const taskgame = {
         'wrong_answer': 'Неверный ответ!',
         'later': 'Мы работаем над решением этой проблемы, чтобы исправить её как можно скорее. Пожалуйста, обновите страницу сайта и повторите чуть позже',
         'not_enough': 'Не достаточно данных от сервера.',
+        'no_more_tasks': 'Простите, на данный момент у нас нет задач данного уровня в Базе данных. ',
     },
     // Dutch
     'nl' : {
@@ -29,6 +31,7 @@ export const taskgame = {
         'wrong_answer': 'Verkeerd antwoord!',
         'later': 'We werken aan dat probleem en zullen proberen het zo snel mogelijk op te lossen. Probeer het later opnieuw.',
         'not_enough': 'Ontvang niet genoeg gegevens van de server.',
+        'no_more_tasks': 'Unfortunately, we have no tasks of such level in our databases now. ',
     },
     // French
     'fr' : {
@@ -39,6 +42,7 @@ export const taskgame = {
         'wrong_answer': 'Mauvaise réponse!',
         'later': 'Nous travaillons sur ce problème et essaierons de le résoudre dès que possible. Veuillez réessayer plus tard.',
         'not_enough': 'Ne recevez pas suffisamment de données du serveur.',
+        'no_more_tasks': 'Unfortunately, we have no tasks of such level in our databases now. ',
     },
     // German
     'de' : {
@@ -49,6 +53,7 @@ export const taskgame = {
         'wrong_answer': 'Falsche Antwort!',
         'later': 'Wir arbeiten an diesem Problem und werden versuchen, es so schnell wie möglich zu beheben. Bitte versuchen Sie es später noch einmal.',
         'not_enough': 'Empfangen Sie nicht genügend Daten vom Server.',
+        'no_more_tasks': 'Unfortunately, we have no tasks of such level in our databases now. ',
     },
     // Spanish
     'es' : {
@@ -59,6 +64,7 @@ export const taskgame = {
         'wrong_answer': '¡Respuesta incorrecta!',
         'later': 'Estamos trabajando en ese problema e intentaremos solucionarlo lo antes posible. Por favor, inténtelo de nuevo más tarde.',
         'not_enough': 'No recibe suficientes datos del servidor.',
+        'no_more_tasks': 'Unfortunately, we have no tasks of such level in our databases now. ',
     },
     // Italian
     'it' : {
@@ -69,5 +75,6 @@ export const taskgame = {
         'wrong_answer': 'Risposta sbagliata!',
         'later': 'Stiamo lavorando a questo problema e proveremo a risolverlo il prima possibile. Per favore riprova più tardi.',
         'not_enough': 'Non ricevere dati sufficienti dal server.',
+        'no_more_tasks': 'Unfortunately, we have no tasks of such level in our databases now. ',
     },
 };
