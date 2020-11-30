@@ -297,7 +297,7 @@ export default function TaskGame(props) {
 
                     setResultData(result_data);
                     console.table(result_data);
-                    // props.onClose('finished', result_data);
+                    props.onClose('finished', result_data);
                     setOpenAlert(ALERT.RESULTS);
                     break;
 
