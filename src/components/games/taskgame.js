@@ -81,8 +81,8 @@ export default function TaskGame(props) {
     const onUpdate = useCallback((response) => {
         console.log('TaskGame.onUpdate');
         if ('data' in response) {
-            console.table(response.data);
             if ('error' in response.data) {
+                console.table(response.data);
                 var messer = taskgame[props.lang]['error'];
                 if (response.data.error.indexOf('no more tasks found') === -1) {
                     messer = messer + response.data.error
@@ -101,6 +101,7 @@ export default function TaskGame(props) {
                 ('result' in response.data) &&
                 ('current' in response.data) &&
                 ('description' in response.data)) {
+                    console.table('response.data.result: ' + response.data.result);
                     // task counter at current moment
                     setCounter(prevCounter => parseInt(prevCounter) + 1);
                     // current user task progress counter

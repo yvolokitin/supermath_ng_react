@@ -242,19 +242,29 @@ export default class SuperMathPage extends React.Component {
     }
 
     updateUserScores(data) {
+        console.log('Page.Header -> updateUserScores(data)');
+
+        if (data.game_uid.indexOf('task_') > -1) {
+            // for fails: this.setState(prevState => ({ colors: [...prevState.colors, 'yellow'] }))
+            console.table(data);
+            var new_tasks_progress = this.state.tasks_progress;
+            new_tasks_progress[data.game_uid] = data.current;
+            this.setState({tasks_progress: new_tasks_progress});
+        }
+
         if ((this.state.id > 0) && (this.state.pswdhash.length > 0)) {
             var new_passed = parseInt(this.state.passed);
             var new_failed = parseInt(this.state.failed);
             var new_cards = parseInt(this.state.cards);
+
             var new_solved = this.state.solved;
             var new_level = this.state.level;
 
             if (data.failed === 0 && data.passed > 0) {
-                // T === test / exam for belt
                 if (data.game_uid.indexOf('task_') > -1) {
-                    console.log('***********************************');
-                    console.table(data);
+                    new_passed = new_passed + parseInt(data.passed);
 
+                // T === test / exam for belt
                 } else if (data.game_uid.indexOf('T') > -1) {
                     new_passed = new_passed + parseInt(data.passed);
                     // we have to unlock all locked programs
@@ -331,6 +341,7 @@ export default class SuperMathPage extends React.Component {
                         cards: new_cards,
                     });
 
+                // if game not a test OR its task
                 } else {
                     switch (this.state.level) {
                         case 'black':
@@ -379,25 +390,26 @@ export default class SuperMathPage extends React.Component {
                             new_solved = new_solved + data.game_uid + ',';
                             new_cards = new_cards + 1;
                             break;
-                        }
-
-                        this.setState({
-                            passed: new_passed,
-                            solved: new_solved,
-                            cards: new_cards,
-                        });
                     }
-            }
-        } else {
-            new_passed = new_passed + parseInt(data.passed);
-            new_failed = new_failed + parseInt(data.failed);
-            this.setState({
-                passed: new_passed,
-                failed: new_failed,
-            });
-        }
 
-        update_counter(this.state.id, this.state.pswdhash, data, new_passed, new_failed);
+                    this.setState({
+                        passed: new_passed,
+                        solved: new_solved,
+                        cards: new_cards,
+                    });
+                }
+
+            } else {
+                new_passed = new_passed + parseInt(data.passed);
+                new_failed = new_failed + parseInt(data.failed);
+                this.setState({
+                    passed: new_passed,
+                    failed: new_failed,
+                });
+            }
+
+            update_counter(this.state.id, this.state.pswdhash, data, new_passed, new_failed);
+        }
     }
 
     /**
@@ -637,6 +649,7 @@ export default class SuperMathPage extends React.Component {
         if ('data' in response) {
             if ('error' in response.data) {
                 console.log('ERROR Header.onApiUpdate received ' + response.data.error);
+                this.onError('Server returned ' + response.data.error);
 
             } else if (('id' in response.data) && ('name' in response.data) &&
                 ('lang' in response.data) && ('birthday' in response.data) &&
@@ -647,7 +660,7 @@ export default class SuperMathPage extends React.Component {
                 ('avatar' in response.data) && ('belt' in response.data)) {
 
                     console.log('Header.onApiUpdate: successed, ' + response.data.id);
-                    console.table(response.data);
+                    // console.table(response.data);
                     this.onResult('successed', response.data);
 
                     // refreshing page if received from server (usually, it forced by user)

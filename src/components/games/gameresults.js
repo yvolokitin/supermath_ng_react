@@ -157,12 +157,12 @@ export default function GameResults(props) {
             <div className='result_board'>
                 {(props.type === 'task') ? (
                     <div className='result_board_belt' style={{backgroundColor: '#751aff'}}>
-                        <div className='result_board_belt_left'>
+                        <div className='result_board_belt_left' style={{'float': 'right'}}>
                             <div className='result_board_belt_left_img'>
                                 <img src={image_brain} alt='Belt' onContextMenu={(e) => e.preventDefault()}/>
                             </div>
                         </div>
-                        <div className='result_board_belt_right' style={{color: font,}}>
+                        <div className='result_board_belt_right' style={{color: font, 'float': 'left'}}>
                             {text}
                         </div>
                     </div>
