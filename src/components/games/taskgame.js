@@ -20,6 +20,8 @@ import './taskgame.css';
 const url_prefix = 'https://supermath.xyz:3000/static/images/';
 const image_error = 'sm_error.jpg';
 
+const TASK_TIMEOUT = 900;
+
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='down' ref={ref} {...props} />;
 });
@@ -157,11 +159,10 @@ export default function TaskGame(props) {
                 setPassed(0); setFailed(0); setImage(image_numbers);
                 setResults([]); setBoard('#006600'); setLoading(true);
 
-                setDuration(new Date().getTime());
-
-                setMessage(taskgame[props.lang]['loading']);
                 setCurrent(props.task_current);
-                setFails(props.task_fails);
+                setDuration(new Date().getTime());
+                setMessage(taskgame[props.lang]['loading']);
+                setFails(props.task_fails.split(','));
 
                 setTimeout(() => {
                     var data = {'lang': props.lang,
@@ -199,7 +200,7 @@ export default function TaskGame(props) {
             'level': props.task_uid,
             'user_id': props.user_id,
             'current': current,
-            'fails': props.task_fails}
+            'fails': fails.join()}
         axios.post('https://supermath.xyz:3000/api/gettask', data)
             .then(onUpdate).catch(onError);
     }
@@ -227,7 +228,7 @@ export default function TaskGame(props) {
             if (counter < props.amount) {
                 setMessage(taskgame[props.lang]['loading']);
                 setImage(image_numbers); setLoading(true);
-                setTimeout(() => getNewTask(), 1100);
+                setTimeout(() => getNewTask(), TASK_TIMEOUT);
 
             } else {
                 console.log('Game is Finished, amount ' + props.amount);
@@ -238,6 +239,11 @@ export default function TaskGame(props) {
             if ((passed + failed) < counter) {
                 setFailed(prevFailed => prevFailed + 1);
                 setResults([...results, {'task': 'task_' + counter, 'color': 'red'}]);
+
+                // add task id in the list of fails fro future
+                if (fails.includes(counter) === false) {
+                    fails.push(counter);
+                }
             }
 
             setMessage(answer + ' - ' + taskgame[props.lang]['wrong_answer']);
@@ -268,11 +274,26 @@ export default function TaskGame(props) {
 
                 case 'next':
                     console.log('Proceed with Next Task');
-                    setFailed(prevPassed => prevPassed + 1);
-                    setMessage(taskgame[props.lang]['loading']);
-                    setImage(image_numbers); setLoading(true);
-                    setTimeout(() => getNewTask(), 1100);
-                    setOpenAlert(ALERT.NONE);
+                    setOpenAlert(ALERT.NONE); setLoading(true);
+
+                    if (counter+1 > props.amount) {
+                        setMessage(taskgame[props.lang]['sorry_last']);
+                        setLoading(true); setTimeout(() => setLoading(false), 600);
+
+                    } else {
+                        setResults([...results, {'task': 'task_' + counter, 'color': 'red'}]);
+
+                        // add task id in the list of fails fro future
+                        if (fails.includes(counter) === false) {
+                            fails.push(counter);
+                        }
+
+                        setFailed(prevPassed => prevPassed + 1);
+                        setMessage(taskgame[props.lang]['loading']);
+                        setImage(image_numbers);
+                        setTimeout(() => getNewTask(), TASK_TIMEOUT);
+                    }
+
                     break;
 
                 case 'finished':
@@ -289,6 +310,7 @@ export default function TaskGame(props) {
                         'failed': failed,
                         'duration': (new Date().getTime() - duration),
                         'rate': get_rate_per_percent(percent),
+                        'fails': fails.join(),
                         'percent': percent,
                         'current': current,
                         'belt': 'task',

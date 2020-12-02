@@ -10,6 +10,7 @@ export const taskgame = {
         'later': 'We are working on that problem and will try to fix as soon as possible. Please, try again later.',
         'not_enough': 'Do not receive enough data from server.',
         'no_more_tasks': 'Unfortunately, we have no tasks of such level in our databases now. ',
+        'sorry_last': 'You can not proceed to the next task since the current is the last one.',
     },
     // Russian
     'ru': {
@@ -21,6 +22,7 @@ export const taskgame = {
         'later': 'Мы работаем над решением этой проблемы, чтобы исправить её как можно скорее. Пожалуйста, обновите страницу сайта и повторите чуть позже',
         'not_enough': 'Не достаточно данных от сервера.',
         'no_more_tasks': 'Простите, на данный момент у нас нет задач данного уровня в Базе данных. ',
+        'sorry_last': 'Ты не можешь перейти к следующему заданию, т.к. это последняя задача.',
     },
     // Dutch
     'nl' : {
@@ -31,7 +33,8 @@ export const taskgame = {
         'wrong_answer': 'Verkeerd antwoord!',
         'later': 'We werken aan dat probleem en zullen proberen het zo snel mogelijk op te lossen. Probeer het later opnieuw.',
         'not_enough': 'Ontvang niet genoeg gegevens van de server.',
-        'no_more_tasks': 'Unfortunately, we have no tasks of such level in our databases now. ',
+        'no_more_tasks': 'Helaas hebben we momenteel geen taken van een dergelijk niveau in onze databases. ',
+        'sorry_last': 'U kunt niet doorgaan naar de volgende taak, aangezien de huidige de laatste is',
     },
     // French
     'fr' : {
@@ -42,7 +45,8 @@ export const taskgame = {
         'wrong_answer': 'Mauvaise réponse!',
         'later': 'Nous travaillons sur ce problème et essaierons de le résoudre dès que possible. Veuillez réessayer plus tard.',
         'not_enough': 'Ne recevez pas suffisamment de données du serveur.',
-        'no_more_tasks': 'Unfortunately, we have no tasks of such level in our databases now. ',
+        'no_more_tasks': 'Malheureusement, nous n\'avons actuellement aucune tâche d\'un tel niveau dans nos bases de données. ',
+        'sorry_last': 'Vous ne pouvez pas passer à la tâche suivante car le courant est le dernier',
     },
     // German
     'de' : {
@@ -53,7 +57,8 @@ export const taskgame = {
         'wrong_answer': 'Falsche Antwort!',
         'later': 'Wir arbeiten an diesem Problem und werden versuchen, es so schnell wie möglich zu beheben. Bitte versuchen Sie es später noch einmal.',
         'not_enough': 'Empfangen Sie nicht genügend Daten vom Server.',
-        'no_more_tasks': 'Unfortunately, we have no tasks of such level in our databases now. ',
+        'no_more_tasks': 'Leider haben wir derzeit keine Aufgaben dieser Stufe in unseren Datenbanken. ',
+        'sorry_last': 'Sie können nicht mit der nächsten Aufgabe fortfahren, da die aktuelle die letzte ist',
     },
     // Spanish
     'es' : {
@@ -64,7 +69,8 @@ export const taskgame = {
         'wrong_answer': '¡Respuesta incorrecta!',
         'later': 'Estamos trabajando en ese problema e intentaremos solucionarlo lo antes posible. Por favor, inténtelo de nuevo más tarde.',
         'not_enough': 'No recibe suficientes datos del servidor.',
-        'no_more_tasks': 'Unfortunately, we have no tasks of such level in our databases now. ',
+        'no_more_tasks': 'Desafortunadamente, ahora no tenemos tareas de ese nivel en nuestras bases de datos. ',
+        'sorry_last': 'No puede pasar a la siguiente tarea ya que la actual es la última',
     },
     // Italian
     'it' : {
@@ -75,6 +81,7 @@ export const taskgame = {
         'wrong_answer': 'Risposta sbagliata!',
         'later': 'Stiamo lavorando a questo problema e proveremo a risolverlo il prima possibile. Per favore riprova più tardi.',
         'not_enough': 'Non ricevere dati sufficienti dal server.',
-        'no_more_tasks': 'Unfortunately, we have no tasks of such level in our databases now. ',
+        'no_more_tasks': 'Sfortunatamente, al momento non abbiamo compiti di tale livello nei nostri database. ',
+        'sorry_last': 'Non è possibile passare all\'attività successiva poiché quella corrente è l\'ultima',
     },
 };

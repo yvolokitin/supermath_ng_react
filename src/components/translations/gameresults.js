@@ -22,7 +22,10 @@ export const gameresults = {
         'your_score': 'Your score is: ',
 
         'solved_tasks': 'Congratulations, you have successfully solved ',
-        'x_tasks': ' tasks: ',
+        'solved_wrong': ' solved wrong',
+        'x_tasks': ' task(s)',
+        'from': ' from ',
+        'all': 'all ',
 
         'excellent': 'Excellent',
         'quite_good': 'Quite Good',
@@ -59,7 +62,10 @@ export const gameresults = {
         'your_score': 'Твой счет: ',
 
         'solved_tasks': 'Поздравляем, ты успешно решил ',
-        'x_tasks': ' задач: ',
+        'solved_wrong': ' решена неверно',
+        'x_tasks': ' задач',
+        'from': ' из ',
+        'all': 'все ',
 
         'excellent': 'великолепный',
         'quite_good': 'достаточно хороший',
@@ -94,8 +100,11 @@ export const gameresults = {
         'doubled': 'Je score wordt verdubbeld: ',
         'your_score': 'Je score wordt: ',
 
-        'solved_tasks': 'Congratulations, you have successfully solved ',
-        'x_tasks': ' tasks: ',
+        'solved_tasks': 'Gefeliciteerd, je hebt het met succes opgelost ',
+        'solved_wrong': ' verkeerd opgelost',
+        'x_tasks': ' taken',
+        'from': ' van ',
+        'all': 'alle ',
 
         'excellent': 'Uitstekend',
         'quite_good': 'Heel goed',

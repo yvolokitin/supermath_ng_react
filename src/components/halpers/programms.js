@@ -76,7 +76,7 @@ import test_img from './../../images/tasks/test_img.jpg';
 const game_amount = 30;
 
 // for TASKS
-const task_amount = 2; // 5;
+const task_amount = 5;
 
 export const white_games = [
     {id: 1, uid: 'white1', logo: white1, type: 'linedigits', task: '0-7', amount: game_amount},

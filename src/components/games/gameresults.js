@@ -98,9 +98,20 @@ export default function GameResults(props) {
             }
 
             if (props.type === 'task') {
-                setText(gameresults[props.lang]['solved_tasks'] + props.amount
-                    + gameresults[props.lang]['x_tasks'] + props.data.passed
-                    + ', ' + props.data.failed);
+                var curr_text = gameresults[props.lang]['solved_tasks'];
+                if (props.data.failed === 0) {
+                    curr_text = curr_text + gameresults[props.lang]['all']
+                        + props.amount + gameresults[props.lang]['x_tasks'];
+                    setFont('yellow');
+                } else {
+                    curr_text = curr_text + props.data.passed + gameresults[props.lang]['from']
+                        + props.amount + gameresults[props.lang]['x_tasks'] + '. '
+                        + props.data.failed + gameresults[props.lang]['x_tasks']
+                        + gameresults[props.lang]['solved_wrong'];
+                    setFont('orange');
+                }
+
+                setText(curr_text);
 
             } else {
                 if (props.data.passed > props.amount) {
@@ -212,8 +223,14 @@ export default function GameResults(props) {
 
             <DialogContent scroll='body'>
                 <BottomNavigation onChange={handleChange} showLabels>
-                    <BottomNavigationAction label={gameresults[props.lang]['replay']} value='restart' icon={<ReplayIcon/>} style={{transform:'scale(1.7)'}}/>
-                    <BottomNavigationAction label={gameresults[props.lang]['results']} value='results' icon={<CategoryIcon/>} style={{transform:'scale(1.7)'}}/>
+                    {props.type === 'game' &&
+                        <BottomNavigationAction label={gameresults[props.lang]['replay']} value='restart' icon={<ReplayIcon/>} style={{transform:'scale(1.7)'}}/>
+                    }
+
+                    {props.type === 'game' &&
+                        <BottomNavigationAction label={gameresults[props.lang]['results']} value='results' icon={<CategoryIcon/>} style={{transform:'scale(1.7)'}}/>
+                    }
+
                     <BottomNavigationAction label={gameresults[props.lang]['close']} value='close' icon={<HighlightOffIcon/>} style={{transform:'scale(1.7)'}}/>
 
                     {props.user_id === 0 &&
