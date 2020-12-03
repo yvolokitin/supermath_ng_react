@@ -150,7 +150,7 @@ export default function TaskGame(props) {
     useEffect(() => {
         if (props.open) {
             // console.log('TaskGame.useEffect -> props.task_uid ' + props.task_uid + ', props.user_id ' + props.user_id);
-            // console.log('TaskGame.useEffect -> task_current ' + props.task_current + ', task_fails ' + props.task_fails);
+            console.log('TaskGame.useEffect -> task_current ' + props.task_current + ', task_fails ' + props.task_fails);
 
             // counter=0: initialization
             if (counter === 0) {

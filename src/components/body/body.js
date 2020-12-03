@@ -67,10 +67,10 @@ export default function Body(props) {
 
     const [status, setStatus] = useState(STATUS.NONE);
 
-    React.useEffect(() => {
+    /*React.useEffect(() => {
         console.log('Body(props) -> props.solved "' + props.solved + '"');
 
-    }, [props.solved]);
+    }, [props.solved]);*/
 
     function onTabChange(user_tab) {
         // console.log('Body.onTabPress ' + user_tab.id + ', props.solved ' + props.solved);

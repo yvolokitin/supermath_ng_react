@@ -152,7 +152,7 @@ export default class SuperMathPage extends React.Component {
     componentDidMount() {
         // console.log('Page.Header -> this.state.belt ' + this.state.belt + ', get_item ' + get_item(0, 'belt'));
         if ((this.state.id > 0) && (this.state.pswdhash.length > 0)) {
-            console.log('Page.Header -> refreshing ' + this.state.belt);
+            // console.log('Page.Header -> refreshing ' + this.state.belt);
             var post_data = {
                 'user_id': this.state.id,
                 'pswdhash': this.state.pswdhash,
@@ -245,11 +245,20 @@ export default class SuperMathPage extends React.Component {
         console.log('Page.Header -> updateUserScores(data)');
 
         if (data.game_uid.indexOf('task_') > -1) {
-            // for fails: this.setState(prevState => ({ colors: [...prevState.colors, 'yellow'] }))
             console.table(data);
             var new_tasks_progress = this.state.tasks_progress;
             new_tasks_progress[data.game_uid] = data.current;
-            this.setState({tasks_progress: new_tasks_progress});
+
+            var new_tasks_failed = this.state.tasks_failed;
+            new_tasks_failed[data.game_uid] = data.fails.split(',');
+
+            this.setState({
+                tasks_progress: new_tasks_progress,
+                tasks_failed: new_tasks_failed,
+            });
+
+            set_item(this.state.id, 'tasks_progress', new_tasks_progress);
+            set_item(this.state.id, 'tasks_failed', new_tasks_failed.join());
         }
 
         if ((this.state.id > 0) && (this.state.pswdhash.length > 0)) {
@@ -570,7 +579,7 @@ export default class SuperMathPage extends React.Component {
      */
     onResult(result, data) {
         if (result === 'successed') {
-            console.log('Header.onResult ' + data.passed + ', ' + data.failed + ', level: ' + data.level);
+            // console.log('Header.onResult ' + data.passed + ', ' + data.failed + ', level: ' + data.level);
 
             // to show all received user data
             // for (var pname in data) { console.log(pname, data[pname]); }
