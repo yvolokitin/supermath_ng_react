@@ -163,6 +163,8 @@ export default function TaskGame(props) {
                 setCurrent(props.task_current);
                 setDuration(new Date().getTime());
                 setMessage(taskgame[props.lang]['loading']);
+
+                console.log(typeof props.task_fails);
                 setFails(props.task_fails.split(','));
 
                 setTimeout(() => {
