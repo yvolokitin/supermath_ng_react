@@ -250,16 +250,27 @@ export function get_item(user_id, key) {
                 break;
 
             case 'tasks_progress':
+                property = {'task_1': 0,
+                    'task_2': 0,
+                    'task_3': 0,
+                    'task_4': 0,
+                    'task_5': 0,
+                    'task_6': 0,
+                    'task_7': 0,
+                    'task_8': 0,
+                    'task_9': 0,};
+                break;
+
             case 'tasks_failed':
-                property = {'task_1': '0',
-                    'task_2': '0',
-                    'task_3': '0',
-                    'task_4': '0',
-                    'task_5': '0',
-                    'task_6': '0',
-                    'task_7': '0',
-                    'task_8': '0',
-                    'task_9': '0',};
+                property = {'task_1': [],
+                    'task_2': [],
+                    'task_3': [],
+                    'task_4': [],
+                    'task_5': [],
+                    'task_6': [],
+                    'task_7': [],
+                    'task_8': [],
+                    'task_9': [],};
                 break;
 
             default:
