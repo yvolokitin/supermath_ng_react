@@ -250,7 +250,7 @@ export default class SuperMathPage extends React.Component {
             new_tasks_progress[data.game_uid] = data.current;
 
             var new_tasks_failed = this.state.tasks_failed;
-            new_tasks_failed[data.game_uid] = data.fails.split(',');
+            new_tasks_failed[data.game_uid] = data.fails;
 
             this.setState({
                 tasks_progress: new_tasks_progress,
@@ -258,7 +258,7 @@ export default class SuperMathPage extends React.Component {
             });
 
             set_item(this.state.id, 'tasks_progress', new_tasks_progress);
-            set_item(this.state.id, 'tasks_failed', new_tasks_failed.join());
+            set_item(this.state.id, 'tasks_failed', new_tasks_failed);
         }
 
         if ((this.state.id > 0) && (this.state.pswdhash.length > 0)) {

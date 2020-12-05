@@ -218,7 +218,10 @@ export function get_item(user_id, key) {
         if (typeof(Storage) !== 'undefined') {
             // Code for localStorage
             var storage_key = user_id.toString() + '_' + key;
-            if (key === 'tasks_progress' || key === 'tasks_failed') {
+            if (key === 'tasks_progress') {
+                property = JSON.parse(localStorage.getItem(storage_key));
+
+            } else if( key === 'tasks_failed') {
                 property = JSON.parse(localStorage.getItem(storage_key));
 
             } else {

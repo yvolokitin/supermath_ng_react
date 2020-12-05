@@ -59,7 +59,7 @@ export default function TaskGame(props) {
     const [resultData, setResultData] = React.useState({});
 
     const [current, setCurrent] = useState(0);
-    const [fails, setFails] = useState('');
+    const [fails, setFails] = useState([]);
 
     const [message, setMessage]  = useState('');
     const [loading, setLoading] = useState(true);
@@ -101,7 +101,7 @@ export default function TaskGame(props) {
                 ('result' in response.data) &&
                 ('current' in response.data) &&
                 ('description' in response.data)) {
-                    console.table('response.data.result: ' + response.data.result);
+                    console.table(response.data.id + ', response.data.result: ' + response.data.result);
                     // task counter at current moment
                     setCounter(prevCounter => parseInt(prevCounter) + 1);
                     // current user task progress counter
@@ -163,9 +163,8 @@ export default function TaskGame(props) {
                 setCurrent(props.task_current);
                 setDuration(new Date().getTime());
                 setMessage(taskgame[props.lang]['loading']);
-
-                console.log(typeof props.task_fails);
-                setFails(props.task_fails.split(','));
+                // props.task_fails -> [...]
+                setFails(props.task_fails);
 
                 setTimeout(() => {
                     var data = {'lang': props.lang,
@@ -239,24 +238,26 @@ export default function TaskGame(props) {
             }
 
         } else {
-            if ((passed + failed) < counter) {
-                setFailed(prevFailed => prevFailed + 1);
-                setResults([...results, {'task': 'task_' + counter, 'color': 'red'}]);
-
-                // add task id in the list of fails fro future
-                if (fails.includes(counter) === false) {
-                    fails.push(counter);
-                }
-            }
-
             setMessage(answer + ' - ' + taskgame[props.lang]['wrong_answer']);
             setError(answer + ' - ' + taskgame[props.lang]['wrong_answer']);
-            setBoard('red'); setBoardAnimation('shake 0.6s');
+            setTaskFailed(); setBoard('red'); setBoardAnimation('shake 0.6s');
 
             setTimeout(() => {
                 setBoardAnimation('smooth_red_to_green 0.6s');
                 setBoard('#006600');
             }, 800);
+        }
+    }
+
+    function setTaskFailed() {
+        if ((passed + failed) < counter) {
+            setFailed(prevFailed => prevFailed + 1);
+            setResults([...results, {'task': 'task_' + counter, 'color': 'red'}]);
+
+            // add task id in the list of fails fro future
+            if (fails.includes(current) === false) {
+                setFails(fails => [...fails, current]);
+            }
         }
     }
 
@@ -284,16 +285,8 @@ export default function TaskGame(props) {
                         setLoading(true); setTimeout(() => setLoading(false), 600);
 
                     } else {
-                        setResults([...results, {'task': 'task_' + counter, 'color': 'red'}]);
-
-                        // add task id in the list of fails fro future
-                        if (fails.includes(counter) === false) {
-                            fails.push(counter);
-                        }
-
-                        setFailed(prevPassed => prevPassed + 1);
                         setMessage(taskgame[props.lang]['loading']);
-                        setImage(image_numbers);
+                        setTaskFailed(); setImage(image_numbers);
                         setTimeout(() => getNewTask(), TASK_TIMEOUT);
                     }
 
@@ -313,7 +306,7 @@ export default function TaskGame(props) {
                         'failed': failed,
                         'duration': (new Date().getTime() - duration),
                         'rate': get_rate_per_percent(percent),
-                        'fails': fails.join(),
+                        'fails': fails,
                         'percent': percent,
                         'current': current,
                         'belt': 'task',
