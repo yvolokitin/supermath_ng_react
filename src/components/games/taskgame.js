@@ -13,6 +13,7 @@ import EnterKeyboard from './../keyboard/enterkeyboard';
 import {get_rate_per_percent} from './../halpers/functions';
 
 import image_thinking from './../../images/thinking.png';
+import image_congrats from './../../images/congrats.png';
 import image_numbers from './../../images/trophy/numbers.png';
 
 import './taskgame.css';
@@ -21,6 +22,7 @@ const url_prefix = 'https://supermath.xyz:3000/static/images/';
 const image_error = 'sm_error.jpg';
 
 const TASK_TIMEOUT = 900;
+const TASK_TIMEOUT_FINISHED = 1300;
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='down' ref={ref} {...props} />;
@@ -79,7 +81,7 @@ export default function TaskGame(props) {
     const [openAlert, setOpenAlert] = useState(ALERT.NONE);
 
     const onUpdate = useCallback((response) => {
-        console.log('TaskGame.onUpdate');
+        // console.log('TaskGame.onUpdate');
         if ('data' in response) {
             if ('error' in response.data) {
                 console.table(response.data);
@@ -95,17 +97,16 @@ export default function TaskGame(props) {
                 setMessage(messer); setTask(messer); console.log(messer);
                 setBoard('red'); setImage(image_numbers);
 
-            } else if (('id' in response.data) && 
+            } else if (('task_id' in response.data) && 
                 ('lang' in response.data) &&
                 ('image' in response.data) &&
                 ('result' in response.data) &&
-                ('current' in response.data) &&
                 ('description' in response.data)) {
-                    console.table(response.data.id + ', response.data.result: ' + response.data.result);
+                    console.table(response.data.task_id + ', response.data.result: ' + response.data.result);
                     // task counter at current moment
                     setCounter(prevCounter => parseInt(prevCounter) + 1);
                     // current user task progress counter
-                    setCurrent(response.data.current);
+                    setCurrent(response.data.task_id);
                     setTask(response.data.description);
                     setResult(response.data.result);
                     setBoard('#006600');
@@ -149,8 +150,7 @@ export default function TaskGame(props) {
 
     useEffect(() => {
         if (props.open) {
-            // console.log('TaskGame.useEffect -> props.task_uid ' + props.task_uid + ', props.user_id ' + props.user_id);
-            console.log('TaskGame.useEffect -> task_current ' + props.task_current + ', task_fails ' + props.task_fails);
+            // console.log('TaskGame.useEffect -> task_current ' + props.task_current);
 
             // counter=0: initialization
             if (counter === 0) {
@@ -170,9 +170,8 @@ export default function TaskGame(props) {
                     var data = {'lang': props.lang,
                         'level': props.task_uid,
                         'user_id': props.user_id,
-                        'current': props.task_current,
-                        'fails': props.task_fails}
-                    axios.post('https://supermath.xyz:3000/api/gettask', data)
+                        'task_id': props.task_current}
+                    axios.post('https://supermath.xyz:3000/api/getnexttask', data)
                         .then(onUpdate).catch(onError);
                 }, 600);
             }
@@ -200,11 +199,19 @@ export default function TaskGame(props) {
     function getNewTask() {
         var data = {'lang': props.lang,
             'level': props.task_uid,
-            'user_id': props.user_id,
-            'current': current,
-            'fails': fails.join()}
-        axios.post('https://supermath.xyz:3000/api/gettask', data)
-            .then(onUpdate).catch(onError);
+            'user_id': props.user_id};
+
+        if (fails.length > 0 && Math.random() > 0.75) {
+            var rnd = Math.floor((Math.random()*fails.length));
+            data['task_id'] = fails[rnd];
+            axios.post('https://supermath.xyz:3000/api/getfailtask', data)
+                .then(onUpdate).catch(onError);
+
+        } else {
+            data['task_id'] = current;
+            axios.post('https://supermath.xyz:3000/api/getnexttask', data)
+                .then(onUpdate).catch(onError);
+        }
     }
 
     function onAnswer(answer) {
@@ -225,6 +232,11 @@ export default function TaskGame(props) {
             if ((passed + failed) < counter) {
                 setPassed(prevPassed => prevPassed + 1);
                 setResults([...results, {'task': 'task_' + counter, 'color': 'green'}]);
+
+                // remove task id in the list of fails
+                if (fails.includes(current)) {
+                    setFails(fails.filter(i => i !== current));
+                }
             }
 
             if (counter < props.amount) {
@@ -234,7 +246,10 @@ export default function TaskGame(props) {
 
             } else {
                 console.log('Game is Finished, amount ' + props.amount);
-                onDialog('finished');
+                setBoard('violet'); setImage(image_congrats);
+                setTimeout(() => {
+                    onDialog('finished');
+                }, TASK_TIMEOUT_FINISHED);
             }
 
         } else {
@@ -254,7 +269,7 @@ export default function TaskGame(props) {
             setFailed(prevFailed => prevFailed + 1);
             setResults([...results, {'task': 'task_' + counter, 'color': 'red'}]);
 
-            // add task id in the list of fails fro future
+            // add task id in the list of fails for future
             if (fails.includes(current) === false) {
                 setFails(fails => [...fails, current]);
             }
