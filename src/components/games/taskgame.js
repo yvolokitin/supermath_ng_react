@@ -201,7 +201,9 @@ export default function TaskGame(props) {
             'level': props.task_uid,
             'user_id': props.user_id};
 
-        if (fails.length > 0 && Math.random() > 0.75) {
+        // with 25% possibility user will get failed task
+        // the last task is always should be something new
+        if (fails.length > 0 && Math.random() > 0.75 && current < props.amount) {
             var rnd = Math.floor((Math.random()*fails.length));
             data['task_id'] = fails[rnd];
             axios.post('https://supermath.xyz:3000/api/getfailtask', data)

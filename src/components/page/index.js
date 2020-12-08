@@ -244,6 +244,9 @@ export default class SuperMathPage extends React.Component {
     updateUserScores(data) {
         console.log('Page.Header -> updateUserScores(data)');
 
+        var new_passed = parseInt(this.state.passed);
+        var new_failed = parseInt(this.state.failed);
+
         if (data.game_uid.indexOf('task_') > -1) {
             console.table(data);
             var new_tasks_progress = this.state.tasks_progress;
@@ -262,16 +265,14 @@ export default class SuperMathPage extends React.Component {
         }
 
         if ((this.state.id > 0) && (this.state.pswdhash.length > 0)) {
-            var new_passed = parseInt(this.state.passed);
-            var new_failed = parseInt(this.state.failed);
             var new_cards = parseInt(this.state.cards);
-
             var new_solved = this.state.solved;
             var new_level = this.state.level;
 
             if (data.failed === 0 && data.passed > 0) {
                 if (data.game_uid.indexOf('task_') > -1) {
                     new_passed = new_passed + parseInt(data.passed);
+                    this.setState({passed: new_passed});
 
                 // T === test / exam for belt
                 } else if (data.game_uid.indexOf('T') > -1) {
