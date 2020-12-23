@@ -25,6 +25,9 @@ import Account from './../userinfo/account';
 import {avatars} from './../halpers/avatars';
 import Body from "./../body/body";
 
+import {URL_SUPERMATH_REFRESH} from './../halpers/urls';
+import {FACEBOOK_SDK_URL} from './../halpers/urls';
+
 import {FULL_SCREEN} from './../halpers/functions';
 
 import {get_lang, set_lang} from './../halpers/localstorage';
@@ -117,7 +120,7 @@ export default class SuperMathPage extends React.Component {
 
     /**
      * The method FB.getLoginStatus can no longer be called from http pages.
-     * https://developers.facebook.com/blog/post/2018/06/08/enforce-https-facebook-login/
+     * developers.facebook.com/blog/post/2018/06/08/enforce-https-facebook-login/
      */
     loadFbLoginApi() {
         // facebook api
@@ -144,7 +147,7 @@ export default class SuperMathPage extends React.Component {
              var js, fjs = d.getElementsByTagName(s)[0];
              if (d.getElementById(id)) {return;}
              js = d.createElement(s); js.id = id;
-             js.src = "https://connect.facebook.net/en_US/sdk.js";
+             js.src = FACEBOOK_SDK_URL;
              fjs.parentNode.insertBefore(js, fjs);
         } (document, 'script', 'facebook-jssdk'));
     }
@@ -157,7 +160,7 @@ export default class SuperMathPage extends React.Component {
                 'user_id': this.state.id,
                 'pswdhash': this.state.pswdhash,
                 'refresh': false};
-            axios.post('https://supermath.xyz:3000/api/refresh', post_data)
+            axios.post(URL_SUPERMATH_REFRESH, post_data)
                  .then(this.onApiUpdate)
                  .catch(this.onApiUpdateError);
         }
@@ -190,7 +193,7 @@ export default class SuperMathPage extends React.Component {
                 'user_id': this.state.id,
                 'pswdhash': this.state.pswdhash,
                 'refresh': false};
-            axios.post('https://supermath.xyz:3000/api/refresh', post_data)
+            axios.post(URL_SUPERMATH_REFRESH, post_data)
                  .then(this.onApiUpdate)
                  .catch(this.onApiUpdateError);
         }
@@ -206,7 +209,7 @@ export default class SuperMathPage extends React.Component {
                 'pswdhash': this.state.pswdhash,
                 'refresh': true,
             };
-            axios.post('https://supermath.xyz:3000/api/refresh', post_data)
+            axios.post(URL_SUPERMATH_REFRESH, post_data)
                  .then(this.onApiUpdate)
                  .catch(this.onApiUpdateError);
 
@@ -465,7 +468,7 @@ export default class SuperMathPage extends React.Component {
                     'pswdhash': get_item(value, 'pswdhash'),
                     'refresh': false,
                 };
-                axios.post('https://supermath.xyz:3000/api/refresh', post)
+                axios.post(URL_SUPERMATH_REFRESH, post)
                      .then(this.onApiUpdate)
                      .catch(this.onApiUpdateError);
 

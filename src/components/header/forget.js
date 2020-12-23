@@ -12,6 +12,7 @@ import constraints from './constraints';
 import SMTitle from './../dialog/title';
 import ColorLine from "./../line/line";
 
+import {URL_SUPERMATH_FORGET} from './../halpers/urls';
 import {forget} from './../translations/forget';
 
 import axios from 'axios';
@@ -63,7 +64,7 @@ export default class Forget extends React.Component {
 
                 this.setState({success: false, loading: true});
                 var post_data = {'email': this.state.email};
-                axios.post('https://supermath.xyz:3000/api/forget', post_data)
+                axios.post(URL_SUPERMATH_FORGET, post_data)
                     .then(this.onForgetResponse)
                     .catch(this.onForgetError);
                 this.time = new Date().getTime();

@@ -10,6 +10,10 @@ import GameResults from './gameresults';
 import {taskgame} from './../translations/taskgame';
 import EnterKeyboard from './../keyboard/enterkeyboard';
 
+import {URL_SUPERMATH_IMAGES} from './../halpers/urls';
+import {URL_SUPERMATH_NEXTTASK} from './../halpers/urls';
+import {URL_SUPERMATH_FAILEDTASK} from './../halpers/urls';
+
 import {get_rate_per_percent} from './../halpers/functions';
 
 import image_thinking from './../../images/thinking.png';
@@ -18,7 +22,6 @@ import image_numbers from './../../images/trophy/numbers.png';
 
 import './taskgame.css';
 
-const url_prefix = 'https://supermath.xyz:3000/static/images/';
 const image_error = 'sm_error.jpg';
 
 const TASK_TIMEOUT = 900;
@@ -116,7 +119,7 @@ export default function TaskGame(props) {
                     if (response.data.image.length === 0) {
                         setImage(image_thinking);
                     } else {
-                        setImage(url_prefix + response.data.image);
+                        setImage(URL_SUPERMATH_IMAGES + response.data.image);
                     }
 
                     if (props.lang !== response.data.lang) {
@@ -171,7 +174,7 @@ export default function TaskGame(props) {
                         'level': props.task_uid,
                         'user_id': props.user_id,
                         'task_id': props.task_current}
-                    axios.post('https://supermath.xyz:3000/api/getnexttask', data)
+                    axios.post(URL_SUPERMATH_NEXTTASK, data)
                         .then(onUpdate).catch(onError);
                 }, 600);
             }
@@ -206,12 +209,12 @@ export default function TaskGame(props) {
         if (fails.length > 0 && Math.random() > 0.75 && current < props.amount) {
             var rnd = Math.floor((Math.random()*fails.length));
             data['task_id'] = fails[rnd];
-            axios.post('https://supermath.xyz:3000/api/getfailtask', data)
+            axios.post(URL_SUPERMATH_FAILEDTASK, data)
                 .then(onUpdate).catch(onError);
 
         } else {
             data['task_id'] = current;
-            axios.post('https://supermath.xyz:3000/api/getnexttask', data)
+            axios.post(URL_SUPERMATH_NEXTTASK, data)
                 .then(onUpdate).catch(onError);
         }
     }

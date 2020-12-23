@@ -1,4 +1,4 @@
-﻿import React, { useState, } from 'react';
+import React, { useState, } from 'react';
 import { Link } from '@material-ui/core';
 
 import DigitGame from './../games/digitgame';
@@ -16,6 +16,7 @@ import './body.css';
 import {tabs} from './../translations/tabs';
 import {footer} from './../translations/footer';
 
+import {supermath_xyz} from './../halpers/urls';
 import {get_belt_by_color, color_belts,} from './../halpers/programms';
 import {FULL_SCREEN} from './../halpers/functions';
 
@@ -186,7 +187,7 @@ export default function Body(props) {
                     <font onClick={() => setStatus(STATUS.SHARE)}>{footer[props.lang]['share']}</font>
                 </div>
                 <div className='footer_copyright'>
-                    {'Copyright © '} <Link color='inherit' href='https://supermath.xyz'>SuperMath.XYZ</Link>{'. '} {new Date().getFullYear()}
+                    {'Copyright © '} <Link color='inherit' href={supermath_xyz}>SuperMath.XYZ</Link>{'. '} {new Date().getFullYear()}
                 </div>
                 <div className='footer_contacts'>
                     <font onClick={() => setStatus(STATUS.CONTACTS)}>{footer[props.lang]['contacts']}</font>

@@ -1,6 +1,8 @@
 ﻿import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 
+import {URL_SUPERMATH_RESULTS} from './../halpers/urls';
+
 import {calendar} from './../translations/calendar';
 import './calendar.css';
 
@@ -49,7 +51,7 @@ export default function Calendar(props) {
             'month': new_month+1,
             'year': new_year,
         };
-        axios.post('https://supermath.xyz:3000/api/results', post_data)
+        axios.post(URL_SUPERMATH_RESULTS, post_data)
             .then(onResultsUpdate)
             .catch(onResultsError);
 

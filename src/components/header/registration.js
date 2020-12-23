@@ -7,6 +7,8 @@ import Alert from '@material-ui/lab/Alert';
 import {registration} from './../translations/registration';
 import {set_item, generate_pswdhash} from './../halpers/localstorage';
 
+import {URL_SUPERMATH_REGISTER} from './../halpers/urls';
+
 import {validate_name, validate_surname, validate_birth} from './../halpers/validator';
 import {validate_email, validate_pswd} from './../halpers/validator';
 
@@ -144,7 +146,7 @@ export default function Registration(props) {
                                 'failed': props.failed,
                                 'bonus': bonus,
                                 'pswdhash': pswdhash};
-                            axios.post('https://supermath.xyz:3000/api/reg', post_data)
+                            axios.post(URL_SUPERMATH_REGISTER, post_data)
                                 .then(onRegistrationResponse)
                                 .catch(onRegistrationError);
 

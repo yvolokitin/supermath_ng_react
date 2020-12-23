@@ -20,7 +20,7 @@ const LoginGoogle = ({
   scope,
   accessType,
   responseType,
-  jsSrc = 'https://apis.google.com/js/api.js',
+  jsSrc = GOOGLE_API_URL,
   prompt
 }) => {
   const [loaded, setLoaded] = useState(false)

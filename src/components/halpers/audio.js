@@ -1,5 +1,4 @@
-﻿// server url prefix
-const URL_PREFIX = 'https://supermath.xyz:3000/static/audio/';
+﻿import {URL_SUPERMATH_AUDIOS} from './../halpers/urls';
 
 // list of mp3 on server side
 const AUDIO_FILES = [
@@ -12,5 +11,5 @@ const AUDIO_FILES = [
 
 export function get_rnd_adio_url() {
     var file = AUDIO_FILES[AUDIO_FILES.length * Math.random() | 0];
-    return URL_PREFIX + file;
+    return URL_SUPERMATH_AUDIOS + file;
 }

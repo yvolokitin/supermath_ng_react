@@ -5,13 +5,15 @@ import Alert from '@material-ui/lab/Alert';
 import Title from './../title/title';
 import ColorLine from './../line/line';
 
+import {URL_SUPERMATH_LOGIN} from './../halpers/urls';
+
 import {login} from './../translations/login';
 
 import image from './../../images/login.png';
 
 // import LoginGoogle from './../halpers/logingoogle';
 // import {GOOGLE_CLIENTID} from './../halpers/authentication';
-// https://www.intricatecloud.io/2019/08/adding-google-sign-in-to-your-webapp-a-react-example/
+// www.intricatecloud.io/2019/08/adding-google-sign-in-to-your-webapp-a-react-example/
 
 import {get_avatar_by_name} from './../halpers/avatars';
 import {set_item, generate_pswdhash} from './../halpers/localstorage';
@@ -182,9 +184,8 @@ export default function Login(props) {
                         setLoading(true); var pswdhash = generate_pswdhash(password);
                         console.log('onLogin -> crypto pswdhash: ' + pswdhash);
                         var post_data = {'email': email, 'pswdhash': pswdhash};
-                        axios.post('https://supermath.xyz:3000/api/login', post_data)
-                            .then(onLoginResponse)
-                            .catch(onLoginError);
+                        axios.post(URL_SUPERMATH_LOGIN, post_data).then(onLoginResponse).catch(onLoginError);
+
                     } else {
                         setError(validate_pswd(password, props.lang));
                     }
@@ -204,9 +205,7 @@ export default function Login(props) {
 
         // process with login request from localstorage data
         setLoading(true); var post_data = {'email': user_email, 'pswdhash': user_pswd};
-        axios.post('https://supermath.xyz:3000/api/login', post_data)
-            .then(onLoginResponse)
-            .catch(onLoginError);
+        axios.post(URL_SUPERMATH_LOGIN, post_data).then(onLoginResponse).catch(onLoginError);
 
     }, [onLoginResponse, onLoginError, ])
 
@@ -266,9 +265,9 @@ export default function Login(props) {
             <div className='login_wrapper' style={{justifyContent: 'center'}}>
                 <div className='login_wrapper_center'>
                     {login[props.lang]['click']}
-                    <a href='https://supermath.xyz:3000/static/policy/privacy_policy_ru.pdf' target='_blank' rel='noopener noreferrer'> {login[props.lang]['terms']} </a>
+                    <a href='http://145.14.157.144:3000/static/policy/privacy_policy_ru.pdf' target='_blank' rel='noopener noreferrer'> {login[props.lang]['terms']} </a>
                     {login[props.lang]['acknowledge']} 
-                    <a href='https://supermath.xyz:3000/static/policy/privacy_policy_ru.pdf' target='_blank' rel='noopener noreferrer'> {login[props.lang]['policy']} </a>
+                    <a href='http://145.14.157.144:3000/static/policy/privacy_policy_ru.pdf' target='_blank' rel='noopener noreferrer'> {login[props.lang]['policy']} </a>
                     {login[props.lang]['applies']}
                 </div>
             </div>

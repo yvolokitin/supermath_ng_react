@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import './radialchart.css';
 
-// https://medium.com/@ekwonyenoob/building-a-simple-radial-chart-component-with-react-js-e3a3776146bd
+// medium.com/@ekwonyenoob/building-a-simple-radial-chart-component-with-react-js-e3a3776146bd
 export default class RadialChart extends Component {
     constructor(props) {
         super(props);

@@ -20,7 +20,7 @@ import './trophy.css';
 import {get_avatar_by_name} from './../halpers/avatars';
 import {POOP_COST, get_belt_color} from './../halpers/functions';
 
-const URL_SCORES = 'https://supermath.xyz:3000/api/scores';
+import {URL_SUPERMATH_SCORES, URL_SUPERMATH_THROW} from './../halpers/urls';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='down' ref={ref} {...props} />;
@@ -77,7 +77,7 @@ export default function Trophy(props) {
             'pswdhash': props.pswdhash,
             'target_id': target,
         };
-        axios.post('https://supermath.xyz:3000/api/poopthrow', post)
+        axios.post(URL_SUPERMATH_THROW, post)
             .then(onScoresUpdate)
             .catch(onScoresError);
 
@@ -87,7 +87,7 @@ export default function Trophy(props) {
         if (props.open === true) {
             // console.table(props);
             // amount=10 -> ten best users
-            axios.post(URL_SCORES, {'amount': 10})
+            axios.post(URL_SUPERMATH_SCORES, {'amount': 10})
                 .then(onScoresUpdate)
                 .catch(onScoresError);
 
