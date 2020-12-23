@@ -17,18 +17,39 @@
     font-size: 2.5rem;
     font-family: 'Grinched';
     font-variant: small-caps;
+
     color: orange;
     text-shadow: 2px 2px 2px black;
+
+    border: 3px solid black;
 }
 .exchange_board_line {
     height: 70px;
     width: 100%;
-    margin: 1%;
+    margin-top: 1%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    font-size: 2.5rem;
+    border: 3px solid red;
+}
+.exchange_board_line_item {
+    height: 70px;
+    width: 70px;
 
     display: flex;
     align-items: center;
     justify-content: center;
+
+    cursor: pointer;
+    font-size: 2.5rem;
+    border-radius: 50%;
+    border: 3px solid grey;
 }
+
+
 .exchange_board_line_operation {
     height: 30px;
     width: 100%;

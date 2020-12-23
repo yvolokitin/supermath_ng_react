@@ -1,5 +1,5 @@
 ﻿import React, { useEffect, useState } from 'react';
-import {Typography} from '@material-ui/core';
+import {Typography, Slider} from '@material-ui/core';
 
 import './exchange.css';
 import {exchange} from './../translations/exchange';
@@ -76,72 +76,31 @@ export default function Exchange(props) {
         <Typography hidden={hidden} component='div'>
             <div className='exchange_board_wrapper'>
                 <div className='exchange_board'>
-
                     <div className='exchange_board_line'>
-                        <div className='exchange_board_line_col'>
-                            <font style={{color: 'green'}}> {props.passed} </font>
-                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
-                        </div>
-
-                        <div className='exchange_board_line_col'>
-                            <font style={{color: 'orange'}}> {props.cards} </font>
-                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127183;</span>
-                        </div>
-
-                        <div className='exchange_board_line_col'>
-                            <font style={{color: 'brown'}}> {props.failed} </font>
-                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
-                        </div>
-                    </div>
-
-                    <div className='exchange_board_line_operation'>
-                        <div className='exchange_board_line_col' style={{border: 'none'}}>
-                            <font className='font_rate' style={{color: 'green'}}> 30 </font>
+                        <div className='exchange_board_line_item'>
                             <span className='font_rate' role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
-                            <font className='font_rate' style={{color: 'orange'}}> = </font>
-                            <font className='font_rate' style={{color: 'brown'}}> 1 </font>
-                            <span className='font_rate' role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                         </div>
 
-                        <div className='exchange_board_line_col' style={{border: 'none'}}>
-                            <font className='font_rate' style={{color: 'orange'}}> 1 </font>
+                        <div className='exchange_board_line_item'>
                             <span className='font_rate' role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127183;</span>
-                            <font className='font_rate' style={{color: 'orange'}}> = </font>
-                            <font className='font_rate' style={{color: 'brown'}}> {POOP_EXCHANGE} </font>
+                        </div>
+
+                        <div className='exchange_board_line_item'>
                             <span className='font_rate' role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                         </div>
-
-                        <div className='exchange_board_line_col' style={{border: 'none'}}>
-                        </div>
                     </div>
 
                     <div className='exchange_board_line'>
-                        <div className='exchange_board_line_col'>
-                            <font className='font_oper' onClick={() => updateCounter('passed', -30)}> - </font>
-                            <font className='font_oper' onClick={() => updateCounter('passed', 30)}> + </font>
-                        </div>
-                        <div className='exchange_board_line_col'>
-                            <font className='font_oper' onClick={() => updateCounter('cards', -1)}> - </font>
-                            <font className='font_oper' onClick={() => updateCounter('cards', 1)}> + </font>
-                        </div>
-                        <div className='exchange_board_line_col'> </div>
                     </div>
 
                     <div className='exchange_board_line'>
-                        <div className='exchange_board_line_col'>
-                            <font style={{color: 'green'}}> {passed} </font>
-                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
-                        </div>
-
-                        <div className='exchange_board_line_col'>
-                            <font style={{color: 'orange'}}> {cards} </font>
-                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127183;</span>
-                        </div>
-
-                        <div className='exchange_board_line_col'>
-                            <font style={{color: 'brown'}}> {failed} </font>
-                            <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
-                        </div>
+                        <Slider defaultValue={0}
+                            aria-labelledby="discrete-slider-small-steps"
+                            step={1}
+                            marks
+                            min={0}
+                            max={10}
+                            valueLabelDisplay="auto"/>
                     </div>
 
                     <div className='exchange_board_line'>

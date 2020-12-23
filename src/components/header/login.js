@@ -265,9 +265,9 @@ export default function Login(props) {
             <div className='login_wrapper' style={{justifyContent: 'center'}}>
                 <div className='login_wrapper_center'>
                     {login[props.lang]['click']}
-                    <a href='http://145.14.157.144:3000/static/policy/privacy_policy_ru.pdf' target='_blank' rel='noopener noreferrer'> {login[props.lang]['terms']} </a>
+                    <a href='https://api.supermath.xyz:3000/static/policy/privacy_policy_ru.pdf' target='_blank' rel='noopener noreferrer'> {login[props.lang]['terms']} </a>
                     {login[props.lang]['acknowledge']} 
-                    <a href='http://145.14.157.144:3000/static/policy/privacy_policy_ru.pdf' target='_blank' rel='noopener noreferrer'> {login[props.lang]['policy']} </a>
+                    <a href='https://api.supermath.xyz:3000/static/policy/privacy_policy_ru.pdf' target='_blank' rel='noopener noreferrer'> {login[props.lang]['policy']} </a>
                     {login[props.lang]['applies']}
                 </div>
             </div>
