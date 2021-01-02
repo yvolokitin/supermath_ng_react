@@ -7,6 +7,9 @@ import {exchange} from './../translations/exchange';
 const POOP_EXCHANGE = 5;
 
 export default function Exchange(props) {
+    const [selector1, setSelector1] = useState('');
+    const [selector2, setSelector2] = useState('');
+
     const [hidden, setHidden] = useState(true);
 
     const [passed, setPassed] = useState(parseInt(props.passed));
@@ -70,6 +73,18 @@ export default function Exchange(props) {
         }
     }
 
+    function onSelect(type) {
+        // selector1.length=0 -> nothing selected before
+        if (selector1.length === 0) {
+            setSelector1(type);
+
+        } else {
+            if (selector1) {
+
+            }
+        }
+    }
+
     /*
     */
     return (
@@ -77,15 +92,15 @@ export default function Exchange(props) {
             <div className='exchange_board_wrapper'>
                 <div className='exchange_board'>
                     <div className='exchange_board_line'>
-                        <div className='exchange_board_line_item'>
+                        <div className='exchange_board_line_item' onClick={() => onSelect('smile')}>
                             <span className='font_rate' role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
                         </div>
 
-                        <div className='exchange_board_line_item'>
+                        <div className='exchange_board_line_item' onClick={() => onSelect('card')}>
                             <span className='font_rate' role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127183;</span>
                         </div>
 
-                        <div className='exchange_board_line_item'>
+                        <div className='exchange_board_line_item' onClick={() => onSelect('poop')}>
                             <span className='font_rate' role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
                         </div>
                     </div>
