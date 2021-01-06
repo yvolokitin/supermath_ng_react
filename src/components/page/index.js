@@ -16,6 +16,7 @@ import Forget from './../header/forget';
 import Registration from './../header/registration';
 import Language from './../header/language';
 import Welcome from './../header/welcome';
+import Team from './../header/team';
 
 import Trophy from './../trophy/trophy';
 
@@ -50,6 +51,7 @@ const STATUS = {
     ACCOUNT: 8,
     FORGET: 9,
     LANG: 10,
+    TEAM: 11,
 }
 
 export default class SuperMathPage extends React.Component {
@@ -77,7 +79,7 @@ export default class SuperMathPage extends React.Component {
         var active_user = get_active_user();
         this.state = {
             width: window.innerWidth,
-            screen: STATUS.NONE,
+            screen: STATUS.NONE, // STATUS.TEAM 777
 
             // error from backend
             error: '',
@@ -583,7 +585,7 @@ export default class SuperMathPage extends React.Component {
      */
     onResult(result, data) {
         if (result === 'successed') {
-            // console.log('Header.onResult ' + data.passed + ', ' + data.failed + ', level: ' + data.level);
+            console.log('Header.onResult ' + data.passed + ', ' + data.failed + ', level: ' + data.level);
 
             // to show all received user data
             // for (var pname in data) { console.log(pname, data[pname]); }
@@ -832,6 +834,9 @@ export default class SuperMathPage extends React.Component {
                     onClose={this.onWelcome}
                     lang={this.state.lang}
                     name={this.state.name}/>
+
+                <Team open={this.state.screen === STATUS.TEAM}
+                    lang={this.state.lang}/>
 
                 <Snackbar open={this.state.error.length !== 0} onClose={() => this.onError('')} autoHideDuration={25000} anchorOrigin={{vertical:'bottom', horizontal:'center'}}>
                     <Alert onClose={() => this.onError('')} severity='error'>

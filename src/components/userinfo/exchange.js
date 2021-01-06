@@ -4,6 +4,10 @@ import {Typography, Slider} from '@material-ui/core';
 import './exchange.css';
 import {exchange} from './../translations/exchange';
 
+import icon_smile from './../../images/icons/icon_smile.jpg';
+import icon_poop from './../../images/icons/icon_poop.jpg';
+import icon_card from './../../images/icons/icon_card.jpg';
+
 const POOP_EXCHANGE = 5;
 
 export default function Exchange(props) {
@@ -23,6 +27,7 @@ export default function Exchange(props) {
             setPassed(parseInt(props.passed));
             setFailed(parseInt(props.failed));
             setCards(parseInt(props.cards));
+
         } else {
             setHidden(true);
         }
@@ -93,29 +98,26 @@ export default function Exchange(props) {
                 <div className='exchange_board'>
                     <div className='exchange_board_line'>
                         <div className='exchange_board_line_item' onClick={() => onSelect('smile')}>
-                            <span className='font_rate' role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span>
+                            <img src={icon_smile} alt={props.name} onContextMenu={(e) => e.preventDefault()}/>
                         </div>
 
-                        <div className='exchange_board_line_item' onClick={() => onSelect('card')}>
-                            <span className='font_rate' role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127183;</span>
+                        <div className='exchange_board_line_item' onClick={() => onSelect('smile')}>
+                            <img src={icon_card} alt={props.name} onContextMenu={(e) => e.preventDefault()}/>
                         </div>
 
-                        <div className='exchange_board_line_item' onClick={() => onSelect('poop')}>
-                            <span className='font_rate' role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span>
+                        <div className='exchange_board_line_item' onClick={() => onSelect('smile')}>
+                            <img src={icon_poop} alt={props.name} onContextMenu={(e) => e.preventDefault()}/>
                         </div>
-                    </div>
-
-                    <div className='exchange_board_line'>
                     </div>
 
                     <div className='exchange_board_line'>
                         <Slider defaultValue={0}
-                            aria-labelledby="discrete-slider-small-steps"
+                            aria-labelledby='discrete-slider-small-steps'
                             step={1}
                             marks
                             min={0}
                             max={10}
-                            valueLabelDisplay="auto"/>
+                            valueLabelDisplay='auto'/>
                     </div>
 
                     <div className='exchange_board_line'>
