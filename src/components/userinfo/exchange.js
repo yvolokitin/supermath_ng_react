@@ -28,6 +28,11 @@ export default function Exchange(props) {
             setFailed(parseInt(props.failed));
             setCards(parseInt(props.cards));
 
+            if (props.cards > 0 && props.failed > 0) {
+                setSelector1('cards');
+                setSelector2('failed');
+            }
+
         } else {
             setHidden(true);
         }
@@ -79,15 +84,7 @@ export default function Exchange(props) {
     }
 
     function onSelect(type) {
-        // selector1.length=0 -> nothing selected before
-        if (selector1.length === 0) {
-            setSelector1(type);
-
-        } else {
-            if (selector1) {
-
-            }
-        }
+        // 
     }
 
     /*
@@ -97,15 +94,15 @@ export default function Exchange(props) {
             <div className='exchange_board_wrapper'>
                 <div className='exchange_board'>
                     <div className='exchange_board_line'>
-                        <div className='exchange_board_line_item' onClick={() => onSelect('smile')}>
+                        <div className='exchange_board_line_item' onClick={() => onSelect('passed')}>
                             <img src={icon_smile} alt={props.name} onContextMenu={(e) => e.preventDefault()}/>
                         </div>
 
-                        <div className='exchange_board_line_item' onClick={() => onSelect('smile')}>
+                        <div className='exchange_board_line_item' onClick={() => onSelect('cards')}>
                             <img src={icon_card} alt={props.name} onContextMenu={(e) => e.preventDefault()}/>
                         </div>
 
-                        <div className='exchange_board_line_item' onClick={() => onSelect('smile')}>
+                        <div className='exchange_board_line_item' onClick={() => onSelect('failed')}>
                             <img src={icon_poop} alt={props.name} onContextMenu={(e) => e.preventDefault()}/>
                         </div>
                     </div>
@@ -113,11 +110,8 @@ export default function Exchange(props) {
                     <div className='exchange_board_line'>
                         <Slider defaultValue={0}
                             aria-labelledby='discrete-slider-small-steps'
-                            step={1}
-                            marks
-                            min={0}
-                            max={10}
-                            valueLabelDisplay='auto'/>
+                            valueLabelDisplay='auto' marks
+                            step={1} min={0} max={10}/>
                     </div>
 
                     <div className='exchange_board_line'>
