@@ -50,7 +50,7 @@ function AccountTab(props) {
 }
 
 export default function Account(props) {
-    const [current, setCurrent] = useState(SCREEN.PROGRESS);
+    const [current, setCurrent] = useState(SCREEN.EXCHANGE); // PROGRESS);
     const [avatar, setAvatar] = useState(props.avatar);
     const [avatar_name, setAvatarName] = useState('');
     const [logout, setLogout] = useState(false);

@@ -1,5 +1,7 @@
 ﻿import React, { useEffect, useState } from 'react';
-import {Typography, Slider} from '@material-ui/core';
+import {Typography, Slider, Snackbar} from '@material-ui/core';
+
+import Alert from '@material-ui/lab/Alert';
 
 import './exchange.css';
 import {exchange} from './../translations/exchange';
@@ -8,6 +10,9 @@ import icon_smile from './../../images/icons/icon_smile.jpg';
 import icon_poop from './../../images/icons/icon_poop.jpg';
 import icon_card from './../../images/icons/icon_card.jpg';
 
+const ERROR_MESSAGE_TIMEOUT = 25000;
+const SMILE_EXCHANGE = 30;
+const CARD_EXCHANGE = 100;
 const POOP_EXCHANGE = 5;
 
 export default function Exchange(props) {
@@ -15,6 +20,7 @@ export default function Exchange(props) {
     const [selector2, setSelector2] = useState('');
 
     const [hidden, setHidden] = useState(true);
+    const [error, setError] = useState('Error wrapper');
 
     const [passed, setPassed] = useState(parseInt(props.passed));
     const [failed, setFailed] = useState(parseInt(props.failed));
@@ -28,9 +34,17 @@ export default function Exchange(props) {
             setFailed(parseInt(props.failed));
             setCards(parseInt(props.cards));
 
-            if (props.cards > 0 && props.failed > 0) {
-                setSelector1('cards');
-                setSelector2('failed');
+            if (props.cards > 0 && props.failed > POOP_EXCHANGE) {
+                setSelector1('cards'); setSelector2('failed');
+
+            } else if (props.failed > 0 && props.passed > SMILE_EXCHANGE) {
+                setSelector1('passed'); setSelector2('failed');
+
+            } else if (props.cards > 0) {
+                setSelector1('cards'); setSelector2('passed');
+
+            } else {
+                setSelector1(''); setSelector2('');
             }
 
         } else {
@@ -84,7 +98,40 @@ export default function Exchange(props) {
     }
 
     function onSelect(type) {
-        // 
+        console.log('Exchange.onSelect -> ' + type);
+
+        if (type === 'cards') {
+            if (cards > 0) {
+                if (selector1 === '' || selector2 === '') {
+                    setSelector2(selector1); setSelector1('cards');
+
+                } else if (failed >= POOP_EXCHANGE) {
+                    setSelector1('cards'); setSelector2('failed');
+
+                } else {
+                    setSelector1('cards'); setSelector2('passed');
+                }
+
+            } else {
+                setError('Sorry, you have no Cards for exchange!');
+            }
+
+        } else if (type === 'failed') {
+            if (failed > 0) {
+                if (selector1 === '' || selector2 === '') {
+                    setSelector2(selector1); setSelector1('failed');
+
+                } else {
+
+                }
+
+            } else {
+                setError('Sorry, you have no Poops for exchange!');
+            }
+
+        } else if (type === 'passed') {
+
+        }
     }
 
     /*
@@ -94,16 +141,43 @@ export default function Exchange(props) {
             <div className='exchange_board_wrapper'>
                 <div className='exchange_board'>
                     <div className='exchange_board_line'>
-                        <div className='exchange_board_line_item' onClick={() => onSelect('passed')}>
-                            <img src={icon_smile} alt={props.name} onContextMenu={(e) => e.preventDefault()}/>
+                        <div className='exchange_board_line_item'>
+                            {(selector1 === 'passed' || selector2 === 'passed') ? (
+                                <img className='exchange_board_line_item_img_selected'
+                                    onContextMenu={(e) => e.preventDefault()}
+                                    src={icon_smile} alt={props.name}/>
+                            ) : (
+                                <img className='exchange_board_line_item_img'
+                                    onContextMenu={(e) => e.preventDefault()}
+                                    onClick={() => onSelect('passed')}
+                                    src={icon_smile} alt={props.name}/>
+                            )}
                         </div>
 
-                        <div className='exchange_board_line_item' onClick={() => onSelect('cards')}>
-                            <img src={icon_card} alt={props.name} onContextMenu={(e) => e.preventDefault()}/>
+                        <div className='exchange_board_line_item'>
+                            {(selector1 === 'cards' || selector2 === 'cards') ? (
+                                <img className='exchange_board_line_item_img_selected'
+                                    onContextMenu={(e) => e.preventDefault()}
+                                    src={icon_card} alt={props.name}/>
+                            ) : (
+                                <img className='exchange_board_line_item_img'
+                                    onContextMenu={(e) => e.preventDefault()}
+                                    onClick={() => onSelect('cards')}
+                                    src={icon_card} alt={props.name}/>
+                            )}
                         </div>
 
-                        <div className='exchange_board_line_item' onClick={() => onSelect('failed')}>
-                            <img src={icon_poop} alt={props.name} onContextMenu={(e) => e.preventDefault()}/>
+                        <div className='exchange_board_line_item'>
+                            {(selector1 === 'failed' || selector2 === 'failed') ? (
+                                <img className='exchange_board_line_item_img_selected'
+                                    onContextMenu={(e) => e.preventDefault()}
+                                    src={icon_poop} alt={props.name}/>
+                            ) : (
+                                <img className='exchange_board_line_item_img'
+                                    onContextMenu={(e) => e.preventDefault()}
+                                    onClick={() => onSelect('failed')}
+                                    src={icon_poop} alt={props.name}/>
+                            )}
                         </div>
                     </div>
 
@@ -122,6 +196,12 @@ export default function Exchange(props) {
 
                 </div>
             </div>
+
+            <Snackbar open={error.length !== 0} autoHideDuration={ERROR_MESSAGE_TIMEOUT} anchorOrigin={{vertical:'bottom', horizontal:'center'}}>
+                <Alert onClose={() => setError('')} severity='error'>
+                    {error}
+                </Alert>
+            </Snackbar>
         </Typography>
     );
 }

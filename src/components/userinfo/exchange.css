@@ -40,14 +40,20 @@
 
     cursor: pointer;
 }
-.exchange_board_line_item img {
+.exchange_board_line_item_img {
+    height: 110%;
+    width: auto;
+    transition: transform .5s;
+    border-radius: 50%;
+    border: 7px solid white;
+}
+.exchange_board_line_item_img_selected {
     height: 110%;
     width: auto;
     transition: transform .5s;
     border-radius: 50%;
     border: 7px solid grey;
 }
-
 
 .exchange_board_line_operation {
     height: 30px;

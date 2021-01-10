@@ -51,6 +51,8 @@ const STATUS = {
     ACCOUNT: 8,
     FORGET: 9,
     LANG: 10,
+
+    // team is under development
     TEAM: 11,
 }
 
@@ -609,7 +611,7 @@ export default class SuperMathPage extends React.Component {
             }
 
             this.setState({
-                'screen': current_screen,
+                'screen': STATUS.ACCOUNT, //current_screen,
                 'avatar': (data.avatar.length > 0) ? data.avatar : avatars[12]['name'],
                 'pswdhash': get_item(data.id, 'pswdhash'),
                 'color': get_belt_color(data.level),
