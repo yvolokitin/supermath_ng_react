@@ -1,4 +1,4 @@
-﻿.exchange_board_wrapper {
+.exchange_board_wrapper {
     width: 100%;
     margin-top: 10px;
 
@@ -24,7 +24,7 @@
 .exchange_board_line {
     height: 90px;
     width: 100%;
-    margin-top: 1%;
+    margin-top: 2%;
 
     display: flex;
     align-items: center;
@@ -45,15 +45,40 @@
     width: auto;
     transition: transform .5s;
     border-radius: 50%;
-    border: 7px solid white;
+    border: 7px solid grey;
 }
 .exchange_board_line_item_img_selected {
     height: 110%;
     width: auto;
     transition: transform .5s;
     border-radius: 50%;
-    border: 7px solid grey;
+    border: 7px solid green;
 }
+.exchange_board_line_signs {
+    height: 100%;
+    width: 10%;
+    margin-top: 2%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 6rem;
+    font-family: 'Grinched';
+    font-variant: small-caps;
+}
+.exchange_board_line_slider {
+    height: 100%;
+    width: 70%;
+    margin-top: 2%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
 
 .exchange_board_line_operation {
     height: 30px;

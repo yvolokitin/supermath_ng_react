@@ -20,11 +20,16 @@ export default function Exchange(props) {
     const [selector2, setSelector2] = useState('');
 
     const [hidden, setHidden] = useState(true);
-    const [error, setError] = useState('Error wrapper');
+    const [error, setError] = useState('');
 
     const [passed, setPassed] = useState(parseInt(props.passed));
     const [failed, setFailed] = useState(parseInt(props.failed));
     const [cards, setCards] = useState(parseInt(props.cards));
+
+    const [sliderDisabled, setSliderDisabled] = useState(false);
+    const [sliderStep, setSliderStep] = useState(1);
+    const [sliderMin, setSliderMin] = useState(0);
+    const [sliderMax, setSliderMax] = useState(10);
 
     useEffect(() => {
         // console.log('Progress.props.open ' + props.open);
@@ -34,17 +39,28 @@ export default function Exchange(props) {
             setFailed(parseInt(props.failed));
             setCards(parseInt(props.cards));
 
-            if (props.cards > 0 && props.failed > POOP_EXCHANGE) {
+            if (props.cards > 0 && props.failed >= POOP_EXCHANGE) {
                 setSelector1('cards'); setSelector2('failed');
+                setSliderDisabled(false);
+                setSliderStep(POOP_EXCHANGE);
+                setSliderMin(1); setSliderMax(props.failed/POOP_EXCHANGE);
 
-            } else if (props.failed > 0 && props.passed > SMILE_EXCHANGE) {
+            } else if (props.failed > 0 && props.passed >= SMILE_EXCHANGE) {
                 setSelector1('passed'); setSelector2('failed');
+                setSliderDisabled(false);
+                setSliderStep(SMILE_EXCHANGE);
+                setSliderMin(0); setSliderMax(parseInt(props.passed/SMILE_EXCHANGE));
 
             } else if (props.cards > 0) {
                 setSelector1('cards'); setSelector2('passed');
+                setSliderDisabled(false);
+                setSliderStep(CARD_EXCHANGE);
+                setSliderMin(CARD_EXCHANGE); setSliderMax(props.cards*CARD_EXCHANGE);
 
             } else {
                 setSelector1(''); setSelector2('');
+                setError('You have no Smiles or Cards to exchange now. Play more Games, reach more Smiles and Exchange them!');
+                setSliderDisabled(true);
             }
 
         } else {
@@ -97,19 +113,29 @@ export default function Exchange(props) {
         }
     }
 
+    function unSelect(type) {
+        console.log('Exchange.unSelect -> ' + type);
+        if (selector1 === type) {
+            setSelector1('');
+        } else if (selector2 === type) {
+            setSelector2('');
+        }
+    }
+
     function onSelect(type) {
-        console.log('Exchange.onSelect -> ' + type);
+        console.log('Exchange.onSelect -> ' + type + ', selector1 ' + selector1 + ', selector2 ' + selector2);
 
         if (type === 'cards') {
             if (cards > 0) {
-                if (selector1 === '' || selector2 === '') {
+                if (selector1 === '') {
+                    setSelector1('cards');
+
+                } else if (selector1 !== '' && selector2 === '') {
+                    // cards are always first
                     setSelector2(selector1); setSelector1('cards');
 
-                } else if (failed >= POOP_EXCHANGE) {
-                    setSelector1('cards'); setSelector2('failed');
-
                 } else {
-                    setSelector1('cards'); setSelector2('passed');
+                    setError('Please, unselect Smiles or Poops!');
                 }
 
             } else {
@@ -118,11 +144,15 @@ export default function Exchange(props) {
 
         } else if (type === 'failed') {
             if (failed > 0) {
-                if (selector1 === '' || selector2 === '') {
-                    setSelector2(selector1); setSelector1('failed');
+                if (selector2 === '') {
+                    setSelector2('failed');
+
+                } else if (selector2 !== '' && selector1 === '') {
+                    // poops are always second
+                    setSelector1(selector2); setSelector2('failed');
 
                 } else {
-
+                    setError('Please, unselect Smiles or Cards!');
                 }
 
             } else {
@@ -130,7 +160,17 @@ export default function Exchange(props) {
             }
 
         } else if (type === 'passed') {
+            if (selector1 === '' || selector2 === '') {
+                if (selector1 === 'cards' || selector2 === 'cards') {
+                    setSelector1('cards'); setSelector2('passed');
 
+                } else if (selector1 === 'failed' || selector2 === 'failed') {
+                    setSelector1('passed'); setSelector2('failed');
+                }
+
+            } else {
+                setError('Please, unselect Cards or Poops!');
+            }
         }
     }
 
@@ -145,6 +185,7 @@ export default function Exchange(props) {
                             {(selector1 === 'passed' || selector2 === 'passed') ? (
                                 <img className='exchange_board_line_item_img_selected'
                                     onContextMenu={(e) => e.preventDefault()}
+                                    onClick={() => unSelect('passed')}
                                     src={icon_smile} alt={props.name}/>
                             ) : (
                                 <img className='exchange_board_line_item_img'
@@ -158,6 +199,7 @@ export default function Exchange(props) {
                             {(selector1 === 'cards' || selector2 === 'cards') ? (
                                 <img className='exchange_board_line_item_img_selected'
                                     onContextMenu={(e) => e.preventDefault()}
+                                    onClick={() => unSelect('cards')}
                                     src={icon_card} alt={props.name}/>
                             ) : (
                                 <img className='exchange_board_line_item_img'
@@ -171,6 +213,7 @@ export default function Exchange(props) {
                             {(selector1 === 'failed' || selector2 === 'failed') ? (
                                 <img className='exchange_board_line_item_img_selected'
                                     onContextMenu={(e) => e.preventDefault()}
+                                    onClick={() => unSelect('failed')}
                                     src={icon_poop} alt={props.name}/>
                             ) : (
                                 <img className='exchange_board_line_item_img'
@@ -182,10 +225,20 @@ export default function Exchange(props) {
                     </div>
 
                     <div className='exchange_board_line'>
-                        <Slider defaultValue={0}
-                            aria-labelledby='discrete-slider-small-steps'
-                            valueLabelDisplay='auto' marks
-                            step={1} min={0} max={10}/>
+                        <div className='exchange_board_line_signs'>
+                            &#45;
+                        </div>
+                        <div className='exchange_board_line_slider'>
+                            <Slider defaultValue={0}
+                                color='primary'
+                                aria-labelledby='discrete-slider-small-steps'
+                                valueLabelDisplay='on'
+                                disabled={sliderDisabled}
+                                step={sliderStep} min={sliderMin} max={sliderMax}/>
+                        </div>
+                        <div className='exchange_board_line_signs'>
+                            &#43;
+                        </div>
                     </div>
 
                     <div className='exchange_board_line'>
