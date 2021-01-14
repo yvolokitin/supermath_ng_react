@@ -26,6 +26,10 @@ export default function Exchange(props) {
     const [failed, setFailed] = useState(parseInt(props.failed));
     const [cards, setCards] = useState(parseInt(props.cards));
 
+    const [smiles, setSmiles] = useState(parseInt(props.passed));
+    const [poops, setPoops] = useState(parseInt(props.failed));
+    const [jokers, setJokers] = useState(parseInt(props.cards));
+
     const [sliderDisabled, setSliderDisabled] = useState(false);
     const [sliderStep, setSliderStep] = useState(1);
     const [sliderMin, setSliderMin] = useState(0);
@@ -122,6 +126,28 @@ export default function Exchange(props) {
         }
     }
 
+    function onExchange(operation) {
+        if (selector1 !== '' && selector2 !== '') {
+            if (selector1 === 'passed' && selector2 === 'failed') {
+                if (operation === 'add' && smiles >= SMILE_EXCHANGE && poops > 0) {
+                    setSmiles(smiles-SMILE_EXCHANGE); setPoops(poops-1);
+
+                } else if (operation === 'sub' && passed <= (smiles+SMILE_EXCHANGE) && failed >= (poops+1)) {
+                    console.log('failed -> ' + failed + ', (poops+1) ' + (poops+1) + ', RES ' + (failed <= (poops+1)));
+                    setSmiles(smiles+SMILE_EXCHANGE); setPoops(poops+1);
+                }
+
+            } else if (selector1 === 'cards' && selector2 === 'passed') {
+                if (operation === 'add' && jokers > 0) {
+                    setJokers(jokers-1); setSmiles(smiles+CARD_EXCHANGE);
+                }
+
+            } else if (selector1 === 'cards' && selector2 === 'failed') {
+                setSmiles(cards-1); setPoops(poops-POOP_EXCHANGE);
+            }
+        }
+    }
+
     function onSelect(type) {
         console.log('Exchange.onSelect -> ' + type + ', selector1 ' + selector1 + ', selector2 ' + selector2);
 
@@ -166,6 +192,9 @@ export default function Exchange(props) {
 
                 } else if (selector1 === 'failed' || selector2 === 'failed') {
                     setSelector1('passed'); setSelector2('failed');
+
+                } else {
+                    setSelector1('passed');
                 }
 
             } else {
@@ -225,8 +254,9 @@ export default function Exchange(props) {
                     </div>
 
                     <div className='exchange_board_line'>
-                        <div className='exchange_board_line_signs'>
-                            &#45;
+                        <div className='exchange_board_line_signs' onClick={() => onExchange('sub')}>
+                            {(selector1 === 'cards') && <font> {jokers} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127183;</span></font>}
+                            {(selector1 === 'passed') && <font> {smiles} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span></font>}
                         </div>
                         <div className='exchange_board_line_slider'>
                             <Slider defaultValue={0}
@@ -236,15 +266,14 @@ export default function Exchange(props) {
                                 disabled={sliderDisabled}
                                 step={sliderStep} min={sliderMin} max={sliderMax}/>
                         </div>
-                        <div className='exchange_board_line_signs'>
-                            &#43;
+                        <div className='exchange_board_line_signs' onClick={() => onExchange('add')}>
+                            {(selector2 === 'passed') && <font> {smiles} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span></font>}
+                            {(selector2 === 'failed') && <font> {poops} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span></font>}
                         </div>
                     </div>
 
-                    <div className='exchange_board_line'>
-                        <font className='font_oper' onClick={() => onSave()}>
-                            {exchange[props.lang]['save']}
-                        </font>
+                    <div className='exchange_board_line' onClick={() => onSave()}>
+                        {exchange[props.lang]['save']}
                     </div>
 
                 </div>

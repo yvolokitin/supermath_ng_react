@@ -26,6 +26,10 @@
     width: 100%;
     margin-top: 2%;
 
+    font-size: 3rem;
+    font-family: 'Grinched';
+    font-variant: small-caps;
+
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -47,6 +51,10 @@
     border-radius: 50%;
     border: 7px solid grey;
 }
+.exchange_board_line_item_img:hover {
+    transform: scale(1.03);
+    border: 8px solid grey;
+}
 .exchange_board_line_item_img_selected {
     height: 110%;
     width: auto;
@@ -54,22 +62,31 @@
     border-radius: 50%;
     border: 7px solid green;
 }
+.exchange_board_line_item_img_selected:hover {
+    transform: scale(1.03);
+    border: 8px solid green;
+}
 .exchange_board_line_signs {
     height: 100%;
-    width: 10%;
+    width: 20%;
     margin-top: 2%;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    font-size: 6rem;
-    font-family: 'Grinched';
-    font-variant: small-caps;
+    cursor: ponter;
+    transition: transform .5s;
+}
+.exchange_board_line_signs font {
+    cursor: ponter;
+}
+.exchange_board_line_signs:hover {
+    transform: scale(1.05);
 }
 .exchange_board_line_slider {
     height: 100%;
-    width: 70%;
+    width: 59%;
     margin-top: 2%;
 
     display: flex;
@@ -101,9 +118,6 @@
 
     border-radius: 10px;
     border: 1px solid grey;
-}
-.font_rate {
-    font-size: 1.5rem;
 }
 .font_oper {
     margin-left: 10%;
