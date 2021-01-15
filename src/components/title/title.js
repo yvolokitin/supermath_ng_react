@@ -29,34 +29,56 @@ const useStyles = makeStyles((theme) => ({
         top: '1%',
         color: 'grey',
     },
+    button_small: {
+        position: 'absolute',
+        right: '0px',
+        top: '0px',
+        color: 'black',
+    },
 }));
 
 export default function Title(props) {
+    const [height, setHeight] = React.useState(true);
     const classes = useStyles();
+
+    React.useEffect(() => {
+        // console.log('TITLE:: ' + window.innerHeight);
+        if (parseInt(window.innerHeight) < 450 || parseInt(window.innerWidth) < 450) {
+            setHeight(false);
+        }
+
+    }, [ ]);
 
     return (
         <MuiDialogTitle disableTypography>
-            {(props.title.length > 0) ? (
+            {height ? (
                 <>
-                <Badge color='secondary'>
-                    {(props.fullScreen === true) ? (
-                        <Avatar src={props.src} alt={props.title} className={classes.avatar_small} onContextMenu={(e) => e.preventDefault()}/>
+                    {(props.title.length > 0) ? (
+                        <>
+                            <Badge color='secondary'>
+                                {(props.fullScreen === true) ? (
+                                    <Avatar src={props.src} alt={props.title} className={classes.avatar_small} onContextMenu={(e) => e.preventDefault()}/>
+                                ) : (
+                                    <Avatar src={props.src} alt={props.title} className={classes.avatar_large} onContextMenu={(e) => e.preventDefault()}/>
+                                )}
+                            </Badge>
+                            <Badge color='secondary'>
+                                <div className='title_header'> {props.title} </div>
+                            </Badge>
+                        </>
                     ) : (
-                        <Avatar src={props.src} alt={props.title} className={classes.avatar_large} onContextMenu={(e) => e.preventDefault()}/>
+                        <div className='title_header'> {props.title} </div>
                     )}
-                </Badge>
-                <Badge color='secondary'>
-                    <div className='title_header'> {props.title} </div>
-                </Badge>
+
+                    <IconButton className={classes.button} onClick={() => props.onClose()}>
+                        <CloseIcon/>
+                    </IconButton>
                 </>
             ) : (
-                <div className='title_header'> {props.title} </div>
+                <IconButton className={classes.button_small} onClick={() => props.onClose()}>
+                    <CloseIcon/>
+                </IconButton>
             )}
-            
-            <IconButton aria-label='close' onClick={() => props.onClose()} className={classes.button}>
-                <CloseIcon/>
-            </IconButton>
-
         </MuiDialogTitle>
     );
 }

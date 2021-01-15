@@ -31,9 +31,9 @@ export default function Exchange(props) {
     const [jokers, setJokers] = useState(parseInt(props.cards));
 
     const [sliderDisabled, setSliderDisabled] = useState(false);
-    const [sliderStep, setSliderStep] = useState(1);
+    const [sliderStep, setSliderStep] = useState(0);
     const [sliderMin, setSliderMin] = useState(0);
-    const [sliderMax, setSliderMax] = useState(10);
+    const [sliderMax, setSliderMax] = useState(0);
 
     useEffect(() => {
         // console.log('Progress.props.open ' + props.open);
@@ -45,26 +45,26 @@ export default function Exchange(props) {
 
             if (props.cards > 0 && props.failed >= POOP_EXCHANGE) {
                 setSelector1('cards'); setSelector2('failed');
-                setSliderDisabled(false);
-                setSliderStep(POOP_EXCHANGE);
-                setSliderMin(1); setSliderMax(props.failed/POOP_EXCHANGE);
+                // setSliderDisabled(false);
+                // setSliderStep(POOP_EXCHANGE);
+                // setSliderMin(1); setSliderMax(props.failed/POOP_EXCHANGE);
 
             } else if (props.failed > 0 && props.passed >= SMILE_EXCHANGE) {
                 setSelector1('passed'); setSelector2('failed');
-                setSliderDisabled(false);
-                setSliderStep(SMILE_EXCHANGE);
-                setSliderMin(0); setSliderMax(parseInt(props.passed/SMILE_EXCHANGE));
+                // setSliderDisabled(false);
+                // setSliderStep(SMILE_EXCHANGE);
+                // setSliderMin(0); setSliderMax(parseInt(props.passed/SMILE_EXCHANGE));
 
             } else if (props.cards > 0) {
                 setSelector1('cards'); setSelector2('passed');
-                setSliderDisabled(false);
-                setSliderStep(CARD_EXCHANGE);
-                setSliderMin(CARD_EXCHANGE); setSliderMax(props.cards*CARD_EXCHANGE);
+                // setSliderDisabled(false);
+                // setSliderStep(CARD_EXCHANGE);
+                // setSliderMin(CARD_EXCHANGE); setSliderMax(props.cards*CARD_EXCHANGE);
 
             } else {
                 setSelector1(''); setSelector2('');
                 setError('You have no Smiles or Cards to exchange now. Play more Games, reach more Smiles and Exchange them!');
-                setSliderDisabled(true);
+                // setSliderDisabled(true);
             }
 
         } else {
@@ -140,12 +140,23 @@ export default function Exchange(props) {
             } else if (selector1 === 'cards' && selector2 === 'passed') {
                 if (operation === 'add' && jokers > 0) {
                     setJokers(jokers-1); setSmiles(smiles+CARD_EXCHANGE);
+
+                } else if (operation === 'sub' && cards >= (jokers+1) && (smiles-CARD_EXCHANGE) >= passed) {
+                    setJokers(jokers+1); setSmiles(smiles-CARD_EXCHANGE);
                 }
 
             } else if (selector1 === 'cards' && selector2 === 'failed') {
-                setSmiles(cards-1); setPoops(poops-POOP_EXCHANGE);
+                if (operation === 'add' && jokers > 0 && poops >= POOP_EXCHANGE) {
+                    setJokers(jokers-1); setPoops(poops-POOP_EXCHANGE);
+                }
             }
         }
+    }
+
+    function onCancel() {
+        setJokers(cards);
+        setPoops(failed);
+        setSmiles(passed);
     }
 
     function onSelect(type) {
@@ -154,11 +165,24 @@ export default function Exchange(props) {
         if (type === 'cards') {
             if (cards > 0) {
                 if (selector1 === '') {
-                    setSelector1('cards');
+                    setSelector1('cards'); setJokers(cards);
+
+                    if (selector2 === 'failed') {
+                        setPoops(failed);
+                    } else if (selector2 === 'passed') {
+                        setSmiles(passed);
+                    }
 
                 } else if (selector1 !== '' && selector2 === '') {
+                    if (selector1 === 'failes') {
+                        setPoops(failed);
+                    } else if (selector1 === 'passed') {
+                        setSmiles(passed);
+                    }
+
                     // cards are always first
                     setSelector2(selector1); setSelector1('cards');
+                    setJokers(cards);
 
                 } else {
                     setError('Please, unselect Smiles or Poops!');
@@ -171,11 +195,24 @@ export default function Exchange(props) {
         } else if (type === 'failed') {
             if (failed > 0) {
                 if (selector2 === '') {
-                    setSelector2('failed');
+                    setSelector2('failed'); setPoops(failed);
+
+                    if (selector1 === 'cards') {
+                        setJokers(cards);
+                    } else if (selector1 === 'passed') {
+                        setSmiles(passed);
+                    }
 
                 } else if (selector2 !== '' && selector1 === '') {
+                    if (selector2 === 'cards') {
+                        setJokers(cards);
+                    } else if (selector2 === 'passed') {
+                        setSmiles(passed);
+                    }
+
                     // poops are always second
                     setSelector1(selector2); setSelector2('failed');
+                    setPoops(failed);
 
                 } else {
                     setError('Please, unselect Smiles or Cards!');
@@ -189,12 +226,14 @@ export default function Exchange(props) {
             if (selector1 === '' || selector2 === '') {
                 if (selector1 === 'cards' || selector2 === 'cards') {
                     setSelector1('cards'); setSelector2('passed');
+                    setSmiles(passed); setSmiles(passed);
 
                 } else if (selector1 === 'failed' || selector2 === 'failed') {
                     setSelector1('passed'); setSelector2('failed');
+                    setSmiles(passed); setPoops(failed);
 
                 } else {
-                    setSelector1('passed');
+                    setSelector1('passed'); setSmiles(passed);
                 }
 
             } else {
@@ -204,6 +243,12 @@ export default function Exchange(props) {
     }
 
     /*
+                            <Slider defaultValue={0}
+                                color='primary'
+                                aria-labelledby='discrete-slider-small-steps'
+                                valueLabelDisplay='on'
+                                disabled={sliderDisabled}
+                                step={sliderStep} min={sliderMin} max={sliderMax}/>
     */
     return (
         <Typography hidden={hidden} component='div'>
@@ -261,10 +306,8 @@ export default function Exchange(props) {
                         <div className='exchange_board_line_slider'>
                             <Slider defaultValue={0}
                                 color='primary'
-                                aria-labelledby='discrete-slider-small-steps'
-                                valueLabelDisplay='on'
-                                disabled={sliderDisabled}
-                                step={sliderStep} min={sliderMin} max={sliderMax}/>
+                                disabled={false}
+                                step={1} min={0} max={1}/>
                         </div>
                         <div className='exchange_board_line_signs' onClick={() => onExchange('add')}>
                             {(selector2 === 'passed') && <font> {smiles} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span></font>}
@@ -272,8 +315,9 @@ export default function Exchange(props) {
                         </div>
                     </div>
 
-                    <div className='exchange_board_line' onClick={() => onSave()}>
-                        {exchange[props.lang]['save']}
+                    <div className='exchange_board_line'>
+                        <font style={{color: 'red'}} onClick={() => onCancel()}>{exchange[props.lang]['cancel']}</font>
+                        <font style={{color: 'green'}} onClick={() => onSave()}>{exchange[props.lang]['save']}</font>
                     </div>
 
                 </div>
