@@ -31,9 +31,10 @@ export default function Exchange(props) {
     const [jokers, setJokers] = useState(parseInt(props.cards));
 
     const [sliderDisabled, setSliderDisabled] = useState(false);
-    const [sliderStep, setSliderStep] = useState(0);
+    const [sliderStep, setSliderStep] = useState(1);
     const [sliderMin, setSliderMin] = useState(0);
-    const [sliderMax, setSliderMax] = useState(0);
+    const [sliderMax, setSliderMax] = useState(1);
+    const [sliderValue, setSliderValue] = useState(0);
 
     useEffect(() => {
         // console.log('Progress.props.open ' + props.open);
@@ -43,28 +44,30 @@ export default function Exchange(props) {
             setFailed(parseInt(props.failed));
             setCards(parseInt(props.cards));
 
+            setSliderMin(0);
+
             if (props.cards > 0 && props.failed >= POOP_EXCHANGE) {
                 setSelector1('cards'); setSelector2('failed');
-                // setSliderDisabled(false);
-                // setSliderStep(POOP_EXCHANGE);
-                // setSliderMin(1); setSliderMax(props.failed/POOP_EXCHANGE);
+                setSliderDisabled(false);
+                setSliderStep(POOP_EXCHANGE);
+                setSliderMax(parseInt(props.failed/POOP_EXCHANGE)*POOP_EXCHANGE);
 
             } else if (props.failed > 0 && props.passed >= SMILE_EXCHANGE) {
                 setSelector1('passed'); setSelector2('failed');
-                // setSliderDisabled(false);
-                // setSliderStep(SMILE_EXCHANGE);
-                // setSliderMin(0); setSliderMax(parseInt(props.passed/SMILE_EXCHANGE));
+                setSliderDisabled(false);
+                setSliderStep(SMILE_EXCHANGE);
+                setSliderMax(parseInt(props.passed/SMILE_EXCHANGE));
 
             } else if (props.cards > 0) {
                 setSelector1('cards'); setSelector2('passed');
-                // setSliderDisabled(false);
-                // setSliderStep(CARD_EXCHANGE);
-                // setSliderMin(CARD_EXCHANGE); setSliderMax(props.cards*CARD_EXCHANGE);
+                setSliderDisabled(false);
+                setSliderStep(CARD_EXCHANGE);
+                setSliderMax(props.cards*CARD_EXCHANGE);
 
             } else {
                 setSelector1(''); setSelector2('');
-                setError('You have no Smiles or Cards to exchange now. Play more Games, reach more Smiles and Exchange them!');
-                // setSliderDisabled(true);
+                setError('You have no Smiles and Cards to exchange now. Play more Games, reach more Smiles and Exchange them!');
+                setSliderDisabled(true);
             }
 
         } else {
@@ -72,39 +75,6 @@ export default function Exchange(props) {
         }
 
     }, [props.open, props.passed, props.failed, props.cards, props.lang]);
-
-    function updateCounter(type, value) {
-        console.log('updateCounter -> type ' + type + ', value ' + value);
-        if (type === 'passed') {
-            if (value < 0) { // -30
-                if ((passed > 30) && (failed > 0)) {
-                    setPassed(passed-30);
-                    setFailed(failed-1);
-                }
-
-            } else { // +30
-                if (((failed+1) <= props.failed) && ((passed+30) <= props.passed)) {
-                    setPassed(passed+30);
-                    setFailed(failed+1);
-                }
-            }
-
-        } else if (type === 'cards') {
-            console.log('CARD !!!');
-            if (value < 0) { // -1
-                if ((cards > 0) && (failed > (POOP_EXCHANGE-1))) {
-                    setCards(cards-1);
-                    setFailed(failed-POOP_EXCHANGE);
-                }
-
-            } else { // +1
-                if (((failed+POOP_EXCHANGE) <= props.failed) && ((cards+1) <= props.cards)) {
-                    setCards(cards+1);
-                    setFailed(failed+POOP_EXCHANGE);
-                }
-            }
-        }
-    }
 
     function onSave() {
         console.log('Exchange.onSave: failed ' + failed + ', props.failed ' + props.failed);
@@ -120,9 +90,10 @@ export default function Exchange(props) {
     function unSelect(type) {
         console.log('Exchange.unSelect -> ' + type);
         if (selector1 === type) {
-            setSelector1('');
+            setSelector1(''); setSliderValue(0);
+
         } else if (selector2 === type) {
-            setSelector2('');
+            setSelector2(''); setSliderValue(0);
         }
     }
 
@@ -131,32 +102,44 @@ export default function Exchange(props) {
             if (selector1 === 'passed' && selector2 === 'failed') {
                 if (operation === 'add' && smiles >= SMILE_EXCHANGE && poops > 0) {
                     setSmiles(smiles-SMILE_EXCHANGE); setPoops(poops-1);
+                    setSliderStep(sliderStep+SMILE_EXCHANGE);
+                    setSliderValue(sliderValue+SMILE_EXCHANGE);
 
                 } else if (operation === 'sub' && passed <= (smiles+SMILE_EXCHANGE) && failed >= (poops+1)) {
-                    console.log('failed -> ' + failed + ', (poops+1) ' + (poops+1) + ', RES ' + (failed <= (poops+1)));
                     setSmiles(smiles+SMILE_EXCHANGE); setPoops(poops+1);
+                    setSliderStep(sliderStep-SMILE_EXCHANGE);
+                    setSliderValue(sliderValue-SMILE_EXCHANGE);
                 }
 
             } else if (selector1 === 'cards' && selector2 === 'passed') {
                 if (operation === 'add' && jokers > 0) {
                     setJokers(jokers-1); setSmiles(smiles+CARD_EXCHANGE);
+                    setSliderStep(sliderStep+CARD_EXCHANGE);
+                    setSliderValue(sliderValue+CARD_EXCHANGE);
 
                 } else if (operation === 'sub' && cards >= (jokers+1) && (smiles-CARD_EXCHANGE) >= passed) {
                     setJokers(jokers+1); setSmiles(smiles-CARD_EXCHANGE);
+                    setSliderStep(sliderStep-CARD_EXCHANGE);
+                    setSliderValue(sliderValue-CARD_EXCHANGE);
                 }
 
             } else if (selector1 === 'cards' && selector2 === 'failed') {
                 if (operation === 'add' && jokers > 0 && poops >= POOP_EXCHANGE) {
                     setJokers(jokers-1); setPoops(poops-POOP_EXCHANGE);
+                    setSliderStep(sliderStep+POOP_EXCHANGE);
+                    setSliderValue(sliderValue+POOP_EXCHANGE);
+
+                } else if (operation === 'sub' && cards >= (jokers+1) && failed >= (poops+1)) {
+                    setJokers(jokers+1); setPoops(poops+POOP_EXCHANGE);
+                    setSliderStep(sliderStep-POOP_EXCHANGE);
+                    setSliderValue(sliderValue-POOP_EXCHANGE);
                 }
             }
         }
     }
 
     function onCancel() {
-        setJokers(cards);
-        setPoops(failed);
-        setSmiles(passed);
+        setJokers(cards); setPoops(failed); setSmiles(passed);
     }
 
     function onSelect(type) {
@@ -242,13 +225,16 @@ export default function Exchange(props) {
         }
     }
 
+    function onSliderChange(event, value) {
+        if (selector1 === 'cards' || selector2 === 'failed') {
+            console.log('onSliderChange: ' + value);
+            setSliderStep(value); setSliderValue(value);
+            setPoops(poops-value); setJokers(jokers-value/POOP_EXCHANGE);
+
+        }
+    }
+
     /*
-                            <Slider defaultValue={0}
-                                color='primary'
-                                aria-labelledby='discrete-slider-small-steps'
-                                valueLabelDisplay='on'
-                                disabled={sliderDisabled}
-                                step={sliderStep} min={sliderMin} max={sliderMax}/>
     */
     return (
         <Typography hidden={hidden} component='div'>
@@ -305,9 +291,12 @@ export default function Exchange(props) {
                         </div>
                         <div className='exchange_board_line_slider'>
                             <Slider defaultValue={0}
+                                value={sliderValue}
                                 color='primary'
-                                disabled={false}
-                                step={1} min={0} max={1}/>
+                                valueLabelDisplay='on'
+                                onChange={onSliderChange}
+                                disabled={sliderDisabled}
+                                step={sliderStep} min={sliderMin} max={sliderMax}/>
                         </div>
                         <div className='exchange_board_line_signs' onClick={() => onExchange('add')}>
                             {(selector2 === 'passed') && <font> {smiles} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span></font>}

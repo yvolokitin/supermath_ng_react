@@ -114,3 +114,10 @@
     }
 }
 
+@media only screen and (max-width: 450px) {
+    .exchange_board_line {
+        height: 120px;
+        width: 100%;
+        margin-top: 2%;
+    }
+}
