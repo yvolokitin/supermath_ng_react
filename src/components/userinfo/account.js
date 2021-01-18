@@ -92,7 +92,7 @@ export default function Account(props) {
      * Lifting property changes from Settings and Exchange Tabs up to page/index.js level
      */
     function onSettings(property, value) {
-        // console.log('Account.onSettings: ' + property + ', value ' + value);
+        console.log('Account.onSettings: ' + property + ', value ' + value);
         props.onUpdate(property, value);
     }
 

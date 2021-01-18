@@ -78,13 +78,54 @@ export default function Exchange(props) {
 
     function onSave() {
         console.log('Exchange.onSave: failed ' + failed + ', props.failed ' + props.failed);
-        if (parseInt(failed) !== parseInt(props.failed)) {
+        if (cards !== jokers || smiles !== passed || poops !== failed) {
             var data = {
-                'passed': passed,
-                'failed': failed,
-                'cards': cards};
+                'passed': smiles,
+                'failed': poops,
+                'cards': jokers};
             props.onExchange('exchange', data);
+            setSliderValue(0);
         }
+    }
+
+    function onExchange(operation) {
+        if (selector1 !== '' && selector2 !== '') {
+            if (selector1 === 'passed' && selector2 === 'failed') {
+                if (operation === 'add' && smiles >= SMILE_EXCHANGE && poops > 0) {
+                    setSmiles(smiles-SMILE_EXCHANGE); setPoops(poops-1);
+                    setSliderValue(sliderValue+SMILE_EXCHANGE);
+
+                } else if (operation === 'sub' && passed <= (smiles+SMILE_EXCHANGE) && failed >= (poops+1)) {
+                    setSmiles(smiles+SMILE_EXCHANGE); setPoops(poops+1);
+                    setSliderValue(sliderValue-SMILE_EXCHANGE);
+                }
+
+            } else if (selector1 === 'cards' && selector2 === 'passed') {
+                if (operation === 'add' && jokers > 0) {
+                    setJokers(jokers-1); setSmiles(smiles+CARD_EXCHANGE);
+                    setSliderValue(sliderValue+CARD_EXCHANGE);
+
+                } else if (operation === 'sub' && cards >= (jokers+1) && (smiles-CARD_EXCHANGE) >= passed) {
+                    setJokers(jokers+1); setSmiles(smiles-CARD_EXCHANGE);
+                    setSliderValue(sliderValue-CARD_EXCHANGE);
+                }
+
+            } else if (selector1 === 'cards' && selector2 === 'failed') {
+                if (operation === 'add' && jokers > 0 && poops >= POOP_EXCHANGE) {
+                    setJokers(jokers-1); setPoops(poops-POOP_EXCHANGE);
+                    setSliderValue(sliderValue+POOP_EXCHANGE);
+
+                } else if (operation === 'sub' && cards >= (jokers+1) && failed >= (poops+1)) {
+                    setJokers(jokers+1); setPoops(poops+POOP_EXCHANGE);
+                    setSliderValue(sliderValue-POOP_EXCHANGE);
+                }
+            }
+        }
+    }
+
+    function onCancel() {
+        setPoops(failed); setSmiles(passed);
+        setJokers(cards); setSliderValue(0);
     }
 
     function unSelect(type) {
@@ -95,51 +136,6 @@ export default function Exchange(props) {
         } else if (selector2 === type) {
             setSelector2(''); setSliderValue(0);
         }
-    }
-
-    function onExchange(operation) {
-        if (selector1 !== '' && selector2 !== '') {
-            if (selector1 === 'passed' && selector2 === 'failed') {
-                if (operation === 'add' && smiles >= SMILE_EXCHANGE && poops > 0) {
-                    setSmiles(smiles-SMILE_EXCHANGE); setPoops(poops-1);
-                    setSliderStep(sliderStep+SMILE_EXCHANGE);
-                    setSliderValue(sliderValue+SMILE_EXCHANGE);
-
-                } else if (operation === 'sub' && passed <= (smiles+SMILE_EXCHANGE) && failed >= (poops+1)) {
-                    setSmiles(smiles+SMILE_EXCHANGE); setPoops(poops+1);
-                    setSliderStep(sliderStep-SMILE_EXCHANGE);
-                    setSliderValue(sliderValue-SMILE_EXCHANGE);
-                }
-
-            } else if (selector1 === 'cards' && selector2 === 'passed') {
-                if (operation === 'add' && jokers > 0) {
-                    setJokers(jokers-1); setSmiles(smiles+CARD_EXCHANGE);
-                    setSliderStep(sliderStep+CARD_EXCHANGE);
-                    setSliderValue(sliderValue+CARD_EXCHANGE);
-
-                } else if (operation === 'sub' && cards >= (jokers+1) && (smiles-CARD_EXCHANGE) >= passed) {
-                    setJokers(jokers+1); setSmiles(smiles-CARD_EXCHANGE);
-                    setSliderStep(sliderStep-CARD_EXCHANGE);
-                    setSliderValue(sliderValue-CARD_EXCHANGE);
-                }
-
-            } else if (selector1 === 'cards' && selector2 === 'failed') {
-                if (operation === 'add' && jokers > 0 && poops >= POOP_EXCHANGE) {
-                    setJokers(jokers-1); setPoops(poops-POOP_EXCHANGE);
-                    setSliderStep(sliderStep+POOP_EXCHANGE);
-                    setSliderValue(sliderValue+POOP_EXCHANGE);
-
-                } else if (operation === 'sub' && cards >= (jokers+1) && failed >= (poops+1)) {
-                    setJokers(jokers+1); setPoops(poops+POOP_EXCHANGE);
-                    setSliderStep(sliderStep-POOP_EXCHANGE);
-                    setSliderValue(sliderValue-POOP_EXCHANGE);
-                }
-            }
-        }
-    }
-
-    function onCancel() {
-        setJokers(cards); setPoops(failed); setSmiles(passed);
     }
 
     function onSelect(type) {
@@ -227,10 +223,20 @@ export default function Exchange(props) {
 
     function onSliderChange(event, value) {
         if (selector1 === 'cards' || selector2 === 'failed') {
-            console.log('onSliderChange: ' + value);
-            setSliderStep(value); setSliderValue(value);
-            setPoops(poops-value); setJokers(jokers-value/POOP_EXCHANGE);
+            setSliderValue(value);
+            setPoops(failed-value);
+            setJokers(cards-value/POOP_EXCHANGE);
 
+        } else if (selector1 === 'cards' || selector2 === 'passed') {
+            setSliderValue(value);
+            setSmiles(passed+value);
+            setJokers(cards-value/SMILE_EXCHANGE);
+
+        } else if (selector1 === 'passed' || selector2 === 'failed') {
+            console.log('onSliderChange: ' + value);
+            setSliderValue(value);
+            setSmiles(passed-value*SMILE_EXCHANGE);
+            setPoops(failed-value);
         }
     }
 
