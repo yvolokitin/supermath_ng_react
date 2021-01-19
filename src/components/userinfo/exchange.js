@@ -56,7 +56,11 @@ export default function Exchange(props) {
                 setSelector1('passed'); setSelector2('failed');
                 setSliderDisabled(false);
                 setSliderStep(SMILE_EXCHANGE);
-                setSliderMax(parseInt(props.passed/SMILE_EXCHANGE));
+                if (props.failed < parseInt(props.passed/SMILE_EXCHANGE)) {
+                    setSliderMax(props.failed*SMILE_EXCHANGE);
+                } else {
+                    setSliderMax(parseInt(props.passed/SMILE_EXCHANGE)*SMILE_EXCHANGE);
+                }
 
             } else if (props.cards > 0) {
                 setSelector1('cards'); setSelector2('passed');
@@ -95,7 +99,7 @@ export default function Exchange(props) {
                     setSmiles(smiles-SMILE_EXCHANGE); setPoops(poops-1);
                     setSliderValue(sliderValue+SMILE_EXCHANGE);
 
-                } else if (operation === 'sub' && passed <= (smiles+SMILE_EXCHANGE) && failed >= (poops+1)) {
+                } else if (operation === 'sub' && passed >= (smiles+SMILE_EXCHANGE)) {
                     setSmiles(smiles+SMILE_EXCHANGE); setPoops(poops+1);
                     setSliderValue(sliderValue-SMILE_EXCHANGE);
                 }
@@ -175,8 +179,13 @@ export default function Exchange(props) {
                         setSelector1('passed'); setSmiles(passed);
                         setSelector2('failed'); setPoops(failed);
                         if (passed >= SMILE_EXCHANGE && failed > 0) {
+                            if (failed < parseInt(props.passed/SMILE_EXCHANGE)) {
+                                setSliderMax(failed*SMILE_EXCHANGE);
+                            } else {
+                                setSliderMax(parseInt(props.passed/SMILE_EXCHANGE)*SMILE_EXCHANGE);
+                            }
+
                             setSliderStep(SMILE_EXCHANGE);
-                            setSliderMax(parseInt(props.passed/SMILE_EXCHANGE));
                             setSliderDisabled(false);
                         }
                     } else {
@@ -199,7 +208,12 @@ export default function Exchange(props) {
                             setSelector1('passed'); setSmiles(passed);
                             setSelector2('failed'); setPoops(failed);
                             if (passed >= SMILE_EXCHANGE) {
-                                setSliderStep(SMILE_EXCHANGE);
+                                if (failed < parseInt(props.passed/SMILE_EXCHANGE)) {
+                                    setSliderMax(failed*SMILE_EXCHANGE);
+                                } else {
+                                    setSliderMax(parseInt(props.passed/SMILE_EXCHANGE)*SMILE_EXCHANGE);
+                                }
+
                                 setSliderMax(parseInt(props.passed/SMILE_EXCHANGE));
                                 setSliderDisabled(false);
                             }
@@ -219,6 +233,8 @@ export default function Exchange(props) {
     }
 
     function onSliderChange(event, value) {
+/*
+        // works wrong
         if (selector1 === 'cards' || selector2 === 'failed') {
             setSliderValue(value);
             setPoops(failed-value);
@@ -235,6 +251,7 @@ export default function Exchange(props) {
             setSmiles(passed-value*SMILE_EXCHANGE);
             setPoops(failed-value);
         }
+*/
     }
 
     /*
