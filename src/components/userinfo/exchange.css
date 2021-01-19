@@ -51,10 +51,10 @@
     border-radius: 50%;
     border: 7px solid grey;
 }
-.exchange_board_line_item_img:hover {
+/*.exchange_board_line_item_img:hover {
     transform: scale(1.03);
     border: 8px solid grey;
-}
+}*/
 .exchange_board_line_item_img_selected {
     height: 110%;
     width: auto;
@@ -62,10 +62,10 @@
     border-radius: 50%;
     border: 7px solid green;
 }
-.exchange_board_line_item_img_selected:hover {
+/*.exchange_board_line_item_img_selected:hover {
     transform: scale(1.03);
     border: 8px solid green;
-}
+}*/
 .exchange_board_line_signs {
     height: 100%;
     width: 20%;
@@ -81,9 +81,9 @@
 .exchange_board_line_signs font {
     cursor: ponter;
 }
-.exchange_board_line_signs:hover {
+/*.exchange_board_line_signs:hover {
     transform: scale(1.05);
-}
+}*/
 .exchange_board_line_slider {
     height: 100%;
     width: 59%;

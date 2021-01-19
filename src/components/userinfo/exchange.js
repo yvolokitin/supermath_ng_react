@@ -131,93 +131,90 @@ export default function Exchange(props) {
     function unSelect(type) {
         console.log('Exchange.unSelect -> ' + type);
         if (selector1 === type) {
-            setSelector1(''); setSliderValue(0);
+            setSelector1('');
 
         } else if (selector2 === type) {
-            setSelector2(''); setSliderValue(0);
+            setSelector2('');
         }
+
+        setSliderValue(0);
+        setSliderDisabled(true);
     }
 
     function onSelect(type) {
-        console.log('Exchange.onSelect -> ' + type + ', selector1 ' + selector1 + ', selector2 ' + selector2);
+        console.log('Exchange.onSelect -> ' + type + ', selector1=' + selector1 + ', selector2=' + selector2);
 
-        if (type === 'cards') {
-            if (cards > 0) {
-                if (selector1 === '') {
-                    setSelector1('cards'); setJokers(cards);
-
-                    if (selector2 === 'failed') {
-                        setPoops(failed);
-                    } else if (selector2 === 'passed') {
-                        setSmiles(passed);
+        if (selector1 === '' || selector2 === '') {
+            switch (type) {
+                case 'cards':
+                    if (cards > 0) {
+                        if (selector1 === 'passed') {
+                            setSelector1('cards'); setJokers(cards);
+                            setSelector2('passed'); setSmiles(passed);
+                            setSliderDisabled(false);
+                            setSliderStep(CARD_EXCHANGE);
+                            setSliderMax(props.cards*CARD_EXCHANGE);
+                        } else {
+                            setSelector1('cards'); setJokers(cards);
+                        }
+                    } else {
+                        setError('Sorry, you have no Cards for exchange!');
                     }
+                break;
 
-                } else if (selector1 !== '' && selector2 === '') {
-                    if (selector1 === 'failes') {
-                        setPoops(failed);
-                    } else if (selector1 === 'passed') {
-                        setSmiles(passed);
-                    }
-
-                    // cards are always first
-                    setSelector2(selector1); setSelector1('cards');
-                    setJokers(cards);
-
-                } else {
-                    setError('Please, unselect Smiles or Poops!');
-                }
-
-            } else {
-                setError('Sorry, you have no Cards for exchange!');
-            }
-
-        } else if (type === 'failed') {
-            if (failed > 0) {
-                if (selector2 === '') {
-                    setSelector2('failed'); setPoops(failed);
-
+                case 'passed':
                     if (selector1 === 'cards') {
-                        setJokers(cards);
-                    } else if (selector1 === 'passed') {
-                        setSmiles(passed);
+                        setSelector1('cards'); setJokers(cards);
+                        setSelector2('passed'); setSmiles(passed);
+                        if (cards > 0) {
+                            setSliderDisabled(false);
+                            setSliderStep(CARD_EXCHANGE);
+                            setSliderMax(props.cards*CARD_EXCHANGE);
+                        }
+                    } else if (selector2 === 'failed') {
+                        setSelector1('passed'); setSmiles(passed);
+                        setSelector2('failed'); setPoops(failed);
+                        if (passed >= SMILE_EXCHANGE && failed > 0) {
+                            setSliderStep(SMILE_EXCHANGE);
+                            setSliderMax(parseInt(props.passed/SMILE_EXCHANGE));
+                            setSliderDisabled(false);
+                        }
+                    } else {
+                        setSelector1('passed'); setSmiles(passed);
                     }
 
-                } else if (selector2 !== '' && selector1 === '') {
-                    if (selector2 === 'cards') {
-                        setJokers(cards);
-                    } else if (selector2 === 'passed') {
-                        setSmiles(passed);
+                break;
+
+                default: // failed
+                    if (failed > 0) {
+                        if (selector1 === 'cards') {
+                            setSelector1('cards'); setJokers(cards);
+                            setSelector2('failed'); setPoops(failed);
+                            if (cards > 0 && failed >= POOP_EXCHANGE) {
+                                setSliderStep(POOP_EXCHANGE);
+                                setSliderMax(parseInt(props.failed/POOP_EXCHANGE)*POOP_EXCHANGE);
+                                setSliderDisabled(false);
+                            }
+                        } else if (selector1 === 'passed' || selector2 === 'passed') {
+                            setSelector1('passed'); setSmiles(passed);
+                            setSelector2('failed'); setPoops(failed);
+                            if (passed >= SMILE_EXCHANGE) {
+                                setSliderStep(SMILE_EXCHANGE);
+                                setSliderMax(parseInt(props.passed/SMILE_EXCHANGE));
+                                setSliderDisabled(false);
+                            }
+                        } else {
+                            setSelector2('failed'); setPoops(failed);
+                        }
+                    } else {
+                        setError('Sorry, you have no Poops for exchange!');
                     }
-
-                    // poops are always second
-                    setSelector1(selector2); setSelector2('failed');
-                    setPoops(failed);
-
-                } else {
-                    setError('Please, unselect Smiles or Cards!');
-                }
-
-            } else {
-                setError('Sorry, you have no Poops for exchange!');
+                break;
             }
 
-        } else if (type === 'passed') {
-            if (selector1 === '' || selector2 === '') {
-                if (selector1 === 'cards' || selector2 === 'cards') {
-                    setSelector1('cards'); setSelector2('passed');
-                    setSmiles(passed); setSmiles(passed);
-
-                } else if (selector1 === 'failed' || selector2 === 'failed') {
-                    setSelector1('passed'); setSelector2('failed');
-                    setSmiles(passed); setPoops(failed);
-
-                } else {
-                    setSelector1('passed'); setSmiles(passed);
-                }
-
-            } else {
-                setError('Please, unselect Cards or Poops!');
-            }
+        } else {
+            console.log('selector1.length ' + selector1.length + ', selector2.length ' + selector2.length);
+            setError('Only two elements can be selected same time. Please, unselect Smile, Joker or Poop.');
         }
     }
 
@@ -292,8 +289,8 @@ export default function Exchange(props) {
 
                     <div className='exchange_board_line'>
                         <div className='exchange_board_line_signs' onClick={() => onExchange('sub')}>
-                            {(selector1 === 'cards') && <font> {jokers} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127183;</span></font>}
-                            {(selector1 === 'passed') && <font> {smiles} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span></font>}
+                            {(selector1 === 'cards') && <font style={{color:'orange'}}> {jokers} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#127183;</span></font>}
+                            {(selector1 === 'passed') && <font style={{color:'green'}}> {smiles} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span></font>}
                         </div>
                         <div className='exchange_board_line_slider'>
                             <Slider defaultValue={0}
@@ -305,8 +302,8 @@ export default function Exchange(props) {
                                 step={sliderStep} min={sliderMin} max={sliderMax}/>
                         </div>
                         <div className='exchange_board_line_signs' onClick={() => onExchange('add')}>
-                            {(selector2 === 'passed') && <font> {smiles} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span></font>}
-                            {(selector2 === 'failed') && <font> {poops} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span></font>}
+                            {(selector2 === 'passed') && <font style={{color:'green'}}> {smiles} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128515;</span></font>}
+                            {(selector2 === 'failed') && <font style={{color:'red'}}> {poops} <span role='img' aria-labelledby='jsx-a11y/accessible-emoji'>&#128169;</span></font>}
                         </div>
                     </div>
 
