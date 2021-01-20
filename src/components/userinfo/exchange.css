@@ -22,9 +22,8 @@
     text-shadow: 2px 2px 2px black;
 }
 .exchange_board_line {
-    height: 90px;
+    height: 100px;
     width: 100%;
-    margin-top: 2%;
 
     font-size: 3rem;
     font-family: 'Grinched';
@@ -38,6 +37,8 @@
     height: 90px;
     width: 90px;
 
+    padding-top: 5px;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -48,43 +49,53 @@
     height: 110%;
     width: auto;
     opacity: 0.4;
-    transition: transform .5s;
+    transition: all .5s;
+
+    cursor: pointer;
+    overflow: hidden;
+
     border-radius: 50%;
     border: 7px solid grey;
 }
-/*.exchange_board_line_item_img:hover {
-    transform: scale(1.03);
-    border: 8px solid grey;
-}*/
+.exchange_board_line_item_img:hover {
+    transform: scale(1.15);
+    border: 7px solid green;
+}
 .exchange_board_line_item_img_selected {
     height: 110%;
     width: auto;
-    transition: transform .5s;
+    transition: all .8s;
+
+    cursor: pointer;
+    overflow: hidden;
+
     border-radius: 50%;
     border: 7px solid green;
 }
-/*.exchange_board_line_item_img_selected:hover {
-    transform: scale(1.03);
-    border: 8px solid green;
-}*/
+.exchange_board_line_item_img_selected:hover {
+    transform: scale(1.15);
+    border: 7px solid grey;
+}
 .exchange_board_line_signs {
     height: 100%;
     width: 20%;
-    margin-top: 2%;
+    padding-top: 5px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    cursor: ponter;
-    transition: transform .5s;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all .8s;
 }
 .exchange_board_line_signs font {
-    cursor: ponter;
+    cursor: pointer;
+    transition: all .8s;
 }
-/*.exchange_board_line_signs:hover {
-    transform: scale(1.05);
-}*/
+.exchange_board_line_signs font:hover {
+    transform: scale(1.1);
+}
 .exchange_board_line_slider {
     height: 100%;
     width: 59%;

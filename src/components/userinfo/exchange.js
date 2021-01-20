@@ -74,7 +74,7 @@ export default function Exchange(props) {
 
             } else {
                 setSelector1(''); setSelector2('');
-                setError('You have no Smiles and Cards to exchange now. Play more Games, reach more Smiles and Exchange them!');
+                setError(exchange[props.lang]['nothing']);
                 setSliderDisabled(true);
             }
 
@@ -173,13 +173,13 @@ export default function Exchange(props) {
                                     setSliderMax(parseInt(props.cards)*POOP_EXCHANGE);
                                 }
                             } else {
-                                setError('Sorry, you can\'t exchange less then 5 Poops per 1 Joker.');
+                                setError(exchange[props.lang]['less_five']);
                             }
                         } else {
                             setSelector1('cards'); setJokers(cards);
                         }
                     } else {
-                        setError('Sorry, you have no Cards for exchange!');
+                        setError(exchange[props.lang]['no_cards']);
                     }
                 break;
 
@@ -229,27 +229,25 @@ export default function Exchange(props) {
                             setSelector1('passed'); setSmiles(passed);
                             setSelector2('failed'); setPoops(failed);
                             if (passed >= SMILE_EXCHANGE) {
-                                if (failed < parseInt(props.passed/SMILE_EXCHANGE)) {
+                                setSliderStep(SMILE_EXCHANGE);
+                                if (failed < parseInt(passed/SMILE_EXCHANGE)) {
                                     setSliderMax(failed*SMILE_EXCHANGE);
                                 } else {
-                                    setSliderMax(parseInt(props.passed/SMILE_EXCHANGE)*SMILE_EXCHANGE);
+                                    setSliderMax(parseInt(passed/SMILE_EXCHANGE)*SMILE_EXCHANGE);
                                 }
-
-                                setSliderMax(parseInt(props.passed/SMILE_EXCHANGE));
                                 setSliderDisabled(false);
                             }
                         } else {
                             setSelector2('failed'); setPoops(failed);
                         }
                     } else {
-                        setError('Sorry, you have no Poops for exchange!');
+                        setError(exchange[props.lang]['no_poops']);
                     }
                 break;
             }
 
         } else {
-            console.log('selector1.length ' + selector1.length + ', selector2.length ' + selector2.length);
-            setError('Only two elements can be selected same time. Please, unselect Smile, Joker or Poop.');
+            setError(exchange[props.lang]['only_two']);
         }
     }
 
@@ -346,10 +344,14 @@ export default function Exchange(props) {
                     </div>
 
                     <div className='exchange_board_line'>
-                        <font style={{color: 'red'}} onClick={() => onCancel()}>{exchange[props.lang]['cancel']}</font>
-                        <font style={{color: 'green'}} onClick={() => onSave()}>{exchange[props.lang]['save']}</font>
-                    </div>
+                        {(selector1.length > 0 && selector2.length > 0) &&
+                            <font style={{color: 'red'}} onClick={() => onCancel()}>{exchange[props.lang]['cancel']}</font>
+                        }
 
+                        {(selector1.length > 0 && selector2.length > 0) &&
+                            <font style={{color: 'green'}} onClick={() => onSave()}>{exchange[props.lang]['save']}</font>
+                        }
+                    </div>
                 </div>
             </div>
 
