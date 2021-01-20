@@ -50,7 +50,11 @@ export default function Exchange(props) {
                 setSelector1('cards'); setSelector2('failed');
                 setSliderDisabled(false);
                 setSliderStep(POOP_EXCHANGE);
-                setSliderMax(parseInt(props.failed/POOP_EXCHANGE)*POOP_EXCHANGE);
+                if (props.cards*POOP_EXCHANGE > props.failed) {
+                    setSliderMax(parseInt(props.failed/POOP_EXCHANGE)*POOP_EXCHANGE);
+                } else {
+                    setSliderMax(parseInt(props.cards)*POOP_EXCHANGE);
+                }
 
             } else if (props.failed > 0 && props.passed >= SMILE_EXCHANGE) {
                 setSelector1('passed'); setSelector2('failed');
@@ -158,6 +162,19 @@ export default function Exchange(props) {
                             setSliderDisabled(false);
                             setSliderStep(CARD_EXCHANGE);
                             setSliderMax(props.cards*CARD_EXCHANGE);
+                        } else if (selector2 === 'failed') {
+                            setSelector1('cards'); setJokers(cards);
+                            if (failed > POOP_EXCHANGE) {
+                                setSliderDisabled(false);
+                                setSliderStep(POOP_EXCHANGE);
+                                if (props.cards*POOP_EXCHANGE > props.failed) {
+                                    setSliderMax(parseInt(props.failed/POOP_EXCHANGE)*POOP_EXCHANGE);
+                                } else {
+                                    setSliderMax(parseInt(props.cards)*POOP_EXCHANGE);
+                                }
+                            } else {
+                                setError('Sorry, you can\'t exchange less then 5 Poops per 1 Joker.');
+                            }
                         } else {
                             setSelector1('cards'); setJokers(cards);
                         }
@@ -200,9 +217,13 @@ export default function Exchange(props) {
                             setSelector1('cards'); setJokers(cards);
                             setSelector2('failed'); setPoops(failed);
                             if (cards > 0 && failed >= POOP_EXCHANGE) {
-                                setSliderStep(POOP_EXCHANGE);
-                                setSliderMax(parseInt(props.failed/POOP_EXCHANGE)*POOP_EXCHANGE);
                                 setSliderDisabled(false);
+                                setSliderStep(POOP_EXCHANGE);
+                                if (props.cards*POOP_EXCHANGE > props.failed) {
+                                    setSliderMax(parseInt(props.failed/POOP_EXCHANGE)*POOP_EXCHANGE);
+                                } else {
+                                    setSliderMax(parseInt(props.cards)*POOP_EXCHANGE);
+                                }
                             }
                         } else if (selector1 === 'passed' || selector2 === 'passed') {
                             setSelector1('passed'); setSmiles(passed);
@@ -266,12 +287,12 @@ export default function Exchange(props) {
                                 <img className='exchange_board_line_item_img_selected'
                                     onContextMenu={(e) => e.preventDefault()}
                                     onClick={() => unSelect('passed')}
-                                    src={icon_smile} alt={props.name}/>
+                                    src={icon_smile} alt='Smile'/>
                             ) : (
                                 <img className='exchange_board_line_item_img'
                                     onContextMenu={(e) => e.preventDefault()}
                                     onClick={() => onSelect('passed')}
-                                    src={icon_smile} alt={props.name}/>
+                                    src={icon_smile} alt='Smile'/>
                             )}
                         </div>
 

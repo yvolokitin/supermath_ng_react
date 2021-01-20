@@ -47,6 +47,7 @@
 .exchange_board_line_item_img {
     height: 110%;
     width: auto;
+    opacity: 0.4;
     transition: transform .5s;
     border-radius: 50%;
     border: 7px solid grey;
