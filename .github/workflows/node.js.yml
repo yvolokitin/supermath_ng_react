@@ -38,7 +38,8 @@ jobs:
       run: |
         git config --global user.name $user_name
         git config --global user.email $user_email
-        git remote set-url origin https://${github_token}${user_name}.@github.io/${repository}
+        git remote set-url origin https://yvolokitin.github.io/supermath_ng_react
+        # https://${github_token}${user_name}.@github.io/${repository}
         npm run deploy
       env:
         user_name: 'github-actions[bot]'
